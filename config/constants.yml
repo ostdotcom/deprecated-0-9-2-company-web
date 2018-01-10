@@ -1,0 +1,7 @@
+constants:
+
+  cloudfront:
+    domain: <%= ENV['COMPANY_CLOUDFRONT_DOMAIN'] %>
+
+  company_web:
+    root_url: <%= ENV['COMPANY_ROOT_URL'] %>

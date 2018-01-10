@@ -1,0 +1,7 @@
+'GetPageMetaInfo':
+  :mandatory:
+    - :controller
+    - :action
+    - :request_url
+    - :custom_extended_data
+  :optional:
