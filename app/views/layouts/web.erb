@@ -1,1 +1,92 @@
-<%= yield%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><%= @page_meta_data[:title] %></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="<%= @page_meta_data[:description] %>">
+  <meta name="keywords" content="<%= @page_meta_data[:keywords] %>">
+  <meta name="robots" content="<%= @page_meta_data[:robots] %>">
+  <% if @page_meta_data[:canonical].present? %>
+      <link rel="canonical" href="<%= @page_meta_data[:canonical] %>" />
+  <% end %>
+
+  <%
+     og_meta = @page_meta_data[:og]
+     if og_meta.present?
+  %>
+      <% if og_meta[:title].present? %>
+          <meta property="og:title" content="<%= og_meta[:title] %>"/>
+          <meta property="og:description" content="<%= og_meta[:description] %>"/>
+          <meta property="og:type" content="<%= og_meta[:type] %>"/>
+          <meta property="og:url" content="<%= og_meta[:url] %>"/>
+          <meta property="og:site_name" content="simpletoken.org"/>
+          <meta property="og:image" content="<%= og_meta[:image] %>"/>
+      <% end %>
+  <% end %>
+
+  <%
+     tw_meta = @page_meta_data[:twitter]
+     if tw_meta.present?
+  %>
+      <meta name="twitter:card" content="<%= tw_meta[:card] %>" />
+      <% if tw_meta[:site].present? %>
+          <meta name="twitter:site" content="<%= tw_meta[:site] %>" />
+      <% end %>
+      <% if tw_meta[:title].present? %>
+          <meta name="twitter:title" content="<%= tw_meta[:title] %>" />
+      <% end %>
+      <% if tw_meta[:description].present? %>
+          <meta name="twitter:description" content="<%= tw_meta[:description] %>" />
+      <% end %>
+      <% if tw_meta[:creator].present? %>
+          <meta name="twitter:creator" content="<%= tw_meta[:creator] %>" />
+      <% end %>
+      <% if tw_meta[:image].present? %>
+          <meta name="twitter:image" content="<%= tw_meta[:image] %>" />
+      <% end %>
+      <% if tw_meta[:image_alt].present? %>
+          <meta name="twitter:image:alt" content="<%= tw_meta[:image_alt] %>" />
+      <% end %>
+  <% end %>
+
+  <%= csrf_meta_tags %>
+
+  <link rel="icon" type="image/png" sizes="64x64" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/64.png"/>
+  <link rel="apple-touch-icon" sizes="57x57" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/16.png">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+</head>
+
+<body contenteditable="false">
+
+<main id="site-content" class="<%= yield (:gradient_class) %>">
+  <%= yield %>
+</main>
+
+<%= render :partial => "/shared/web/common/footer" %>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+<%= javascript_include_tag "web/common" %>
+<%= javascript_include_tag "#{specific_manifest_file_path}" if has_specific_js_manifest_file? %>
+
+<%= yield(:end_js) %>
+
+</body>
+</html>
