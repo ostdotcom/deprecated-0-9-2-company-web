@@ -9,5 +9,4 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 # Precompile additional assets.
-Rails.application.config.assets.precompile += %w( web/common.js )
 Rails.application.config.assets.precompile += %w( manifest.js )

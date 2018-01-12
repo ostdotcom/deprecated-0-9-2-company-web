@@ -69,12 +69,13 @@
   <link rel="icon" type="image/png" sizes="16x16" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/16.png">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+  <%= stylesheet_link_tag "#{specific_manifest_file_path}", media: 'all' if has_specific_css_manifest_file? %>
 
 </head>
 
 <body contenteditable="false">
 
-<main id="site-content" class="<%= yield (:gradient_class) %>">
+<main id="app-wrapper" class="<%= yield (:gradient_class) %>">
   <%= yield %>
 </main>
 
