@@ -49,3 +49,26 @@ en:
       :assets:
         :specific_css_required: 0
         :specific_js_required: 0
+
+    sign_up:
+      :meta:
+        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
+        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :canonical: '%{canonical}'
+        :keywords: 'Simple Token'
+        :name: 'Simple Token'
+        :robots: 'index, follow'
+        :og:
+          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
+          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :type: 'website'
+          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :url: '%{og_url}'
+        :twitter:
+          :card: 'summary_large_image'
+          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
+          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+      :assets:
+        :specific_css_required: 0
+        :specific_js_required: 0
