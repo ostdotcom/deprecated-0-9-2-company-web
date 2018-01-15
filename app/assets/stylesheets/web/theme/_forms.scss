@@ -1,10 +1,36 @@
+.form-container-sm{
+  max-width: 540px;
+  margin: 0 auto;
+}
 .form-container-md{
   max-width: 720px;
   margin: 0 auto;
 }
 
-.st-form-group{
-  .form-control{
-    border: 1px solid #cdd7da;
+.st-form{
+
+  .form-group{
+
+    .form-label{
+      color: #6c9ba9;
+      text-transform: uppercase;
+      font-size: 10px;
+      margin: 0 0 5px 0;
+    }
+
+    .form-check-label{
+      color: #747a80;
+      font-size: 12px;
+    }
+
+    .form-control{
+      border: 1px solid #cdd7da;
+      font-size: 15px;
+    }
+
+    .form-text{
+      color: #597a84 !important;
+    }
+
   }
 }
