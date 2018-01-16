@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     get '/login' => :login
     get '/logout' => :logout
     get '/sign-up' => :sign_up
-    get '/dashboard' => :dashboard_home
+    get '/dashboard' => :dashboard
   end
 
   # Route not found handler. Should be the last entry here
