@@ -75,17 +75,23 @@
 
 <body contenteditable="false">
 
-<main id="app-content" class="<%= yield (:app_content_classes) %>">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <%= yield %>
-      </div>
-    </div>
-  </div>
-</main>
+<%= render :partial => "/shared/web/common/header" %>
 
-<%= render :partial => "/shared/web/common/footer" %>
+<main id="app-content" class="wrapper <%= yield (:app_content_classes) %>">
+
+  <%= render :partial => "/shared/web/common/sidebar" %>
+
+  <section id="content">
+    <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <%= yield %>
+          </div>
+        </div>
+    </div>
+  </section>
+
+</main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
