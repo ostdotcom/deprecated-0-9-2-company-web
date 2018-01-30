@@ -10,31 +10,16 @@
 
   var jqDataNameSpace = "ostFormHelper";
   var eventNameSpace = "";
-
-  $.fn.extend({
-    formHelper: function () {
-      var jEl = $( this )
-          ,helper = jEl.data( jqDataNameSpace );
-      ;
-
-      if ( !helper || !helper instanceof FormHelper ) {
-        helper = new FormHelper( jEl );
-      }
-
-      return helper;
-    }
-  });
+  var customFormInputAttr = "ost-formelement";
+  var autoBinderAttr = "ost-formhelper";
 
   function FormHelper( jForm ) {
     this.jForm  = jForm;
-    if ( !jFomr.is("form") ) {
+    if ( !jForm.is("form") ) {
       console.log("FormHelper :: Error instantiating class. jForm :: ");
       console.log( jForm );
       throw "FormHelper only works on form elements.";
     }
-
-    this.init();
-
   }
 
   FormHelper.eventNameSpace  = eventNameSpace;
@@ -42,6 +27,9 @@
 
   FormHelper.prototype = {
     jForm: null
+    //Error Container Template
+    , formInputSelectors : ["input", "select", "textarea"]
+
     //Callbacks
     , beforeSend : null
     , success: null
@@ -50,95 +38,43 @@
 
     , init: function() {
       var oThis = this;
+      oThis.bindValidator();
 
-      //Event listerns
-      oThis.bindOnSubmit();
-      oThis.bindOnValidateForm();
-
-    }
-
-    , bindOnSubmit: function () {
-      var oThis = this;
-      oThis.jForm.on('submit', function ( event ) {
-
-        //Check if form is already submitting.
-        if ( oThis.isFormSubmitInProgress() ) {
-          console.log("FormHelper :: Form Submit already in progress");
-          return;
-        }
-
-        //Supress the submit event.
-        event.preventDefault();
-
-        //Trigger triggerValidateForm.
-        oThis.triggerValidateForm();
-
-        //Check the validity of form inputs.
-        if ( !oThis.isFormValid() ) {
-          //Some errors.
-          console.log("FormHelper :: Form inputs are not valid");
-          return;
-        }
-
-        //Trigger cancelable beforeSubmit 
-        if ( !oThis.triggerBeforeSubmit() ) {
-          console.log("FormHelper :: beforeSubmit event has been canceled.");
-          //Some listner has objected to form submission.
-          return;
-        }
-
-        //Submit the form!
-        oThis.submitForm();
-
-
-      });
     }
 
     /* BEGIN: Form Validity Properties and methods. */
-    , formValidity: true
-    , isFormValid: function () {
-      return this.formValidity;
-    }
-    , updateFormValidity: function ( isValid ) {
-      var oThis = this;
+    , jqValidateOptions: null
+    , validator: null
+    , bindValidator: function () {
+      var oThis = this
+        , jForm = oThis.jForm
+        , jqValidateOptions = oThis.jqValidateOptions
+      ;
+      if ( !jqValidateOptions ) {
+        oThis.jqValidateOptions = jqValidateOptions = {};
+      }
 
-      //Caller can listen to "ost.validateForm" event and set form as invalid by using this method.
-      //Multiple event listerns can listen to the event and set validity as needed. 
-      //So, we will always && with existing value.
-      //This means formValidity needs to be reset to true by triggerValidateForm method.
-      oThis.formValidity = oThis.formValidity && isValid;
-
-    }
-    , getValidateFormEventName: function () {
-      return eventNameSpace + "validate";
-    }
-    , triggerValidateForm: function () {
-      var oThis = this;
+      if ( !jqValidateOptions.submitHandler ) {
 
 
-      //Let's assume form is valid.
-      oThis.formValidity = true;
+      }
 
-      //Make an event
-      var event = $.Event( oThis.getValidateFormEventName() );
+      if ( !jqValidateOptions.submitHandler ) {
+        jqValidateOptions.submitHandler = function () {
+          console.log("jqValidateOptions.submitHandler triggered!");
+          //Trigger cancelable beforeSubmit 
+          if ( !oThis.triggerBeforeSubmit() ) {
+            console.log("FormHelper :: beforeSubmit event has been canceled.");
+            //Some listner has objected to form submission.
+            return;
+          }
 
-      //Trigger it.
-      oThis.jForm.trigger( event );
-    }
-    , bindOnValidateForm: function () {
-      var oThis = this;
-      oThis.jForm.on( oThis.getValidateFormEventName(), function () {
-        oThis.validateForm();
-      });
-    }
-    , validateForm: function () {
-      var oThis = this;
+          //Submit the form!
+          oThis.submitForm();
+        }
+      }
 
-      var isValid = true;
-      isValid = oThis.isActionMethodValid() && isValid;
-      isValid = oThis.isActionUrlValid() && isValid;
-
-      oThis.updateFormValidity( isValid );
+      oThis.validator = jForm.validate( jqValidateOptions );
 
     }
 
@@ -296,8 +232,23 @@
     /* END: METHOD of Form */
 
     , getSerializedData: function() {
-      var oThis = this;
-      return oThis.jForm.serializeArray();
+      var oThis = this
+        , jForm = oThis.jForm
+        , data  = jForm.serializeArray()
+        , jCustomElements = jForm.find( customFormInputAttr );
+      ;
+
+      jCustomElements.each(function ( indx, el ){
+        var jEl = $( el )
+            ,elData = {
+              name: jEl.attr("name")
+              , value: jEl.val()
+            }
+        ;
+        data.push( elData );
+      });
+
+      return data;
     }
 
 
@@ -308,5 +259,33 @@
     }
 
   };
+
+
+
+
+  //jQuerry related stuff
+  $.fn.extend({
+    formHelper: function ( config ) {
+      var jEl = $( this )
+          ,helper = jEl.data( jqDataNameSpace );
+      ;
+
+      if ( !helper || !helper instanceof FormHelper ) {
+        helper = new FormHelper( jEl );
+        jEl.data( jqDataNameSpace, helper );
+        helper.init();
+      }
+      if ( config && typeof config === "object") {
+        $.extend(helper, config );
+      } 
+      return helper;
+    }
+  });
+  $( function () {
+    jForms = $("[" + autoBinderAttr + "]");
+    jForms.each(function ( indx, formEl ) {
+      $( formEl ).formHelper();
+    });
+  });
 
 })(window, jQuery);

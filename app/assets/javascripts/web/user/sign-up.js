@@ -1,19 +1,22 @@
 ;
 (function (window) {
 
-  var homeNs = ns("simpletoken.home"),
-    utilsNs = ns("simpletoken.utils"),
-    oThis;
+  var parentNS = ns("simpletoken.home")
+      , utilsNs = ns("simpletoken.utils")
+      , oThis
+  ;
 
-  homeNs.signup = oThis = {
+  parentNS.signup = oThis = {
+    jForm: null
+    , init: function (config) {
+      oThis.bindEventListeners();
+    }
+    , bindEventListeners: function () {
 
-    init: function (config) {
-      oThis.bindButtonActions();
-    },
+    }
 
-    bindButtonActions: function () {
 
-    },
+    
 
   };
 
