@@ -1,0 +1,27 @@
+.navbar{
+  padding: 0 1rem;
+  font-weight: 300;
+  background-color: #ffffff;
+  box-shadow: 0 0.5px 3px 1.3px rgba(237, 242, 246, 0.89);
+  .navbar-brand{
+    color: #597a84;
+    font-size: 16px;
+    margin-right: 0;
+  }
+  .navbar-nav{
+    .nav-item{
+      height: 56px;
+      line-height: 56px;
+      @media(min-width: 768px){
+        border-left: solid 1px #edf2f6;
+      }
+      .nav-link{
+        color: #438bad;
+        font-size: 16px;
+        @media(min-width: 768px){
+          padding: 0 1rem;
+        }
+      }
+    }
+  }
+}
