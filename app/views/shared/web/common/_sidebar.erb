@@ -3,19 +3,28 @@
     <h3>Simple Token Demo</h3>
   </div>
 
-  <ul class="list-unstyled components">
-    <li class="active"><a href="#">Home</a></li>
-    <li><a href="#">About</a></li>
-
-    <li>
-      <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
-      <ul class="collapse list-unstyled" id="homeSubmenu">
-        <li><a href="#">Page</a></li>
-        <li><a href="#">Page</a></li>
-        <li><a href="#">Page</a></li>
-      </ul>
-
-    <li><a href="#">Portfolio</a></li>
-    <li><a href="#">Contact</a></li>
+  <ul class="nav nav-pills flex-column">
+    <li class="nav-item">
+      <a class="nav-link active" href="#">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">About</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#collapseExample">Collapse</a>
+      <div class="collapse" id="collapseExample">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sub 1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sub 2</a>
+            </li>
+          </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="#">Disabled</a>
+    </li>
   </ul>
 </aside>
