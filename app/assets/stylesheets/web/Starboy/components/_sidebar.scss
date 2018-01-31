@@ -1,0 +1,26 @@
+.sidebar-nav{
+
+  background: $teal-bg;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: $zindex-dropdown;
+  transition: $transition-base;
+  padding-top: 80px;
+
+  //
+  // Pills
+  //
+
+  .nav-pills {
+
+    .nav-link.active,
+    .show > .nav-link {
+      color: $nav-pills-link-active-color;
+      background-color: $teal;
+    }
+  }
+
+}
