@@ -1,6 +1,8 @@
 $font-primary: #597a84;
 $font-secondary: #438bad;
 $font-gold: #e4b030;
+$alert-bg: #f18543;
+$white-color: #ffffff;
 
 .navbar{
   padding-top: 0;
@@ -28,5 +30,17 @@ $font-gold: #e4b030;
         }
       }
     }
+  }
+}
+
+.ost__alert{
+  background-color: $alert-bg;
+  color: $white-color;
+  padding: 13px 0;
+  &__button{
+    font-size: 14px;
+    color: $white-color;
+    letter-spacing: 1px;
+    border: solid 2px #f8c2a1;
   }
 }
