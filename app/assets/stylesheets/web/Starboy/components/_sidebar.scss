@@ -10,6 +10,10 @@
   transition: $transition-base;
   padding-top: 80px;
 
+  &.active{
+    margin-left: -250px;
+  }
+
   //
   // Pills
   //
