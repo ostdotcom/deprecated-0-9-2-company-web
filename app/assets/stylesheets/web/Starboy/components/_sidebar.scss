@@ -42,16 +42,18 @@
         fill: $nav-pills-link-active-color;
       }
 
-      .badge-primary{
+      .badge{
+        color: color("teal");
         background-color: $nav-pills-link-active-color;
       }
     }
 
-    .badge-primary{
+    .badge{
+      color: $nav-pills-link-active-color;
       background-color: color("teal");
       text-transform: uppercase;
       font-weight: inherit;
-      font-size: 0.6rem;
+      font-size: 0.7rem;
     }
 
 
