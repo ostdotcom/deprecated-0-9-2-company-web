@@ -16,11 +16,19 @@
 
   .nav-pills {
 
+    .nav-link{
+      color: $blue-300;
+      border-radius: inherit;
+      border-top: 1px solid rgba($teal, 0.2);
+    }
+
     .nav-link.active,
     .show > .nav-link {
       color: $nav-pills-link-active-color;
       background-color: $teal;
     }
+
+
   }
 
 }
