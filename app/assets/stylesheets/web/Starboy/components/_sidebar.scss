@@ -1,6 +1,6 @@
 .sidebar-nav{
 
-  background: $teal-bg;
+  background: color("teal-bg");
   width: 250px;
   position: fixed;
   top: 0;
@@ -17,7 +17,7 @@
   .nav-pills {
 
     .nav-link{
-      color: $blue-400;
+      color: color("blue-400");
       border-radius: inherit;
       border-top: 1px solid rgba($teal, 0.2);
       padding: 0.8rem $nav-link-padding-x;
@@ -25,7 +25,7 @@
       svg{
         height: 22px;
         width: 22px;
-        fill: $blue-300;
+        fill: color("blue-300");
       }
 
       span{
@@ -36,7 +36,7 @@
     .nav-link.active,
     .show > .nav-link {
       color: $nav-pills-link-active-color;
-      background-color: $teal;
+      background-color: color("teal");
 
       svg{
         fill: $nav-pills-link-active-color;

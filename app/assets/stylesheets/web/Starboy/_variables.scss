@@ -79,7 +79,10 @@ $colors: map-merge((
         "cyan":       $cyan,
         "white":      $white,
         "gray":       $gray-600,
-        "gray-dark":  $gray-800
+        "gray-dark":  $gray-800,
+        "teal-bg":    $teal-bg,
+        "blue-300":   $blue-300,
+        "blue-400":   $blue-400
 ), $colors);
 
 $primary:       $blue !default;
