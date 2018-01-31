@@ -58,7 +58,7 @@ $blue-300:  #bfe6e8 !default;
 $blue-400:  #84d1d4 !default;
 $blue-500:  #8EB9CE !default;
 $blue-600:  #819AA1 !default;
-$blue-700:  #597A84 !default;
+$blue-700:  #597A84 !default; // font-primary
 
 // Theme yellow shades
 $yellow-300:  #E4B030 !default;
@@ -81,8 +81,10 @@ $colors: map-merge((
         "gray":       $gray-600,
         "gray-dark":  $gray-800,
         "teal-bg":    $teal-bg,
+        "yellow-300": $yellow-300,
         "blue-300":   $blue-300,
-        "blue-400":   $blue-400
+        "blue-400":   $blue-400,
+        "blue-700":   $blue-700,
 ), $colors);
 
 $primary:       $blue !default;

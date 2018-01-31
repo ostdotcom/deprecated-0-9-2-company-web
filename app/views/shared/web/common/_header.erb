@@ -1,5 +1,5 @@
 <header class="fixed-top">
-  <%= render :partial => "/shared/web/common/alert" %>
+  <%#= render :partial => "/shared/web/common/alert" %>
   <nav class="navbar navbar-expand-md navbar-light ">
     <a class="navbar-brand font-weight-normal" href="#">
       <img src="https://transloadit.edgly.net/assets/demos/outputs/image-manipulation-resize-to-75x75-stretched-snowflake-0.jpg__preview.jpg" class="rounded-circle" height="38" alt="image"/>
@@ -9,14 +9,14 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
-      <!--<ul class="navbar-nav mr-auto">-->
-        <!--<li class="nav-item">-->
-          <!--<button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">-->
-            <!--<i class="glyphicon glyphicon-align-left"></i>-->
-            <!--Toggle Sidebar-->
-          <!--</button>-->
-        <!--</li>-->
-      <!--</ul>-->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+            <i class="glyphicon glyphicon-align-left"></i>
+            <span class="small">Toggle Sidebar</span>
+          </button>
+        </li>
+      </ul>
       <ul class="navbar-nav navbar-right ml-md-auto d-md-flex text-uppercase font-weight-normal">
         <li class="nav-item">
           <a class="nav-link" href="#">
@@ -39,10 +39,6 @@
           <a class="nav-link d-flex" href="#">Logout</a>
         </li>
       </ul>
-      <!--<form class="form-inline mt-2 mt-md-0">-->
-      <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
-      <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-      <!--</form>-->
     </div>
   </nav>
 </header>

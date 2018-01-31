@@ -1,16 +1,10 @@
-$font-primary: #597a84;
-$font-secondary: #438bad;
-$font-gold: #e4b030;
-$alert-bg: #f18543;
-$white-color: #ffffff;
-
 .navbar{
   padding-top: 0;
   padding-bottom: 0;
-  background-color: #ffffff;
-  box-shadow: 0 0.5px 3px 1.3px rgba(237, 242, 246, 0.89);
+  background-color: color('white');
+  box-shadow: 0 0.5px 3px 1.3px rgba(237, 242, 246, 0.9);
   .navbar-brand{
-    color: $font-primary;
+    color: color('blue-700');
     font-size: 1rem;
   }
   .navbar-nav{
@@ -19,14 +13,14 @@ $white-color: #ffffff;
         border-left: solid 1px #edf2f6;
       }
       .nav-link{
-        color: #438bad;
+        color: color('cyan');
         font-size: 0.8rem;
         align-items: center;
         height: 100%;
         letter-spacing: 1px;
         padding: 0.5rem 1rem;
         .gold{
-          color: $font-gold;
+          color: color('yellow-300');
         }
       }
     }
@@ -34,12 +28,12 @@ $white-color: #ffffff;
 }
 
 .ost__alert{
-  background-color: $alert-bg;
-  color: $white-color;
+  background-color: color('orange');
+  color: color('white');
   padding: 13px 0;
   &__button{
     font-size: 14px;
-    color: $white-color;
+    color: color('white');
     letter-spacing: 1px;
     border: solid 2px #f8c2a1;
   }
