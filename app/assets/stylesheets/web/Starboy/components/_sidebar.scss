@@ -22,13 +22,13 @@
       border-top: 1px solid rgba($teal, 0.2);
       padding: 0.8rem $nav-link-padding-x;
 
-      svg{
+      svg.icon{
         height: 22px;
         width: 22px;
         fill: color("blue-300");
       }
 
-      span{
+      span.label{
         margin-left: 12px;
       }
     }
@@ -38,9 +38,20 @@
       color: $nav-pills-link-active-color;
       background-color: color("teal");
 
-      svg{
+      svg.icon{
         fill: $nav-pills-link-active-color;
       }
+
+      .badge-primary{
+        background-color: $nav-pills-link-active-color;
+      }
+    }
+
+    .badge-primary{
+      background-color: color("teal");
+      text-transform: uppercase;
+      font-weight: inherit;
+      font-size: 0.6rem;
     }
 
 
