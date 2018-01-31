@@ -20,12 +20,27 @@
       color: $blue-300;
       border-radius: inherit;
       border-top: 1px solid rgba($teal, 0.2);
+      padding: 0.8rem $nav-link-padding-x;
+
+      svg{
+        height: 20px;
+        width: 20px;
+        fill: $blue-300;
+      }
+
+      span{
+        margin-left: 12px;
+      }
     }
 
     .nav-link.active,
     .show > .nav-link {
       color: $nav-pills-link-active-color;
       background-color: $teal;
+
+      svg{
+        fill: $nav-pills-link-active-color;
+      }
     }
 
 
