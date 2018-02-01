@@ -5,26 +5,8 @@
   <!--install metamask modal-->
 <!--</button>-->
 
-<div class="row">
-  <div class="col-12 col-md-6 ml-auto mr-auto">
-    <div class="text-center ost__planner">
-      <h1 class="ost__planner__heading">Complete the installation to continue</h1>
-      <p class="ost__planner__desc font-weight-light mb-5">Follow the instruction to set up your MetaMask Wallet and click the button below once you have installed it.</p>
-      <div class="ost__planner__circle rounded-circle font-weight-light mb-5">FRC</div>
-      <div class="mb-5">
-        <button type="button" class="btn btn-gold" data-toggle="modal" data-target="#install-metamask-lightbox">i have installed metamask</button>
-      </div>
-      <div>
-        <button type="button" class="btn btn-gold-border" data-toggle="modal" data-target="#install-metamask-lightbox">watch help video</button>
-      </div>
-      <ul class="ost__planner__list mt-6">
-        <li class="ost__planner__list__item font-weight-normal">FAQ for installing MetaMask</li>
-        <li class="ost__planner__list__item font-weight-light">Installing MetaMask, your digital wallet!</li>
-        <li class="ost__planner__list__item font-weight-light">Why us my MetaMask locked?</li>
-      </ul>
-    </div>
-  </div>
-</div>
+<%= render :partial => "/web/user/dashboard/planner1" %>
+<%#= render :partial => "/web/user/dashboard/planner2" %>
 
 <%= render :partial => "/shared/web/modals/install_metamask_lightbox" %>
 <%= render :partial => "/shared/web/modals/verify_account" %>
