@@ -5,7 +5,8 @@
     color: color('cyan');
   }
   &__desc{
-    font-size: 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.4px;
     color: color('blue-700');
   }
   &__circle{
@@ -16,6 +17,12 @@
     color: color('white');
     display: inline-block;
     background-color: #9064a2;
+  }
+  &__address{
+    color: #435353;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    background-color: $grey-bg;
   }
   &__list{
     padding: 0;
