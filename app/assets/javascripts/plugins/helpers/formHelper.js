@@ -8,10 +8,10 @@
     }
   }
 
-  var jqDataNameSpace = "ostFormHelper";
-  var eventNameSpace = "";
+  var jqDataNameSpace     = "ostFormHelper";
+  var eventNameSpace      = "";
   var customFormInputAttr = "ost-formelement";
-  var autoBinderAttr = "ost-formhelper";
+  var autoBinderAttr      = "data-ost-formhelper";
 
   function FormHelper( jForm ) {
     this.jForm  = jForm;
@@ -55,24 +55,20 @@
       }
 
       if ( !jqValidateOptions.submitHandler ) {
-
-
-      }
-
-      if ( !jqValidateOptions.submitHandler ) {
         jqValidateOptions.submitHandler = function () {
-          console.log("jqValidateOptions.submitHandler triggered!");
-          //Trigger cancelable beforeSubmit 
-          if ( !oThis.triggerBeforeSubmit() ) {
-            console.log("FormHelper :: beforeSubmit event has been canceled.");
-            //Some listner has objected to form submission.
-            return;
-          }
-
-          //Submit the form!
-          oThis.submitForm();
+          console.log("Calling submitHandler");
+          oThis.submitHandler.apply(oThis, arguments);
         }
       }
+
+      if ( !jqValidateOptions.showErrors ) {
+        jqValidateOptions.showErrors = function () {
+          this.defaultShowErrors();
+          // oThis.showErrors.apply(oThis, arguments);
+        }
+      }
+
+
 
       oThis.validator = jForm.validate( jqValidateOptions );
 
@@ -112,6 +108,22 @@
       //Return if jqXhr exists.
       return true && this.jqXhr;
     }
+
+    , submitHandler : function () {
+      var oThis = this;
+
+      console.log("jqValidateOptions.submitHandler triggered!");
+      //Trigger cancelable beforeSubmit 
+      if ( !oThis.triggerBeforeSubmit() ) {
+        console.log("FormHelper :: beforeSubmit event has been canceled.");
+        //Some listner has objected to form submission.
+        return;
+      }
+
+      //Submit the form!
+      oThis.submitForm();
+    }
+
     , submitForm: function () {
       var oThis = this;
 
@@ -134,21 +146,26 @@
             oThis.error.apply(oThis, arguments );
           }
         }
-        , dataFilter: function ( data, dataType ) {
+        , dataFilter: function ( strResponse, dataType ) {
           if ( oThis.dataFilter ) {
             oThis.dataFilter.apply(oThis, arguments );
           }
+          var resp = JSON.parse( strResponse );
 
-          if ( data && !data.success ) {
+          if ( resp && !resp.success ) {
             //We have errors! Lets show them.
-            oThis.showErrors( data );
+            oThis.showServerErrors( resp );
           }
 
-          return data;
+          return strResponse;
         }
         , success: function () {
+          console.log("Success", arguments);
           if ( oThis.success ) {
             oThis.success.apply( oThis, arguments);
+          } else if ( oThis.jForm.data("redirect") ) {
+            console.log("redirecting to:", oThis.jForm.data("redirect") )
+            window.location = oThis.jForm.data("redirect");
           }
         }
         , complete: function () {
@@ -252,10 +269,23 @@
     }
 
 
+    , showServerErrors: function ( response ) {
+      var oThis = this;
 
+      var serverErrors = response.err.error_data || {};
+      oThis.validator.showErrors( serverErrors );
+      console.log( "serverErrors", serverErrors );
 
-    , showErrors: function ( data ) {
+    }
 
+    , showErrors: function ( mapData, arrayData ) {
+      if ( !arrayData.length ) {
+        return;
+      }
+      console.log("showErrors triggered!", arrayData.length);
+
+      console.log( arrayData );
+      console.log( mapData );
     }
 
   };

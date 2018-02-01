@@ -1,21 +1,27 @@
-<form id="sign_up_form" class="form-container-sm st-form" ost-formhelper action="" method="POST">
+<form id="sign_up_form" class="form-container-sm st-form" 
+  action="/api/client/sign-up" method="POST"
+  data-ost-formhelper data-redirect="/dashboard"
+>
 
   <h1 class="form-title">Register for the Demo</h1>
   
   <div class="form-group" id="emailFormGrp">
     <label class="form-label" for="email">Email address</label>
-    <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required/>
+    <input id="user-email" type="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" required/>
+    <div class="invalid-feedback" for="email"></div>
   </div>
 
   <div class="form-group" id="passwordFormGrp">
     <label class="form-label" for="password">Password</label>
-    <input type="password" name="password" class="form-control" id="password" placeholder="Password" required />
+    <input type="password" class="form-control" placeholder="Password"
+      id="password" name="password" required />
     <!-- View Password -->
     <span class="input-group-btn">
       <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
     </span>
     <!-- ZXCVBN Wrap -->
     <div class="zxcvbn-group"></div>
+    <div class="invalid-feedback" for="password"></div>
   </div>
 
   <div class="form-group has-error" id="tosFormGrp">
@@ -23,6 +29,7 @@
       <input type="checkbox" name="agreed_terms_of_service" class="form-check-input" id="tos" required />
       <label class="form-check-label" for="tos">By checking this box, you agree to our Terms of Service &amp; acknowledge and consent to our Privacy Policy.</label>
     </div>
+    <div class="invalid-feedback" for="agreed_terms_of_service"></div>
   </div>
 
   <div class="form-group text-center" >
