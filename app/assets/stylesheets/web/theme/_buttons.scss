@@ -41,3 +41,22 @@
     border-color: #7f9183;
   }
 }
+
+.btn-gold-border{
+  border-color: #e4b030;
+  background: #ffffff;
+  color: #e4b030;
+  &.focus-cls,
+  &:focus{
+    color: #7f9183;
+    outline: none;
+    text-decoration: none;
+  }
+  &.hover-cls, &.active-cls,
+  &:hover, &:active{
+    color: #7f9183;
+    text-decoration: none;
+    background-color: #ffffff;
+    border-color: #7f9183;
+  }
+}
