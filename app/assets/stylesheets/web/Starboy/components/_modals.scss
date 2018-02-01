@@ -1,0 +1,30 @@
+.modal{
+  .modal-content{
+    padding: 1rem;
+    border-radius: 0;
+    position: relative;
+  }
+  .modal-header{
+    border-bottom: none;
+  }
+  .heading{
+    font-size: 1.6rem;
+    color: color('cyan');
+  }
+  .desc{
+    font-size: 0.9rem;
+    color: color('blue-700');
+  }
+  .btn{
+    font-size: 0.9rem;
+    line-height: 100%;
+    letter-spacing: 1px;
+    padding: 0.75rem 1rem;
+  }
+  .close{
+    top: 10px;
+    z-index: 1;
+    right: 10px;
+    position: absolute;
+  }
+}

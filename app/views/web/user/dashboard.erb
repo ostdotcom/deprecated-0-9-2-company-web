@@ -1,3 +1,6 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#verify-modal">
+  Launch demo modal
+</button>
 <div id="lipsum">
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam quis lorem sed nibh ultricies venenatis. Nunc nisl nibh, tristique laoreet facilisis non, mattis sed orci. Cras metus neque, maximus nec ipsum vitae, lobortis ullamcorper eros. Integer malesuada ligula ac viverra lacinia. Ut mollis pretium volutpat. Quisque et lacinia leo. Donec viverra condimentum consequat. Ut tristique, lectus eget ornare efficitur, libero elit elementum lacus, sed sollicitudin nunc neque eget elit. Phasellus vitae turpis at justo bibendum mollis. Nulla facilisi. In elit diam, aliquam eget est ut, lobortis semper nibh. Ut pharetra lorem eget felis malesuada ultrices.
@@ -29,6 +32,8 @@
   <p>
     Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer in libero ac lorem accumsan euismod a ac neque. Suspendisse risus ante, tincidunt in lacinia elementum, aliquet id justo. Aliquam sed sollicitudin magna, eu laoreet dui. Nunc a scelerisque ante. Nulla lobortis leo lacus, non semper odio fringilla sit amet. Nunc sed enim et orci posuere dictum. Donec ut tristique arcu. Donec eu diam finibus, rhoncus ex vitae, faucibus dui. Curabitur faucibus finibus risus, id eleifend magna accumsan mollis. Maecenas vel mauris convallis, varius tortor gravida, scelerisque neque. Mauris vel egestas quam. Praesent at maximus enim.
   </p></div>
+
+<%= render :partial => "/shared/web/modals/verify_account" %>
 
 <% content_for :end_js do %>
     <script type="text/javascript">
