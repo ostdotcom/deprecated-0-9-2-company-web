@@ -13,7 +13,7 @@ class Web::UserController < Web::BaseController
   end
 
   def sign_up
-
+    @fe_no_nav = true;
   end
 
   def dashboard
