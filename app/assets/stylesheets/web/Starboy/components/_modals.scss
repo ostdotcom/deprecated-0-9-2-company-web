@@ -15,6 +15,10 @@
     font-size: 0.9rem;
     color: color('blue-700');
   }
+  .desc-2{
+    font-size: 0.8rem;
+    color: #61818a;
+  }
   .btn{
     font-size: 0.9rem;
     line-height: 100%;
@@ -26,5 +30,18 @@
     z-index: 1;
     right: 10px;
     position: absolute;
+  }
+  .item{
+    padding: 8px;
+    margin: 10px;
+    background-color: #f1f5f8;
+    .item-1{
+      font-size: 0.8rem;
+      color: rgba(67, 139, 173, 0.8);
+    }
+    .item-2{
+      color: #819aa1;
+      font-size: 0.8rem;
+    }
   }
 }

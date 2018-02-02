@@ -4,6 +4,9 @@
 <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#install-metamask-lightbox">-->
   <!--install metamask modal-->
 <!--</button>-->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#stake-mint-confirm">
+install metamask modal
+</button>
 
 <%#= render :partial => "/web/user/dashboard/metamask_installed" %>
 <%#= render :partial => "/web/user/dashboard/metamask_locked" %>
@@ -13,6 +16,7 @@
 
 <%= render :partial => "/shared/web/modals/install_metamask_lightbox" %>
 <%= render :partial => "/shared/web/modals/verify_account" %>
+<%= render :partial => "/shared/web/modals/stake_mint_confirm" %>
 
 <% content_for :end_js do %>
     <script type="text/javascript">
