@@ -159,11 +159,11 @@
 
           return strResponse;
         }
-        , success: function () {
+        , success: function (response) {
           console.log("Success", arguments);
           if ( oThis.success ) {
             oThis.success.apply( oThis, arguments);
-          } else if ( oThis.jForm.data("redirect") ) {
+          } else if ( response.success && oThis.jForm.data("redirect") ) {
             console.log("redirecting to:", oThis.jForm.data("redirect") )
             window.location = oThis.jForm.data("redirect");
           }
