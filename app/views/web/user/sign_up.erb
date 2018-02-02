@@ -4,11 +4,12 @@
 >
 
   <h1 class="form-title">Register for the Demo</h1>
-  <div class="general_error invalid-feedback">&nbsp;</div>
+  <div class="general_error invalid-feedback" data-forid="sign_up_form">&nbsp;</div>
   <div class="form-group" id="emailFormGrp">
-    <label class="form-label" for="email">Email address</label>
+    <label class="form-label" data-forid="email">Email address</label>
+
     <input id="user-email" type="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" required/>
-    <div class="invalid-feedback" for="email"></div>
+    <div class="invalid-feedback" data-forid="email">&nbps;</div>
   </div>
 
   <div class="form-group" id="passwordFormGrp">
@@ -21,19 +22,21 @@
     </span>
     <!-- ZXCVBN Wrap -->
     <div class="zxcvbn-group"></div>
-    <div class="invalid-feedback" for="password"></div>
+    <div class="invalid-feedback" data-forid="password">&nbps;</div>
   </div>
 
   <div class="form-group has-error" id="tosFormGrp">
     <div class="form-check">
-      <input type="checkbox" name="agreed_terms_of_service" class="form-check-input" id="agreed_terms_of_service" required />
+      <input type="checkbox" class="form-check-input"
+      name="agreed_terms_of_service"  id="agreed_terms_of_service" required />
       <label class="form-check-label" for="tos">By checking this box, you agree to our Terms of Service &amp; acknowledge and consent to our Privacy Policy.</label>
+      <div class="invalid-feedback" data-forid="agreed_terms_of_service">&nbps;</div>
     </div>
-    <div class="invalid-feedback" for="agreed_terms_of_service"></div>
+    
   </div>
 
   <div class="form-group text-center" >
-    <button type="submit" class="btn btn-gold">Register</button>
+    <button type="submit" class="btn btn-gold" data-submiting="Registering">Register</button>
     <small class="form-text text-muted" style="line-height: 40px">Have an account already?</small>
     <button type="submit" class="btn btn-white">Login</button>
   </div>

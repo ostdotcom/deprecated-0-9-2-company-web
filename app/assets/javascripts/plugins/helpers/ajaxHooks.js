@@ -9,7 +9,7 @@
     }
   });
 
-  //
+  
   $( window.document ).ajaxError( function( event, jqXHR, settings, thrownError ) { 
     
     var jParent = (jqXHR.ost && jqXHR.ost.jParent ) ? jqXHR.ost.jParent : $("body")

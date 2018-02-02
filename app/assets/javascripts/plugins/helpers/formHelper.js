@@ -63,8 +63,8 @@
 
       if ( !jqValidateOptions.showErrors ) {
         jqValidateOptions.showErrors = function () {
-          this.defaultShowErrors();
-          // oThis.showErrors.apply(oThis, arguments);
+          // this.defaultShowErrors();
+          oThis.showErrors.apply(oThis, arguments);
         }
       }
 
@@ -109,10 +109,17 @@
       return true && this.jqXhr;
     }
 
-    , submitHandler : function () {
+    , submitHandler : function (form, event) {
       var oThis = this;
 
       console.log("jqValidateOptions.submitHandler triggered!");
+
+      //Clear all errors
+      oThis.jForm.find(".is-invalid").removeClass("is-invalid");
+
+      //Change submit btn text.
+      oThis.updateSubmitText();
+
       //Trigger cancelable beforeSubmit 
       if ( !oThis.triggerBeforeSubmit() ) {
         console.log("FormHelper :: beforeSubmit event has been canceled.");
@@ -124,9 +131,23 @@
       oThis.submitForm();
     }
 
+    , updateSubmitText: function () {
+
+    }
+
     , submitForm: function () {
 
       var oThis = this;
+
+
+      //Change the text
+      oThis.jForm.find("[data-submiting]").each(function ( indx, el) {
+        var jEL = $( el );
+        jEL.data("beforeSubmitText", jEL.text() );
+        jEL.text( jEL.data("submiting") );
+        jEL.prop('disabled', true);
+      });
+      
 
       //This method can be used to 'forcefully' submit the form.
       oThis.jqXhr = $.ajax({
@@ -179,6 +200,13 @@
           //Make sure to reset it. Or else...
           //the next request will NOT go.
           oThis.jqXhr = null;
+
+          //Revert back the submit text
+          oThis.jForm.find("[data-submiting]").each(function ( indx, el) {
+            var jEL = $( el );
+            jEL.text( jEL.data("beforeSubmitText") );
+            jEL.prop('disabled', false);
+          });
         }
 
         , statusCode: { 
@@ -283,13 +311,35 @@
     }
 
     , showErrors: function ( mapData, arrayData ) {
-      if ( !arrayData.length ) {
-        return;
-      }
-      console.log("showErrors triggered!", arrayData.length);
+      try {
+        var oThis = this;
 
-      console.log( arrayData );
-      console.log( mapData );
+        if ( !arrayData.length ) {
+          return;
+        }
+
+        $.each(arrayData, function(indx, errorData ) {
+          if ( errorData.element ) {
+            var jEl = $( errorData.element );
+            jEl.addClass("is-invalid")
+              .parent()
+                .find(".invalid-feedback")
+                  .html( errorData.message )
+            ;
+          }        
+        });
+
+        var validElements = oThis.validator.validElements();
+        validElements.each(function (indx, el) {
+          var jEl = $(el);
+          console.log("validElements", jEl);
+          jEl.removeClass("is-invalid");
+        });
+      } catch( ex ) {
+        //Keep the try catch. Please :)
+        console.log( ex );
+      }
+
     }
 
   };
