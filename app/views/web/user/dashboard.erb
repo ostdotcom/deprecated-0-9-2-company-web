@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#stake-mint-processing">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#stake-mint-complete">
   install metamask modal
 </button>
 
@@ -12,6 +12,7 @@
 <%= render :partial => "/shared/web/modals/verify_account" %>
 <%= render :partial => "/shared/web/modals/stake_mint_confirm" %>
 <%= render :partial => "/shared/web/modals/stake_mint_processing" %>
+<%= render :partial => "/shared/web/modals/stake_mint_complete" %>
 
 <% content_for :end_js do %>
     <script type="text/javascript">
