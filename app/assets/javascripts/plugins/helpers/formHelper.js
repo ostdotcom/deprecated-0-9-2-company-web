@@ -8,6 +8,7 @@
     }
   }
 
+
   var jqDataNameSpace     = "ostFormHelper";
   var eventNameSpace      = "";
   var customFormInputAttr = "ost-formelement";
@@ -56,7 +57,6 @@
 
       if ( !jqValidateOptions.submitHandler ) {
         jqValidateOptions.submitHandler = function () {
-          console.log("Calling submitHandler");
           oThis.submitHandler.apply(oThis, arguments);
         }
       }
@@ -125,6 +125,7 @@
     }
 
     , submitForm: function () {
+
       var oThis = this;
 
       //This method can be used to 'forcefully' submit the form.
@@ -145,6 +146,10 @@
           if ( oThis.error ) {
             oThis.error.apply(oThis, arguments );
           }
+
+
+          console.log("arguments");
+          console.log( arguments );
         }
         , dataFilter: function ( strResponse, dataType ) {
           if ( oThis.dataFilter ) {
@@ -164,7 +169,6 @@
           if ( oThis.success ) {
             oThis.success.apply( oThis, arguments);
           } else if ( response.success && oThis.jForm.data("redirect") ) {
-            console.log("redirecting to:", oThis.jForm.data("redirect") )
             window.location = oThis.jForm.data("redirect");
           }
         }

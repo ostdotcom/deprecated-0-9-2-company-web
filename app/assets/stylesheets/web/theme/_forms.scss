@@ -7,6 +7,20 @@
   margin: 0 auto;
 }
 
+.invalid-feedback {
+  display: block;
+  visibility: hidden;
+}
+
+.invalid-feedback.is-invalid {
+  display: block;
+  visibility: visible;
+}
+
+.general_error {
+  text-align: center;
+}
+
 .st-form{
 
   .form-title{
