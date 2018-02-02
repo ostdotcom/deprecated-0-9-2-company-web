@@ -90,11 +90,12 @@
 
   <section id="content" <%= content_style %>>
     <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <%= yield %>
-          </div>
+      <div class="row">
+        <div class="col-12" id="notification-area"></div>
+        <div class="col-12">
+          <%= yield %>
         </div>
+      </div>
     </div>
   </section>
 
