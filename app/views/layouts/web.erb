@@ -1,6 +1,3 @@
-<%
-   content_style = ""
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,9 +79,12 @@
 
 <main id="app-content" class="wrapper <%= yield (:app_content_classes) %>">
 
-  <% if @fe_no_nav.present? && @fe_no_nav
+  <%
+     content_style = ""
+     if @fe_no_nav.present? && @fe_no_nav
        content_style = "style=width:100%;"
-  else %>
+     else
+  %>
     <%= render :partial => "/shared/web/common/sidebar" %>
   <% end %>
 
