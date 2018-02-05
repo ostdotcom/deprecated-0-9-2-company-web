@@ -1,22 +1,14 @@
-// Import Mixins
-@import "mixins/forms";
-
-
 // Import functions as variables depend on functions
 @import "../../plugins/bootstrap/scss/functions";
 
 // Import theme variables
 @import "variables";
 
-
-
-
-@import "../../plugins/bootstrap/scss/functions";
-@import "../../plugins/bootstrap/scss/variables";
 @import "../../plugins/bootstrap/scss/mixins";
 // Override Mixins Begins.
 @import "mixins/forms";
 // Mixins Override Ends.
+@import "../../plugins/bootstrap/scss/variables"; // Variables use defaults, this is just backup
 @import "../../plugins/bootstrap/scss/root";
 @import "../../plugins/bootstrap/scss/reboot";
 @import "../../plugins/bootstrap/scss/type";
