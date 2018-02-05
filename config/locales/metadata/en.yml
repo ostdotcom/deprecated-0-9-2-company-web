@@ -73,6 +73,8 @@ en:
         :specific_css_required: 1
         :specific_js_required: 1
 
+  web/economy:
+
     dashboard:
       :meta:
         :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
