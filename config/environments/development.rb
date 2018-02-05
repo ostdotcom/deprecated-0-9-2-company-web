@@ -18,6 +18,9 @@ Rails.application.configure do
   # Incase we want to test asset precompile in development
   config.assets.prefix = "/js-css/dev"
 
+  #react configuration.
+  config.react.variant = :development
+
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join('tmp/caching-dev.txt').exist?
     config.action_controller.perform_caching = true
