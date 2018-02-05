@@ -1,3 +1,11 @@
 Hello from company-web...
 
-<%= react_component('TransactionList') %>
+<div style="height:100vh;">
+  <style type="text/css">
+    #transaction_list {
+      height: 100vh;
+      position: relative;
+    }
+  </style>
+  <%= react_component('TransactionList', props={}, html_options={id: 'transaction_list'}) %>
+</div>
