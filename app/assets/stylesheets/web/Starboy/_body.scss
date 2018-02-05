@@ -1,0 +1,45 @@
+html, body{
+  height: 100%;
+}
+#app-content{
+  &.wrapper {
+    display: flex;
+  }
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+#content {
+  width: calc(100% - 250px);
+  min-height: 100vh;
+  transition: all 0.3s;
+  position: absolute;
+  top: 0;
+  right: 0;
+  .container{
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffff;
+  }
+}
+#content.active {
+  width: 100%;
+}
+
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+@media (max-width: 768px) {
+  #content {
+    width: 100%;
+  }
+  #content.active {
+    width: calc(100% - 250px);
+  }
+  #sidebarCollapse span {
+    display: none;
+  }
+}
