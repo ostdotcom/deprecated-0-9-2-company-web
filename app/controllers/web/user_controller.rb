@@ -16,12 +16,4 @@ class Web::UserController < Web::BaseController
     @fe_no_nav = true;
   end
 
-  def dashboard
-
-  end
-
-  def planner
-
-  end
-
 end
