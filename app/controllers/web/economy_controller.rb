@@ -4,10 +4,22 @@ class Web::EconomyController < Web::BaseController
 
   before_action :set_page_meta_info
 
+  # Dashboard where post setup metrics can be seen
+  #
+  # * Author: Puneet
+  # * Date: 02/02/2018
+  # * Reviewed By:
+  #
   def dashboard
 
   end
 
+  # Planner to perform economy setup steps
+  #
+  # * Author: Puneet
+  # * Date: 02/02/2018
+  # * Reviewed By:
+  #
   def planner
 
     @response = CompanyApi::Request::Economy.new(
@@ -27,6 +39,56 @@ class Web::EconomyController < Web::BaseController
       redirect_to :dashboard, status: GlobalConstant::ErrorCode.temporary_redirect
       return
     end
+
+  end
+
+  # Token Supply stats and section to mint more coins
+  #
+  # * Author: Puneet
+  # * Date: 02/02/2018
+  # * Reviewed By:
+  #
+  def token_supply
+
+  end
+
+  # manage users
+  #
+  # * Author: Puneet
+  # * Date: 02/02/2018
+  # * Reviewed By:
+  #
+  def users
+
+  end
+
+  # manage transaction types
+  #
+  # * Author: Puneet
+  # * Date: 02/02/2018
+  # * Reviewed By:
+  #
+  def transactions
+
+  end
+
+  # Simulator to run a transaction & render list of executed transactions
+  #
+  # * Author: Puneet
+  # * Date: 02/02/2018
+  # * Reviewed By:
+  #
+  def simulator
+
+  end
+
+  # token design
+  #
+  # * Author: Puneet
+  # * Date: 02/02/2018
+  # * Reviewed By:
+  #
+  def token_design
 
   end
 
