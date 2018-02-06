@@ -1,11 +1,7 @@
 planner
 
-<% if @presenter_obj.client_token.step_three_started? %>
-    <h1>render a popup over this page which shows states of stake and mint process</h1>
-<% elsif @presenter_obj.client_token.step_two_done? %>
-    <h1> render page from where user performs step 3</h1>
-<% elsif @presenter_obj.client_token.step_one_done? %>
-    <h1> render page from where user performs step 2 @presenter_obj.transaction_types </h1>
-<% else %>
-    <h1> render page from where user performs step 1 using @presenter_obj.client_token </h1>
-<% end %>
+<%# if @presenter_obj.client_token.step_three_started? %>
+<%# elsif @presenter_obj.client_token.step_two_done? %>
+<%# elsif @presenter_obj.client_token.step_one_done? %>
+<%# else %>
+<%# end %>
