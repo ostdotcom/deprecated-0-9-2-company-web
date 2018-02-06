@@ -6,7 +6,7 @@ module CompanyApi
 
       class Base
 
-        attr_reader :user, :client_token, :transaction_types
+        attr_reader :user, :client_token, :transaction_types, :client_ost_balance, :client_token_balance
 
         # Initialize
         #
@@ -52,6 +52,34 @@ module CompanyApi
           @client_token = CompanyApi::Response::Entity::ClientToken.new(client_token_data)
         end
 
+        # Set client token
+        #
+        # * Author: Puneet
+        # * Date: 02/02/2018
+        # * Reviewed By:
+        #
+        # @param [Hash] client_token_data (mandatory) - client token hash
+        #
+        # Sets @client_ost_balance
+        #
+        def set_client_ost_balance(client_ost_balance)
+          @client_ost_balance = CompanyApi::Response::Entity::ClientOstBalance.new(client_ost_balance)
+        end
+
+        # Set client token
+        #
+        # * Author: Puneet
+        # * Date: 02/02/2018
+        # * Reviewed By:
+        #
+        # @param [Hash] client_token_data (mandatory) - client token hash
+        #
+        # Sets @client_token_balance
+        #
+        def set_client_token_balance(client_token_balance)
+          @client_token_balance = CompanyApi::Response::Entity::ClientTokenBalance.new(client_token_balance)
+        end
+
         # Set transaction types
         #
         # * Author: Puneet
@@ -63,8 +91,8 @@ module CompanyApi
         # Sets @transaction_types
         #
         def set_transaction_types(transaction_types_data)
-          @transaction_types = transaction_types_data.inject({}) do |formatted_data, (transaction_type_id, transaction_type_data)|
-            formatted_data[transaction_type_id.to_i] = CompanyApi::Response::Entity::TransactionKind.new(transaction_type_data)
+          @transaction_types = transaction_types_data.inject({}) do |formatted_data, transaction_type_data|
+            formatted_data[transaction_type_data['id'].to_i] = CompanyApi::Response::Entity::TransactionKind.new(transaction_type_data)
           end
         end
 

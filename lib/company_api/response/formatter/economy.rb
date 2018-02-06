@@ -31,6 +31,10 @@ module CompanyApi
 
           set_client_token(@data['client_token'])
 
+          set_client_token_balance(@data['client_token_balance'])
+
+          set_client_ost_balance(@data['client_ost_balance'])
+
           set_transaction_types(@data['transaction_types']) if @data['transaction_types'].present?
 
         end
