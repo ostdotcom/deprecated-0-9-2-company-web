@@ -4,7 +4,7 @@ module CompanyApi
 
     module Entity
 
-      class ClientBalance
+      class ClientOstBalance
 
         # Initialize
         #
@@ -14,7 +14,7 @@ module CompanyApi
         #
         # @param [Hash] data (mandatory) - entity data
         #
-        # @return [CompanyApi::Response::Entity::ClientBalance] returns an object of CompanyApi::Response::Entity::ClientBalance class
+        # @return [CompanyApi::Response::Entity::ClientOstBalance] returns an object of CompanyApi::Response::Entity::ClientOstBalance class
         #
         def initialize(data)
           @data = data
