@@ -1,0 +1,5 @@
+export COMPANY_CLOUDFRONT_DOMAIN=
+export COMPANY_ROOT_URL=pepo
+export COMPANY_API_ROOT_URL='http://devcompany.com:8080/'
+export COMPANY_API_BASIC_AUTH_USER=''
+export COMPANY_API_BASIC_AUTH_PASS=''

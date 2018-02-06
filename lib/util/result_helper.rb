@@ -7,7 +7,7 @@ module Util
     # @return [Result::Base] returns an object of Result::Base class
     #
     def success
-      success_result({})
+      success_with_data({})
     end
 
     # Success with data
@@ -16,7 +16,7 @@ module Util
     #
     # @return [Result::Base]
     #
-    def success_result(data)
+    def success_with_data(data)
       # Allow only Hash data to pass ahead
       data = {} unless Util::CommonValidator.is_a_hash?(data)
 

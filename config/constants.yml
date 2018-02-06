@@ -5,3 +5,10 @@ constants:
 
   company_web:
     root_url: <%= ENV['COMPANY_ROOT_URL'] %>
+
+  company_api:
+    root_url: <%= ENV['COMPANY_API_ROOT_URL'] %>
+    basic_auth_user: <%= ENV['COMPANY_API_BASIC_AUTH_USER'] %>'
+    basic_auth_pass: <%= ENV['COMPANY_API_BASIC_AUTH_PASS'] %>'
+    open_timeout: 5
+    read_timeout: 5

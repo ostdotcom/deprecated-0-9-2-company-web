@@ -49,7 +49,7 @@ class ServicesBase
     return error_result('sb_1',
                         'Mandatory params missing.') if missing_mandatory_params.any?
 
-    success_result({})
+    success_with_data({})
   end
 
 end

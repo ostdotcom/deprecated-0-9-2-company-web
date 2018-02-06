@@ -91,7 +91,7 @@ class GetPageMetaInfo < ServicesBase
   # @return [Result::Base]
   #
   def meta_response
-    success_result(
+    success_with_data(
       {
         meta: @meta_data,
         assets: @assets_data
