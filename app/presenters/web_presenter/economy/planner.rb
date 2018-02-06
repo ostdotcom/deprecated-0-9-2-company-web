@@ -19,6 +19,10 @@ module WebPresenter
         @c_t ||= formatter_obj.client_token
       end
 
+      def transaction_types
+        @t_ty ||= (formatter_obj.transaction_types || [])
+      end
+
       # after step 3 has been completed, we would not allow this page to open up
       def is_valid_request?
         !client_token.step_three_done?
