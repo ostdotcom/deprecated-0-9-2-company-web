@@ -28,6 +28,14 @@ module CompanyApi
           @data['name']
         end
 
+        def tokens_airdropped
+          @data['tokens_airdropped']
+        end
+
+        def tokens_available
+          @data['tokens_available']
+        end
+
       end
 
     end
