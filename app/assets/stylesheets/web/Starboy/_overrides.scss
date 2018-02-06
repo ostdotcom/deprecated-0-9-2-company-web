@@ -3,6 +3,10 @@
   color: color('blue-700');
 }
 
+hr{
+  border-top: 2px solid color('blue-100');
+}
+
 .invalid-feedback.is-invalid {
   visibility: visible;
 }

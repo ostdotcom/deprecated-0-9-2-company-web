@@ -1,3 +1,6 @@
 /*
+ * Bootstrap theme Starboy
  *= require web/Starboy/Starboy.scss
+ * Component bootstrap-slider
+ *= require ../plugins/bootstrap-slider/bootstrap-slider
  */
