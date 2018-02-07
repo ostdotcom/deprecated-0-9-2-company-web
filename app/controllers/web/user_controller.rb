@@ -22,6 +22,10 @@ class Web::UserController < Web::BaseController
 
   end
 
+  def update_password
+
+  end
+
   private
 
   # Verify existing login

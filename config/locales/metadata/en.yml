@@ -73,6 +73,29 @@ en:
         :specific_css_required: 1
         :specific_js_required: 0
 
+    update_password:
+      :meta:
+        :title: 'Change your password for the Simple Token Project Token Sale'
+        :description: 'Change your password for the Simple Token Token Sale. Simple Token is the bridge between cryptocurrencies and consumer apps.'
+        :canonical: '%{canonical}'
+        :keywords: 'Simple Token'
+        :name: 'Simple Token'
+        :robots: 'index, follow'
+        :og:
+          :title: 'Change your password for the Simple Token Project Token Sale'
+          :description: 'Change your password for the Simple Token Token Sale. Simple Token is the bridge between cryptocurrencies and consumer apps.'
+          :type: 'website'
+          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :url: '%{og_url}'
+        :twitter:
+          :card: 'summary_large_image'
+          :title: 'Change your password for the Simple Token Project Token Sale'
+          :description: 'Change your password for the Simple Token Token Sale. Simple Token is the bridge between cryptocurrencies and consumer apps.'
+          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+      :assets:
+        :specific_css_required: 1
+        :specific_js_required: 0
+
     sign_up:
       :meta:
         :title: 'Simple Token | Cryptocurrency to Power Digital Communities'

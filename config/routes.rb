@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get '/logout' => :logout
     get '/sign-up' => :sign_up
     get '/reset-password' => :reset_password
+    get '/update-password' => :update_password
   end
 
   scope '', controller: 'web/economy' do
