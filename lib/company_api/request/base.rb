@@ -173,7 +173,6 @@ module CompanyApi
           )
         rescue Exception => e
           # Exceptions
-          binding.pry
           exception_with_internal_code(e, 'company_api_exception', 'company api exception', GlobalConstant::ErrorCode.internal_server_error, debug_data)
         end
 
