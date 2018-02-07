@@ -54,28 +54,28 @@ module CompanyApi
 
         def step_one_done?
           if @s_o_d.nil?
-            setup_steps['set_conversion_rate'].present?
+            setup_steps.include?('set_conversion_rate')
           end
           @s_o_d
         end
 
         def step_two_done?
           if @s_two_d.nil?
-            setup_steps['configure_transactions'].present?
+            setup_steps.include?('configure_transactions')
           end
           @s_two_d
         end
 
         def step_three_started?
           if @s_th_s.nil?
-            setup_steps['propose_initiated'].present?
+            setup_steps.include?('propose_initiated')
           end
           @s_th_s
         end
 
         def step_three_done?
           if @s_th_d.nil?
-            setup_steps['registered_on_vc'].present?
+            setup_steps.include?('registered_on_vc')
           end
           @s_th_d
         end

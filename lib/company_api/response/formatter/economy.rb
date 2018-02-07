@@ -74,6 +74,7 @@ module CompanyApi
         def set_transaction_types(transaction_types_data)
           @transaction_types = transaction_types_data.inject({}) do |formatted_data, transaction_type_data|
             formatted_data[transaction_type_data['id'].to_i] = CompanyApi::Response::Entity::TransactionKind.new(transaction_type_data)
+            formatted_data
           end
         end
 
@@ -90,6 +91,7 @@ module CompanyApi
         def set_economy_users(economy_users_data)
           @economy_users = economy_users_data.inject({}) do |formatted_data, economy_user_data|
             formatted_data[economy_user_data['id'].to_i] = CompanyApi::Response::Entity::EconomyUser.new(economy_user_data)
+            formatted_data
           end
         end
 
