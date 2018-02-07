@@ -13,10 +13,6 @@ module WebPresenter
       super
     end
 
-    def client_token
-      @c_t ||= formatter_obj.client_token
-    end
-
   end
 
 end

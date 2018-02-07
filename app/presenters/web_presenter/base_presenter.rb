@@ -18,6 +18,22 @@ module WebPresenter
       @params = params
     end
 
+    def user
+      @c_usr ||= begin
+        formatter_obj.present? ? formatter_obj.user : nil
+      end
+    end
+
+    def client_token
+      @c_t ||= begin
+        formatter_obj.present? ? formatter_obj.client_token : nil
+      end
+    end
+
+    def is_client_logged_in?
+      client_token.present?
+    end
+
   end
 
 end

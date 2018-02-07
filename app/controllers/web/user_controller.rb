@@ -30,15 +30,16 @@ class Web::UserController < Web::BaseController
   def verify_existing_login
 
     @response = CompanyApi::Request::Client.new(
-        CompanyApi::Response::Formatter::Economy,
+        CompanyApi::Response::Formatter::Client,
         request.cookies
     ).fetch_verify_cookie_details
+
+    # success means user is already logged in, we would redirect to dashboard / planner
+    @presenter_obj = ::WebPresenter::UserPresenter.new(@response, params)
 
     # Error means user ain't logged in yet.
     return unless @response.success?
 
-    # success means user is already logged in, we would redirect to dashboard / planner
-    @presenter_obj = ::WebPresenter::UserPresenter.new(@response, params)
     if @presenter_obj.client_token.step_three_done?
       redirect_to :dashboard, status: GlobalConstant::ErrorCode.temporary_redirect and return
     else

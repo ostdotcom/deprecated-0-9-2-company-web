@@ -15,10 +15,6 @@ module WebPresenter
         super
       end
 
-      def client_token
-        @c_t ||= formatter_obj.client_token
-      end
-
       def transaction_types
         @t_types ||= (formatter_obj.transaction_types || [])
       end
