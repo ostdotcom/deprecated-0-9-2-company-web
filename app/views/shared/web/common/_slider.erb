@@ -1,0 +1,21 @@
+<div class="form-group">
+  <label for="<%=id%>"></label>
+  <div class="input-group slider-with-input">
+    <input
+        type="text"
+        id="<%=id%>"
+        name="<%=name%>"
+        data-provide="slider"
+        data-slider-min="<%=min%>"
+        data-slider-max="<%=max%>"
+        data-slider-step="<%=step%>"
+        data-slider-value="<%=value%>"
+        data-slider-tooltip="<%=tooltip%>"
+        <% if defined? ticks %>data-slider-ticks="<%=ticks.to_s%>"<% end %>
+        <% if defined? ticks_labels %>data-slider-ticks-labels='<%=raw ticks_labels.to_s%>'<% end %>
+    >
+    <span class="slider-input-right">
+      <input type="<%=type%>" class="form-control" min="<%=min%>" max="<%=max%>" step="<%=step%>" value="<%=value%>" />
+    </span>
+  </div>
+</div>

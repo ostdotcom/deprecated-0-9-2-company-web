@@ -2,5 +2,17 @@
   <div class="col-12">
     <h3 class="text-center mt-4">Plan the Francesco Coin Economy in 3 Easy Steps</h3>
     <hr />
+    <%= render partial: 'shared/web/common/slider',
+               locals: {
+                       id: 'some_id',
+                       name: 'some_id',
+                       type: 'number',
+                       min: 1,
+                       max: 10,
+                       step: 1,
+                       value: 2,
+                       tooltip: 'hide'
+               }
+    %>
   </div>
 </div>

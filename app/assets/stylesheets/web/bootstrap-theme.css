@@ -3,4 +3,6 @@
  *= require web/Starboy/Starboy.scss
  * Component bootstrap-slider
  *= require ../plugins/bootstrap-slider/bootstrap-slider
+ * Component bootstrap-slider-text-input
+ *= require ../plugins/bootstrap-slider-text-input/bootstrap-slider-text-input
  */
