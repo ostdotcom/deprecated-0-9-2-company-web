@@ -1,0 +1,15 @@
+.ost-supply{
+  width: 4px;
+  height: 22px;
+  border-radius: 3.8px;
+  display: inline-block;
+  &.available{
+    background-color: #34445b;
+  }
+  &.allocated{
+    background-color: #f6c62b;
+  }
+  &.staked-minting{
+    background-color: #88c7ca;
+  }
+}
