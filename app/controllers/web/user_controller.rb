@@ -4,8 +4,10 @@ class Web::UserController < Web::BaseController
 
   before_action :set_page_meta_info
 
+  before_action :verify_existing_login, only: [:login, :sign_up]
+
   def login
-    @fe_no_nav = true;
+    @fe_no_nav = true
   end
 
   def logout
@@ -14,6 +16,35 @@ class Web::UserController < Web::BaseController
 
   def sign_up
     @fe_no_nav = true;
+  end
+
+  private
+
+  # Verify existing login
+  # Redirect to dashboard / planner if yes
+  #
+  # * Author: Puneet
+  # * Date: 02/02/2018
+  # * Reviewed By:
+  #
+  def verify_existing_login
+
+    @response = CompanyApi::Request::Client.new(
+        CompanyApi::Response::Formatter::Economy,
+        request.cookies
+    ).fetch_verify_cookie_details
+
+    # Error means user ain't logged in yet.
+    return unless @response.success?
+
+    # success means user is already logged in, we would redirect to dashboard / planner
+    @presenter_obj = ::WebPresenter::UserPresenter.new(@response, params)
+    if @presenter_obj.client_token.step_three_done?
+      redirect_to :dashboard, status: GlobalConstant::ErrorCode.temporary_redirect and return
+    else
+      redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect and return
+    end
+
   end
 
 end

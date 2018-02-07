@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   end
 
   scope '', controller: 'web/economy' do
-    get '/dashboard' => :dashboard
-    get '/planner' => :planner
+    get '/dashboard' => :dashboard, as: 'dashboard'
+    get '/planner' => :planner, as: 'planner'
     get '/token-supply' => :token_supply
     get '/users' => :users
     get '/transactions' => :transactions

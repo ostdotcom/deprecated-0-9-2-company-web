@@ -2,7 +2,7 @@ module CompanyApi
 
   module Request
 
-    class Economy < CompanyApi::Request::Base
+    class Client < CompanyApi::Request::Base
 
       # Initialize
       #
@@ -14,12 +14,12 @@ module CompanyApi
       # @param [Hash] cookies (mandatory) - cookies that need to be sent to API
       # @param [Hash] headers (optional) - headers that need to be sent to API
       #
-      # @return [CompanyApi::Request::Economy] returns an object of CompanyApi::Request::Economy class
+      # @return [CompanyApi::Request::Client] returns an object of CompanyApi::Request::Client class
       #
       def initialize(api_response_formatter_class, cookies, headers = {})
 
         super
-        @service_base_route = 'economy/'
+        @service_base_route = 'client/'
 
       end
 
@@ -29,31 +29,9 @@ module CompanyApi
       # * Date: 02/02/2018
       # * Reviewed By:
       #
-      def fetch_planner_details
-        get('token/get-setup-details')
+      def fetch_verify_cookie_details
+        get('verify-cookie')
       end
-
-      # Fetch Details of users
-      #
-      # * Author: Puneet
-      # * Date: 02/02/2018
-      # * Reviewed By:
-      #
-      def fetch_user_details
-        get('users/list')
-      end
-
-      # Fetch transaction kinds
-      #
-      # * Author: Puneet
-      # * Date: 02/02/2018
-      # * Reviewed By:
-      #
-      def fetch_transaction_kinds_details
-        get('transaction/kind/list')
-      end
-
-      private
 
     end
 
