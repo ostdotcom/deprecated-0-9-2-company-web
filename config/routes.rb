@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   end
 
   scope '', controller: 'web/user' do
-    get '/login' => :login
+    get '/login' => :login, as: 'login'
     get '/logout' => :logout
     get '/sign-up' => :sign_up
   end

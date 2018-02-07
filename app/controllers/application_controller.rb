@@ -70,7 +70,9 @@ class ApplicationController < ActionController::Base
   # * Reviewed By: Sunil Khedar
   #
   def render_error_response_for(service_response)
+
     http_code = service_response.http_code
+
     @page_assets_data = {specific_js_required: 0}
 
     # Clean critical data
@@ -79,7 +81,11 @@ class ApplicationController < ActionController::Base
     if request.xhr?
       (render plain: Oj.dump(service_response.to_json, mode: :compat), status: http_code) and return
     else
-      render file: "public/#{http_code}.html", layout: false, status: http_code and return
+      if http_code == GlobalConstant::ErrorCode.unauthorized_access
+        redirect_to :login and return
+      else
+        render file: "public/#{http_code}.html", layout: false, status: http_code and return
+      end
     end
 
   end
