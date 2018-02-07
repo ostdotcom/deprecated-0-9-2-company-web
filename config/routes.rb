@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get '/login' => :login, as: 'login'
     get '/logout' => :logout
     get '/sign-up' => :sign_up
+    get '/reset-password' => :reset_password
   end
 
   scope '', controller: 'web/economy' do

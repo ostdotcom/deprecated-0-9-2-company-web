@@ -7,7 +7,7 @@ class Web::UserController < Web::BaseController
   before_action :verify_existing_login, only: [:login, :sign_up]
 
   def login
-    @fe_no_nav = true
+
   end
 
   def logout
@@ -15,7 +15,11 @@ class Web::UserController < Web::BaseController
   end
 
   def sign_up
-    @fe_no_nav = true;
+
+  end
+
+  def reset_password
+
   end
 
   private
