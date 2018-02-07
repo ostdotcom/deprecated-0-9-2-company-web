@@ -19,7 +19,7 @@ module CompanyApi
       def initialize(api_response_formatter_class, cookies, headers = {})
 
         super
-        @service_base_route = 'economy/token/'
+        @service_base_route = 'economy/'
 
       end
 
@@ -30,7 +30,27 @@ module CompanyApi
       # * Reviewed By:
       #
       def fetch_planner_details
-        get('get-setup-details')
+        get('token/get-setup-details')
+      end
+
+      # Fetch Details of users
+      #
+      # * Author: Puneet
+      # * Date: 02/02/2018
+      # * Reviewed By:
+      #
+      def fetch_user_details
+        get('users/list')
+      end
+
+      # Fetch transaction kinds
+      #
+      # * Author: Puneet
+      # * Date: 02/02/2018
+      # * Reviewed By:
+      #
+      def fetch_transaction_kinds_details
+        get('transaction/kind/list')
       end
 
       private

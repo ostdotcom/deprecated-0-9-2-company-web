@@ -6,7 +6,7 @@ module CompanyApi
 
       class Base
 
-        attr_reader :user, :client_token, :transaction_types, :client_ost_balance, :client_token_balance
+        attr_reader :user, :client_token, :client_ost_balance, :client_token_balance
 
         # Initialize
         #
@@ -78,22 +78,6 @@ module CompanyApi
         #
         def set_client_token_balance(client_token_balance)
           @client_token_balance = CompanyApi::Response::Entity::ClientTokenBalance.new(client_token_balance)
-        end
-
-        # Set transaction types
-        #
-        # * Author: Puneet
-        # * Date: 02/02/2018
-        # * Reviewed By:
-        #
-        # @param [Hash] transaction_types_data (mandatory) - transaction types hash
-        #
-        # Sets @transaction_types
-        #
-        def set_transaction_types(transaction_types_data)
-          @transaction_types = transaction_types_data.inject({}) do |formatted_data, transaction_type_data|
-            formatted_data[transaction_type_data['id'].to_i] = CompanyApi::Response::Entity::TransactionKind.new(transaction_type_data)
-          end
         end
 
       end

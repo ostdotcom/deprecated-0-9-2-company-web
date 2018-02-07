@@ -24,6 +24,14 @@ module CompanyApi
           @data['token_balance'].to_f
         end
 
+        def token_balance_in_ost
+          token_balance * token_to_ost_conversion_rate
+        end
+
+        def token_to_ost_conversion_rate
+          @data['token_to_ost_conversion_rate'].to_f
+        end
+
       end
 
     end
