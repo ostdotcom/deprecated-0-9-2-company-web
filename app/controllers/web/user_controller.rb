@@ -1,6 +1,6 @@
 class Web::UserController < Web::BaseController
 
-  layout "web"
+  layout "user"
 
   before_action :set_page_meta_info
 
