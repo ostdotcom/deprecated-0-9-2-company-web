@@ -5,7 +5,7 @@
 
     var SLIDER_NAMESPACE_MAIN = 'slider';
     var SLIDER_NAMESPACE_ALTERNATE = 'bootstrapSlider';
-    if (!$.fn.slider) {
+    if ($.fn.slider) {
       var SLIDER_NAMESPACE = SLIDER_NAMESPACE_MAIN;
     } else {
       var SLIDER_NAMESPACE = SLIDER_NAMESPACE_ALTERNATE;
