@@ -87,10 +87,10 @@
     sliderValueToTextInput();
   }
 
-  $.bridget('sliderTextInput', SliderTextInput);
+  //$.bridget('sliderTextInput', SliderTextInput);
 
   $(function() {
-    $("input[data-provide=slider]").sliderTextInput();
+    //$("input[data-provide=slider]").sliderTextInput();
   });
 
 })(window, jQuery);
