@@ -200,7 +200,7 @@ class TransactionList extends React.Component {
 
   onRowsRendered ({ overscanStartIndex, overscanStopIndex, startIndex, stopIndex }) {
     var oThis = this;
-    if ( oThis.meta.next_page_payload ) {
+    if ( oThis.meta.next_page_payload && Object.keys( oThis.meta.next_page_payload ).length > 0 ) {
       //It is possible to fetch next page.
       const maxIndx = Math.max(startIndex, stopIndex);
       if ( oThis.transactions.length - maxIndx < 10 ) {
