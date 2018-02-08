@@ -2,13 +2,22 @@
 (function(window, $){
 
   var SliderTextInput = function(slider) {
+
+    var SLIDER_NAMESPACE_MAIN = 'slider';
+    var SLIDER_NAMESPACE_ALTERNATE = 'bootstrapSlider';
+    if (!$.fn.slider) {
+      var SLIDER_NAMESPACE = SLIDER_NAMESPACE_MAIN;
+    } else {
+      var SLIDER_NAMESPACE = SLIDER_NAMESPACE_ALTERNATE;
+    }
+
     var textInputLeft = $(slider).closest('.form-group').find('.slider-input-left input').get().shift()
     var textInputRight = $(slider).closest('.form-group').find('.slider-input-right input').get().shift()
     var textInputBottom = $(slider).closest('.form-group').find('.slider-input-bottom input').get().shift()
     var textInput = textInputLeft || textInputRight || textInputBottom
 
     var sliderValueToTextInput = function () {
-      var value = $(slider).slider('getValue')
+      var value = $(slider)[SLIDER_NAMESPACE]('getValue')
 
       if (Array.isArray(value)) {
         if ($(textInputLeft).val() !== value[0]) {
@@ -26,7 +35,7 @@
     }
 
     var textInputValueToSlider = function (element) {
-      var sliderValue = $(slider).slider('getValue')
+      var sliderValue = $(slider)[SLIDER_NAMESPACE]('getValue')
       var value = parseFloat($(element).val())
 
       if (Array.isArray(sliderValue)) {
@@ -39,7 +48,7 @@
         sliderValue = value
       }
 
-      $(slider).slider('setValue', sliderValue)
+      $(slider)[SLIDER_NAMESPACE]('setValue', sliderValue)
     }
 
     var validateValues = function () {
@@ -50,7 +59,7 @@
         var tmp = valueLeft
         $(textInputLeft).val(valueRight)
         $(textInputRight).val(tmp)
-        $(slider).slider('setValue', [valueRight, valueLeft])
+        $(slider)[SLIDER_NAMESPACE]('setValue', [valueRight, valueLeft])
       }
 
       sliderValueToTextInput()
@@ -87,10 +96,10 @@
     sliderValueToTextInput();
   }
 
-  //$.bridget('sliderTextInput', SliderTextInput);
+  $.bridget('sliderTextInput', SliderTextInput);
 
   $(function() {
-    //$("input[data-provide=slider]").sliderTextInput();
+    $("input[data-provide=slider]").sliderTextInput();
   });
 
 })(window, jQuery);
