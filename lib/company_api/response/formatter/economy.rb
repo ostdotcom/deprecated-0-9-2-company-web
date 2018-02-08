@@ -38,7 +38,7 @@ module CompanyApi
 
           set_client_ost_balance(@data['client_ost_balance'])
 
-          set_ost_usd_converter(@data['ost_usd_conversion_factor'])
+          set_ost_fiat_converter(@data['ost_fiat_conversion_factors'])
 
           set_transaction_types(@data['transaction_types']) if @data['transaction_types'].present?
 

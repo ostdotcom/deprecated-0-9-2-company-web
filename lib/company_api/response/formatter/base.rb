@@ -7,7 +7,7 @@ module CompanyApi
       class Base
 
         attr_reader :user, :client_token, :client_ost_balance, :client_token_balance,
-                    :next_page_payload, :ost_usd_converter
+                    :next_page_payload, :ost_fiat_converter
 
         # Initialize
         #
@@ -101,12 +101,12 @@ module CompanyApi
         # * Date: 02/02/2018
         # * Reviewed By:
         #
-        # @param [Decimal] conversion_rate (mandatory)
+        # @param [Hash] conversion_rates (mandatory)
         #
-        # Sets @ost_usd_converter
+        # Sets @ost_fiat_converter
         #
-        def set_ost_usd_converter(conversion_rate)
-          @ost_usd_converter = CompanyApi::Response::Entity::OstUsdConverter.new(conversion_rate)
+        def set_ost_fiat_converter(conversion_rates)
+          @ost_fiat_converter = CompanyApi::Response::Entity::OstFiatConverter.new(conversion_rates)
         end
 
       end
