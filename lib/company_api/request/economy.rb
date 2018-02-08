@@ -33,6 +33,16 @@ module CompanyApi
         get('token/get-setup-details')
       end
 
+      # Fetch token supply details
+      #
+      # * Author: Puneet
+      # * Date: 02/02/2018
+      # * Reviewed By:
+      #
+      def fetch_supply_details
+        get('token/get-supply-details')
+      end
+
       # Fetch Details of users
       #
       # * Author: Puneet

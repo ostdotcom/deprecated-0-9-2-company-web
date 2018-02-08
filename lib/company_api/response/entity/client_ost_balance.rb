@@ -24,14 +24,6 @@ module CompanyApi
           @data['ost_balance'].to_f
         end
 
-        def ost_usd_conversion_factor
-          @data['ost_usd_conversion_factor'].to_f
-        end
-
-        def usd_balance
-          ost_balance * ost_usd_conversion_factor
-        end
-
       end
 
     end

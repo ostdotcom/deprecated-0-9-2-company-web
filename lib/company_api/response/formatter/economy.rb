@@ -38,6 +38,8 @@ module CompanyApi
 
           set_client_ost_balance(@data['client_ost_balance'])
 
+          set_ost_usd_converter(@data['ost_usd_conversion_factor'])
+
           set_transaction_types(@data['transaction_types']) if @data['transaction_types'].present?
 
           set_economy_users(@data['economy_users']) if @data['economy_users'].present?

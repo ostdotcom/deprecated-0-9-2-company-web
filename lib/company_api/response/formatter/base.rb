@@ -6,7 +6,8 @@ module CompanyApi
 
       class Base
 
-        attr_reader :user, :client_token, :client_ost_balance, :client_token_balance, :next_page_payload
+        attr_reader :user, :client_token, :client_ost_balance, :client_token_balance,
+                    :next_page_payload, :ost_usd_converter
 
         # Initialize
         #
@@ -92,6 +93,20 @@ module CompanyApi
         #
         def set_next_page_payload(payload_data)
           @next_page_payload = CompanyApi::Response::Entity::PaginationPayload.new(payload_data)
+        end
+
+        # Set converter obj
+        #
+        # * Author: Puneet
+        # * Date: 02/02/2018
+        # * Reviewed By:
+        #
+        # @param [Decimal] conversion_rate (mandatory)
+        #
+        # Sets @ost_usd_converter
+        #
+        def set_ost_usd_converter(conversion_rate)
+          @ost_usd_converter = CompanyApi::Response::Entity::OstUsdConverter.new(conversion_rate)
         end
 
       end
