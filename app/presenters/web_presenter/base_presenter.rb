@@ -82,6 +82,10 @@ module WebPresenter
       curreny.to_s #TODO: Figure out a logic to handle this
     end
 
+    def action
+      @params[:action]
+    end
+
   end
 
 end

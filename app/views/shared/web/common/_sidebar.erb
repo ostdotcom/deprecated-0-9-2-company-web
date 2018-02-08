@@ -1,10 +1,25 @@
+<%
+  action = @presenter_obj.action
+%>
 <%= render :partial => "/shared/web/common/sidebar-icons.svg" %>
 
 <aside id="sidebar" class="sidebar-nav">
 
   <ul class="nav nav-pills flex-column">
+    <% if action == 'planner' %>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center active" href="/planner">
+            <svg class="icon">
+              <switch>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-planner"></use>
+              </switch>
+            </svg>
+            <span class="label">Economy Planner</span>
+          </a>
+        </li>
+    <% end %>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center active" href="#">
+      <a class="nav-link d-flex align-items-center <%= action == 'dashboard' ? 'active' : ''%>" href="/dashboard">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-dashboard"></use>
@@ -14,7 +29,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center" href="#">
+      <a class="nav-link d-flex align-items-center <%= action == 'token-supply' ? 'active' : ''%>" href="/token-supply">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-token-supply"></use>
@@ -24,7 +39,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center" href="#">
+      <a class="nav-link d-flex align-items-center <%= action == 'users' ? 'active' : ''%>" href="/users">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-users"></use>
@@ -34,7 +49,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center" href="#">
+      <a class="nav-link d-flex align-items-center <%= action == 'transactions' ? 'active' : ''%>" href="/transactions">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-transactions"></use>
@@ -44,7 +59,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center" href="#">
+      <a class="nav-link d-flex align-items-center <%= action == 'simulator' ? 'active' : ''%>" href="/simulator">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-simulator"></use>
@@ -54,27 +69,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center" href="#">
-        <svg class="icon">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-api"></use>
-          </switch>
-        </svg>
-        <span class="label">Developer Console</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center" href="#">
-        <svg class="icon">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-bt-explorer"></use>
-          </switch>
-        </svg>
-        <span class="label">BTexplorer</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center" href="#">
+      <a class="nav-link d-flex align-items-center <%= action == 'token_design' ? 'active' : ''%>" href="/token-design">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-token-design"></use>
@@ -87,10 +82,10 @@
       <a class="nav-link d-flex align-items-center" href="#">
         <svg class="icon">
           <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-planner"></use>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-bt-explorer"></use>
           </switch>
         </svg>
-        <span class="label">Economy Planner</span>
+        <span class="label">BTexplorer <span class="badge">Coming soon</span></span>
       </a>
     </li>
     <li class="nav-item">
