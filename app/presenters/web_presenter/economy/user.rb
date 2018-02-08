@@ -19,6 +19,10 @@ module WebPresenter
         @e_usrs ||= (formatter_obj.economy_users || [])
       end
 
+      def next_page_payload
+        @n_pld ||= (formatter_obj.next_page_payload || {})
+      end
+
     end
 
   end

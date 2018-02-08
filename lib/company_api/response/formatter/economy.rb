@@ -44,6 +44,8 @@ module CompanyApi
 
           set_token_supply_details(@data['token_supply_details']) if @data['token_supply_details'].present?
 
+          set_next_page_payload(@data['next_page_payload']) if @data['next_page_payload'].present?
+
         end
 
         private

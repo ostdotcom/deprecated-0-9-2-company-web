@@ -6,7 +6,7 @@ module CompanyApi
 
       class Base
 
-        attr_reader :user, :client_token, :client_ost_balance, :client_token_balance
+        attr_reader :user, :client_token, :client_ost_balance, :client_token_balance, :next_page_payload
 
         # Initialize
         #
@@ -78,6 +78,20 @@ module CompanyApi
         #
         def set_client_token_balance(client_token_balance)
           @client_token_balance = CompanyApi::Response::Entity::ClientTokenBalance.new(client_token_balance)
+        end
+
+        # Set next page payload
+        #
+        # * Author: Puneet
+        # * Date: 02/02/2018
+        # * Reviewed By:
+        #
+        # @param [Hash] payload_data (mandatory) - payload hash
+        #
+        # Sets @client_token_balance
+        #
+        def set_next_page_payload(payload_data)
+          @next_page_payload = CompanyApi::Response::Entity::PaginationPayload.new(payload_data)
         end
 
       end
