@@ -2,7 +2,8 @@
     width: 100%;
 }
 .slider-with-input .slider {
-    display: table-cell;
+    flex-grow: 1;
+    max-width: 100%;
 }
 .slider-input-left {
     width: 1%;
