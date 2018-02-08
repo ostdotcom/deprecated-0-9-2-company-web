@@ -301,7 +301,26 @@
     jInstall : null,
     jLocked : null,
     jChian : null,
-    jAccount : null
+    jAccount : null,
+
+    idInstall : null,
+    idLocked : null,
+    idChian : null,
+    idAccount : null,
+
+    initInstallScreen: function () {
+
+    },
+    initLockedScreen: function () {
+
+    },
+    initChianScreen: function () {
+
+    },
+    initAccountScreen: function () {
+      
+    }
+
   };
 
 

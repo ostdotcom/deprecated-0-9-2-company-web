@@ -22,6 +22,9 @@
       //Compute z-index.
       var newZIndex = 10;
       activeElements.each(function (i, el) {
+        if ( thisElZindex == el ) {
+          return;
+        }
         var thisElZindex = el.style.zIndex;
         if ( thisElZindex >= newZIndex ) {
           newZIndex = thisElZindex + 1;
