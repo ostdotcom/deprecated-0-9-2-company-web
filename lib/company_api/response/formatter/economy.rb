@@ -38,11 +38,15 @@ module CompanyApi
 
           set_client_ost_balance(@data['client_ost_balance'])
 
+          set_ost_fiat_converter(@data['ost_fiat_conversion_factors'])
+
           set_transaction_types(@data['transaction_types']) if @data['transaction_types'].present?
 
           set_economy_users(@data['economy_users']) if @data['economy_users'].present?
 
           set_token_supply_details(@data['token_supply_details']) if @data['token_supply_details'].present?
+
+          set_next_page_payload(@data['next_page_payload']) if @data['next_page_payload'].present?
 
         end
 

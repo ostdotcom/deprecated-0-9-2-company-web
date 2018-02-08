@@ -1,3 +1,13 @@
+<%
+  formatter_obj = @presenter_obj.formatter_obj
+  token_symbol = @presenter_obj.client_token_symbol
+  fiat_symbol = @presenter_obj.client_fiat_curreny_pref
+  fiat_symbol_upcase = fiat_symbol.upcase
+  tokens_minted = @presenter_obj.token_supply_details.tokens_minted
+  tokens_distributed = @presenter_obj.token_supply_details.tokens_distributed
+  token_balance = @presenter_obj.client_token_balance.token_balance
+%>
+
 <div class="row">
   <div class="col-12">
     <h3 class="mb-0">Token Supply</h3>
@@ -7,27 +17,27 @@
   <div class="col-md-3 col-sm-4 col-lg">
     <div class="card">
       <div class="card-body text-uppercase text-center">
-        <h5 class="card-title mb-1">FRC MINTED</h5>
-        <p class="card-text mb-1">FRC 10,000</p>
-        <p class="card-text">USD 500</p>
+        <h5 class="card-title mb-1"><%= token_symbol %> MINTED</h5>
+        <p class="card-text mb-1"><%= "#{token_symbol} #{tokens_minted}" %></p>
+        <p class="card-text"><%= "#{fiat_symbol_upcase} #{@presenter_obj.token_to_fiat_value(tokens_minted)}" %></p>
       </div>
     </div>
   </div>
   <div class="col-md-3 col-sm-4 col-lg">
     <div class="card">
       <div class="card-body text-uppercase text-center">
-        <h5 class="card-title mb-1">FRC MINTED</h5>
-        <p class="card-text mb-1">FRC 10,000</p>
-        <p class="card-text">USD 500</p>
+        <h5 class="card-title mb-1"><%= token_symbol %> AVAILABLE</h5>
+        <p class="card-text mb-1"><%= "#{token_symbol} #{token_balance}" %></p>
+        <p class="card-text"><%= "#{fiat_symbol_upcase} #{@presenter_obj.token_to_fiat_value(token_balance)}" %></p>
       </div>
     </div>
   </div>
   <div class="col-md-3 col-sm-4 col-lg">
     <div class="card">
       <div class="card-body text-uppercase text-center">
-        <h5 class="card-title mb-1">FRC MINTED</h5>
-        <p class="card-text mb-1">FRC 10,000</p>
-        <p class="card-text">USD 500</p>
+        <h5 class="card-title mb-1"><%= token_symbol %> DISTRIBUTED</h5>
+        <p class="card-text mb-1"><%= "#{token_symbol} #{tokens_distributed}" %></p>
+        <p class="card-text"><%= "#{fiat_symbol_upcase} #{@presenter_obj.token_to_fiat_value(tokens_distributed)}" %></p>
       </div>
     </div>
   </div>

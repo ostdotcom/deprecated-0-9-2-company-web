@@ -14,13 +14,14 @@
       oThis.idLocked = "#metamaskLockedCover";
       oThis.idChian = "#metamaskWrongNetworkCover";
       oThis.idAccount = "#metamaskWrongAccountCover";
-
+      oThis.lastValidAddress = null;
 
       oThis.jInstall = $("#installMetamaskCover");
       oThis.jLocked = $("#metamaskLockedCover");
       oThis.jChian = $("#metamaskWrongNetworkCover");
       oThis.jAccount = $("#metamaskWrongAccountCover");
     },
+    lastValidAddress: null,
     config: {
       tokenName         : "",
       tokenSymbol       : "",
@@ -215,7 +216,13 @@
             }
         }
       ;
-      if ( !config.hasRegisteredAddress ) {
+      // if ( !config.hasRegisteredAddress ) {
+      //   oThis.updateAccount( newAccount );
+      //   callback && callback( response.success, response );
+      //   return;
+      // }
+
+      if ( oThis.lastValidAddress && oThis.lastValidAddress == newAccount ) {
         oThis.updateAccount( newAccount );
         callback && callback( response.success, response );
         return;
@@ -223,18 +230,26 @@
 
       //Ajax to validate address here.
       var ajaxConfig = {
-        success: function ( response ) {
+        url: "/api/client/validate-eth-address/"
+        , data : {
+          "eth_address": newAccount
+        }
+        , success: function ( response ) {
           oThis.updateAccount( newAccount );
           response.data = response.data || {};
           response.data.account = newAccount;
+          if ( response.success ) {
+            oThis.lastValidAddress = newAccount;
+          } else {
+            oThis.lastValidAddress = null;
+          }
           callback && callback( response.success, response );
         }
       };
 
-      //Dummy Code: //Work with Puneet here
-      setTimeout(function () {
-        ajaxConfig.success({ success: true, data: {}});
-      }, 300);
+      $.get( ajaxConfig );
+
+        
     },
 
 

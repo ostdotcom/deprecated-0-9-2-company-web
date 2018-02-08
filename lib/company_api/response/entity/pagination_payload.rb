@@ -4,7 +4,7 @@ module CompanyApi
 
     module Entity
 
-      class ClientOstBalance
+      class PaginationPayload
 
         # Initialize
         #
@@ -14,14 +14,14 @@ module CompanyApi
         #
         # @param [Hash] data (mandatory) - entity data
         #
-        # @return [CompanyApi::Response::Entity::ClientOstBalance] returns an object of CompanyApi::Response::Entity::ClientOstBalance class
+        # @return [CompanyApi::Response::Entity::PaginationPayload] returns an object of CompanyApi::Response::Entity::PaginationPayload class
         #
         def initialize(data)
           @data = data
         end
 
-        def ost_balance
-          @data['ost_balance'].to_f
+        def payload
+          @data
         end
 
       end
