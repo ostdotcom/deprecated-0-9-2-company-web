@@ -4,7 +4,7 @@
     <hr />
     <%= render partial: 'shared/web/common/slider',
                locals: {
-                       label: 'Some questions which is used as label',
+                       label: 'How much do you want 1 Francesco Coin to be worth?',
                        id: 'some_id',
                        name: 'some_id',
                        type: 'number',
@@ -12,9 +12,38 @@
                        max: 10,
                        step: 1,
                        value: 2,
-                       tooltip: 'hide'
+                       tooltip: 'always'
                }
     %>
+    <hr />
+    <%= render partial: 'shared/web/common/slider',
+               locals: {
+                       label: 'How many Francesco Coin users do you plan to begin with?',
+                       id: 'some_id',
+                       name: 'some_id',
+                       type: 'number',
+                       min: 1,
+                       max: 10,
+                       step: 1,
+                       value: 2,
+                       tooltip: 'always'
+               }
+    %>
+    <hr />
+    <%= render partial: 'shared/web/common/slider',
+               locals: {
+                       label: 'How much Francesco Coin do you wish to airdrop to each user to begin with?',
+                       id: 'some_id',
+                       name: 'some_id',
+                       type: 'number',
+                       min: 1,
+                       max: 10,
+                       step: 1,
+                       value: 2,
+                       tooltip: 'always'
+               }
+    %>
+    <hr />
   </div>
   <div class="col-12">
     <button id="getInitialOstBtn"> Get Initial OST</button>

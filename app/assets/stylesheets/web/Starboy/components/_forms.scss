@@ -21,6 +21,31 @@
     color: color('blue-700') !important;
   }
 
+  .slider-with-input{
+
+    .slider-track{
+      background: none;
+      box-shadow: none;
+    }
+
+    .slider-selection{
+      box-shadow: none;
+    }
+
+    &.slider-yellow{
+      .slider-selection{
+        background: #fbd764;
+      }
+      .slider-handle{
+        background: #fbd764;
+      }
+      .slider-track-high{
+        border: 1px solid #fbd764;
+      }
+    }
+
+  }
+
 }
 
 .user-form{
