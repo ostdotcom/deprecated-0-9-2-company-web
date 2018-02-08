@@ -21,6 +21,11 @@
     color: color('blue-700') !important;
   }
 
+  .error{
+    color: color('red');
+    font-size: 0.8rem;
+  }
+
   .slider-with-input{
 
     .slider-track{
@@ -30,6 +35,10 @@
 
     .slider-selection{
       box-shadow: none;
+    }
+
+    ~.error{
+      text-align: right;
     }
 
     &.slider-yellow{
