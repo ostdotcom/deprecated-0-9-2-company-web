@@ -1,0 +1,27 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#stake-mint-complete">
+  install metamask modal
+</button>
+
+<%= render :partial => "/web/user/dashboard/metamask_installed" %>
+<%#= render :partial => "/web/user/dashboard/metamask_locked" %>
+<%#= render :partial => "/web/user/dashboard/metamask_wrong_network" %>
+<%#= render :partial => "/web/user/dashboard/metamask_wrong_account" %>
+<%#= render :partial => "/web/user/dashboard/ost_sent" %>
+
+<%= render :partial => "/shared/web/modals/verify_account" %>
+<%= render :partial => "/shared/web/modals/install_metamask_lightbox" %>
+<%= render :partial => "/shared/web/modals/stake_mint_confirm" %>
+<%= render :partial => "/shared/web/modals/stake_mint_processing" %>
+<%= render :partial => "/shared/web/modals/stake_mint_complete" %>
+
+<% content_for :end_js do %>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+    </script>
+<% end %>

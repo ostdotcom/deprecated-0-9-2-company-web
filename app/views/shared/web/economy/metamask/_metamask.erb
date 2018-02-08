@@ -1,0 +1,59 @@
+<%
+  #Place for backend to do stuff.
+  token_name = "Francesco Coin";
+  token_symbol = "FRC";
+  token_icon = "token_icon_1";
+  value_chain_id = 3;
+  utility_chain_id = 1410;
+  eligible_grant_value = 500;
+  eligible_grant_unit = "OST &alpha;"
+  has_registered_address = false;
+
+  partial_locals = {
+    :token_name => token_name,
+    :token_symbol => token_symbol,
+    :token_icon => token_icon,
+    :value_chain_id => value_chain_id,
+    :utility_chain_id => utility_chain_id,
+    :eligible_grant_value => eligible_grant_value,
+    :eligible_grant_unit => eligible_grant_unit,
+    :has_registered_address => has_registered_address
+  }
+%>
+
+<% content_for :end_js do %>
+<script type="text/javascript">
+  $(document).ready(function () {
+    var config = {
+      tokenName         : "<%= token_name %>",
+      tokenSymbol       : "<%= token_symbol %>",
+      tokenIcon         : "<%= token_icon %>",
+      eligibleGrantVal  : <%= eligible_grant_value %>,
+      eligibleGrantUnit : "<%= eligible_grant_unit %>",
+      valueChainId      : <%= value_chain_id %>,
+      utilityChianId    : <%= utility_chain_id %>,
+      hasRegisteredAddress : <%= has_registered_address %>
+    };
+    ost.metamask.init( config );
+  });
+</script>
+<% end %>
+
+<% content_for :cover_elements do %>
+  <div id="installMetamaskCover" class="cover-element metamask-flow">
+    <%= render :partial => "shared/web/economy/metamask/install_metamask", :locals => partial_locals %>
+  </div>
+  <div id="metamaskLockedCover" class="cover-element metamask-flow">
+    <%= render :partial => "shared/web/economy/metamask/metamask_locked", 
+    :locals => partial_locals %>
+  </div>
+  <div id="metamaskWrongNetworkCover" class="cover-element metamask-flow">
+    <%= render :partial => "shared/web/economy/metamask/metamask_wrong_network", 
+    :locals => partial_locals %>
+  </div>
+  <div id="metamaskWrongAccountCover" class="cover-element metamask-flow">
+    <%= render :partial => "shared/web/economy/metamask/metamask_wrong_account", 
+    :locals => partial_locals %>
+  </div>
+<% end %>
+

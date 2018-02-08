@@ -1,9 +1,11 @@
-<header class="fixed-top">
+<header >
 
-  <% if @presenter_obj.is_client_logged_in? %>
-      <%= render :partial => "/shared/web/common/header_logged_in" %>
-  <% else %>
-      <%= render :partial => "/shared/web/common/header_logged_out" %>
-  <% end %>
-
+  <div class="fixed-top header-height">
+    <% if @presenter_obj.is_client_logged_in? %>
+        <%= render :partial => "/shared/web/common/header_logged_in" %>
+    <% else %>
+        <%= render :partial => "/shared/web/common/header_logged_out" %>
+    <% end %>
+  </div>
+  <div class="header-height"></div>
 </header>

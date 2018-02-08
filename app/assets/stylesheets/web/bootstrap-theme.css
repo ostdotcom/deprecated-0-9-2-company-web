@@ -1,6 +1,8 @@
 /*
  * Bootstrap theme Starboy
  *= require web/Starboy/Starboy.scss
+ * Common CSS 
+ *= require web/common/common.scss
  * Component bootstrap-slider
  *= require ../plugins/bootstrap-slider/bootstrap-slider
  * Component bootstrap-slider-text-input

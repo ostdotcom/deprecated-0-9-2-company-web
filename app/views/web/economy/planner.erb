@@ -1,3 +1,23 @@
+<%= render :partial => "/web/economy/planner/step_1" %>
+<% content_for :cover_elements do %>
+  <div id="getInitialOstCover" class="cover-element">
+    <%= render :partial => "/web/economy/planner/get_initial_ost" %>
+  </div>
+<% end %>
+
+<% content_for :end_js do %>
+<script type="text/javascript">
+  $( function () {
+    ost.planner.init({
+      
+    });
+  });
+</script>
+<% end %>
+
+
+
+
 <%# if @presenter_obj.client_token.step_three_started? %>
 
 <%# elsif @presenter_obj.client_token.step_two_done? %>
@@ -5,14 +25,13 @@
 <%# elsif @presenter_obj.client_token.step_one_done? %>
 
 <%# else %>
-    <%= render :partial => "/web/economy/planner/step_1" %>
+
 <%# end %>
 
 <%#= render :partial => "/web/economy/planner/metamask_installed" %>
 <%#= render :partial => "/web/economy/planner/metamask_locked" %>
 <%#= render :partial => "/web/economy/planner/metamask_wrong_network" %>
 <%#= render :partial => "/web/economy/planner/metamask_wrong_account" %>
-<%#= render :partial => "/web/economy/planner/ost_sent" %>
 <%#= render :partial => "/web/economy/planner/planner_transactions" %>
 <%#= render :partial => "/shared/web/modals/stake_mint_confirm" %>
 <%#= render :partial => "/shared/web/modals/stake_mint_processing" %>
