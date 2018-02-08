@@ -62,6 +62,10 @@ module WebPresenter
       'usd'
     end
 
+    def client_fiat_curreny_pref_symbol
+      '$'
+    end
+
     def client_token_to_ost_conversion_rate
       @c_t_t_o_c_r ||= client_token.conversion_rate.to_f
     end

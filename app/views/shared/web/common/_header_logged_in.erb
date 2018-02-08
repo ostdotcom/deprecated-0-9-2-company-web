@@ -1,8 +1,16 @@
+<%
+  client_token = @presenter_obj.client_token
+  token_balance = @presenter_obj.client_token_balance.token_balance
+  token_fiat_balance = @presenter_obj.token_to_fiat_value(token_balance)
+  ost_balance = @presenter_obj.client_ost_balance.ost_balance
+  ost_fiat_balance = @presenter_obj.ost_fiat_converter.ost_to_fiat(ost_balance, @presenter_obj.client_fiat_curreny_pref)
+  client_fiat_curreny_pref_symbol = @presenter_obj.client_fiat_curreny_pref_symbol
+%>
 <%#= render :partial => "/shared/web/common/alert" %>
 <nav class="navbar navbar-expand-md navbar-light ">
   <a class="navbar-brand font-weight-normal" href="#">
     <img src="https://transloadit.edgly.net/assets/demos/outputs/image-manipulation-resize-to-75x75-stretched-snowflake-0.jpg__preview.jpg" class="rounded-circle" height="38" alt="image"/>
-    &nbsp;Francesco Coin
+    &nbsp;<%= client_token.name %>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -20,13 +28,13 @@
       <li class="nav-item">
         <a class="nav-link active">
           <span class="d-block">available frc</span>
-          <span class="d-block gold text-sm-left text-md-center">45,000 ($200)</span>
+          <span class="d-block gold text-sm-left text-md-center"><%= "#{token_balance} (#{client_fiat_curreny_pref_symbol}#{token_fiat_balance})" %></span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">
           <span class="d-block">available ost</span>
-          <span class="d-block gold text-sm-left text-md-center">45,000 ($200)</span>
+          <span class="d-block gold text-sm-left text-md-center"><%= "#{ost_balance} (#{client_fiat_curreny_pref_symbol}#{ost_fiat_balance})" %></span>
         </a>
       </li>
       <li class="nav-item">
