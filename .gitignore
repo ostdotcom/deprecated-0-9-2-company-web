@@ -33,3 +33,10 @@ Gemfile.lock
 
 # Ignore asset precompile folders
 /public/js-css
+app/views/shared/web/common/_header.erb
+
+app/controllers/web/economy_controller.rb
+
+app/views/shared/web/common/_header.erb
+
+app/controllers/web/economy_controller.rb
