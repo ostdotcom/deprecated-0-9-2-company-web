@@ -4,7 +4,7 @@ class Web::UserController < Web::BaseController
 
   before_action :set_page_meta_info
 
-  before_action :verify_existing_login, only: [:login, :sign_up]
+  before_action :verify_existing_login, only: [:login, :sign_up, :reset_password, :update_password]
 
   def login
 

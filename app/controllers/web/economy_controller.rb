@@ -12,6 +12,21 @@ class Web::EconomyController < Web::BaseController
   #
   def dashboard
 
+    #TODO: Change this when we know what is to be shown on this page
+
+    @response = CompanyApi::Request::Economy.new(
+        CompanyApi::Response::Formatter::Economy,
+        request.cookies
+    ).fetch_planner_details
+
+    # Check if error present or not?
+    unless @response.success?
+      render_error_response(@response)
+      return
+    end
+
+    @presenter_obj = ::WebPresenter::Economy::Planner.new(@response, params)
+
   end
 
   # Planner to perform economy setup steps
@@ -134,6 +149,21 @@ class Web::EconomyController < Web::BaseController
   #
   def simulator
 
+    #TODO: Change this when we know what is to be shown on this page
+
+    @response = CompanyApi::Request::Economy.new(
+        CompanyApi::Response::Formatter::Economy,
+        request.cookies
+    ).fetch_planner_details
+
+    # Check if error present or not?
+    unless @response.success?
+      render_error_response(@response)
+      return
+    end
+
+    @presenter_obj = ::WebPresenter::Economy::Planner.new(@response, params)
+
   end
 
   # token design
@@ -143,6 +173,21 @@ class Web::EconomyController < Web::BaseController
   # * Reviewed By:
   #
   def token_design
+
+    #TODO: Change this when we know what is to be shown on this page
+
+    @response = CompanyApi::Request::Economy.new(
+        CompanyApi::Response::Formatter::Economy,
+        request.cookies
+    ).fetch_planner_details
+
+    # Check if error present or not?
+    unless @response.success?
+      render_error_response(@response)
+      return
+    end
+
+    @presenter_obj = ::WebPresenter::Economy::Planner.new(@response, params)
 
   end
 
