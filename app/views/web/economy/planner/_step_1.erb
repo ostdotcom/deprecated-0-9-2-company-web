@@ -9,10 +9,10 @@
                        id: 'some_id',
                        name: 'some_id',
                        type: 'number',
-                       min: 1,
+                       min: 0.01,
                        max: 10,
-                       step: 1,
-                       value: 2,
+                       step: 0.1,
+                       value: 0.01,
                        tooltip: 'always',
                        classes: 'slider-yellow'
                }
@@ -25,9 +25,9 @@
                        name: 'some_id',
                        type: 'number',
                        min: 1,
-                       max: 10,
+                       max: 1000000,
                        step: 1,
-                       value: 2,
+                       value: 1,
                        tooltip: 'always',
                        classes: 'slider-yellow'
                }
@@ -40,17 +40,32 @@
                        name: 'some_id',
                        type: 'number',
                        min: 1,
-                       max: 10,
+                       max: 100,
                        step: 1,
-                       value: 2,
+                       value: 1,
                        tooltip: 'always',
                        classes: 'slider-yellow'
                }
     %>
     <hr class="mt-3 mb-4"/>
+  </div>
+  <!--<div class="col-12">
+    <button id="getInitialOstBtn"> Get Initial OST</button>
+  </div>-->
+</div>
+
+<div class="row">
+  <div class="col-12">
     <div class="p-3 mt-3 mb-3 text-center" style="background: #f9f8e6; color: #597a84">For the purpose of this simulation we will create 25 users for your application</div>
   </div>
+</div>
+
+<div class="row">
   <div class="col-12">
-    <button id="getInitialOstBtn"> Get Initial OST</button>
+    <div class="p-3 mt-3 mb-3" style="background: #f6f8fa; color: #438bad">
+      <h4>Our Recommended Conversion Rate</h4>
+    </div>
   </div>
 </div>
+
+<%= render :partial => "shared/web/common/faqs" %>

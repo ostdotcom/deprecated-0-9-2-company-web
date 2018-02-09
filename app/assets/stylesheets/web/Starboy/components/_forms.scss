@@ -1,9 +1,5 @@
 .form-group{
 
-  .text-uppercase{
-    text-transform: uppercase;
-  }
-
   .form-label{
     color: color('blue-700');
     margin: 0 0 5px 0;
@@ -28,6 +24,10 @@
   }
 
   .slider-with-input{
+
+    input.form-control{
+      font-size: 0.8rem;
+    }
 
     .slider-track{
       background: none;
