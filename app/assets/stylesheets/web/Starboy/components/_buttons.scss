@@ -1,0 +1,84 @@
+.btn{
+  text-transform: uppercase;
+  font-weight: 300;
+  min-width: 150px;
+}
+
+.btn-gold{
+  border-color: #e4b030;
+  background: #e4b030;
+  color: #fff;
+  &.focus-cls,
+  &:focus{
+    color: #fff;
+    outline: none;
+    text-decoration: none;
+  }
+  &.hover-cls, &.active-cls,
+  &:hover, &:active{
+    color: #fff;
+    text-decoration: none;
+    background-color: #d4a326;
+    border-color: #d4a326;
+  }
+}
+
+.btn-steps-nav{
+  font-size: 0.8rem;
+  border-radius: 0;
+  border-color: #af7f19;
+  background: #af7f19;
+  color: #fff;
+  &.focus-cls,
+  &:focus{
+    color: #fff;
+    outline: none;
+    text-decoration: none;
+  }
+  &.hover-cls, &.active-cls,
+  &:hover, &:active{
+    color: #fff;
+    text-decoration: none;
+    background-color: #af7f19;
+    border-color: #af7f19;
+  }
+}
+
+.btn-white{
+  border-color: #7f9183;
+  background: #ffffff;
+  color: #7f9183;
+  &.focus-cls,
+  &:focus{
+    color: #7f9183;
+    outline: none;
+    text-decoration: none;
+  }
+  &.hover-cls, &.active-cls,
+  &:hover, &:active{
+    color: #7f9183;
+    text-decoration: none;
+    background-color: #ffffff;
+    border-color: #7f9183;
+  }
+}
+
+.btn-gold-border{
+  border-color: #e4b030;
+  background: #ffffff;
+  color: #e4b030;
+  font-size: 1rem;
+  &.focus-cls,
+  &:focus{
+    color: #7f9183;
+    outline: none;
+    text-decoration: none;
+  }
+  &.hover-cls, &.active-cls,
+  &:hover, &:active{
+    color: #7f9183;
+    text-decoration: none;
+    background-color: #ffffff;
+    border-color: #7f9183;
+  }
+}
