@@ -78,8 +78,8 @@ class Web::EconomyController < Web::BaseController
 
     @presenter_obj = ::WebPresenter::Economy::TokenSupply.new(@response, params)
 
-    # if @presenter_obj.client_token.step_three_done?
-    #   redirect_to :dashboard, status: GlobalConstant::ErrorCode.temporary_redirect
+    # unless @presenter_obj.client_token.step_three_done?
+    #   redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect
     #   return
     # end
 
@@ -107,7 +107,7 @@ class Web::EconomyController < Web::BaseController
     @presenter_obj = ::WebPresenter::Economy::User.new(@response, params)
 
     # unless @presenter_obj.client_token.step_three_done?
-    #   redirect_to :dashboard, status: GlobalConstant::ErrorCode.temporary_redirect
+    #   redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect
     #   return
     # end
 
@@ -135,7 +135,7 @@ class Web::EconomyController < Web::BaseController
     @presenter_obj = ::WebPresenter::Economy::TransactionKind.new(@response, params)
 
     # unless @presenter_obj.client_token.step_three_done?
-    #   redirect_to :dashboard, status: GlobalConstant::ErrorCode.temporary_redirect
+    #   redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect
     #   return
     # end
 
