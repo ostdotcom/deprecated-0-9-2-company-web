@@ -12,6 +12,8 @@
       oThis.jRoot = $("#cover-container");
     },
     show: function ( selector, withoutAnimation ) {
+
+      $('body').css('overflow-y', 'hidden');
       var oThis = this;
 
 
@@ -65,6 +67,8 @@
       });
     },
     hide: function ( selector, withoutAnimation ) {
+
+      $('body').css('overflow-y', 'auto');
       var oThis = this;
 
       var jEl = $( selector )

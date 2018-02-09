@@ -92,15 +92,12 @@
 
   <section id="content" <%= content_style %>>
     <div class="container-fluid">
+      <%= yield %>
       <div class="row">
-      <% # meta-mask-workflow Needs to be the first element %>
-      <div class="col-12" id="cover-container">
-        <%= yield(:cover_elements) %>
-      </div>
-        <div class="col-12" id="notification-area"></div>
-        <div class="col-12" id="main-yield">
-          <%= yield %>
-        </div>
+          <% # meta-mask-workflow Needs to be the first element %>
+          <div class="col-12" id="cover-container">
+            <%= yield(:cover_elements) %>
+          </div>
       </div>
     </div>
   </section>

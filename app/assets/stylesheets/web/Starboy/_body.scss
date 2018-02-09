@@ -34,7 +34,7 @@ html, body{
       background-color: white;
       display: none;
       height: calc(100vh - #{$ost-header-height});
-      max-width: calc(960px - #{$grid-gutter-width});
+      //max-width: calc(960px - #{$grid-gutter-width});
       width: 100%;
       overflow-y: auto;
       overflow-x: hidden;
