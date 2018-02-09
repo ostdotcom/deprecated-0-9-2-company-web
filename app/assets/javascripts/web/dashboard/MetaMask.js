@@ -186,23 +186,24 @@
       var oThis = this;
 
       //Check for accounts.
-      var web3 = oThis.web3()
-        , accounts = web3.eth.accounts
-        , response = {
-            success : true,
-            data    : {
-              account: accounts
-            }
-        }
-      ;
+      var web3 = oThis.web3();
 
-      if ( !accounts || !accounts.length ) {
-        response.success = false;
-      } else {
-        response.data.accounts = accounts;
-      }
-      callback && callback(response.success, response);
-      
+      web3.eth.getAccounts(function (err, accounts) {
+        var response = {
+              success : true,
+              data    : {
+                account: accounts
+              }
+          }
+        ;
+
+        if ( err || !accounts || !accounts.length ) {
+          response.success = false;
+        } else {
+          response.data.accounts = accounts;
+        }
+        callback && callback(response.success, response);
+      });
     },
 
     validateAccountAddress: function ( newAccount, callback ) {
