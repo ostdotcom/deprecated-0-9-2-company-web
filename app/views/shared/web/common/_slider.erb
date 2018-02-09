@@ -1,6 +1,6 @@
 <div class="form-group">
   <label class="form-label" for="<%=id%>"><%=label%></label>
-  <div class="input-group slider-with-input d-flex align-items-center slider-yellow">
+  <div class="input-group slider-with-input d-flex align-items-center <%=classes%>">
     <input
         type="text"
         id="<%=id%>"
@@ -18,5 +18,5 @@
       <input type="<%=type%>" class="form-control" min="<%=min%>" max="<%=max%>" step="<%=step%>" value="<%=value%>" />
     </span>
   </div>
-  <div class="error">Something went wrong</div>
+  <div class="error"></div>
 </div>
