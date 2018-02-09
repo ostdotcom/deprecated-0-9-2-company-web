@@ -13,7 +13,7 @@ html, body{
     CONTENT STYLE
 ----------------------------------------------------- */
 #content {
-  width: calc(100% - 250px);
+  width: calc(100% - #{$side-bar-nav-width});
   min-height: 100vh;
   transition: all 0.3s;
   position: absolute;
@@ -39,7 +39,7 @@ html, body{
     width: 100%;
   }
   #content.active {
-    width: calc(100% - 250px);
+    width: calc(100% - #{$side-bar-nav-width});
   }
   #sidebarCollapse span {
     display: none;

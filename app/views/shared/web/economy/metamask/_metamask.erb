@@ -41,19 +41,27 @@
 
 <% content_for :cover_elements do %>
   <div id="installMetamaskCover" class="cover-element metamask-flow">
-    <%= render :partial => "shared/web/economy/metamask/install_metamask", :locals => partial_locals %>
+    <div class="container">
+      <%= render :partial => "shared/web/economy/metamask/install_metamask", :locals => partial_locals %>
+    </div>
   </div>
   <div id="metamaskLockedCover" class="cover-element metamask-flow">
-    <%= render :partial => "shared/web/economy/metamask/metamask_locked", 
-    :locals => partial_locals %>
+    <div class="container">
+      <%= render :partial => "shared/web/economy/metamask/metamask_locked",
+      :locals => partial_locals %>
+    </div>
   </div>
   <div id="metamaskWrongNetworkCover" class="cover-element metamask-flow">
-    <%= render :partial => "shared/web/economy/metamask/metamask_wrong_network", 
-    :locals => partial_locals %>
+    <div class="container">
+      <%= render :partial => "shared/web/economy/metamask/metamask_wrong_network",
+      :locals => partial_locals %>
+    </div>
   </div>
   <div id="metamaskWrongAccountCover" class="cover-element metamask-flow">
-    <%= render :partial => "shared/web/economy/metamask/metamask_wrong_account", 
-    :locals => partial_locals %>
+    <div class="container">
+      <%= render :partial => "shared/web/economy/metamask/metamask_wrong_account",
+      :locals => partial_locals %>
+    </div>
   </div>
 <% end %>
 

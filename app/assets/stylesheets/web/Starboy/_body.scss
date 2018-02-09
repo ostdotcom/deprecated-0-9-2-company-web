@@ -17,8 +17,8 @@ html, body{
     CONTENT STYLE
 ----------------------------------------------------- */
 #content {
-  width: calc(100% - 250px);
-  margin-left: 250px;
+  width: calc(100% - #{$side-bar-nav-width});
+  margin-left: $side-bar-nav-width;
   min-height: calc(100vh - #{$ost-header-height});
   transition: all 0.3s;
   .container {
@@ -35,10 +35,10 @@ html, body{
       display: none;
       height: calc(100vh - #{$ost-header-height});
       //max-width: calc(960px - #{$grid-gutter-width});
-      width: 100%;
+      width: calc(100% - #{$side-bar-nav-width});
+      margin-left: -15px;
       overflow-y: auto;
       overflow-x: hidden;
-      background-color: beige;
     }
     .active-cover {
 
@@ -62,7 +62,7 @@ html, body{
     width: 100%;
   }
   #content.active {
-    width: calc(100% - 250px);
+    width: calc(100% - #{$side-bar-nav-width});
   }
   #sidebarCollapse span {
     display: none;
