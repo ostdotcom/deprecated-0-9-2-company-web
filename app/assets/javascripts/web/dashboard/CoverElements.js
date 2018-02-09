@@ -20,16 +20,18 @@
       ;
 
       //Compute z-index.
-      var newZIndex = 10;
+      var newZIndex = Number ( jEl.css("zIndex") || 0 );
       activeElements.each(function (i, el) {
-        if ( thisElZindex == el ) {
+        if ( jEl.is( el ) ) {
           return;
         }
-        var thisElZindex = el.style.zIndex;
+        var thisElZindex = Number( el.style.zIndex );
         if ( thisElZindex >= newZIndex ) {
           newZIndex = thisElZindex + 1;
         }
       });
+
+
 
       //Compute new top
       var newTop = oThis.jContent.offset().top
@@ -42,6 +44,7 @@
         zIndex: newZIndex,
         top: newTop
       };
+
 
       var onAnimationComplete = function () {
         jEl.addClass("active-cover").css( finalCss );
@@ -56,7 +59,7 @@
         display: "block",
         zIndex: newZIndex
       }).animate({
-        top: newTopInPercent + "%"
+        top: newTop
       }, {
         complete: onAnimationComplete
       });
