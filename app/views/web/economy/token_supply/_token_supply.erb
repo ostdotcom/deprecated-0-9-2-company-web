@@ -5,7 +5,7 @@
   fiat_symbol_upcase = fiat_symbol.upcase
   tokens_minted = @presenter_obj.token_supply_details.tokens_minted
   tokens_distributed = @presenter_obj.token_supply_details.tokens_distributed
-  token_balance = @presenter_obj.client_token_balance.token_balance
+  token_balance = @presenter_obj.client_balances.bt_balance
 %>
 
 <div class="row">
@@ -24,7 +24,7 @@
         </p>
         <p class="card-text orange">
           <span class="blue"><%= "#{fiat_symbol_upcase}" %></span>
-          <span class="orange"><%= "#{@presenter_obj.token_to_fiat_value(tokens_minted)}" %></span>
+          <span class="orange"><%= "#{tokens_minted}" %></span>
         </p>
       </div>
     </div>
@@ -39,7 +39,7 @@
         </p>
         <p class="card-text orange">
           <span class="blue"><%= "#{fiat_symbol_upcase}" %></span>
-          <span class="orange"><%= "#{@presenter_obj.token_to_fiat_value(token_balance)}" %></span>
+          <span class="orange"><%= "#{tokens_minted}" %></span>
         </p>
       </div>
     </div>
@@ -54,7 +54,7 @@
         </p>
         <p class="card-text orange">
           <span class="blue"><%= "#{fiat_symbol_upcase}" %></span>
-          <span class="orange"><%= "#{@presenter_obj.token_to_fiat_value(tokens_distributed)}" %></span>
+          <span class="orange"><%= "#{tokens_distributed}" %></span>
         </p>
       </div>
     </div>
