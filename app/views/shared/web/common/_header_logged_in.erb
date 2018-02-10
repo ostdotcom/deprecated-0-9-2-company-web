@@ -1,10 +1,14 @@
 <%
+
   client_token = @presenter_obj.client_token
-  token_balance = @presenter_obj.client_token_balance.token_balance
-  token_fiat_balance = @presenter_obj.token_to_fiat_value(token_balance)
-  ost_balance = @presenter_obj.client_ost_balance.ost_balance
-  ost_fiat_balance = @presenter_obj.ost_fiat_converter.ost_to_fiat(ost_balance, @presenter_obj.client_fiat_curreny_pref)
+  client_balances = @presenter_obj.client_balances
   client_fiat_curreny_pref_symbol = @presenter_obj.client_fiat_curreny_pref_symbol
+
+  bt_balance = client_balances.bt_balance
+  bt_fiat_balance = client_balances.bt_fiat_balance(client_fiat_curreny_pref_symbol)
+  ost_balance = client_balances.ost_balance
+  ost_fiat_balance = client_balances.ost_fiat_balance(client_fiat_curreny_pref_symbol)
+
 %>
 <%#= render :partial => "/shared/web/common/alert" %>
 <nav class="navbar navbar-expand-md navbar-light ">
@@ -28,7 +32,7 @@
       <li class="nav-item">
         <a class="nav-link active">
           <span class="d-block">available frc</span>
-          <span class="d-block gold text-sm-left text-md-center"><%= "#{token_balance} (#{client_fiat_curreny_pref_symbol}#{token_fiat_balance})" %></span>
+          <span class="d-block gold text-sm-left text-md-center"><%= "#{bt_balance} (#{client_fiat_curreny_pref_symbol}#{bt_fiat_balance})" %></span>
         </a>
       </li>
       <li class="nav-item">

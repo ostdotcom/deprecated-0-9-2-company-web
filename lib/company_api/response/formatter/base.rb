@@ -6,8 +6,7 @@ module CompanyApi
 
       class Base
 
-        attr_reader :user, :client_token, :client_ost_balance, :client_token_balance,
-                    :next_page_payload, :ost_fiat_converter
+        attr_reader :user, :client_token, :client_balances, :next_page_payload
 
         # Initialize
         #
@@ -53,7 +52,7 @@ module CompanyApi
           @client_token = CompanyApi::Response::Entity::ClientToken.new(client_token_data)
         end
 
-        # Set client token
+        # Set client balances
         #
         # * Author: Puneet
         # * Date: 02/02/2018
@@ -61,24 +60,10 @@ module CompanyApi
         #
         # @param [Hash] client_token_data (mandatory) - client token hash
         #
-        # Sets @client_ost_balance
+        # Sets @client_token
         #
-        def set_client_ost_balance(client_ost_balance)
-          @client_ost_balance = CompanyApi::Response::Entity::ClientOstBalance.new(client_ost_balance)
-        end
-
-        # Set client token
-        #
-        # * Author: Puneet
-        # * Date: 02/02/2018
-        # * Reviewed By:
-        #
-        # @param [Hash] client_token_data (mandatory) - client token hash
-        #
-        # Sets @client_token_balance
-        #
-        def set_client_token_balance(client_token_balance)
-          @client_token_balance = CompanyApi::Response::Entity::ClientTokenBalance.new(client_token_balance)
+        def set_client_balances(client_balances_data)
+          @client_balances = CompanyApi::Response::Entity::ClientBalances.new(client_balances_data, @client_token)
         end
 
         # Set next page payload
@@ -93,20 +78,6 @@ module CompanyApi
         #
         def set_next_page_payload(payload_data)
           @next_page_payload = CompanyApi::Response::Entity::PaginationPayload.new(payload_data)
-        end
-
-        # Set converter obj
-        #
-        # * Author: Puneet
-        # * Date: 02/02/2018
-        # * Reviewed By:
-        #
-        # @param [Hash] conversion_rates (mandatory)
-        #
-        # Sets @ost_fiat_converter
-        #
-        def set_ost_fiat_converter(conversion_rates)
-          @ost_fiat_converter = CompanyApi::Response::Entity::OstFiatConverter.new(conversion_rates)
         end
 
       end

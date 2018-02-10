@@ -52,6 +52,10 @@ module CompanyApi
           @data['initial_number_of_users']
         end
 
+        def is_ost_based_token?
+          true
+        end
+
         def step_one_done?
           if @s_o_d.nil?
             @s_o_d = setup_steps.include?('set_conversion_rate')
