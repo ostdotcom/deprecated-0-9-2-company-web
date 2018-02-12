@@ -310,10 +310,14 @@
     idAccount : null,
 
     initInstallScreen: function () {
-
+      $("#metamask_installed").on("click", function () {
+        location.reload();
+      });
     },
     initLockedScreen: function () {
-
+      $("#metamask_unlocked").on("click", function () {
+        location.reload();
+      });
     },
     initChianScreen: function () {
 

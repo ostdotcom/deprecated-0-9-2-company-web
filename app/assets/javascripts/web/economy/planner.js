@@ -41,7 +41,6 @@
       console.log("planner :: getInitialOst");
       ost.coverElements.show("#getInitialOstCover");
       ost.metamask.startObserver();
-      //Show Address.
     },
     onGetOstSuccess: function () {
       var metamask = ost.metamask;
