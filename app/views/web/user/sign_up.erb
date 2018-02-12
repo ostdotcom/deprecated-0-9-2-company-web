@@ -74,8 +74,11 @@
     <div class="invalid-feedback" data-forid="email">&nbps;</div>
   </div>
 
-  <div class="form-group" id="passwordFormGrp">
-    <label class="form-label" for="password">Password</label>
+  <div class="form-group">
+    <div class="clearfix">
+      <label class="form-label float-left" for="password">Password</label>
+      <span class="form-label float-right">Minimum 8 characters</span>
+    </div>
     <input type="password" class="form-control" placeholder="Password"
       id="password" name="password" required pattern=".{8,}"/>
     <!-- View Password -->
