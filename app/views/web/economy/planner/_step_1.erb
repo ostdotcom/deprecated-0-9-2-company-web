@@ -1,5 +1,9 @@
-<%= render :partial => "/shared/web/common/planner_alert" %>
-<form id="sign_up_form"
+<%=
+   if !@presenter_obj.user.is_verified?
+    render :partial => "/shared/web/common/planner_alert"
+   end
+%>
+<form id="step1"
       action="/api/economy/token/plan" method="POST"
       data-ost-formhelper
 >
