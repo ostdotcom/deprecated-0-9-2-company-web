@@ -2,7 +2,7 @@
 
 <div id="transaction_list" class="" data-simple-table>
   <script type="text/x-handlebars-template" data-row-template>
-    <div class="container simple-data-table-row">
+    <div class="container simple-data-table-row" style="margin:10px auto;">
       <div class="row">
         <div class="col-2">{{name}}</div>
         <div class="col-3">{{kind}}</div>
@@ -12,9 +12,9 @@
         <div class="col-1">{{commission_percent}}&#37;</div>
         <div class="col-3">
           {{#IfShowApiCallButton id }}
-            <button class="showApiCallBtn btn" >API Call</button> 
+            <button class="showApiCallBtn btn btn-secondary" >API Call</button> 
           {{/IfShowApiCallButton}}
-          <span class="editRow">Edit</span>
+          <span class="editRow" data-edit-index={{index}}>Edit</span>
           <input type="hidden" name="id" value={{id}}/>
           <input type="hidden" name="uts" value={{uts}}/>
           <input type="hidden" name="index" value={{index}}/>
@@ -35,7 +35,7 @@
       return "YES";
     });
     Handlebars.registerHelper('IfShowApiCallButton', function(data, options ) { 
-    console.log("IfShowApiCallButton called!", arguments); 
+      console.log("IfShowApiCallButton called!", arguments); 
       if (<%= should_show_api_call_button %>) {
         return options.fn(this);
       } else {

@@ -150,9 +150,6 @@
     , showDataLoadError: function ( response ) {
 
     }
-    , showLoadingData: function () {
-
-    }
     , scrollObserver : function () {
       var oThis = this;
 

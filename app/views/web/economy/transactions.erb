@@ -1,1 +1,8 @@
 <%= render :partial => "/web/economy/transactions/transaction_list" %>
+<% content_for :cover_elements do %>
+<div id="transaction-editor" class="cover-element">
+  <div class="container">
+    <%= render :partial => "shared/web/economy/transactions/install_metamask", :locals => partial_locals %>
+  </div>
+</div>
+<% end %>
