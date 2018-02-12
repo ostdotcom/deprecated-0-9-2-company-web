@@ -43,10 +43,19 @@
   background-color: color('orange');
   color: color('white');
   padding: 13px 0;
+
+  &__planner{
+    background-color: #f9f8e6;
+  }
+
   &__button{
     font-size: 14px;
     color: color('white');
     letter-spacing: 1px;
     border: solid 2px #f8c2a1;
+  }
+
+  &__planner__text{
+    color: #597a84;
   }
 }
