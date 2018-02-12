@@ -4,7 +4,6 @@
     <input
         type="text"
         id="<%=id%>"
-        name="<%=name%>"
         data-provide="slider"
         data-slider-min="<%=min%>"
         data-slider-max="<%=max%>"
@@ -15,8 +14,8 @@
         <% if defined? ticks_labels %>data-slider-ticks-labels='<%=raw ticks_labels.to_s%>'<% end %>
     >
     <span class="slider-input-right">
-      <input type="<%=type%>" class="form-control" min="<%=min%>" max="<%=max%>" step="<%=step%>" value="<%=value%>" />
+      <input type="<%=type%>" class="form-control" name="<%=name%>" min="<%=min%>" max="<%=max%>" step="<%=step%>" value="<%=value%>" />
     </span>
   </div>
-  <div class="error"></div>
+  <div class="invalid-feedback" data-forid="<%=name%>">&nbps;</div>
 </div>
