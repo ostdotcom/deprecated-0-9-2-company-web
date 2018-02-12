@@ -133,19 +133,3 @@
 .general_error {
   text-align: center;
 }
-
-.btn-circle {
-  width: 60px;
-  height: 60px;
-  font-size: 18px;
-  border-radius: 50%;
-  &.btn{
-    min-width: 60px;
-  }
-  .layer{
-    top: 0;
-    left: 0;
-    line-height: 60px;
-    position: absolute;
-  }
-}
