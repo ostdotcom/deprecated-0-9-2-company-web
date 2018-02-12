@@ -21,3 +21,44 @@
   .token_icon_6 {
     background-color: #ff5f59;
   }
+
+  .radio-group{
+    font-size: 0;
+    li{
+      vertical-align: top;
+      display: inline-block;
+      margin: 0 .75rem .3rem 0;
+      &:last-child{
+        margin: 0 0 .3rem 0;
+      }
+    }
+
+    input[type=radio] {
+      position: absolute;
+      visibility: hidden;
+      display: none;
+    }
+
+    label > span {
+      color: #fff;
+      display: block;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 50%;
+      height: 3rem;
+      width: 3rem;
+      font-weight: 300;
+      text-align: center;
+      line-height: 48px;
+    }
+
+    input[type=radio]:checked + label span{
+      color: #fff;
+      width: 3rem;
+      height: 3rem;
+      line-height: 44px;
+      display: block;
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 1px #84d1d4;
+    }
+  }
