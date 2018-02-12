@@ -1,14 +1,12 @@
+/**
+  Note: This is a Template File. Do not include it directly, make a copy of it and use it.
+**/
+
 ;
 (function (window, $) {
   var ost  = ns("ost");
 
-
-  console.log("ost.transactions defined");
-  var oThis = ost.transactions = {
-
-
-
-
+  var oThis = ost.dummyData = {
     /* Begin :: Dummy Data */
     getDummyData: function (currentData, lastMeta, callback ) {
       //The Basic Stuff to configure. (Standard Code)
@@ -16,7 +14,7 @@
       var pageSize = 20;
       var maxPages = 3;
       var maxEntires = pageSize * maxPages;
-      var resultTypeKey = "transactions";
+      var resultTypeKey = "dummyData";
 
       //Data Builder Logical Variables. (Standard Code)
       var newData = []
@@ -81,7 +79,7 @@
       /* Trigger Callback */
       setTimeout(function () {
         callback( response );
-      }, 300);
+      }, 3000);
 
     }
     /* End :: Dummy Data */

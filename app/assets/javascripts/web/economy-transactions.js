@@ -1,4 +1,4 @@
 //= require react_common
-//= require plugins/react-virtualized/react-virtualized
-//= require components/dashboard/transactions/transaction_list.es6.jsx
-//= require web/dashboardUtils
+//= require web/utils-dashboard
+//= require web/economy/transactions
+//= require web/ost-react-data-table

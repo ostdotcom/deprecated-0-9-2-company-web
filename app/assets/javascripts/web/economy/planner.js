@@ -1,10 +1,10 @@
 ;
 (function (window, $) {
 
-  var parentNS  = ns("ost");  
+  var ost  = ns("ost");  
   
 
-  var oThis   = parentNS.planner = {
+  var oThis   = ost.planner = {
     config: null,
     init: function ( config ) {
       oThis.config = config;

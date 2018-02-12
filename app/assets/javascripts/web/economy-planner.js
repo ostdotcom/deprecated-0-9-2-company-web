@@ -1,2 +1,2 @@
-//= require web/dashboardUtils
+//= require web/utils-dashboard
 //= require web/economy/planner

@@ -2,6 +2,10 @@ class TransactionList extends React.Component {
   
   constructor(props, context) {
     super(props, context);
+
+    console.info("constructor called!");
+    console.log( arguments );
+
     this.transactions = [];
     
     this._addDummyData = this._addDummyData.bind( this );
@@ -12,6 +16,7 @@ class TransactionList extends React.Component {
     this.fetchData = this.fetchData.bind(this);
     this.processResponse = this.processResponse.bind( this );
     this.onRowsRendered = this.onRowsRendered.bind( this );
+    this.getRowHeight = this.getRowHeight.bind( this );
 
     this.state = {
       isLoading: true, /* A flag that is set when next page is being loaded on scroll. */
@@ -37,7 +42,7 @@ class TransactionList extends React.Component {
           return <ReactVirtualized.List
             width={width}
             height={height}
-            rowHeight={90}
+            rowHeight={this.getRowHeight}
             overscanRowCount={10}
             className="transactionList"
             rowCount={this.transactions.length}
@@ -106,9 +111,9 @@ class TransactionList extends React.Component {
     var data = this.transactions[ index ];
 
     if ( index >= this.transactions.length ) {
-      console.info("here!");
-      console.log( index, this.transactions.length);
-      console.log( data );
+      // console.info("here!");
+      // console.log( index, this.transactions.length);
+      // console.log( data );
     }
 
     var coin_sym = "RAC";
@@ -116,18 +121,20 @@ class TransactionList extends React.Component {
 
 
     return (
-      <div
-        key={key}
-        style={style}
-        className="row"
-      >
-        <div className="col-2">{data.transaction_name}</div>
-        <div className="col-3">{data.transaction_type}</div>
-        <div className="col-1">${data.usd_value}</div>
-        <div className="col-1">{data.coin_value}</div>
-        <div className="col-1">{price_oracle_text}</div>
-        <div className="col-3">API Call</div>
-        <div className="col-1">EDIT</div>
+      <div key={key} style={style}>
+        <div className="container">
+        <div
+          className="row"
+        >
+          <div className="col-2">{data.transaction_name}</div>
+          <div className="col-3">{data.transaction_type}</div>
+          <div className="col-1">${data.usd_value}</div>
+          <div className="col-1">{data.coin_value}</div>
+          <div className="col-1">{price_oracle_text}</div>
+          <div className="col-3">API Call</div>
+          <div className="col-1">EDIT</div>
+        </div>
+        </div>
       </div>
     )
   }
@@ -135,7 +142,7 @@ class TransactionList extends React.Component {
 
 
   fetchData () {
-    console.log("Fetching next page data");
+    // console.log("Fetching next page data");
 
     const oThis = this;
     if ( !oThis.state.isLoading ) {
@@ -166,8 +173,8 @@ class TransactionList extends React.Component {
         }
       };
 
-      console.log("Response Generated");
-      console.log( JSON.stringify(response, null, 2) ); //Show this output to Puneet.
+      // console.log("Response Generated");
+      // console.log( JSON.stringify(response, null, 2) ); //Show this output to Puneet.
 
       oThis.processResponse( response );
     }, 1000);
@@ -199,6 +206,7 @@ class TransactionList extends React.Component {
   }
 
   onRowsRendered ({ overscanStartIndex, overscanStopIndex, startIndex, stopIndex }) {
+    // console.log("onRowsRendered called");
     var oThis = this;
     if ( oThis.meta.next_page_payload && Object.keys( oThis.meta.next_page_payload ).length > 0 ) {
       //It is possible to fetch next page.
@@ -211,6 +219,12 @@ class TransactionList extends React.Component {
         }
       }
     }
+  }
+
+  getRowHeight () {
+    // console.info( "getRowHeight called!");
+    // console.log( arguments );
+    return 90;
   }
 
 

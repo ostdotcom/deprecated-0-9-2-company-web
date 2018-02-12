@@ -16,16 +16,17 @@ html, body{
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
+.container {
+  margin: 0 auto;
+  max-width: 960px;
+  //background: #ffffff;
+}
 #content {
   width: calc(100% - #{$side-bar-nav-width});
   margin-left: $side-bar-nav-width;
   min-height: calc(100vh - #{$ost-header-height});
   transition: all 0.3s;
-  .container {
-    margin: 0 auto;
-    max-width: 960px;
-    //background: #ffffff;
-  }
+
   #cover-container {
     .cover-element {
       position: fixed;
