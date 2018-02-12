@@ -370,6 +370,15 @@
     jForms.each(function ( indx, formEl ) {
       $( formEl ).formHelper();
     });
+    // For eye toggle
+    $('.input-group-eye').click(function(){
+      var $elem = $(this).closest('.input-group').find('.form-control-input-group');
+      if($elem.attr('type') == 'text'){
+        $elem.attr('type','password');
+      } else {
+        $elem.attr('type','text');
+      }
+    });
   });
 
 })(window, jQuery);
