@@ -77,7 +77,7 @@
   <div class="form-group" id="passwordFormGrp">
     <label class="form-label" for="password">Password</label>
     <input type="password" class="form-control" placeholder="Password"
-      id="password" name="password" required />
+      id="password" name="password" required pattern=".{8,}"/>
     <!-- View Password -->
     <span class="input-group-btn">
       <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
@@ -100,7 +100,7 @@
   <div class="form-group text-center" >
     <button type="submit" class="btn btn-gold" data-submiting="Registering">Register</button>
     <small class="form-text text-muted" style="line-height: 40px">Have an account already?</small>
-    <button type="submit" class="btn btn-white">Login</button>
+    <a href="/login" class="btn btn-white" title="Login">Login</a>
   </div>
 </form>
 
