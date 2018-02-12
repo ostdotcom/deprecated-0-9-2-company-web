@@ -124,7 +124,7 @@ class Web::EconomyController < Web::BaseController
     @response = CompanyApi::Request::Economy.new(
         CompanyApi::Response::Formatter::Economy,
         request.cookies
-    ).fetch_transaction_kinds_details
+    ).fetch_planner_details
 
     # Check if error present or not?
     unless @response.success?
@@ -132,7 +132,7 @@ class Web::EconomyController < Web::BaseController
       return
     end
 
-    @presenter_obj = ::WebPresenter::Economy::TransactionKind.new(@response, params)
+    @presenter_obj = ::WebPresenter::Economy::Planner.new(@response, params)
 
     # unless @presenter_obj.client_token.step_three_done?
     #   redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect

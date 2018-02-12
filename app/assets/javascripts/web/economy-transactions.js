@@ -1,4 +1,5 @@
-//= require react_common
 //= require web/utils-dashboard
+//= require web/utils-simple-data-table
 //= require web/economy/transactions
-//= require web/ost-react-data-table
+
+

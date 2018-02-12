@@ -1,15 +1,49 @@
-<style type="text/css">
-  #transaction_list {
-    height: 100%;
-    width: 100%;
-  }
-</style>
+<% should_show_api_call_button = true %> 
 
-<div style="height:calc(100vh - 70px)" class="row">
-  <%= react_component('OstDataTable', props={
-    parent_id: "transaction_list",
-    data_source: "ost.transactions.getDummyData",
-    row_component: "OstDataTableRow"
-
-  }, html_options={id: 'transaction_list'}) %>
+<div id="transaction_list" class="" data-simple-table>
+  <script type="text/x-handlebars-template" data-row-template>
+    <div class="container simple-data-table-row">
+      <div class="row">
+        <div class="col-2">{{name}}</div>
+        <div class="col-3">{{kind}}</div>
+        <div class="col-1">${{value_in_usd}}</div>
+        <div class="col-1">{{value_in_bt}}</div>
+        <div class="col-1">{{price_oracle_text}}</div>
+        <div class="col-1">{{commission_percent}}&#37;</div>
+        <div class="col-3">
+          {{#IfShowApiCallButton id }}
+            <button class="showApiCallBtn btn" >API Call</button> 
+          {{/IfShowApiCallButton}}
+          <span class="editRow">Edit</span>
+          <input type="hidden" name="id" value={{id}}/>
+          <input type="hidden" name="uts" value={{uts}}/>
+          <input type="hidden" name="index" value={{index}}/>
+        </div>
+      </div>
+    </div>
+  </script>
 </div>
+
+<% content_for :end_js do %>
+  <script type="text/javascript" 
+    src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+
+  <script type="text/javascript">
+    Handlebars.registerHelper('price_oracle_text', function(data, options ) { 
+      var rowData = data.root || {};
+      return rowData.use_price_oracle ? "Yes" : "No";
+      return "YES";
+    });
+    Handlebars.registerHelper('IfShowApiCallButton', function(data, options ) { 
+    console.log("IfShowApiCallButton called!", arguments); 
+      if (<%= should_show_api_call_button %>) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    });
+    ost.transactions.init({
+    
+    });  
+  </script>
+<% end %>

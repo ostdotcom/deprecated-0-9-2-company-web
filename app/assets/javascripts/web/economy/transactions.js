@@ -5,12 +5,23 @@
 
   console.log("ost.transactions defined");
   var oThis = ost.transactions = {
+    simpleDataTable: null
+    ,init: function ( config ) {
+      var oThis = this;
+
+      oThis.simpleDataTable = new ost.SimpleDataTable({
+        resultFetcher: function () {
+          oThis.getDummyData.apply( oThis, arguments );
+        }
+      });
+    }
+
 
 
 
 
     /* Begin :: Dummy Data */
-    getDummyData: function (currentData, lastMeta, callback ) {
+    , getDummyData: function (currentData, lastMeta, callback ) {
       //The Basic Stuff to configure. (Standard Code)
       var meta = null;
       var pageSize = 20;
@@ -45,11 +56,11 @@
             uts: uts + cnt,
 
             /* Custom properties */
-            transaction_name: "Transaction " + Number(currentDataCnt + cnt + 1),
-            transaction_type: transaction_types[ this._dummy_id % transaction_types.length],
-            coin_value: coinValue,
-            usd_value: coinValue * 10,
-            commission: Math.round( Math.random() * 25 ),
+            name: "Transaction " + Number(currentDataCnt + cnt + 1),
+            kind: transaction_types[ (currentDataCnt + cnt + 1) % transaction_types.length],
+            value_in_bt: coinValue,
+            value_in_usd: coinValue * 10,
+            commission_percent: Math.round( Math.random() * 25 ),
             use_price_oracle: someBooleanValue
           });
         }
