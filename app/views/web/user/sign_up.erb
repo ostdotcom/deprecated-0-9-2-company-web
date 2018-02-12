@@ -79,8 +79,13 @@
       <label class="form-label float-left" for="password">Password</label>
       <span class="form-label float-right">Minimum 8 characters</span>
     </div>
-    <input type="password" class="form-control" placeholder="Password"
-      id="password" name="password" required pattern=".{8,}"/>
+    <div class="input-group mb-3">
+      <input type="password" class="form-control form-control-input-group" placeholder="Password"
+             id="password" name="password" required pattern=".{8,}"/>
+      <div class="input-group-append">
+        <span class="input-group-text input-group-inline">e</span>
+      </div>
+    </div>
     <!-- View Password -->
     <span class="input-group-btn">
       <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
