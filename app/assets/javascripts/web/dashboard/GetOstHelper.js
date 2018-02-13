@@ -5,20 +5,18 @@
   
   var NOTHING_IN_PROGRESS     = 0
     , OST_GRANT_IN_PROGRESS   = 1
-    , OST_GRANT_SUCCESS       = 2
-    , OST_GRANT_CONFIRMED     = 3
-    , READ_ETH_BALANCE        = 4
-    , ETH_GRANT_IN_PROGRESS   = 5
-    , ETH_GRANT_SUCCESS       = 6
-    , ETH_GRANT_CONFIRMED     = 7
+    , OST_GRANT_CONFIRMED     = 2
+    , READ_ETH_BALANCE        = 3
+    , ETH_GRANT_IN_PROGRESS   = 4
+    , ETH_GRANT_CONFIRMED     = 5
     , COMPLETED               = 100
-
   ;
 
 
   
   var oThis = metamask.getOstHelper = {
-    init: function ( config ) {
+    currentStep: OST_GRANT_CONFIRMED
+    , init: function ( config ) {
       var oThis = this;
       $.extend( oThis, config);
 
@@ -48,7 +46,6 @@
 
     , jForm : null
     , formHelper: null
-    , currentStep: OST_GRANT_CONFIRMED
     , nextStep: function () {
       var oThis = this;
 
@@ -88,9 +85,13 @@
           });
         break;
 
-        case ETH_GRANT_SUCCESS:
+        case ETH_GRANT_CONFIRMED:
+          console.log("nextStep :: ETH_GRANT_CONFIRMED calling allStepsCompleted \n", transaction_hash);
           oThis.allStepsCompleted.apply( oThis, arguments);
         break;
+
+        default: 
+          console.log("nextStep :: Something missed out. oThis.currentStep = " , oThis.currentStep);
 
       }
       oThis.currentStep++;
@@ -99,16 +100,14 @@
       switch( oThis.currentStep ) {
         case NOTHING_IN_PROGRESS:
         case OST_GRANT_IN_PROGRESS:
-        case OST_GRANT_SUCCESS:
+        case OST_GRANT_CONFIRMED:
           //Reset to NOTHING_IN_PROGRESS. Start from begining.
           oThis.currentStep = NOTHING_IN_PROGRESS;
           ost.metamask.startObserver();
         break;
-        case OST_GRANT_CONFIRMED:
-        //Do Nothing. Next time continue from here.
-        break;
         case READ_ETH_BALANCE: 
         case ETH_GRANT_IN_PROGRESS:
+        case ETH_GRANT_CONFIRMED:
           //Reset to OST_GRANT_CONFIRMED. Start from granting Eth again.
           oThis.currentStep = OST_GRANT_CONFIRMED;
         break;
@@ -190,6 +189,12 @@
     , bindEvents: function () {
       var oThis = this;
 
+      $( metamask ).on( metamask.events.onObservationComplete, function (event, success, response) {
+        if ( success && !$("#getInitialOstCover").hasClass("active-cover") ) {
+          ost.coverElements.show("#getInitialOstCover");
+        }
+      });
+
       //Bind on Address Change.
       $( metamask ).on(metamask.events.onAddressChanged, function ( event, eventData, newAddress ) {
         console.log("metamask.events.onAddressChanged");
@@ -204,7 +209,6 @@
       var oThis = this;
       oThis.onOstGrantedCallback = callback;
       ost.metamask.startObserver();
-      ost.coverElements.show("#getInitialOstCover");
     }
     , getUserAddress: function () {
       return $("#eth_address").val();

@@ -13,10 +13,9 @@
     },
     show: function ( selector, withoutAnimation ) {
 
-      $('body').css('overflow-y', 'hidden');
       var oThis = this;
 
-
+      $('body').css('overflow-y', 'hidden');
       var activeElements = oThis.jRoot.find(".active-cover")
         , jEl = $( selector )
       ;
@@ -50,6 +49,7 @@
 
       var onAnimationComplete = function () {
         jEl.addClass("active-cover").css( finalCss );
+        $('body').css('overflow-y', 'hidden');
       };
 
       if ( withoutAnimation ) {
@@ -77,10 +77,16 @@
           zIndex: 0
         }
       ;
+
+      if ( !jEl.hasClass("active-cover") ) {
+        return;
+      }
+
       var onAnimationComplete = function () {
         jEl.removeClass("active-cover").css( finalCss );
         var activeElements = oThis.jRoot.find(".active-cover")
         if ( !activeElements.length ) {
+          console.log("onAnimationComplete :: activeElements", activeElements);
           //No Active Elements.
           $('body').css('overflow-y', 'auto');
         }

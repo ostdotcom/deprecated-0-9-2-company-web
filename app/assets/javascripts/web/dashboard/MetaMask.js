@@ -20,6 +20,8 @@
       oThis.jLocked = $("#metamaskLockedCover");
       oThis.jChian = $("#metamaskWrongNetworkCover");
       oThis.jAccount = $("#metamaskWrongAccountCover");
+
+      oThis.initAllScreens();
     },
     lastValidAddress: null,
     config: {
@@ -42,7 +44,8 @@
       chain_id: null
     },
     events : {
-      onAddressChanged: "ost.metamask.onAddressChanged"
+      onAddressChanged: "ost.metamask.onAddressChanged",
+      onObservationComplete: "ost.metamask.onObservationComplete"
     },
     web3Obj: null,
     metaMaskWeb3: function () {
@@ -75,6 +78,9 @@
 
     stopObserver: function () {
       oThis.shouldObserve = false;
+      //Reset the required flags.
+      //Account needs to be reset so that it may trigger address changed next time?
+      oThis.flags.accounts = "";
       console.log("stopObserver");
     },
 
@@ -90,6 +96,15 @@
       },3000);
     },
 
+    observationComplete: function (success, response) {
+      var oThis = this;
+      console.log("observeMetamask :: Observation Complete!", arguments);
+      oThis.isObserving = false;
+      oThis.reObserve();
+
+      $( oThis ).trigger( oThis.events.onObservationComplete, [success, response] );
+    },
+
     observeMetamask: function () {
       var oThis = this;
       if ( oThis.isObserving || !oThis.shouldObserve ) {
@@ -102,12 +117,7 @@
 
 
       //
-      var observationComplete = function (success, response) {
-        oThis.isObserving = false;
-        oThis.reObserve();
-        console.log("observeMetamask :: Observation Complete!");
-      };
-
+      var observationComplete = oThis.observationComplete;
       //Put in callbacks in reverse order;
       var chainCallback = function (success, response) {
         oThis.flags.chain_id = response.data.chainId;
@@ -116,10 +126,10 @@
 
           //IF ADDING A NEW VALIDATION CALL HERE, REMOVE THIS AS WELL.
           //Add a Similar comment in the callback of next validation call.
-          observationComplete();
+          observationComplete.apply(oThis, arguments);
         } else {
           ost.coverElements.show( oThis.idChain );
-          observationComplete();
+          observationComplete.apply(oThis, arguments);
         }
         
       }
@@ -132,7 +142,7 @@
         } else {
           oThis.updateAccount(""); //Force Update to empty string.
           ost.coverElements.show( oThis.idAccount );
-          observationComplete();
+          observationComplete.apply(oThis, arguments);
         }
       }
 
@@ -147,7 +157,7 @@
         } else {
           oThis.updateAccount( account );
           ost.coverElements.show( oThis.idLocked );
-          observationComplete();
+          observationComplete.apply(oThis, arguments);
         }
       };
 
@@ -158,7 +168,7 @@
           oThis.validateMetaMaskUnlocked( unlockedCallback );
         } else {
           ost.coverElements.show( oThis.idInstall );
-          observationComplete();
+          observationComplete.apply(oThis, arguments);
         }
       };
 
@@ -290,6 +300,12 @@
       }
     },
 
+    getAccountAddress: function () {
+      var oThis = this;
+
+      return oThis.flags.account || null;
+    },
+
     triggerMyEvent: function ( eventName ) {
       var oThis = this;
 
@@ -378,6 +394,15 @@
     idLocked : null,
     idChain : null,
     idAccount : null,
+
+    initAllScreens: function () {
+      var oThis = this;
+
+      oThis.initInstallScreen();      
+      oThis.initLockedScreen();
+      oThis.initChianScreen();
+      oThis.initAccountScreen();
+    },
 
     initInstallScreen: function () {
       $("#metamask_installed").on("click", function () {
