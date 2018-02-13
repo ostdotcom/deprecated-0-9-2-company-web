@@ -1,0 +1,1 @@
+//= require web/user/reset-password

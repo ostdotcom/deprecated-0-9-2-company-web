@@ -7,21 +7,26 @@
   ;
 
   parentNS.signup = oThis = {
-    jForm: null
+    jForm: $('#rest_password_form')
     , init: function (config) {
       oThis.bindEventListeners();
+      oThis.formHandler();
     }
     , bindEventListeners: function () {
 
     }
-
-
-    
+    , formHandler: function() {
+      var formHelper = oThis.jForm.formHelper();
+      formHelper.success = function(){
+        oThis.jForm.hide();
+        $('#resetEmailSent').show();
+      };
+    }
 
   };
 
   $(document).ready(function () {
-    oThis.init({i18n: {}});
+    oThis.init();
   });
 
 })(window);
