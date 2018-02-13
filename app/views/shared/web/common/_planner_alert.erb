@@ -1,4 +1,4 @@
-<div class="row ost__alert ost__alert__planner">
+<div class="row ost__alert ost__alert__planner d-none" id="ost__alert__planner__install_metamask">
   <div class="container">
     <div class="row">
       <div class="col font-weight-light">
@@ -16,3 +16,16 @@
     </div>
   </div>
 </div>
+
+<% content_for :end_js do %>
+<script type="text/javascript">
+  $( window ).load(function() {
+    ost.metamask.validateInstallation(function ( success, response ) {
+      if ( !success ) {
+        console.log("response", response);
+        $("#ost__alert__planner__install_metamask").removeClass("d-none");
+      }
+    });
+  })
+</script>
+<% end %>
