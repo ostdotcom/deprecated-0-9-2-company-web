@@ -374,8 +374,10 @@
     $('.input-group-eye').click(function(){
       var $elem = $(this).closest('.input-group').find('.form-control-input-group');
       if($elem.attr('type') == 'text'){
+        $(this).find('svg.icon').css('fill', '#d3e3e5');
         $elem.attr('type','password');
       } else {
+        $(this).find('svg.icon').css('fill', '#597A84');
         $elem.attr('type','text');
       }
     });
