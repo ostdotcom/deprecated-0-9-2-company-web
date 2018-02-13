@@ -5,49 +5,52 @@
   
 
   var oThis   = ost.planner = {
-    config: null,
+    hasGrantedEth: false,
     init: function ( config ) {
-      oThis.config = config;
+      var oThis = this;
+
+      $.extend(oThis, config);
       oThis.bindEvents();
     },
+
+    formHelper: null,
+
     bindEvents: function () {
+      var oThis = this;
+
       //Bind all events here.
-      oThis.bindGetInitialOstEvents();
-      
+      oThis.formHelper = $("#step1").formHelper();
+      oThis.formHelper.success = function () {
+        //Verify Email First.
+        if ( !oThis.has_varified_email ) {
+          oThis.showValidateEmailLightBox();
+        } else if ( oThis.grant_initial_ost ) {
+          //Get Ost Next.
+          oThis.getInitialOst();
+        }
+      };
 
     },
-    bindGetInitialOstEvents: function () {
-      if ( !$("#getInitialOstCover").length ) {
-        //If possible, do not render the get initial ost cover element on the page.
-        return;
-      }
 
-      //Dummy btn event.
-      $("#getInitialOstBtn").on("click", function () {
-        oThis.getInitialOst();
-      });
-
-      //Needed.
-      var metamask = ost.metamask;
-      $( metamask ).on(metamask.events.onAddressChanged, function ( event, eventData, newAddress ) {
-        console.log("I have received the event");
-        $("#ost__planner__address").text( newAddress );
-        $("#eth_address").val( newAddress );
-      });
-
-    },
+    grant_initial_ost: true, /* Over-Ride using config. */
     getInitialOst: function () {
       var oThis = this;
-      console.log("planner :: getInitialOst");
-      ost.coverElements.show("#getInitialOstCover");
-      ost.metamask.startObserver();
+      ost.metamask.getOstHelper.getOst( function () {
+        console.log("getInitialOst flow complete");
+        
+        window.location = "/transactions";
+      });
     },
-    onGetOstSuccess: function () {
-      var metamask = ost.metamask;
-      metamask.stopObserver();
+
+    getOstCallback: function () {
+      var oThis = this;
+      console.log("Planner :: getOstCallback triggered.\n", arguments);
+
     },
-    onGetOstFailed: function () {
-      alert("onGetOstComplete triggered!");
+
+    has_varified_email: true, /* Over-Ride using config. */
+    showValidateEmailLightBox: function () {
+
     }
 
 

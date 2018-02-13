@@ -12,7 +12,7 @@
       oThis.config = config;
       oThis.idInstall = "#installMetamaskCover";
       oThis.idLocked = "#metamaskLockedCover";
-      oThis.idChian = "#metamaskWrongNetworkCover";
+      oThis.idChain = "#metamaskWrongNetworkCover";
       oThis.idAccount = "#metamaskWrongAccountCover";
       oThis.lastValidAddress = null;
 
@@ -30,7 +30,10 @@
       eligibleGrantUnit : "OST",
       valueChainId      : 3,
       utilityChianId    : 1410,
-      hasRegisteredAddress : false
+      hasRegisteredAddress : false,
+      grantEthFromFocet: false,
+      validateTransactionHashInterval : 5000,
+      validateTransactionHashMaxTry: 100
     },
     flags : {
       is_locked: false,
@@ -109,13 +112,13 @@
       var chainCallback = function (success, response) {
         oThis.flags.chain_id = response.data.chainId;
         if ( success ) { 
-          ost.coverElements.hide( oThis.idChian );
+          ost.coverElements.hide( oThis.idChain );
 
           //IF ADDING A NEW VALIDATION CALL HERE, REMOVE THIS AS WELL.
           //Add a Similar comment in the callback of next validation call.
           observationComplete();
         } else {
-          ost.coverElements.show( oThis.idChian );
+          ost.coverElements.show( oThis.idChain );
           observationComplete();
         }
         
@@ -298,6 +301,73 @@
       $( oThis ).trigger( event, args );
     },
 
+    validateTransactionHash: function ( transactionHash, callback, tryCount ) {
+      var oThis = this;
+
+      tryCount = tryCount || 0;
+      if ( tryCount >= oThis.config.validateTransactionHashMaxTry ) {
+        //Respond with failuer
+        setTimeout(function () {
+          callback && callback( {
+            success: false,
+            data: {
+              "transaction_hash": transactionHash
+            },
+            err: {
+              msg: "Transaction Timed-out. Transaction may still be mined."
+            }
+          })
+        }, 100);
+        return;
+      }
+
+      
+      
+      web3.eth.getTransactionReceipt(transactionHash, function (error, data) {
+        if (data && data.blockNumber ) {
+          console.log("validateTransactionHash :: data", data);
+          if ( callback ) {
+
+            setTimeout(function () {
+              callback({
+                success: true,
+                data: {
+                  "transaction_hash" : transactionHash,
+                  "transaction_receipt": data
+                }
+              });
+            }, 10);
+          }
+          return;
+        } else if ( error ) {
+          console.log("validateTransactionHash :: error", error);
+          setTimeout(function () {
+            callback({
+              success: false,
+              data: {
+                "transaction_hash" : transactionHash,
+                "transaction_error": error
+              },
+              err: {
+                msg: "Transaction Failed"
+              }
+            });
+          }, 10);
+          return;
+        } 
+        //Lets retry.
+        setTimeout(function () {
+          oThis.validateTransactionHash(transactionHash, callback, ++tryCount);
+        }, oThis.config.validateTransactionHashInterval);
+      });
+    },
+
+    getEthBalance : function (address, callback) {
+
+    },
+
+
+
     //Doms
     jInstall : null,
     jLocked : null,
@@ -306,18 +376,22 @@
 
     idInstall : null,
     idLocked : null,
-    idChian : null,
+    idChain : null,
     idAccount : null,
 
     initInstallScreen: function () {
       $("#metamask_installed").on("click", function () {
         location.reload();
       });
+
+
     },
     initLockedScreen: function () {
       $("#metamask_unlocked").on("click", function () {
         location.reload();
       });
+
+      
     },
     initChianScreen: function () {
 

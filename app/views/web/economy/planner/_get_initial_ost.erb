@@ -14,10 +14,21 @@
             <div class="invalid-feedback" data-forid="eth_address">&nbps;</div>
           </div>
           <div class="form-group text-center" >
-            <button id="get_initial_ost_button" type="submit" class="btn btn-gold" data-submiting="Requesting...">GET OSTα</button>
+            <button id="get-initial-ost-button" 
+              class="btn btn-gold" data-submiting="Requesting..."
+              type="submit" >GET OSTα</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+<% content_for :end_js do %>
+<script type="text/javascript">
+  ost.metamask.getOstHelper.init({
+    has_registered_address: <%= has_registered_address %>,
+    grant_eth_from_focet: <%= grant_eth_from_focet %>
+  })
+</script>
+<% end %>

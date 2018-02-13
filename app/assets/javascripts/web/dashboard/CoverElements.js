@@ -68,7 +68,7 @@
     },
     hide: function ( selector, withoutAnimation ) {
 
-      $('body').css('overflow-y', 'auto');
+      
       var oThis = this;
 
       var jEl = $( selector )
@@ -79,6 +79,11 @@
       ;
       var onAnimationComplete = function () {
         jEl.removeClass("active-cover").css( finalCss );
+        var activeElements = oThis.jRoot.find(".active-cover")
+        if ( !activeElements.length ) {
+          //No Active Elements.
+          $('body').css('overflow-y', 'auto');
+        }
       }
       if ( withoutAnimation ) {
         onAnimationComplete();

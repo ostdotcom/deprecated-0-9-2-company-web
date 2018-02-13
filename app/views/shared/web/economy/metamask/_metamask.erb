@@ -8,6 +8,9 @@
   eligible_grant_value = 500;
   eligible_grant_unit = "OST &alpha;"
   has_registered_address = false;
+  grant_eth_from_focet = true;
+  validate_transaction_hash_interval = 5000; #Miliseconds.
+  validate_transaction_hash_max_try = 100;
 
   partial_locals = {
     :token_name => token_name,
@@ -17,7 +20,10 @@
     :utility_chain_id => utility_chain_id,
     :eligible_grant_value => eligible_grant_value,
     :eligible_grant_unit => eligible_grant_unit,
-    :has_registered_address => has_registered_address
+    :has_registered_address => has_registered_address,
+    :grant_eth_from_focet => grant_eth_from_focet,
+    :validate_transaction_hash_interval => validate_transaction_hash_interval,
+    :validate_transaction_hash_max_try => validate_transaction_hash_max_try
   }
 %>
 
@@ -32,7 +38,10 @@
       eligibleGrantUnit : "<%= eligible_grant_unit %>",
       valueChainId      : <%= value_chain_id %>,
       utilityChianId    : <%= utility_chain_id %>,
-      hasRegisteredAddress : <%= has_registered_address %>
+      hasRegisteredAddress : <%= has_registered_address %>,
+      grantEthFromFocet: <%= grant_eth_from_focet %>,
+      validateTransactionHashInterval: <%= validate_transaction_hash_interval %>,
+      validateTransactionHashMaxTry: <%= validate_transaction_hash_max_try %>
     };
     ost.metamask.init( config );
   });
@@ -42,7 +51,8 @@
 <% content_for :cover_elements do %>
   <div id="installMetamaskCover" class="cover-element metamask-flow">
     <div class="container">
-      <%= render :partial => "shared/web/economy/metamask/install_metamask", :locals => partial_locals %>
+      <%= render :partial => "shared/web/economy/metamask/install_metamask", 
+      :locals => partial_locals %>
     </div>
   </div>
   <div id="metamaskLockedCover" class="cover-element metamask-flow">
@@ -63,5 +73,13 @@
       :locals => partial_locals %>
     </div>
   </div>
+
+  <div id="getInitialOstCover" class="cover-element">
+    <div class="container">
+      <%= render :partial => "/web/economy/planner/get_initial_ost", :locals => partial_locals %>
+    </div>
+  </div>
+
+
 <% end %>
 

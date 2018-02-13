@@ -1,17 +1,11 @@
 <%= render :partial => "/web/economy/planner/step_1" %>
-<% content_for :cover_elements do %>
-  <div id="getInitialOstCover" class="cover-element">
-    <div class="container">
-      <%= render :partial => "/web/economy/planner/get_initial_ost" %>
-    </div>
-  </div>
-<% end %>
 
 <% content_for :end_js do %>
 <script type="text/javascript">
   $( function () {
     ost.planner.init({
-      
+      has_varified_email: true,
+      grant_initial_ost: true
     });
   });
 </script>
