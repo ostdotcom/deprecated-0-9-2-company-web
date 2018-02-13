@@ -19,3 +19,23 @@
     </div>
   </div>
 </div>
+
+
+<% content_for :end_js do %>
+  <script type="text/javascript">
+    $( function () {
+      // when the modal is opened autoplay it
+      $('#helpVideoModal').on('shown.bs.modal', function (event) {
+        console.log("shown.bs.modal", arguments);
+        var videoSrc = $( event.relatedTarget).data("src");
+        // set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get
+        $("#video").attr('src',videoSrc + "?rel=0&amp;showinfo=0&amp;modestbranding=1&amp;autoplay=1" );
+      });
+      // stop playing the youtube video when I close the modal
+      $('#helpVideoModal').on('hide.bs.modal', function (e) {
+        // a poor man's stop video
+        $("#video").attr('src', "");
+      });
+    });
+  </script>
+<% end %>
