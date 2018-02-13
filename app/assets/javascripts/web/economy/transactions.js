@@ -14,8 +14,19 @@
           oThis.getDummyData.apply( oThis, arguments );
         }
       });
+
+      oThis.bindEvents();
     }
 
+    ,bindEvents: function () {
+      $("#transaction_list").on("click", ".editRow", function () {
+        ost.coverElements.show("#transaction_editor");
+      });
+    }
+
+    , bindEditorEvents: function () {
+
+    }
 
 
 

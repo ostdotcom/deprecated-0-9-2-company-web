@@ -1,12 +1,53 @@
-<div class="row">
-  <div class="col-12">
-    <h3 class="text-center mt-4" id="mode-heading">Create Transactions</h3>
-    <hr />
+<form id="transaction_editor_form" class="form-container-sm user-form"
+  action="/api/client/sign-up" method="POST"
+  data-ost-formhelper>
+  <div class="row">
+    <div class="col-12">
+      <h3 class="text-center mt-4" id="mode-heading">Create Transactions</h3>
+      <hr />
+    </div>
+    <div class="col-12">
+      <div class="form-group" id="kindFormGroup">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="kind" id="kind" value="user_to_user" />
+          <label class="form-check-label" for="kind_1">User to User</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="kind" id="kind" value="user_to_company" />
+          <label class="form-check-label" for="kind_1">User to Company</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="kind" id="kind" value="company_to_user" />
+          <label class="form-check-label" for="kind_1">Company to User</label>
+        </div>
+        <div class="invalid-feedback" data-forid="kind">&nbps;</div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="form-group" id="transaction_name_form_group">
+        <label class="form-label" data-forid="transaction_name">Transaction Name</label>
+        <input id="transaction_name" type="text" name="transaction_name" class="form-control" aria-describedby="emailHelp" placeholder="Enter Transaction Name" required/>
+        <div class="invalid-feedback" data-forid="transaction_name">&nbps;</div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="form-group" id="transaction_name_form_group">
+        <label class="form-label" data-forid="transaction_name">Transaction Value IN (USD)</label>
+        <input id="transaction_name" type="text" name="transaction_name" class="form-control" aria-describedby="emailHelp" placeholder="Enter Transaction Value IN (USD)" required/>
+        <div class="invalid-feedback" data-forid="transaction_name">&nbps;</div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="form-group" id="transaction_name_form_group">
+        <label class="form-label" data-forid="transaction_name">Transaction Value IN (FRC)</label>
+        <input id="transaction_name" type="text" name="transaction_name" class="form-control" aria-describedby="emailHelp" placeholder="Enter Transaction Value IN (FRC)" required/>
+        <div class="invalid-feedback" data-forid="transaction_name">&nbps;</div>
+      </div>
+    </div>
+
   </div>
-  <form id="transaction_editor" class="form-container-sm user-form"
-    action="/api/client/sign-up" method="POST"
-    data-ost-formhelper>
-    
-  </form>
-</div>
+</form>
   

@@ -1,1 +1,8 @@
+<% content_for :cover_elements do %>
+  <div id="transaction_editor" class="cover-element metamask-flow">
+    <div class="container">
+      <%= render :partial => "/web/economy/transactions/transaction_editor" %>
+    </div>
+  </div>
+<% end %>
 <%= render :partial => "/web/economy/transactions/transaction_list" %>
