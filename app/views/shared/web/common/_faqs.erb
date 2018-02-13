@@ -10,9 +10,11 @@
         </ul>
       </div>
       <div class="col-sm-6">
-        <button type="button" class="font-weight-light btn btn-gold-border h-100" title="Watch Help Video" style="width: 100%;">watch help video</button>
+        <button type="button" class="font-weight-light btn btn-gold-border h-100 video-btn" title="Watch Help Video" data-toggle="modal" data-src="https://www.youtube.com/embed/EUwzWHD3Htg" data-target="#helpVideoModal" style="width: 100%;">watch help video</button>
       </div>
     </div>
     <div class="mb-4"></div>
   </div>
 </div>
+
+<%= render :partial => "shared/web/modals/help_video" %>

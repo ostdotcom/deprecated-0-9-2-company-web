@@ -1,9 +1,22 @@
-<% should_show_api_call_button = true %> 
+<% should_show_api_call_button = true %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-2">TRANSACTION</div>
+    <div class="col-3">TRANSACTION TYPE</div>
+    <div class="col-1">VALUE IN USD</div>
+    <div class="col-1">VALUE IN FRC</div>
+    <div class="col-1">PRICE ORACLE</div>
+    <div class="col-2">COMMISSION %</div>
+    <div class="col-2">
+    </div>
+  </div>
+</div>
 
 <div id="transaction_list" class="" data-simple-table data-url="/api/economy/transaction/kind/list">
   <script type="text/x-handlebars-template" data-row-template>
-    <div class="container simple-data-table-row" style="margin:10px auto;">
-      <div class="row">
+    <div class="container" style="margin-top: 15px; margin-bottom: 15px">
+      <div class="row align-items-center py-3 rounded ost-table-row" style="background-color: #f1f5f8;">
         <div class="col-2">{{name}}</div>
         <div class="col-2">{{kind_display_text}}</div>
         <div class="col-1">${{value_in_usd}}</div>
