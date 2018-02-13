@@ -163,15 +163,13 @@
             oThis.beforeSend(jqXHR, settings);
           }
         }
+
         , error: function ( jqXHR, textStatus, errorThrown ) {
           if ( oThis.error ) {
             oThis.error.apply(oThis, arguments );
           }
-
-
-          console.log("arguments");
-          console.log( arguments );
         }
+
         , dataFilter: function ( strResponse, dataType ) {
           if ( oThis.dataFilter ) {
             oThis.dataFilter.apply(oThis, arguments );
@@ -186,7 +184,6 @@
           return strResponse;
         }
         , success: function (response) {
-          console.log("Success", arguments);
           if ( oThis.success ) {
             oThis.success.apply( oThis, arguments);
           } else if ( response.success && oThis.jForm.data("redirect") ) {
@@ -306,8 +303,14 @@
 
       var serverErrors = response.err.error_data || {};
       oThis.validator.showErrors( serverErrors );
-      console.log( "serverErrors", serverErrors );
 
+      var generalErrorMessage = response.err.display_text;
+
+      if ( generalErrorMessage ) {
+        oThis.jForm.find(".general_error")
+          .addClass("is-invalid")
+          .html( generalErrorMessage );
+      }
     }
 
     , showErrors: function ( mapData, arrayData ) {

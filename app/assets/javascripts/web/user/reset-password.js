@@ -6,7 +6,7 @@
       , oThis
   ;
 
-  parentNS.signup = oThis = {
+  parentNS.resetPassword = oThis = {
     jForm: $('#rest_password_form')
     , init: function (config) {
       oThis.bindEventListeners();
@@ -15,11 +15,13 @@
     , bindEventListeners: function () {
 
     }
-    , formHandler: function() {
+    , formHandler: function( response ) {
       var formHelper = oThis.jForm.formHelper();
-      formHelper.success = function(){
-        oThis.jForm.hide();
-        $('#resetEmailSent').show();
+      formHelper.success = function( response ) {
+        if ( response && response.success ) {
+          oThis.jForm.hide();
+          $('#resetEmailSent').show();
+        }
       };
     }
 

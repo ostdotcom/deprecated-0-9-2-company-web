@@ -30,6 +30,10 @@
         }
       };
 
+      $("#plannerStep1Btn").on('click', function () {
+        oThis.formHelper.jForm.submit();
+      });
+
     },
 
     grant_initial_ost: true, /* Over-Ride using config. */
