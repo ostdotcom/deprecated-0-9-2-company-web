@@ -10,15 +10,15 @@
       var oThis = this;
 
       oThis.simpleDataTable = new ost.SimpleDataTable({
-        resultFetcher: function () {
-          oThis.getDummyData.apply( oThis, arguments );
-        }
+        // resultFetcher: function () {
+        //   oThis.getDummyData.apply( oThis, arguments );
+        // }
       });
 
       oThis.bindEvents();
     }
 
-    ,bindEvents: function () {
+    , bindEvents: function () {
       $("#transaction_list").on("click", ".editRow", function () {
         ost.coverElements.show("#transaction_editor");
       });

@@ -1,3 +1,5 @@
+<% coin_name = "FRC"%>
+
 <form id="transaction_editor_form" class="form-container-sm user-form"
   action="/api/client/sign-up" method="POST"
   data-ost-formhelper>
@@ -24,29 +26,77 @@
       </div>
     </div>
 
-    <div class="col-12">
+    <div class="col-8">
       <div class="form-group" id="transaction_name_form_group">
         <label class="form-label" data-forid="transaction_name">Transaction Name</label>
         <input id="transaction_name" type="text" name="transaction_name" class="form-control" aria-describedby="emailHelp" placeholder="Enter Transaction Name" required/>
         <div class="invalid-feedback" data-forid="transaction_name">&nbps;</div>
       </div>
     </div>
+    <div class="col-4"></div>
 
-    <div class="col-12">
+    <div class="col-4">
       <div class="form-group" id="transaction_name_form_group">
         <label class="form-label" data-forid="transaction_name">Transaction Value IN (USD)</label>
-        <input id="transaction_name" type="text" name="transaction_name" class="form-control" aria-describedby="emailHelp" placeholder="Enter Transaction Value IN (USD)" required/>
+        <input id="transaction_name" type="text" name="transaction_name" class="form-control" aria-describedby="emailHelp" placeholder="Value in (USD)" required/>
         <div class="invalid-feedback" data-forid="transaction_name">&nbps;</div>
       </div>
     </div>
 
-    <div class="col-12">
+    <div class="col-4">
       <div class="form-group" id="transaction_name_form_group">
-        <label class="form-label" data-forid="transaction_name">Transaction Value IN (FRC)</label>
-        <input id="transaction_name" type="text" name="transaction_name" class="form-control" aria-describedby="emailHelp" placeholder="Enter Transaction Value IN (FRC)" required/>
+        <label class="form-label" data-forid="transaction_name">Transaction Value In (<%= coin_name %>)</label>
+        <input id="transaction_name" type="text" name="transaction_name" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= coin_name %>)" required/>
         <div class="invalid-feedback" data-forid="transaction_name">&nbps;</div>
       </div>
     </div>
+
+    <div class="col-3">
+      <div class="form-group" style="background-color: #f1f5f8;margin-top: 5px;">
+        <label class="form-label">Value In OST 
+          <br/>
+          <span id="ost_display_value">1.75</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div>Do you wish to keep the USD value for this transaction to be fixed? 
+        <a href="/">HOW DOES IT MATTER?</a>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group" id="value_currency_type_group">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="value_currency_type" id="value_currency_type" value="usd" />
+          <label class="form-check-label" for="value_currency_type">Yes</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="value_currency_type" id="kind" value="bt" />
+          <label class="form-check-label" for="value_currency_type">No</label>
+        </div>
+        <div class="invalid-feedback" data-forid="kind">&nbps;</div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div>Want to get comission on this transaction?</div>
+    </div>
+    <div class="col-12">
+      <div class="form-group" id="take_commission_group">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="take_commission" id="take_commission" value="1" />
+          <label class="form-check-label" for="take_commission">Yes</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="take_commission" id="take_commission" value="0" />
+          <label class="form-check-label" for="take_commission">No</label>
+        </div>
+        <div class="invalid-feedback" data-forid="take_commission">&nbps;</div>
+      </div>
+    </div>
+
+
 
   </div>
 </form>

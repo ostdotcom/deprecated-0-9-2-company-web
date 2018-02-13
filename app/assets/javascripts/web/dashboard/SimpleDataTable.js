@@ -11,6 +11,7 @@
     oThis.jParent           = oThis.jParent || $('[data-simple-table]');
     oThis.jRowTemplateHtml  = oThis.jRowTemplateHtml || oThis.jParent.find( '[data-row-template]' );
     oThis.rowTemplate       = oThis.rowTemplate ||  Handlebars.compile( oThis.jRowTemplateHtml.html() );
+    oThis.fetchResultsUrl   = oThis.fetchResultsUrl || oThis.jParent.data("url") || null
 
     console.log("oThis", oThis);
 
@@ -56,11 +57,14 @@
 
       oThis.resultFetcher(oThis.results, oThis.lastMeta, function ( response ) {
         oThis.processResponse( response );
+
         if ( oThis.hasNextPage ) {
           setTimeout( function () {
             oThis.bindScrollObserver();
           }, 300);
         }
+
+        console.log("hideLoading called after processResponse");
         //Hide Loading
         oThis.hideLoading();
       });
@@ -69,14 +73,16 @@
     , resultFetcher: function ( currentData, lastMeta, callback ) {
       var oThis = this;
 
+      console.log("oThis.fetchResultsUrl", oThis.fetchResultsUrl);
+
       $.get({
         url: oThis.fetchResultsUrl
-        , success: function ( reponse ) {
-          if ( reponse.success ) {
-            oThis.processResponse( reponse );  
+        , success: function ( response ) {
+          if ( response.success ) {
+            callback( response );
           } else {
             //To-Do: Show Some Error.
-            oThis.showDataLoadError( reponse );
+            oThis.showDataLoadError( response );
           }
         }
       });
@@ -109,6 +115,7 @@
         //Deal with meta
         oThis.hasNextPage = false;
         if ( Object.keys( nextPagePayload ).length ) {
+          console.log("nextPagePayload", nextPagePayload);
           //We have next page.
           oThis.hasNextPage = true;
         }
@@ -118,6 +125,7 @@
       } else {
         oThis.showDataLoadError( response );
       }
+      console.log("Datatable :: processResponse done!");
     }
     , createLoadingWrap: function ( jParent ) {
       var jWrap = $('<div data-simple-table-end></div>');
@@ -139,12 +147,14 @@
       var oThis = this;
       oThis.jDataLoader.find(":first-child").show();
       oThis.unbindScrollObserver();
+      console.log("showLoading");
     }
 
     , hideLoading: function () {
       var oThis = this;
       oThis.jDataLoader.find(":first-child").hide();
       oThis.bindScrollObserver();
+      console.log("hideLoading");
     }
 
     , showDataLoadError: function ( response ) {
