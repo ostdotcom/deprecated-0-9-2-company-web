@@ -2,6 +2,7 @@
 //= require plugins/bootstrap/bootstrap
 //= require plugins/jquery-validate/jquery.validate
 //= require plugins/jquery-validate/ost-jquery-validate-modifications
+//= require plugins/jquery-validate/additional-methods
 //= require plugins/bootstrap-slider/bootstrap-slider
 //= require plugins/bootstrap-slider-text-input/bootstrap-slider-text-input
 //= require plugins/helpers/ajaxHooks

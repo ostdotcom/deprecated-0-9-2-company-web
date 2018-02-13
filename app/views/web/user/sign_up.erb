@@ -20,7 +20,7 @@
       <div class="form-group m-0" id="emailFormGrp">
         <label class="form-label" data-forid="email">Token Symbol</label>
 
-        <input id="user-token-symbol" type="text" name="token_symbol" class="form-control" aria-describedby="emailHelp" placeholder="Enter token symbol" required/>
+        <input id="user-token-symbol" type="text" pattern="\w{3}" name="token_symbol" class="form-control" aria-describedby="emailHelp" placeholder="Enter token symbol" required  maxlength="3" />
         <div class="invalid-feedback" data-forid="token_symbol">&nbps;</div>
       </div>
     </div>
@@ -32,37 +32,37 @@
       <li>
         <input type="radio" id="option-one" name="selector" value="token_icon_1">
         <label for="option-one" class="mb-0">
-          <span class="token_icon_1">TGC</span>
+          <span class="token_icon token_icon_1"></span>
         </label>
       </li>
       <li>
         <input type="radio" id="option-two" name="selector" value="token_icon_2">
         <label for="option-two" class="mb-0">
-          <span class="token_icon_2">SGC</span>
+          <span class="token_icon token_icon_2"></span>
         </label>
       </li>
       <li>
         <input type="radio" id="option-three" name="selector" value="token_icon_3">
         <label for="option-three" class="mb-0">
-          <span class="token_icon_3">FRC</span>
+          <span class="token_icon token_icon_3"></span>
         </label>
       </li>
       <li>
         <input type="radio" id="option-four" name="selector" value="token_icon_4">
         <label for="option-four" class="mb-0">
-          <span class="token_icon_4">RKC</span>
+          <span class="token_icon token_icon_4"></span>
         </label>
       </li>
       <li>
         <input type="radio" id="option-five" name="selector" value="token_icon_5">
         <label for="option-five" class="mb-0">
-          <span class="token_icon_5">ARC</span>
+          <span class="token_icon token_icon_5"></span>
         </label>
       </li>
       <li>
         <input type="radio" id="option-six" name="selector" value="token_icon_6">
         <label for="option-six" class="mb-0">
-          <span class="token_icon_6">PBC</span>
+          <span class="token_icon token_icon_6"></span>
         </label>
       </li>
     </ul>
