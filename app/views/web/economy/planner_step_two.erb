@@ -1,1 +1,20 @@
-Step 2
+<h3 class="text-center mt-5">Plan the Francesco Coin Economy in 3 Easy Steps</h3>
+<%= render :partial => "shared/web/common/steps" %>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h6>We have set up these 4 transaction types for you. You can change them or create new ones.</h6>
+      <p class="mb-0">Once you are done please click the next button to start staking and minting.</p>
+    </div>
+    <% content_for :cover_elements do %>
+      <div id="transaction_editor" class="cover-element metamask-flow">
+        <div class="container">
+          <%= render :partial => "/web/economy/transactions/transaction_editor" %>
+        </div>
+      </div>
+    <% end %>
+    <%= render :partial => "/web/economy/transactions/transaction_list" %>
+  </div>
+</div>
+
+<%= render :partial => "shared/web/common/steps_two_bottom_nav" %>

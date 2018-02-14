@@ -14,9 +14,10 @@ Rails.application.routes.draw do
 
   scope '', controller: 'web/economy' do
     get '/dashboard' => :dashboard, as: 'dashboard'
-    get '/planner' => :planner, as: 'planner_step_one'
-    get '/planner/step-two' => :planner_step_two, as: 'planner_step_two'
-    get '/planner/step-three' => :planner_step_three, as: 'planner_step_three'
+    get '/planner' => :planner
+    get '/planner/step-1' => :planner, as: 'planner_step_one'
+    get '/planner/step-2' => :planner_step_two, as: 'planner_step_two'
+    get '/planner/step-3' => :planner_step_three, as: 'planner_step_three'
     get '/token-supply' => :token_supply
     get '/users' => :users
     get '/transactions' => :transactions
