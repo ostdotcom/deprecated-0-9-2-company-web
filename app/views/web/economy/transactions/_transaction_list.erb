@@ -12,35 +12,37 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-2">TRANSACTION</div>
-    <div class="col-2">VALUE IN USD</div>
-    <div class="col-2">VALUE IN FRC</div>
-    <div class="col-2">PRICE ORACLE</div>
-    <div class="col-3">COMMISSION %</div>
-  </div>
+  <table class="transactions">
+    <tr class="row">
+      <th class="col-2">TRANSACTION</th>
+      <th class="col-2">VALUE IN USD</th>
+      <th class="col-2">VALUE IN FRC</th>
+      <th class="col-2">PRICE ORACLE</th>
+      <th class="col-3">COMMISSION %</th>
+    </tr>
+  </table>
 </div>
 
-<div id="transaction_list" class="" data-simple-table data-url="/api/economy/transaction/kind/list">
-  <script type="text/x-handlebars-template" data-row-template>
-    <div class="container" style="margin-top: 15px; margin-bottom: 15px">
-      <div class="row align-items-center py-3 rounded ost-table-row" style="background-color: #f1f5f8;">
-        <div class="col-2">{{name}}<br/>User to Company{{kind_display_text}}</div>
-        <div class="col-2 text-center">${{value_in_usd}}</div>
-        <div class="col-2 text-center">{{value_in_bt}}</div>
-        <div class="col-2 text-center">{{price_oracle_text}}</div>
-        <div class="col-1 text-center">{{commission_percent}}&#37;</div>
-        <div class="col-3 text-center">
+<div class="container">
+  <table id="transaction_list" class="transactions" data-simple-table data-url="/api/economy/transaction/kind/list">
+    <script type="text/x-handlebars-template" data-row-template>
+      <tr class="row align-items-center py-3 mt-1 mb-3 rounded ost-table-row" style="background-color: #f1f5f8;">
+        <td class="col-2">{{name}}<br/>{{kind_display_text}}</td>
+        <td class="col-2">${{value_in_usd}}</td>
+        <td class="col-2">{{value_in_bt}}</td>
+        <td class="col-2">{{price_oracle_text}}</td>
+        <td class="col-1">{{commission_percent}}&#37;</td>
+        <td class="col-3">
           {{#IfShowApiCallButton id }}
-            <button class="showApiCallBtn btn btn-info" >API Call</button> 
+            <button class="showApiCallBtn btn btn-gold-border" >API Call</button>
           {{/IfShowApiCallButton}}
-          <button class="editRow btn btn-default" data-result-id="{{id}}">Edit</button>
+          <a href="javascript:void(0)" class="editRow" data-result-id="{{id}}">Edit</a>
           <input type="hidden" name="id" value={{id}}/>
           <input type="hidden" name="uts" value={{uts}}/>
-        </div>
-      </div>
-    </div>
-  </script>
+        </td>
+      </tr>
+    </script>
+  </table>
 </div>
 
 <% content_for :end_js do %>
