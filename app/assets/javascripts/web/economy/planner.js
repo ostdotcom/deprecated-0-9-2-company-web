@@ -11,6 +11,7 @@
 
       $.extend(oThis, config);
       oThis.bindEvents();
+      oThis.calcConversion();
     },
 
     formHelper: null,
@@ -34,6 +35,10 @@
         oThis.formHelper.jForm.submit();
       });
 
+      $('#conversion_rate').on('change',function(){
+        oThis.calcConversion();
+      });
+
     },
 
     grant_initial_ost: true, /* Over-Ride using config. */
@@ -55,7 +60,19 @@
     has_verified_email: true, /* Over-Ride using config. */
     showValidateEmailLightBox: function () {
       $('#verify-modal').modal();
-    }
+    },
+
+    calcConversion: function(){
+      var $bt_rate = $('#bt_rate');
+      var $conversion_rate = $('#conversion_rate');
+      var $ost_rate = $('#ost_rate');
+      $bt_rate.val(
+        BigNumber(oThis.ost_to_fiat)
+          .div(BigNumber($conversion_rate.val()))
+          .toPrecision(oThis.bt_precision)
+          .toString()
+      );
+    },
 
 
   };

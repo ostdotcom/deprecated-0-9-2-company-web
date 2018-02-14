@@ -5,6 +5,7 @@
 //= require plugins/jquery-validate/additional-methods
 //= require plugins/bootstrap-slider/bootstrap-slider
 //= require plugins/bootstrap-slider-text-input/bootstrap-slider-text-input
+//= require plugins/bignumber.js/bignumber
 //= require plugins/helpers/ajaxHooks
 //= require plugins/helpers/formHelper
 //= require web/common/SimpleTokenNamespace
