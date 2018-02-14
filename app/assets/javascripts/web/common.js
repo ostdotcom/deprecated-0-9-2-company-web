@@ -8,4 +8,5 @@
 //= require plugins/bignumber.js/bignumber
 //= require plugins/helpers/ajaxHooks
 //= require plugins/helpers/formHelper
+//= require plugins/helpers/ostMocker
 //= require web/common/SimpleTokenNamespace
