@@ -1,0 +1,14 @@
+.mocker-card-bg{
+  border: none;
+  background-color: $alice-blue;
+  .card-body{
+    font-size: 0.8rem;
+    padding: 0.5rem;
+    .ost-mocker-header{
+      color: $blue-500;
+    }
+    .ost-mocker-value-wrap, .ost-mocker-footer{
+      color: $blue-600;
+    }
+  }
+}

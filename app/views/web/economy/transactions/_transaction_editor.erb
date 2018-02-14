@@ -79,7 +79,7 @@
 
 
     <div class="col-12">
-      <div>Do you wish to keep the USD value for this transaction to be fixed? 
+      <div>Do you wish to keep the USD value for this transaction to be fixed?
         <a href="/">HOW DOES IT MATTER?</a>
       </div>
     </div>
@@ -110,7 +110,7 @@
     <div class="col-4">
       <div class="form-group" id="value_in_bt_form_group">
         <label class="form-label" data-forid="transaction_name">Transaction Value In (<%= coin_symbol %>)</label>
-        <input id="value_in_bt" type="text" name="value_in_bt" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= coin_symbol %>)" required/>
+        <input id="value_in_bt" disabled type="text" name="value_in_bt" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= coin_symbol %>)" required/>
         <div class="invalid-feedback" data-forid="value_in_bt">&nbps;</div>
       </div>
     </div>
@@ -192,7 +192,7 @@
 
 
 
-    <div class="col-12">
+    <div class="col-12 my-3">
       <div style="width: 50%" class="d-inline-block float-left">
         <%= render :partial => "/shared/web/common/mocker", 
           :locals => {
