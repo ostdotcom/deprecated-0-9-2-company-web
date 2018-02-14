@@ -1,24 +1,38 @@
 <% 
-  coin_name = "Francesco Coin"
-  coin_symbol = "FRC"
-  conversion_factor = 2;
-  ost_to_bt = 2;
-  ost_to_usd = 0.30;
-  bt_to_usd = (ost_to_usd/ost_to_bt).to_f;
+  coin_name   = "Francesco Coin";
+  coin_symbol = "FRC";
+  fiat_symbol = "$";
+  fiat_type   = "usd";
+  fiat_display_text = "USD";
+
+  value_in_fiat_key = "value_in_" + fiat_type;
+  value_in_fiat_sym = value_in_fiat_key.to_sym;
+
+  ost_to_bt   = 2;
+  ost_to_fiat = 0.30;
+  bt_to_fiat  = (ost_to_fiat/ost_to_bt).to_f;
+
+  #Default value for creating new transaction to be set.
+  default_fiat_value = 0.01; 
+  default_bt_value = (default_fiat_value/bt_to_fiat).to_f;
+
+
   create_url = "/api/economy/transaction/kind/create";
   edit_url = "/api/economy/transaction/kind/edit";
 
 
-  default_bt_value = 1;
-
+  
   default_transaction_values = { 
     :commission_percent => 0,
     :kind => "user_to_user",
     :name => "",
-    :use_price_oracle => 0,
-    :value_in_bt => default_bt_value,
-    :value_in_usd => (default_bt_value * bt_to_usd).to_f
-  }
+    :currency_type => fiat_type,
+    :value_in_bt => default_bt_value
+  };
+
+  default_transaction_values[ value_in_fiat_sym ] = default_fiat_value;  
+
+
 
 %>
 
@@ -63,30 +77,6 @@
     </div>
     <div class="col-4"></div>
 
-    <div class="col-4">
-      <div class="form-group" id="transaction_value_in_usd_form_group">
-        <label class="form-label" data-forid="transaction_name">Transaction Value IN (USD)</label>
-        <input id="transaction_value_in_usd" type="text" name="value_in_usd" class="form-control" aria-describedby="emailHelp" placeholder="Value in (USD)" required/>
-        <div class="invalid-feedback" data-forid="transaction_value_in_usd">&nbps;</div>
-      </div>
-    </div>
-
-    <div class="col-4">
-      <div class="form-group" id="transaction_value_in_bt_form_group">
-        <label class="form-label" data-forid="transaction_name">Transaction Value In (<%= coin_symbol %>)</label>
-        <input id="transaction_value_in_bt" type="text" name="value_in_bt" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= coin_symbol %>)" required/>
-        <div class="invalid-feedback" data-forid="transaction_value_in_bt">&nbps;</div>
-      </div>
-    </div>
-
-    <div class="col-3">
-      <div class="form-group" style="background-color: #f1f5f8;margin-top: 5px;">
-        <label class="form-label">Value In OST 
-          <br/>
-          <span id="transaction_value_in_ost">1.75</span>
-        </label>
-      </div>
-    </div>
 
     <div class="col-12">
       <div>Do you wish to keep the USD value for this transaction to be fixed? 
@@ -107,6 +97,33 @@
         </div>
         <div class="invalid-feedback" data-forname="use_price_oracle">&nbps;</div>
       </div>
+    </div>
+
+    <div class="col-4">
+      <div class="form-group" id="transaction_value_in_fiat_form_group">
+        <label class="form-label" data-forid="transaction_name">Transaction Value IN (<%= fiat_display_text %>)</label>
+        <input id="value_in_fiat" type="text" name="<%= value_in_fiat_key %>" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= fiat_display_text %>)" required/>
+        <div class="invalid-feedback" data-forid="value_in_fiat">&nbps;</div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="form-group" id="value_in_bt_form_group">
+        <label class="form-label" data-forid="transaction_name">Transaction Value In (<%= coin_symbol %>)</label>
+        <input id="value_in_bt" type="text" name="value_in_bt" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= coin_symbol %>)" required/>
+        <div class="invalid-feedback" data-forid="value_in_bt">&nbps;</div>
+      </div>
+    </div>
+
+    <div class="col-2">
+      <input type="hidden" name="value_in_ost" id="value_in_ost" />
+      <%= render :partial => "/shared/web/common/mocker", 
+        :locals => {
+          :header => "VALUE IN OST",
+          :mock_selector => "#value_in_ost",
+          :value => "15.898"
+        }
+      %> 
     </div>
 
     <div class="col-12">
@@ -133,7 +150,7 @@
 
 
 
-
+    <div class="col-8">
       <%= render partial: 'shared/web/common/slider',
          locals: {
            label: 'COMMISSION VALUE IN % <span>(The commission is included in the transaction amount)</span>',
@@ -148,6 +165,74 @@
            classes: 'slider-primary'
          }
      %>
+     <input type="hidden" name="value_in_ost" id="commission_in_bt" />
+     <input type="hidden" name="value_in_ost" id="commission_in_fiat" />
+   </div>
+
+    <div class="col-2">
+      <%= render :partial => "/shared/web/common/mocker", 
+        :locals => {
+          :header => "VALUE IN " + coin_symbol,
+          :mock_selector => "#commission_in_bt",
+          :value => "15.898"
+        }
+      %> 
+    </div>
+
+    <div class="col-2">
+      
+      <%= render :partial => "/shared/web/common/mocker", 
+        :locals => {
+          :header => "VALUE IN " + fiat_display_text,
+          :mock_selector => "#commission_in_fiat",
+          :value => "15.898"
+        }
+      %> 
+    </div>
+
+
+
+    <div class="col-12">
+      <div style="width: 50%" class="d-inline-block float-left">
+        <%= render :partial => "/shared/web/common/mocker", 
+          :locals => {
+            :header => "TOTAL TRANSACTION VALUE (" + fiat_display_text + ")",
+            :mock_selector => "#value_in_fiat",
+            :value => "215.898"
+          }
+        %> 
+      </div>
+      <div style="width: 50%" class="d-inline-block float-left">
+        <%= render :partial => "/shared/web/common/mocker", 
+          :locals => {
+            :header => "COMMISSION (" + fiat_display_text + ")",
+            :mock_selector => "#commission_in_fiat",
+            :value => "15.898"
+          }
+        %> 
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div style="width: 50%;" class="d-inline-block float-left">
+        <%= render :partial => "/shared/web/common/mocker", 
+          :locals => {
+            :header => "TOTAL TRANSACTION VALUE (" + coin_symbol + ")",
+            :mock_selector => "#value_in_bt",
+            :value => "15"
+          }
+        %> 
+      </div>
+      <div style="width: 50%" class="d-inline-block float-left">
+        <%= render :partial => "/shared/web/common/mocker", 
+          :locals => {
+            :header => "COMMISSION (" + coin_symbol + ")",
+            :mock_selector => "#commission_in_bt",
+            :value => "5"
+          }
+        %> 
+      </div>
+    </div>
 
     <% # Form Buttons %>
     <div class="col-12">
@@ -156,7 +241,9 @@
       <a id="transaction_editor_cancel_btn" href="javascript:void(0)"
         class="mt-4 ml-4 btn btn-white d-inline-block float-left">CANCEL</a>
     </div>
-    <hr class="mt-3 mb-4"/>
+    <div class="col-12">
+      <div class="mt-5 mb-5" style="height: 20px" />
+    </div>
   </div> <!-- Row Ending -->
 </form>
 
@@ -164,13 +251,16 @@
 <script type="text/javascript">
   <% #See transactions_editor.js for more options %>
   ost.transactions.editor.init({
-    ost_to_bt: <%= ost_to_bt %>
-    , ost_to_usd: <%= ost_to_usd %>
-    , bt_to_usd: <%= bt_to_usd %>
-    , defaultData: <%= raw default_transaction_values.to_json %>
-    , eventContext: ost.transactions
-    , createUrl     : "<%= create_url %>"
-    , editUrl       : "<%= edit_url %>"
+    ost_to_bt           : <%= ost_to_bt %>
+    , ost_to_fiat       : <%= ost_to_fiat %>
+    , bt_to_fiat        : <%= bt_to_fiat %>
+    , fiat_symbol       : "<%= fiat_symbol %>"
+    , fiat_type         : "<%= fiat_type %>"
+    , value_in_fiat_key : "<%= value_in_fiat_key %>"
+    , defaultData       : <%= raw default_transaction_values.to_json %>
+    , eventContext      : ost.transactions
+    , createUrl         : "<%= create_url %>"
+    , editUrl           : "<%= edit_url %>"
   });
 </script>
 <% end %>

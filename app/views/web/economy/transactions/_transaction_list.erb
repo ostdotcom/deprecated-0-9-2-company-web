@@ -1,4 +1,17 @@
-<% should_show_api_call_button = true %>
+<% 
+  should_show_api_call_button = true;
+
+  kind_display_text = {
+    :user_to_company => "User to Company",
+    :user_to_user => "User to User",
+    :company_to_user => "Company to User"
+  };
+
+
+%>
+
+
+<%  %>
 
 
 
@@ -50,19 +63,17 @@
     src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
 
   <script type="text/javascript">
+    var kindDisplayText = <%= raw kind_display_text.to_json %>;
+
     Handlebars.registerHelper('price_oracle_text', function(response, options ) { 
+      var defaultVal = "YES";
 
       var rowData = response.data.root || {};
-      return rowData.use_price_oracle ? "Yes" : "No";
-      return "YES";
+      return  rowData.currency_type === "bt" ? "No" : "Yes";
+
     });
 
-    var kindDisplayText = {
-      "user_to_company": "User to Company",
-      "user_to_user": "User to User",
-      "company_to_user": "Company to User"
-    };
-
+    
     Handlebars.registerHelper('kind_display_text', function(response, options ) { 
       var rowData = response.data.root || {}
         , kind    = rowData.kind

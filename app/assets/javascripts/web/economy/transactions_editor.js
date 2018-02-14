@@ -3,13 +3,16 @@
   var transactions  = ns("ost.transactions");
   var currentData = null;
   var oThis = transactions.editor = {
-    defaultData     : null          /* Will be provided in init method call */
-    , ost_to_bt     : 10            /* Will be provided in init method call */
-    , ost_to_usd    : 1.1           /* Will be provided in init method call */
-    , bt_to_usd     : 11            /* Will be provided in init method call */
-    , createUrl     : "/api/economy/transaction/kind/create"
-    , editUrl       : "/api/economy/transaction/kind/edit"
-    , eventContext  : transactions
+    defaultData         : null          /* Will be provided in init method call */
+    , ost_to_bt         : 10            /* Will be provided in init method call */
+    , ost_to_fiat       : 1.1           /* Will be provided in init method call */
+    , bt_to_fiat        : 11            /* Will be provided in init method call */
+    , fiat_symbol       : "$"
+    , fiat_type         : "usd"
+    , value_in_fiat_key : "value_in_usd"
+    , createUrl         : "/api/economy/transaction/kind/create"
+    , editUrl           : "/api/economy/transaction/kind/edit"
+    , eventContext      : transactions
 
     , events : {
       "updated"   : "updated"
@@ -24,7 +27,7 @@
     , jId           : null
     , jDeviceId     : null
     , jName         : null
-    , jValueInUsd   : null
+    , jValueInFiat  : null
     , jValueInBt    : null
     , jValueInOst   : null
     , jHasCommision : null
@@ -42,9 +45,9 @@
       oThis.jId           = oThis.jId           || oThis.jEditor.find("#transaction_id");
       oThis.jDeviceId     = oThis.jDeviceId     || oThis.jEditor.find("#transaction_device_id");
       oThis.jName         = oThis.jName         || oThis.jEditor.find("#transaction_name");
-      oThis.jValueInUsd   = oThis.jValueInUsd   || oThis.jEditor.find("#transaction_value_in_usd");
-      oThis.jValueInBt    = oThis.jValueInBt    || oThis.jEditor.find("#transaction_value_in_bt");
-      oThis.jValueInOst   = oThis.jValueInOst   || oThis.jEditor.find("#transaction_value_in_ost");
+      oThis.jValueInFiat  = oThis.jValueInFiat  || oThis.jEditor.find("#value_in_fiat");
+      oThis.jValueInBt    = oThis.jValueInBt    || oThis.jEditor.find("#value_in_bt");
+      oThis.jValueInOst   = oThis.jValueInOst   || oThis.jEditor.find("#value_in_ost");
       oThis.jCommision    = oThis.jCommision    || oThis.jEditor.find("#commission_percent");
 
 
@@ -139,11 +142,11 @@
       //name
       oThis.jName.val( currentData.name || "" );
 
-      //value_in_usd
-      var value_in_usd = Number( currentData.value_in_usd );
-      value_in_usd = isNaN( value_in_usd ) ? 0 : value_in_usd;
+      //value_in_fiat
+      var value_in_fiat = Number( currentData[ oThis.value_in_fiat_key ] );
+      value_in_fiat = isNaN( value_in_fiat ) ? 0 : value_in_fiat;
 
-      oThis.jValueInUsd.val( value_in_usd );
+      oThis.jValueInFiat.val( value_in_fiat );
 
       //value_in_bt
       var value_in_bt = Number( currentData.value_in_bt );
