@@ -19,17 +19,52 @@
     }
 
     , bindEvents: function () {
-      $("#transaction_list").on("click", ".editRow", function () {
-        ost.coverElements.show("#transaction_editor");
+      var oThis = this;
+
+      $("#transaction_list").on("click", ".editRow", function ( event ) {
+        var jEditBtn    = $( event.target )
+          , resultId    = jEditBtn.data( "resultId" )
+          , transaction = oThis.simpleDataTable.getResultWithId( resultId )
+        ;
+
+        if ( transaction ) {
+          //DO NOT CREATE A COPY. KEEP THE OBJECT REFRENCE SAME
+
+          if ( Number( resultId ) < 0 ) {
+            //This is a new transaction.
+            ost.transactions.editor.createNewTransaction( transaction );
+          } else {
+            //Edit Existing Transaction
+            ost.transactions.editor.editTransaction( transaction );  
+          }
+        }
+
       });
+
+      $("#create_transaction_btn").on("click", function () {
+        ost.transactions.editor.createNewTransaction();
+      });
+
+      //setTimeout is needed because ost.transactions.editor will
+      //not be initialised at this point of time.
+      setTimeout( function () {
+        oThis.bindEditorEvents();
+      }, 100);
+
     }
 
     , bindEditorEvents: function () {
+      var oThis = this;
 
+      $( oThis ).on(ost.transactions.editor.events.created, function () {
+
+      });
+
+      $( oThis ).on(ost.transactions.editor.events.updated, function (event, result, newResult, deviceId ) {
+        console.log("editor.events.updated triggered");
+        oThis.simpleDataTable.updateResult( result );
+      });
     }
-
-
-
 
     /* Begin :: Dummy Data */
     , getDummyData: function (currentData, lastMeta, callback ) {

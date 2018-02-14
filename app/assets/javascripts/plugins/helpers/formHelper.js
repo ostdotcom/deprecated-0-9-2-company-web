@@ -57,7 +57,13 @@
 
       if ( !jqValidateOptions.submitHandler ) {
         jqValidateOptions.submitHandler = function () {
-          oThis.submitHandler.apply(oThis, arguments);
+          try {
+            oThis.submitHandler.apply(oThis, arguments);
+          } catch( ex ) {
+            console.log("IMPORTANT :: ERROR SUBMITING FORM");
+            console.log( ex );
+          }
+          
         }
       }
 
@@ -67,8 +73,6 @@
           oThis.showErrors.apply(oThis, arguments);
         }
       }
-
-
 
       oThis.validator = jForm.validate( jqValidateOptions );
 
@@ -85,7 +89,7 @@
       return eventNameSpace + "beforeSubmit";
     }
 
-    , triggerBeforeSubmit: function () {
+    , triggerBeforeSubmit: function ( ajaxConfig ) {
       var oThis = this;
 
       //Let's assume form is valid.
@@ -95,7 +99,7 @@
       var event = $.Event( oThis.getBeforeSubmitEventName() );
 
       //Trigger it.
-      oThis.jForm.trigger( event );
+      oThis.jForm.trigger( event, [ajaxConfig] );
 
       //Return false, if the event has been canceled.
       return !event.isDefaultPrevented();
@@ -117,15 +121,17 @@
       //Clear all errors
       oThis.jForm.find(".is-invalid").removeClass("is-invalid");
 
-      //Change submit btn text.
-      oThis.updateSubmitText();
-
+      //Generate AjaxConfig
+      var ajaxConfig = oThis.getAjaxConfig();
       //Trigger cancelable beforeSubmit 
-      if ( !oThis.triggerBeforeSubmit() ) {
+      if ( !oThis.triggerBeforeSubmit( ajaxConfig ) ) {
         console.log("FormHelper :: beforeSubmit event has been canceled.");
         //Some listner has objected to form submission.
         return;
       }
+
+      //Change submit btn text.
+      oThis.updateSubmitText();
 
       //Submit the form!
       oThis.submitForm();
@@ -135,7 +141,7 @@
 
     }
 
-    , submitForm: function () {
+    , submitForm: function ( ajaxConfig ) {
 
       var oThis = this;
 
@@ -150,7 +156,19 @@
       
 
       //This method can be used to 'forcefully' submit the form.
-      oThis.jqXhr = $.ajax({
+      ajaxConfig = ajaxConfig || oThis.getAjaxConfig();
+      oThis.jqXhr = $.ajax( ajaxConfig );
+      
+      oThis.triggerFormSubmit( oThis.jqXhr );
+
+      return oThis.jqXhr;
+
+    }
+
+    , getAjaxConfig: function () {
+      var oThis = this;
+      
+      return {
         url: oThis.getActionUrl()
         , method: oThis.getActionMethod()
         , data: oThis.getSerializedData()
@@ -212,12 +230,7 @@
             window.location = '/login';
           }
         }
-      });
-      
-      oThis.triggerFormSubmit( oThis.jqXhr );
-
-      return oThis.jqXhr;
-
+      };
     }
 
     , getFormSubmitEventName: function () {
@@ -302,6 +315,10 @@
       var oThis = this;
 
       var serverErrors = response.err.error_data || {};
+      if ( serverErrors instanceof Array ) {
+        //Hack for now.
+        serverErrors = serverErrors[ 0 ] || {};
+      }
       oThis.validator.showErrors( serverErrors );
 
       var generalErrorMessage = response.err.display_text;
@@ -324,11 +341,18 @@
         $.each(arrayData, function(indx, errorData ) {
           if ( errorData.element ) {
             var jEl = $( errorData.element );
-            jEl.addClass("is-invalid")
-              .parent()
+            
+            var jError = jEl.parent()
                 .find(".invalid-feedback")
-                  .html( errorData.message )
             ;
+            if ( !jError.length ) {
+              jError = jEl.closest(".form-group")
+                .find(".invalid-feedback")
+              ;
+            }
+
+            jEl.addClass("is-invalid");
+            jError.length && jError.html( errorData.message );
           }        
         });
 
@@ -339,7 +363,7 @@
           jEl.removeClass("is-invalid");
         });
       } catch( ex ) {
-        //Keep the try catch. Please :)
+        //Keep the try catch. Please :) ~ Rachin Kapoor
         console.log( ex );
       }
 

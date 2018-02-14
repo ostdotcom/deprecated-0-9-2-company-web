@@ -32,6 +32,8 @@
     , rowTemplate : null
     
     , getRowTemplate: function () {
+      var oThis = this;
+
       return oThis.rowTemplate;
     }
 
@@ -88,6 +90,69 @@
       });
     }
 
+    , appendResult: function ( result ) {
+      var oThis = this;
+
+      //Add to result and Calculate the index.
+      //result will always be pushed into array.
+      //its up-to appendResult/prependResult how they want to place it in UI.
+      resultIndex = oThis.results.push( result ) - 1;
+
+      var jResult = oThis.createResultMarkup( result );
+      jResult.attr("data-result-index", resultIndex);
+      oThis.jParent.append( jResult );
+    }
+    , prependResult: function ( result ) {
+      var oThis = this;
+
+      //Add to result and Calculate the index.
+      //result will always be pushed into array.
+      //its up-to appendResult/prependResult how they want to place it in UI.
+      resultIndex = oThis.results.push( result ) - 1;
+
+      var jResult = oThis.createResultMarkup( result );
+      jResult.attr("data-result-index", resultIndex);
+      oThis.jParent.prepend( jResult );
+    }
+
+    , updateResult: function ( result ) {
+      var oThis = this;
+
+      var resultIndex = -1;
+      $.each( oThis.results, function (index, thisResult) {
+        if ( thisResult === result ) {
+          resultIndex = index;
+          return false;
+        }
+      });
+
+      if ( resultIndex < 0 ) {
+        console.log("updateResult", "did not find resultIndex");
+        return false;
+      }
+
+      var jOldResult = oThis.jParent.find("[data-result-index='" + resultIndex + "']");
+      if ( !jOldResult.length ) {
+        console.log("updateResult", "did not find jOldResult");
+        return false;
+      }
+
+      var jResult = oThis.createResultMarkup( result );
+      jResult.attr("data-result-index", resultIndex);
+      jOldResult.replaceWith( jResult );
+
+    }
+
+    , createResultMarkup : function ( result ) {
+      var oThis = this;
+
+      var rowTemplate   = oThis.getRowTemplate()
+        , rowMarkUp     = rowTemplate( result )
+        , jResult       = $( rowMarkUp )
+      ;
+
+      return jResult;
+    }
 
     , processResponse: function ( response ) {
       var oThis = this;
@@ -102,13 +167,11 @@
           , result_type     = data.result_type
           , newResults      = data[ result_type ] || []
           , nextPagePayload = newMeta.next_page_payload || {}
-          , rowTemplate     = oThis.rowTemplate
         ;
 
         if ( newResults.length ) {
-          Array.prototype.push.apply(oThis.results, newResults);
           for(var cnt = 0; cnt < newResults.length; cnt++ ) {
-            oThis.jParent.append( rowTemplate( newResults[ cnt ] ) );
+            oThis.appendResult( newResults[ cnt ] );
           }
         }
 
@@ -181,6 +244,25 @@
       var oThis = this;
 
       $(window).off("scroll", oThis.scrollObserver );
+    }
+
+    , getResults: function () {
+      var oThis = this;
+
+      return oThis.results;
+    }
+    , getResultWithId: function ( resultId, idKey ) {
+      var oThis = this;
+
+      idKey = idKey || "id";
+      var foundResult = null;
+      $.each( oThis.results, function ( index, result ) {
+        if ( result[ idKey ] == resultId ) {
+          foundResult = result;
+         return false;
+        }
+      });
+      return foundResult;
     }
 
   }

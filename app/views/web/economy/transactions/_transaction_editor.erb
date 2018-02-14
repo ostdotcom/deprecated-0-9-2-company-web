@@ -1,28 +1,56 @@
-<% coin_name = "FRC"%>
+<% 
+  coin_name = "Francesco Coin"
+  coin_symbol = "FRC"
+  conversion_factor = 2;
+  ost_to_bt = 2;
+  ost_to_usd = 0.30;
+  bt_to_usd = (ost_to_usd/ost_to_bt).to_f;
+  create_url = "/api/economy/transaction/kind/create";
+  edit_url = "/api/economy/transaction/kind/edit";
 
-<form id="transaction_editor_form" class="form-container-sm user-form"
-  action="/api/client/sign-up" method="POST"
+
+  default_bt_value = 1;
+
+  default_transaction_values = { 
+    :commission_percent => 0,
+    :kind => "user_to_user",
+    :name => "",
+    :use_price_oracle => 0,
+    :value_in_bt => default_bt_value,
+    :value_in_usd => (default_bt_value * bt_to_usd).to_f
+  }
+
+%>
+
+<form id="transaction_editor_form" action="/api/client/sign-up" method="POST"
   data-ost-formhelper>
+  <input type="hidden" name="client_transaction_id" id="transaction_id" />
+  <input type="hidden" name="device_id" id="transaction_device_id"/>
+
+
   <div class="row">
     <div class="col-12">
-      <h3 class="text-center mt-4" id="mode-heading">Create Transactions</h3>
+      <h3 class="mt-4" id="transaction_editor_mode_heading">Create Transactions</h3>
       <hr />
     </div>
     <div class="col-12">
       <div class="form-group" id="kindFormGroup">
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="kind" id="kind" value="user_to_user" />
-          <label class="form-check-label" for="kind_1">User to User</label>
+          <input class="form-check-input" type="radio" 
+            name="kind" id="kind_user_to_user" value="user_to_user" />
+          <label class="form-check-label" for="kind">User to User</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="kind" id="kind" value="user_to_company" />
-          <label class="form-check-label" for="kind_1">User to Company</label>
+          <input class="form-check-input" type="radio" 
+            name="kind" id="kind_user_to_company" value="user_to_company" />
+          <label class="form-check-label" for="kind">User to Company</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="kind" id="kind" value="company_to_user" />
-          <label class="form-check-label" for="kind_1">Company to User</label>
+          <input class="form-check-input" type="radio" 
+            name="kind" id="kind_company_to_user" value="company_to_user" />
+          <label class="form-check-label" for="kind_company_to_user">Company to User</label>
         </div>
-        <div class="invalid-feedback" data-forid="kind">&nbps;</div>
+        <div class="invalid-feedback" data-forname="kind">&nbps;</div>
       </div>
     </div>
 
@@ -36,18 +64,18 @@
     <div class="col-4"></div>
 
     <div class="col-4">
-      <div class="form-group" id="transaction_name_form_group">
+      <div class="form-group" id="transaction_value_in_usd_form_group">
         <label class="form-label" data-forid="transaction_name">Transaction Value IN (USD)</label>
-        <input id="transaction_name" type="text" name="transaction_name" class="form-control" aria-describedby="emailHelp" placeholder="Value in (USD)" required/>
-        <div class="invalid-feedback" data-forid="transaction_name">&nbps;</div>
+        <input id="transaction_value_in_usd" type="text" name="value_in_usd" class="form-control" aria-describedby="emailHelp" placeholder="Value in (USD)" required/>
+        <div class="invalid-feedback" data-forid="transaction_value_in_usd">&nbps;</div>
       </div>
     </div>
 
     <div class="col-4">
-      <div class="form-group" id="transaction_name_form_group">
-        <label class="form-label" data-forid="transaction_name">Transaction Value In (<%= coin_name %>)</label>
-        <input id="transaction_name" type="text" name="transaction_name" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= coin_name %>)" required/>
-        <div class="invalid-feedback" data-forid="transaction_name">&nbps;</div>
+      <div class="form-group" id="transaction_value_in_bt_form_group">
+        <label class="form-label" data-forid="transaction_name">Transaction Value In (<%= coin_symbol %>)</label>
+        <input id="transaction_value_in_bt" type="text" name="value_in_bt" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= coin_symbol %>)" required/>
+        <div class="invalid-feedback" data-forid="transaction_value_in_bt">&nbps;</div>
       </div>
     </div>
 
@@ -55,7 +83,7 @@
       <div class="form-group" style="background-color: #f1f5f8;margin-top: 5px;">
         <label class="form-label">Value In OST 
           <br/>
-          <span id="ost_display_value">1.75</span>
+          <span id="transaction_value_in_ost">1.75</span>
         </label>
       </div>
     </div>
@@ -68,36 +96,82 @@
     <div class="col-12">
       <div class="form-group" id="value_currency_type_group">
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="value_currency_type" id="value_currency_type" value="usd" />
-          <label class="form-check-label" for="value_currency_type">Yes</label>
+          <input class="form-check-input" type="radio" 
+            name="use_price_oracle" id="use_price_oracle_yes" value="1" />
+          <label class="form-check-label" for="use_price_oracle_yes">Yes</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="value_currency_type" id="kind" value="bt" />
-          <label class="form-check-label" for="value_currency_type">No</label>
+          <input class="form-check-input" type="radio" 
+            name="use_price_oracle" id="use_price_oracle_no" value="0" />
+          <label class="form-check-label" for="use_price_oracle_no">No</label>
         </div>
-        <div class="invalid-feedback" data-forid="kind">&nbps;</div>
+        <div class="invalid-feedback" data-forname="use_price_oracle">&nbps;</div>
       </div>
     </div>
 
     <div class="col-12">
       <div>Want to get comission on this transaction?</div>
     </div>
+
+
     <div class="col-12">
-      <div class="form-group" id="take_commission_group">
+      <% # Below form-group is UI only %>
+      <div class="form-group" id="has_commission_group">
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="take_commission" id="take_commission" value="1" />
-          <label class="form-check-label" for="take_commission">Yes</label>
+          <input class="form-check-input" type="radio" 
+            name="has_commission" id="has_commission_yes" value="1" />
+          <label class="form-check-label" for="has_commission_yes">Yes</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="take_commission" id="take_commission" value="0" />
-          <label class="form-check-label" for="take_commission">No</label>
+          <input class="form-check-input" type="radio" 
+            name="has_commission" id="has_commission_no" value="0" />
+          <label class="form-check-label" for="has_commission_no">No</label>
         </div>
-        <div class="invalid-feedback" data-forid="take_commission">&nbps;</div>
+        <div class="invalid-feedback" data-forname="has_commission">&nbps;</div>
       </div>
     </div>
 
 
 
-  </div>
+
+      <%= render partial: 'shared/web/common/slider',
+         locals: {
+           label: 'COMMISSION VALUE IN % <span>(The commission is included in the transaction amount)</span>',
+           id: 'commission_percent',
+           name: 'commission_percent',
+           type: 'number',
+           min: 1,
+           max: 100,
+           step: 1,
+           value: 1,
+           tooltip: 'always',
+           classes: 'slider-primary'
+         }
+     %>
+
+    <% # Form Buttons %>
+    <div class="col-12">
+      <button id="transaction_editor_submit_btn" type="submit" data-submiting="Adding..." 
+        class="mt-4 btn btn-gold d-inline-block float-left">ADD TRANSACTIONS</button>
+      <a id="transaction_editor_cancel_btn" href="javascript:void(0)"
+        class="mt-4 ml-4 btn btn-white d-inline-block float-left">CANCEL</a>
+    </div>
+    <hr class="mt-3 mb-4"/>
+  </div> <!-- Row Ending -->
 </form>
+
+<% content_for :end_js do %>
+<script type="text/javascript">
+  <% #See transactions_editor.js for more options %>
+  ost.transactions.editor.init({
+    ost_to_bt: <%= ost_to_bt %>
+    , ost_to_usd: <%= ost_to_usd %>
+    , bt_to_usd: <%= bt_to_usd %>
+    , defaultData: <%= raw default_transaction_values.to_json %>
+    , eventContext: ost.transactions
+    , createUrl     : "<%= create_url %>"
+    , editUrl       : "<%= edit_url %>"
+  });
+</script>
+<% end %>
   

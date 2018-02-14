@@ -67,6 +67,18 @@
       }
     }
 
+    &.slider-primary {
+      .slider-selection{
+        background: #597a84;
+      }
+      .slider-handle{
+        background: #597a84;
+      }
+      .slider-track-high{
+        border: 1px solid #597a84;
+      }
+    }
+
   }
 
 }

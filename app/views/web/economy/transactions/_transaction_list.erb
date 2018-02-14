@@ -1,15 +1,22 @@
 <% should_show_api_call_button = true %>
 
+
+
+
 <div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="mt-4 d-inline-block">Transactions</h3>
+      <button id="create_transaction_btn" class="mt-4 btn btn-gold d-inline-block float-right">ADD TRANSACTIONS</button>
+    </div>
+  </div>
   <div class="row">
     <div class="col-2">TRANSACTION</div>
     <div class="col-3">TRANSACTION TYPE</div>
     <div class="col-1">VALUE IN USD</div>
     <div class="col-1">VALUE IN FRC</div>
     <div class="col-1">PRICE ORACLE</div>
-    <div class="col-2">COMMISSION %</div>
-    <div class="col-2">
-    </div>
+    <div class="col-4">COMMISSION %</div>
   </div>
 </div>
 
@@ -27,7 +34,7 @@
           {{#IfShowApiCallButton id }}
             <button class="showApiCallBtn btn btn-info" >API Call</button> 
           {{/IfShowApiCallButton}}
-          <button class="editRow btn btn-default">Edit</button>
+          <button class="editRow btn btn-default" data-result-id="{{id}}">Edit</button>
           <input type="hidden" name="id" value={{id}}/>
           <input type="hidden" name="uts" value={{uts}}/>
         </div>
