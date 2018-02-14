@@ -86,7 +86,8 @@
 
       console.log("currentDataCnt", currentDataCnt);
       //Custom Data Variables
-      var transaction_types = ["User To User", "Company To User", "User to Company"];
+      var transaction_types = ["user_to_user", "company_to_user", "user_to_company"];
+      var currency_types = ["bt", "usd"];
 
       if (  newDataCnt > 0 ) {
         for(var cnt = 0; cnt < newDataCnt; cnt++ ) {
@@ -102,12 +103,13 @@
             uts: uts + cnt,
 
             /* Custom properties */
+            client_id: 2,
             name: "Transaction " + Number(currentDataCnt + cnt + 1),
             kind: transaction_types[ (currentDataCnt + cnt + 1) % transaction_types.length],
             value_in_bt: coinValue,
             value_in_usd: coinValue * 10,
-            commission_percent: Math.round( Math.random() * 25 ),
-            use_price_oracle: someBooleanValue
+            currency_type: currency_types[  (currentDataCnt + cnt + 1) % currency_types.length ],
+            commission_percent: Math.round( Math.random() * 10)
           });
         }
       }
