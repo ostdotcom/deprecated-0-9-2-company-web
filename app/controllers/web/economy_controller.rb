@@ -29,7 +29,7 @@ class Web::EconomyController < Web::BaseController
 
   end
 
-  # Planner to perform economy setup steps
+  # Planner to perform economy setup step one
   #
   # * Author: Puneet
   # * Date: 02/02/2018
@@ -54,6 +54,40 @@ class Web::EconomyController < Web::BaseController
     #   redirect_to :dashboard, status: GlobalConstant::ErrorCode.temporary_redirect
     #   return
     # end
+
+  end
+
+  def planner_step_two
+
+    @response = CompanyApi::Request::Economy.new(
+        CompanyApi::Response::Formatter::Economy,
+        request.cookies
+    ).fetch_planner_details
+
+    # Check if error present or not?
+    unless @response.success?
+      render_error_response(@response)
+      return
+    end
+
+    @presenter_obj = ::WebPresenter::Economy::Planner.new(@response, params)
+
+  end
+
+  def planner_step_three
+
+    @response = CompanyApi::Request::Economy.new(
+        CompanyApi::Response::Formatter::Economy,
+        request.cookies
+    ).fetch_planner_details
+
+    # Check if error present or not?
+    unless @response.success?
+      render_error_response(@response)
+      return
+    end
+
+    @presenter_obj = ::WebPresenter::Economy::Planner.new(@response, params)
 
   end
 
