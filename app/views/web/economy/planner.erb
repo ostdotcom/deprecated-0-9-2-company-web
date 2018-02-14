@@ -1,11 +1,15 @@
+<%
+   has_verified_email = @presenter_obj.user.is_verified?
+   grant_initial_ost = true
+%>
 <%= render :partial => "/web/economy/planner/step_1" %>
 
 <% content_for :end_js do %>
 <script type="text/javascript">
   $( function () {
     ost.planner.init({
-      has_varified_email: true,
-      grant_initial_ost: true
+      has_verified_email: <%= has_verified_email %>,
+      grant_initial_ost: <%= grant_initial_ost %>
     });
   });
 </script>
@@ -32,5 +36,4 @@
 <%#= render :partial => "/shared/web/modals/stake_mint_confirm" %>
 <%#= render :partial => "/shared/web/modals/stake_mint_processing" %>
 <%#= render :partial => "/shared/web/modals/stake_mint_complete" %>
-<%#= render :partial => "/shared/web/modals/verify_account" %>
 <%#= render :partial => "/shared/web/modals/install_metamask_lightbox" %>
