@@ -40,18 +40,17 @@
         oThis.calcConversion();
       });
 
-      PriceOracle.observeOstToBt( $("#bt_rate") );
-      
+      PriceOracle.observeBtToFiat( $("#conversion_rate") );
       $( PriceOracle ).on( PriceOracle.events.btToFiatUpdated, function (event, bigRatio, stringRatio ) {
-        console.log("updating conversion_rate to", stringRatio);
-        $("#conversion_rate").setVal( stringRatio );
-        
+        var didUpdate = $("#conversion_rate").setVal( stringRatio );
+        didUpdate && console.log("updating conversion_rate to", stringRatio);
       });
 
-      PriceOracle.observeBtToFiat( $("#conversion_rate") );
+      
+      // PriceOracle.observeOstToBt( $("#bt_rate") );
       $( PriceOracle ).on( PriceOracle.events.ostToBtUpdated, function (event, bigRatio, stringRatio ) {
-        console.log("updating bt_rate to " , stringRatio);
-        $("#bt_rate").setVal( stringRatio );
+        var didUpdate = $("#bt_rate").setVal( stringRatio );
+        didUpdate && console.log("updating bt_rate to " , stringRatio);
       });
 
 

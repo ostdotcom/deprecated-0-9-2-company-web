@@ -10,9 +10,9 @@
       var oThis = this;
 
       oThis.simpleDataTable = new ost.SimpleDataTable({
-        // resultFetcher: function () {
-        //   oThis.getDummyData.apply( oThis, arguments );
-        // }
+        resultFetcher: function () {
+          oThis.getDummyData.apply( oThis, arguments );
+        }
       });
 
       oThis.bindEvents();
