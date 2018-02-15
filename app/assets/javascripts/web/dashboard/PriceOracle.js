@@ -128,7 +128,13 @@
     , observeOstToBt: function ( jBtInput ) {
       var oThis = this;
 
-      $( jBtInput ).on("change blur", function () {
+      $( jBtInput ).on("change blur", function ( event, val, orgEvent ) {
+        if ( orgEvent ) {
+          console.log("*** observeOstToBt \n this", this, "\n**** orgEvent.currentTarget", orgEvent.currentTarget, "\n***");
+          if ( orgEvent.currentTarget === this ) {
+            return;
+          }
+        }
 
         var jEl = $( this )
           , bt = jEl.val()
@@ -136,47 +142,67 @@
         if ( oThis.isNaN( bt ) ) {
           return;
         }
-        bt = BigNumber(bt);
-
-
-        var existing = BigNumber( oThis.toOst( OST_TO_BT ) );
-        if ( existing.eq( bt ) || bt.isLessThanOrEqualTo( 0 ) ) {
-          return;
-        }
 
         bt = oThis.toBt( bt );
         jEl.val( bt );
 
-        OST_TO_BT = oThis.toOst( bt );
-        var ostToBt = bt
-          , bt_to_fiat  = oThis.btToFiat( 1 )
+        var existing = oThis.toOst( OST_TO_BT );
+        if ( existing.eq( bt ) || bt.isLessThanOrEqualTo( 0 ) ) {
+          return;
+        }
+        
+
+        var ostToBt = oThis.toOst( bt )
+          , bt_to_fiat
         ;
+        OST_TO_BT   = ostToBt.toString();
+        bt_to_fiat  = oThis.btToFiat( 1 );
+
+
         console.log("observeOstToBt bt" , bt.toString() );
+        console.log("observeOstToBt OST_TO_BT" , OST_TO_BT );
         console.log("observeOstToBt bt_to_fiat" , bt_to_fiat.toString() );
 
-
-        oThis.fireEvent( "ostToBtUpdated", ostToBt, ostToBt.toString(10) );
-        oThis.fireEvent( "btToFiatUpdated", bt_to_fiat, bt_to_fiat.toString(10) );
+        orgEvent = orgEvent || event;
+        //Fire Events
+        oThis.fireEvent( "ostToBtUpdated", orgEvent, ostToBt, OST_TO_BT );
+        oThis.fireEvent( "btToFiatUpdated", orgEvent, bt_to_fiat, bt_to_fiat.toString(10) );
       });
     }
 
     , observeBtToFiat: function ( jFiatInput ) {
       var oThis = this;
 
-      $( jFiatInput ).on("change blur", function () {
+      $( jFiatInput ).on("change blur", function ( event, val, orgEvent ) {
+        console.log("--- observeBtToFiat val", arguments[1] );
+        console.log("--- observeBtToFiat orgEvent", arguments[2] );
+
+        if ( orgEvent ) {
+          console.log("*** observeBtToFiat \n this", this, "\n**** orgEvent.currentTarget", orgEvent.currentTarget, "\n***");
+          if ( orgEvent.currentTarget === this ) {
+            return;
+          }
+        }
+
 
         var jEl = $( this )
           , fiat = jEl.val()
         ;
 
+        
+
         //fiat is same as bt_to_fiat 
         if ( oThis.isNaN( fiat ) || !fiat ) {
           return;
         }
-        fiat = BigNumber( fiat );
-        jEl.val( fiat );
+        fiat = oThis.toFiat( fiat );
+        jEl.val( fiat.toString( 10 ) );
         
-        var ost         = oThis.fiatToOst( fiat, true )
+        if ( fiat.isLessThanOrEqualTo( 0 ) ) { 
+          return;
+        }
+
+        var ost         = oThis.fiatToOst( fiat )
           , ostToBt     = BigNumber( 1 ).div( ost )
           , bt_to_fiat  = fiat
         ;
@@ -191,14 +217,12 @@
 
         console.log("observeBtToFiat fiat", fiat.toString( 10 ) );
         console.log("observeBtToFiat ost", ost.toString( 10 ) );
-        console.log("observeBtToFiat ostToBt", ostToBt.toString( 10 ) );
-        console.log("observeBtToFiat OST_TO_BT", OST_TO_BT);
+        console.log("observeBtToFiat ostToBt", OST_TO_BT );
 
-        
-        
-        
-        oThis.fireEvent( "ostToBtUpdated", ostToBt, ostToBt.toString(10) );
-        oThis.fireEvent( "btToFiatUpdated", bt_to_fiat, bt_to_fiat.toString(10) );
+        orgEvent = orgEvent || event;
+        //Fire Events        
+        oThis.fireEvent( "ostToBtUpdated", orgEvent, ostToBt, OST_TO_BT );
+        oThis.fireEvent( "btToFiatUpdated", orgEvent, bt_to_fiat, bt_to_fiat.toString(10) );
       });
 
     }

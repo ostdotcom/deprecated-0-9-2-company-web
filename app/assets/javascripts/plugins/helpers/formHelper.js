@@ -393,15 +393,23 @@
     }
   });
   $.fn.extend({
-    setVal: function ( val ) {
+    setVal: function ( val, orgEvent ) {
       var jEl = $( this );
       var preVal = jEl.val();
-      if ( val == preVal ) {
+
+      if ( !preVal || !val ) {
+        if ( val === preVal ) {
+          return false;
+        }
+      } else if ( val == preVal ) {
         return false;
       }
-      console.log(" id |",jEl.prop("id"), "\n preVal |", preVal, "\n val |", val);
+      console.log(" id\t|",jEl.prop("id"), "\n preVal\t|", preVal, "\n val\t|", val, "\n orgEvent\t|", orgEvent );
       jEl.val( val );
-      jEl.trigger("change");
+
+
+      var eventArgs = args = Array.prototype.slice.call(arguments);
+      jEl.trigger("change", eventArgs);
       return true;
     }
   })

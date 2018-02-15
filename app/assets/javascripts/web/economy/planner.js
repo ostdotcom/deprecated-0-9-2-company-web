@@ -41,15 +41,39 @@
       });
 
       PriceOracle.observeBtToFiat( $("#conversion_rate") );
-      $( PriceOracle ).on( PriceOracle.events.btToFiatUpdated, function (event, bigRatio, stringRatio ) {
-        var didUpdate = $("#conversion_rate").setVal( stringRatio );
+      $( PriceOracle ).on( PriceOracle.events.btToFiatUpdated, function (event, orgEvent, bigRatio, stringRatio ) {
+        console.log("events.btToFiatUpdated orgEvent", orgEvent);
+
+        var jEl = $("#conversion_rate")
+          , el  = jEl[ 0 ]
+        ;
+
+
+        if ( orgEvent.currentTarget === el ) {
+          //DO NOT DO ANY THING!
+          return;
+        }
+        //Make Sure to forward orgEvent;
+
+        var didUpdate = jEl.setVal( stringRatio, orgEvent );
         didUpdate && console.log("updating conversion_rate to", stringRatio);
       });
 
       
-      // PriceOracle.observeOstToBt( $("#bt_rate") );
-      $( PriceOracle ).on( PriceOracle.events.ostToBtUpdated, function (event, bigRatio, stringRatio ) {
-        var didUpdate = $("#bt_rate").setVal( stringRatio );
+      PriceOracle.observeOstToBt( $("#bt_rate") );
+      $( PriceOracle ).on( PriceOracle.events.ostToBtUpdated, function (event, orgEvent, bigRatio, stringRatio ) {
+        console.log("events.ostToBtUpdated orgEvent", orgEvent);
+
+        var jEl = $("#bt_rate")
+          , el  = jEl[ 0 ]
+        ;
+
+        if ( orgEvent.currentTarget === el ) {
+          //DO NOT DO ANY THING!
+          return;
+        }
+        //Make Sure to forward orgEvent;
+        var didUpdate = jEl.setVal( stringRatio, orgEvent );
         didUpdate && console.log("updating bt_rate to " , stringRatio);
       });
 
