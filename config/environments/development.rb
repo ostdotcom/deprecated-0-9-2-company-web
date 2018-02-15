@@ -19,7 +19,7 @@ Rails.application.configure do
   config.assets.prefix = "/js-css/dev"
 
   #react configuration.
-  config.react.variant = :development
+  config.react.variant = :production
 
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join('tmp/caching-dev.txt').exist?
