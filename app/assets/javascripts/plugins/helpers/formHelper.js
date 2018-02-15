@@ -397,11 +397,12 @@
       var jEl = $( this );
       var preVal = jEl.val();
       if ( val == preVal ) {
-        return;
+        return false;
       }
       console.log(" id |",jEl.prop("id"), "\n preVal |", preVal, "\n val |", val);
       jEl.val( val );
       jEl.trigger("change");
+      return true;
     }
   })
   $( function () {

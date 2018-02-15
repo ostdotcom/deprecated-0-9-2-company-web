@@ -128,18 +128,31 @@
     , observeOstToBt: function ( jBtInput ) {
       var oThis = this;
 
-      $( jBtInput ).on("change", function () {
-        var bt = $( this ).val();
-        if ( isNaN( bt ) ) {
+      $( jBtInput ).on("change blur", function () {
+
+        var jEl = $( this )
+          , bt = jEl.val()
+        ;
+        if ( oThis.isNaN( bt ) ) {
           return;
         }
-        bt = BigNumber( bt );
+        bt = BigNumber(bt);
 
-        OST_TO_BT = bt.toString(10);
+
+        var existing = BigNumber( oThis.toOst( OST_TO_BT ) );
+        if ( existing.eq( bt ) || bt.isLessThanOrEqualTo( 0 ) ) {
+          return;
+        }
+
+        bt = oThis.toBt( bt );
+        jEl.val( bt );
+
+        OST_TO_BT = oThis.toOst( bt );
         var ostToBt = bt
           , bt_to_fiat  = oThis.btToFiat( 1 )
         ;
-        
+        console.log("observeOstToBt bt" , bt.toString() );
+        console.log("observeOstToBt bt_to_fiat" , bt_to_fiat.toString() );
 
 
         oThis.fireEvent( "ostToBtUpdated", ostToBt, ostToBt.toString(10) );
@@ -150,19 +163,38 @@
     , observeBtToFiat: function ( jFiatInput ) {
       var oThis = this;
 
-      $( jFiatInput ).on("change", function () {
+      $( jFiatInput ).on("change blur", function () {
+
+        var jEl = $( this )
+          , fiat = jEl.val()
+        ;
+
         //fiat is same as bt_to_fiat 
-        var fiat = $( this ).val();
-        if ( isNaN( fiat ) ) {
+        if ( oThis.isNaN( fiat ) || !fiat ) {
           return;
         }
         fiat = BigNumber( fiat );
-
-        var ost         = oThis.fiatToOst( fiat )
-          , ostToBt   = BigNumber( 1 ).div( ost )
+        jEl.val( fiat );
+        
+        var ost         = oThis.fiatToOst( fiat, true )
+          , ostToBt     = BigNumber( 1 ).div( ost )
           , bt_to_fiat  = fiat
         ;
-        OST_TO_BT = ostToBt.toString(10);
+
+        ostToBt = oThis.toOst( ostToBt );
+
+        if ( ostToBt.eq( OST_TO_BT ) ) {
+          return;
+        }
+
+        OST_TO_BT = ostToBt.toString( 10 );
+
+        console.log("observeBtToFiat fiat", fiat.toString( 10 ) );
+        console.log("observeBtToFiat ost", ost.toString( 10 ) );
+        console.log("observeBtToFiat ostToBt", ostToBt.toString( 10 ) );
+        console.log("observeBtToFiat OST_TO_BT", OST_TO_BT);
+
+        
         
         
         oThis.fireEvent( "ostToBtUpdated", ostToBt, ostToBt.toString(10) );
@@ -183,42 +215,45 @@
     , toOst: function ( ost ) {
       var oThis = this;
 
-      if ( isNaN( ost ) ) {
+      if ( oThis.isNaN( ost ) ) {
         return NaN;
       }
       ost = BigNumber( ost );
-      return ost.toFixed(P_OST, P_OST_ROUND_ROUNDING_MODE);
+      return BigNumber( ost.toFixed(P_OST, P_OST_ROUND_ROUNDING_MODE) );
     }
 
     , toFiat: function( fiat ) {
       var oThis = this;
 
-      if ( isNaN( fiat ) ) {
+      if ( oThis.isNaN( fiat ) ) {
         return NaN;
       }
       fiat = BigNumber( fiat );
-      return fiat.toFixed(P_FIAT, P_FIAT_ROUND_ROUNDING_MODE);
+      return BigNumber( fiat.toFixed(P_FIAT, P_FIAT_ROUND_ROUNDING_MODE) );
     }
 
     , toBt: function ( bt ) {
       var oThis = this;
 
-      if ( isNaN( bt ) ) {
+      if ( oThis.isNaN( bt ) ) {
         return NaN;
       }
       bt = BigNumber( bt );
-      return bt.toFixed(P_BT, P_BT_ROUND_ROUNDING_MODE);
+      return BigNumber( bt.toFixed(P_BT, P_BT_ROUND_ROUNDING_MODE) );
     }
 
     ,toDisplayFiat : function ( fiat ) {
       var oThis = this;
 
       fiat = oThis.toFiat( fiat );
-      if ( isNaN( fiat ) ) {
+      if ( !fiat || oThis.isNaN( fiat ) ) {
         return NaN;
       }
       return oThis.fiat_symbol + fiat.toString( 10 );
     } 
+    , isNaN : function ( val ) {
+      return isNaN( val ) && val !== "";
+    }
   }
 
 
