@@ -1,6 +1,8 @@
 <% 
   should_show_api_call_button = true;
 
+  fiat_symbol = "$";
+
   kind_display_text = {
     :user_to_company => "User to Company",
     :user_to_user => "User to User",
@@ -41,7 +43,7 @@
     <script type="text/x-handlebars-template" data-row-template>
       <tr class="row align-items-center py-3 mt-1 mb-3 rounded ost-table-row" style="background-color: #f1f5f8;">
         <td class="col-2">{{name}}<br/>{{kind_display_text}}</td>
-        <td class="col-2">{{value_in_fiat}}</td>
+        <td class="col-2"><%= fiat_symbol %>{{value_in_fiat}}</td>
         <td class="col-2">{{value_in_bt}}</td>
         <td class="col-2">{{price_oracle_text}}</td>
         <td class="col-1">{{commission_percent}}&#37;</td>
@@ -62,8 +64,7 @@
   <script type="text/javascript">
     var kindDisplayText = <%= raw kind_display_text.to_json %>;
 
-    Handlebars.registerHelper('price_oracle_text', function(response, options ) { 
-      var defaultVal = "YES";
+    Handlebars.registerHelper('price_oracle_text', function(response, options ) {
 
       var rowData = response.data.root || {};
       return  rowData.currency_type === "bt" ? "No" : "Yes";
@@ -80,11 +81,13 @@
     });
 
     Handlebars.registerHelper('value_in_fiat', function(response, options ) { 
-
+        var rowData =  response.data.root || {};
+        return rowData.currency_type === "bt" ?  PriceOracle.btToFiat( rowData.currency_value ) :  rowData.currency_value ;
     });
 
-    Handlebars.registerHelper('value_in_bt', function(response, options ) { 
-
+    Handlebars.registerHelper('value_in_bt', function(response, options ) {
+        var rowData =  response.data.root || {};
+        return rowData.currency_type === "bt" ?  rowData.currency_value : PriceOracle.fiatToBt( rowData.currency_value ) ;
     });
 
 

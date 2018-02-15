@@ -24,7 +24,7 @@
       oThis.update();
     };
 
-  }
+  };
 
   Mocker.prototype = {
     constructor       : Mocker
@@ -83,7 +83,7 @@
 
       return args;
     }
-  }
+  };
 
 
   //jQuerry related stuff

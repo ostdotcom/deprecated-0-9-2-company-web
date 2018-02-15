@@ -1,7 +1,7 @@
 ;
 (function (window, $) {
 
-  var parentNS  = ns("ost");  
+  var parentNS  = ns("ost");
 
   
 
