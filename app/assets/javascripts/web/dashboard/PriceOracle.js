@@ -1,6 +1,19 @@
 ;
 (function ( scope, $ ) {
 
+
+  // All Constents.
+  var P_OST = 3;
+  var P_BT = 3;
+  var P_FIAT = 3;
+
+  //For ROUNDING_MODE, See https://mikemcl.github.io/bignumber.js/#rounding-mode 
+  var P_OST_ROUND_ROUNDING_MODE   = BigNumber.ROUND_HALF_UP;
+  var P_BT_ROUND_ROUNDING_MODE    = BigNumber.ROUND_HALF_UP;
+  var P_FIAT_ROUND_ROUNDING_MODE  = BigNumber.ROUND_HALF_UP;
+
+
+  //All Private Stuff.
   var OST_TO_FIAT = 1;
   var OST_TO_BT = 1;
 
@@ -30,52 +43,81 @@
       oThis.ost_to_fiat && (delete oThis.ost_to_fiat);
     }
 
-    , ostToFiat: function ( ost ) {
+    , ostToFiat: function ( ost, doNotRound ) {
       var oThis = this;
 
       ost = BigNumber( ost );
-      var ostToFiat = BigNumber( OST_TO_FIAT );
-      return ostToFiat.times( ost );
+      var ostToFiat = BigNumber( OST_TO_FIAT )
+        , result = ostToFiat.times( ost )
+      ;
+      if ( doNotRound ) {
+        return result;
+      }
+      return oThis.toFiat( result );
     }
 
-    , ostToBt: function ( ost ) {
+    , ostToBt: function ( ost, doNotRound ) {
       var oThis = this;
 
       ost = BigNumber( ost );
-      var ostToBt = BigNumber( OST_TO_BT );
-      return ostToBt.times( ost );
-
+      var ostToBt = BigNumber( OST_TO_BT )
+        , result = ostToBt.times( ost )
+      ;
+      if ( doNotRound ) {
+        return result;
+      }
+      return oThis.toBt( result );
     }
 
-    , btToOst : function ( bt ) {
+    , btToOst : function ( bt, doNotRound ) {
       var oThis = this;
 
       bt = BigNumber( bt );
-      var ostToBt = BigNumber( OST_TO_BT );
-      return bt.div( ostToBt );
+      var ostToBt = BigNumber( OST_TO_BT )
+        , result  = bt.div( ostToBt )
+      ;
+      if ( doNotRound ) {
+        return result;
+      }
+      return oThis.toOst( result );
     }
 
-    , btToFiat: function ( bt ) {
+    , btToFiat: function ( bt, doNotRound ) {
       var oThis = this;
 
-      var ost = oThis.btToOst( bt );
-      return oThis.ostToFiat( ost );
+      var ost     = oThis.btToOst( bt, true )
+        , result  = oThis.ostToFiat( ost )
+      ;
+      if ( doNotRound ) {
+        return result;
+      }
+      return oThis.toFiat( result );
     }
 
-    , fiatToOst: function ( fiat ) {
+    , fiatToOst: function ( fiat, doNotRound ) {
       var oThis = this;
 
       fiat = BigNumber( fiat );
-      var ostToFiat = BigNumber( OST_TO_FIAT );
-      return fiat.div( ostToFiat );
+      var ostToFiat = BigNumber( OST_TO_FIAT )
+        , result    = fiat.div( ostToFiat )
+      ;
+      if ( doNotRound ) {
+        return result;
+      }
+      return oThis.toOst( result );
     }
 
-    , fiatToBt: function ( fiat ) {
+    , fiatToBt: function ( fiat, doNotRound ) {
       var oThis = this;
 
       fiat = BigNumber( fiat );
-      var ost = oThis.fiatToOst( fiat );
-      return oThis.ostToBt( ost );
+      var ost     = oThis.fiatToOst( fiat, true )
+        , result  = oThis.ostToBt( ost )
+      ;
+      if ( doNotRound ) {
+        return result;
+      }
+      return oThis.toBt( result );
     }
 
     , events : {
@@ -137,6 +179,46 @@
       ;
       $( PriceOracle ).trigger(eventName, args);
     }
+
+    , toOst: function ( ost ) {
+      var oThis = this;
+
+      if ( isNaN( ost ) ) {
+        return NaN;
+      }
+      ost = BigNumber( ost );
+      return ost.toFixed(P_OST, P_OST_ROUND_ROUNDING_MODE);
+    }
+
+    , toFiat: function( fiat ) {
+      var oThis = this;
+
+      if ( isNaN( fiat ) ) {
+        return NaN;
+      }
+      fiat = BigNumber( fiat );
+      return fiat.toFixed(P_FIAT, P_FIAT_ROUND_ROUNDING_MODE);
+    }
+
+    , toBt: function ( bt ) {
+      var oThis = this;
+
+      if ( isNaN( bt ) ) {
+        return NaN;
+      }
+      bt = BigNumber( bt );
+      return bt.toFixed(P_BT, P_BT_ROUND_ROUNDING_MODE);
+    }
+
+    ,toDisplayFiat : function ( fiat ) {
+      var oThis = this;
+
+      fiat = oThis.toFiat( fiat );
+      if ( isNaN( fiat ) ) {
+        return NaN;
+      }
+      return oThis.fiat_symbol + fiat.toString( 10 );
+    } 
   }
 
 
