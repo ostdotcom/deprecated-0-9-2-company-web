@@ -77,11 +77,12 @@
 
     $(textInputLeft).on('blur', function (event) {
       validateValues()
-    })
+    });
 
-    $(textInputRight).on('input', function (event) {
+    $(textInputRight).on('input change', function (event) {
       textInputValueToSlider(event.target)
     })
+
 
     $(textInputRight).on('blur', function (event) {
       validateValues()

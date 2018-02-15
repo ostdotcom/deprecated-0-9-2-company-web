@@ -12,6 +12,7 @@
       $.extend(oThis, config);
       oThis.bindEvents();
       oThis.calcConversion();
+      $("#bt_rate").setVal( PriceOracle.ostToBt( 1 ).toString( 10 ) );
     },
 
     formHelper: null,

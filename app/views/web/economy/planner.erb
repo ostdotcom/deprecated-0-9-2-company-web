@@ -5,16 +5,10 @@
    fiat_type   = "usd";
    fiat_display_text = "USD";
 
+   ost_to_fiat = 0.3;
+
    value_in_fiat_key = "value_in_" + fiat_type;
    value_in_fiat_sym = value_in_fiat_key.to_sym;
-
-   ost_to_bt   = 2;
-   ost_to_fiat = 0.30;
-   bt_to_fiat  = (ost_to_fiat/ost_to_bt).to_f;
-
-   ost_precision = 4;
-   bt_precision = 4;
-   fiat_precision = 2;
 
    has_verified_email = @presenter_obj.user.is_verified?
    grant_initial_ost = true
@@ -128,9 +122,7 @@
   $( function () {
     ost.planner.init({
       has_verified_email: <%= has_verified_email %>,
-      grant_initial_ost: <%= grant_initial_ost %>,
-      ost_to_fiat: <%=ost_to_fiat %>,
-      bt_precision: <%=bt_precision %>
+      grant_initial_ost: <%= grant_initial_ost %>
     });
   });
 </script>
