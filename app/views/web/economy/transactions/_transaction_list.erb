@@ -82,12 +82,21 @@
 
     Handlebars.registerHelper('value_in_fiat', function(response, options ) { 
         var rowData =  response.data.root || {};
-        return rowData.currency_type === "bt" ?  PriceOracle.btToFiat( rowData.currency_value ) :  rowData.currency_value ;
+        if ( rowData.currency_type === "bt" ) {
+          return PriceOracle.btToFiat( rowData.currency_value );
+        } else {
+          return PriceOracle.toFiat( rowData.currency_value );
+        }
     });
 
     Handlebars.registerHelper('value_in_bt', function(response, options ) {
         var rowData =  response.data.root || {};
-        return rowData.currency_type === "bt" ?  rowData.currency_value : PriceOracle.fiatToBt( rowData.currency_value ) ;
+        if ( rowData.currency_type === "bt" ) {
+
+          return PriceOracle.toBt( rowData.currency_value );
+        } else {
+          return PriceOracle.fiatToBt( rowData.currency_value );
+        }
     });
 
 
