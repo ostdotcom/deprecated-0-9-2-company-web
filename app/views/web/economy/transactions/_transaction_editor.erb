@@ -27,7 +27,7 @@
     :kind => "user_to_user",
     :name => "",
     :currency_type => fiat_type,
-    :value_in_bt => default_bt_value
+    :currency_value => default_bt_value
   };
 
   default_transaction_values[ value_in_fiat_sym ] = default_fiat_value;  
@@ -87,22 +87,22 @@
       <div class="form-group" id="value_currency_type_group">
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" 
-            name="use_price_oracle" id="use_price_oracle_yes" value="1" />
-          <label class="form-check-label" for="use_price_oracle_yes">Yes</label>
+            name="currency_type" id="currency_type_fiat" value="1" />
+          <label class="form-check-label" for="currency_type_fiat">Yes</label>
         </div>
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" 
-            name="use_price_oracle" id="use_price_oracle_no" value="0" />
-          <label class="form-check-label" for="use_price_oracle_no">No</label>
+            name="currency_type" id="currency_type_bt" value="0" />
+          <label class="form-check-label" for="currency_type_bt">No</label>
         </div>
-        <div class="invalid-feedback" data-forname="use_price_oracle">&nbps;</div>
+        <div class="invalid-feedback" data-forname="currency_type">&nbps;</div>
       </div>
     </div>
 
     <div class="col-4">
       <div class="form-group" id="transaction_value_in_fiat_form_group">
         <label class="form-label" data-forid="transaction_name">Transaction Value IN (<%= fiat_display_text %>)</label>
-        <input id="value_in_fiat" type="text" name="<%= value_in_fiat_key %>" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= fiat_display_text %>)" required/>
+        <input id="value_in_fiat" type="number" name="currency_value" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= fiat_display_text %>)" required/>
         <div class="invalid-feedback" data-forid="value_in_fiat">&nbps;</div>
       </div>
     </div>
@@ -110,7 +110,7 @@
     <div class="col-4">
       <div class="form-group" id="value_in_bt_form_group">
         <label class="form-label" data-forid="transaction_name">Transaction Value In (<%= coin_symbol %>)</label>
-        <input id="value_in_bt" type="text" name="value_in_bt" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= coin_symbol %>)" required/>
+        <input id="value_in_bt" type="number" name="currency_value" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= coin_symbol %>)" required/>
         <div class="invalid-feedback" data-forid="value_in_bt">&nbps;</div>
       </div>
     </div>

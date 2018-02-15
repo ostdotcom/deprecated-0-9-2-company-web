@@ -71,7 +71,13 @@
         oThis.correctPostUrl( ajaxConfig );
         oThis.correctCommissionData( ajaxData );
       });
-    }
+
+      $('[name="currency_type"]').change( function () {
+          oThis.toggleCurrencyInput();
+      });
+
+       oThis.bindCurrencyValueChange( oThis.jValueInBt , oThis.jValueInFiat , oThis.jValueInOst );
+      }
 
     , createNewTransaction: function ( transactionData ) {
       var oThis = this;
@@ -124,6 +130,8 @@
 
       //Show the editor
       oThis.showEditor();
+
+      oThis.toggleCurrencyInput();
     }
     , fillForm: function () {
       var oThis = this;
@@ -142,23 +150,22 @@
       //name
       oThis.jName.val( currentData.name || "" );
 
-      //value_in_fiat
-      var value_in_fiat = Number( currentData[ oThis.value_in_fiat_key ] );
-      value_in_fiat = isNaN( value_in_fiat ) ? 0 : value_in_fiat;
-
-      oThis.jValueInFiat.val( value_in_fiat );
-
-      //value_in_bt
-      var value_in_bt = Number( currentData.value_in_bt );
-      value_in_bt = isNaN( value_in_bt ) ? 0 : value_in_bt;
-      oThis.jValueInBt.val( value_in_bt );
-
       //value_in_ost
       var value_in_ost = ( currentData.value_in_bt || 0 ) / oThis.ost_to_bt;
 
       //use_price_oracle
-      var use_price_oracle_id = currentData.use_price_oracle ? "yes" : "no";
-      oThis.jForm.find("#use_price_oracle_" + use_price_oracle_id ).prop("checked", true);
+      var isBtCurrencyType = currentData.currency_type === "bt";
+      var currency_type_id;
+      var currency_value = currentData.currency_value;
+      if ( currentData.currency_type === "bt" ) {
+          currency_type_id = "#currency_type_bt";
+          oThis.jValueInBt.setVal( PriceOracle.toBt( currency_value ) );
+      } else {
+          currency_type_id ="#currency_type_fiat";
+          oThis.jValueInFiat.setVal( PriceOracle.toFiat( currency_value ) );
+      }
+
+      oThis.jForm.find( currency_type_id ).prop("checked", true);
 
       //commission_percent
       var commission_percent = Number( currentData.commission_percent );
@@ -285,7 +292,7 @@
           return;
         }
 
-        device_id = newData.device_id || oThis.jDeviceId.val()
+        device_id = newData.device_id || oThis.jDeviceId.val();
         device_id = Number( device_id );
         device_id = isNaN( device_id ) ? 0 : device_id;
 
@@ -323,6 +330,47 @@
         oThis.cleanUp();
         oThis.hideEditor();
     }
+
+    ,toggleCurrencyInput : function () {
+        var jEl   =  $('input[name=currency_type]:checked'),
+         value = jEl.val(),
+         enableSelectorId
+        ;
+        enableSelectorId = value == 1 ?  "#value_in_fiat" :  "#value_in_bt";
+        $('[name="currency_value"]').prop('disabled', true);
+        $(enableSelectorId).prop('disabled', false);
+     }
+
+    , bindCurrencyValueChange: function ( jBt, jFiat , jOst ) {
+        var oThis =  this;
+        var onBTChanged = function () {
+            jFiat.setVal(PriceOracle.btToFiat($(this).val()));
+            jOst.setVal(PriceOracle.btToOst($(this).val()));
+        };
+
+        var onFiatChanged = function () {
+            jBt.setVal(PriceOracle.fiatToBt($(this).val()));
+            jOst.setVal(PriceOracle.fiatToOst($(this).val()));
+        };
+
+        var onOstChanged = function () {
+            jBt.setVal(PriceOracle.ostToBt($(this).val()));
+            jFiat.setVal(PriceOracle.ostToFiat($(this).val()));
+        };
+
+        if ( jBt ) {
+            jBt.on('change input', onBTChanged);
+        }
+
+        if ( jFiat ) {
+            jFiat.on('change input', onFiatChanged);
+        }
+
+        if( jOst ){
+            jOst.on('change input', onOstChanged);
+        }
+    }
+
 
   };
 })(window, jQuery);
