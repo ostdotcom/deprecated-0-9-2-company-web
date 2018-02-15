@@ -1089,21 +1089,21 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
       },
       _showTooltip: function _showTooltip() {
         if (this.options.tooltip_split === false) {
-          this._addClass(this.tooltip, 'in');
+          this._addClass(this.tooltip, 'show');
           this.tooltip_min.style.display = 'none';
           this.tooltip_max.style.display = 'none';
         } else {
-          this._addClass(this.tooltip_min, 'in');
-          this._addClass(this.tooltip_max, 'in');
+          this._addClass(this.tooltip_min, 'show');
+          this._addClass(this.tooltip_max, 'show');
           this.tooltip.style.display = 'none';
         }
         this._state.over = true;
       },
       _hideTooltip: function _hideTooltip() {
         if (this._state.inDrag === false && this.alwaysShowTooltip !== true) {
-          this._removeClass(this.tooltip, 'in');
-          this._removeClass(this.tooltip_min, 'in');
-          this._removeClass(this.tooltip_max, 'in');
+          this._removeClass(this.tooltip, 'show');
+          this._removeClass(this.tooltip_min, 'show');
+          this._removeClass(this.tooltip_max, 'show');
         }
         this._state.over = false;
       },
@@ -1295,7 +1295,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
           formattedTooltipVal = this.options.formatter(this._state.value[0]);
           this._setText(this.tooltipInner, formattedTooltipVal);
 
-          this.tooltip.style[this.stylePos] = positionPercentages[0] + "%";
+          this.tooltip.style[this.stylePos] = 'calc('+positionPercentages[0] + "% - "+this.tooltip.clientWidth/2+'px)'; // Here!!!
         }
 
         if (this.options.orientation === 'vertical') {

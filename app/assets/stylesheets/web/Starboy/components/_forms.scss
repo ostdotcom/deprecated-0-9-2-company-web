@@ -65,6 +65,14 @@
       .slider-track-high{
         border: 1px solid #fbd764;
       }
+      .tooltip{
+        .tooltip-inner{
+          color: $yellow-300;
+          background-color: $white;
+          border: 1px solid $yellow-300;
+          border-radius: $border-radius-lg;
+        }
+      }
     }
 
     &.slider-primary {
