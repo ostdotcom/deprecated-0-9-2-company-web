@@ -74,7 +74,7 @@
       var oThis = this;
 
 
-      var args = ["change"];
+      var args = ["change input"];
       if ( oThis.filter ) {
         args.push( oThis.filter );
       }
