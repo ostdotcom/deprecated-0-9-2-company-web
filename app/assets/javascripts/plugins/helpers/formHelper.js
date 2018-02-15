@@ -391,9 +391,7 @@
       } 
       return helper;
     }
-  });
-  $.fn.extend({
-    setVal: function ( val, orgEvent ) {
+    , setVal: function ( val, orgEvent ) {
       var jEl = $( this );
       var preVal = jEl.val();
 
@@ -405,12 +403,20 @@
         return false;
       }
       console.log(" id\t|",jEl.prop("id"), "\n preVal\t|", preVal, "\n val\t|", val, "\n orgEvent\t|", orgEvent );
-      jEl.val( val );
-
+      $.fn.val.call( this, val );
 
       var eventArgs = args = Array.prototype.slice.call(arguments);
       jEl.trigger("change", eventArgs);
       return true;
+    }
+    , safeSetVal : function ( val, orgEvent ) { 
+      var jEl = $( this );
+
+      if ( orgEvent &&  jEl.is( orgEvent.currentTarget ) ) {
+        return false;
+      }
+      
+      return $.fn.setVal.apply( this, arguments);
     }
   })
   $( function () {

@@ -159,10 +159,10 @@
       var currency_value = currentData.currency_value;
       if ( currentData.currency_type === "bt" ) {
           currency_type_id = "#currency_type_bt";
-          oThis.jValueInBt.setVal( PriceOracle.toBt( currency_value ) );
+          oThis.jValueInBt.safeSetVal( PriceOracle.toBt( currency_value ) );
       } else {
           currency_type_id ="#currency_type_fiat";
-          oThis.jValueInFiat.setVal( PriceOracle.toFiat( currency_value ) );
+          oThis.jValueInFiat.safeSetVal( PriceOracle.toFiat( currency_value ) );
       }
 
       oThis.jForm.find( currency_type_id ).prop("checked", true);
@@ -343,19 +343,86 @@
 
     , bindCurrencyValueChange: function ( jBt, jFiat , jOst ) {
         var oThis =  this;
-        var onBTChanged = function () {
-            jFiat.setVal(PriceOracle.btToFiat($(this).val()));
-            jOst.setVal(PriceOracle.btToOst($(this).val()));
+        var isChangeValid = function ( event, val, orgEvent ) {
+          if ( PriceOracle.isNaN( val ) ) { 
+            return false;
+          }
+
+          if ( event && orgEvent && event.currentTarget === orgEvent.currentTarget ) {
+            //Avoid an infinite loop
+            console.log("---------------\n\tIMPORTANT :: This should never happen. Please Check me\n---------------");
+            console.trace();
+            return false; 
+          }
+
+          //Do Other validations if required.
+
+          return true;
+        }
+
+        var onBTChanged = function ( event, val, orgEvent ) {
+
+          var jEl   = $( this )
+            , btVal
+          ;
+          val   = val || jEl.val();
+
+          //Validations
+          if ( !isChangeValid( event, val, orgEvent ) ) {
+            return;
+          }
+
+          //Initialisations
+          btVal = PriceOracle.toBt( val );
+          orgEvent = orgEvent || event;
+
+          //Executions
+          jFiat.safeSetVal(PriceOracle.btToFiat( btVal ), orgEvent );
+          jOst.safeSetVal(PriceOracle.btToOst( btVal ), orgEvent );
+
         };
 
-        var onFiatChanged = function () {
-            jBt.setVal(PriceOracle.fiatToBt($(this).val()));
-            jOst.setVal(PriceOracle.fiatToOst($(this).val()));
+        var onFiatChanged = function ( event, val, orgEvent ) {
+
+          var jEl     = $( this )
+            , fiatVal
+          ;
+          val = val || jEl.val();
+
+          //Validations
+          if ( !isChangeValid( event, val, orgEvent ) ) {
+            return;
+          }
+
+          //Initialisations
+          fiatVal = PriceOracle.toFiat( val );
+          orgEvent = orgEvent || event;
+
+          //Executions
+          jBt.safeSetVal(PriceOracle.fiatToBt( fiatVal ), orgEvent );
+          jOst.safeSetVal(PriceOracle.fiatToOst( fiatVal ), orgEvent );
+
         };
 
-        var onOstChanged = function () {
-            jBt.setVal(PriceOracle.ostToBt($(this).val()));
-            jFiat.setVal(PriceOracle.ostToFiat($(this).val()));
+        var onOstChanged = function ( event, val, orgEvent ) {
+
+          var jEl     = $( this )
+            , ostVal
+          ;
+          val = val || jEl.val();
+
+          //Validations
+          if ( !isChangeValid( event, val, orgEvent ) ) {
+            return;
+          }
+
+          //Initialisations
+          ostVal = PriceOracle.toOst( val );
+          orgEvent = orgEvent || event;
+
+          //Executions
+          jFiat.safeSetVal(PriceOracle.ostToFiat( ostVal ), orgEvent );
+          jBt.safeSetVal(PriceOracle.ostToBt( ostVal ), orgEvent );
         };
 
         if ( jBt ) {
