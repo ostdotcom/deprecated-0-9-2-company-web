@@ -128,17 +128,16 @@
     , observeOstToBt: function ( jBtInput ) {
       var oThis = this;
 
-      $( jBtInput ).on("change blur", function ( event, val, orgEvent ) {
-        if ( orgEvent ) {
-          console.log("*** observeOstToBt \n this", this, "\n**** orgEvent.currentTarget", orgEvent.currentTarget, "\n***");
-          if ( orgEvent.currentTarget === this ) {
-            return;
-          }
-        }
+      $( jBtInput ).on("change input blur", function ( event, val, orgEvent ) {
 
         var jEl = $( this )
           , bt = jEl.val()
         ;
+
+        if ( orgEvent && jEl.is( orgEvent.currentTarget ) ) {
+          return;
+        }
+
         if ( oThis.isNaN( bt ) ) {
           return;
         }
@@ -163,8 +162,9 @@
         console.log("observeOstToBt OST_TO_BT" , OST_TO_BT );
         console.log("observeOstToBt bt_to_fiat" , bt_to_fiat.toString() );
 
-        orgEvent = orgEvent || event;
+        
         //Fire Events
+        orgEvent = orgEvent || event;
         oThis.fireEvent( "ostToBtUpdated", orgEvent, ostToBt, OST_TO_BT );
         oThis.fireEvent( "btToFiatUpdated", orgEvent, bt_to_fiat, bt_to_fiat.toString(10) );
       });
@@ -174,22 +174,14 @@
       var oThis = this;
 
       $( jFiatInput ).on("change blur", function ( event, val, orgEvent ) {
-        console.log("--- observeBtToFiat val", arguments[1] );
-        console.log("--- observeBtToFiat orgEvent", arguments[2] );
-
-        if ( orgEvent ) {
-          console.log("*** observeBtToFiat \n this", this, "\n**** orgEvent.currentTarget", orgEvent.currentTarget, "\n***");
-          if ( orgEvent.currentTarget === this ) {
-            return;
-          }
-        }
-
 
         var jEl = $( this )
           , fiat = jEl.val()
         ;
 
-        
+        if ( orgEvent && jEl.is( orgEvent.currentTarget ) ) {
+          return;
+        }
 
         //fiat is same as bt_to_fiat 
         if ( oThis.isNaN( fiat ) || !fiat ) {
@@ -219,8 +211,8 @@
         console.log("observeBtToFiat ost", ost.toString( 10 ) );
         console.log("observeBtToFiat ostToBt", OST_TO_BT );
 
+        //Fire Events
         orgEvent = orgEvent || event;
-        //Fire Events        
         oThis.fireEvent( "ostToBtUpdated", orgEvent, ostToBt, OST_TO_BT );
         oThis.fireEvent( "btToFiatUpdated", orgEvent, bt_to_fiat, bt_to_fiat.toString(10) );
       });
@@ -276,7 +268,7 @@
       return oThis.fiat_symbol + fiat.toString( 10 );
     } 
     , isNaN : function ( val ) {
-      return isNaN( val ) && val !== "";
+      return isNaN( val ) || val === "";
     }
   }
 

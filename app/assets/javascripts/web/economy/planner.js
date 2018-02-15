@@ -11,8 +11,7 @@
 
       $.extend(oThis, config);
       oThis.bindEvents();
-      oThis.calcConversion();
-      $("#bt_rate").setVal( PriceOracle.ostToBt( 1 ).toString( 10 ) );
+      $("#bt_rate").safeSetVal( PriceOracle.ostToBt( 1 ).toString( 10 ) );
     },
 
     formHelper: null,
@@ -36,45 +35,30 @@
         oThis.formHelper.jForm.submit();
       });
 
-      $('#conversion_rate').on('change',function(){
-        oThis.calcConversion();
-      });
+
+
 
       PriceOracle.observeBtToFiat( $("#conversion_rate") );
       $( PriceOracle ).on( PriceOracle.events.btToFiatUpdated, function (event, orgEvent, bigRatio, stringRatio ) {
-        console.log("events.btToFiatUpdated orgEvent", orgEvent);
 
-        var jEl = $("#conversion_rate")
-          , el  = jEl[ 0 ]
-        ;
+        var jEl = $("#conversion_rate");
 
-
-        if ( orgEvent.currentTarget === el ) {
-          //DO NOT DO ANY THING!
-          return;
-        }
         //Make Sure to forward orgEvent;
-
-        var didUpdate = jEl.setVal( stringRatio, orgEvent );
+        var didUpdate = jEl.safeSetVal( stringRatio, orgEvent );
         didUpdate && console.log("updating conversion_rate to", stringRatio);
+
       });
 
       
       PriceOracle.observeOstToBt( $("#bt_rate") );
       $( PriceOracle ).on( PriceOracle.events.ostToBtUpdated, function (event, orgEvent, bigRatio, stringRatio ) {
-        console.log("events.ostToBtUpdated orgEvent", orgEvent);
 
-        var jEl = $("#bt_rate")
-          , el  = jEl[ 0 ]
-        ;
+        var jEl = $("#bt_rate");
 
-        if ( orgEvent.currentTarget === el ) {
-          //DO NOT DO ANY THING!
-          return;
-        }
         //Make Sure to forward orgEvent;
-        var didUpdate = jEl.setVal( stringRatio, orgEvent );
+        var didUpdate = jEl.safeSetVal( stringRatio, orgEvent );
         didUpdate && console.log("updating bt_rate to " , stringRatio);
+
       });
 
 
@@ -100,22 +84,7 @@
     has_verified_email: true, /* Over-Ride using config. */
     showValidateEmailLightBox: function () {
       $('#verify-modal').modal();
-    },
-
-    calcConversion: function(){
-      return;
-      var $bt_rate = $('#bt_rate');
-      var $conversion_rate = $('#conversion_rate');
-      var $ost_rate = $('#ost_rate');
-      $bt_rate.val(
-        BigNumber(oThis.ost_to_fiat)
-          .div(BigNumber($conversion_rate.val()))
-          .toPrecision(oThis.bt_precision)
-          .toString()
-      );
-    },
-
-
+    }
   };
 
 })(window, jQuery);
