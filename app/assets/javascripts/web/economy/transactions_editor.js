@@ -168,11 +168,6 @@
       oThis.jForm.find("#has_commission_" + has_commission_id ).prop("checked", true);
       oThis.jCommision.val( commission_percent );
 
-
-
-
-
-
       //Use currentData.
     }
     , showEditor: function () {

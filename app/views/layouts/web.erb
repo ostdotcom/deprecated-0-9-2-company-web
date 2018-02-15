@@ -1,3 +1,15 @@
+<% 
+  page_needs_conversion_rates = true;
+
+  if ( page_needs_conversion_rates )
+    ost_to_bt = (100).to_s;
+    ost_to_fiat = (0.30).to_s;
+    fiat_symbol = "$";
+    fiat_type = "usd";
+    fiat_display_text = "USD";
+  end
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -119,6 +131,19 @@
             });
         });
     </script>
+  <% if page_needs_conversion_rates %>
+    <script type="text/javascript">
+      $( function () {
+        PriceOracle.init({
+          ost_to_bt           : "<%= ost_to_bt %>"
+          , ost_to_fiat       : "<%= ost_to_fiat %>"
+          , fiat_symbol       : "$"
+          , fiat_type         : "usd"
+          , fiat_display_text : "USD"
+        });
+      })
+    </script>
+  <% end %>
 <% end %>
 <%= yield(:end_js) %>
 

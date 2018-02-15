@@ -3,7 +3,7 @@
   <div class="input-group slider-with-input d-flex align-items-center <%=classes%>">
     <input
         type="text"
-        id="<%=id%>"
+        id="<%=id%>_slider"
         data-provide="slider"
         data-slider-min="<%=min%>"
         data-slider-max="<%=max%>"
@@ -14,7 +14,7 @@
         <% if defined? ticks_labels %>data-slider-ticks-labels='<%=raw ticks_labels.to_s%>'<% end %>
     >
     <span class="slider-input-right">
-      <input type="<%=type%>" class="form-control" name="<%=name%>" min="<%=min%>" max="<%=max%>" step="<%=step%>" value="<%=value%>" />
+      <input id="<%=id%>" type="<%=type%>" class="form-control" name="<%=name%>" min="<%=min%>" max="<%=max%>" step="<%=step%>" value="<%=value%>" />
     </span>
   </div>
   <div class="d-flex align-items-center" style="margin-top: -20px; font-size: 12px;">

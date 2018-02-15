@@ -392,6 +392,18 @@
       return helper;
     }
   });
+  $.fn.extend({
+    setVal: function ( val ) {
+      var jEl = $( this );
+      var preVal = jEl.val();
+      if ( val == preVal ) {
+        return;
+      }
+      console.log(" id |",jEl.prop("id"), "\n preVal |", preVal, "\n val |", val);
+      jEl.val( val );
+      jEl.trigger("change");
+    }
+  })
   $( function () {
     jForms = $("[" + autoBinderAttr + "]");
     jForms.each(function ( indx, formEl ) {

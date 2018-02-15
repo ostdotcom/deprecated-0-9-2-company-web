@@ -14,25 +14,27 @@
     var textInputLeft = $(slider).closest('.form-group').find('.slider-input-left input').get().shift()
     var textInputRight = $(slider).closest('.form-group').find('.slider-input-right input').get().shift()
     var textInputBottom = $(slider).closest('.form-group').find('.slider-input-bottom input').get().shift()
-    var textInput = textInputLeft || textInputRight || textInputBottom
+    var textInput = textInputLeft || textInputRight || textInputBottom;
 
     var sliderValueToTextInput = function () {
-      var value = $(slider)[SLIDER_NAMESPACE]('getValue')
+      var value = $(slider)[SLIDER_NAMESPACE]('getValue');
 
       if (Array.isArray(value)) {
         if ($(textInputLeft).val() !== value[0]) {
-          $(textInputLeft).val(value[0])
+          $(textInputLeft).setVal(value[0])
         }
 
         if ($(textInputRight).val() !== value[1]) {
-          $(textInputRight).val(value[1])
+          $(textInputRight).setVal(value[1])
         }
       } else {
         if ($(textInput).val() !== value) {
-          $(textInput).val(value)
+          $(textInput).setVal(value)
         }
       }
     }
+
+
 
     var textInputValueToSlider = function (element) {
       var sliderValue = $(slider)[SLIDER_NAMESPACE]('getValue')
@@ -57,8 +59,8 @@
 
       if (valueLeft > valueRight) {
         var tmp = valueLeft
-        $(textInputLeft).val(valueRight)
-        $(textInputRight).val(tmp)
+        $(textInputLeft).setVal(valueRight)
+        $(textInputRight).setVal(tmp);
         $(slider)[SLIDER_NAMESPACE]('setValue', [valueRight, valueLeft])
       }
 

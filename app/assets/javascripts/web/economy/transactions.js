@@ -106,8 +106,7 @@
             client_id: 2,
             name: "Transaction " + Number(currentDataCnt + cnt + 1),
             kind: transaction_types[ (currentDataCnt + cnt + 1) % transaction_types.length],
-            value_in_bt: coinValue,
-            value_in_usd: coinValue * 10,
+            currency_value: coinValue,
             currency_type: currency_types[  (currentDataCnt + cnt + 1) % currency_types.length ],
             commission_percent: Math.round( Math.random() * 10)
           });

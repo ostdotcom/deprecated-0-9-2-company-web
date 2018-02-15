@@ -41,7 +41,7 @@
     <script type="text/x-handlebars-template" data-row-template>
       <tr class="row align-items-center py-3 mt-1 mb-3 rounded ost-table-row" style="background-color: #f1f5f8;">
         <td class="col-2">{{name}}<br/>{{kind_display_text}}</td>
-        <td class="col-2">${{value_in_usd}}</td>
+        <td class="col-2">{{value_in_fiat}}</td>
         <td class="col-2">{{value_in_bt}}</td>
         <td class="col-2">{{price_oracle_text}}</td>
         <td class="col-1">{{commission_percent}}&#37;</td>
@@ -81,6 +81,15 @@
 
       return kindDisplayText[ kind ];
     });
+
+    Handlebars.registerHelper('value_in_fiat', function(response, options ) { 
+
+    });
+
+    Handlebars.registerHelper('value_in_bt', function(response, options ) { 
+
+    });
+
 
     Handlebars.registerHelper('IfShowApiCallButton', function(data, options ) { 
       console.log("IfShowApiCallButton called!", arguments); 

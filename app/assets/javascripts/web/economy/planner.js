@@ -39,6 +39,22 @@
         oThis.calcConversion();
       });
 
+      PriceOracle.observeOstToBt( $("#bt_rate") );
+      
+      $( PriceOracle ).on( PriceOracle.events.btToFiatUpdated, function (event, bigRatio, stringRatio ) {
+        console.log("updating conversion_rate to", stringRatio);
+        $("#conversion_rate").setVal( stringRatio );
+        
+      });
+
+      PriceOracle.observeBtToFiat( $("#conversion_rate") );
+      $( PriceOracle ).on( PriceOracle.events.ostToBtUpdated, function (event, bigRatio, stringRatio ) {
+        console.log("updating bt_rate to " , stringRatio);
+        $("#bt_rate").setVal( stringRatio );
+      });
+
+
+
     },
 
     grant_initial_ost: true, /* Over-Ride using config. */
@@ -63,6 +79,7 @@
     },
 
     calcConversion: function(){
+      return;
       var $bt_rate = $('#bt_rate');
       var $conversion_rate = $('#conversion_rate');
       var $ost_rate = $('#ost_rate');
