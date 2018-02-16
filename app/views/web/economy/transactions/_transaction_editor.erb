@@ -13,8 +13,7 @@
   bt_to_fiat  = (ost_to_fiat/ost_to_bt).to_f;
 
   #Default value for creating new transaction to be set.
-  default_fiat_value = 0.01; 
-  default_bt_value = (default_fiat_value/bt_to_fiat).to_f;
+  default_fiat_value = 0.10;
 
 
   create_url = "/api/economy/transaction/kind/create";
@@ -26,8 +25,8 @@
     :commission_percent => 0,
     :kind => "user_to_user",
     :name => "",
-    :currency_type => fiat_type,
-    :currency_value => default_bt_value
+    :currency_type => fiat_type.to_s,
+    :currency_value => default_fiat_value.to_s
   };
 
   default_transaction_values[ value_in_fiat_sym ] = default_fiat_value;  
@@ -149,43 +148,44 @@
     </div>
 
 
+    <div class="row" id="commission_percent_wrap">
+      <div class="col-8">
+        <%= render partial: 'shared/web/common/slider',
+           locals: {
+             label: 'COMMISSION VALUE IN % <span>(The commission is included in the transaction amount)</span>',
+             id: 'commission_percent',
+             name: 'commission_percent',
+             type: 'number',
+             min: 1,
+             max: 100,
+             step: 1,
+             value: 1,
+             tooltip: 'always',
+             classes: 'slider-primary'
+           }
+       %>
+       <input type="hidden" name="commission_in_bt" id="commission_in_bt" value="5" />
+       <input type="hidden" name="commission_in_fiat" id="commission_in_fiat" value="1.5" />
+     </div>
 
-    <div class="col-8">
-      <%= render partial: 'shared/web/common/slider',
-         locals: {
-           label: 'COMMISSION VALUE IN % <span>(The commission is included in the transaction amount)</span>',
-           id: 'commission_percent',
-           name: 'commission_percent',
-           type: 'number',
-           min: 1,
-           max: 100,
-           step: 1,
-           value: 1,
-           tooltip: 'always',
-           classes: 'slider-primary'
-         }
-     %>
-     <input type="hidden" name="commission_in_bt" id="commission_in_bt" value="5" />
-     <input type="hidden" name="commission_in_fiat" id="commission_in_fiat" value="1.5" />
-   </div>
+      <div class="col-2">
+        <%= render :partial => "/shared/web/common/mocker", 
+          :locals => {
+            :header => "VALUE IN " + coin_symbol,
+            :mock_selector => "#commission_in_bt"
+          }
+        %> 
+      </div>
 
-    <div class="col-2">
-      <%= render :partial => "/shared/web/common/mocker", 
-        :locals => {
-          :header => "VALUE IN " + coin_symbol,
-          :mock_selector => "#commission_in_bt"
-        }
-      %> 
-    </div>
-
-    <div class="col-2">
-      
-      <%= render :partial => "/shared/web/common/mocker", 
-        :locals => {
-          :header => "VALUE IN " + fiat_display_text,
-          :mock_selector => "#commission_in_fiat"
-        }
-      %> 
+      <div class="col-2">
+        
+        <%= render :partial => "/shared/web/common/mocker", 
+          :locals => {
+            :header => "VALUE IN " + fiat_display_text,
+            :mock_selector => "#commission_in_fiat"
+          }
+        %> 
+      </div>
     </div>
 
 

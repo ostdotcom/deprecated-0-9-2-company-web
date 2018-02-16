@@ -101,7 +101,6 @@
 
 
     Handlebars.registerHelper('IfShowApiCallButton', function(data, options ) { 
-      console.log("IfShowApiCallButton called!", arguments); 
       if (<%= should_show_api_call_button %>) {
         return options.fn(this);
       } else {

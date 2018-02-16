@@ -19,36 +19,38 @@
       , "created" : "created"
     }
 
-    , formHelper    : null
-    , jEditor       : null
-    , jForm         : null
-    , jHeading      : null
-    , jSubmit       : null 
-    , jId           : null
-    , jDeviceId     : null
-    , jName         : null
-    , jValueInFiat  : null
-    , jValueInBt    : null
-    , jValueInOst   : null
-    , jHasCommision : null
-    , jCommision    : null
+    , formHelper      : null
+    , jEditor         : null
+    , jForm           : null
+    , jHeading        : null
+    , jSubmit         : null 
+    , jId             : null
+    , jDeviceId       : null
+    , jName           : null
+    , jValueInFiat    : null
+    , jValueInBt      : null
+    , jValueInOst     : null
+    , jHasCommision   : null
+    , jCommision      : null
+    , jCommisionWrap  : null
 
     , init: function ( config ) {
       var oThis = this;
 
       $.extend(oThis, config);
 
-      oThis.jEditor       = oThis.jEditor       || $("#transaction_editor");
-      oThis.jForm         = oThis.jForm         || oThis.jEditor.find("#transaction_editor_form");
-      oThis.jHeading      = oThis.jHeading      || oThis.jEditor.find("#transaction_editor_mode_heading");
-      oThis.jSubmit       = oThis.jSubmit       || oThis.jEditor.find("#transaction_editor_submit_btn");
-      oThis.jId           = oThis.jId           || oThis.jEditor.find("#transaction_id");
-      oThis.jDeviceId     = oThis.jDeviceId     || oThis.jEditor.find("#transaction_device_id");
-      oThis.jName         = oThis.jName         || oThis.jEditor.find("#transaction_name");
-      oThis.jValueInFiat  = oThis.jValueInFiat  || oThis.jEditor.find("#value_in_fiat");
-      oThis.jValueInBt    = oThis.jValueInBt    || oThis.jEditor.find("#value_in_bt");
-      oThis.jValueInOst   = oThis.jValueInOst   || oThis.jEditor.find("#value_in_ost");
-      oThis.jCommision    = oThis.jCommision    || oThis.jEditor.find("#commission_percent");
+      oThis.jEditor         = oThis.jEditor         || $("#transaction_editor");
+      oThis.jForm           = oThis.jForm           || oThis.jEditor.find("#transaction_editor_form");
+      oThis.jHeading        = oThis.jHeading        || oThis.jForm.find("#transaction_editor_mode_heading");
+      oThis.jSubmit         = oThis.jSubmit         || oThis.jForm.find("#transaction_editor_submit_btn");
+      oThis.jId             = oThis.jId             || oThis.jForm.find("#transaction_id");
+      oThis.jDeviceId       = oThis.jDeviceId       || oThis.jForm.find("#transaction_device_id");
+      oThis.jName           = oThis.jName           || oThis.jForm.find("#transaction_name");
+      oThis.jValueInFiat    = oThis.jValueInFiat    || oThis.jForm.find("#value_in_fiat");
+      oThis.jValueInBt      = oThis.jValueInBt      || oThis.jForm.find("#value_in_bt");
+      oThis.jValueInOst     = oThis.jValueInOst     || oThis.jForm.find("#value_in_ost");
+      oThis.jCommision      = oThis.jCommision      || oThis.jForm.find("#commission_percent");
+      oThis.jCommisionWrap  = oThis.jCommisionWrap  || oThis.jForm.find("#commission_percent_wrap");
 
 
       oThis.formHelper = oThis.jForm.formHelper();
@@ -72,12 +74,24 @@
         oThis.correctCommissionData( ajaxData );
       });
 
-      $('[name="currency_type"]').change( function () {
+      oThis.jForm.find('[name="currency_type"]').change( function () {
           oThis.toggleCurrencyInput();
       });
 
-       oThis.bindCurrencyValueChange( oThis.jValueInBt , oThis.jValueInFiat , oThis.jValueInOst );
-      }
+      oThis.jForm.find('[name="has_commission"]').change( function () {
+        var val = Number( this.value );
+        console.log("this.value", this.value);
+        if( val ) {
+          //Some truthy value
+          oThis.jCommisionWrap.slideDown( 300 );
+        } else {
+          //Some falsey value
+          oThis.jCommisionWrap.slideUp( 300 );
+        }
+      });
+
+       PriceOracle.bindCurrencyElements( oThis.jValueInBt , oThis.jValueInFiat , oThis.jValueInOst );
+    }
 
     , createNewTransaction: function ( transactionData ) {
       var oThis = this;
@@ -157,24 +171,39 @@
       var isBtCurrencyType = currentData.currency_type === "bt";
       var currency_type_id;
       var currency_value = currentData.currency_value;
+
       if ( currentData.currency_type === "bt" ) {
           currency_type_id = "#currency_type_bt";
           oThis.jValueInBt.safeSetVal( PriceOracle.toBt( currency_value ) );
       } else {
           currency_type_id ="#currency_type_fiat";
+          console.log("currency_value", currency_value);
           oThis.jValueInFiat.safeSetVal( PriceOracle.toFiat( currency_value ) );
       }
 
-      oThis.jForm.find( currency_type_id ).prop("checked", true);
+      oThis.jForm.find( currency_type_id )
+        .prop("checked", true)
+        .trigger("change")
+      ;
 
       //commission_percent
       var commission_percent = Number( currentData.commission_percent );
       commission_percent = isNaN( commission_percent ) ? 0 : commission_percent;
-
-      var has_commission_id = commission_percent ? "yes" : "no";
-      oThis.jForm.find("#has_commission_" + has_commission_id ).prop("checked", true);
       oThis.jCommision.val( commission_percent );
 
+      var has_commission_id;
+      
+      if ( commission_percent ) {
+        has_commission_id = "#has_commission_yes";
+        oThis.jCommisionWrap.show();
+      } else {
+        has_commission_id = "#has_commission_no";
+        oThis.jCommisionWrap.hide();
+      }
+      oThis.jForm.find( has_commission_id )
+        .prop("checked", true)
+      ;
+      
       //Use currentData.
     }
     , showEditor: function () {
@@ -327,117 +356,32 @@
     }
 
     , completeEditSession: function () {
-        oThis.cleanUp();
-        oThis.hideEditor();
+      var oThis = this;
+
+      oThis.cleanUp();
+      oThis.hideEditor();
     }
 
     ,toggleCurrencyInput : function () {
-        var jEl   =  $('input[name=currency_type]:checked'),
-         value = jEl.val(),
-         enableSelectorId
-        ;
-        enableSelectorId = value == 1 ?  "#value_in_fiat" :  "#value_in_bt";
-        $('[name="currency_value"]').prop('disabled', true);
-        $(enableSelectorId).prop('disabled', false);
-     }
+      var oThis = this;
+      
+      var jEl       = oThis.jForm.find('input[name=currency_type]:checked')
+        , val       = Number( jEl.val() )
+        , jEnable
+        , jDisable
+      ;
 
-    , bindCurrencyValueChange: function ( jBt, jFiat , jOst ) {
-        var oThis =  this;
-        var isChangeValid = function ( event, val, orgEvent ) {
-          if ( PriceOracle.isNaN( val ) ) { 
-            return false;
-          }
+      if ( val ) {
+        jEnable   = oThis.jValueInFiat;
+        jDisable  = oThis.jValueInBt;
+      } else {
+        jEnable   = oThis.jValueInBt;
+        jDisable  = oThis.jValueInFiat;
+      }
 
-          if ( event && orgEvent && event.currentTarget === orgEvent.currentTarget ) {
-            //Avoid an infinite loop
-            console.log("---------------\n\tIMPORTANT :: This should never happen. Please Check me\n---------------");
-            console.trace();
-            return false; 
-          }
-
-          //Do Other validations if required.
-
-          return true;
-        }
-
-        var onBTChanged = function ( event, val, orgEvent ) {
-
-          var jEl   = $( this )
-            , btVal
-          ;
-          val   = val || jEl.val();
-
-          //Validations
-          if ( !isChangeValid( event, val, orgEvent ) ) {
-            return;
-          }
-
-          //Initialisations
-          btVal = PriceOracle.toBt( val );
-          orgEvent = orgEvent || event;
-
-          //Executions
-          jFiat.safeSetVal(PriceOracle.btToFiat( btVal ), orgEvent );
-          jOst.safeSetVal(PriceOracle.btToOst( btVal ), orgEvent );
-
-        };
-
-        var onFiatChanged = function ( event, val, orgEvent ) {
-
-          var jEl     = $( this )
-            , fiatVal
-          ;
-          val = val || jEl.val();
-
-          //Validations
-          if ( !isChangeValid( event, val, orgEvent ) ) {
-            return;
-          }
-
-          //Initialisations
-          fiatVal = PriceOracle.toFiat( val );
-          orgEvent = orgEvent || event;
-
-          //Executions
-          jBt.safeSetVal(PriceOracle.fiatToBt( fiatVal ), orgEvent );
-          jOst.safeSetVal(PriceOracle.fiatToOst( fiatVal ), orgEvent );
-
-        };
-
-        var onOstChanged = function ( event, val, orgEvent ) {
-
-          var jEl     = $( this )
-            , ostVal
-          ;
-          val = val || jEl.val();
-
-          //Validations
-          if ( !isChangeValid( event, val, orgEvent ) ) {
-            return;
-          }
-
-          //Initialisations
-          ostVal = PriceOracle.toOst( val );
-          orgEvent = orgEvent || event;
-
-          //Executions
-          jFiat.safeSetVal(PriceOracle.ostToFiat( ostVal ), orgEvent );
-          jBt.safeSetVal(PriceOracle.ostToBt( ostVal ), orgEvent );
-        };
-
-        if ( jBt ) {
-            jBt.on('change input', onBTChanged);
-        }
-
-        if ( jFiat ) {
-            jFiat.on('change input', onFiatChanged);
-        }
-
-        if( jOst ){
-            jOst.on('change input', onOstChanged);
-        }
-    }
-
+      jDisable.prop('disabled', true);
+      jEnable.prop('disabled', false);
+   }
 
   };
 })(window, jQuery);
