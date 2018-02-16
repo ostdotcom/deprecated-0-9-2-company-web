@@ -31,8 +31,8 @@
         <%= render partial: 'shared/web/common/slider',
                    locals: {
                            label: 'How much do you want 1 '+coin_name+' to be worth?',
-                           id: 'conversion_rate',
-                           name: 'conversion_rate',
+                           id: 'token_worth_in_usd',
+                           name: 'token_worth_in_usd',
                            type: 'number',
                            min: 0.1,
                            max: 10,
@@ -97,7 +97,7 @@
                 <label class="form-label float-left" for="bt"><%=coin_name%></label>
                 <span class="form-label float-right">Value Set <%=fiat_symbol%><span data-ost-mock-element="#conversion_rate"></span></span>
               </div>
-              <input type="number" min="0.0001" class="form-control" name="ost_to_bt" id="bt_rate" />
+              <input type="number" min="0.0001" class="form-control" name="conversion_rate" id="bt_rate" />
             </div>
             <div style="width:0;position:relative;left:-5px;top:25px">&#8776;</div>
             <div class="form-group col-6">

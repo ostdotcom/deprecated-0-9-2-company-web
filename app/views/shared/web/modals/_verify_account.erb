@@ -6,7 +6,7 @@
       </button>
       <div class="modal-body">
         <h1 class="heading font-weight-normal">Verify Your Email Address Before proceeding</h1>
-        <p class="desc font-weight-light">We have sent an email to francesco@frc.com please click on the Verify Button in the email to Activate your account</p>
+        <p class="desc font-weight-light">We have sent an email to <%= @presenter_obj.user.email %> please click on the Verify Button in the email to Activate your account</p>
         <div class="desc font-weight-light mb-2">Did not receive the verification link?</div>
         <button type="button" class="btn btn-gold font-weight-light">Re-send verification link</button>
       </div>
