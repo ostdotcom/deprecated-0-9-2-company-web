@@ -2,16 +2,17 @@
    coin_name   = @presenter_obj.client_token.name;
    coin_symbol = @presenter_obj.client_token.symbol;
    fiat_symbol = "$";
-   fiat_type   = "usd";
-   fiat_display_text = "USD";
+   fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
+   fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
 
-   ost_to_fiat = 0.3;
+   ost_to_fiat = @presenter_obj.client_balances.ost_to_fiat_conversion_factor(@presenter_obj.client_fiat_curreny_symbol);
 
    value_in_fiat_key = "value_in_" + fiat_type;
    value_in_fiat_sym = value_in_fiat_key.to_sym;
 
    has_verified_email = @presenter_obj.user.is_verified?
    grant_initial_ost = true
+
 %>
 <%=
     if !@presenter_obj.user.is_verified?

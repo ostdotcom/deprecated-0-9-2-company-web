@@ -41,7 +41,7 @@ module CompanyApi
         end
 
         def conversion_rate
-          @data['conversion_rate']
+          @data['conversion_rate'].to_f
         end
 
         def airdrop_bt_per_user

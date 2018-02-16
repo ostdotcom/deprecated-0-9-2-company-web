@@ -46,8 +46,12 @@ module WebPresenter
       end
     end
 
-    def client_fiat_curreny_pref
+    def client_fiat_curreny_symbol
       'usd'
+    end
+
+    def client_fiat_curreny_display_text
+      'USD'
     end
 
     def client_fiat_curreny_pref_symbol

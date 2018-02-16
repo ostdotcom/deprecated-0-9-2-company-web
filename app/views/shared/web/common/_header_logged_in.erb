@@ -3,12 +3,13 @@
   client_token = @presenter_obj.client_token
   client_balances = @presenter_obj.client_balances
   client_fiat_curreny_pref_symbol = @presenter_obj.client_fiat_curreny_pref_symbol
+  client_fiat_curreny_symbol = @presenter_obj.client_fiat_curreny_symbol
 
   if client_balances.balances.present?
     bt_balance = client_balances.bt_balance
-    bt_fiat_balance = client_balances.bt_fiat_balance(client_fiat_curreny_pref_symbol)
+    bt_fiat_balance = client_balances.bt_fiat_balance(client_fiat_curreny_symbol)
     ost_balance = client_balances.ost_balance
-    ost_fiat_balance = client_balances.ost_fiat_balance(client_fiat_curreny_pref_symbol)
+    ost_fiat_balance = client_balances.ost_fiat_balance(client_fiat_curreny_symbol)
   end
 
 %>

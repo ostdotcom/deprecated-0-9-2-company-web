@@ -23,7 +23,7 @@
       oThis.formHelper = $("#step1").formHelper();
       oThis.formHelper.success = function () {
         //Verify Email First.
-        if ( !oThis.has_varified_email ) {
+        if ( !oThis.has_verified_email ) {
           oThis.showValidateEmailLightBox();
         } else if ( oThis.grant_initial_ost ) {
           //Get Ost Next.
@@ -81,7 +81,6 @@
 
     },
 
-    has_verified_email: true, /* Over-Ride using config. */
     showValidateEmailLightBox: function () {
       $('#verify-modal').modal();
     }

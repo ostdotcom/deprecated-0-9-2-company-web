@@ -56,12 +56,16 @@ module CompanyApi
 
         def bt_balance
           @bt_b ||= begin
-            balances[client_token.symbol]
+            balances[@client_token.symbol]
           end
         end
 
         def bt_fiat_balance(currency_pref)
           bt_balance.present? ? convert_bt_to_fiat(bt_balance, currency_pref) : nil
+        end
+
+        def ost_to_fiat_conversion_factor(currency_symbol)
+          ost_based_conversion_rates[currency_symbol]
         end
 
         private
