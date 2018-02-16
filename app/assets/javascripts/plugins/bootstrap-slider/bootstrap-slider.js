@@ -532,7 +532,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
         var createAndAppendTooltipSubElements = function createAndAppendTooltipSubElements(tooltipElem) {
           var arrow = document.createElement("div");
-          arrow.className = "tooltip-arrow";
+          arrow.className = "arrow";
 
           var inner = document.createElement("div");
           inner.className = "tooltip-inner";
@@ -543,17 +543,17 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
         /* Create tooltip elements */
         var sliderTooltip = document.createElement("div");
-        sliderTooltip.className = "tooltip tooltip-main";
+        sliderTooltip.className = "tooltip tooltip-main bs-tooltip-top";
         sliderTooltip.setAttribute('role', 'presentation');
         createAndAppendTooltipSubElements(sliderTooltip);
 
         var sliderTooltipMin = document.createElement("div");
-        sliderTooltipMin.className = "tooltip tooltip-min";
+        sliderTooltipMin.className = "tooltip tooltip-min bs-tooltip-top";
         sliderTooltipMin.setAttribute('role', 'presentation');
         createAndAppendTooltipSubElements(sliderTooltipMin);
 
         var sliderTooltipMax = document.createElement("div");
-        sliderTooltipMax.className = "tooltip tooltip-max";
+        sliderTooltipMax.className = "tooltip tooltip-max bs-tooltip-top";
         sliderTooltipMax.setAttribute('role', 'presentation');
         createAndAppendTooltipSubElements(sliderTooltipMax);
 
@@ -598,6 +598,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
       this.tooltip = this.sliderElem.querySelector('.tooltip-main');
       this.tooltipInner = this.tooltip.querySelector('.tooltip-inner');
+      this.tooltipArrow = this.tooltip.querySelector('.arrow');
 
       this.tooltip_min = this.sliderElem.querySelector('.tooltip-min');
       this.tooltipInner_min = this.tooltip_min.querySelector('.tooltip-inner');
@@ -1295,6 +1296,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
           formattedTooltipVal = this.options.formatter(this._state.value[0]);
           this._setText(this.tooltipInner, formattedTooltipVal);
 
+          this.tooltipArrow.style[this.stylePos] = (this.tooltip.clientWidth/2)-5+'px';
           this.tooltip.style[this.stylePos] = 'calc('+positionPercentages[0] + "% - "+this.tooltip.clientWidth/2+'px)'; // Here!!!
         }
 

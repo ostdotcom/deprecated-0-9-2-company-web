@@ -63,6 +63,7 @@
 
     .tooltip{
       .tooltip-inner{
+        padding: 0.10rem 0.5rem;
         color: $blue-700;
         background-color: $white;
         border: 1px solid $blue-700;
@@ -102,6 +103,11 @@
           color: $yellow-300;
           background-color: $white;
           border: 1px solid $yellow-300;
+        }
+        .arrow{
+          &:before{
+            border-top-color: $yellow-300;
+          }
         }
       }
     }
