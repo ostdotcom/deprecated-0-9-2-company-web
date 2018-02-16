@@ -75,6 +75,18 @@
       text-align: right;
     }
 
+    &.right{
+      .slider-horizontal{
+        margin: 0 0 0 10px;
+      }
+    }
+
+    &.top{
+      .slider-horizontal{
+        margin: 0 10px 0 10px;
+      }
+    }
+
     &.slider-yellow{
       .slider-selection{
         background: $yellow-300;

@@ -31,7 +31,7 @@
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-4 user-form">
+            <div class="col-3 user-form">
               <%= render partial: 'shared/web/common/slider_top',
                          locals: {
                                  label: 'No of Tokens to Create',
@@ -45,8 +45,12 @@
                                  tooltip: 'hide'
                          }
               %>
+              <div class="mt-4 mb-2 p-2 token-val-usd">
+                <label class="text-uppercase">Token Value in USD</label>
+                <div>750000</div>
+              </div>
             </div>
-            <div class="col-7 offset-1 user-form form-group" id="ostSupplyPieArea">
+            <div class="col-8 offset-1 user-form form-group" id="ostSupplyPieArea">
               <label class="form-label text-uppercase title">OST Supply</label>
               <div class="d-flex align-items-center">
                 <div class="p-2">

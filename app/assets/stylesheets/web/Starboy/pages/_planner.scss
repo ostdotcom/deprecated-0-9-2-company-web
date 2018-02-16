@@ -46,3 +46,15 @@
   }
 
 }
+
+.token-val-usd{
+  background: #f1f5f8;
+  color: #819aa1;
+  font-size: 0.8rem;
+  border-radius: $border-radius-lg;
+
+  label{
+    font-size: 0.8rem;
+    color: #6c9ba9;
+  }
+}
