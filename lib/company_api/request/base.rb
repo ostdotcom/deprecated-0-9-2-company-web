@@ -13,7 +13,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @param [Klass] api_response_formatter_class (mandatory) - Api response formatter_class for api Response
       # @param [Hash] cookies (mandatory) - cookies that need to be sent to API
@@ -39,7 +39,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @param [String] api_route (mandatory) - API route
       # @param [Hash] url_params_hash (optional) - API params
@@ -56,7 +56,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @param [String] api_route (mandatory) - API route
       # @param [Hash] url_params_hash (optional) - API params
@@ -75,7 +75,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @return [String] returns API URL Example: "https://companystag:12312121!@stagingost.com/list/get/"
       #
@@ -87,7 +87,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @return [String] returns BASE API URL Example: "https://stagingost.com/"
       #
@@ -99,7 +99,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @return [String] returns API Parameters
       #
@@ -111,7 +111,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @param [String] request_uri (mandatory) - API route
       #
@@ -142,7 +142,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @return [Result::Base] returns an object of Result::Base class
       #
@@ -181,7 +181,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @return [Result::Base] returns an object of Result::Base class
       #
@@ -225,7 +225,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @return [Hash] returns an hash of critical information for debugging
       #
@@ -241,7 +241,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @param [Hash] data (mandatory) - API success response data
       #

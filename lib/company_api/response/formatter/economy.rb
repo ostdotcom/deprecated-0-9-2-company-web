@@ -12,7 +12,7 @@ module CompanyApi
         #
         # * Author: Puneet
         # * Date: 02/02/2018
-        # * Reviewed By:
+        # * Reviewed By: Sunil
         #
         # @param [Hash] data (mandatory) - company api response data
         #
@@ -26,7 +26,7 @@ module CompanyApi
         #
         # * Author: Puneet
         # * Date: 02/02/2018
-        # * Reviewed By:
+        # * Reviewed By: Sunil
         #
         def perform
 
@@ -52,7 +52,7 @@ module CompanyApi
         #
         # * Author: Puneet
         # * Date: 02/02/2018
-        # * Reviewed By:
+        # * Reviewed By: Sunil
         #
         # @param [Hash] token_supply_details_data (mandatory) - token supply details hash
         #
@@ -66,7 +66,7 @@ module CompanyApi
         #
         # * Author: Puneet
         # * Date: 02/02/2018
-        # * Reviewed By:
+        # * Reviewed By: Sunil
         #
         # @param [Array] transaction_types_data (mandatory) - transaction types hash
         #
@@ -83,7 +83,7 @@ module CompanyApi
         #
         # * Author: Puneet
         # * Date: 02/02/2018
-        # * Reviewed By:
+        # * Reviewed By: Sunil
         #
         # @param [Array] economy_users_data (mandatory) - economy users hash
         #
