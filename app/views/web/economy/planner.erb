@@ -29,7 +29,7 @@
         <h3 class="text-center mt-4">Plan the Francesco Coin Economy in 3 Easy Steps</h3>
         <%= render partial: 'shared/web/common/steps' %>
         <hr class="mt-2 mb-4"/>
-        <%= render partial: 'shared/web/common/slider',
+        <%= render partial: 'shared/web/common/slider_right',
                    locals: {
                            label: 'How much do you want 1 '+coin_name+' to be worth?',
                            id: 'token_worth_in_usd',
@@ -45,7 +45,7 @@
                    }
         %>
         <hr class="mt-2 mb-4"/>
-        <%= render partial: 'shared/web/common/slider',
+        <%= render partial: 'shared/web/common/slider_right',
                    locals: {
                            label: 'How many '+coin_name+' users do you plan to begin with?',
                            id: 'initial_number_of_users',
@@ -60,7 +60,7 @@
                    }
         %>
         <hr class="mt-2 mb-4"/>
-        <%= render partial: 'shared/web/common/slider',
+        <%= render partial: 'shared/web/common/slider_right',
                    locals: {
                            label: 'How much '+coin_name+' do you wish to airdrop to each user to begin with?',
                            id: 'airdrop_bt_per_user',
@@ -80,7 +80,7 @@
         <button id="getInitialOstBtn"> Get Initial OST</button>
       </div>-->
     </div>
-  
+
 
     <div class="row">
       <div class="col-12">

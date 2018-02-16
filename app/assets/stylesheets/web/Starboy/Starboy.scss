@@ -54,14 +54,15 @@
 @import "components/modals";
 @import "components/forms";
 @import "components/buttons";
+@import "components/card";
 
-// Not theme, but common
-@import "components/planner";
-@import "components/steps";
-@import "components/ostsupply";
-@import "components/faqs";
-@import "components/transactions";
-@import "components/mocker";
+// Not theme, but page level CSS (can and should be moved to manifests later)
+@import "pages/planner";
+@import "pages/steps";
+@import "pages/ostsupply";
+@import "pages/faqs";
+@import "pages/transactions";
+@import "pages/mocker";
 
 
 

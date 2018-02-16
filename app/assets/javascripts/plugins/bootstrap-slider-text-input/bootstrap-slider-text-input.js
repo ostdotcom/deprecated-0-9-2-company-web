@@ -14,7 +14,8 @@
     var textInputLeft = $(slider).closest('.form-group').find('.slider-input-left input').get().shift()
     var textInputRight = $(slider).closest('.form-group').find('.slider-input-right input').get().shift()
     var textInputBottom = $(slider).closest('.form-group').find('.slider-input-bottom input').get().shift()
-    var textInput = textInputLeft || textInputRight || textInputBottom;
+    var textInputTop = $(slider).closest('.form-group').find('.slider-input-top input').get().shift()
+    var textInput = textInputLeft || textInputRight || textInputBottom || textInputTop;
 
     var sliderValueToTextInput = function () {
       var value = $(slider)[SLIDER_NAMESPACE]('getValue');
@@ -71,30 +72,13 @@
       sliderValueToTextInput()
     })
 
-    $(textInputLeft).on('input', function (event) {
+    $(textInput).on('input change', function (event) {
       textInputValueToSlider(event.target)
-    })
-
-    $(textInputLeft).on('blur', function (event) {
-      validateValues()
     });
 
-    $(textInputRight).on('input change', function (event) {
-      textInputValueToSlider(event.target)
-    })
-
-
-    $(textInputRight).on('blur', function (event) {
+    $(textInput).on('blur', function (event) {
       validateValues()
-    })
-
-    $(textInputBottom).on('input', function (event) {
-      textInputValueToSlider(event.target)
-    })
-
-    $(textInputBottom).on('blur', function (event) {
-      validateValues()
-    })
+    });
 
     sliderValueToTextInput();
   }
