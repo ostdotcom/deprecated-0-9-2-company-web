@@ -270,6 +270,115 @@
     , isNaN : function ( val ) {
       return isNaN( val ) || val === "";
     }
+
+    , bindCurrencyElements: function ( jBt, jFiat , jOst ) {
+      //Safe Masking
+      jBt = $( jBt );
+      jFiat = $( jFiat );
+      jOst = $( jOst );
+
+
+
+      var oThis =  this;
+      var isChangeValid = function ( event, val, orgEvent ) {
+        if ( PriceOracle.isNaN( val ) ) { 
+          return false;
+        }
+
+        if ( event && orgEvent && event.currentTarget === orgEvent.currentTarget ) {
+          //Avoid an infinite loop
+          console.log("---------------\n\tIMPORTANT :: This should never happen. Please Check me\n---------------");
+          console.trace();
+          return false; 
+        }
+
+        //Do Other validations if required.
+
+        return true;
+      }
+
+      var onBTChanged = function ( event, val, orgEvent ) {
+
+        var jEl   = $( this )
+          , btVal
+        ;
+        val   = val || jEl.val();
+
+        //Validations
+        if ( !isChangeValid( event, val, orgEvent ) ) {
+          return;
+        }
+
+        //Initialisations
+        btVal = PriceOracle.toBt( val );
+        orgEvent = orgEvent || event;
+
+        //Executions
+        //Note: Update only OST, let ost update fiat. Done to reduce the no. of events being fired.
+        if ( jOst.length ) {
+          jOst.safeSetVal(PriceOracle.btToOst( btVal ), orgEvent );
+        } else {
+          jFiat.safeSetVal(PriceOracle.btToFiat( btVal ), orgEvent );
+        }
+
+      };
+
+      var onFiatChanged = function ( event, val, orgEvent ) {
+
+        var jEl     = $( this )
+          , fiatVal
+        ;
+        val = val || jEl.val();
+
+        //Validations
+        if ( !isChangeValid( event, val, orgEvent ) ) {
+          return;
+        }
+
+        //Initialisations
+        fiatVal = PriceOracle.toFiat( val );
+        orgEvent = orgEvent || event;
+
+        //Executions
+        //Note: Update only OST, let ost update BT. Done to reduce the no. of events being fired.
+        if ( jOst.length ) {
+          jOst.safeSetVal(PriceOracle.fiatToOst( fiatVal ), orgEvent );  
+        } else {
+          jBt.safeSetVal(PriceOracle.fiatToBt( fiatVal ), orgEvent );  
+        }
+        
+
+      };
+
+      var onOstChanged = function ( event, val, orgEvent ) {
+
+        var jEl     = $( this )
+          , ostVal
+        ;
+        val = val || jEl.val();
+
+        //Validations
+        if ( !isChangeValid( event, val, orgEvent ) ) {
+          return;
+        }
+
+        //Initialisations
+        ostVal = PriceOracle.toOst( val );
+        orgEvent = orgEvent || event;
+
+        //Executions
+        //Note: Update every one. 
+        jFiat.safeSetVal(PriceOracle.ostToFiat( ostVal ), orgEvent );
+        jBt.safeSetVal(PriceOracle.ostToBt( ostVal ), orgEvent );
+      };
+
+      jBt.on('change input', onBTChanged);
+
+      jFiat.on('change input', onFiatChanged);
+
+      jOst.on('change input', onOstChanged);
+
+    }
   }
 
 
