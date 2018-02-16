@@ -27,7 +27,6 @@ module CompanyApi
         @cookies = cookies
         @headers = headers
 
-        @company_api_config = GlobalConstant::CompanyApi.config
         @request_class = nil
         @service_base_route = nil
         @api_url = nil
@@ -131,8 +130,8 @@ module CompanyApi
         end if @headers.present?
 
         # Attach basic auth
-        if @company_api_config[:basic_auth_user].present?
-          req_obj.basic_auth(@company_api_config[:basic_auth_user], @company_api_config[:basic_auth_pass])
+        if GlobalConstant::CompanyApi.basic_auth_user.present?
+          req_obj.basic_auth(GlobalConstant::CompanyApi.basic_auth_user, GlobalConstant::CompanyApi.basic_auth_pass)
         end
 
         req_obj
@@ -154,8 +153,8 @@ module CompanyApi
           http.use_ssl = true
           http.verify_mode = OpenSSL::SSL::VERIFY_PEER
         end
-        http.read_timeout = @company_api_config[:read_timeout]
-        http.open_timeout = @company_api_config[:open_timeout]
+        http.read_timeout = GlobalConstant::CompanyApi.read_timeout
+        http.open_timeout = GlobalConstant::CompanyApi.open_timeout
         req_obj = get_request_obj(uri.request_uri)
 
         http_response, e = nil, nil

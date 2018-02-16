@@ -5,11 +5,19 @@ module GlobalConstant
 
     class << self
 
-      private
-
-      def env_config
-        @env_config ||= fetch_config
+      def sub_environment
+        @sub_environment ||= fetch_config.fetch('sub_env', '')
       end
+
+      def cloudfront_config
+        @cloudfront ||= fetch_config.fetch('cloudfront', {}).with_indifferent_access
+      end
+
+      def company_api_config
+        @company_api_config ||= fetch_config.fetch('company_api', {}).with_indifferent_access
+      end
+
+      private
 
       def fetch_config
         @fetch_config ||= begin

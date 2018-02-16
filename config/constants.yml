@@ -1,11 +1,12 @@
 constants:
+  sub_env: <%= ENV['CW_SUB_ENV']%>
 
   cloudfront:
     domain: <%= ENV['CW_CLOUDFRONT_DOMAIN'] %>
 
   company_api:
     root_url: <%= ENV['CW_CA_ROOT_URL'] %>
-    basic_auth_user: <%= ENV['CW_CA_BASIC_AUTH_USER'] %>'
-    basic_auth_pass: <%= ENV['CW_CA_BASIC_AUTH_PASS'] %>'
+    basic_auth_user: <%= ENV['CW_CA_BASIC_AUTH_USER'].to_s %>
+    basic_auth_pass: <%= ENV['CW_CA_BASIC_AUTH_PASS'].to_s %>
     open_timeout: 5
     read_timeout: 5

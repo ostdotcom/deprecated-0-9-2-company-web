@@ -6,15 +6,15 @@ module GlobalConstant
     class << self
 
       def default_from
-        Rails.env.production? ? 'notifier@simpletoken.com' : 'notifier@stagingsimpletoken.com'
+        Rails.env.production? ? 'notifier@ost.com' : 'staging.notifier@ost.com'
       end
 
       def default_to
-        ['bala@pepo.com', 'sunil@pepo.com', 'kedar@pepo.com', 'abhay@pepo.com','aman@pepo.com', 'alpesh@pepo.com', 'akshay@pepo.com', 'thahir@pepo.com']
+        ['backend@ost.com']
       end
 
       def subject_prefix
-        "CW #{Rails.env} : "
+        "[OST-Kit-Web-#{Rails.env}-#{GlobalConstant::Base.sub_environment}] :: "
       end
 
     end
