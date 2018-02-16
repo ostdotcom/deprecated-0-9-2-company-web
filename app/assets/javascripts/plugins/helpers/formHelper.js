@@ -401,7 +401,7 @@
       if ( strVal === strPreVal ) {
         return false;
       }
-      console.log(" id\t\t\t|",jEl.prop("id"), "\n preVal\t\t|", preVal, "\n val\t\t|", val, "\n orgEvent\t|", orgEvent, "\n strPreVal\t|", strPreVal, "\n strVal\t\t|", strVal );
+      // console.log(" id\t\t\t|",jEl.prop("id"), "\n preVal\t\t|", preVal, "\n val\t\t|", val, "\n orgEvent\t|", orgEvent, "\n strPreVal\t|", strPreVal, "\n strVal\t\t|", strVal );
       $.fn.val.call( this, val );
 
       var eventArgs = args = Array.prototype.slice.call(arguments);
