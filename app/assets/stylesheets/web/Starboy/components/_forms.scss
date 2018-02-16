@@ -49,7 +49,26 @@
     }
 
     .slider-selection{
+      background: $blue-700;
       box-shadow: none;
+    }
+
+    .slider-handle{
+      background: $blue-700;
+    }
+
+    .slider-track-high{
+      border: 1px solid $blue-700;
+    }
+
+    .tooltip{
+      .tooltip-inner{
+        color: $blue-700;
+        background-color: $white;
+        border: 1px solid $blue-700;
+        font-size: 0.75rem  ;
+        border-radius: $border-radius-lg;
+      }
     }
 
     ~.error{
@@ -58,20 +77,19 @@
 
     &.slider-yellow{
       .slider-selection{
-        background: #fbd764;
+        background: $yellow-300;
       }
       .slider-handle{
-        background: #fbd764;
+        background: $yellow-300;
       }
       .slider-track-high{
-        border: 1px solid #fbd764;
+        border: 1px solid $yellow-300;
       }
       .tooltip{
         .tooltip-inner{
           color: $yellow-300;
           background-color: $white;
           border: 1px solid $yellow-300;
-          border-radius: $border-radius-lg;
         }
       }
     }

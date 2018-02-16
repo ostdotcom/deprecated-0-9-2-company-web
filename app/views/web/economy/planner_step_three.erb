@@ -31,10 +31,10 @@
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-5">
+            <div class="col-4 user-form">
               <%= render partial: 'shared/web/common/slider_top',
                          locals: {
-                                 label: 'How much '+coin_name+' do you wish to airdrop to each user to begin with?',
+                                 label: 'No of Tokens to Create',
                                  id: 'airdrop_bt_per_user',
                                  name: 'airdrop_bt_per_user',
                                  type: 'number',
@@ -42,12 +42,11 @@
                                  max: 100,
                                  step: 1,
                                  value: 1,
-                                 tooltip: 'always',
-                                 classes: 'slider-yellow'
+                                 tooltip: 'hide'
                          }
               %>
             </div>
-            <div class="col-7 form-group" id="ostSupplyPieArea">
+            <div class="col-7 offset-1 user-form form-group" id="ostSupplyPieArea">
               <label class="form-label text-uppercase title">OST Supply</label>
               <div class="d-flex align-items-center">
                 <div class="p-2">

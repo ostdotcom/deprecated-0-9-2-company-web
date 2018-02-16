@@ -1,6 +1,9 @@
 <div class="form-group" id="<%=id%>_slider_form_group">
   <label class="form-label" for="<%=id%>"><%= raw label%></label>
-  <div class="input-group slider-with-input d-flex align-items-center <%=classes%>">
+  <div class="input-group slider-with-input <%= (defined? classes) ? classes : '' %>">
+    <span class="slider-input-top">
+        <input type="text" class="form-control mt-1 mb-2">
+    </span>
     <input
         type="text"
         id="<%=id%>_slider"
@@ -13,16 +16,5 @@
         <% if defined? ticks %>data-slider-ticks="<%=ticks.to_s%>"<% end %>
         <% if defined? ticks_labels %>data-slider-ticks-labels='<%=raw ticks_labels.to_s%>'<% end %>
     >
-    <span class="slider-input-top">
-      <input id="<%=id%>" type="<%=type%>" class="form-control" name="<%=name%>" min="<%=min%>" max="<%=max%>" step="<%=step%>" value="<%=value%>" />
-    </span>
   </div>
-  <div class="d-flex align-items-center" style="margin-top: -20px; font-size: 12px;">
-    <div style="flex-grow: 1; max-width: 100%">
-      <span class="text-left"><%= (defined? prefix) ? prefix : '' %> <%=min%> <%= (defined? suffix) ? suffix : '' %></span>
-      <span class="text-right float-right"><%= (defined? prefix) ? prefix : '' %> <%=max%> <%= (defined? suffix) ? suffix : '' %></span>
-    </div>
-    <div class="slider-input-top"></div>
-  </div>
-  <div class="invalid-feedback" data-forid="<%=name%>">&nbps;</div>
 </div>

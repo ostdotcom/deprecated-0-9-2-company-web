@@ -1,6 +1,5 @@
 .slider-with-input {
     width: 100%;
-    margin: 20px 0 10px 0;
 }
 .slider-with-input .slider {
     flex-grow: 1;
@@ -24,8 +23,10 @@
 .slider-input-right input {
     text-align: right;
 }
-.slider-input-bottom {
+.slider-input-bottom,
+.slider-input-top{
     display: table-row;
+    width: 100%;
 }
 .slider-input-bottom input {
     margin-top: 5px;
