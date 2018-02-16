@@ -33,7 +33,6 @@
       valueChainId      : 3,
       utilityChianId    : 1410,
       hasRegisteredAddress : false,
-      grantEthFromFocet: false,
       validateTransactionHashInterval : 5000,
       validateTransactionHashMaxTry: 100
     },
@@ -280,6 +279,7 @@
             }
         }
       ;
+      console.log("chainId", chainId, "config.valueChainId", config.valueChainId);
       setTimeout(function () {
         callback && callback( response.success, response );
       }, 100);

@@ -242,7 +242,12 @@
         }
       };
 
-      oThis.getEthFromMetaMaskFocet(address, metaMaskFocetCallback);
+      if ( oThis.grant_eth_from_metamask_focet ) {
+        oThis.getEthFromMetaMaskFocet(address, metaMaskFocetCallback);  
+      } else if ( oThis.grant_eth_from_ost_focet ) {
+        oThis.getEthFromOstFocet(address, ostFocetCallback);  
+      }
+      
 
     }
 
@@ -348,7 +353,10 @@
       //To-Do: Write an Api call to backend. Below is a dummy code.
 
       var ajaxConfig = {
-
+        url: "/api/client/get-ost/",
+        data: {
+          eth_address: oThis.getUserAddress()
+        },
         success: function ( response ) {
           if ( callback ) {
             callback( response );
@@ -364,16 +372,18 @@
             });
           }
         }
-      }
+      };
 
-      setTimeout(function () {
-        ajaxConfig.success({
-          success: true,
-          data: {
-            transaction_hash: "0xa7c22df7a4beabe9d3f8962ddfb912f350953482c54dfa58e2fbe8e30bc7b113"
-          }
-        })
-      }, 300);
+      $.get( ajaxConfig );
+
+      // setTimeout(function () {
+      //   ajaxConfig.success({
+      //     success: true,
+      //     data: {
+      //       transaction_hash: "0xa7c22df7a4beabe9d3f8962ddfb912f350953482c54dfa58e2fbe8e30bc7b113"
+      //     }
+      //   })
+      // }, 300);
     }
 
 

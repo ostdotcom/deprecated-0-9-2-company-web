@@ -3,12 +3,13 @@
   token_name = "Francesco Coin";
   token_symbol = "FRC";
   token_icon = "token_icon_1";
-  value_chain_id = 3;
+  value_chain_id = 1411;
   utility_chain_id = 1410;
   eligible_grant_value = 500;
   eligible_grant_unit = "OST &alpha;"
   has_registered_address = false;
-  grant_eth_from_focet = true;
+  grant_eth_from_metamask_focet = true;
+  grant_eth_from_ost_focet = true;
   validate_transaction_hash_interval = 5000; #Miliseconds.
   validate_transaction_hash_max_try = 100;
 
@@ -21,7 +22,8 @@
     :eligible_grant_value => eligible_grant_value,
     :eligible_grant_unit => eligible_grant_unit,
     :has_registered_address => has_registered_address,
-    :grant_eth_from_focet => grant_eth_from_focet,
+    :grant_eth_from_metamask_focet => grant_eth_from_metamask_focet,
+    :grant_eth_from_ost_focet => grant_eth_from_ost_focet,
     :validate_transaction_hash_interval => validate_transaction_hash_interval,
     :validate_transaction_hash_max_try => validate_transaction_hash_max_try
   }
@@ -39,7 +41,8 @@
       valueChainId      : <%= value_chain_id %>,
       utilityChianId    : <%= utility_chain_id %>,
       hasRegisteredAddress : <%= has_registered_address %>,
-      grantEthFromFocet: <%= grant_eth_from_focet %>,
+      grantEthFromMetamaskFocet: <%= grant_eth_from_metamask_focet %>,
+      grantEthFromOstFocet: <%= grant_eth_from_ost_focet %>,
       validateTransactionHashInterval: <%= validate_transaction_hash_interval %>,
       validateTransactionHashMaxTry: <%= validate_transaction_hash_max_try %>
     };
