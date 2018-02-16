@@ -1,5 +1,11 @@
 <h3 class="text-center mt-5">Plan the Francesco Coin Economy in 3 Easy Steps</h3>
-<%= render :partial => "shared/web/common/steps" %>
+<%= render partial: 'shared/web/common/steps',
+           locals: {
+                   classes_step_1: '',
+                   classes_step_2: 'active',
+                   classes_step_3: 'incomplete'
+           }
+%>
 <div class="container">
   <div class="card">
     <div class="card-header">
