@@ -16,7 +16,8 @@ class Web::EconomyController < Web::BaseController
 
     @response = CompanyApi::Request::Economy.new(
         CompanyApi::Response::Formatter::Economy,
-        request.cookies
+        request.cookies,
+        {"User-Agent" => http_user_agent}
     ).fetch_planner_details
 
     # Check if error present or not?
@@ -39,7 +40,8 @@ class Web::EconomyController < Web::BaseController
 
     @response = CompanyApi::Request::Economy.new(
         CompanyApi::Response::Formatter::Economy,
-        request.cookies
+        request.cookies,
+        {"User-Agent" => http_user_agent}
     ).fetch_planner_details
 
     # Check if error present or not?
@@ -61,7 +63,8 @@ class Web::EconomyController < Web::BaseController
 
     @response = CompanyApi::Request::Economy.new(
         CompanyApi::Response::Formatter::Economy,
-        request.cookies
+        request.cookies,
+        {"User-Agent" => http_user_agent}
     ).fetch_planner_details
 
     # Check if error present or not?
@@ -78,7 +81,8 @@ class Web::EconomyController < Web::BaseController
 
     @response = CompanyApi::Request::Economy.new(
         CompanyApi::Response::Formatter::Economy,
-        request.cookies
+        request.cookies,
+        {"User-Agent" => http_user_agent}
     ).fetch_planner_details
 
     # Check if error present or not?
@@ -101,7 +105,8 @@ class Web::EconomyController < Web::BaseController
 
     @response = CompanyApi::Request::Economy.new(
         CompanyApi::Response::Formatter::Economy,
-        request.cookies
+        request.cookies,
+        {"User-Agent" => http_user_agent}
     ).fetch_supply_details
 
     # Check if error present or not?
@@ -129,7 +134,8 @@ class Web::EconomyController < Web::BaseController
 
     @response = CompanyApi::Request::Economy.new(
         CompanyApi::Response::Formatter::Economy,
-        request.cookies
+        request.cookies,
+        {"User-Agent" => http_user_agent}
     ).fetch_user_details
 
     # Check if error present or not?
@@ -157,7 +163,8 @@ class Web::EconomyController < Web::BaseController
 
     @response = CompanyApi::Request::Economy.new(
         CompanyApi::Response::Formatter::Economy,
-        request.cookies
+        request.cookies,
+        {"User-Agent" => http_user_agent}
     ).fetch_planner_details
 
     # Check if error present or not?
@@ -187,7 +194,8 @@ class Web::EconomyController < Web::BaseController
 
     @response = CompanyApi::Request::Economy.new(
         CompanyApi::Response::Formatter::Economy,
-        request.cookies
+        request.cookies,
+        {"User-Agent" => http_user_agent}
     ).fetch_planner_details
 
     # Check if error present or not?
@@ -212,7 +220,8 @@ class Web::EconomyController < Web::BaseController
 
     @response = CompanyApi::Request::Economy.new(
         CompanyApi::Response::Formatter::Economy,
-        request.cookies
+        request.cookies,
+        {"User-Agent" => http_user_agent}
     ).fetch_planner_details
 
     # Check if error present or not?

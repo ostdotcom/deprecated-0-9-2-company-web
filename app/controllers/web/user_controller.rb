@@ -39,7 +39,8 @@ class Web::UserController < Web::BaseController
 
     @response = CompanyApi::Request::Client.new(
         CompanyApi::Response::Formatter::Client,
-        request.cookies
+        request.cookies,
+        {"User-Agent" => http_user_agent}
     ).fetch_verify_cookie_details
 
     # success means user is already logged in, we would redirect to dashboard / planner

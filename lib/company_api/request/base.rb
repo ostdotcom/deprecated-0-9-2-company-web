@@ -160,6 +160,7 @@ module CompanyApi
         http_response, e = nil, nil
         begin
           http_response = http.request(req_obj)
+          set_api_response_cookie(http_response)
           parse_api_response(http_response)
         rescue Net::ReadTimeout, Net::OpenTimeout => e
           # Timeouts
@@ -220,6 +221,54 @@ module CompanyApi
         end
         
       end
+
+
+      # Handle API set cookies
+      #
+      # * Author: Aman
+      # * Date: 16/02/2018
+      # * Reviewed By: Sunil
+      #
+      # @param [HTTP response object] http_response (mandatory) - API response object
+      #
+      # Sets @cookies
+      #
+      def set_api_response_cookie(http_response)
+        all_set_cookies = http_response.get_fields('set-cookie')
+        return if all_set_cookies.blank?
+
+        new_api_cookies = {}
+        all_set_cookies.each do |api_cookie|
+          api_cookie_elements = api_cookie.split("; ")
+          cookie_name = ''
+          api_cookie_elements.each_with_index do |c_element, i|
+            c_sub_element = c_element.split('=', 2)
+            c_sub_element_key = CGI::unescape(c_sub_element[0])
+            c_sub_element_value = CGI::unescape(c_sub_element[1]) if c_sub_element[1].present?
+            # Zeroth element is cookie name and value
+            if i == 0
+              cookie_name = c_sub_element_key
+              new_api_cookies[cookie_name] = {value: c_sub_element_value, domain: :all}
+            elsif c_sub_element_key == "expires"
+              new_api_cookies[cookie_name][c_sub_element_key.to_sym] = Time.zone.parse(c_sub_element_value)
+            elsif c_sub_element_key == "domain"
+              new_api_cookies[cookie_name][c_sub_element_key.to_sym] = Rails.env.development? ? :all : c_sub_element_value
+            elsif c_sub_element_key == "secure"
+              new_api_cookies[cookie_name][c_sub_element_key.to_sym] = true
+            elsif c_sub_element_key == "HttpOnly"
+              new_api_cookies[cookie_name][:http_only] = true
+            elsif c_sub_element_key == "SameSite"
+              new_api_cookies[cookie_name][:same_site] = c_sub_element_value
+            else
+              new_api_cookies[cookie_name][c_sub_element_key.to_sym] = c_sub_element_value
+            end
+
+          end
+        end
+
+        @cookies[GlobalConstant::Cookie.new_api_cookie_key.to_sym] = new_api_cookies
+      end
+
 
       # Debug data for exception emails
       #

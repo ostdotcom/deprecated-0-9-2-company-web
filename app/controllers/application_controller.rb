@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   # Sanitize params
   include Sanitizer
   before_action :sanitize_params
+  after_action :handle_whitelisted_api_cookies
 
   include CookieConcern
   include ApplicationHelper
@@ -42,6 +43,26 @@ class ApplicationController < ActionController::Base
   def sanitize_params
     sanitize_params_recursively(params)
   end
+
+
+  # Handle API specific whitelisted cookies
+  #
+  # * Author: Aman
+  # * Date: 16/02/2018
+  # * Reviewed By: Sunil
+  #
+  def handle_whitelisted_api_cookies
+    new_api_cookies = request.cookies[GlobalConstant::Cookie.new_api_cookie_key.to_sym]
+    return if new_api_cookies.blank?
+    whitelisted_api_cookies = [GlobalConstant::Cookie.user_cookie_name]
+    whitelisted_api_cookies.each do |key|
+      whitelisted_cookie = new_api_cookies[key]
+      if whitelisted_cookie.present? and whitelisted_cookie.is_a?(Hash)
+        cookies[key.to_sym] = whitelisted_cookie
+      end
+    end
+  end
+
 
   # Set page meta info
   #
