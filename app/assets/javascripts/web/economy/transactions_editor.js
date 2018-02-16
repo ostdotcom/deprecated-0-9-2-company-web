@@ -3,10 +3,8 @@
   var transactions  = ns("ost.transactions");
   var currentData = null;
   var oThis = transactions.editor = {
-    defaultData         : null          /* Will be provided in init method call */
-    , ost_to_bt         : 10            /* Will be provided in init method call */
-    , ost_to_fiat       : 1.1           /* Will be provided in init method call */
-    , bt_to_fiat        : 11            /* Will be provided in init method call */
+    /* Properties that should be provided in init method call */
+    defaultData         : null          /* Mandetory */
     , fiat_symbol       : "$"
     , fiat_type         : "usd"
     , value_in_fiat_key : "value_in_usd"
@@ -14,6 +12,7 @@
     , editUrl           : "/api/economy/transaction/kind/edit"
     , eventContext      : transactions
 
+    /* Events */
     , events : {
       "updated"   : "updated"
       , "created" : "created"
@@ -30,9 +29,11 @@
     , jValueInFiat    : null
     , jValueInBt      : null
     , jValueInOst     : null
-    , jHasCommision   : null
-    , jCommision      : null
-    , jCommisionWrap  : null
+    , jHasCommission  : null
+    , jCommission     : null
+    , jCommissionWrap : null
+    , jCInFiat        : null
+    , jCInBt          : null
 
     , init: function ( config ) {
       var oThis = this;
@@ -49,8 +50,10 @@
       oThis.jValueInFiat    = oThis.jValueInFiat    || oThis.jForm.find("#value_in_fiat");
       oThis.jValueInBt      = oThis.jValueInBt      || oThis.jForm.find("#value_in_bt");
       oThis.jValueInOst     = oThis.jValueInOst     || oThis.jForm.find("#value_in_ost");
-      oThis.jCommision      = oThis.jCommision      || oThis.jForm.find("#commission_percent");
-      oThis.jCommisionWrap  = oThis.jCommisionWrap  || oThis.jForm.find("#commission_percent_wrap");
+      oThis.jCommission     = oThis.jCommission     || oThis.jForm.find("#commission_percent");
+      oThis.jCommissionWrap = oThis.jCommissionWrap || oThis.jForm.find("#commission_percent_wrap");
+      oThis.jCInFiat        = oThis.jCInFiat        || oThis.jForm.find("#commission_in_fiat");
+      oThis.jCInBt          = oThis.jCInBt          || oThis.jForm.find("#commission_in_bt");
 
 
       oThis.formHelper = oThis.jForm.formHelper();
@@ -75,7 +78,7 @@
       });
 
       oThis.jForm.find('[name="currency_type"]').change( function () {
-          oThis.toggleCurrencyInput();
+          oThis.toggleCurrencyInput.apply(oThis, arguments);
       });
 
       oThis.jForm.find('[name="has_commission"]').change( function () {
@@ -83,14 +86,20 @@
         console.log("this.value", this.value);
         if( val ) {
           //Some truthy value
-          oThis.jCommisionWrap.slideDown( 300 );
+          oThis.jCommissionWrap.slideDown( 300 );
         } else {
           //Some falsey value
-          oThis.jCommisionWrap.slideUp( 300 );
+          oThis.jCommissionWrap.slideUp( 300 );
         }
       });
 
-       PriceOracle.bindCurrencyElements( oThis.jValueInBt , oThis.jValueInFiat , oThis.jValueInOst );
+
+      oThis.jCommission.add( oThis.jValueInOst ).on("change", function ( event ) {
+        console.log("calling onCommissionChanged event", event.currentTarget );
+        oThis.onCommissionChanged.apply( oThis, arguments );
+      })
+
+      PriceOracle.bindCurrencyElements( oThis.jValueInBt , oThis.jValueInFiat , oThis.jValueInOst );
     }
 
     , createNewTransaction: function ( transactionData ) {
@@ -164,8 +173,6 @@
       //name
       oThis.jName.val( currentData.name || "" );
 
-      //value_in_ost
-      var value_in_ost = ( currentData.value_in_bt || 0 ) / oThis.ost_to_bt;
 
       //use_price_oracle
       var isBtCurrencyType = currentData.currency_type === "bt";
@@ -189,16 +196,16 @@
       //commission_percent
       var commission_percent = Number( currentData.commission_percent );
       commission_percent = isNaN( commission_percent ) ? 0 : commission_percent;
-      oThis.jCommision.val( commission_percent );
+      oThis.jCommission.safeSetVal( commission_percent );
 
       var has_commission_id;
       
       if ( commission_percent ) {
         has_commission_id = "#has_commission_yes";
-        oThis.jCommisionWrap.show();
+        oThis.jCommissionWrap.show();
       } else {
         has_commission_id = "#has_commission_no";
-        oThis.jCommisionWrap.hide();
+        oThis.jCommissionWrap.hide();
       }
       oThis.jForm.find( has_commission_id )
         .prop("checked", true)
@@ -362,7 +369,7 @@
       oThis.hideEditor();
     }
 
-    ,toggleCurrencyInput : function () {
+    , toggleCurrencyInput: function () {
       var oThis = this;
       
       var jEl       = oThis.jForm.find('input[name=currency_type]:checked')
@@ -381,7 +388,44 @@
 
       jDisable.prop('disabled', true);
       jEnable.prop('disabled', false);
-   }
+    }
+
+    , onCommissionChanged: function () {
+      var oThis = this;
+
+      var vCommission = oThis.jCommission.val()
+        , vFiat       = oThis.jValueInFiat.val()
+        , vBt         = oThis.jValueInBt.val()
+        , cInFiat
+        , cInBt
+      ;
+
+      if ( PriceOracle.isNaN( vCommission ) ) {
+        vCommission = 0;
+        oThis.jCInFiat.setVal("");
+        oThis.jCInBt.setVal("");
+        return;
+      }
+
+      if ( PriceOracle.isNaN( vFiat ) ) {
+        vFiat = 0;
+      }
+
+      if ( PriceOracle.isNaN( vBt ) ) {
+        vBt = 0;
+      }
+
+      vCommission = BigNumber( vCommission );
+      vFiat       = BigNumber( vFiat );
+      vBt         = BigNumber( vBt );
+
+      cInFiat     = vFiat.times( vCommission ).div( 100 );
+      cInBt       = vBt.times( vCommission ).div( 100 );
+
+      oThis.jCInFiat.setVal( PriceOracle.toFiat( cInFiat ) );
+      oThis.jCInBt.setVal( PriceOracle.toBt( cInBt ) );
+
+    }
 
   };
 })(window, jQuery);
