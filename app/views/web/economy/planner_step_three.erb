@@ -1,1 +1,110 @@
-Step 3
+<%
+   coin_name   = @presenter_obj.client_token.name;
+   coin_symbol = @presenter_obj.client_token.symbol;
+   fiat_symbol = "$";
+   fiat_type   = "usd";
+   fiat_display_text = "USD";
+
+   ost_to_fiat = 0.3;
+
+   value_in_fiat_key = "value_in_" + fiat_type;
+   value_in_fiat_sym = value_in_fiat_key.to_sym;
+
+   has_verified_email = @presenter_obj.user.is_verified?
+   grant_initial_ost = true
+%>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="text-center mt-4">Plan the Francesco Coin Economy in 3 Easy Steps</h3>
+      <%= render partial: 'shared/web/common/steps' %>
+
+      <div class="card card-planner mb-5">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <div class="mr-auto">
+              <h5 class="card-title mb-1">Create Tokens for your economy.</h5>
+              <p class="card-text">OST needed to create the tokens will automatically be used.</p>
+            </div>
+            <div class="text-uppercase small"><a href="#">Know more</a></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-5">
+              5
+            </div>
+            <div class="col-7 form-group">
+              <label class="form-label text-uppercase">OST Supply</label>
+              <div class="d-flex align-items-center">
+                <div class="p-2">
+                  <div id="ostSupplyPie" style="width:200px; height: 200px"></div>
+                </div>
+                <div class="p-2">
+                  <div class="pl-2 m-3" style="border-left: 5px solid #34445b;">OST Available<br />350</div>
+                  <div class="pl-2 m-3" style="border-left: 5px solid #f6c62b;">Allocated For Transaction Fee<br />30</div>
+                  <div class="pl-2 m-3" style="border-left: 5px solid #88c7ca;">OST Used For Creating Tokens<br />310</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-planner mb-5">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <div class="mr-auto">
+              <h5 class="card-title mb-1">Conversion Rate</h5>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row user-form">
+            <div class="form-group col-6">
+              <div class="clearfix">
+                <label class="form-label float-left" for="bt"><%=coin_name%></label>
+                <span class="form-label float-right">Value Set <%=fiat_symbol%></span>
+              </div>
+              <input type="number" min="0" class="form-control" id="bt_rate">
+            </div>
+            <div style="width:0;position:relative;left:-5px;top:25px">&#8776;</div>
+            <div class="form-group col-6">
+              <div class="clearfix">
+                <label class="form-label float-left" for="ost">OST</label>
+                <span class="form-label float-right">Current Value <%=fiat_symbol%><%=ost_to_fiat%></span>
+              </div>
+              <input type="text" class="form-control" id="ost_rate" value="1" disabled />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-planner mb-5">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <div class="mr-auto">
+              <h5 class="card-title mb-1">Reserved OST for Transaction Fees.</h5>
+              <p class="card-text">You can pay for 50000 transactions with just 1 OST</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          something...
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <%= render :partial => "shared/web/common/faqs" %>
+
+</div>
+
+<% content_for :end_js do %>
+    <script type="text/javascript">
+        $( function () {
+            ost.planner_3.init({});
+        });
+    </script>
+<% end %>

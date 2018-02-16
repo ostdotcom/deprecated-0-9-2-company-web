@@ -1,14 +1,4 @@
 .ost__planner{
-  //&__heading{
-  //  font-size: 1.8rem;
-  //  letter-spacing: 1px;
-  //  color: color('cyan');
-  //}
-  //&__desc{
-  //  font-size: 0.9rem;
-  //  letter-spacing: 0.4px;
-  //  color: color('blue-700');
-  //}
   &__circle{
     width: 60px;
     height: 60px;
@@ -28,11 +18,6 @@
   &__list{
     padding: 0;
     &__item{
-      //&:first-child{
-      //  font-size: 1.3rem;
-      //  letter-spacing: 1px;
-      //  color: color('cyan');
-      //}
       font-size: 0.9rem;
       list-style-type: none;
       letter-spacing: 0.4px;
