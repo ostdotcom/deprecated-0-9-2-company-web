@@ -7,13 +7,19 @@
   var oThis = ost.transactions = {
     simpleDataTable: null
     ,init: function ( config ) {
+
       var oThis = this;
 
-      oThis.simpleDataTable = new ost.SimpleDataTable({
-        // resultFetcher: function () {
-        //   oThis.getDummyData.apply( oThis, arguments );
-        // }
-      });
+      oThis.client_id = config.client_id;
+
+      var dataTableConfig = {};
+      if ( config.auto_create_transactions ) {
+        dataTableConfig.resultFetcher = function () {
+          return oThis.autoCreateTransactions.apply( oThis, arguments);
+        }
+      }
+
+      oThis.simpleDataTable = new ost.SimpleDataTable( dataTableConfig );
 
       oThis.bindEvents();
     }
@@ -64,6 +70,67 @@
         console.log("editor.events.updated triggered");
         oThis.simpleDataTable.updateResult( result );
       });
+    }
+
+    /* Begin :: Dummy Data */
+    , autoCreateTransactions: function (currentData, lastMeta, callback ) {
+      var oThis = this
+          , resultTypeKey = "transactions"
+        , newData = [ {
+          name: "Transaction 1",
+          kind: "user_to_user",
+          currency_type: "bt",
+          currency_value: 10,
+          commission_percent: 0
+          }, {
+            name: "Transaction 2",
+            kind: "company_to_user",
+            currency_type: "usd",
+            currency_value: 1,
+            commission_percent: 10
+          }, {
+            name: "Transaction 3",
+            kind: "user_to_company",
+            currency_type: "usd",
+            currency_value: 0.5,
+            commission_percent: 10
+          },{
+            name: "Transaction 4",
+            kind: "company_to_user",
+            currency_type: "bt",
+            currency_value: 0.5,
+            commission_percent: 0
+          }]
+          , ts = Date.now()
+        , cnt = newData.length
+          , data
+      ;
+
+      while( cnt-- ) {
+        data = newData[ cnt ];
+        data.id = ( ts + cnt ) * -1;
+        data.ust = ts;
+        data.client_id = oThis.client_id;
+      }
+
+
+      /* Build Response (Standard Code) */
+      var response = {
+        success: true,
+        data : {
+          result_type: resultTypeKey,
+          meta: {
+            next_page_payload: {}
+          }
+        }
+      };
+      response.data[ resultTypeKey ] = newData;
+
+      /* Trigger Callback */
+      setTimeout(function () {
+        callback( response );
+      }, 300);
+
     }
 
     /* Begin :: Dummy Data */

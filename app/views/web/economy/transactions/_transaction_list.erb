@@ -3,6 +3,8 @@
 
   fiat_symbol = "$";
 
+  client_id = @presenter_obj.client_token.client_id;
+
   kind_display_text = {
     :user_to_company => "User to Company",
     :user_to_user => "User to User",
@@ -108,7 +110,8 @@
       }
     });
     ost.transactions.init({
-    
+      auto_create_transactions: true,
+      client_id: "<%= client_id %>",
     });  
   </script>
 <% end %>

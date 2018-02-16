@@ -24,6 +24,10 @@ module CompanyApi
           @data['id']
         end
 
+        def client_id
+          @data['client_id']
+        end
+
         def name
           @data['name']
         end
