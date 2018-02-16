@@ -1,3 +1,10 @@
 <%= render :partial => "/web/economy/dashboard/tabs" %>
 <%= render :partial => "/web/economy/dashboard/top_holders" %>
 <%= render :partial => "/web/economy/dashboard/ost_supply" %>
+<% content_for :end_js do %>
+  <script type="text/javascript">
+    $( function () {
+      ost.dashboard.init();
+    })
+  </script>
+<% end %>
