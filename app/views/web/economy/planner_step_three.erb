@@ -34,16 +34,22 @@
             <div class="col-5">
               5
             </div>
-            <div class="col-7 form-group">
-              <label class="form-label text-uppercase">OST Supply</label>
+            <div class="col-7 form-group" id="ostSupplyPieArea">
+              <label class="form-label text-uppercase title">OST Supply</label>
               <div class="d-flex align-items-center">
                 <div class="p-2">
                   <div id="ostSupplyPie" style="width:200px; height: 200px"></div>
                 </div>
-                <div class="p-2">
-                  <div class="pl-2 m-3" style="border-left: 5px solid #34445b;">OST Available<br />350</div>
-                  <div class="pl-2 m-3" style="border-left: 5px solid #f6c62b;">Allocated For Transaction Fee<br />30</div>
-                  <div class="pl-2 m-3" style="border-left: 5px solid #88c7ca;">OST Used For Creating Tokens<br />310</div>
+                <div class="p-2 legend">
+                  <div class="pl-2 m-3" style="border-left: 5px solid #34445b;">
+                    <strong>OST Available</strong><br />350
+                  </div>
+                  <div class="pl-2 m-3" style="border-left: 5px solid #f6c62b;">
+                    <strong>Allocated For Transaction Fee</strong><br />30
+                  </div>
+                  <div class="pl-2 m-3" style="border-left: 5px solid #88c7ca;">
+                    <strong>OST Used For Creating Tokens</strong><br />310
+                  </div>
                 </div>
               </div>
             </div>
@@ -90,7 +96,14 @@
           </div>
         </div>
         <div class="card-body">
-          something...
+          <div class="row user-form">
+            <div class="form-group col-6">
+              <div class="clearfix">
+                <label class="form-label float-left" for="bt">Allocated OST for Transaction Fees</label>
+              </div>
+              <input type="number" min="0" class="form-control" id="bt_rate">
+            </div>
+          </div>
         </div>
       </div>
 
