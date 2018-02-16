@@ -10,7 +10,7 @@ module CompanyApi
         #
         # * Author: Puneet
         # * Date: 02/02/2018
-        # * Reviewed By:
+        # * Reviewed By: Sunil
         #
         # @param [Hash] data (mandatory) - company api response data
         #
@@ -24,7 +24,7 @@ module CompanyApi
         #
         # * Author: Puneet
         # * Date: 02/02/2018
-        # * Reviewed By:
+        # * Reviewed By: Sunil
         #
         def perform
 

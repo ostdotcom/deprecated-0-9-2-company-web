@@ -12,7 +12,7 @@ module CompanyApi
         #
         # * Author: Puneet
         # * Date: 02/02/2018
-        # * Reviewed By:
+        # * Reviewed By: Sunil
         #
         # @param [Hash] data (mandatory) - company api response data
         #
@@ -28,7 +28,7 @@ module CompanyApi
         #
         # * Author: Puneet
         # * Date: 02/02/2018
-        # * Reviewed By:
+        # * Reviewed By: Sunil
         #
         # @param [Hash] user_data (mandatory) - user data hash
         #
@@ -42,7 +42,7 @@ module CompanyApi
         #
         # * Author: Puneet
         # * Date: 02/02/2018
-        # * Reviewed By:
+        # * Reviewed By: Sunil
         #
         # @param [Hash] client_token_data (mandatory) - client token hash
         #
@@ -56,7 +56,7 @@ module CompanyApi
         #
         # * Author: Puneet
         # * Date: 02/02/2018
-        # * Reviewed By:
+        # * Reviewed By: Sunil
         #
         # @param [Hash] client_token_data (mandatory) - client token hash
         #
@@ -70,7 +70,7 @@ module CompanyApi
         #
         # * Author: Puneet
         # * Date: 02/02/2018
-        # * Reviewed By:
+        # * Reviewed By: Sunil
         #
         # @param [Hash] payload_data (mandatory) - payload hash
         #

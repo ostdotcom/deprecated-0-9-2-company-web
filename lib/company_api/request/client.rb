@@ -8,7 +8,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @param [Klass] api_response_formatter_class (mandatory) - Api response formatter_class for api Response
       # @param [Hash] cookies (mandatory) - cookies that need to be sent to API
@@ -27,7 +27,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       def fetch_verify_cookie_details
         get('verify-cookie')

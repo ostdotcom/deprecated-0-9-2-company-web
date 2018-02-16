@@ -27,16 +27,16 @@ module CompanyApi
         end
 
         def conversion_rates
-          @data.present? ? @data['conversion_rates'] : {}
+          @c_r ||= @data.present? ? @data['orace_price_points'] : {}
         end
 
-        def ost_wei_balance
-          @o_w_b ||= balances['ost']
+        def ost_based_conversion_rates
+          @os_b_c_r ||= conversion_rates.present? ? conversion_rates['ost'] : {}
         end
 
         def ost_balance
           @o_b ||= begin
-            ost_wei_balance.present? ? convert_from_wei(ost_wei_balance) : nil
+            balances['ost']
           end
         end
 
@@ -44,13 +44,9 @@ module CompanyApi
           ost_balance.present? ? convert_ost_to_fiat(ost_balance, currency_pref) : nil
         end
 
-        def ost_prime_wei_balance
-          @o_p_w_b ||= balances['ostPrime']
-        end
-
         def ost_prime_balance
           @o_p_b ||= begin
-            ost_prime_wei_balance.present? ? convert_from_wei(ost_prime_wei_balance) : nil
+            balances['ostPrime']
           end
         end
 
@@ -58,13 +54,9 @@ module CompanyApi
           ost_prime_balance.present? ? convert_ost_to_fiat(ost_prime_balance, currency_pref) : nil
         end
 
-        def bt_wei_balance
-          @bt_w_b ||= balances['brandedToken']
-        end
-
         def bt_balance
           @bt_b ||= begin
-            bt_wei_balance.present? ? convert_from_wei(bt_wei_balance) : nil
+            balances[@client_token.symbol]
           end
         end
 
@@ -72,18 +64,14 @@ module CompanyApi
           bt_balance.present? ? convert_bt_to_fiat(bt_balance, currency_pref) : nil
         end
 
+        def ost_to_fiat_conversion_factor(currency_symbol)
+          ost_based_conversion_rates[currency_symbol]
+        end
+
         private
 
-        def convert_from_wei(value)
-          BigDecimal.new(value) / wei_conversion_factor
-        end
-
-        def wei_conversion_factor
-          BigDecimal.new(10 ** 18)
-        end
-
         def convert_ost_to_fiat(value, currency_symbol)
-          value * conversion_rates[currency_symbol]
+          value * ost_based_conversion_rates[currency_symbol]
         end
 
         def convert_bt_to_fiat(bt_value, currency_symbol)

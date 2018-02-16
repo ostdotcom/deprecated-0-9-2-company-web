@@ -24,6 +24,10 @@ module CompanyApi
           @data['id']
         end
 
+        def client_id
+          @data['client_id']
+        end
+
         def name
           @data['name']
         end
@@ -41,7 +45,7 @@ module CompanyApi
         end
 
         def conversion_rate
-          @data['conversion_rate']
+          @data['conversion_rate'].to_f
         end
 
         def airdrop_bt_per_user

@@ -12,7 +12,7 @@ module CookieConcern
 
   # instance methods
   def cookie_key(name)
-    "ca_#{name}"
+    "ost_kit_#{name}"
   end
 
 end

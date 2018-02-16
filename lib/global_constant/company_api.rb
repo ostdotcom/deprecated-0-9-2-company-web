@@ -9,8 +9,26 @@ module GlobalConstant
         config['root_url']
       end
 
+      def basic_auth_user
+        config['basic_auth_user']
+      end
+
+      def basic_auth_pass
+        config['basic_auth_pass']
+      end
+
+      def open_timeout
+        config['open_timeout']
+      end
+
+      def read_timeout
+        config['read_timeout']
+      end
+
+      private
+
       def config
-        env_config['company_api'].with_indifferent_access
+        GlobalConstant::Base.company_api_config
       end
 
     end

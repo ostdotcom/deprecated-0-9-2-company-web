@@ -82,7 +82,6 @@
 
     },
 
-    has_verified_email: true, /* Over-Ride using config. */
     showValidateEmailLightBox: function () {
       $('#verify-modal').modal();
     }

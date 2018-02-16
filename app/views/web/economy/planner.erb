@@ -2,10 +2,10 @@
    coin_name   = @presenter_obj.client_token.name;
    coin_symbol = @presenter_obj.client_token.symbol;
    fiat_symbol = "$";
-   fiat_type   = "usd";
-   fiat_display_text = "USD";
+   fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
+   fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
 
-   ost_to_fiat = 0.3;
+   ost_to_fiat = @presenter_obj.client_balances.ost_to_fiat_conversion_factor(@presenter_obj.client_fiat_curreny_symbol);
 
    value_in_fiat_key = "value_in_" + fiat_type;
    value_in_fiat_sym = value_in_fiat_key.to_sym;
@@ -13,6 +13,7 @@
    #has_verified_email = @presenter_obj.user.is_verified?
    has_verified_email = true
    grant_initial_ost = true
+
 %>
 <%=
     if !@presenter_obj.user.is_verified?
@@ -38,8 +39,8 @@
         <%= render partial: 'shared/web/common/slider_right',
                    locals: {
                            label: 'How much do you want 1 '+coin_name+' to be worth?',
-                           id: 'conversion_rate',
-                           name: 'conversion_rate',
+                           id: 'token_worth_in_usd',
+                           name: 'token_worth_in_usd',
                            type: 'number',
                            min: 0.1,
                            max: 10,
@@ -86,7 +87,7 @@
         <button id="getInitialOstBtn"> Get Initial OST</button>
       </div>-->
     </div>
-  
+
 
     <div class="row">
       <div class="col-12">
@@ -104,7 +105,7 @@
                 <label class="form-label float-left" for="bt"><%=coin_name%></label>
                 <span class="form-label float-right">Value Set <%=fiat_symbol%><span data-ost-mock-element="#conversion_rate"></span></span>
               </div>
-              <input type="number" min="0.0001" class="form-control" name="ost_to_bt" id="bt_rate" />
+              <input type="number" min="0.0001" class="form-control" name="conversion_rate" id="bt_rate" />
             </div>
             <div style="width:0;position:relative;left:-5px;top:25px">&#8776;</div>
             <div class="form-group col-6">

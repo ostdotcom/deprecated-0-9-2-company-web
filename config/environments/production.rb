@@ -39,7 +39,7 @@ Rails.application.configure do
   # Incase we want to test asset precompile in development
   config.assets.prefix = "/js-css/prod"
 
-  config.log_level = :debug
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]

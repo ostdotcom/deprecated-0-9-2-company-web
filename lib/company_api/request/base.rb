@@ -13,7 +13,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @param [Klass] api_response_formatter_class (mandatory) - Api response formatter_class for api Response
       # @param [Hash] cookies (mandatory) - cookies that need to be sent to API
@@ -27,7 +27,6 @@ module CompanyApi
         @cookies = cookies
         @headers = headers
 
-        @company_api_config = GlobalConstant::CompanyApi.config
         @request_class = nil
         @service_base_route = nil
         @api_url = nil
@@ -40,7 +39,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @param [String] api_route (mandatory) - API route
       # @param [Hash] url_params_hash (optional) - API params
@@ -57,7 +56,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @param [String] api_route (mandatory) - API route
       # @param [Hash] url_params_hash (optional) - API params
@@ -76,7 +75,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @return [String] returns API URL Example: "https://companystag:12312121!@stagingost.com/list/get/"
       #
@@ -88,7 +87,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @return [String] returns BASE API URL Example: "https://stagingost.com/"
       #
@@ -100,7 +99,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @return [String] returns API Parameters
       #
@@ -112,7 +111,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @param [String] request_uri (mandatory) - API route
       #
@@ -131,8 +130,8 @@ module CompanyApi
         end if @headers.present?
 
         # Attach basic auth
-        if @company_api_config[:basic_auth_user].present?
-          req_obj.basic_auth(@company_api_config[:basic_auth_user], @company_api_config[:basic_auth_pass])
+        if GlobalConstant::CompanyApi.basic_auth_user.present?
+          req_obj.basic_auth(GlobalConstant::CompanyApi.basic_auth_user, GlobalConstant::CompanyApi.basic_auth_pass)
         end
 
         req_obj
@@ -143,7 +142,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @return [Result::Base] returns an object of Result::Base class
       #
@@ -154,13 +153,14 @@ module CompanyApi
           http.use_ssl = true
           http.verify_mode = OpenSSL::SSL::VERIFY_PEER
         end
-        http.read_timeout = @company_api_config[:read_timeout]
-        http.open_timeout = @company_api_config[:open_timeout]
+        http.read_timeout = GlobalConstant::CompanyApi.read_timeout
+        http.open_timeout = GlobalConstant::CompanyApi.open_timeout
         req_obj = get_request_obj(uri.request_uri)
 
         http_response, e = nil, nil
         begin
           http_response = http.request(req_obj)
+          set_api_response_cookie(http_response)
           parse_api_response(http_response)
         rescue Net::ReadTimeout, Net::OpenTimeout => e
           # Timeouts
@@ -182,7 +182,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @return [Result::Base] returns an object of Result::Base class
       #
@@ -222,11 +222,59 @@ module CompanyApi
         
       end
 
+
+      # Handle API set cookies
+      #
+      # * Author: Aman
+      # * Date: 16/02/2018
+      # * Reviewed By: Sunil
+      #
+      # @param [HTTP response object] http_response (mandatory) - API response object
+      #
+      # Sets @cookies
+      #
+      def set_api_response_cookie(http_response)
+        all_set_cookies = http_response.get_fields('set-cookie')
+        return if all_set_cookies.blank?
+
+        new_api_cookies = {}
+        all_set_cookies.each do |api_cookie|
+          api_cookie_elements = api_cookie.split("; ")
+          cookie_name = ''
+          api_cookie_elements.each_with_index do |c_element, i|
+            c_sub_element = c_element.split('=', 2)
+            c_sub_element_key = CGI::unescape(c_sub_element[0])
+            c_sub_element_value = CGI::unescape(c_sub_element[1]) if c_sub_element[1].present?
+            # Zeroth element is cookie name and value
+            if i == 0
+              cookie_name = c_sub_element_key
+              new_api_cookies[cookie_name] = {value: c_sub_element_value, domain: :all}
+            elsif c_sub_element_key == "expires"
+              new_api_cookies[cookie_name][c_sub_element_key.to_sym] = Time.zone.parse(c_sub_element_value)
+            elsif c_sub_element_key == "domain"
+              new_api_cookies[cookie_name][c_sub_element_key.to_sym] = Rails.env.development? ? :all : c_sub_element_value
+            elsif c_sub_element_key == "secure"
+              new_api_cookies[cookie_name][c_sub_element_key.to_sym] = true
+            elsif c_sub_element_key == "HttpOnly"
+              new_api_cookies[cookie_name][:http_only] = true
+            elsif c_sub_element_key == "SameSite"
+              new_api_cookies[cookie_name][:same_site] = c_sub_element_value
+            else
+              new_api_cookies[cookie_name][c_sub_element_key.to_sym] = c_sub_element_value
+            end
+
+          end
+        end
+
+        @cookies[GlobalConstant::Cookie.new_api_cookie_key.to_sym] = new_api_cookies
+      end
+
+
       # Debug data for exception emails
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @return [Hash] returns an hash of critical information for debugging
       #
@@ -242,7 +290,7 @@ module CompanyApi
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By:
+      # * Reviewed By: Sunil
       #
       # @param [Hash] data (mandatory) - API success response data
       #
