@@ -1,26 +1,37 @@
-<h3 class="text-center mt-5">Plan the Francesco Coin Economy in 3 Easy Steps</h3>
-<%= render partial: 'shared/web/common/steps',
-           locals: {
-                   classes_step_1: '',
-                   classes_step_2: 'active',
-                   classes_step_3: 'incomplete'
-           }
-%>
 <div class="container">
-  <div class="card card-planner mb-5">
-    <div class="card-header">
-      <h5 class="card-title mb-1">We have set up these 4 transaction types for you. You can change them or create new ones.</h5>
-      <p class="card-text">Once you are done please click the next button to start staking and minting.</p>
+
+  <div class="row">
+    <div class="col-12">
+      <h3 class="text-center mt-4">Plan the Francesco Coin Economy in 3 Easy Steps</h3>
+      <%= render partial: 'shared/web/common/steps',
+                 locals: {
+                         classes_step_1: '',
+                         classes_step_2: 'active',
+                         classes_step_3: 'incomplete'
+                 }
+      %>
     </div>
-    <% content_for :cover_elements do %>
-      <div id="transaction_editor" class="cover-element metamask-flow">
-        <div class="container">
-          <%= render :partial => "/web/economy/transactions/transaction_editor" %>
-        </div>
-      </div>
-    <% end %>
-    <%= render :partial => "/web/economy/transactions/transaction_list" %>
   </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-planner mb-5">
+        <div class="card-header">
+          <h5 class="card-title mb-1">We have set up these 4 transaction types for you. You can change them or create new ones.</h5>
+          <p class="card-text">Once you are done please click the next button to start staking and minting.</p>
+        </div>
+        <% content_for :cover_elements do %>
+            <div id="transaction_editor" class="cover-element metamask-flow">
+              <div class="container">
+                <%= render :partial => "/web/economy/transactions/transaction_editor" %>
+              </div>
+            </div>
+        <% end %>
+        <%= render :partial => "/web/economy/transactions/transaction_list" %>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <div class="row" style="background: #d9a025;">
