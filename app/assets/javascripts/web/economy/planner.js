@@ -11,7 +11,6 @@
 
       $.extend(oThis, config);
       oThis.bindEvents();
-      $("#bt_rate").safeSetVal( PriceOracle.ostToBt( 1 ).toString( 10 ) );
     },
 
     formHelper: null,
@@ -37,35 +36,6 @@
       $("#plannerStep1Btn").on('click', function () {
         oThis.formHelper.jForm.submit();
       });
-
-
-
-
-      PriceOracle.observeBtToFiat( $("#token_worth_in_usd") );
-      $( PriceOracle ).on( PriceOracle.events.btToFiatUpdated, function (event, orgEvent, bigRatio, stringRatio ) {
-
-        var jEl = $("#token_worth_in_usd");
-
-        //Make Sure to forward orgEvent;
-        var didUpdate = jEl.safeSetVal( stringRatio, orgEvent );
-        didUpdate && console.log("updating token_worth_in_usd to", stringRatio);
-
-      });
-
-      
-      PriceOracle.observeOstToBt( $("#bt_rate") );
-      $( PriceOracle ).on( PriceOracle.events.ostToBtUpdated, function (event, orgEvent, bigRatio, stringRatio ) {
-
-        var jEl = $("#bt_rate");
-
-        //Make Sure to forward orgEvent;
-        var didUpdate = jEl.safeSetVal( stringRatio, orgEvent );
-        didUpdate && console.log("updating bt_rate to " , stringRatio);
-
-      });
-
-
-
     },
 
     grant_initial_ost: true, /* Over-Ride using config. */
