@@ -105,11 +105,11 @@
     , createNewTransaction: function ( transactionData ) {
       var oThis = this;
 
-      currentData = $.extend({}, oThis.defaultData);
-      currentData.id = Date.now() * -1;
-
       if ( transactionData ) {
-        $.extend( currentData, transactionData);
+        currentData = transactionData;
+      } else {
+        currentData = $.extend({}, oThis.defaultData);
+        currentData.id = Date.now() * -1;
       }
 
       //Update Heading
@@ -328,7 +328,7 @@
           return;
         }
 
-        device_id = newData.device_id || oThis.jDeviceId.val();
+        device_id = newData.device_id = newData.device_id || oThis.jDeviceId.val();
         device_id = Number( device_id );
         device_id = isNaN( device_id ) ? 0 : device_id;
 
@@ -365,7 +365,7 @@
     , completeEditSession: function () {
       var oThis = this;
 
-      oThis.cleanUp();
+      // oThis.cleanUp();
       oThis.hideEditor();
     }
 

@@ -62,8 +62,15 @@
     , bindEditorEvents: function () {
       var oThis = this;
 
-      $( oThis ).on(ost.transactions.editor.events.created, function () {
-
+      $( oThis ).on(ost.transactions.editor.events.created, function (event, result, newResult, device_id ) {
+        if ( oThis.simpleDataTable.getResultWithId( result.id ) ) {
+          //Already Existing Result.
+          console.log("result", result);
+          oThis.simpleDataTable.updateResult( result );
+        } else {
+          //New Result.
+          oThis.simpleDataTable.prependResult( result );
+        }
       });
 
       $( oThis ).on(ost.transactions.editor.events.updated, function (event, result, newResult, deviceId ) {
@@ -102,20 +109,13 @@
             commission_percent: 0
           }]
           , ts = Date.now()
-        , cnt = newData.length
+          , totalCnt = cnt = newData.length
           , data
       ;
 
-      while( cnt-- ) {
-        data = newData[ cnt ];
-        data.id = ( ts + cnt ) * -1;
-        data.ust = ts;
-        data.client_id = oThis.client_id;
-      }
-
-
+      console.log("newData.length", newData.length );
       /* Build Response (Standard Code) */
-      var response = {
+      var finalResponse = {
         success: true,
         data : {
           result_type: resultTypeKey,
@@ -124,91 +124,134 @@
           }
         }
       };
-      response.data[ resultTypeKey ] = newData;
+      finalResponse.data[ resultTypeKey ] = newData;
 
-      /* Trigger Callback */
-      setTimeout(function () {
-        callback( response );
-      }, 300);
 
-    }
+      var onSaveCallback = function ( response, data ) {
+        console.log( response );
+        if ( response.success ) {
+          totalCnt--;
 
-    /* Begin :: Dummy Data */
-    , getDummyData: function (currentData, lastMeta, callback ) {
-      //The Basic Stuff to configure. (Standard Code)
-      var meta = null;
-      var pageSize = 20;
-      var maxPages = 3;
-      var maxEntires = pageSize * maxPages;
-      var resultTypeKey = "transactions";
+          // data
 
-      //Data Builder Logical Variables. (Standard Code)
-      var newData = []
-        , newMeta = {}
-        , currentDataCnt = currentData.length
-        , newDataCnt = Math.min(pageSize, (maxEntires - currentDataCnt) )
-        , newCurrentSize = currentDataCnt + newDataCnt
-        , uts = Date.now()
-      ;
-
-      console.log("currentDataCnt", currentDataCnt);
-      //Custom Data Variables
-      var transaction_types = ["user_to_user", "company_to_user", "user_to_company"];
-      var currency_types = ["bt", "usd"];
-
-      if (  newDataCnt > 0 ) {
-        for(var cnt = 0; cnt < newDataCnt; cnt++ ) {
-          /* Custom Code for generating data */
-          var coinValue = Math.round( Math.random() * 1000 ) / 10;
-          /* Please remember, backend will send 0/1 for boolean cases, not true/false */
-          var someBooleanValue = Math.round( Math.random() );
-
-          /* Adding Data (Standard Code) */
-          newData.push({
-            /* Common Data Properties */
-            id: (currentDataCnt + cnt + 1),
-            uts: uts + cnt,
-
-            /* Custom properties */
-            client_id: 2,
-            name: "Transaction " + Number(currentDataCnt + cnt + 1),
-            kind: transaction_types[ (currentDataCnt + cnt + 1) % transaction_types.length],
-            currency_value: coinValue,
-            currency_type: currency_types[  (currentDataCnt + cnt + 1) % currency_types.length ],
-            commission_percent: Math.round( Math.random() * 10)
-          });
+          console.log("INFO", finalResponse.data[ resultTypeKey ].length,  response, finalResponse.data[ resultTypeKey ] );
+          console.log("totalCnt", totalCnt);
+        } else {
+          console.log("Failed to save autocreated transactions");
         }
-      }
-
-      /* Dealing with Meta (Standard Code) */
-      if ( newCurrentSize < maxEntires ) {
-        //Tell frontend we have more data.
-        newMeta["has_more"] = 1;
-        //Dont Worry about this, this will be backend generated. (Standard Code)
-        newMeta["next_page_payload"] = {
-          some_backend_param_1: "some_backend_param_value",
-          some_backend_param_2: "some_backend_param_value",
-          some_backend_param_3: "some_backend_param_value",
-          some_backend_param_4: "some_backend_param_value"
-        }
-      }
-
-      /* Build Response (Standard Code) */
-      var response = {
-        success: true,
-        data : {
-          result_type: resultTypeKey,  
-          meta: newMeta
+        if ( !totalCnt ) {
+          console.log("response", JSON.stringify( response ), "\n", response  );
+          //All finished.
+          callback( finalResponse );
+        } else {
+          console.log("totalCnt is not zero" , totalCnt);
         }
       };
-      response.data[ resultTypeKey ] = newData;
 
-      /* Trigger Callback */
-      setTimeout(function () {
-        callback( response );
-      }, 300);
+      while( cnt-- ) {
+        data = newData[ cnt ];
+        data.client_transaction_id = data.id = ( ts + cnt ) * -1;
+        data.ust = ts;
+        data.client_id = oThis.client_id;
+        oThis.saveAutoGeneratedTransaction( data, onSaveCallback );
+      }
+      
+
 
     }
+
+    , saveAutoGeneratedTransaction: function (data, onSaveCallback) {
+      var oThis = this;
+      $.post({
+        url : "/api/economy/transaction/kind/create"
+        , data : data
+        , success: function ( response ) {
+          onSaveCallback && onSaveCallback(response, data);
+        }
+        , failed: function () {
+          console.log("failed. args", arguments);
+          alret("Failed to Auto Create Transaction!");
+        }
+      })
+
+    }
+
+    // /* Begin :: Dummy Data */
+    // , getDummyData: function (currentData, lastMeta, callback ) {
+    //   //The Basic Stuff to configure. (Standard Code)
+    //   var meta = null;
+    //   var pageSize = 20;
+    //   var maxPages = 3;
+    //   var maxEntires = pageSize * maxPages;
+    //   var resultTypeKey = "transactions";
+
+    //   //Data Builder Logical Variables. (Standard Code)
+    //   var newData = []
+    //     , newMeta = {}
+    //     , currentDataCnt = currentData.length
+    //     , newDataCnt = Math.min(pageSize, (maxEntires - currentDataCnt) )
+    //     , newCurrentSize = currentDataCnt + newDataCnt
+    //     , uts = Date.now()
+    //   ;
+
+    //   console.log("currentDataCnt", currentDataCnt);
+    //   //Custom Data Variables
+    //   var transaction_types = ["user_to_user", "company_to_user", "user_to_company"];
+    //   var currency_types = ["bt", "usd"];
+
+    //   if (  newDataCnt > 0 ) {
+    //     for(var cnt = 0; cnt < newDataCnt; cnt++ ) {
+    //       /* Custom Code for generating data */
+    //       var coinValue = Math.round( Math.random() * 1000 ) / 10;
+    //       /* Please remember, backend will send 0/1 for boolean cases, not true/false */
+    //       var someBooleanValue = Math.round( Math.random() );
+
+    //       /* Adding Data (Standard Code) */
+    //       newData.push({
+    //         /* Common Data Properties */
+    //         id: (currentDataCnt + cnt + 1),
+    //         uts: uts + cnt,
+
+    //         /* Custom properties */
+    //         client_id: 2,
+    //         name: "Transaction " + Number(currentDataCnt + cnt + 1),
+    //         kind: transaction_types[ (currentDataCnt + cnt + 1) % transaction_types.length],
+    //         currency_value: coinValue,
+    //         currency_type: currency_types[  (currentDataCnt + cnt + 1) % currency_types.length ],
+    //         commission_percent: Math.round( Math.random() * 10)
+    //       });
+    //     }
+    //   }
+
+    //   /* Dealing with Meta (Standard Code) */
+    //   if ( newCurrentSize < maxEntires ) {
+    //     //Tell frontend we have more data.
+    //     newMeta["has_more"] = 1;
+    //     //Dont Worry about this, this will be backend generated. (Standard Code)
+    //     newMeta["next_page_payload"] = {
+    //       some_backend_param_1: "some_backend_param_value",
+    //       some_backend_param_2: "some_backend_param_value",
+    //       some_backend_param_3: "some_backend_param_value",
+    //       some_backend_param_4: "some_backend_param_value"
+    //     }
+    //   }
+
+    //   /* Build Response (Standard Code) */
+    //   var response = {
+    //     success: true,
+    //     data : {
+    //       result_type: resultTypeKey,  
+    //       meta: newMeta
+    //     }
+    //   };
+    //   response.data[ resultTypeKey ] = newData;
+
+    //   /* Trigger Callback */
+    //   setTimeout(function () {
+    //     callback( response );
+    //   }, 300);
+
+    // }
     /* End :: Dummy Data */
 
 
