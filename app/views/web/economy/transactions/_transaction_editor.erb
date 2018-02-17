@@ -35,7 +35,7 @@
 
 %>
 
-<form id="transaction_editor_form" class="user-form" action="/api/client/sign-up" method="POST"
+<form id="transaction_editor_form" action="/api/client/sign-up" method="POST"
   data-ost-formhelper>
   <input type="hidden" name="client_transaction_id" id="transaction_id" />
   <input type="hidden" name="device_id" id="transaction_device_id"/>
@@ -69,7 +69,7 @@
 
     <div class="col-8">
       <div class="form-group" id="transaction_name_form_group">
-        <label class="form-label" data-forid="transaction_name">Transaction Name</label>
+        <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Name</label>
         <input id="transaction_name" type="text" name="name" class="form-control" aria-describedby="emailHelp" placeholder="Enter Transaction Name" required/>
         <div class="invalid-feedback" data-forid="transaction_name">&nbps;</div>
       </div>
@@ -79,7 +79,7 @@
 
     <div class="col-12 form-group">
       <label class="form-label">Do you wish to keep the USD value for this transaction to be fixed?
-        <a href="/">HOW DOES IT MATTER?</a>
+        <a href="/" class="text-uppercase">Learn More About Price Oracle</a>
       </label>
     </div>
     <div class="col-12">
@@ -90,7 +90,7 @@
           <label class="form-check-label" for="currency_type_fiat">Yes</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" 
+          <input class="form-check-input" type="radio"
             name="currency_type" id="currency_type_bt" value="bt" />
           <label class="form-check-label" for="currency_type_bt">No</label>
         </div>
@@ -100,7 +100,7 @@
 
     <div class="col-4">
       <div class="form-group" id="transaction_value_in_fiat_form_group">
-        <label class="form-label" data-forid="transaction_name">Transaction Value IN (<%= fiat_display_text %>)</label>
+        <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Value IN (<%= fiat_display_text %>)</label>
         <input id="value_in_fiat" type="number" name="currency_value" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= fiat_display_text %>)" required/>
         <div class="invalid-feedback" data-forid="value_in_fiat">&nbps;</div>
       </div>
@@ -108,7 +108,7 @@
 
     <div class="col-4">
       <div class="form-group" id="value_in_bt_form_group">
-        <label class="form-label" data-forid="transaction_name">Transaction Value In (<%= coin_symbol %>)</label>
+        <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Value In (<%= coin_symbol %>)</label>
         <input id="value_in_bt" type="number" name="currency_value" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= coin_symbol %>)" required/>
         <div class="invalid-feedback" data-forid="value_in_bt">&nbps;</div>
       </div>
@@ -148,43 +148,45 @@
     </div>
 
 
-    <div class="row" id="commission_percent_wrap">
-      <div class="col-8">
-        <%= render partial: 'shared/web/common/slider_right',
-           locals: {
-             label: 'COMMISSION VALUE IN % <span>(The commission is included in the transaction amount)</span>',
-             id: 'commission_percent',
-             name: 'commission_percent',
-             type: 'number',
-             min: 1,
-             max: 100,
-             step: 1,
-             value: 1,
-             tooltip: 'always',
-             classes: 'slider-primary'
-           }
-       %>
-       <input type="hidden" name="commission_in_bt" id="commission_in_bt" value="5" />
-       <input type="hidden" name="commission_in_fiat" id="commission_in_fiat" value="1.5" />
-     </div>
+    <div class="col-12" id="commission_percent_wrap">
+      <div class="row">
+        <div class="col-8">
+          <%= render partial: 'shared/web/common/slider_right',
+              locals: {
+            label: 'COMMISSION VALUE IN % <span>(The commission is included in the transaction amount)</span>',
+              id: 'commission_percent',
+              name: 'commission_percent',
+              type: 'number',
+              min: 1,
+              max: 100,
+              step: 1,
+              value: 1,
+              tooltip: 'show',
+              classes: 'slider-primary'
+              }
+          %>
+          <input type="hidden" name="commission_in_bt" id="commission_in_bt" value="5" />
+          <input type="hidden" name="commission_in_fiat" id="commission_in_fiat" value="1.5" />
+        </div>
 
-      <div class="col-2">
-        <%= render :partial => "/shared/web/common/mocker", 
-          :locals => {
-            :header => "VALUE IN " + coin_symbol,
-            :mock_selector => "#commission_in_bt"
-          }
-        %> 
-      </div>
+        <div class="col-2">
+          <%= render :partial => "/shared/web/common/mocker",
+                     :locals => {
+                       :header => "VALUE IN " + coin_symbol,
+                       :mock_selector => "#commission_in_bt"
+                     }
+          %>
+        </div>
 
-      <div class="col-2">
-        
-        <%= render :partial => "/shared/web/common/mocker", 
-          :locals => {
-            :header => "VALUE IN " + fiat_display_text,
-            :mock_selector => "#commission_in_fiat"
-          }
-        %> 
+        <div class="col-2">
+
+          <%= render :partial => "/shared/web/common/mocker",
+                     :locals => {
+                       :header => "VALUE IN " + fiat_display_text,
+                       :mock_selector => "#commission_in_fiat"
+                     }
+          %>
+        </div>
       </div>
     </div>
 

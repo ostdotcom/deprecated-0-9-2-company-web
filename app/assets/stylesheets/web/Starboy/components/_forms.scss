@@ -114,13 +114,25 @@
 
     &.slider-primary {
       .slider-selection{
-        background: #597a84;
+        background: $blue-700;
       }
       .slider-handle{
-        background: #597a84;
+        background: $blue-700;
       }
       .slider-track-high{
-        border: 1px solid #597a84;
+        border: 1px solid $blue-700;
+      }
+      .tooltip{
+        .tooltip-inner{
+          color: $blue-700;
+          background-color: $white;
+          border: 1px solid $blue-700;
+        }
+        .arrow{
+          &:before{
+            border-top-color: $blue-700;
+          }
+        }
       }
     }
 
