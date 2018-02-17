@@ -36,8 +36,8 @@ module CompanyApi
           @data['symbol']
         end
 
-        def symbol_url
-          @data['symbol_url']
+        def symbol_icon
+          @data['symbol_icon']
         end
 
         def setup_steps
