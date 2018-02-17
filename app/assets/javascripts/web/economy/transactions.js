@@ -83,7 +83,7 @@
     , autoCreateTransactions: function (currentData, lastMeta, callback ) {
       var oThis = this
           , resultTypeKey = "transactions"
-        , newData = [ {
+        , createdTransactions = [ {
           name: "Transaction 1",
           kind: "user_to_user",
           currency_type: "bt",
@@ -109,11 +109,11 @@
             commission_percent: 0
           }]
           , ts = Date.now()
-          , totalCnt = cnt = newData.length
+          , totalCnt = cnt = createdTransactions.length
           , data
       ;
 
-      console.log("newData.length", newData.length );
+      console.log("createdTransactions.length", createdTransactions.length );
       /* Build Response (Standard Code) */
       var finalResponse = {
         success: true,
@@ -124,23 +124,29 @@
           }
         }
       };
-      finalResponse.data[ resultTypeKey ] = newData;
+      finalResponse.data[ resultTypeKey ] = createdTransactions;
 
 
-      var onSaveCallback = function ( response, data ) {
+      var onSaveCallback = function ( response, transactionData ) {
         console.log( response );
+        totalCnt--;
         if ( response.success ) {
-          totalCnt--;
-
-          // data
-
-          console.log("INFO", finalResponse.data[ resultTypeKey ].length,  response, finalResponse.data[ resultTypeKey ] );
-          console.log("totalCnt", totalCnt);
+          var transactions    = response.data.transactions || []
+            , newTransactionData  = transactions[ 0 ]
+          ;
+          $.extend(transactionData, newTransactionData);
         } else {
           console.log("Failed to save autocreated transactions");
+          var transactionDataIndx = createdTransactions.indexOf( transactionData );
+          if ( transactionDataIndx < 0 )  {
+            console.log("transactionDataIndx is less than 0: ", transactionDataIndx);
+          } else {
+            createdTransactions.splice(transactionDataIndx, 1);
+          }
+
         }
         if ( !totalCnt ) {
-          console.log("response", JSON.stringify( response ), "\n", response  );
+          console.log("finalResponse", JSON.stringify( finalResponse ), "\n", finalResponse  );
           //All finished.
           callback( finalResponse );
         } else {
@@ -149,7 +155,7 @@
       };
 
       while( cnt-- ) {
-        data = newData[ cnt ];
+        data = createdTransactions[ cnt ];
         data.client_transaction_id = data.id = ( ts + cnt ) * -1;
         data.ust = ts;
         data.client_id = oThis.client_id;
@@ -169,8 +175,7 @@
           onSaveCallback && onSaveCallback(response, data);
         }
         , failed: function () {
-          console.log("failed. args", arguments);
-          alret("Failed to Auto Create Transaction!");
+
         }
       })
 
