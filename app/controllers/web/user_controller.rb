@@ -26,6 +26,25 @@ class Web::UserController < Web::BaseController
 
   end
 
+  def verify_email
+
+    @response = CompanyApi::Request::Client.new(
+        CompanyApi::Response::Formatter::Client,
+        request.cookies,
+        {"User-Agent" => http_user_agent}
+    ).verify_email(r_t: params[:r_t])
+
+    if @response.success?
+      @presenter_obj = ::WebPresenter::UserPresenter.new(@response, params)
+      handle_redirection
+    elsif @response.http_code == GlobalConstant::ErrorCode.unauthorized_access
+      redirect_to :login and return
+    end
+
+    # render page displaying error messages
+
+  end
+
   private
 
   # Verify existing login
@@ -44,10 +63,10 @@ class Web::UserController < Web::BaseController
     ).fetch_verify_cookie_details
 
     # success means user is already logged in, we would redirect to dashboard / planner
-    @presenter_obj = ::WebPresenter::UserPresenter.new(@response, params)
-
     # Error means user ain't logged in yet.
     return unless @response.success?
+
+    @presenter_obj = ::WebPresenter::UserPresenter.new(@response, params)
 
     if @presenter_obj.client_token.step_three_done?
       redirect_to :dashboard, status: GlobalConstant::ErrorCode.temporary_redirect and return

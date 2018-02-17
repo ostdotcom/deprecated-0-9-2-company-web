@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get '/sign-up' => :sign_up
     get '/reset-password' => :reset_password
     get '/update-password' => :update_password
+    get '/verify-email' => :verify_email
   end
 
   scope '', controller: 'web/economy' do

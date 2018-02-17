@@ -33,6 +33,18 @@ module CompanyApi
         get('verify-cookie')
       end
 
+      # Verify Email
+      #
+      # * Author: Puneet
+      # * Date: 14/02/2018
+      # * Reviewed By:
+      #
+      # @param [Hash] params - contains token (r_t)
+      #
+      def verify_email(params)
+        post('verify-email', params)
+      end
+
     end
 
   end
