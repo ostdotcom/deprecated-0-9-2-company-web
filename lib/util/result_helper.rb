@@ -91,6 +91,29 @@ module Util
       )
     end
 
+    # Error with Go TO
+    #
+    # * Author: Puneet
+    # * Date: 19/02/2018
+    # * Reviewed By:
+    #
+    # @param [String] code (mandatory) - error code
+    # @param [String] message (mandatory) - error message
+    # @param [Hash] go_to (mandatory) - go_to to be sent in the response
+    # @param [Integer] internal_code (mandatory) - internal code, on which conditions can be made
+    #
+    # @return [Result::Base]
+    #
+    def error_with_go_to(code, message, internal_code, go_to)
+      Result::Base.error(
+          {
+              error: code,
+              error_message: message,
+              go_to: go_to,
+              http_code: internal_code
+          }
+      )
+    end
 
   end
 

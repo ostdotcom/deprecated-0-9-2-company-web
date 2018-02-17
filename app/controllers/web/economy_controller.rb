@@ -18,7 +18,7 @@ class Web::EconomyController < Web::BaseController
         CompanyApi::Response::Formatter::Economy,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).fetch_planner_details
+    ).fetch_dashboard_details
 
     # Check if error present or not?
     unless @response.success?
@@ -42,7 +42,7 @@ class Web::EconomyController < Web::BaseController
         CompanyApi::Response::Formatter::Economy,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).fetch_planner_details
+    ).fetch_planner_step_one_details
 
     # Check if error present or not?
     unless @response.success?
@@ -59,13 +59,19 @@ class Web::EconomyController < Web::BaseController
 
   end
 
+  # Planner to perform economy setup step two
+  #
+  # * Author: Puneet
+  # * Date: 02/02/2018
+  # * Reviewed By:
+  #
   def planner_step_two
 
     @response = CompanyApi::Request::Economy.new(
         CompanyApi::Response::Formatter::Economy,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).fetch_planner_details
+    ).fetch_planner_step_two_details
 
     # Check if error present or not?
     unless @response.success?
@@ -77,13 +83,19 @@ class Web::EconomyController < Web::BaseController
 
   end
 
+  # Planner to perform economy setup step three
+  #
+  # * Author: Puneet
+  # * Date: 02/02/2018
+  # * Reviewed By:
+  #
   def planner_step_three
 
     @response = CompanyApi::Request::Economy.new(
         CompanyApi::Response::Formatter::Economy,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).fetch_planner_details
+    ).fetch_planner_step_three_details
 
     # Check if error present or not?
     unless @response.success?
@@ -165,7 +177,7 @@ class Web::EconomyController < Web::BaseController
         CompanyApi::Response::Formatter::Economy,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).fetch_planner_details
+    ).fetch_planner_step_one_details
 
     # Check if error present or not?
     unless @response.success?
@@ -196,7 +208,7 @@ class Web::EconomyController < Web::BaseController
         CompanyApi::Response::Formatter::Economy,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).fetch_planner_details
+    ).fetch_planner_step_one_details
 
     # Check if error present or not?
     unless @response.success?
@@ -222,7 +234,7 @@ class Web::EconomyController < Web::BaseController
         CompanyApi::Response::Formatter::Economy,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).fetch_planner_details
+    ).fetch_planner_step_one_details
 
     # Check if error present or not?
     unless @response.success?

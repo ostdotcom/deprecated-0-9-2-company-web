@@ -1,11 +1,22 @@
 <%
    coin_name   = @presenter_obj.client_token.name;
    coin_symbol = @presenter_obj.client_token.symbol;
-   fiat_symbol = "$";
+
+  if @presenter_obj.client_token_planner.present?
+    token_worth_in_usd_value = @presenter_obj.client_token_planner.token_worth_in_usd
+    initial_number_of_users_value = @presenter_obj.client_token_planner.initial_number_of_users
+    airdrop_bt_per_user_value = @presenter_obj.client_token_planner.airdrop_bt_per_user
+  else
+    token_worth_in_usd_value = 0.1
+    initial_number_of_users_value = 10
+    airdrop_bt_per_user_value = 10
+  end
+
+   fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
    fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
    fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
 
-   ost_to_fiat = @presenter_obj.client_balances.ost_to_fiat_conversion_factor(@presenter_obj.client_fiat_curreny_symbol);
+   ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_rate(fiat_type);
 
    value_in_fiat_key = "value_in_" + fiat_type;
    value_in_fiat_sym = value_in_fiat_key.to_sym;
@@ -43,8 +54,8 @@
                            type: 'number',
                            min: 0.1,
                            max: 10,
-                           step: 0.1,
-                           value: 0.1,
+                           step: 0.001,
+                           value: token_worth_in_usd_value,
                            prefix: '$',
                            tooltip: 'show',
                            classes: 'slider-yellow'
@@ -58,9 +69,9 @@
                            name: 'initial_number_of_users',
                            type: 'number',
                            min: 1,
-                           max: 1000000,
+                           max: 1000,
                            step: 1,
-                           value: 1,
+                           value: initial_number_of_users_value,
                            tooltip: 'show',
                            classes: 'slider-yellow'
                    }
@@ -75,7 +86,7 @@
                            min: 1,
                            max: 100,
                            step: 1,
-                           value: 1,
+                           value: airdrop_bt_per_user_value,
                            tooltip: 'show',
                            classes: 'slider-yellow'
                    }

@@ -1,13 +1,27 @@
-<% 
+<%
+
   page_needs_conversion_rates = true;
 
   if ( page_needs_conversion_rates )
-    ost_to_bt = (0.1).to_s;
-    ost_to_fiat = (0.30).to_s;
-    fiat_symbol = "$";
-    fiat_type = "usd";
-    fiat_display_text = "USD";
+
+    fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
+    fiat_type = @presenter_obj.client_fiat_curreny_symbol;
+    fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
+
+    if @presenter_obj.client_token && @presenter_obj.client_token.conversion_rate > 0
+      ost_to_bt = @presenter_obj.client_token.conversion_rate.to_s;
+    else
+      ost_to_bt = (0.1).to_s;
+    end
+
+    if @presenter_obj.oracle_price_points && @presenter_obj.oracle_price_points.to_fiat_conversion_rate(fiat_type) > 0
+      ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_rate(fiat_type).to_s;
+    else
+      ost_to_fiat = (0.1).to_s;
+    end
+
   end
+
 %>
 
 <!DOCTYPE html>
@@ -128,9 +142,12 @@
       PriceOracle.init({
         ost_to_bt           : "<%= ost_to_bt %>"
         , ost_to_fiat       : "<%= ost_to_fiat %>"
-        , fiat_symbol       : "$"
-        , fiat_type         : "usd"
-        , fiat_display_text : "USD"
+        , fiat_symbol       : "<%= fiat_symbol %>"
+        , fiat_type         : "<%= fiat_type %>"
+        , fiat_display_text : "<%= fiat_display_text %>"
+        , fiat_precision    : "<%= 3 %>"
+        , ost_precision     : "<%= 3 %>"
+        , bt_precision      : "<%= 3 %>"
       });
     })
   </script>

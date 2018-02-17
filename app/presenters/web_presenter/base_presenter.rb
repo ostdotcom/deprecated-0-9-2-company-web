@@ -30,6 +30,18 @@ module WebPresenter
       end
     end
 
+    def oracle_price_points
+      @o_p_p ||= begin
+        formatter_obj.present? ? formatter_obj.oracle_price_points : nil
+      end
+    end
+
+    def client_token_planner
+      @c_t_p ||= begin
+        formatter_obj.present? ? formatter_obj.client_token_planner : nil
+      end
+    end
+
     def client_balances
       @c_balances ||= begin
         formatter_obj.present? ? formatter_obj.client_balances : nil

@@ -1,9 +1,9 @@
 <% 
   should_show_api_call_button = true;
 
-  fiat_symbol = "$";
-
+  fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
   client_id = @presenter_obj.client_token.client_id;
+  show_dummy_transactions_data = !@presenter_obj.client_token.step_two_done?;
 
   kind_display_text = {
     :user_to_company => "User to Company",
@@ -11,14 +11,7 @@
     :company_to_user => "Company to User"
   };
 
-
 %>
-
-
-<%  %>
-
-
-
 
 <div class="container">
   <div class="row">
@@ -110,7 +103,7 @@
       }
     });
     ost.transactions.init({
-      auto_create_transactions: true,
+      auto_create_transactions: <%= show_dummy_transactions_data %>,
       client_id: "<%= client_id %>",
     });  
   </script>

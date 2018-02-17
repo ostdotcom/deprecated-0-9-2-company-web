@@ -6,7 +6,8 @@ module CompanyApi
 
       class Base
 
-        attr_reader :user, :client_token, :client_balances, :next_page_payload
+        attr_reader :user, :client_token, :oracle_price_points,
+                    :client_token_planner, :client_balances, :next_page_payload
 
         # Initialize
         #
@@ -52,6 +53,20 @@ module CompanyApi
           @client_token = CompanyApi::Response::Entity::ClientToken.new(client_token_data)
         end
 
+        # Set client token planner
+        #
+        # * Author: Puneet
+        # * Date: 02/02/2018
+        # * Reviewed By: Sunil
+        #
+        # @param [Hash] client_token_planner_data (mandatory) - client token hash
+        #
+        # Sets @client_token_planner
+        #
+        def set_client_token_planner(client_token_planner_data)
+          @client_token_planner = CompanyApi::Response::Entity::ClientTokenPlanner.new(client_token_planner_data)
+        end
+
         # Set client balances
         #
         # * Author: Puneet
@@ -64,6 +79,20 @@ module CompanyApi
         #
         def set_client_balances(client_balances_data)
           @client_balances = CompanyApi::Response::Entity::ClientBalances.new(client_balances_data, @client_token)
+        end
+
+        # Set orace_price_points_data
+        #
+        # * Author: Puneet
+        # * Date: 02/02/2018
+        # * Reviewed By:
+        #
+        # @param [Hash] orace_price_points_data (mandatory) - price oracle data hash
+        #
+        # Sets @oracle_price_points
+        #
+        def set_oracle_price_points(orace_price_points_data)
+          @oracle_price_points = CompanyApi::Response::Entity::OraclePricePoints.new(orace_price_points_data, @client_token)
         end
 
         # Set next page payload

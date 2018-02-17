@@ -8,7 +8,8 @@ module Result
                   :error_data,
                   :data,
                   :exception,
-                  :http_code
+                  :http_code,
+                  :go_to
 
     # Initialize
     #
@@ -17,6 +18,7 @@ module Result
     def initialize(params = {})
       set_error(params)
       set_http_code(params[:http_code])
+      set_go_to(params[:go_to])
       @data = params[:data] || {}
     end
 
@@ -37,6 +39,18 @@ module Result
       @error_display_text = params[:error_display_text] if params.key?(:error_display_text)
       @error_data = params[:error_data] if params.key?(:error_data)
       @error_display_heading = params[:error_display_heading] if params.key?(:error_display_heading)
+    end
+
+    # Set Go To
+    #
+    # * Author: Puneet
+    # * Date: 19/02/2018
+    # * Reviewed By:
+    #
+    # @param [Hash]
+    #
+    def set_go_to(go_to)
+      @go_to = (go_to.blank? || !go_to.is_a?(Hash)) ? {} : go_to
     end
 
     # Set Exception
@@ -158,7 +172,7 @@ module Result
     # @return [Array] returns Array object
     #
     def self.fields
-      error_fields + [:data]
+      error_fields + [:data, :go_to]
     end
 
     # Error Fields
@@ -211,7 +225,8 @@ module Result
                 code: hash[:error],
                 display_text: hash[:error_display_text] || 'Something went wrong.',
                 display_heading: hash[:error_display_heading] || 'Error.',
-                error_data: hash[:error_data] || {}
+                error_data: hash[:error_data] || {},
+                go_to: hash[:go_to] || {}
             },
             data: hash[:data] || {}
         }

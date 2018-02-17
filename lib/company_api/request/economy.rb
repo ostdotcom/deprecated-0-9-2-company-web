@@ -23,14 +23,44 @@ module CompanyApi
 
       end
 
-      # Fetch Details of steps performed for setting up economy
+      # Fetch Details for step one
       #
       # * Author: Puneet
       # * Date: 02/02/2018
-      # * Reviewed By: Sunil
+      # * Reviewed By:
       #
-      def fetch_planner_details
-        get('token/get-setup-details')
+      def fetch_planner_step_one_details
+        get('token/get-step-one-details')
+      end
+
+      # Fetch Details for step two
+      #
+      # * Author: Puneet
+      # * Date: 02/02/2018
+      # * Reviewed By:
+      #
+      def fetch_planner_step_two_details
+        get('token/get-step-two-details')
+      end
+
+      # Fetch Details for step three
+      #
+      # * Author: Puneet
+      # * Date: 02/02/2018
+      # * Reviewed By:
+      #
+      def fetch_planner_step_three_details
+        get('token/get-step-three-details')
+      end
+
+      # Fetch Details for step three
+      #
+      # * Author: Puneet
+      # * Date: 02/02/2018
+      # * Reviewed By:
+      #
+      def fetch_dashboard_details
+        get('token/get-dashboard-details')
       end
 
       # Fetch token supply details

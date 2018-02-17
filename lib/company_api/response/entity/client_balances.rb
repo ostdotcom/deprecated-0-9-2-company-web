@@ -27,7 +27,7 @@ module CompanyApi
         end
 
         def conversion_rates
-          @c_r ||= @data.present? ? @data['orace_price_points'] : {}
+          @c_r ||= @data.present? ? @data['oracle_price_points'] : {}
         end
 
         def ost_based_conversion_rates

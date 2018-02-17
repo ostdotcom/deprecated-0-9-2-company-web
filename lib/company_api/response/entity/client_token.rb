@@ -48,14 +48,6 @@ module CompanyApi
           @data['conversion_rate'].to_f
         end
 
-        def airdrop_bt_per_user
-          @data['airdrop_bt_per_user']
-        end
-
-        def initial_number_of_users
-          @data['initial_number_of_users']
-        end
-
         def is_ost_based_token?
           true
         end

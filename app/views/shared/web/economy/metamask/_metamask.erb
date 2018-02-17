@@ -1,8 +1,9 @@
 <%
+  client_token = @presenter_obj.client_token
   #Place for backend to do stuff.
-  token_name = "Francesco Coin";
-  token_symbol = "FRC";
-  token_icon = "token_icon_1";
+  token_name = client_token.name;
+  token_symbol = client_token.symbol;
+  token_icon = client_token.symbol_icon;
   value_chain_id = 1411;
   utility_chain_id = 1410;
   eligible_grant_value = 500;

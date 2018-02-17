@@ -196,6 +196,10 @@ module CompanyApi
               # Success
               formatted_data = format_success_response_data(response_data['data'])
               success_with_data(formatted_data)
+            elsif response_data['err']['go_to'].present?
+              # API Error
+              Rails.logger.info("=*=COMPANY-API-ERROR-WITH-GOTO=*= #{response_data.inspect}")
+              error_with_go_to('company_api_error', 'company api error with goto', GlobalConstant::ErrorCode.temporary_redirect, response_data['err']['go_to'])
             else
               # API Error
               Rails.logger.info("=*=COMPANY-API-ERROR=*= #{response_data.inspect}")

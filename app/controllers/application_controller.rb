@@ -104,9 +104,34 @@ class ApplicationController < ActionController::Base
     else
       if http_code == GlobalConstant::ErrorCode.unauthorized_access
         redirect_to :login and return
+      elsif http_code == GlobalConstant::ErrorCode.temporary_redirect
+        handle_temporary_redirects(service_response)
       else
         render file: "public/#{http_code}.html", layout: false, status: http_code and return
       end
+    end
+
+  end
+
+  # Render error response for
+  #
+  # * Author: Puneet
+  # * Date: 19/02/2018
+  # * Reviewed By:
+  #
+  def handle_temporary_redirects(service_response)
+
+    case service_response.go_to['by_screen_name']
+      when 'economy_dashboard'
+        redirect_to :dashboard and return
+      when 'economy_planner_step_one'
+        redirect_to :planner_step_one and return
+      when 'economy_planner_step_two'
+        redirect_to :planner_step_two and return
+      when 'economy_planner_step_three'
+        redirect_to :planner_step_three and return
+      else
+        fail "unhandled internal redirect: #{service_response.go_to}"
     end
 
   end
