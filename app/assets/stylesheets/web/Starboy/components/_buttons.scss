@@ -5,8 +5,8 @@
 }
 
 .btn-gold{
-  border-color: #e4b030;
-  background: #e4b030;
+  border-color: $yellow-300;
+  background: $yellow-300;
   color: #fff;
   &.focus-cls,
   &:focus{
@@ -18,16 +18,14 @@
   &:hover, &:active{
     color: #fff;
     text-decoration: none;
-    background-color: #d4a326;
-    border-color: #d4a326;
+    background-color: $yellow-400;
+    border-color: $yellow-400;
   }
 }
 
 .btn-steps-nav{
   font-size: 0.8rem;
   border-radius: 0;
-  border-color: #af7f19;
-  background: #af7f19;
   color: #fff;
   &.focus-cls,
   &:focus{
@@ -39,8 +37,10 @@
   &:hover, &:active{
     color: #fff;
     text-decoration: none;
-    background-color: #af7f19;
+  }
+  &.bg-yellow{
     border-color: #af7f19;
+    background: #af7f19;
   }
 }
 

@@ -7,10 +7,10 @@
            }
 %>
 <div class="container">
-  <div class="card">
+  <div class="card card-planner mb-5">
     <div class="card-header">
-      <h6>We have set up these 4 transaction types for you. You can change them or create new ones.</h6>
-      <p class="mb-0">Once you are done please click the next button to start staking and minting.</p>
+      <h5 class="card-title mb-1">We have set up these 4 transaction types for you. You can change them or create new ones.</h5>
+      <p class="card-text">Once you are done please click the next button to start staking and minting.</p>
     </div>
     <% content_for :cover_elements do %>
       <div id="transaction_editor" class="cover-element metamask-flow">
@@ -23,4 +23,9 @@
   </div>
 </div>
 
-<%= render :partial => "shared/web/common/steps_two_bottom_nav" %>
+<div class="row" style="background: #d9a025;">
+  <div class="container">
+    <a href="/planner" class="btn btn-steps-nav pt-3 pb-3 float-left text-left">&lt; Set conversion rate</a>
+    <a href="javascript:void(0)" class="btn btn-steps-nav bg-yellow pt-3 pb-3 float-right">Stake and mint coins  &gt;</a>
+  </div>
+</div>

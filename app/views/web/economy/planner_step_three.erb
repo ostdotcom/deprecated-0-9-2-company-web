@@ -136,7 +136,12 @@
 
 </div>
 
-<%= render :partial => "shared/web/common/steps_bottom_nav" %>
+<div class="row" style="background: #d9a025;">
+  <div class="container">
+    <a href="/planner/step-2" class="btn btn-steps-nav pt-3 pb-3 float-left text-left">&lt; Transactions</a>
+    <a href="javascript:void(0)" class="btn btn-steps-nav bg-yellow pt-3 pb-3 float-right">Mint coins &gt;</a>
+  </div>
+</div>
 
 <% content_for :end_js do %>
     <script type="text/javascript">
