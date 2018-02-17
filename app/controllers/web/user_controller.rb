@@ -39,6 +39,12 @@ class Web::UserController < Web::BaseController
       handle_redirection
     elsif @response.http_code == GlobalConstant::ErrorCode.unauthorized_access
       redirect_to :login and return
+    else
+      #TODO: FIx this
+      @error_data = {
+        display_text: 'Invalid Link',
+        display_heading: 'Invalid Link'
+      }
     end
 
     # render page displaying error messages
