@@ -11,7 +11,6 @@
     simpleDataTable: null
     ,init: function ( config ) {
       var oThis = this;
-
       oThis.simpleDataTable = new ost.SimpleDataTable();
     }
   };

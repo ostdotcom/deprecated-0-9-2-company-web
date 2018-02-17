@@ -1,0 +1,38 @@
+// Import functions as variables depend on functions
+@import "../../plugins/bootstrap/scss/functions";
+
+// Import theme variables
+@import "../Starboy/variables";
+
+._tabs{
+
+  .card{
+    background: $alice-blue;
+    font-size: 0.8rem;
+    border: 0;
+
+    .card-title{
+      font-size: 0.8rem;
+    }
+
+    .card-text{
+      color: $yellow-300
+    }
+  }
+
+}
+
+._transactions_value{
+
+  .graph-header{
+    font-size: 0.9rem;
+    color: $cyan;
+    border-top: 1px solid $blue-100;
+    border-bottom: 1px solid $blue-100;
+
+    .first-interval{
+      border-left: 1px solid $blue-100;
+    }
+  }
+
+}
