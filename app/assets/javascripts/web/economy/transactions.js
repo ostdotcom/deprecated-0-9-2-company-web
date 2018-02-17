@@ -6,9 +6,13 @@
   console.log("ost.transactions defined");
   var oThis = ost.transactions = {
     simpleDataTable: null
+    , events : {
+      "transactionsAutoCreated": "transactionsAutoCreated"
+    }
     ,init: function ( config ) {
 
       var oThis = this;
+      $.extend(oThis, config);
 
       oThis.client_id = config.client_id;
 
@@ -126,6 +130,13 @@
       };
       finalResponse.data[ resultTypeKey ] = createdTransactions;
 
+      var triggerCallback = function () {
+        var eventName = oThis.events.transactionsAutoCreated;
+        //All finished.
+        callback( finalResponse );
+
+        $( oThis ).trigger(eventName, [finalResponse] );
+      };
 
       var onSaveCallback = function ( response, transactionData ) {
         console.log( response );
@@ -147,8 +158,7 @@
         }
         if ( !totalCnt ) {
           console.log("finalResponse", JSON.stringify( finalResponse ), "\n", finalResponse  );
-          //All finished.
-          callback( finalResponse );
+          triggerCallback();
         } else {
           console.log("totalCnt is not zero" , totalCnt);
         }

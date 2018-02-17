@@ -3,7 +3,7 @@
 
   fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
   client_id = @presenter_obj.client_token.client_id;
-  show_dummy_transactions_data = !@presenter_obj.client_token.step_two_done?;
+  auto_create_transactions = !@presenter_obj.client_token.step_two_done?;
 
   kind_display_text = {
     :user_to_company => "User to Company",
@@ -103,7 +103,7 @@
       }
     });
     ost.transactions.init({
-      auto_create_transactions: <%= show_dummy_transactions_data %>,
+      auto_create_transactions: <%= auto_create_transactions %>,
       client_id: "<%= client_id %>",
     });  
   </script>
