@@ -9,11 +9,13 @@
     , jBtToOstValue   : null
 
     , idBtToFiat      : "bt_to_fiat_input"
-    , idOstToBt       : "bt_to_ost_input"
+    , idOstToBt       : "ost_to_bt_input"
     , idBtToOstValue  : "bt_to_ost_value_input"
 
     , init : function ( config ) {
       var oThis = this;
+      config = config || {};
+
       $.extend( oThis, config );
 
       oThis.jBtToFiat     = oThis.jBtToFiat     || $( "#" + oThis.idBtToFiat );
@@ -23,7 +25,11 @@
       oThis.bindEvents();
 
       //Set initial values
-      oThis.jOstToBt.safeSetVal( PriceOracle.ostToBt( 1 ).toString( 10 ) );
+      var btInOst  = PriceOracle.ostToBt( 1 ).toString( 10 )
+        , fiatInBt = PriceOracle.btToFiat( 1 ).toString( 10 )
+      ;
+      oThis.jOstToBt.safeSetVal( btInOst );
+      oThis.jBtToFiat.safeSetVal( fiatInBt );
 
     }
     , bindEvents: function () {

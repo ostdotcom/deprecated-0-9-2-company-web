@@ -36,45 +36,12 @@
           </div>
         </div>
         <div class="card-body">
-          <div class="row">
-            <div class="col-3 user-form">
-              <%= render partial: 'shared/web/common/slider_top',
-                         locals: {
-                                 label: 'No of Tokens to Create',
-                                 id: 'airdrop_bt_per_user',
-                                 name: 'airdrop_bt_per_user',
-                                 type: 'number',
-                                 min: 1,
-                                 max: 100,
-                                 step: 1,
-                                 value: 1,
-                                 tooltip: 'hide'
-                         }
-              %>
-              <div class="mt-4 mb-2 p-2 token-val-usd">
-                <label class="text-uppercase">Token Value in USD</label>
-                <div>750000</div>
-              </div>
-            </div>
-            <div class="col-8 offset-1 user-form form-group" id="ostSupplyPieArea">
-              <label class="form-label text-uppercase title">OST Supply</label>
-              <div class="d-flex align-items-center">
-                <div class="p-2">
-                  <div id="ostSupplyPie" style="width:200px; height: 200px"></div>
-                </div>
-                <div class="p-2 legend">
-                  <div class="pl-2 m-3" style="border-left: 5px solid #34445b;">
-                    <strong>OST Available</strong><br />350
-                  </div>
-                  <div class="pl-2 m-3" style="border-left: 5px solid #f6c62b;">
-                    <strong>Allocated For Transaction Fee</strong><br />30
-                  </div>
-                  <div class="pl-2 m-3" style="border-left: 5px solid #88c7ca;">
-                    <strong>OST Used For Creating Tokens</strong><br />310
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="user-form">
+            <%= render :partial => "web/economy/token_supply/mint_bt_widget",
+              :locals => {
+                :st_prime_to_mint_input_id => "st_prime_to_mint_input"
+              }
+            %>
           </div>
         </div>
       </div>
@@ -88,22 +55,12 @@
           </div>
         </div>
         <div class="card-body">
-          <div class="row user-form">
-            <div class="form-group col-6">
-              <div class="clearfix">
-                <label class="form-label float-left" for="bt"><%=coin_name%></label>
-                <span class="form-label float-right">Value Set <%=fiat_symbol%></span>
-              </div>
-              <input type="number" min="0" class="form-control" id="bt_rate">
-            </div>
-            <div style="width:0;position:relative;left:-5px;top:25px">&#8776;</div>
-            <div class="form-group col-6">
-              <div class="clearfix">
-                <label class="form-label float-left" for="ost">OST</label>
-                <span class="form-label float-right">Current Value <%=fiat_symbol%><%=ost_to_fiat%></span>
-              </div>
-              <input type="text" class="form-control" id="ost_rate" value="1" disabled />
-            </div>
+          <div class="user-form">
+            <%= render :partial => "shared/web/economy/ost_to_bt_widget",
+              :locals => {
+                :ost_to_bt_input_name => "conversion_rate"
+              }
+            %>
           </div>
         </div>
       </div>
@@ -123,7 +80,8 @@
               <div class="clearfix">
                 <label class="form-label float-left" for="bt">Allocated OST for Transaction Fees</label>
               </div>
-              <input type="number" min="0" class="form-control" id="bt_rate">
+              <input type="number" min="0" class="form-control" value="30"
+                id="st_prime_to_mint_input" name="st_prime_to_mint" />
             </div>
           </div>
         </div>

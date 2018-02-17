@@ -50,6 +50,7 @@
       var oThis = this;
 
       console.log("nextStep :: currentStep = " , oThis.currentStep );
+      oThis.unbindMetaMaskEvents();
       ost.metamask.stopObserver();
       switch( oThis.currentStep ) {
 
@@ -103,6 +104,7 @@
         case OST_GRANT_CONFIRMED:
           //Reset to NOTHING_IN_PROGRESS. Start from begining.
           oThis.currentStep = NOTHING_IN_PROGRESS;
+          oThis.bindMetaMaskEvents();
           ost.metamask.startObserver();
         break;
         case READ_ETH_BALANCE: 
@@ -188,27 +190,54 @@
     }
     , bindEvents: function () {
       var oThis = this;
+      //Do Somthing...
 
-      $( metamask ).on( metamask.events.onObservationComplete, function (event, success, response) {
-        if ( success && !$("#getInitialOstCover").hasClass("active-cover") ) {
-          ost.coverElements.show("#getInitialOstCover");
-        }
-      });
+    }
 
-      //Bind on Address Change.
-      $( metamask ).on(metamask.events.onAddressChanged, function ( event, eventData, newAddress ) {
-        console.log("metamask.events.onAddressChanged");
-        //I have received a valid address.
-        $("#ost__planner__address").text( newAddress );
-        $("#eth_address").val( newAddress );
-      });
+    ,bindMetaMaskEvents: function () {
+      var oThis = this;
+
+
+      var jMetaMask = $( metamask );
+      jMetaMask.on( metamask.events.onObservationComplete, oThis.onObservationComplete);
+      jMetaMask.on(metamask.events.onAddressChanged, oThis.onAddressChanged);
+
+    }
+
+    , unbindMetaMaskEvents: function () {
+      var oThis = this;
+
+
+      var jMetaMask = $( metamask );
+      jMetaMask.off( metamask.events.onObservationComplete, oThis.onObservationComplete);
+      jMetaMask.off(metamask.events.onAddressChanged, oThis.onAddressChanged);
+
+    }
+
+
+    , onAddressChanged: function ( event, eventData, newAddress ) { 
+      //DO NOT USE oThis HERE. Required for bindMetaMaskEvents/unbindMetaMaskEvents
+
+      console.log("metamask.events.onAddressChanged");
+      //I have received a valid address.
+      $("#ost__planner__address").text( newAddress );
+      $("#eth_address").val( newAddress );
+    }
+    , onObservationComplete: function (event, success, response) { 
+      //DO NOT USE oThis HERE. Required for bindMetaMaskEvents/unbindMetaMaskEvents
+
+      if ( success && !$("#getInitialOstCover").hasClass("active-cover") ) {
+        ost.coverElements.show("#getInitialOstCover");
+      }
     }
 
     , onOstGrantedCallback: null
     , getOst : function ( callback ) {
       var oThis = this;
       oThis.onOstGrantedCallback = callback;
+      oThis.bindMetaMaskEvents();
       ost.metamask.startObserver();
+
     }
     , getUserAddress: function () {
       return $("#eth_address").val();

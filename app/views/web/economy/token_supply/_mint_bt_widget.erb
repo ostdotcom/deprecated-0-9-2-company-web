@@ -1,0 +1,115 @@
+<%
+
+  #Things that need to be logically at top.
+  st_prime_to_mint_input_id = st_prime_to_mint_input_id
+  create_prime_mint_input = !st_prime_to_mint_input_id.present? ? true : false;
+
+  #Mandetory Params
+  user_ost_balance = 500
+
+  #Form Optional Params
+  
+  bt_to_mint = bt_to_mint.present? ? bt_to_mint : 1;
+  bt_to_mint_input_name = bt_to_mint_input_name.present? ? bt_to_mint_input_name : "bt_to_mint";
+
+  st_prime_to_mint = st_prime_to_mint.present? ? st_prime_to_mint : 0;
+  st_prime_to_mint_input_name = st_prime_to_mint_input_name.present? ? st_prime_to_mint_input_name : "st_prime_to_mint";
+
+  user_ost_balance_name = user_ost_balance_name.present? ? user_ost_balance_name : "user_ost_balance";
+  ost_to_transfer_name = ost_to_transfer_name.present? ? ost_to_transfer_name : "ost_to_transfer";
+  token_usd_value_name = token_usd_value_name.present? ? token_usd_value_name : "token_usd_value";
+
+
+
+  #Optional Params. Further Cusomisations
+  st_prime_to_mint_input_id = st_prime_to_mint_input_id.present? ? st_prime_to_mint_input_id : "st_prime_to_mint_input";
+  bt_to_mint_input_id = bt_to_mint_input_id.present? ? bt_to_mint_input_id : "bt_to_mint_input";
+  token_usd_value_id = token_usd_value_id.present? ? token_usd_value_id : "token_usd_value";
+
+  user_ost_balance_id = user_ost_balance_id.present? ? user_ost_balance_id : "user_ost_balance_input";
+
+  ost_to_transfer_id = ost_to_transfer_id.present? ? ost_to_transfer_id : "ost_to_transfer_input";
+  ost_balance_after_transfer_id = ost_balance_after_transfer_id.present? ? ost_balance_after_transfer_id : "ost_balance_after_transfer";
+  
+
+  #All Other things.
+
+%>
+
+<div class="row">
+  <div class="col-3">
+    <%= render partial: 'shared/web/common/slider_top',
+               locals: {
+                 label: 'No of Tokens to Create',
+                 id: bt_to_mint_input_id,
+                 name: bt_to_mint_input_name,
+                 type: 'number',
+                 min: 1,
+                 max: 100,
+                 step: 1,
+                 value: bt_to_mint,
+                 tooltip: 'hide'
+               }
+    %>
+
+    <% if create_prime_mint_input %>
+      <input type="hidden" 
+        id="<%= st_prime_to_mint_input_id %>" name="<%= st_prime_to_mint_input_name %>"
+        value="<%= st_prime_to_mint %>"
+      />
+    <% end %>
+
+    <input type="hidden"
+      id="<%= ost_to_transfer_id %>" name="<%= ost_to_transfer_name %>"
+    />
+    <input type="hidden" 
+      id="<%= user_ost_balance_id %>" name="<%= user_ost_balance_name %>" 
+      value="<%= user_ost_balance %>"
+    />
+
+    <input type="hidden" 
+      id="<%= token_usd_value_id %>" name="<%= token_usd_value_name %>" 
+    />
+
+    <div class="mt-4 mb-2 p-2 token-val-usd">
+      <label class="text-uppercase">Token Value in USD</label>
+      <div data-ost-mock-element="#<%= token_usd_value_id %>"></div>
+    </div>
+  </div>
+  <div class="col-8 offset-1 user-form form-group" id="ostSupplyPieArea">
+    <label class="form-label text-uppercase title">OST Supply</label>
+    <div class="d-flex align-items-center">
+      <div class="p-2">
+        <div id="ostSupplyPie" style="width:200px; height: 200px"></div>
+      </div>
+      <div class="p-2 legend">
+        <div class="pl-2 m-3" style="border-left: 5px solid #34445b;">
+          <strong>OST Available</strong><br /><span id="<%= ost_balance_after_transfer_id %>"></span>
+        </div>
+        <div class="pl-2 m-3" style="border-left: 5px solid #f6c62b;">
+          <strong>Allocated For Transaction Fee</strong><br /><span data-ost-mock-element="#<%= st_prime_to_mint_input_id %>"></span>
+        </div>
+        <div class="pl-2 m-3" style="border-left: 5px solid #88c7ca;">
+          <strong>OST Used For Creating Tokens</strong>
+          <br /><span data-ost-mock-element="#<%= ost_to_transfer_id %>"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :end_js do %> 
+<script type="text/javascript">
+  $(function () {
+    ost.mintBtWidget.init({
+      idOstBalance: "<%= user_ost_balance_id %>",
+      idTokenUsdValue: "<%= token_usd_value_id %>",
+      idBtToMint:"<%= bt_to_mint_input_id %>",
+      idStPrimeToMint: "<%= st_prime_to_mint_input_id %>",
+      idOstToTransfer: "<%= ost_to_transfer_id %>",
+      idOstAfter: "<%= ost_balance_after_transfer_id %>"
+    });
+  })
+</script>
+<% end %>
+
