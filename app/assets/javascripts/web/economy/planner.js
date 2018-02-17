@@ -39,14 +39,14 @@
 
 
 
-      PriceOracle.observeBtToFiat( $("#conversion_rate") );
+      PriceOracle.observeBtToFiat( $("#token_worth_in_usd") );
       $( PriceOracle ).on( PriceOracle.events.btToFiatUpdated, function (event, orgEvent, bigRatio, stringRatio ) {
 
-        var jEl = $("#conversion_rate");
+        var jEl = $("#token_worth_in_usd");
 
         //Make Sure to forward orgEvent;
         var didUpdate = jEl.safeSetVal( stringRatio, orgEvent );
-        didUpdate && console.log("updating conversion_rate to", stringRatio);
+        didUpdate && console.log("updating token_worth_in_usd to", stringRatio);
 
       });
 
