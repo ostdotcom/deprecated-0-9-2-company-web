@@ -29,6 +29,8 @@
         } else if ( oThis.grant_initial_ost ) {
           //Get Ost Next.
           oThis.getInitialOst();
+        } else {
+          oThis.plannerSetUpDone();
         }
       };
 
@@ -71,15 +73,14 @@
       var oThis = this;
       ost.metamask.getOstHelper.getOst( function () {
         console.log("getInitialOst flow complete");
-        
-        window.location = "/transactions";
+        oThis.plannerSetUpDone.apply(oThis, arguments);
       });
     },
 
-    getOstCallback: function () {
+    plannerSetUpDone: function () {
       var oThis = this;
       console.log("Planner :: getOstCallback triggered.\n", arguments);
-
+      window.location = "/planner/step-2";
     },
 
     showValidateEmailLightBox: function () {

@@ -15,7 +15,7 @@
 
   
   var oThis = metamask.getOstHelper = {
-    currentStep: OST_GRANT_CONFIRMED
+    currentStep: NOTHING_IN_PROGRESS
     , init: function ( config ) {
       var oThis = this;
       $.extend( oThis, config);
@@ -353,7 +353,7 @@
       //To-Do: Write an Api call to backend. Below is a dummy code.
 
       var ajaxConfig = {
-        url: "/api/client/get-ost/",
+        url: "/api/client/get-eth/",
         data: {
           eth_address: oThis.getUserAddress()
         },
@@ -374,7 +374,7 @@
         }
       };
 
-      $.get( ajaxConfig );
+      $.post( ajaxConfig );
 
       // setTimeout(function () {
       //   ajaxConfig.success({
