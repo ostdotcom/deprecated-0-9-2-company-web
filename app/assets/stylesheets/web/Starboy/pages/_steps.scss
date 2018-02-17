@@ -9,7 +9,7 @@
     position: relative;
     font-weight: 500;
     text-align: center;
-    color: #597a84;
+    color: $blue-700;
     &:first-child{
       &:after {
         background-color: transparent;
@@ -21,11 +21,12 @@
       width: 40px;
       height: 40px;
       font-size: 1rem;
-      line-height: 40px;
       border-radius: 50%;
       background-color: $cyan;
-      display: block;
-      color: #fff;
+      color: $white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin: 0 auto 5px auto;
     }
     &:after {
@@ -51,7 +52,7 @@
       &:before{
         box-shadow: 0 0 0 1px #88c7ca;
         color: #88c7ca;
-        background-color: #ffffff;
+        background-color: $white;
       }
     }
   }

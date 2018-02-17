@@ -6,6 +6,15 @@
     font-size: 0.9rem;
   }
 
+  .form-link{
+    color: $cyan;
+    display: inline-block;
+    border-bottom: 1px solid $cyan;
+    &:hover{
+      text-decoration: none;
+    }
+  }
+
   .form-check-label{
     color: #747a80;
   }
