@@ -6,6 +6,8 @@
 
   #Mandetory Params
   user_ost_balance = 500
+  simple_token_contract_address = "0x81601a360B615D9C30872886001d717EB692718D"
+  staker_address = "0x1366f5decdc4b48d918ff51e1553cc27000f4b88"
 
   #Form Optional Params
   
@@ -102,12 +104,15 @@
 <script type="text/javascript">
   $(function () {
     ost.mintBtWidget.init({
-      idOstBalance: "<%= user_ost_balance_id %>",
-      idTokenUsdValue: "<%= token_usd_value_id %>",
-      idBtToMint:"<%= bt_to_mint_input_id %>",
-      idStPrimeToMint: "<%= st_prime_to_mint_input_id %>",
-      idOstToTransfer: "<%= ost_to_transfer_id %>",
-      idOstAfter: "<%= ost_balance_after_transfer_id %>"
+      idOstBalance        : "<%= user_ost_balance_id %>"
+      , idTokenUsdValue   : "<%= token_usd_value_id %>"
+      , idBtToMint        :"<%= bt_to_mint_input_id %>"
+      , idStPrimeToMint   : "<%= st_prime_to_mint_input_id %>"
+      , idOstToTransfer   : "<%= ost_to_transfer_id %>"
+      , idOstAfter        : "<%= ost_balance_after_transfer_id %>"
+
+      , simple_token_contract_address: "<%= simple_token_contract_address %>"
+      , staker_address: "<%= staker_address %>"
     });
   })
 </script>

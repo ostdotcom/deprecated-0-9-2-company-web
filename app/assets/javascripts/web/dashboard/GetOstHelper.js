@@ -1,3 +1,8 @@
+/*
+  Note: We are using the Web3 Provided By MetaMask.
+  Its Vestion is 0.2x.x.
+  Documentation: https://github.com/ethereum/wiki/wiki/JavaScript-API
+*/
 ;
 (function (window, $) {
 
@@ -50,8 +55,8 @@
       var oThis = this;
 
       console.log("nextStep :: currentStep = " , oThis.currentStep );
-      oThis.unbindMetaMaskEvents();
-      ost.metamask.stopObserver();
+      oThis.stopObserver();
+
       switch( oThis.currentStep ) {
 
         case NOTHING_IN_PROGRESS:
@@ -104,8 +109,7 @@
         case OST_GRANT_CONFIRMED:
           //Reset to NOTHING_IN_PROGRESS. Start from begining.
           oThis.currentStep = NOTHING_IN_PROGRESS;
-          oThis.bindMetaMaskEvents();
-          ost.metamask.startObserver();
+          oThis.startObserver();
         break;
         case READ_ETH_BALANCE: 
         case ETH_GRANT_IN_PROGRESS:
@@ -159,7 +163,7 @@
         if ( !error && response ) {
           console.log("web3.eth.getBalance callback \n", response);
           try {
-            var amt       = web3.fromWei( response, "ether" )
+            var amt       = web3.eth.fromWei( response, "ether" )
               , strAmt    = amt.toString()
               , maxLen    = Math.min(strAmt.length, 4)
               , subStrAmt = strAmt.substring(0, maxLen)
@@ -198,7 +202,9 @@
       var oThis = this;
 
 
-      var jMetaMask = $( metamask );
+      var metamask = ost.metamask
+        , jMetaMask = $( metamask )
+      ;
       jMetaMask.on( metamask.events.onObservationComplete, oThis.onObservationComplete);
       jMetaMask.on(metamask.events.onAddressChanged, oThis.onAddressChanged);
 
@@ -208,7 +214,9 @@
       var oThis = this;
 
 
-      var jMetaMask = $( metamask );
+      var metamask = ost.metamask
+        , jMetaMask = $( metamask )
+      ;
       jMetaMask.off( metamask.events.onObservationComplete, oThis.onObservationComplete);
       jMetaMask.off(metamask.events.onAddressChanged, oThis.onAddressChanged);
 
@@ -216,7 +224,7 @@
 
 
     , onAddressChanged: function ( event, eventData, newAddress ) { 
-      //DO NOT USE oThis HERE. Required for bindMetaMaskEvents/unbindMetaMaskEvents
+      //DO NOT Assign oThis HERE. Required for bindMetaMaskEvents/unbindMetaMaskEvents
 
       console.log("metamask.events.onAddressChanged");
       //I have received a valid address.
@@ -224,7 +232,7 @@
       $("#eth_address").val( newAddress );
     }
     , onObservationComplete: function (event, success, response) { 
-      //DO NOT USE oThis HERE. Required for bindMetaMaskEvents/unbindMetaMaskEvents
+      //DO NOT Assign oThis HERE. Required for bindMetaMaskEvents/unbindMetaMaskEvents
 
       if ( success && !$("#getInitialOstCover").hasClass("active-cover") ) {
         ost.coverElements.show("#getInitialOstCover");
@@ -235,8 +243,7 @@
     , getOst : function ( callback ) {
       var oThis = this;
       oThis.onOstGrantedCallback = callback;
-      oThis.bindMetaMaskEvents();
-      ost.metamask.startObserver();
+      oThis.startObserver();
 
     }
     , getUserAddress: function () {
@@ -404,15 +411,20 @@
       };
 
       $.post( ajaxConfig );
+    }
 
-      // setTimeout(function () {
-      //   ajaxConfig.success({
-      //     success: true,
-      //     data: {
-      //       transaction_hash: "0xa7c22df7a4beabe9d3f8962ddfb912f350953482c54dfa58e2fbe8e30bc7b113"
-      //     }
-      //   })
-      // }, 300);
+    , startObserver: function () {
+      var oThis = this;
+
+      oThis.bindMetaMaskEvents();
+      ost.metamask.startObserver( oThis );
+    }
+
+    , stopObserver: function () {
+      var oThis = this;
+
+      oThis.unbindMetaMaskEvents();
+      ost.metamask.stopObserver( oThis );
     }
 
 

@@ -1,9 +1,13 @@
+/*
+  Note: We are using the Web3 Provided By MetaMask.
+  Its Vestion is 0.2x.x.
+  Documentation: https://github.com/ethereum/wiki/wiki/JavaScript-API
+*/
+
 ;
 (function (window, $) {
 
   var parentNS  = ns("ost");
-
-  
 
 
 
@@ -268,7 +272,7 @@
 
     validateValueChainId: function ( callback ) {
       var oThis = this;
-
+      //ost.metamask.web3().eth.net.getId
       var web3      = oThis.web3()
         , config    = oThis.config
         , chainId   = web3.version.network
@@ -284,6 +288,8 @@
         callback && callback( response.success, response );
       }, 100);
     },
+
+
 
     updateAccount: function ( newAccount ) {
       var oThis = this;
