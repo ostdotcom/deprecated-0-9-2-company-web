@@ -53,12 +53,12 @@
               <span class="align-middle">API Call</span>
             </button>
           {{/IfShowApiCallButton}}
-          <a href="javascript:void(0)" class="editRow" data-result-id="{{id}}">
+          <a href="javascript:void(0)" class="editRow rounded-circle edit-btn" data-result-id="{{id}}" title="Edit">
             <svg class="icon-edit align-middle">
               <switch>
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-edit"></use>
+                <use class="icon-edit" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-edit"></use>
               </switch>
-            </svg>EDIT
+            </svg>
           </a>
           <input type="hidden" name="id" value={{id}}/>
           <input type="hidden" name="uts" value={{uts}}/>
