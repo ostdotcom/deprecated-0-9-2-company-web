@@ -13,7 +13,7 @@
     version: 'current',
     packages: ['corechart'],
     data: [],
-    headers: [],
+    columns: [],
     ajax: {},
     options: {},
     selector: null,
@@ -63,18 +63,18 @@
     },
 
     /*
-     * Make data using headers or only data
+     * Make data using columns or only data
      */
     makeData: function(rawData){
       var oThis = this;
 
-      if(!$.isEmptyObject(oThis.headers)){
+      if(!$.isEmptyObject(oThis.columns)){
         var data = new google.visualization.DataTable();
-        $.each( oThis.headers, function( index, value ) {
-          data.addColumn(value.type, value.title);
+        $.each( oThis.columns, function( index, value ) {
+          data.addColumn(value);
         });
         data.addRows(oThis.data);
-        console.log('Using custom headers and data to build DataTable...');
+        console.log('Using custom columns and data to build DataTable...');
       } else {
         var data = google.visualization.arrayToDataTable(rawData);
         console.log('Using data via arrayToDataTable...');

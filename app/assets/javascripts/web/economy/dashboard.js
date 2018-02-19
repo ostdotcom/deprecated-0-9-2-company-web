@@ -14,10 +14,10 @@
       oThis.simpleDataTable = new ost.SimpleDataTable();
       oThis.googleCharts = new GoogleCharts();
       oThis.googleCharts.draw({
-        headers: [
-          {type: 'date', title: 'Date'},
-          {type: 'number', title: 'Transaction count'},
-          {type: 'number', title: 'OST Amount'},
+        columns: [
+          {type: 'date', opt_label: 'Date'},
+          {type: 'number', opt_label: 'Transaction count'},
+          {type: 'number', opt_label: 'OST Amount'},
         ],
         ajax: {
           url: 'http://devcompany.com:8080/month.json'
