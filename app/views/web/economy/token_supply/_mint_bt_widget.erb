@@ -4,35 +4,65 @@
   st_prime_to_mint_input_id = st_prime_to_mint_input_id
   create_prime_mint_input = !st_prime_to_mint_input_id.present? ? true : false;
 
+  ost_to_bt_input_id = ost_to_bt_input_id
+  create_ost_to_bt_input = !ost_to_bt_input_id.present? ? true : false;
+
+  bt_to_fiat_input_id = bt_to_fiat_input_id
+  create_bt_to_fiat_input = !bt_to_fiat_input_id.present? ? true : false;
+
   #Mandetory Params
   user_ost_balance = 500
-  simple_token_contract_address = "0x81601a360B615D9C30872886001d717EB692718D"
   staker_address = "0x1366f5decdc4b48d918ff51e1553cc27000f4b88"
+  stake_and_mint_form_id = stake_and_mint_form_id
 
   #Form Optional Params
   
-  bt_to_mint = bt_to_mint.present? ? bt_to_mint : 1;
+  bt_to_mint = bt_to_mint.present? ? bt_to_mint : 100;
   bt_to_mint_input_name = bt_to_mint_input_name.present? ? bt_to_mint_input_name : "bt_to_mint";
 
+
+  #These are used only if st_prime_to_mint_input_id is not specified.
   st_prime_to_mint = st_prime_to_mint.present? ? st_prime_to_mint : 0;
-  st_prime_to_mint_input_name = st_prime_to_mint_input_name.present? ? st_prime_to_mint_input_name : "st_prime_to_mint";
+  st_prime_to_mint_input_name = st_prime_to_mint_input_name.present? ? 
+    st_prime_to_mint_input_name : "st_prime_to_mint";
+  #These are used only if ost_to_bt_input_id is not specified.
+  ost_to_bt_input_name = ost_to_bt_input_name.present? ? ost_to_bt_input_name : "conversion_rate";
 
   user_ost_balance_name = user_ost_balance_name.present? ? user_ost_balance_name : "user_ost_balance";
   ost_to_transfer_name = ost_to_transfer_name.present? ? ost_to_transfer_name : "ost_to_transfer";
   token_usd_value_name = token_usd_value_name.present? ? token_usd_value_name : "token_usd_value";
-
+  bt_to_ost_input_name = bt_to_ost_input_name.present? ? bt_to_ost_input_name : "bt_to_ost";
+  bt_to_fiat_input_name = bt_to_fiat_input_name.present? ? bt_to_fiat_input_name : "bt_to_fiat";
 
 
   #Optional Params. Further Cusomisations
-  st_prime_to_mint_input_id = st_prime_to_mint_input_id.present? ? st_prime_to_mint_input_id : "st_prime_to_mint_input";
-  bt_to_mint_input_id = bt_to_mint_input_id.present? ? bt_to_mint_input_id : "bt_to_mint_input";
-  token_usd_value_id = token_usd_value_id.present? ? token_usd_value_id : "token_usd_value";
+  st_prime_to_mint_input_id = st_prime_to_mint_input_id.present? ? 
+    st_prime_to_mint_input_id : "st_prime_to_mint_input";
 
-  user_ost_balance_id = user_ost_balance_id.present? ? user_ost_balance_id : "user_ost_balance_input";
+  bt_to_mint_input_id = bt_to_mint_input_id.present? ?
+     bt_to_mint_input_id : "bt_to_mint_input";
 
-  ost_to_transfer_id = ost_to_transfer_id.present? ? ost_to_transfer_id : "ost_to_transfer_input";
-  ost_balance_after_transfer_id = ost_balance_after_transfer_id.present? ? ost_balance_after_transfer_id : "ost_balance_after_transfer";
+  token_usd_value_id = token_usd_value_id.present? ? 
+    token_usd_value_id : "token_usd_value";
+
+  user_ost_balance_id = user_ost_balance_id.present? ? 
+    user_ost_balance_id : "user_ost_balance_input";
+
+  ost_to_transfer_id = ost_to_transfer_id.present? ? 
+    ost_to_transfer_id : "ost_to_transfer_input";
+
+  ost_balance_after_transfer_id = ost_balance_after_transfer_id.present? ?
+    ost_balance_after_transfer_id : "ost_balance_after_transfer";
   
+  bt_to_ost_input_id = bt_to_ost_input_id.present? ?
+    bt_to_ost_input_id : "bt_to_ost_input";
+
+  bt_to_fiat_input_id = bt_to_fiat_input_id.present? ?
+    bt_to_fiat_input_id : "bt_to_fiat_input";
+
+  ost_transfered_transaction_hash_id = ost_transfered_transaction_hash_id.present? ?
+    ost_transfered_transaction_hash_id : "ost_transfered_transaction_hash_input"
+
 
   #All Other things.
 
@@ -47,7 +77,7 @@
                  name: bt_to_mint_input_name,
                  type: 'number',
                  min: 1,
-                 max: 100,
+                 max: 500,
                  step: 1,
                  value: bt_to_mint,
                  tooltip: 'hide'
@@ -60,7 +90,6 @@
         value="<%= st_prime_to_mint %>"
       />
     <% end %>
-
     <input type="hidden"
       id="<%= ost_to_transfer_id %>" name="<%= ost_to_transfer_name %>"
     />
@@ -72,6 +101,24 @@
     <input type="hidden" 
       id="<%= token_usd_value_id %>" name="<%= token_usd_value_name %>" 
     />
+
+    <% if create_ost_to_bt_input %>
+      <input type="hidden" 
+        id="<%= ost_to_bt_input_id %>" name="<%= ost_to_bt_input_name %>"
+      />
+    <% end %>
+    <% if create_bt_to_fiat_input %>
+      <input type="hidden" 
+        id="<%= bt_to_fiat_input_id %>" name="<%= bt_to_fiat_input_name %>"
+      />
+    <% end %>
+    <input type="hidden" 
+      id="<%= bt_to_ost_input_id %>" name="<%= bt_to_ost_input_name %>"
+    />
+
+    <input type="hidden" 
+      id="<%= ost_transfered_transaction_hash_id %>" name="transaction_hash" />
+
 
     <div class="mt-4 mb-2 p-2 token-val-usd">
       <label class="text-uppercase">Token Value in USD</label>
@@ -100,6 +147,26 @@
   </div>
 </div>
 
+
+<% content_for :popups do %>
+  <%= render partial: 'shared/web/modals/stake_mint_confirm',
+    locals: {
+      :bt_to_mint_input_id => bt_to_mint_input_id,
+      :st_prime_to_mint_input_id => st_prime_to_mint_input_id,
+      :ost_to_transfer_id => ost_to_transfer_id,
+      :token_usd_value_id => token_usd_value_id,
+      :bt_to_ost_input_id => bt_to_ost_input_id,
+      :bt_to_fiat_input_id => bt_to_fiat_input_id
+    }
+  %>
+  <%= render partial: 'shared/web/modals/stake_mint_processing',
+    locals: {
+
+    }
+  %>
+<% end %>
+
+
 <% content_for :end_js do %> 
 <script type="text/javascript">
   $(function () {
@@ -110,8 +177,11 @@
       , idStPrimeToMint   : "<%= st_prime_to_mint_input_id %>"
       , idOstToTransfer   : "<%= ost_to_transfer_id %>"
       , idOstAfter        : "<%= ost_balance_after_transfer_id %>"
-
-      , simple_token_contract_address: "<%= simple_token_contract_address %>"
+      , idOstToBt         : "<%= ost_to_bt_input_id %>"
+      , idBtToOst         : "<%= bt_to_ost_input_id %>"
+      , idBtToFiat        : "<%= bt_to_fiat_input_id %>"
+      , idForm            : "<%= stake_and_mint_form_id %>"
+      , idTransferHash    : "<%= ost_transfered_transaction_hash_id %>"
       , staker_address: "<%= staker_address %>"
     });
   })

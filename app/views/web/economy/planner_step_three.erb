@@ -13,98 +13,111 @@
    has_verified_email = @presenter_obj.user.is_verified?
    grant_initial_ost = true
 %>
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h3 class="text-center mt-4">Plan the Francesco Coin Economy in 3 Easy Steps</h3>
-      <%= render partial: 'shared/web/common/steps',
-                 locals: {
-                         classes_step_1: '',
-                         classes_step_2: 'complete',
-                         classes_step_3: 'active'
-                 }
-      %>
+<form id="step3_stake_and_mint_form" 
+  action="/api/economy/token/stake-and-mint"  method="POST"
+  class="form-container user-form" data-ost-formhelper>
 
-      <div class="card card-planner mb-5">
-        <div class="card-header">
-          <div class="d-flex align-items-center">
-            <div class="mr-auto">
-              <h5 class="card-title mb-1">Create Tokens for your economy.</h5>
-              <p class="card-text">OST needed to create the tokens will automatically be used.</p>
-            </div>
-            <div class="text-uppercase small"><a href="#">Know more</a></div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="user-form">
-            <%= render :partial => "web/economy/token_supply/mint_bt_widget",
-              :locals => {
-                :st_prime_to_mint_input_id => "st_prime_to_mint_input"
-              }
-            %>
-          </div>
-        </div>
-      </div>
 
-      <div class="card card-planner mb-5">
-        <div class="card-header">
-          <div class="d-flex align-items-center">
-            <div class="mr-auto">
-              <h5 class="card-title mb-1">Conversion Rate</h5>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="user-form">
-            <%= render :partial => "shared/web/economy/ost_to_bt_widget",
-              :locals => {
-                :ost_to_bt_input_name => "conversion_rate"
-              }
-            %>
-          </div>
-        </div>
-      </div>
 
-      <div class="card card-planner mb-5">
-        <div class="card-header">
-          <div class="d-flex align-items-center">
-            <div class="mr-auto">
-              <h5 class="card-title mb-1">Reserved OST for Transaction Fees.</h5>
-              <p class="card-text">You can pay for 50000 transactions with just 1 OST</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="row user-form">
-            <div class="form-group col-6">
-              <div class="clearfix">
-                <label class="form-label float-left" for="bt">Allocated OST for Transaction Fees</label>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="text-center mt-4">Plan the Francesco Coin Economy in 3 Easy Steps</h3>
+        <%= render partial: 'shared/web/common/steps',
+                   locals: {
+                           classes_step_1: '',
+                           classes_step_2: 'complete',
+                           classes_step_3: 'active'
+                   }
+        %>
+
+        <div class="card card-planner mb-5">
+          <div class="card-header">
+            <div class="d-flex align-items-center">
+              <div class="mr-auto">
+                <h5 class="card-title mb-1">Create Tokens for your economy.</h5>
+                <p class="card-text">OST needed to create the tokens will automatically be used.</p>
               </div>
-              <input type="number" min="0" class="form-control" value="30"
-                id="st_prime_to_mint_input" name="st_prime_to_mint" />
+              <div class="text-uppercase small"><a href="#">Know more</a></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="user-form">
+              <%= render :partial => "web/economy/token_supply/mint_bt_widget",
+                :locals => {
+                  :st_prime_to_mint_input_id => "st_prime_to_mint_input",
+                  :stake_and_mint_form_id => "step3_stake_and_mint_form",
+                  :ost_to_bt_input_id => "ost_to_bt_input",
+                  :bt_to_fiat_input_id => "bt_to_fiat_input"
+                }
+              %>
             </div>
           </div>
         </div>
-      </div>
 
+        <div class="card card-planner mb-5">
+          <div class="card-header">
+            <div class="d-flex align-items-center">
+              <div class="mr-auto">
+                <h5 class="card-title mb-1">Conversion Rate</h5>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="user-form">
+              <%= render :partial => "shared/web/economy/ost_to_bt_widget",
+                :locals => {
+                  :ost_to_bt_input_name => "conversion_rate"
+                }
+              %>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-planner mb-5">
+          <div class="card-header">
+            <div class="d-flex align-items-center">
+              <div class="mr-auto">
+                <h5 class="card-title mb-1">Reserved OST for Transaction Fees.</h5>
+                <p class="card-text">You can pay for 50000 transactions with just 1 OST</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row user-form">
+              <div class="form-group col-6">
+                <div class="clearfix">
+                  <label class="form-label float-left" for="bt">Allocated OST for Transaction Fees</label>
+                </div>
+                <input type="number" min="0" class="form-control" value="30" required
+                  id="st_prime_to_mint_input" name="st_prime_to_mint" />
+                  <div class="invalid-feedback" data-forid="st_prime_to_mint_input">&nbps;</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <%= render :partial => "shared/web/common/faqs" %>
+
+  </div>
+
+  <div class="row" style="background: #d9a025;">
+    <div class="container">
+      <a href="/planner/step-2" class="btn btn-steps-nav pt-3 pb-3 float-left text-left">&lt; Transactions</a>
+      <button type="submit" id="mint_tokens_btn" href="javascript:void(0)" class="btn btn-steps-nav bg-yellow pt-3 pb-3 float-right">Mint coins &gt;</button>
     </div>
   </div>
-
-  <%= render :partial => "shared/web/common/faqs" %>
-
-</div>
-
-<div class="row" style="background: #d9a025;">
-  <div class="container">
-    <a href="/planner/step-2" class="btn btn-steps-nav pt-3 pb-3 float-left text-left">&lt; Transactions</a>
-    <a href="javascript:void(0)" class="btn btn-steps-nav bg-yellow pt-3 pb-3 float-right">Mint coins &gt;</a>
-  </div>
-</div>
+</form>
 
 <% content_for :end_js do %>
     <script type="text/javascript">
-        $( function () {
-            ost.planner_3.init({});
-        });
+      $( function () {
+          ost.planner_3.init({
+            idMintTokens : "mint_tokens_btn"
+          });
+      });
     </script>
 <% end %>

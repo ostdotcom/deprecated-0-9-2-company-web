@@ -19,6 +19,14 @@
     , idTokenUsdValue : null
     , idOstBalance    : null
     , idOstAfter      : null
+    , idOstToBt       : null
+    , idBtToOst       : null
+    , idBtToFiat      : null
+    , idForm          : null
+    , idTransferHash  : null
+    , idConfirmModal  : "stake-mint-confirm"
+    , idConfirmBtn    : "confirm_mint_button"
+    , idProcessModal  : "stake-mint-processing"
 
     /* jQuery Dom Refrences */
     , jOstToTransfer  : null
@@ -26,6 +34,15 @@
     , jTokenUsdValue  : null
     , jOstBalance     : null
     , jOstAfter       : null
+    , jOstToBt        : null
+    , jBtToOst        : null
+    , jBtToFiat       : null
+    , jForm           : null
+    , ostFormHelper   : null
+    , jTransferHash   : null
+    , jConfirmModal   : null
+    , jConfirmBtn     : null
+    , jProcessModal   : null
     /* 
       NOTE: Try to only read from jStPrimeToMint, Please avoid setting Property. 
       Discuss if needed, jStPrimeToMint is not always owned by this widget.
@@ -47,11 +64,40 @@
       oThis.jOstAfter       = oThis.jOstAfter       || $( "#" + oThis.idOstAfter );
       oThis.jStPrimeToMint  = oThis.jStPrimeToMint  || $( "#" + oThis.idStPrimeToMint );
 
+      //Conversion related inputs
+      oThis.jOstToBt        = oThis.jOstToBt        || $( "#" + oThis.idOstToBt );
+      oThis.jBtToOst        = oThis.jBtToOst        || $( "#" + oThis.idBtToOst );
+      oThis.jBtToFiat       = oThis.jBtToFiat       || $( "#" + oThis.idBtToFiat );
+      
+      //Other things.
+      oThis.jForm           = oThis.jForm           || $( "#" + oThis.idForm );
+      oThis.jConfirmModal   = oThis.jConfirmModal   || $( "#" + oThis.idConfirmModal );
+      oThis.jConfirmBtn     = oThis.jConfirmBtn     || $( "#" + oThis.idConfirmBtn );
+      oThis.jProcessModal   = oThis.jProcessModal   || $( "#" + oThis.idProcessModal );
+      oThis.jTransferHash   = oThis.jTransferHash   || $( "#" + oThis.idTransferHash );
+
+      console.log("jForm", oThis.jForm);
+      oThis.ostFormHelper   = oThis.jForm.formHelper({
+        submitHandler : function () {
+          if ( oThis.jTransferHash.val() ) {
+            oThis.submitForm();
+          } else {
+            oThis.formSubmitHandler.apply( oThis, arguments );  
+          }
+        }
+        , success: function () {
+          oThis.onFormSubmitSuccess.apply(oThis, arguments);
+        }
+      });
+
       PriceOracle.bindCurrencyElements(oThis.jBtToMint, oThis.jTokenUsdValue, oThis.jOstToTransfer);
+
       oThis.jBtToMint.trigger("change");
       google.charts.load('current', {packages: ['corechart']});
 
       oThis.bindEvents();
+
+      oThis.updateBtToOst();
 
     }
 
@@ -61,17 +107,80 @@
       oThis.jBtToMint.on("change", function () {
         oThis.updateChart();
       });
+
       oThis.jStPrimeToMint.on("change", function () {
         oThis.updateChart();
       });
 
+      oThis.jConfirmBtn.on("click", function () {
+        oThis.formSubmitConfirmed();
+      });
 
+
+      $( PriceOracle ).on( PriceOracle.events.ostToBtUpdated, function (event, orgEvent, ostToBt ) {
+        oThis.ostToBtUpdated.apply(oThis, arguments);
+      });
 
       google.charts.setOnLoadCallback( function () {
         oThis.onChartsLoaded.apply(oThis, arguments);
       });
     }
 
+    , ostToBtUpdated: function () {
+      var oThis = this;
+
+      oThis.jBtToMint.trigger("change");
+      oThis.updateBtToOst();
+    }
+
+    , updateBtToOst: function () {
+      var oThis = this;
+
+      oThis.jBtToOst.safeSetVal( PriceOracle.btToOst( 1 ) );
+    }
+
+    //Everything Related to Form.
+    , formSubmitHandler: function (form, event) {
+      var oThis = this;
+
+      oThis.jConfirmModal.modal("show");
+    }
+
+    , formSubmitConfirmed : function () {
+      var oThis = this;
+
+      oThis.jConfirmBtn.prop("disabled", true);
+      oThis.transferToStaker( function ( response ) {
+        if ( response.success ) {
+          var transaction_hash = response.data.transaction_hash;
+          console.log("transaction_hash", transaction_hash);
+          oThis.jConfirmModal.modal("hide");
+          oThis.processStaking( transaction_hash );
+        }
+        oThis.jConfirmBtn.prop("disabled", false);
+      });
+    }
+
+    , processStaking: function ( transaction_hash ) {
+      oThis.jTransferHash.val( transaction_hash );
+      
+      oThis.submitForm();
+    }
+
+    , submitForm: function () {
+      //Show pop-up
+      oThis.jProcessModal.modal("show");
+      //Submit the form.
+      var submitHandler = FormHelper.prototype.submitHandler;
+      submitHandler.call( oThis.ostFormHelper, oThis.jForm[0] );      
+    }
+
+    , onFormSubmitSuccess: function ( response ) {
+      console.log("|||||| onFormSubmitSuccess! ||||||");
+    }
+
+
+    //Everything related to transfer OST to staker.
     , onTransferCallback : null
     , transferToStaker: function ( onTransferCallback ) {
       var oThis = this;
@@ -107,7 +216,7 @@
 
       oThis.isSendInProgress = true;
 
-      var contract  = oThis.simpleTokenContract = oThis.simpleTokenContract || oThis.createSimpleTokenContract()
+      var contract  = oThis.simpleTokenContract = oThis.simpleTokenContract || ost.metamask.createSimpleTokenContract()
         , recipient = oThis.staker_address
         , web3      = ost.metamask.web3()
         , ostToTransfer
@@ -143,17 +252,21 @@
         } else {
           forwardResponse.success = true;
           forwardResponse.data.transaction_hash = result;
-          oThis.metamask.validateTransactionHash( result , function ( response ) {
+          ost.metamask.validateTransactionHash( result , function ( response ) {
             console.log("validateTransactionHash response", response);
           });
         }
 
+        console.log("forwardResponse", forwardResponse);
+
         var callback = oThis.onTransferCallback;
         oThis.onTransferCallback = null;
         oThis.stopObserver();
+        console.log("forwardResponse", forwardResponse);
         callback && callback( forwardResponse );
 
         oThis.isSendInProgress = false;
+
       };
 
 
@@ -208,6 +321,9 @@
       jMetaMask.off(metamask.events.onAddressChanged, oThis.onAddressChanged);
       oThis.userAddress = null;
     }
+
+
+
 
     //Every thing to do with charts
     , gChart: null
@@ -290,16 +406,6 @@
         , duration  : 300
       }
     }
-
-    /* Let This be the last property */
-    , createSimpleTokenContract: function () {
-      var oThis = this;
-
-      var web3 = ost.metamask.metaMaskWeb3();
-      var Contract =  web3.eth.contract(oThis.simpleTokenAbi)
-      return Contract.at(oThis.simple_token_contract_address );
-    }
-    , simpleTokenAbi: [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"TOKEN_NAME","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"TOKEN_SYMBOL","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_adminAddress","type":"address"}],"name":"setAdminAddress","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_value","type":"uint256"}],"name":"burn","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"finalize","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"TOKEN_DECIMALS","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_opsAddress","type":"address"}],"name":"setOpsAddress","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"DECIMALSFACTOR","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"opsAddress","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"TOKENS_MAX","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"finalized","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_proposedOwner","type":"address"}],"name":"initiateOwnershipTransfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"proposedOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"completeOwnershipTransfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"adminAddress","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"Burnt","type":"event"},{"anonymous":false,"inputs":[],"name":"Finalized","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_newAddress","type":"address"}],"name":"AdminAddressChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_newAddress","type":"address"}],"name":"OpsAddressChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_proposedOwner","type":"address"}],"name":"OwnershipTransferInitiated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_newOwner","type":"address"}],"name":"OwnershipTransferCompleted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}]
 
   }
 

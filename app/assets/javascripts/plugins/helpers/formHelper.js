@@ -14,7 +14,7 @@
   var customFormInputAttr = "ost-formelement";
   var autoBinderAttr      = "data-ost-formhelper";
 
-  function FormHelper( jForm ) {
+  var FormHelper = window.FormHelper = function  ( jForm ) {
     this.jForm  = jForm;
     if ( !jForm.is("form") ) {
       console.log("FormHelper :: Error instantiating class. jForm :: ");

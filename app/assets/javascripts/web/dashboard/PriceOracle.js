@@ -126,7 +126,9 @@
     }
 
     , observeOstToBt: function ( jBtInput ) {
-      var oThis = this;
+      var oThis = this
+        , logMe = false
+      ;
 
       $( jBtInput ).on("change input blur", function ( event, val, orgEvent ) {
 
@@ -135,20 +137,24 @@
         ;
 
         if ( orgEvent && jEl.is( orgEvent.currentTarget ) ) {
+          logMe && console.log("we have orgEvent", orgEvent);
           return;
         }
 
         if ( oThis.isNaN( bt ) ) {
+          logMe && console.log("bt isNaN", bt);
           return;
         }
 
+        logMe && console.log("bt val", bt);
         bt = oThis.toBt( bt );
-        jEl.val( bt );
-
+      
         var existing = oThis.toOst( OST_TO_BT );
+        logMe && console.log("bt", bt, "existing bt", existing);
         if ( existing.eq( bt ) || bt.isLessThanOrEqualTo( 0 ) ) {
           return;
         }
+        jEl.val( bt );
         
 
         var ostToBt = oThis.toOst( bt )
@@ -158,9 +164,9 @@
         bt_to_fiat  = oThis.btToFiat( 1 );
 
 
-        console.log("observeOstToBt bt" , bt.toString() );
-        console.log("observeOstToBt OST_TO_BT" , OST_TO_BT );
-        console.log("observeOstToBt bt_to_fiat" , bt_to_fiat.toString() );
+        logMe && console.log("observeOstToBt bt" , bt.toString() );
+        logMe && console.log("observeOstToBt OST_TO_BT" , OST_TO_BT );
+        logMe && console.log("observeOstToBt bt_to_fiat" , bt_to_fiat.toString() );
 
         
         //Fire Events

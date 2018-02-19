@@ -163,7 +163,7 @@
         if ( !error && response ) {
           console.log("web3.eth.getBalance callback \n", response);
           try {
-            var amt       = web3.eth.fromWei( response, "ether" )
+            var amt       = web3.fromWei( response, "ether" )
               , strAmt    = amt.toString()
               , maxLen    = Math.min(strAmt.length, 4)
               , subStrAmt = strAmt.substring(0, maxLen)
@@ -180,6 +180,7 @@
             
           } catch( e ) {
             console.log("Error converting response");
+            console.log( e );
           }
           
           

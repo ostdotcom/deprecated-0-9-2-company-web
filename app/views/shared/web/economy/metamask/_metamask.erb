@@ -4,6 +4,7 @@
   token_name = client_token.name;
   token_symbol = client_token.symbol;
   token_icon = client_token.symbol_icon;
+  simple_token_contract_address = "0x2240857e9366c894880ce3bf2e9ce290e69f766a"
 
   if @presenter_obj.chain_interaction_params.present?
     value_chain_id = @presenter_obj.chain_interaction_params.value_chain_id;
@@ -12,6 +13,8 @@
     value_chain_id = ''
     utility_chain_id = ''
   end
+
+  #value_chain_id = 1411
 
   eligible_grant_value = 500;
   eligible_grant_unit = "OST &alpha;"
@@ -33,7 +36,8 @@
     :grant_eth_from_metamask_focet => grant_eth_from_metamask_focet,
     :grant_eth_from_ost_focet => grant_eth_from_ost_focet,
     :validate_transaction_hash_interval => validate_transaction_hash_interval,
-    :validate_transaction_hash_max_try  => validate_transaction_hash_max_try
+    :validate_transaction_hash_max_try  => validate_transaction_hash_max_try,
+    :simple_token_contract_address => simple_token_contract_address
   }
 %>
 
@@ -52,7 +56,8 @@
       grantEthFromMetamaskFocet: <%= grant_eth_from_metamask_focet %>,
       grantEthFromOstFocet: <%= grant_eth_from_ost_focet %>,
       validateTransactionHashInterval: <%= validate_transaction_hash_interval %>,
-      validateTransactionHashMaxTry: <%= validate_transaction_hash_max_try %>
+      validateTransactionHashMaxTry: <%= validate_transaction_hash_max_try %>,
+      simpleTokenContractAddress: "<%= simple_token_contract_address %>"
     };
     ost.metamask.init( config );
   });
