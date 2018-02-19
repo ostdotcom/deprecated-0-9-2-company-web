@@ -4,7 +4,15 @@ svg.get-help-icon{
   fill: rgba(67, 139, 173, 0.5);
 }
 svg.icon-api{
-  height: 25px;
-  width: 25px;
+  height: 20px;
+  width: 20px;
   fill: #84d1d4;
+}
+svg.icon-edit{
+  height: 20px;
+  width: 20px;
+  fill: #84d1d4;
+}
+svg{
+  pointer-events: none;
 }

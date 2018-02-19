@@ -37,7 +37,7 @@
   <table id="transaction_list" class="transactions" data-simple-table data-url="/api/economy/transaction/kind/list">
     <script type="text/x-handlebars-template" data-row-template>
       <tr class="row align-items-center py-3 mt-1 mb-3 rounded ost-table-row" style="background-color: #f1f5f8;">
-        <td class="col-2">{{name}}<br/>{{kind_display_text}}</td>
+        <td class="col-2">{{name}}<br/><small class="font-weight-light">{{kind_display_text}}</small></td>
         <td class="col-2"><%= fiat_symbol %>{{value_in_fiat}}</td>
         <td class="col-2">{{value_in_bt}}</td>
         <td class="col-2">{{price_oracle_text}}</td>
@@ -45,13 +45,21 @@
         <td class="col-3">
           {{#IfShowApiCallButton id }}
             <button class="showApiCallBtn btn btn-white">
-              <svg class="icon-api">
+              <svg class="icon-api align-middle">
                 <switch>
                   <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-api"></use>
                 </switch>
-              </svg>API Call</button>
+              </svg>
+              <span class="align-middle">API Call</span>
+            </button>
           {{/IfShowApiCallButton}}
-          <a href="javascript:void(0)" class="editRow" data-result-id="{{id}}">Edit</a>
+          <a href="javascript:void(0)" class="editRow" data-result-id="{{id}}">
+            <svg class="icon-edit align-middle">
+              <switch>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-edit"></use>
+              </switch>
+            </svg>EDIT
+          </a>
           <input type="hidden" name="id" value={{id}}/>
           <input type="hidden" name="uts" value={{uts}}/>
         </td>
