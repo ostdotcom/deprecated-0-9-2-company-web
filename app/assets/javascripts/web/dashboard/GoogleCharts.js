@@ -100,7 +100,12 @@
      * ajaxCallback boilerplate
      */
     ajaxCallback: function(response){
-      return response;
+      var data = [];
+      data.push(Object.keys(response.data[response.data.result_type][0]));
+      $.each( response.data[response.data.result_type], function( index, value ) {
+        data.push(Object.values(value));
+      });
+      return data;
     }
 
   };

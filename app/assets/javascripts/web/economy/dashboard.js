@@ -14,32 +14,61 @@
       oThis.simpleDataTable = new ost.SimpleDataTable();
       oThis.googleCharts = new GoogleCharts();
       oThis.googleCharts.draw({
-        columns: [
-          {type: 'date', opt_label: 'Date'},
-          {type: 'number', opt_label: 'Transaction count'},
-          {type: 'number', opt_label: 'OST Amount'},
-        ],
         ajax: {
           url: 'http://devcompany.com:8080/month.json'
         },
         ajaxCallback: function(response){
           var data = [];
-          $.each( response.data.number_of_transactions, function( index, value ) {
+          data.push(Object.keys(response.data[response.data.result_type][0]));
+          $.each( response.data[response.data.result_type], function( index, value ) {
             data.push([new Date(value.timestamp*1000), value.transaction_count, value.ost_amount]);
           });
-          console.log(data);
           return data;
         },
         options: {
-          // Gives each series an axis that matches the vAxes number below.
           series: {
-            0: {targetAxisIndex: 0},
-            1: {targetAxisIndex: 1}
+            0: {
+              targetAxisIndex: 0,
+              labelInLegend: 'No. of Transfers',
+              color: '84d1d4'
+            },
+            1: {
+              targetAxisIndex: 1,
+              labelInLegend: 'Value of Transfers',
+              color: 'ff5f5a'
+            }
           },
-          vAxes: {
-            // Adds titles to each axis.
-            0: {title: ''},
-            1: {title: ''}
+          legend: {
+            alignment: 'end',
+            position: 'top',
+            textStyle: {
+              color: '597a84',
+              fontSize: 10
+            }
+          },
+          chartArea: {
+            width: '90%',
+            height: '80%'
+          },
+          hAxis: {
+            format: 'd',
+            gridlines: {
+              color: 'transparent',
+              count: 30
+            },
+            textStyle: {
+              color: '597a84',
+              fontSize: 10
+            }
+          },
+          vAxis: {
+            gridlines: {
+              color: 'e3eef3'
+            },
+            textStyle: {
+              color: '597a84',
+              fontSize: 10
+            }
           }
         },
         selector: '#transactionsValue',
