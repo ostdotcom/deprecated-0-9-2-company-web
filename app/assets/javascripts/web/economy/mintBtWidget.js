@@ -49,6 +49,7 @@
 
       PriceOracle.bindCurrencyElements(oThis.jBtToMint, oThis.jTokenUsdValue, oThis.jOstToTransfer);
       oThis.jBtToMint.trigger("change");
+      google.charts.load('current', {packages: ['corechart']});
 
       oThis.bindEvents();
 
