@@ -14,6 +14,7 @@
       oThis.simpleDataTable = new ost.SimpleDataTable();
       oThis.googleCharts_1 = new GoogleCharts();
       oThis.googleCharts_2 = new GoogleCharts();
+      oThis.googleCharts_3 = new GoogleCharts();
       oThis.bindButtons();
     },
 
@@ -32,6 +33,8 @@
         oThis.printTypeChart($(this).data('interval'));
       });
       $("._transactions_type [data-interval='hour']").trigger('click');
+
+      oThis.printSupplyChart();
 
     },
 
@@ -143,6 +146,33 @@
           }
         }
       });
+    },
+
+    printSupplyChart: function(){
+      oThis.googleCharts_3.draw({
+        data: [
+          ['Category', 'Value'],
+          [$('[data-ost_available_key]').text(),    parseInt($('[data-ost_available_val]').text())],
+          [$('[data-ost_allocated_key]').text(),    parseInt($('[data-ost_allocated_val]').text())],
+          [$('[data-ost_staked_key]').text(),       parseInt($('[data-ost_staked_val]').text())]
+        ],
+        selector: '#ostSupplyPie',
+        type: 'PieChart',
+        options: {
+          pieHole: 0.7,
+          pieSliceText: 'none',
+          pieSliceBorderColor: 'none',
+          colors: ['f6c62b','88c7ca','34445b'],
+          backgroundColor: 'transparent',
+          legend: 'none',
+          chartArea: {
+            width: 180,
+            height: 180,
+            top: 10,
+            left: 10
+          }
+        }
+      })
     },
 
     chartTextStyle: {
