@@ -1,3 +1,4 @@
+<%= render :partial => "/shared/web/common/other-icons.svg" %>
 <div class="row">
   <div class="col-12">
     <h3 class="mt-4">FAQ</h3>
@@ -10,7 +11,14 @@
         </ul>
       </div>
       <div class="col-sm-6">
-        <button type="button" class="font-weight-light btn btn-gold-border h-100 video-btn" title="Watch Help Video" data-toggle="modal" data-src="https://www.youtube.com/embed/EUwzWHD3Htg" data-target="#helpVideoModal" style="width: 100%;">watch help video</button>
+        <button type="button" class="font-weight-light btn btn-gold-border h-100 video-btn" title="Watch Help Video" data-toggle="modal" data-src="https://www.youtube.com/embed/EUwzWHD3Htg" data-target="#helpVideoModal" style="width: 100%;">
+          <svg class="icon-play align-middle">
+            <switch>
+              <use class="icon-play" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"></use>
+            </switch>
+          </svg>
+          <span class="align-middle">watch help video</span>
+        </button>
       </div>
     </div>
     <div class="mb-4"></div>
