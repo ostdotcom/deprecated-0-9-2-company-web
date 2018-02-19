@@ -3,7 +3,6 @@
   var GoogleCharts = function ( config ) {
     var oThis = this;
     $.extend( oThis, config );
-
     oThis.load();
 
   };
@@ -14,11 +13,15 @@
     version: 'current',
     packages: ['corechart'],
     data: [],
+    headers: [],
     ajax: {},
     options: {},
     selector: null,
     type: null,
 
+    /*
+     * Initiates Google Charts by google.charts.load
+     */
     load: function(){
       var oThis = this;
       if (typeof google != "undefined" && typeof google.charts != "undefined") {
@@ -29,6 +32,10 @@
       }
     },
 
+    /*
+     * Draw method to be called externally
+     * Can pass config here
+     */
     draw: function(config){
       var oThis = this;
       $.extend( oThis, config );
@@ -42,26 +49,56 @@
         var ajaxObj = {
           success: function(response){
             oThis.data = oThis.ajaxCallback(response);
+            console.log('Drawing chart using AJAX data and callback...');
             oThis.render();
           }
         }
         $.extend( ajaxObj, oThis.ajax );
         $.ajax(ajaxObj);
       } else {
+        console.log('Drawing chart using using data...');
         oThis.render();
       }
 
     },
 
+    /*
+     * Make data using headers or only data
+     */
+    makeData: function(rawData){
+      var oThis = this;
+
+      if(!$.isEmptyObject(oThis.headers)){
+        var data = new google.visualization.DataTable();
+        $.each( oThis.headers, function( index, value ) {
+          data.addColumn(value.type, value.title);
+        });
+        data.addRows(oThis.data);
+        console.log('Using custom headers and data to build DataTable...');
+      } else {
+        var data = google.visualization.arrayToDataTable(rawData);
+        console.log('Using data via arrayToDataTable...');
+      }
+
+      return data;
+    },
+
+    /*
+     * Rendering chart
+     */
     render: function(){
       var oThis = this;
       google.charts.setOnLoadCallback(function(){
-        var data = google.visualization.arrayToDataTable(oThis.data);
+        var data = oThis.makeData(oThis.data);
         var chart = new google.visualization[oThis.type]($(oThis.selector)[0]);
+        console.log('Drawing '+oThis.type+' chart in '+oThis.selector);
         chart.draw(data, oThis.options);
       });
     },
 
+    /*
+     * ajaxCallback boilerplate
+     */
     ajaxCallback: function(response){
       return response;
     }

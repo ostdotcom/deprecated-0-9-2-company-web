@@ -14,29 +14,33 @@
       oThis.simpleDataTable = new ost.SimpleDataTable();
       oThis.googleCharts = new GoogleCharts();
       oThis.googleCharts.draw({
-        /*data: [
-          ['Year', 'Sales', 'Expenses'],
-          ['2004',  1000,      400],
-          ['2005',  1170,      460],
-          ['2006',  660,       1120],
-          ['2007',  1030,      540]
-        ],*/
+        headers: [
+          {type: 'date', title: 'Date'},
+          {type: 'number', title: 'Transaction count'},
+          {type: 'number', title: 'OST Amount'},
+        ],
         ajax: {
           url: 'http://devcompany.com:8080/month.json'
         },
         ajaxCallback: function(response){
-          return [
-            ['Year', 'Sales', 'Expenses'],
-            ['2004',  1000,      400],
-            ['2005',  1170,      460],
-            ['2006',  660,       1120],
-            ['2007',  1030,      540]
-          ];
+          var data = [];
+          $.each( response.data.number_of_transactions, function( index, value ) {
+            data.push([new Date(value.timestamp*1000), value.transaction_count, value.ost_amount]);
+          });
+          console.log(data);
+          return data;
         },
         options: {
-          title: 'Company Performance',
-          curveType: 'function',
-          legend: { position: 'bottom' }
+          // Gives each series an axis that matches the vAxes number below.
+          series: {
+            0: {targetAxisIndex: 0},
+            1: {targetAxisIndex: 1}
+          },
+          vAxes: {
+            // Adds titles to each axis.
+            0: {title: ''},
+            1: {title: ''}
+          }
         },
         selector: '#transactionsValue',
         type: 'LineChart'
