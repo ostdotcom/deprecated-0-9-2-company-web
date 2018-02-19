@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <h1>Users</h1>
+    </div>
+    <div class="col-8 text-right mt-3">
+      <button id="airdrop_btn" class="btn btn-gold">AIRDROP TOKENS</button>
+      <button id="add_users" class="btn btn-gold">ADD USERS</button>
+    </div>
+  </div>
+  <table class="transactions">
+    <tr class="row">
+      <th class="col-2">PROFILE</th>
+      <th class="col-3">NAME</th>
+      <th class="col-2">TOKEN AIRDROP</th>
+      <th class="col-2">TOKEN AVAILABLE</th>
+      <th class="col-3"></th>
+    </tr>
+  </table>
+</div>
+
+
+<div class="container">
+  <table id="user_list" class="economy_users w-100" data-simple-table data-url="/api/economy/users/list">
+    <script type="text/x-handlebars-template" data-row-template>
+      <tr class="row align-items-center py-3 mt-1 mb-3 rounded ost-table-row" style="background-color: #f1f5f8;">
+        <td class="col-2"><span>ProfileIcon</span></td>
+        {{#ifUser id}}
+          <td class="col-3">{{name}}</td>
+          <td class="col-2">{{total_airdropped_tokens}}</td>
+          <td class="col-2">{{token_balance}} </td>
+          <td class="col-3">
+            <button class="showApiCallBtn btn btn-white">
+              <svg class="icon-api align-middle">
+                <switch>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-api"></use>
+                </switch>
+              </svg>
+              <span class="align-middle">API Call</span>
+            </button>
+          </td>
+        {{else}}
+          <td class="col-10">
+            <form id="save-user-{{id}}" action="/api/economy/users/create" method="POST" data-ost-formhelper>
+              <div class="row">
+                <div class="col-4">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="user-name-{{id}}" name="name" required/>
+                    <div class="invalid-feedback" data-forname="user-name-{{id}}">&nbps;</div>
+                  </div>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-6">
+                  <button type="submit" class="save-user-btn btn float-left mr-1">Save</button>
+                  <button type="button" class="cancel-user-btn btn float-left">Cancel</button>
+                </div>
+              </div>
+            </form>
+          </td>
+        {{/ifUser}}
+      </tr>
+    </script>
+  </table>
+</div>
+
+
+
+<% content_for :end_js do %>
+  <script type="text/javascript">
+    ost.users.init();
+  </script>
+<%end%>

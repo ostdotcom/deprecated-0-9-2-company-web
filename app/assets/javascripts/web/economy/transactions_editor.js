@@ -97,7 +97,7 @@
       oThis.jCommission.add( oThis.jValueInOst ).on("change", function ( event ) {
         console.log("calling onCommissionChanged event", event.currentTarget );
         oThis.onCommissionChanged.apply( oThis, arguments );
-      })
+      });
 
       PriceOracle.bindCurrencyElements( oThis.jValueInBt , oThis.jValueInFiat , oThis.jValueInOst );
     }

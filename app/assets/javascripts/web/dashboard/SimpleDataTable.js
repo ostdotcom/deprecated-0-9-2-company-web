@@ -77,8 +77,15 @@
 
       console.log("oThis.fetchResultsUrl", oThis.fetchResultsUrl);
 
+      var data = {};
+
+      if ( lastMeta && lastMeta.next_page_payload ) {
+          data = lastMeta.next_page_payload;
+      }
+
       $.get({
         url: oThis.fetchResultsUrl
+        ,data : data
         , success: function ( response ) {
           if ( response.success ) {
             callback( response );
@@ -96,11 +103,12 @@
       //Add to result and Calculate the index.
       //result will always be pushed into array.
       //its up-to appendResult/prependResult how they want to place it in UI.
-      resultIndex = oThis.results.push( result ) - 1;
+      var resultIndex = oThis.results.push( result ) - 1;
 
       var jResult = oThis.createResultMarkup( result );
       jResult.attr("data-result-index", resultIndex);
       oThis.jParent.append( jResult );
+      return jResult;
     }
     , prependResult: function ( result ) {
       var oThis = this;
@@ -108,12 +116,17 @@
       //Add to result and Calculate the index.
       //result will always be pushed into array.
       //its up-to appendResult/prependResult how they want to place it in UI.
-      resultIndex = oThis.results.push( result ) - 1;
+      var resultIndex = oThis.results.push( result ) - 1;
 
       var jResult = oThis.createResultMarkup( result );
       jResult.attr("data-result-index", resultIndex);
       oThis.jParent.prepend( jResult );
+      return jResult;
     }
+
+    ,deleteDataIndex : function ( index ) {
+
+     }
 
     , updateResult: function ( result ) {
       var oThis = this;
@@ -183,7 +196,7 @@
           oThis.hasNextPage = true;
         }
 
-        oThis.meta = newMeta;
+        oThis.lastMeta = newMeta;
         oThis.isLoadingData = false;
       } else {
         oThis.showDataLoadError( response );
