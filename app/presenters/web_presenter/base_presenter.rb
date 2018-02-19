@@ -36,6 +36,10 @@ module WebPresenter
       end
     end
 
+    def chain_interaction_params
+      @c_ip ||= formatter_obj.chain_interaction_params
+    end
+
     def client_token_planner
       @c_t_p ||= begin
         formatter_obj.present? ? formatter_obj.client_token_planner : nil

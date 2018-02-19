@@ -15,10 +15,6 @@ module WebPresenter
         super
       end
 
-      def chain_interaction_params
-        @c_ip ||= formatter_obj.chain_interaction_params
-      end
-
       def transaction_types
         @t_ty ||= (formatter_obj.transaction_types || [])
       end
