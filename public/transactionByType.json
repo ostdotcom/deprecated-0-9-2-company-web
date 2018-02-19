@@ -1,0 +1,1 @@
+{"success":true,"data":{"result_type":"transaction_type","transaction_type":[{"type":"like","total_transfers":1},{"type":"upvote","total_transfers":3},{"type":"comment","total_transfers":3}]}}

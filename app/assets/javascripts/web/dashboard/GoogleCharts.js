@@ -40,7 +40,7 @@
       var oThis = this;
       $.extend( oThis, config );
 
-      if ( ($.isEmptyObject(oThis.data) && $.isEmptyObject(oThis.ajax)) || $.isEmptyObject(oThis.options) || !oThis.selector || !oThis.type ){
+      if ( ($.isEmptyObject(oThis.data) && $.isEmptyObject(oThis.ajax)) || !oThis.selector || !oThis.type ){
         console.warn('Mandatory inputs for Google charts are missing [data OR ajax, options, selector, type]');
         return false;
       }
@@ -49,6 +49,7 @@
         var ajaxObj = {
           success: function(response){
             oThis.data = oThis.ajaxCallback(response);
+            console.log(oThis.data);
             console.log('Drawing chart using AJAX data and callback...');
             oThis.render();
           }

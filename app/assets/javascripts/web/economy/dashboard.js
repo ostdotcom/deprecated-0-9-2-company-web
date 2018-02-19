@@ -13,9 +13,52 @@
       var oThis = this;
       oThis.simpleDataTable = new ost.SimpleDataTable();
       oThis.googleCharts = new GoogleCharts();
+      oThis.googleCharts_2 = new GoogleCharts();
+      oThis.bindButtons();
+    },
+
+    bindButtons: function(){
+
+      $('._transactions_value .interval').on('click', function(){
+        $('._transactions_value .interval').removeClass('active');
+        $(this).addClass('active');
+        oThis.printTransactionsChart($(this).data('interval'));
+      });
+      $("._transactions_value [data-interval='hour']").trigger('click');
+
+      $('._transactions_type .interval').on('click', function(){
+        $('._transactions_type .interval').removeClass('active');
+        $(this).addClass('active');
+        oThis.printTypeChart($(this).data('interval'));
+      });
+      $("._transactions_type [data-interval='hour']").trigger('click');
+
+    },
+
+    printTransactionsChart: function(interval){
+      if(['day','hour','month'].indexOf(interval) == -1) {
+        return;
+      }
+      switch(interval) {
+        case 'day':
+          var url = 'http://devcompany.com:8080/day.json';
+          var count = 24;
+          var format = 'H';
+          break;
+        case 'hour':
+          var url = 'http://devcompany.com:8080/hour.json'
+          var count = 12;
+          var format = 'm';
+          break;
+        case 'month':
+          var url = 'http://devcompany.com:8080/month.json'
+          var count = 30;
+          var format = 'd';
+          break;
+      }
       oThis.googleCharts.draw({
         ajax: {
-          url: 'http://devcompany.com:8080/month.json'
+          url: url
         },
         ajaxCallback: function(response){
           var data = [];
@@ -48,10 +91,10 @@
             height: '80%'
           },
           hAxis: {
-            format: 'd',
+            format: format,
             gridlines: {
               color: 'transparent',
-              count: 30
+              count: count
             },
             textStyle: oThis.chartTextStyle
           },
@@ -64,6 +107,33 @@
         },
         selector: '#transactionsValue',
         type: 'LineChart'
+      });
+    },
+
+    printTypeChart: function(){
+      oThis.googleCharts_2.draw({
+        ajax: {
+          url: 'http://devcompany.com:8080/transactionByType.json'
+        },
+        selector: '#transactionsType',
+        type: 'BarChart',
+        options:{
+          legend: {
+            alignment: 'end',
+            position: 'top',
+            textStyle: oThis.chartTextStyle
+          },
+          chartArea: {
+            width: '90%',
+            height: '80%'
+          },
+          hAxis: {
+            textStyle: oThis.chartTextStyle
+          },
+          vAxis: {
+            textStyle: oThis.chartTextStyle
+          }
+        }
       });
     },
 

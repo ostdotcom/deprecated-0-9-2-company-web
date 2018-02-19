@@ -22,7 +22,8 @@
 
 }
 
-._transactions_value{
+._transactions_value,
+._transactions_type{
 
   .graph-header{
     font-size: 0.9rem;
@@ -30,8 +31,15 @@
     border-top: 1px solid $blue-100;
     border-bottom: 1px solid $blue-100;
 
-    .first-interval{
-      border-left: 1px solid $blue-100;
+    .interval{
+      cursor: pointer;
+      &.hour{
+        border-left: 1px solid $blue-100;
+      }
+      &.active{
+        color: #e4b030;
+        font-weight: 300;
+      }
     }
   }
 
