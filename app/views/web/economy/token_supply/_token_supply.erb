@@ -5,7 +5,12 @@
   fiat_symbol_upcase = fiat_symbol.upcase
   tokens_minted = @presenter_obj.token_supply_details.tokens_minted
   tokens_distributed = @presenter_obj.token_supply_details.tokens_distributed
-  token_balance = @presenter_obj.client_balances.bt_balance
+
+  if @presenter_obj.client_balances.present?
+    token_balance = @presenter_obj.client_balances.bt_balance
+  else
+    token_balance = 0
+  end
 %>
 
 <div class="row">

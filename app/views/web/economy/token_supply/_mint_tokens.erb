@@ -1,6 +1,12 @@
 <%
   client_token_to_fiat_conversion_rate = 12
-  ost_balance = @presenter_obj.client_balances.ost_balance
+
+  if @presenter_obj.client_balances.present?
+    ost_balance = @presenter_obj.client_balances.ost_balance
+  else
+    ost_balance = 0
+  end
+
 %>
 <div class="row">
   <div class="col-12">
