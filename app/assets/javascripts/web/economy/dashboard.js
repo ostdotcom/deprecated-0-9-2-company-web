@@ -41,10 +41,7 @@
           legend: {
             alignment: 'end',
             position: 'top',
-            textStyle: {
-              color: '597a84',
-              fontSize: 10
-            }
+            textStyle: oThis.chartTextStyle
           },
           chartArea: {
             width: '90%',
@@ -56,24 +53,23 @@
               color: 'transparent',
               count: 30
             },
-            textStyle: {
-              color: '597a84',
-              fontSize: 10
-            }
+            textStyle: oThis.chartTextStyle
           },
           vAxis: {
             gridlines: {
               color: 'e3eef3'
             },
-            textStyle: {
-              color: '597a84',
-              fontSize: 10
-            }
+            textStyle: oThis.chartTextStyle
           }
         },
         selector: '#transactionsValue',
         type: 'LineChart'
       });
+    },
+
+    chartTextStyle: {
+      color: '597a84',
+      fontSize: 10
     }
   };
 
