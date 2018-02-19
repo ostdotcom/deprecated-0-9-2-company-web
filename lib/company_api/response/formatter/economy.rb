@@ -38,6 +38,8 @@ module CompanyApi
 
           set_client_token_planner(@data['client_token_planner']) if @data['client_token_planner'].present?
 
+          set_chain_interaction_params(@data['chain_interaction_params']) if @data['chain_interaction_params'].present?
+
           set_client_balances(@data['client_balances']) if @data['client_balances'].present?
 
           set_transaction_types(@data['transaction_types']) if @data['transaction_types'].present?

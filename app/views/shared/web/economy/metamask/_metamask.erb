@@ -4,8 +4,15 @@
   token_name = client_token.name;
   token_symbol = client_token.symbol;
   token_icon = client_token.symbol_icon;
-  value_chain_id = 1411;
-  utility_chain_id = 1410;
+
+  if @presenter_obj.chain_interaction_params.present?
+    value_chain_id = @presenter_obj.chain_interaction_params.value_chain_id;
+    utility_chain_id = @presenter_obj.chain_interaction_params.utility_chain_id;
+  else
+    value_chain_id = ''
+    utility_chain_id = ''
+  end
+
   eligible_grant_value = 500;
   eligible_grant_unit = "OST &alpha;"
   has_registered_address = false;

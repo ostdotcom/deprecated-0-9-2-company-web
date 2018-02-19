@@ -6,7 +6,7 @@ module CompanyApi
 
       class Base
 
-        attr_reader :user, :client_token, :oracle_price_points,
+        attr_reader :user, :client_token, :oracle_price_points, :chain_interaction_params,
                     :client_token_planner, :client_balances, :next_page_payload
 
         # Initialize
@@ -65,6 +65,20 @@ module CompanyApi
         #
         def set_client_token_planner(client_token_planner_data)
           @client_token_planner = CompanyApi::Response::Entity::ClientTokenPlanner.new(client_token_planner_data)
+        end
+
+        # Set chain_interaction_params
+        #
+        # * Author: Puneet
+        # * Date: 02/02/2018
+        # * Reviewed By:
+        #
+        # @param [Hash] chain_interaction_params (mandatory) -
+        #
+        # Sets @chain_interaction_params
+        #
+        def set_chain_interaction_params(chain_interaction_params_data)
+          @chain_interaction_params = CompanyApi::Response::Entity::ChainInteractionParams.new(chain_interaction_params_data)
         end
 
         # Set client balances
