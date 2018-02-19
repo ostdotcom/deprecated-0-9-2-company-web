@@ -12,7 +12,7 @@
     ,init: function ( config ) {
       var oThis = this;
       oThis.simpleDataTable = new ost.SimpleDataTable();
-      oThis.googleCharts = new GoogleCharts();
+      oThis.googleCharts_1 = new GoogleCharts();
       oThis.googleCharts_2 = new GoogleCharts();
       oThis.bindButtons();
     },
@@ -56,7 +56,7 @@
           var format = 'd';
           break;
       }
-      oThis.googleCharts.draw({
+      oThis.googleCharts_1.draw({
         ajax: {
           url: url
         },
@@ -116,19 +116,27 @@
           url: 'http://devcompany.com:8080/transactionByType.json'
         },
         selector: '#transactionsType',
-        type: 'BarChart',
+        type: 'ColumnChart',
         options:{
+          series: {
+            0: {
+              labelInLegend: 'Type of Transfers',
+              color: 'f6c62b'
+            }
+          },
           legend: {
             alignment: 'end',
             position: 'top',
             textStyle: oThis.chartTextStyle
           },
+          bars: 'vertical',
           chartArea: {
             width: '90%',
             height: '80%'
           },
           hAxis: {
-            textStyle: oThis.chartTextStyle
+            textStyle: oThis.chartTextStyle,
+            ticks: ['a','b','c']
           },
           vAxis: {
             textStyle: oThis.chartTextStyle

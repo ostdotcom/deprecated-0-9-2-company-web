@@ -23,7 +23,8 @@
 }
 
 ._transactions_value,
-._transactions_type{
+._transactions_type,
+._top_holders{
 
   .graph-header{
     font-size: 0.9rem;
@@ -43,4 +44,16 @@
     }
   }
 
+}
+
+._top_holders{
+  .table{
+    font-size: 0.8rem;
+    color: #597a84;
+    .thead-light th{
+      background: #c1e8e9;
+      font-weight: 300;
+      text-transform: uppercase;
+    }
+  }
 }
