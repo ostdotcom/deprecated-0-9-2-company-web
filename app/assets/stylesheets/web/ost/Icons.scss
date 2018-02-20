@@ -1,0 +1,60 @@
+$sprite-retina-location: "https://d36lai1ppm9dxu.cloudfront.net/assets/image/simple-token-sprite2x-v32.png";
+$sprite-location: "https://d36lai1ppm9dxu.cloudfront.net/assets/image/simple-token-sprite1x-v32.png";
+
+@mixin icon-generator($width,$height,$posX,$posY,$offsetHover,$offsetActive,$scale:100) {
+  background-image: url($sprite-location);
+  background-size: 1000px * $scale/100 1000px * $scale/100;
+  @media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min--moz-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2/1),
+  only screen and (min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+    background-image: url($sprite-retina-location);
+    background-size: 1000px * $scale/100 1000px * $scale/100;
+  }
+  display: inline-block;
+  outline: none !important;
+  &:focus {
+    outline: none;
+    background-position: $posX * $scale/100 $posY * $scale/100;
+  }
+  width: $width * $scale/100;
+  height: $height * $scale/100;
+  background-position: $posX * $scale/100 $posY * $scale/100;
+  &:hover {
+    background-position: $offsetHover * $scale/100 $posY * $scale/100;
+  }
+  &:active {
+    background-position: $offsetActive * $scale/100 $posY * $scale/100;
+  }
+}
+
+
+.social-twitter-icon{
+  @include icon-generator(98px, 98px, -765px, -19px, -881px, -881px, 50);
+}
+
+.social-linkedIn-icon{
+  @include icon-generator(98px, 98px, -765px, -553px, -881px, -881px, 50);
+}
+
+.social-slideshare-icon{
+  @include icon-generator(98px, 98px, -765px, -661px, -881px, -881px, 50);
+}
+
+.social-telegram-icon{
+  @include icon-generator(98px, 98px, -765px, -232px, -881px, -881px, 50);
+}
+
+.social-medium-icon{
+  @include icon-generator(98px, 98px, -765px, -446px, -881px, -881px, 50);
+}
+
+.social-facebook-icon{
+  @include icon-generator(98px, 98px, -765px, -126px, -880px, -880px, 50);
+}
+
+.social-github-icon{
+  @include icon-generator(98px, 98px, -766px, -878px, -880px, -880px, 50);
+}
