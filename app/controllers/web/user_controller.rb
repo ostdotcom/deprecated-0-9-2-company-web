@@ -36,7 +36,7 @@ class Web::UserController < Web::BaseController
 
     if @response.success?
       @presenter_obj = ::WebPresenter::UserPresenter.new(@response, params)
-      handle_redirection
+      redirect_to :planner and return
     elsif @response.http_code == GlobalConstant::ErrorCode.unauthorized_access
       redirect_to :login and return
     else

@@ -13,11 +13,13 @@ module CompanyApi
         # * Reviewed By:
         #
         # @param [Hash] data (mandatory) - entity data
+        # @param [Integer] pending_critical_interaction_id (mandatory) - pending transaction id
         #
         # @return [CompanyApi::Response::Entity::ClientToken] returns an object of CompanyApi::Response::Entity::ClientToken class
         #
-        def initialize(data)
+        def initialize(data, pending_critical_interaction_id)
           @data = data
+          @pending_critical_interaction_id = pending_critical_interaction_id
         end
 
         def id
@@ -78,6 +80,10 @@ module CompanyApi
             @s_th_d = setup_steps.include?('registered_on_vc')
           end
           @s_th_d
+        end
+
+        def pending_critical_interaction_id
+          @pending_critical_interaction_id
         end
 
       end

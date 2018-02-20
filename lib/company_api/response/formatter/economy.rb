@@ -32,7 +32,9 @@ module CompanyApi
 
           set_user(@data['user'])
 
-          set_client_token(@data['client_token'])
+          pending_critical_interaction_id = @data['pending_critical_interaction_id']
+
+          set_client_token(@data['client_token'], pending_critical_interaction_id)
 
           set_oracle_price_points(@data['oracle_price_points'])
 

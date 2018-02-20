@@ -1,17 +1,25 @@
 <%
+
    coin_name   = @presenter_obj.client_token.name;
    coin_symbol = @presenter_obj.client_token.symbol;
-   fiat_symbol = "$";
-   fiat_type   = "usd";
-   fiat_display_text = "USD";
 
-   ost_to_fiat = 0.3;
+   fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
+   fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
+   fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
+
+   ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_rate(fiat_type);
 
    value_in_fiat_key = "value_in_" + fiat_type;
    value_in_fiat_sym = value_in_fiat_key.to_sym;
 
    has_verified_email = @presenter_obj.user.is_verified?
+
    grant_initial_ost = true
+
+  if @presenter_obj.client_token.pending_critical_interaction_id.present?
+    pending_critical_interaction_id = @presenter_obj.client_token.pending_critical_interaction_id
+  end
+
 %>
 <form id="step3_stake_and_mint_form" 
   action="/api/economy/token/stake-and-mint"  method="POST"

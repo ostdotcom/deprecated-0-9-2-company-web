@@ -46,11 +46,12 @@ module CompanyApi
         # * Reviewed By: Sunil
         #
         # @param [Hash] client_token_data (mandatory) - client token hash
+        # @param [Integer] pending_critical_interaction_id (mandatory) - pending transaction id
         #
         # Sets @client_token
         #
-        def set_client_token(client_token_data)
-          @client_token = CompanyApi::Response::Entity::ClientToken.new(client_token_data)
+        def set_client_token(client_token_data, pending_critical_interaction_id)
+          @client_token = CompanyApi::Response::Entity::ClientToken.new(client_token_data, pending_critical_interaction_id)
         end
 
         # Set client token planner
