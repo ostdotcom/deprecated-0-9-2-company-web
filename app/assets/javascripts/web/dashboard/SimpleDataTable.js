@@ -1,5 +1,7 @@
 ;
 (function (window, $) {
+  var logMe = true;
+
   var ost  = ns("ost");
 
   var SimpleDataTable = ost.SimpleDataTable = function ( config ) {
@@ -11,9 +13,9 @@
     oThis.jParent           = oThis.jParent || $('[data-simple-table]');
     oThis.jRowTemplateHtml  = oThis.jRowTemplateHtml || oThis.jParent.find( '[data-row-template]' );
     oThis.rowTemplate       = oThis.rowTemplate ||  Handlebars.compile( oThis.jRowTemplateHtml.html() );
-    oThis.fetchResultsUrl   = oThis.fetchResultsUrl || oThis.jParent.data("url") || null
+    oThis.fetchResultsUrl   = oThis.fetchResultsUrl || oThis.jParent.data("url") || null ;
 
-    console.log("oThis", oThis);
+    logMe && console.log("oThis", oThis);
 
     oThis.jDataLoader       = oThis.jDataLoader || oThis.createLoadingWrap( oThis.jParent );
 
@@ -66,7 +68,7 @@
           }, 300);
         }
 
-        console.log("hideLoading called after processResponse");
+        logMe && console.log("hideLoading called after processResponse");
         //Hide Loading
         oThis.hideLoading();
       });
@@ -75,9 +77,9 @@
     , resultFetcher: function ( currentData, lastMeta, callback ) {
       var oThis = this;
 
-      console.log("oThis.fetchResultsUrl", oThis.fetchResultsUrl);
+      logMe && console.log("oThis.fetchResultsUrl", oThis.fetchResultsUrl);
 
-      var data = {};
+      var data = oThis.params || {};
 
       if ( lastMeta && lastMeta.next_page_payload ) {
           data = lastMeta.next_page_payload;
@@ -95,6 +97,21 @@
           }
         }
       });
+    }
+
+    , createResultMarkup : function ( result ) {
+        var oThis = this;
+
+        if ( result === oThis.dataDeletedResult ) {
+          return $('<div style="display: none !important;"></div>');
+        }
+
+        var rowTemplate   = oThis.getRowTemplate()
+          , rowMarkUp     = rowTemplate( result )
+          , jResult       = $( rowMarkUp )
+        ;
+
+        return jResult;
     }
 
     , appendResult: function ( result ) {
@@ -124,29 +141,49 @@
       return jResult;
     }
 
-    ,deleteDataIndex : function ( index ) {
+    ,deleteResult : function ( result ) {
+      var oThis = this;
 
-     }
+      var resultIndex = oThis.getResultIndexForResult( result )
+        , jResult
+      ;
+
+      if ( resultIndex < 0 ) {
+        logMe && console.log("deleteResult", "did not find resultIndex for result", result );
+        return false;
+      }
+
+      //Update the data.
+      //result will only be replaced with dataDeletedResult Object. Do not replace it.
+      oThis.results.splice(resultIndex, 1, oThis.dataDeletedResult );
+
+      //Now remove the dom.
+      jResult = oThis.getResultDomForIndex( resultIndex );
+
+      if ( jResult.length ) {
+        jResult.remove();
+        return true;
+      }
+      logMe && console.log("Result deleted, but Dom not found");
+      return false;
+    }
 
     , updateResult: function ( result ) {
       var oThis = this;
 
-      var resultIndex = -1;
-      $.each( oThis.results, function (index, thisResult) {
-        if ( thisResult === result ) {
-          resultIndex = index;
-          return false;
-        }
-      });
+
+      var resultIndex = oThis.getResultIndexForResult( result )
+        , jOldResult
+      ;
 
       if ( resultIndex < 0 ) {
-        console.log("updateResult", "did not find resultIndex");
+        logMe && console.log("updateResult", "did not find resultIndex for result", result );
         return false;
       }
 
-      var jOldResult = oThis.jParent.find("[data-result-index='" + resultIndex + "']");
-      if ( !jOldResult.length ) {
-        console.log("updateResult", "did not find jOldResult");
+      jOldResult = oThis.getResultDomForIndex( resultIndex );
+      if ( !jOldResult ) {
+        logMe && console.log("updateResult", "did not find jOldResult");
         return false;
       }
 
@@ -156,22 +193,49 @@
 
     }
 
-    , createResultMarkup : function ( result ) {
+    , getResultDomForResult: function ( result ) {
+      var oThis =  this;
+
+      var resultIndex = oThis.getResultIndexForResult( result ) ;
+      if ( resultIndex < 0 ) {
+        logMe && console.log("getResultDomForResult", "did not find resultIndex for result", result );
+        return null;
+      }
+
+      return oThis.getResultDomForIndex( resultIndex );
+    }
+
+    , getResultDomForIndex: function ( resultIndex ) {
+      var oThis =  this;
+
+
+      var jResult = oThis.jParent.find("[data-result-index='" + resultIndex + "']");
+      if ( jResult.length ) {
+        return jResult;
+      } else {
+        return null;
+      }
+
+    }
+
+    , getResultIndexForResult: function ( result ) {
       var oThis = this;
 
-      var rowTemplate   = oThis.getRowTemplate()
-        , rowMarkUp     = rowTemplate( result )
-        , jResult       = $( rowMarkUp )
-      ;
-
-      return jResult;
+      var resultIndex = -1;
+      $.each( oThis.results, function (index, thisResult) {
+        if ( thisResult === result ) {
+          resultIndex = index;
+          return false;
+        }
+      });
+      return resultIndex;
     }
 
     , processResponse: function ( response ) {
       var oThis = this;
 
-      console.log("Datatable :: processResponse called!");
-      console.log("response", response);
+      logMe && console.log("Datatable :: processResponse called!");
+      logMe && console.log("response", response);
 
       if ( response.success ) {
 
@@ -191,7 +255,7 @@
         //Deal with meta
         oThis.hasNextPage = false;
         if ( Object.keys( nextPagePayload ).length ) {
-          console.log("nextPagePayload", nextPagePayload);
+          logMe && console.log("nextPagePayload", nextPagePayload);
           //We have next page.
           oThis.hasNextPage = true;
         }
@@ -201,7 +265,7 @@
       } else {
         oThis.showDataLoadError( response );
       }
-      console.log("Datatable :: processResponse done!");
+      logMe && console.log("Datatable :: processResponse done!");
     }
     , createLoadingWrap: function ( jParent ) {
       var jWrap = $('<div data-simple-table-end></div>');
@@ -223,14 +287,14 @@
       var oThis = this;
       oThis.jDataLoader.find(":first-child").show();
       oThis.unbindScrollObserver();
-      console.log("showLoading");
+      logMe && console.log("showLoading");
     }
 
     , hideLoading: function () {
       var oThis = this;
       oThis.jDataLoader.find(":first-child").hide();
       oThis.bindScrollObserver();
-      console.log("hideLoading");
+      logMe && console.log("hideLoading");
     }
 
     , showDataLoadError: function ( response ) {
@@ -264,7 +328,7 @@
 
       return oThis.results;
     }
-    , getResultWithId: function ( resultId, idKey ) {
+    , getResultById: function ( resultId, idKey ) {
       var oThis = this;
 
       idKey = idKey || "id";
@@ -276,6 +340,9 @@
         }
       });
       return foundResult;
+    }
+    , dataDeletedResult: {
+      id: "__deleted"
     }
 
   }
