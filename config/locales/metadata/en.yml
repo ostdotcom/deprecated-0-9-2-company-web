@@ -373,3 +373,27 @@ en:
       :assets:
         :specific_css_required: 0
         :specific_js_required: 0
+
+  web/ost:
+    index:
+      :meta:
+        :title: 'OpenST Foundation'
+        :description: 'The OpenST Foundation is a non-profit Hong Kong membership company with a mandate is to develop the OpenST protocol, oversee the OST token economy and further the OST ecosystem.'
+        :canonical: '%{canonical}'
+        :keywords: 'Simple Token, OpenST Foundation'
+        :name: 'OpenST Foundation'
+        :robots: 'index, follow'
+        :og:
+          :title: 'OpenST Foundation'
+          :description: 'The OpenST Foundation is a non-profit Hong Kong membership company with a mandate is to develop the OpenST protocol, oversee the OST token economy and further the OST ecosystem.'
+          :type: 'website'
+          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/open-st/images/openst-og-v1.png'
+          :url: '%{og_url}'
+        :twitter:
+          :card: 'summary_large_image'
+          :title: 'OpenST Foundation'
+          :description: 'The OpenST Foundation is a non-profit Hong Kong membership company with a mandate is to develop the OpenST protocol, oversee the OST token economy and further the OST ecosystem.'
+          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/open-st/images/openst-og-v1.png'
+      :assets:
+        :specific_css_required: 1
+        :specific_js_required: 0
