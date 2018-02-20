@@ -51,9 +51,17 @@
       jWrapper.removeClass();
       jWrapper.addClass(jUserType);
       if( jUserType == "all_users" && !oThis.allUserSimpleData ) {
-        oThis.allUserSimpleData  =  new ost.SimpleDataTable( {jParent : $('#all_users')} );
+        oThis.allUserSimpleData  =  new ost.SimpleDataTable({
+          jParent : $('#all_users')
+          , sScrollParent : "#all-users-list-content-wrapper"
+
+        });
       }else if( !oThis.newUsersSimpleData ) {
-        oThis.newUsersSimpleData = new ost.SimpleDataTable( {jParent: $('#new_users') , params : {filter : 'newly_created'}} );
+        oThis.newUsersSimpleData = new ost.SimpleDataTable({
+          jParent: $('#new_users') 
+          , sScrollParent : "#new-users-list-content-wrapper"
+          , params : {filter : 'newly_created'}
+        });
       }
     }
 

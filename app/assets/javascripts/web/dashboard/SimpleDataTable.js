@@ -14,12 +14,15 @@
     oThis.jRowTemplateHtml  = oThis.jRowTemplateHtml || oThis.jParent.find( '[data-row-template]' );
     oThis.rowTemplate       = oThis.rowTemplate ||  Handlebars.compile( oThis.jRowTemplateHtml.html() );
     oThis.fetchResultsUrl   = oThis.fetchResultsUrl || oThis.jParent.data("url") || null ;
+    //To be passed by config (when needed)
+    oThis.sScrollParent      = oThis.sScrollParent;
 
     logMe && console.log("oThis", oThis);
 
     oThis.jDataLoader       = oThis.jDataLoader || oThis.createLoadingWrap( oThis.jParent );
+    oThis.jRowTemplateHtml.remove();
 
-    oThis.fetchResults( true );
+    oThis.loadTableData();
 
     var wrapperScrollObserver = oThis.scrollObserver || function () {};
     oThis.scrollObserver = function () {
@@ -32,6 +35,7 @@
     , jParent: null
     , jRowTemplateHtml : null
     , rowTemplate : null
+    , sScrollParent: null
     
     , getRowTemplate: function () {
       var oThis = this;
@@ -39,10 +43,29 @@
       return oThis.rowTemplate;
     }
 
-    , results: []
+    , results: null
     , lastMeta: null
     , hasNextPage: true
     , isLoadingData: true
+    , loadTableData: function () {
+      var oThis = this;
+      
+      var isFirstLoad = true;
+
+      oThis.jParent.html('');
+      oThis.results = [];
+      oThis.lastMeta = null;
+      oThis.hasNextPage = true;
+      oThis.isLoadingData = true;
+
+      oThis.fetchResults( isFirstLoad );
+
+    }
+    , reloadTableData: function () {
+      var oThis = this;
+
+      oThis.loadTableData();
+    }
     , fetchResults: function ( isFirstLoad ) {
       var oThis = this;
       if ( !isFirstLoad && oThis.isLoadingData ) {
@@ -303,14 +326,19 @@
     , scrollObserver : function () {
       var oThis = this;
 
-      var checkForPartialVisibility = true;
-      if ( oThis.jDataLoader.visible( checkForPartialVisibility ) ) {
+      var partial = true 
+        , hidden  = null 
+        , direction   = "both"
+        , container   = oThis.sScrollParent
+      ;
+
+      if ( oThis.jDataLoader.visible(partial,hidden,direction,container) ) {
         oThis.fetchResults();
       }
     }
     , bindScrollObserver: function () {
       var oThis = this;
-      
+
       //Trigger once.
       oThis.scrollObserver();
       //Now bind it.
