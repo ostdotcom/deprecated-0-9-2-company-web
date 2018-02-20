@@ -6,8 +6,6 @@
 
 
 #users-list-container {
-  max-height: 200px;
-  overflow: auto;
   border: 1px solid $blue-300;
 
   .content-header {
@@ -24,6 +22,10 @@
 
 .all-users-data-wrapper , .new-users-data-wrapper {
   display: none;
+}
+
+#all-users-list-content-wrapper , #new-users-list-content-wrapper {
+  max-height: 200px;
   overflow-y: scroll ;
 }
 
