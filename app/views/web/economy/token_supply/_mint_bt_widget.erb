@@ -12,7 +12,12 @@
 
   #Mandetory Params
   user_ost_balance = 500
-  staker_address = "0x1366f5decdc4b48d918ff51e1553cc27000f4b88"
+  if @presenter_obj.chain_interaction_params.present?
+    staker_address = @presenter_obj.chain_interaction_params.staker_addr;
+  else
+    staker_address = ''
+  end
+
   stake_and_mint_form_id = stake_and_mint_form_id
 
   #Form Optional Params

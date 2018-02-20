@@ -1,6 +1,7 @@
 <%
 
-  client_token_to_fiat_conversion_rate = 12
+  fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
+  client_token_to_fiat_conversion_rate = @presenter_obj.client_balances.ost_to_fiat_conversion_factor(fiat_type) * @presenter_obj.client_token.conversion_rate
 
   if @presenter_obj.client_balances.present?
     ost_balance = @presenter_obj.client_balances.ost_balance

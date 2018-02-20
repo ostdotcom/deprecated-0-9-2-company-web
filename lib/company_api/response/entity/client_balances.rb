@@ -36,7 +36,7 @@ module CompanyApi
 
         def ost_balance
           @o_b ||= begin
-            balances['ost']
+            balances['ost'].present? ? balances['ost'].to_f : nil
           end
         end
 
@@ -46,7 +46,7 @@ module CompanyApi
 
         def ost_prime_balance
           @o_p_b ||= begin
-            balances['ostPrime']
+            balances['ostPrime'].present? ? balances['ostPrime'].to_f : nil
           end
         end
 
@@ -56,7 +56,7 @@ module CompanyApi
 
         def bt_balance
           @bt_b ||= begin
-            balances[@client_token.symbol]
+            balances[@client_token.symbol].present? ? balances[@client_token.symbol].to_f : nil
           end
         end
 
@@ -65,7 +65,11 @@ module CompanyApi
         end
 
         def ost_to_fiat_conversion_factor(currency_symbol)
-          ost_based_conversion_rates[currency_symbol]
+          ost_based_conversion_rates[currency_symbol].to_f
+        end
+
+        def is_eligible_for_grant?
+          ost_balance.to_f < 1000
         end
 
         private
