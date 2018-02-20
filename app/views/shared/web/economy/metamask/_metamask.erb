@@ -4,22 +4,23 @@
   token_name = client_token.name;
   token_symbol = client_token.symbol;
   token_icon = client_token.symbol_icon;
-  simple_token_contract_address = "0x2240857e9366c894880ce3bf2e9ce290e69f766a"
 
   if @presenter_obj.chain_interaction_params.present?
     value_chain_id = @presenter_obj.chain_interaction_params.value_chain_id;
     utility_chain_id = @presenter_obj.chain_interaction_params.utility_chain_id;
+    simple_token_contract_address = @presenter_obj.chain_interaction_params.simple_token_contract_addr;
+    staker_addr = @presenter_obj.chain_interaction_params.staker_addr;
   else
     value_chain_id = ''
     utility_chain_id = ''
+    simple_token_contract_address = ''
+    staker_addr = ''
   end
-
-  #value_chain_id = 1411
 
   eligible_grant_value = 500;
   eligible_grant_unit = "OST &alpha;"
   has_registered_address = false;
-  grant_eth_from_metamask_focet = false; #Should be false in dev.
+  grant_eth_from_metamask_focet = Rails.env.development? ? false : true
   grant_eth_from_ost_focet = true;
   validate_transaction_hash_interval = 5000; #Miliseconds.
   validate_transaction_hash_max_try = 100;
