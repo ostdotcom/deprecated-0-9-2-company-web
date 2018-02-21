@@ -1,13 +1,18 @@
 <%
 
   fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
-  client_token_to_fiat_conversion_rate = @presenter_obj.client_balances.ost_to_fiat_conversion_factor(fiat_type) * @presenter_obj.client_token.conversion_rate
+  ost_to_fiat = @presenter_obj.client_balances.ost_to_fiat_conversion_factor(fiat_type)
+  ost_fiat_balance = @presenter_obj.client_balances.ost_fiat_balance(fiat_type)
 
   if @presenter_obj.client_balances.present?
     ost_balance = @presenter_obj.client_balances.ost_balance
   else
     ost_balance = 0
   end
+
+  bt_st_primt_ratio = 0.9
+  indicative_bt_to_mint =  (bt_st_primt_ratio * ost_balance).to_i
+  indicative_stp_to_mint =  ((1-bt_st_primt_ratio) * ost_balance).to_i
 
   if @presenter_obj.client_token.pending_critical_interaction_id.present?
     pending_critical_interaction_id = @presenter_obj.client_token.pending_critical_interaction_id
@@ -31,7 +36,7 @@
           <div class="card-body text-uppercase">
             <h5 class="card-title mb-1">TOKEN VALUE IN USD</h5>
             <p class="card-text mb-1">
-              <span class="blue">750,000</span>
+              <span class="blue"><%= ost_fiat_balance %></span>
             </p>
           </div>
         </div>
@@ -46,21 +51,21 @@
             <span class="ost-supply available"></span>
             <p class="m-0 ml-2">
               <small class="d-block">OST Available</small>
-              <small class="d-block">350</small>
+              <small class="d-block"><%= ost_balance %></small>
             </p>
           </li>
           <li class="d-flex align-items-center mb-3">
             <span class="ost-supply allocated"></span>
             <p class="m-0 ml-2">
               <small class="d-block">Allocated For Transaction Fee</small>
-              <small class="d-block">30</small>
+              <small class="d-block"><%= indicative_bt_to_mint %></small>
             </p>
           </li>
           <li class="d-flex align-items-center mb-3">
             <span class="ost-supply staked-minting"></span>
             <p class="m-0 ml-2">
               <small class="d-block">OST to be staked for minting tokens</small>
-              <small class="d-block">310</small>
+              <small class="d-block"><%= indicative_stp_to_mint %></small>
             </p>
           </li>
         </ul>

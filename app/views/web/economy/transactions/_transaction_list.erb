@@ -1,7 +1,13 @@
 <% 
   should_show_api_call_button = true;
 
+  coin_name   = @presenter_obj.client_token.name;
+  coin_symbol = @presenter_obj.client_token.symbol;
+
   fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
+  fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
+  fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
+
   client_id = @presenter_obj.client_token.client_id;
   auto_create_transactions = !@presenter_obj.client_token.step_two_done?;
 
@@ -25,8 +31,8 @@
   <table class="transactions">
     <tr class="row">
       <th class="col-2">TRANSACTION</th>
-      <th class="col-2">VALUE IN USD</th>
-      <th class="col-2">VALUE IN FRC</th>
+      <th class="col-2">VALUE IN <%= fiat_display_text %></th>
+      <th class="col-2">VALUE IN <%= coin_symbol %></th>
       <th class="col-2">PRICE ORACLE</th>
       <th class="col-3">COMMISSION %</th>
     </tr>

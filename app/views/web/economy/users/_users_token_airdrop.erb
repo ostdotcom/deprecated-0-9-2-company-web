@@ -1,3 +1,7 @@
+<%
+  coin_name   = @presenter_obj.client_token.name;
+%>
+
 <div class="container">
   <form id="token-airdrop-form" action="" method="POST" data-ost-formhelper>
     <div class="row">
@@ -8,7 +12,7 @@
 
     <div class="col-10 mt-4">
       <div class="p-2 mocker-card-bg">
-        <span> TOTAL FRC AVAILABLE 45,000</span>
+        <span> TOTAL <%= coin_name %> AVAILABLE 45,000</span>
       </div>
     </div>
 
