@@ -33,10 +33,17 @@
     getFormHelperConfig : function () {
       var oThis =  this;
       var config = {
-          success : function () { oThis.onTokenAirDropSuccess.apply(oThis, arguments)},
-          beforeSend : function () {  $('#airdrop_token_modal').modal('show'); }
+          beforeSend : function () { oThis.beforeAirDrop().apply(oThis , arguments) },
+          success : function () { oThis.onTokenAirDropSuccess.apply(oThis, arguments)}
         };
       return config;
+    },
+
+    beforeAirDrop : function () {
+      var oThis =  this,
+          jModal =  $('#airdrop_token_modal')
+      ;
+      jModal.modal('show');
     },
 
     onTokenAirDropSuccess : function () {
