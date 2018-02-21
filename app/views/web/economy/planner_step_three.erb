@@ -13,8 +13,7 @@
    value_in_fiat_sym = value_in_fiat_key.to_sym;
 
    has_verified_email = @presenter_obj.user.is_verified?
-
-   grant_initial_ost = true
+   grant_initial_ost = @presenter_obj.client_balances.is_eligible_for_grant?
 
   if @presenter_obj.client_token.pending_critical_interaction_id.present?
     pending_critical_interaction_id = @presenter_obj.client_token.pending_critical_interaction_id
