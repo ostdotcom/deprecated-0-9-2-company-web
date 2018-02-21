@@ -16,7 +16,7 @@
 }
 .slider-input-right {
     width: 1%;
-    min-width: 100px;
+    min-width: 120px;
     display: table-cell;
     padding-left: 12px;
 }

@@ -36,12 +36,14 @@ html, body{
       top: 100%;
       background-color: white;
       display: none;
-      height: calc(100vh - #{$ost-header-height});
+      height: calc(100vh - #{$cover-element-height-factor});
+      padding-bottom: 10px;
       //max-width: calc(960px - #{$grid-gutter-width});
       width: calc(100% - #{$side-bar-nav-width});
       margin-left: -15px;
       overflow-y: auto;
       overflow-x: hidden;
+
     }
     .active-cover {
 

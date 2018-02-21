@@ -79,7 +79,6 @@
         oThis.allUserSimpleData  =  new ost.SimpleDataTable({
           jParent : $('#all_users')
           , sScrollParent : "#all-users-list-content-wrapper"
-
         });
       }else if( !oThis.newUsersSimpleData ) {
         oThis.newUsersSimpleData = new ost.SimpleDataTable({
