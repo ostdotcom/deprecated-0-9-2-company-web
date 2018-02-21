@@ -1,0 +1,22 @@
+// Import body level CSS
+@import "token_icons";
+// Import functions as variables depend on functions
+@import "../../plugins/bootstrap/scss/functions";
+
+// Import theme variables
+@import "../Starboy/variables";
+
+
+.content-info {
+  display: none;
+  background-color: $black;
+  padding: 30px 20px;
+
+  .comment-section  {
+    color: $pink;
+  }
+
+  .code-section {
+    color: $orange;
+  }
+}

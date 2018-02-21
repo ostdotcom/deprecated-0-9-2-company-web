@@ -34,13 +34,13 @@
 
 
   <div class="row">
-    <div class="col-12">
-      <table id="user_list" class="economy_users w-100" data-simple-table data-url="/api/economy/users/list">
+    <div class="col-12 slider-parent-container" data-slider-content-wrapper=".ost-table-row">
+      <div id="user_list" class="economy_users w-100 " data-simple-table data-url="/api/economy/users/list">
         <script type="text/x-handlebars-template" data-row-template>
-          <tr class="row py-3 mt-1 mb-3 rounded ost-table-row" style="background-color: #f1f5f8;">
-            <td class="col-2"><span>ProfileIcon</span></td>
+          <div class="row py-3 mt-1 mb-3 rounded ost-table-row" style="background-color: #f1f5f8;">
+            <div class="col-2"><span>ProfileIcon</span></div>
             {{#ifEditUser mode}}
-              <td class="col-10">
+              <div class="col-10">
                 <form class="add-user-form" id="save-user-{{id}}" action="/api/economy/users/create" method="POST" data-user-id="{{id}}">
                   <div class="row">
                     <div class="col-4">
@@ -56,13 +56,13 @@
                     </div>
                   </div>
                 </form>
-              </td>
+              </div>
             {{else}}
-              <td class="col-3">{{name}}</td>
-              <td class="col-2">{{total_airdropped_tokens}}</td>
-              <td class="col-2">{{token_balance}} </td>
-              <td class="col-3">
-                <button class="showApiCallBtn btn btn-white">
+              <div class="col-3">{{name}}</div>
+              <div class="col-2">{{total_airdropped_tokens}}</div>
+              <div class="col-2">{{token_balance}} </div>
+              <div class="col-3">
+                <button class="showApiCallBtn btn btn-white slider-btn">
                   <svg class="icon-api align-middle">
                     <switch>
                       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-api"></use>
@@ -70,11 +70,21 @@
                   </svg>
                   <span class="align-middle">API Call</span>
                 </button>
-              </td>
+              </div>
+              <div class="content-info col-12">
+                <comment class="w-100 comment-section">
+                  Some code has to come here.
+                </comment>
+                <br>
+                <code class="w-100 code-section">
+                  Some curl code has to come here
+                  Some curl code has to come here
+                </code>
+              </div>
               {{/ifEditUser}}
-            </tr>
+            </div>
         </script>
-      </table>
+      </div>
     </div>
   </div>
 </div>
