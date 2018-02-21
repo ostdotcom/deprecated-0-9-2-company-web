@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container users-list-container"  data-airdrop-processing="false">
 
   <% content_for :cover_elements do %>
     <div id="air-drop-tokens-eidtor" class="cover-element">
@@ -79,6 +79,8 @@
   </div>
 </div>
 
+
+<%= render :partial=> "/shared/web/modals/airdrop_token_modal" %>
 
 <% content_for :end_js do %>
   <script type="text/javascript">

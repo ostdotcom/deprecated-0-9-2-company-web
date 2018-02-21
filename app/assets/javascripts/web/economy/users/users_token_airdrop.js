@@ -7,6 +7,7 @@
   var oThis = users.airDropEditor  =  {
     allUserSimpleData : null,
     newUsersSimpleData : null,
+    airDropTokenFormHelper : null,
 
     showEditor: function( config ) {
       var oThis =  this
@@ -24,6 +25,23 @@
       ;
       oThis.initSimpleTableData(jUserType);
       oThis.bindEvents();
+      if( !oThis.airDropTokenFormHelper ){
+        oThis.airDropTokenFormHelper = $('#token-airdrop-form').formHelper(oThis.getFormHelperConfig());
+      }
+    },
+
+    getFormHelperConfig : function () {
+      var oThis =  this;
+      var config = {
+          success : function () { oThis.onTokenAirDropSuccess.apply(oThis, arguments)},
+          beforeSend : function () {  $('#airdrop_token_modal').modal('show'); }
+        };
+      return config;
+    },
+
+    onTokenAirDropSuccess : function () {
+      var oThis = this
+      ;
     },
 
     bindEvents : function () {

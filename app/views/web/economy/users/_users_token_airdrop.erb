@@ -3,7 +3,7 @@
 %>
 
 <div class="container">
-  <form id="token-airdrop-form" action="" method="POST" data-ost-formhelper>
+  <form id="token-airdrop-form" action="" method="POST" >
     <div class="row">
     <div class="col-12">
         <h3 class="mt-4">Air drop Tokens</h3>
@@ -17,7 +17,7 @@
     </div>
 
     <div class="col-10">
-      <div class="mt-2 mb-2">
+      <div class="mt-2 mb-2 form-group">
         <div class="col-4 form-check form-check-inline">
           <input class="form-check-input radio-button" id="all-users" type="radio" name="user_type" value="all_users" checked/>
           <label class="form-check-label radio-button-label" for="all-users"><span class="radio-button-circle"></span>All Users</label>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="col-10">
-      <div class="mt-4">
+      <div class="mt-4 form-group">
         <div class="header">NO OF TOKENS TO AIR DROP (EACH USER)</div>
         <input class="form-control" type="number" required name="token" placeholder="No of tokens" />
         <div class="invalid-feedback" data-forname="user-name-{{id}}">&nbps;</div>
@@ -69,7 +69,7 @@
     </div>
 
     <div class="col-10">
-      <div class="row">
+      <div class="row form-group">
         <button type="submit" id="air-drop-btn" class="mt-4 btn btn-gold d-inline-block float-left">AIRDROP</button>
         <button type="button" id="air-drop-cancel-btn"  class="mt-4 ml-4 btn btn-white d-inline-block float-left">CANCEL</button>
       </div>

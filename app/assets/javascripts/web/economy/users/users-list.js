@@ -9,11 +9,16 @@
     var oThis = users.list = {
         simpleDataTable : null,
         init : function ( config ) {
-            var oThis =  this
+            var oThis =  this,
+                isAirDropInProcess
             ;
             oThis.handelBarHelpers();
             oThis.simpleDataTable =   new ost.SimpleDataTable( {params : {order_by: "creation_time"} } );
             oThis.bindEvents();
+            isAirDropInProcess = $('.users-list-container').data('airdrop-processing');
+            if(!!isAirDropInProcess){
+              $('#airdrop_token_modal').modal('show');
+            }
         },
 
         bindEvents : function () {
