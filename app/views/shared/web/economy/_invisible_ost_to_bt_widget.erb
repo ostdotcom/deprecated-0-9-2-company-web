@@ -1,0 +1,49 @@
+<%
+
+  #Things that need to be logically at top.
+  bt_to_fiat_input_id = bt_to_fiat_input_id
+  create_bt_to_fiat_input = !bt_to_fiat_input_id.present? ? true : false;
+
+  #Mandetory Params
+  coin_name   = @presenter_obj.client_token.name;
+  coin_symbol = @presenter_obj.client_token.symbol;
+  fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
+  fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
+  ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_rate(fiat_type);
+  
+
+
+  #Form Optional Params
+  bt_to_fiat_input_name = bt_to_fiat_input_name.present? ? bt_to_fiat_input_name : "bt_to_fiat_conversion_rate";
+  ost_to_bt_input_name = ost_to_bt_input_name.present? ? ost_to_bt_input_name : "ost_to_bt_conversion_rate";
+  bt_to_ost_value_input_name = bt_to_ost_value_input_name.present? ? bt_to_ost_value_input_name : "bt_to_ost_value_input";
+
+  #Optional Params. Further Cusomisations
+  bt_to_fiat_input_id = bt_to_fiat_input_id.present? ? bt_to_fiat_input_id : "bt_to_fiat_input";
+  ost_to_bt_input_id = ost_to_bt_input_id.present? ? ost_to_bt_input_id : "ost_to_bt_input";
+  bt_to_ost_value_input_id = bt_to_ost_value_input_id.present? ? bt_to_ost_value_input_id : "bt_to_ost_value";
+  
+  #All Other things.
+
+%>
+<% if create_bt_to_fiat_input %>
+  <input type="hidden" 
+    id="<%= bt_to_fiat_input_id %>" name="<%= bt_to_fiat_input_name %>" 
+  />
+<% end %>
+<input type="hidden" min="0.001" class="form-control" max="10000" required 
+  id="<%= ost_to_bt_input_id %>" name="<%= ost_to_bt_input_name %>"
+/>
+
+<% content_for :end_js do %>
+  <script type="text/javascript">
+    $( function () {
+      ost.ostToBtWidget.init({
+        idBtToFiat: "<%= bt_to_fiat_input_id %>"
+        , idOstToBt: "<%= ost_to_bt_input_id %>"
+        , idBtToOstValue: "<%= bt_to_ost_value_input_id %>" 
+      });
+    })
+  </script>
+<% end %>
+

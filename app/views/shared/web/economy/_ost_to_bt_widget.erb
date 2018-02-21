@@ -24,6 +24,7 @@
   bt_to_ost_value_input_id = bt_to_ost_value_input_id.present? ? bt_to_ost_value_input_id : "bt_to_ost_value";
   
   #All Other things.
+  is_editable = is_editable.present? ? is_editable : false
 
 %>
 <div class="row">
@@ -37,9 +38,19 @@
       <label class="form-label float-left" for="bt"><%=coin_name%></label>
       <span class="form-label float-right">Value Set <%=fiat_symbol%><span data-ost-mock-element="#<%= bt_to_fiat_input_id %>"></span></span>
     </div>
-    <input type="number" min="0.001" class="form-control" max="10000" required 
-      id="<%= ost_to_bt_input_id %>" name="<%= ost_to_bt_input_name %>"
-    />
+
+    <% if is_editable %>
+      <input type="number" min="0.001" class="form-control" max="10000" required 
+        id="<%= ost_to_bt_input_id %>" name="<%= ost_to_bt_input_name %>"
+      />
+    <% else %>
+      <input type="number" min="0.001" class="form-control" max="10000" disabled data-ost-mock-element="#<%= ost_to_bt_input_id %>" />
+      <input type="hidden" min="0.00001" class="form-control" max="10000"
+        id="<%= ost_to_bt_input_id %>" name="<%= ost_to_bt_input_name %>"
+      />
+    <% end %>
+
+
     <div class="invalid-feedback" data-forid="<%= ost_to_bt_input_id %>">&nbps;</div>
   </div>
   <div style="width:0;position:relative;left:-5px;top:25px">&#8776;</div>
@@ -48,7 +59,7 @@
       <label class="form-label float-left" for="ost">OST</label>
       <span class="form-label float-right">Current Value <%=fiat_symbol%><%=ost_to_fiat%></span>
     </div>
-    <input type="text" class="form-control" disabled value="1"
+    <input type="number" class="form-control" disabled value="1"
       id="<%= bt_to_ost_value_input_id %>" name="<%= bt_to_ost_value_input_name %>"
     />
     <div class="invalid-feedback" data-forid="<%= bt_to_ost_value_input_id %>">&nbps;</div>

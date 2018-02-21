@@ -39,9 +39,21 @@
         return;
       }
 
-      var jTarget = $( oThis.targetSelector );
-      oThis.jElement.html( jTarget.val() );
+      var jTarget = $( oThis.targetSelector )
+        , targertVal
+      ;
 
+      if ( jTarget.is(":input") ) {
+        targertVal = jTarget.val();
+      } else {
+        targertVal = jTarget.html();
+      }
+
+      if ( oThis.jElement.is(":input") ) {
+        oThis.jElement.val( targertVal );
+      } else {
+        oThis.jElement.html( targertVal );
+      }
     }
     , start : function () {
       var oThis = this;

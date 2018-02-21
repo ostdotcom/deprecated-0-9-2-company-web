@@ -468,7 +468,7 @@ $form-check-inline-input-margin-x:      .3125rem !default;
 $form-group-margin-bottom:              1rem !default;
 
 $input-group-addon-color:               $input-color !default;
-$input-group-addon-bg:                  $gray-200 !default;
+$input-group-addon-bg:                  $gray-100 !default;
 $input-group-addon-border-color:        $input-border-color !default;
 
 $custom-control-gutter:                 1.5rem !default;
@@ -925,3 +925,4 @@ $print-page-size:                   a3 !default;
 $print-body-min-width:              map-get($grid-breakpoints, "lg") !default;
 
 $ost-header-height:                 60px;
+$cover-element-height-factor: $ost-header-height - 10;
