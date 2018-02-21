@@ -11,7 +11,12 @@
   create_bt_to_fiat_input = !bt_to_fiat_input_id.present? ? true : false;
 
   #Mandetory Params
-  user_ost_balance = 500
+  if @presenter_obj.client_balances.present? && @presenter_obj.client_balances.bt_balance.present?
+    user_ost_balance = @presenter_obj.client_balances.bt_balance
+  else
+    user_ost_balance = 500
+  end
+
   if @presenter_obj.chain_interaction_params.present?
     staker_address = @presenter_obj.chain_interaction_params.staker_addr;
   else
