@@ -291,7 +291,7 @@
       logMe && console.log("Datatable :: processResponse done!");
     }
     , createLoadingWrap: function ( jParent ) {
-      var jWrap = $('<div data-simple-table-end></div>');
+      var jWrap = $('<div data-simple-table-end style="background:red;"></div>');
       //Do you magic here.
       var jContent = $(''
         + '<div class="container simple-data-table-loader" style="display: none;">'
@@ -309,6 +309,8 @@
     , showLoading: function () {
       var oThis = this;
       oThis.jDataLoader.find(":first-child").show();
+      console.log("showLoading", oThis.jDataLoader);
+      console.log("showLoading", oThis.jDataLoader.find(":first-child"));
       oThis.unbindScrollObserver();
       logMe && console.log("showLoading");
     }
@@ -339,16 +341,31 @@
     , bindScrollObserver: function () {
       var oThis = this;
 
+      var jScrollParent = oThis.getJScrollParent();
+
       //Trigger once.
       oThis.scrollObserver();
+
       //Now bind it.
-      $(window).on("scroll", oThis.scrollObserver );
+      jScrollParent.on("scroll", oThis.scrollObserver );
 
     }
     , unbindScrollObserver: function () {
       var oThis = this;
 
-      $(window).off("scroll", oThis.scrollObserver );
+      var jScrollParent = oThis.getJScrollParent();
+
+      jScrollParent.off("scroll", oThis.scrollObserver );
+    }
+
+    , getJScrollParent: function () {
+      var oThis = this;
+
+      if ( oThis.sScrollParent ) {
+        return $( oThis.sScrollParent );
+      } else {
+        return $( window );
+      }
     }
 
     , getResults: function () {
