@@ -1,6 +1,6 @@
 ;
 (function (window, $) {
-  var logMe = true;
+  var logMe = false;
 
   var ost  = ns("ost");
 
@@ -330,12 +330,15 @@
 
       var partial = true 
         , hidden  = null 
-        , direction   = "both"
+        , direction   = "vertical"
         , container   = oThis.sScrollParent
       ;
 
       if ( oThis.jDataLoader.visible(partial,hidden,direction,container) ) {
+        logMe & console.log("---->> oThis.jDataLoader is Visible");
         oThis.fetchResults();
+      } else {
+        logMe & console.log("---->> oThis.jDataLoader is not Visible ...do");
       }
     }
     , bindScrollObserver: function () {

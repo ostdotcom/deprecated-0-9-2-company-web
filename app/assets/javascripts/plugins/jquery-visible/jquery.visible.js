@@ -15,53 +15,75 @@
 
         if (this.length < 1)
             return;
-	
-	// Set direction default to 'both'.
-	direction = direction || 'both';
-	    
+    
+    // Set direction default to 'both'.
+    direction = direction || 'both';
+        
         var $t          = this.length > 1 ? this.eq(0) : this,
-						isContained = typeof container !== 'undefined' && container !== null,
-						$c				  = isContained ? $(container) : $w,
-						wScrollPosition   = isContained ? $c.position() : 0,
-                        wRecEl            = isContained ? $c.get( 0 ) : $("html").get(0),
-                        wRec              = wRecEl.getBoundingClientRect()
+                        isContained = typeof container !== 'undefined' && container !== null,
+                        $c          = isContained ? $(container) : $w,
+                        wPosition   = isContained ? $c.position() : 0,
             t           = $t.get(0),
             vpWidth     = $c.outerWidth(),
             vpHeight    = $c.outerHeight(),
             clientSize  = hidden === true ? t.offsetWidth * t.offsetHeight : true;
 
         if (typeof t.getBoundingClientRect === 'function'){
-            var rec = t.getBoundingClientRect();
-            // console.log("======"
-            //     , "\n\tisContained", isContained, "container", container
-            //     , "\n\trec.top", Number(rec.top)
-            //     , "\n\wRec.top", Number(wRec.top)
-            //     , "\n\twScrollPosition.top", Number(wScrollPosition.top)
-            //     , "\n\tvpHeight", Number(vpHeight)
-            //     , "\n\trec.top - wScrollPosition.top - wRec.top", Number(rec.top - wScrollPosition.top - wRec.top)
-            //     , "\n\tvpHeight + wScrollPosition.top + wRec.top", Number(vpHeight + wScrollPosition.top + wRec.top)
-            //     , "\n\t\trec.top - wScrollPosition.top >= 0 " , (rec.top - wScrollPosition.top >= 0) 
-            //     , "\n\t\trec.top < vpHeight + wScrollPosition.top", (rec.top < vpHeight + wScrollPosition.top) 
-            // );
 
             // Use this native browser method, if available.
-            var rec = t.getBoundingClientRect(),
+            // rRec is relative rec.
+            var wRec = isContained ? $c.get(0).getBoundingClientRect() : null,
+                rec  = t.getBoundingClientRect(),
+                rRec = !wRec ? rec : {
+                    x: rec.x - wRec.x,
+                    y: rec.y - wRec.y,
+                    width: rec.width,
+                    height: rec.height,
+                    top: rec.top - wRec.top,
+                    bottom: rec.bottom - wRec.bottom,
+                    left: rec.left - wRec.left,
+                    right: rec.right - wRec.right
+                },
                 tViz = isContained ?
-												rec.top - wScrollPosition.top - wRec.top >= 0 && rec.top < vpHeight + wScrollPosition.top + wRec.top :
-												rec.top >= 0 && rec.top < vpHeight,
+                                                rRec.top - wPosition.top >= 0 && rRec.top < vpHeight + wPosition.top :
+                                                rRec.top >= 0 && rRec.top < vpHeight,
                 bViz = isContained ?
-												rec.bottom - wScrollPosition.top > 0 && rec.bottom <= vpHeight + wScrollPosition.top :
-												rec.bottom > 0 && rec.bottom <= vpHeight,
+                                                rRec.bottom - wPosition.top > 0 && rRec.bottom <= vpHeight + wPosition.top :
+                                                rRec.bottom > 0 && rRec.bottom <= vpHeight,
                 lViz = isContained ?
-												rec.left - wScrollPosition.left >= 0 && rec.left < vpWidth + wScrollPosition.left :
-												rec.left >= 0 && rec.left <  vpWidth,
+                                                rRec.left - wPosition.left >= 0 && rRec.left < vpWidth + wPosition.left :
+                                                rRec.left >= 0 && rRec.left <  vpWidth,
                 rViz = isContained ?
-												rec.right - wScrollPosition.left > 0  && rec.right < vpWidth + wScrollPosition.left  :
-												rec.right > 0 && rec.right <= vpWidth,
+                                                rRec.right - wPosition.left > 0  && rRec.right < vpWidth + wPosition.left  :
+                                                rRec.right > 0 && rRec.right <= vpWidth,
                 vVisible   = partial ? tViz || bViz : tViz && bViz,
                 hVisible   = partial ? lViz || rViz : lViz && rViz,
-		vVisible = (rec.top < 0 && rec.bottom > vpHeight) ? true : vVisible,
-                hVisible = (rec.left < 0 && rec.right > vpWidth) ? true : hVisible;
+        vVisible = (rRec.top < 0 && rRec.bottom > vpHeight) ? true : vVisible,
+                hVisible = (rRec.left < 0 && rRec.right > vpWidth) ? true : hVisible;
+
+            // console.log("====== \n\n\n", "vVisible", vVisible , "clientSize", clientSize, "hVisible", hVisible
+            //     , "\nisContained", isContained, "container", container
+            //     , "\n\trec.top", Number(rec.top)
+            //     , "\n\twPosition.top", Number(wPosition.top)
+            //     , "\n\tvpHeight", Number(vpHeight)
+
+            //     , "\nrRec.top - wPosition.top >= 0 " , (rRec.top - wPosition.top >= 0) 
+            //     , "\n\trRec.top - wPosition.top", Number(rRec.top - wPosition.top)
+
+            //     , "\nrRec.top < vpHeight + wPosition.top", (rRec.top < vpHeight + wPosition.top) 
+            //     , "\n\trRec.top", rRec.top
+            //     , "\n\tvpHeight + wPosition.top", Number(vpHeight + wPosition.top)
+
+            //     , "\nrRec.top >= 0", (rRec.top >= 0)
+            //     , "rRec.top < vpHeight", (rRec.top < vpHeight)
+            //     , "\n\tvpHeight", Number(vpHeight)
+                
+            // );
+
+            // console.log("***");
+            // console.log("rec", rec);
+            // console.log("rRec", rRec);
+            // console.log("wRec", wRec);
 
             if(direction === 'both')
                 return clientSize && vVisible && hVisible;
@@ -71,7 +93,7 @@
                 return clientSize && hVisible;
         } else {
 
-            var viewTop 				= isContained ? 0 : wScrollPosition,
+            var viewTop                 = isContained ? 0 : wPosition,
                 viewBottom      = viewTop + vpHeight,
                 viewLeft        = $c.scrollLeft(),
                 viewRight       = viewLeft + vpWidth,
