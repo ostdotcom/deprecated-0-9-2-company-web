@@ -4,4 +4,7 @@
  *= require web/ost/Footer
  *= require web/ost/Subscribe
  *= require web/ost/Icons
+ *= require web/ost/Icons
+ *= require plugins/slick/slick
+ *= require plugins/slick/slick-theme
  */
