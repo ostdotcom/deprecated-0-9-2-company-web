@@ -13,20 +13,18 @@
   }
   .illustration{
     .btn-play{
-      border: none;
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
-      color: #34445b;
       position: absolute;
       z-index: 1;
       left: 50%;
       transform: translate(-50%, -50%);
       top: 50%;
       cursor: pointer;
+      font-size: 0.8rem;
+      letter-spacing: 0.1rem;
       .play{
-        width: 25px;
-        height: 25px;
-        padding: 5px;
+        width: 15px;
+        height: 15px;
+        font-size: 0;
         display: inline-block;
         svg{
           width:100%;
@@ -40,9 +38,6 @@
           .svg{
             fill: #e4b030;
           }
-        }
-        span{
-          color: #e4b030;
         }
       }
     }
