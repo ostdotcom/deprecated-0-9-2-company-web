@@ -291,7 +291,7 @@
       logMe && console.log("Datatable :: processResponse done!");
     }
     , createLoadingWrap: function ( jParent ) {
-      var jWrap = $('<div data-simple-table-end style="background:red;"></div>');
+      var jWrap = $('<div data-simple-table-end></div>');
       //Do you magic here.
       var jContent = $(''
         + '<div class="container simple-data-table-loader" style="display: none;">'

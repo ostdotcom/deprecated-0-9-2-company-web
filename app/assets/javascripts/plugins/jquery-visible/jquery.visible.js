@@ -61,22 +61,41 @@
         vVisible = (rRec.top < 0 && rRec.bottom > vpHeight) ? true : vVisible,
                 hVisible = (rRec.left < 0 && rRec.right > vpWidth) ? true : hVisible;
 
-            // console.log("====== \n\n\n", "vVisible", vVisible , "clientSize", clientSize, "hVisible", hVisible
-            //     , "\nisContained", isContained, "container", container
-            //     , "\n\trec.top", Number(rec.top)
-            //     , "\n\twPosition.top", Number(wPosition.top)
-            //     , "\n\tvpHeight", Number(vpHeight)
+            // console.log("====== \n\n\n", "tViz", tViz , "clientSize", clientSize
+            //     , "\n isContained", isContained, "container", container
+            //     , "\n\t rec.top", Number(rec.top)
+            //     , "\n\t wPosition.top", Number(wPosition.top)
+            //     , "\n\t vpHeight", Number(vpHeight)
 
-            //     , "\nrRec.top - wPosition.top >= 0 " , (rRec.top - wPosition.top >= 0) 
-            //     , "\n\trRec.top - wPosition.top", Number(rRec.top - wPosition.top)
+            //     , "\n rRec.top - wPosition.top >= 0 " , (rRec.top - wPosition.top >= 0) 
+            //     , "\n\t rRec.top - wPosition.top", Number(rRec.top - wPosition.top)
 
-            //     , "\nrRec.top < vpHeight + wPosition.top", (rRec.top < vpHeight + wPosition.top) 
-            //     , "\n\trRec.top", rRec.top
-            //     , "\n\tvpHeight + wPosition.top", Number(vpHeight + wPosition.top)
+            //     , "\n rRec.top < vpHeight + wPosition.top", (rRec.top < vpHeight + wPosition.top) 
+            //     , "\n\t rRec.top", rRec.top
+            //     , "\n\t vpHeight + wPosition.top", Number(vpHeight + wPosition.top)
 
-            //     , "\nrRec.top >= 0", (rRec.top >= 0)
-            //     , "rRec.top < vpHeight", (rRec.top < vpHeight)
-            //     , "\n\tvpHeight", Number(vpHeight)
+            //     , "\n rRec.top >= 0", (rRec.top >= 0)
+            //     , "\n rRec.top < vpHeight", (rRec.top < vpHeight)
+            //     , "\n\t vpHeight", Number(vpHeight)
+                
+            // );
+
+            // console.log(">>>", "bViz", bViz , "clientSize", clientSize
+            //     , "\n isContained", isContained, "container", container
+            //     , "\n\t rRec.bottom", Number(rRec.bottom)
+            //     , "\n\t wPosition.top", Number(wPosition.top)
+            //     , "\n\t vpHeight", Number(vpHeight)
+
+            //     , "\n rRec.bottom - wPosition.top > 0" , (rRec.bottom - wPosition.top > 0) 
+            //     , "\n\t rRec.top - wPosition.top", Number(rRec.top - wPosition.top)
+
+            //     , "\n rRec.top < vpHeight + wPosition.top", (rRec.top < vpHeight + wPosition.top) 
+            //     , "\n\t rRec.top", rRec.top
+            //     , "\n\t vpHeight + wPosition.top", Number(vpHeight + wPosition.top)
+
+            //     , "\n rRec.top >= 0", (rRec.top >= 0)
+            //     , "\n rRec.top < vpHeight", (rRec.top < vpHeight)
+            //     , "\n\t vpHeight", Number(vpHeight)
                 
             // );
 
