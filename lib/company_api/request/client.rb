@@ -52,7 +52,7 @@ module CompanyApi
       # * Reviewed By:
       #
       def logout
-        post('logout')
+        post('logout', {})
       end
 
     end
