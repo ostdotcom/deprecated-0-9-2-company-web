@@ -26,12 +26,12 @@ module CompanyApi
           @data.present? ? @data['balances'] : {}
         end
 
-        def conversion_rates
+        def conversion_factors
           @c_r ||= @data.present? ? @data['oracle_price_points'] : {}
         end
 
-        def ost_based_conversion_rates
-          @os_b_c_r ||= conversion_rates.present? ? conversion_rates['ost'] : {}
+        def ost_based_conversion_factors
+          @os_b_c_r ||= conversion_factors.present? ? conversion_factors['ost'] : {}
         end
 
         def ost_balance
@@ -74,7 +74,7 @@ module CompanyApi
         end
 
         def ost_to_fiat_conversion_factor(currency_symbol)
-          ost_based_conversion_rates[currency_symbol].to_f
+          ost_based_conversion_factors[currency_symbol].to_f
         end
 
         def is_eligible_for_grant?
@@ -84,11 +84,11 @@ module CompanyApi
         private
 
         def convert_ost_to_fiat(value, currency_symbol)
-          value * ost_based_conversion_rates[currency_symbol]
+          value * ost_based_conversion_factors[currency_symbol]
         end
 
         def convert_bt_to_ost(value)
-          value * @client_token.conversion_rate
+          value * @client_token.conversion_factor
         end
 
       end

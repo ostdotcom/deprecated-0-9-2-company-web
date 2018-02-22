@@ -24,10 +24,6 @@ module WebPresenter
         !client_token.step_three_done?
       end
 
-      def edit_conversion_rate_allowed?
-        !client_token.step_three_started?
-      end
-
     end
 
   end
