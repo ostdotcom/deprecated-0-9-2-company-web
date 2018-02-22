@@ -74,9 +74,3 @@
     </ul>
   </div>
 </nav>
-
-<% content_for :end_js do %>
-<script type="text/javascript">
-  console.log((<%= raw client_token.to_json %>));
-</script>
-<% end %>

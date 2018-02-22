@@ -1,0 +1,26 @@
+.list-group {
+    &.show-last-border {
+      &:last-child{
+        border-bottom: $list-group-border-width solid $list-group-border-color !important;
+      }
+    }
+}
+
+.list-group-item {
+    color: $blue-700;
+    border-bottom: 1px solid $blue-100;
+
+    .item-heading {
+      padding: 0.75rem 1.25rem 0.75rem 0;  
+      font-weight: $font-weight-light !important;
+    }
+
+    .link-item {
+      &:active, &:hover, &:focus, &:link, &:visited {
+        color: $blue-700;
+        text-decoration: none;
+      }
+    }
+}
+
+
