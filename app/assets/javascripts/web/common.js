@@ -9,4 +9,5 @@
 //= require plugins/helpers/ajaxHooks
 //= require plugins/helpers/formHelper
 //= require plugins/helpers/ostMocker
+//= require plugins/helpers/rowContentSlider
 //= require web/common/SimpleTokenNamespace

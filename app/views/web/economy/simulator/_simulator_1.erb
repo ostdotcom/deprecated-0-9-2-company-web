@@ -1,64 +1,85 @@
-<div class="row ost__planner">
-  <div class="col-12">
+<%
+  should_show_api_call_button = true;
+
+  coin_name   = @presenter_obj.client_token.name;
+  coin_symbol = @presenter_obj.client_token.symbol;
+
+  polling_api = '/api/economy/transaction/fetch-detail';        #fetch transaction details api
+  execute_transaction_api = '/api/economy/transaction/execute' ; #Run transaction api
+  transaction_history_api = '/api/economy/transaction/history' ;
+  long_poll_timeout = 500;  #Value needed in milliseconds
+
+%>
+
+<!--This div should always be present with the details-->
+<div id="polling-config" style="display: none;" data-polling-api="<%= polling_api%>" data-polling-timeout="<%= long_poll_timeout %>"></div>
+
+<div class="row ost__planner mb-4">
+  <div class="w-100">
     <div class="d-flex justify-content-between align-items-center">
       <h3 class="text-center d-inline-block mb-0">Simulator</h3>
-      <button type="button" class="btn btn-gold">run a transaction</button>
+      <button type="button" data-run-transaction-api="<%= execute_transaction_api%>"
+              class="btn btn-gold run-transaction-btn">run a transaction</button>
     </div>
   </div>
 </div>
-<div class="row ost__planner">
-  <div class="col-12">
-    <div class="card mb-4">
-      <div class="card-header">
-        <div class="d-flex align-items-center justify-content-between">
-          <div class="">
-            <span class="ost__planner__circle rounded-circle align-middle"></span>
-            <span class="align-middle">Jason Goldberg Sent 5 FRC</span>
+
+
+<div class="row ost__planner slider-parent-container" data-slider-content-wrapper=".card" >
+  <div class="col-12" data-simple-table data-url="<%= transaction_history_api %>">
+    <script type="text/x-handlebars-template" data-row-template >
+      <div class="card row mb-4 ">
+        <div class="card-header col-12">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="w-100">
+              <span class="rounded-circle align-middle"></span>
+              <span class="align-middle">{{fromUserName from_user_id}} Sent <%= coin_name %> <%= coin_symbol %> to </span>
+              <span class="rounded-circle align-middle"></span>
+              <span class="align-middle">{{toUserName to_user_id}} </span>
+            </div>
+            <button class="btn btn-white slider-btn">api call</button>
           </div>
-          <button class="btn btn-white">api call</button>
         </div>
-      </div>
-      <div class="card-body">
-        <dl class="row mb-0">
-          <dt class="col-sm-3">Tx Hash</dt>
-          <dd class="col-sm-9">0x09384ljhsldfh09d8sfdsf098dsfsd9f8s0d9f8sdfldksjf</dd>
-
-          <dt class="col-sm-3">Block Height</dt>
-          <dd class="col-sm-9">983138 ( 1 block confirmation )</dd>
-
-          <dt class="col-sm-3">Time Stamp</dt>
-          <dd class="col-sm-9">39 sec ago (Jun-07-2017   01:19:30 PM +UTC)</dd>
-
-          <dt class="col-sm-3">Transaction Fee</dt>
-          <dd class="col-sm-9">0.01 OST</dd>
-        </dl>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">
-        <div class="d-flex align-items-center justify-content-between">
-          <div class="">
-            <span class="ost__planner__circle rounded-circle align-middle"></span>
-            <span class="align-middle">Jason Goldberg Sent 5 FRC</span>
+        {{#ifTransactionPending status transaction_uuid}}
+          <div class="pending-transaction-wrapper">
+            <span><img src="/ajax-loader.gif" /></span>
+            <span>Getting Transaction Details</span>
           </div>
-          <button class="btn btn-white">api call</button>
-        </div>
+        {{else}}
+          <div class="card-body col-12">
+            <dl class="row mb-0">
+              <dt class="col-sm-3">Tx Hash</dt>
+              <dd class="col-sm-9">{{transaction_hash}}</dd>
+
+              <dt class="col-sm-3">Block Height</dt>
+              <dd class="col-sm-9">  </dd>
+
+              <dt class="col-sm-3">Time Stamp</dt>
+              <dd class="col-sm-9">{{timeStamp}}</dd>
+
+              <dt class="col-sm-3">Transaction Fee</dt>
+              <dd class="col-sm-9">{{transactionFee}} OST</dd>
+            </dl>
+            <div class="content-info row">
+              <comment class="w-100 comment-section">
+                Some code has to come here.
+              </comment>
+              <br>
+              <code class="w-100 code-section">
+                Some curl code has to come here
+                Some curl code has to come here
+              </code>
+            </div>
+          </div>
+        {{/ifTransactionPending}}
       </div>
-      <div class="card-body mb-3">
-        <dl class="row mb-0">
-          <dt class="col-sm-3">Tx Hash</dt>
-          <dd class="col-sm-9">0x09384ljhsldfh09d8sfdsf098dsfsd9f8s0d9f8sdfldksjf</dd>
-
-          <dt class="col-sm-3">Block Height</dt>
-          <dd class="col-sm-9">983138 ( 1 block confirmation )</dd>
-
-          <dt class="col-sm-3">Time Stamp</dt>
-          <dd class="col-sm-9">39 sec ago (Jun-07-2017   01:19:30 PM +UTC)</dd>
-
-          <dt class="col-sm-3">Transaction Fee</dt>
-          <dd class="col-sm-9">0.01 OST</dd>
-        </dl>
-      </div>
-    </div>
+    </script>
   </div>
 </div>
+
+
+<% content_for :end_js do %>
+  <script type="text/javascript">
+    ost.simulator.init();
+  </script>
+<% end %>

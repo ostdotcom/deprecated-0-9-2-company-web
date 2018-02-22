@@ -34,7 +34,7 @@
       $("#transaction_list").on("click", ".editRow", function ( event ) {
         var jEditBtn    = $( event.target )
           , resultId    = jEditBtn.data( "resultId" )
-          , transaction = oThis.simpleDataTable.getResultWithId( resultId )
+          , transaction = oThis.simpleDataTable.getResultById( resultId )
         ;
 
         if ( transaction ) {
@@ -67,7 +67,7 @@
       var oThis = this;
 
       $( oThis ).on(ost.transactions.editor.events.created, function (event, result, newResult, device_id ) {
-        if ( oThis.simpleDataTable.getResultWithId( result.id ) ) {
+        if ( oThis.simpleDataTable.getResultById( result.id ) ) {
           //Already Existing Result.
           console.log("result", result);
           oThis.simpleDataTable.updateResult( result );

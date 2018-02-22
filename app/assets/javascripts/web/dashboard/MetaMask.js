@@ -233,16 +233,13 @@
             }
         }
       ;
-      if ( !config.hasRegisteredAddress ) {
-        oThis.updateAccount( newAccount );
-        callback && callback( response.success, response );
-      }
 
       if ( oThis.lastValidAddress && oThis.lastValidAddress == newAccount ) {
         oThis.updateAccount( newAccount );
         callback && callback( response.success, response );
         return;
       }
+
 
       //Ajax to validate address here.
       var ajaxConfig = {

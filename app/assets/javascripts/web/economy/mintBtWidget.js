@@ -203,6 +203,7 @@
     }
 
     , isSendInProgress : false
+
     , onObservationComplete: function (event, success, response) { 
       //DO NOT Assign oThis HERE. Required for bindMetaMaskEvents/unbindMetaMaskEvents
 
@@ -219,7 +220,9 @@
       var contract  = oThis.simpleTokenContract = oThis.simpleTokenContract || ost.metamask.createSimpleTokenContract()
         , recipient = oThis.staker_address
         , web3      = ost.metamask.web3()
+        , stPrimeToMint
         , ostToTransfer
+        , totalOstToTransfer
         , transactionObject
         , sendCallback
       ;
@@ -228,8 +231,16 @@
       // contract.setProvider( web3.currentProvider );
 
       ostToTransfer     = oThis.jOstToTransfer.val();
+      ostToTransfer     = BigNumber( ostToTransfer );
+      stPrimeToMint     = oThis.jStPrimeToMint.val();
+      stPrimeToMint     = BigNumber( stPrimeToMint );
+
+      totalOstToTransfer = stPrimeToMint.plus( ostToTransfer );
+      totalOstToTransfer = totalOstToTransfer.toString( 10 );
+
       //Conver the ost to wei scale.
-      ostToTransfer     = web3.toWei(ostToTransfer, "ether");
+      totalOstToTransfer     = web3.toWei(totalOstToTransfer, "ether");
+
 
       sendCallback =function (error, result) { 
         var forwardResponse = {
@@ -269,9 +280,9 @@
 
       };
 
-
+      console.log("totalOstToTransfer", totalOstToTransfer);
       //Create webjs transaction object.
-      transactionObject = contract.transfer(recipient, ostToTransfer, {
+      transactionObject = contract.transfer(recipient, totalOstToTransfer, {
         from: oThis.userAddress
       }, sendCallback);
       //Encode it.
@@ -282,7 +293,6 @@
       return;
 
     }
-
 
     , startObserver: function () {
       var oThis = this;

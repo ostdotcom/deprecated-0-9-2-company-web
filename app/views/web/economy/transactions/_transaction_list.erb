@@ -1,7 +1,13 @@
 <% 
   should_show_api_call_button = true;
 
+  coin_name   = @presenter_obj.client_token.name;
+  coin_symbol = @presenter_obj.client_token.symbol;
+
   fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
+  fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
+  fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
+
   client_id = @presenter_obj.client_token.client_id;
   auto_create_transactions = !@presenter_obj.client_token.step_two_done?;
 
@@ -25,26 +31,26 @@
   <table class="transactions">
     <tr class="row">
       <th class="col-2">TRANSACTION</th>
-      <th class="col-2">VALUE IN USD</th>
-      <th class="col-2">VALUE IN FRC</th>
+      <th class="col-2">VALUE IN <%= fiat_display_text %></th>
+      <th class="col-2">VALUE IN <%= coin_symbol %></th>
       <th class="col-2">PRICE ORACLE</th>
       <th class="col-3">COMMISSION %</th>
     </tr>
   </table>
 </div>
 
-<div class="container">
-  <table id="transaction_list" class="transactions" data-simple-table data-url="/api/economy/transaction/kind/list">
+<div class="container slider-parent-container" data-slider-content-wrapper=".ost-table-row">
+  <div id="transaction_list" class="transactions" data-simple-table data-url="/api/economy/transaction/kind/list">
     <script type="text/x-handlebars-template" data-row-template>
-      <tr class="row align-items-center py-3 mt-1 mb-3 rounded ost-table-row" style="background-color: #f1f5f8;">
-        <td class="col-2">{{name}}<br/><small class="font-weight-light">{{kind_display_text}}</small></td>
-        <td class="col-2"><%= fiat_symbol %>{{value_in_fiat}}</td>
-        <td class="col-2">{{value_in_bt}}</td>
-        <td class="col-2">{{price_oracle_text}}</td>
-        <td class="col-1">{{commission_percent}}&#37;</td>
-        <td class="col-3">
+      <div class="row align-items-center py-3 mt-1 mb-3 rounded ost-table-row" style="background-color: #f1f5f8;">
+        <div class="col-2">{{name}}<br/><small class="font-weight-light">{{kind_display_text}}</small></div>
+        <div class="col-2"><%= fiat_symbol %>{{value_in_fiat}}</div>
+        <div class="col-2">{{value_in_bt}}</div>
+        <div class="col-2">{{price_oracle_text}}</div>
+        <div class="col-1">{{commission_percent}}&#37;</div>
+        <div class="col-3">
           {{#IfShowApiCallButton id }}
-            <button class="showApiCallBtn btn btn-white">
+            <button class="showApiCallBtn btn btn-white slider-btn">
               <svg class="icon-api align-middle">
                 <switch>
                   <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-api"></use>
@@ -62,10 +68,19 @@
           </a>
           <input type="hidden" name="id" value={{id}}/>
           <input type="hidden" name="uts" value={{uts}}/>
-        </td>
-      </tr>
+        </div>
+        <div class="content-info col-12">
+          <comment class="w-100 comment-section">
+            Some code has to come here.
+          </comment>
+          <code class="w-100 code-section">
+              Some curl code has to come here
+              Some curl code has to come here
+          </code>
+        </div>
+      </div>
     </script>
-  </table>
+  </div>
 </div>
 
 <% content_for :end_js do %>

@@ -1,0 +1,80 @@
+<%
+  coin_name   = @presenter_obj.client_token.name;
+%>
+
+<div class="container">
+  <form id="token-airdrop-form" action="" method="POST" >
+    <div class="row">
+    <div class="col-12">
+        <h3 class="mt-4">Air drop Tokens</h3>
+        <hr class="mb-0">
+    </div>
+
+    <div class="col-10 mt-4">
+      <div class="p-2 mocker-card-bg">
+        <span> TOTAL <%= coin_name %> AVAILABLE 45,000</span>
+      </div>
+    </div>
+
+    <div class="col-10">
+      <div class="mt-2 mb-2 form-group">
+        <div class="col-4 form-check form-check-inline">
+          <input class="form-check-input radio-button" id="all-users" type="radio" name="user_type" value="all_users" checked/>
+          <label class="form-check-label radio-button-label" for="all-users"><span class="radio-button-circle"></span>All Users</label>
+        </div>
+        <div class="col-4 form-check form-check-inline">
+          <input class="form-check-input radio-button" id="new-users" type="radio" name="user_type" value="new_users"/>
+          <label class="form-check-label radio-button-label" for="new-users"><span class="radio-button-circle"></span>Newly Added</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-10">
+      <div class="mt-4 form-group">
+        <div class="header">NO OF TOKENS TO AIR DROP (EACH USER)</div>
+        <input id="airdrop-value" class="form-control" type="number" required name="token" placeholder="No of tokens" />
+        <div class="invalid-feedback" data-forname="user-name-{{id}}">&nbps;</div>
+        <input class="users_list_type" hidden type="text" name="" >
+      </div>
+    </div>
+
+    <div class="col-10 mt-4">
+      <div id="users-list-container">
+
+        <div class="all-users-data-wrapper">
+            <div class="content-header ">ALL USERS LIST</div>
+            <div class="content-wrapper" id="all-users-list-content-wrapper">
+              <div id="all_users" class="" data-url="/api/economy/users/list">
+                <script type="text/x-handlebars-template" data-row-template>
+                  <div class="users-data">
+                    <span class="w-100">{{name}}</span>
+                  </div>
+                </script>
+              </div>
+            </div>
+        </div>
+
+        <div class="new-users-data-wrapper">
+          <div class="content-header">NEWLY ADDED USER LIST</div>
+          <div class="content-wrapper" id="new-users-list-content-wrapper">
+            <div id="new_users" class="w-100" data-url="/api/economy/users/list">
+              <script type="text/x-handlebars-template" data-row-template>
+                <div class="users-data">
+                  <span class="w-100">{{name}}</span>
+                </div>
+              </script>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-10">
+      <div class="row form-group">
+        <button type="submit" id="air-drop-btn" class="mt-4 btn btn-gold d-inline-block float-left">AIRDROP</button>
+        <button type="button" id="air-drop-cancel-btn"  class="mt-4 ml-4 btn btn-white d-inline-block float-left">CANCEL</button>
+      </div>
+    </div>
+    </div>
+  </div>
+  </form>
+</div>

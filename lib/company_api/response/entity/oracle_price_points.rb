@@ -22,13 +22,13 @@ module CompanyApi
           @client_token = client_token
         end
 
-        def to_fiat_conversion_rate(curreny_pref)
-          conversion_rates[curreny_pref]
+        def to_fiat_conversion_factor(curreny_pref)
+          conversion_factors[curreny_pref]
         end
 
         private
 
-        def conversion_rates
+        def conversion_factors
           @c_r ||= begin
             if @client_token.is_ost_based_token?
               @data['ost']

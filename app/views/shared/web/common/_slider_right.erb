@@ -14,13 +14,26 @@
         <% if defined? ticks_labels %>data-slider-ticks-labels='<%=raw ticks_labels.to_s%>'<% end %>
     >
     <span class="slider-input-right">
-      <input id="<%=id%>" type="<%=type%>" class="form-control" name="<%=name%>" min="<%=min%>" max="<%=max%>" step="<%=step%>" value="<%=value%>" />
+      <div class="input-group">
+        <% if defined? prefix %>
+          <span class="input-group-prepend">
+            <span class="input-group-text">
+              <%= prefix %></span>
+            </span>
+        <% end %>
+        <input type="<%=type%>" class="form-control" id="<%=id%>" name="<%=name%>" lang="en-150"
+          min="<%=min%>" max="<%=max%>" step="<%=step%>" value="<%=value%>" 
+        />
+      </div>
     </span>
   </div>
   <div class="d-flex align-items-center" style="margin-top: -20px; font-size: 12px;">
     <div style="flex-grow: 1; max-width: 100%; color: #597a84">
       <span class="text-left"><%= (defined? prefix) ? prefix : '' %> <%=min%> <%= (defined? suffix) ? suffix : '' %></span>
-      <span class="text-right float-right"><%= (defined? prefix) ? prefix : '' %> <%=max%> <%= (defined? suffix) ? suffix : '' %></span>
+      <span class="text-right float-right"><%= (defined? prefix) ? prefix : '' %> 
+        <%= number_with_delimiter(max, :delimiter => ',') %>
+        <%= (defined? suffix) ? suffix : '' %>
+      </span>
     </div>
     <div class="slider-input-right"></div>
   </div>

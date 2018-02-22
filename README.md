@@ -37,4 +37,7 @@
 > rails s -p 3000
 ```
 
+#Go to browser
+http://devcompany.com:8080/login
+
 

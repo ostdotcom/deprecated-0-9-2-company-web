@@ -26,17 +26,17 @@ module CompanyApi
           @data.present? ? @data['balances'] : {}
         end
 
-        def conversion_rates
+        def conversion_factors
           @c_r ||= @data.present? ? @data['oracle_price_points'] : {}
         end
 
-        def ost_based_conversion_rates
-          @os_b_c_r ||= conversion_rates.present? ? conversion_rates['ost'] : {}
+        def ost_based_conversion_factors
+          @os_b_c_r ||= conversion_factors.present? ? conversion_factors['ost'] : {}
         end
 
         def ost_balance
           @o_b ||= begin
-            balances['ost']
+            balances['ost'].present? ? balances['ost'].to_f : nil
           end
         end
 
@@ -46,7 +46,7 @@ module CompanyApi
 
         def ost_prime_balance
           @o_p_b ||= begin
-            balances['ostPrime']
+            balances['ostPrime'].present? ? balances['ostPrime'].to_f : nil
           end
         end
 
@@ -56,22 +56,12 @@ module CompanyApi
 
         def bt_balance
           @bt_b ||= begin
-            balances[@client_token.symbol]
+            balances[@client_token.symbol].present? ? balances[@client_token.symbol].to_f : nil
           end
         end
 
         def bt_fiat_balance(currency_pref)
           bt_balance.present? ? convert_bt_to_fiat(bt_balance, currency_pref) : nil
-        end
-
-        def ost_to_fiat_conversion_factor(currency_symbol)
-          ost_based_conversion_rates[currency_symbol]
-        end
-
-        private
-
-        def convert_ost_to_fiat(value, currency_symbol)
-          value * ost_based_conversion_rates[currency_symbol]
         end
 
         def convert_bt_to_fiat(bt_value, currency_symbol)
@@ -83,8 +73,22 @@ module CompanyApi
           end
         end
 
+        def ost_to_fiat_conversion_factor(currency_symbol)
+          ost_based_conversion_factors[currency_symbol].to_f
+        end
+
+        def is_eligible_for_grant?
+          ost_balance.to_f < 1000
+        end
+
+        private
+
+        def convert_ost_to_fiat(value, currency_symbol)
+          value * ost_based_conversion_factors[currency_symbol]
+        end
+
         def convert_bt_to_ost(value)
-          value * @client_token.conversion_rate
+          value * @client_token.conversion_factor
         end
 
       end
