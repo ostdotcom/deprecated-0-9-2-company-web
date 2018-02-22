@@ -1,3 +1,5 @@
+$token-symbol-height:40px;
+
 .navbar{
   padding-top: 0;
   padding-bottom: 0;
@@ -6,6 +8,30 @@
   .navbar-brand{
     color: color('blue-700');
     font-size: 1rem;
+    display: flex;
+
+    .token-symbol {
+      display: flex;
+      width: $token-symbol-height;
+      height: $token-symbol-height;
+      font-size: 1rem;
+      color: color('white');
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .token-name {
+      display: flex;
+      height: $token-symbol-height;
+      font-size: 1rem;
+      color: color('blue-700');
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
+      margin-left: 20px;
+    }
+
   }
   .navbar-nav{
     .nav-item{

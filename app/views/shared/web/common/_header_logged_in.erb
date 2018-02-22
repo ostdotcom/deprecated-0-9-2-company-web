@@ -13,24 +13,33 @@
   end
 
 %>
+
 <%#= render :partial => "/shared/web/common/alert" %>
 <nav class="navbar navbar-expand-md navbar-light ">
   <a class="navbar-brand font-weight-normal" href="#">
-    <img src="https://transloadit.edgly.net/assets/demos/outputs/image-manipulation-resize-to-75x75-stretched-snowflake-0.jpg__preview.jpg" class="rounded-circle" height="38" alt="image"/>
-    &nbsp;<%= client_token.name %>
+    <spna class="token-symbol <%= client_token.symbol_icon %>">
+      <%= client_token.symbol %>  
+    </spna>
+    <span class="token-name">
+      <%= client_token.name %>  
+    </span>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
-          <i class="glyphicon glyphicon-align-left"></i>
-          <span class="small">Toggle Sidebar</span>
-        </button>
-      </li>
-    </ul>
+    <% content_for :do_not_reder do %>
+      <% # The below mark is kept for future and will not render %>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+            <i class="glyphicon glyphicon-align-left"></i>
+            <span class="small">Toggle Sidebar</span>
+          </button>
+        </li>
+      </ul>
+    <% end %>
+
     <ul class="navbar-nav navbar-right ml-md-auto d-md-flex text-uppercase font-weight-normal">
       <% if client_balances.present? && client_balances.balances.present? %>
           <% if bt_balance.present? %>
@@ -65,3 +74,9 @@
     </ul>
   </div>
 </nav>
+
+<% content_for :end_js do %>
+<script type="text/javascript">
+  console.log((<%= raw client_token.to_json %>));
+</script>
+<% end %>

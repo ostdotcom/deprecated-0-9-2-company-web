@@ -3,12 +3,12 @@
 
 
   // All Constents.
-  var P_OST = 3;
+  var P_OST = 5;
   var P_BT = 3;
   var P_FIAT = 3;
 
   //For ROUNDING_MODE, See https://mikemcl.github.io/bignumber.js/#rounding-mode 
-  var P_OST_ROUND_ROUNDING_MODE   = BigNumber.ROUND_HALF_UP;
+  var P_OST_ROUND_ROUNDING_MODE   = BigNumber.ROUND_FLOOR;
   var P_BT_ROUND_ROUNDING_MODE    = BigNumber.ROUND_HALF_UP;
   var P_FIAT_ROUND_ROUNDING_MODE  = BigNumber.ROUND_HALF_UP;
 
