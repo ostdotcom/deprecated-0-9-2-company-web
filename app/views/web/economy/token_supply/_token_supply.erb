@@ -8,11 +8,14 @@
 
   if @presenter_obj.client_balances.present?
     token_balance = @presenter_obj.client_balances.bt_balance.to_f
+    token_balance_flat = @presenter_obj.client_balances.convert_bt_to_fiat(token_balance, fiat_symbol)
+    tokens_minted_fiat = @presenter_obj.client_balances.convert_bt_to_fiat(tokens_minted, fiat_symbol)
+    tokens_distributed = tokens_minted - token_balance
+    tokens_distributed_fiat = @presenter_obj.client_balances.convert_bt_to_fiat(tokens_distributed, fiat_symbol)
   else
     token_balance = 0
+    tokens_distributed = 0
   end
-
-  tokens_distributed = tokens_minted - token_balance
 
 %>
 
@@ -32,7 +35,7 @@
         </p>
         <p class="card-text orange">
           <span class="blue"><%= "#{fiat_symbol_upcase}" %></span>
-          <span class="orange"><%= "#{tokens_minted}" %></span>
+          <span class="orange"><%= "#{tokens_minted_fiat}" %></span>
         </p>
       </div>
     </div>
@@ -47,7 +50,7 @@
         </p>
         <p class="card-text orange">
           <span class="blue"><%= "#{fiat_symbol_upcase}" %></span>
-          <span class="orange"><%= "#{tokens_minted}" %></span>
+          <span class="orange"><%= "#{token_balance_flat}" %></span>
         </p>
       </div>
     </div>
@@ -62,7 +65,7 @@
         </p>
         <p class="card-text orange">
           <span class="blue"><%= "#{fiat_symbol_upcase}" %></span>
-          <span class="orange"><%= "#{tokens_distributed}" %></span>
+          <span class="orange"><%= "#{tokens_distributed_fiat}" %></span>
         </p>
       </div>
     </div>
