@@ -16,15 +16,20 @@
    fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
    fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
 
-   ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_rate(fiat_type);
+   ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type);
 
    value_in_fiat_key = "value_in_" + fiat_type;
    value_in_fiat_sym = value_in_fiat_key.to_sym;
 
    has_verified_email = @presenter_obj.user.is_verified?
-   grant_initial_ost = true
+   if @presenter_obj.client_balances.blank?
+    grant_initial_ost = true
+   else
+    grant_initial_ost = @presenter_obj.client_balances.is_eligible_for_grant?
+  end
 
 %>
+
 <%=
     if !@presenter_obj.user.is_verified?
       render :partial => "/shared/web/common/planner_alert"
@@ -37,7 +42,7 @@
   >
     <div class="row">
       <div class="col-12">
-        <h3 class="text-center mt-4">Plan the Francesco Coin Economy in 3 Easy Steps</h3>
+        <h3 class="text-center mt-4">Plan the <%= coin_name %> Economy in 3 Easy Steps</h3>
         <%= render partial: 'shared/web/common/steps',
                    locals: {
                            classes_step_1: 'active',
@@ -52,7 +57,7 @@
                            id: 'token_worth_in_usd',
                            name: 'token_worth_in_usd',
                            type: 'number',
-                           min: 0.1,
+                           min: 0.001,
                            max: 10,
                            step: 0.001,
                            value: token_worth_in_usd_value,
@@ -69,7 +74,7 @@
                            name: 'initial_number_of_users',
                            type: 'number',
                            min: 1,
-                           max: 1000,
+                           max: 1000000,
                            step: 1,
                            value: initial_number_of_users_value,
                            tooltip: 'show',
@@ -84,9 +89,10 @@
                            name: 'airdrop_bt_per_user',
                            type: 'number',
                            min: 1,
-                           max: 100,
+                           max: 20,
                            step: 1,
                            value: airdrop_bt_per_user_value,
+                           prefix: '$',
                            tooltip: 'show',
                            classes: 'slider-yellow'
                    }
@@ -105,19 +111,12 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-12">
-        <div class="p-3 mt-3 mb-3" style="background: #f6f8fa; color: #438bad">
-          <h4 class="mt-3 mb-3">Recommended Conversion Rate</h4>
-          <%= render :partial => "shared/web/economy/ost_to_bt_widget",
-            :locals => {
-              :bt_to_fiat_input_id => "token_worth_in_usd",
-              :ost_to_bt_input_name => "conversion_rate"
-            }
-          %>
-        </div>
-      </div>
-    </div>
+    <%= render :partial => "shared/web/economy/invisible_ost_to_bt_widget",
+      :locals => {
+        :bt_to_fiat_input_id => "token_worth_in_usd",
+        :ost_to_bt_input_name => "conversion_factor"
+      }
+    %>
   </form>
   <%= render :partial => "shared/web/common/faqs" %>
 </div>
@@ -138,19 +137,6 @@
   });
 </script>
 <% end %>
-
-
-
-
-<%# if @presenter_obj.client_token.step_three_started? %>
-
-<%# elsif @presenter_obj.client_token.step_two_done? %>
-
-<%# elsif @presenter_obj.client_token.step_one_done? %>
-
-<%# else %>
-
-<%# end %>
 
 <%#= render :partial => "/web/economy/planner/metamask_installed" %>
 <%#= render :partial => "/web/economy/planner/metamask_locked" %>

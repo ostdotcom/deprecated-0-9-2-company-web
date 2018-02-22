@@ -46,8 +46,8 @@ module CompanyApi
           @data['setup_steps']
         end
 
-        def conversion_rate
-          @data['conversion_rate'].to_f
+        def conversion_factor
+          @data['conversion_factor'].present? ? @data['conversion_factor'].to_f : @data['conversion_factor']
         end
 
         def is_ost_based_token?
@@ -56,7 +56,7 @@ module CompanyApi
 
         def step_one_done?
           if @s_o_d.nil?
-            @s_o_d = setup_steps.include?('set_conversion_rate')
+            @s_o_d = setup_steps.include?('token_worth_in_usd')
           end
           @s_o_d
         end

@@ -74,7 +74,8 @@
       var jEl = $( selector )
         , finalCss = {
           top: "100%",
-          zIndex: 0
+          zIndex: 0,
+          display: "none"
         }
       ;
 

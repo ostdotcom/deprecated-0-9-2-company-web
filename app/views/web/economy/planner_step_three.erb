@@ -7,30 +7,28 @@
    fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
    fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
 
-   ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_rate(fiat_type);
+   ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type);
 
    value_in_fiat_key = "value_in_" + fiat_type;
    value_in_fiat_sym = value_in_fiat_key.to_sym;
 
    has_verified_email = @presenter_obj.user.is_verified?
-
-   grant_initial_ost = true
+   grant_initial_ost = @presenter_obj.client_balances.is_eligible_for_grant?
 
   if @presenter_obj.client_token.pending_critical_interaction_id.present?
     pending_critical_interaction_id = @presenter_obj.client_token.pending_critical_interaction_id
   end
 
 %>
+
 <form id="step3_stake_and_mint_form" 
   action="/api/economy/token/stake-and-mint"  method="POST"
   class="form-container user-form" data-ost-formhelper>
 
-
-
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h3 class="text-center mt-4">Plan the Francesco Coin Economy in 3 Easy Steps</h3>
+        <h3 class="text-center mt-4">Plan the <%= coin_name %> Economy in 3 Easy Steps</h3>
         <%= render partial: 'shared/web/common/steps',
                    locals: {
                            classes_step_1: '',
@@ -75,7 +73,7 @@
             <div class="user-form">
               <%= render :partial => "shared/web/economy/ost_to_bt_widget",
                 :locals => {
-                  :ost_to_bt_input_name => "conversion_rate"
+                  :ost_to_bt_input_name => "conversion_factor"
                 }
               %>
             </div>

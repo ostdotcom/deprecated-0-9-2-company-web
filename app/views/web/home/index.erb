@@ -1,11 +1,7 @@
-Hello from company-web...
-
-<div style="height:100vh;">
-  <style type="text/css">
-    #transaction_list {
-      height: 100vh;
-      position: relative;
-    }
-  </style>
-  <%= react_component('TransactionList', props={}, html_options={id: 'transaction_list'}) %>
-</div>
+<%= render :partial => "/web/home/index/index_svg_sprite" %>
+<%= render :partial => "/web/home/index/navbar" %>
+<%= render :partial => "/web/home/index/jumbotron" %>
+<%= render :partial => "/web/home/index/side-by-side" %>
+<%= render :partial => "/web/home/index/subscribe" %>
+<%= render :partial => "/web/home/index/footer_links" %>
+<%= render :partial => "/web/home/index/footer" %>

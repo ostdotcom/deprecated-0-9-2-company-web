@@ -11,8 +11,18 @@
   create_bt_to_fiat_input = !bt_to_fiat_input_id.present? ? true : false;
 
   #Mandetory Params
-  user_ost_balance = 500
-  staker_address = "0x1366f5decdc4b48d918ff51e1553cc27000f4b88"
+  if @presenter_obj.client_balances.present? && @presenter_obj.client_balances.bt_balance.present?
+    user_ost_balance = @presenter_obj.client_balances.bt_balance
+  else
+    user_ost_balance = 500
+  end
+
+  if @presenter_obj.chain_interaction_params.present?
+    staker_address = @presenter_obj.chain_interaction_params.staker_addr;
+  else
+    staker_address = ''
+  end
+
   stake_and_mint_form_id = stake_and_mint_form_id
 
   #Form Optional Params
@@ -26,7 +36,7 @@
   st_prime_to_mint_input_name = st_prime_to_mint_input_name.present? ? 
     st_prime_to_mint_input_name : "st_prime_to_mint";
   #These are used only if ost_to_bt_input_id is not specified.
-  ost_to_bt_input_name = ost_to_bt_input_name.present? ? ost_to_bt_input_name : "conversion_rate";
+  ost_to_bt_input_name = ost_to_bt_input_name.present? ? ost_to_bt_input_name : "conversion_factor";
 
   user_ost_balance_name = user_ost_balance_name.present? ? user_ost_balance_name : "user_ost_balance";
   ost_to_transfer_name = ost_to_transfer_name.present? ? ost_to_transfer_name : "ost_to_transfer";

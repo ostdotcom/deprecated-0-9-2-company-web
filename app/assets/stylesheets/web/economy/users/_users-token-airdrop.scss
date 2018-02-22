@@ -1,0 +1,38 @@
+// Import functions as variables depend on functions
+@import "../../../plugins/bootstrap/scss/functions";
+
+// Import theme variables
+@import "../../Starboy/variables";
+
+
+#users-list-container {
+  border: 1px solid $blue-300;
+
+  .content-header {
+    padding: 10px ;
+    background-color: $blue-300;
+    color: $teal;
+    font-weight: 500;
+  }
+
+  .users-data {
+    padding: 10px ;
+  }
+}
+
+.all-users-data-wrapper , .new-users-data-wrapper {
+  display: none;
+}
+
+#all-users-list-content-wrapper , #new-users-list-content-wrapper {
+  max-height: 200px;
+  overflow-y: scroll ;
+}
+
+.all_users .all-users-data-wrapper {
+  display: block;
+}
+
+.new_users .new-users-data-wrapper {
+  display: block;
+}

@@ -12,6 +12,18 @@ class Web::UserController < Web::BaseController
 
   def logout
 
+    @response = CompanyApi::Request::Client.new(
+        CompanyApi::Response::Formatter::Client,
+        request.cookies,
+        {"User-Agent" => http_user_agent}
+    ).logout
+
+    if @response.success?
+      redirect_to :login and return
+    else
+      render_error_response(@response) and return
+    end
+
   end
 
   def sign_up

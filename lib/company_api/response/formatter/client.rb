@@ -28,7 +28,7 @@ module CompanyApi
         #
         def perform
 
-          set_client_token(@data['client_token'])
+          set_client_token(@data['client_token']) if @data['client_token'].present?
 
         end
 

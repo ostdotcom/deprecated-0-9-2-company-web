@@ -78,3 +78,51 @@
     }
   }
 }
+
+.partners{
+  font-size: 0;
+  li{
+    a{
+      display: inline-block;
+      background-color: #fff;
+    }
+    img{
+      mix-blend-mode: luminosity;
+    }
+  }
+}
+
+
+.ost-triangleSpace{
+  padding-top: 5em;
+  width: 100%;
+}
+
+.ost-triangle{
+  position: absolute;
+  left: -40px;
+  right: -40px;
+  top: -30px;
+  height: 60px;
+  transform: rotate(-0.8deg);
+  background: #fff;
+  @media (max-width: 512px){
+    transform: rotate(-3.6deg);
+  }
+  @media (min-width: 513px) and (max-width: 768px){
+    transform: rotate(-2.8deg);
+  }
+  @media (min-width: 769px) and (max-width: 1024px){
+    transform: rotate(-1.8deg);
+  }
+  @media (min-width: 1025px){
+    transform: rotate(-2.4deg);
+  }
+}
+
+.svg.ost-kit-logo{
+  width: 200px;
+  height: 45px;
+  font-size: 0;
+  display: inline-block;
+}

@@ -1,25 +1,26 @@
-<% 
-  coin_name   = "Francesco Coin";
-  coin_symbol = "FRC";
-  fiat_symbol = "$";
-  fiat_type   = "usd";
-  fiat_display_text = "USD";
+<%
+
+  coin_name   = @presenter_obj.client_token.name;
+  coin_symbol = @presenter_obj.client_token.symbol;
+
+  fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
+  fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
+  fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
 
   value_in_fiat_key = "value_in_" + fiat_type;
   value_in_fiat_sym = value_in_fiat_key.to_sym;
 
-  ost_to_bt   = 2;
-  ost_to_fiat = 0.30;
-  bt_to_fiat  = (ost_to_fiat/ost_to_bt).to_f;
+  ost_to_bt   = @presenter_obj.client_token.conversion_factor;
+
+  ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type);
+
+  bt_to_fiat  = ost_to_fiat * ost_to_bt
 
   #Default value for creating new transaction to be set.
   default_fiat_value = 0.10;
 
-
   create_url = "/api/economy/transaction/kind/create";
   edit_url = "/api/economy/transaction/kind/edit";
-
-
   
   default_transaction_values = { 
     :commission_percent => 0,
