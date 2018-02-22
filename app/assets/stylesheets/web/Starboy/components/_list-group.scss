@@ -11,8 +11,9 @@
     border-bottom: 1px solid $blue-100;
 
     .item-heading {
-      padding: 0.75rem 1.25rem 0.75rem 0;  
+      padding: $list-group-item-padding-y $list-group-item-padding-x $list-group-item-padding-y 0;  
       font-weight: $font-weight-light !important;
+      margin-left: -$list-group-item-padding-x;
     }
 
     .link-item {
