@@ -21,6 +21,8 @@
   
   var oThis = metamask.getOstHelper = {
     currentStep: NOTHING_IN_PROGRESS
+    , idFormSubmitBtn : "get-initial-ost-button"
+    , jFormSubmitBtn  : null
     , init: function ( config ) {
       var oThis = this;
       $.extend( oThis, config);
@@ -29,6 +31,8 @@
         //If possible, do not render the get initial ost cover element on the page.
         return;
       }
+
+      oThis.jFormSubmitBtn = oThis.jFormSubmitBtn || $("#" + oThis.idFormSubmitBtn);
 
       oThis.jForm = $("#get_initial_ost");
       var formHelper = oThis.formHelper = oThis.jForm.formHelper();
@@ -67,7 +71,7 @@
         case OST_GRANT_IN_PROGRESS:
           var transaction_hash = arguments[0];
           console.log("nextStep :: OST_GRANT_IN_PROGRESS calling validateTransactionHash \n", transaction_hash);
-          
+          oThis.jFormSubmitBtn.attr("disabled", true);
           metamask.validateTransactionHash( transaction_hash, function ( response ) {
             oThis.validateHashCallback(response);
           });
@@ -94,6 +98,7 @@
         case ETH_GRANT_CONFIRMED:
           console.log("nextStep :: ETH_GRANT_CONFIRMED calling allStepsCompleted \n", transaction_hash);
           oThis.allStepsCompleted.apply( oThis, arguments);
+          oThis.jFormSubmitBtn.attr("disabled", false);
         break;
 
         default: 
@@ -103,6 +108,8 @@
       oThis.currentStep++;
     }
     , stepFailed: function () {
+
+      oThis.jFormSubmitBtn.attr("disabled", false);
       switch( oThis.currentStep ) {
         case NOTHING_IN_PROGRESS:
         case OST_GRANT_IN_PROGRESS:

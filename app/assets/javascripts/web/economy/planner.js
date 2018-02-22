@@ -28,8 +28,6 @@
       oThis.jMaxMintBt    = oThis.jMaxMintBt    || $("#" + oThis.idMaxMintBt );
       oThis.jOstToBtText  = oThis.jOstToBtText  || $("#" + oThis.idOstToBtText );
 
-      console.log("jOstToBtText", oThis.jOstToBtText);
-
       oThis.bindEvents();
       oThis.updateConvertionRatioText();
     },
