@@ -6,11 +6,11 @@
   var oThis = ost.ostToBtWidget = {
     jBtToFiat         : null
     , jOstToBt        : null
-    , jBtToOstValue   : null
+    , jBtToOst        : null
 
     , idBtToFiat      : "bt_to_fiat_input"
     , idOstToBt       : "ost_to_bt_input"
-    , idBtToOstValue  : "bt_to_ost_value_input"
+    , idBtToOst       : "bt_to_ost_input"
 
     , init : function ( config ) {
       var oThis = this;
@@ -20,16 +20,18 @@
 
       oThis.jBtToFiat     = oThis.jBtToFiat     || $( "#" + oThis.idBtToFiat );
       oThis.jOstToBt      = oThis.jOstToBt      || $( "#" + oThis.idOstToBt );
-      oThis.jBtToOstValue = oThis.jBtToOstValue || $( "#" + oThis.idBtToOstValue );
+      oThis.jBtToOst      = oThis.jBtToOst      || $( "#" + oThis.idBtToOst );
       
       oThis.bindEvents();
 
       //Set initial values
-      var btInOst  = PriceOracle.ostToBt( 1 ).toString( 10 )
-        , fiatInBt = PriceOracle.btToFiat( 1 ).toString( 10 )
+      var ostToBt   = PriceOracle.ostToBt( 1 ).toString( 10 )
+        , fiatInBt  = PriceOracle.btToFiat( 1 ).toString( 10 )
+        , btToOst   = PriceOracle.btToOst(1).toString( 10 )
       ;
-      oThis.jOstToBt.safeSetVal( btInOst );
+      oThis.jOstToBt.safeSetVal( ostToBt );
       oThis.jBtToFiat.safeSetVal( fiatInBt );
+      oThis.jBtToOst.safeSetVal( btToOst );
 
     }
     , bindEvents: function () {
@@ -46,8 +48,13 @@
       PriceOracle.observeOstToBt( oThis.jOstToBt );
       $( PriceOracle ).on( PriceOracle.events.ostToBtUpdated, function (event, orgEvent, bigRatio, stringRatio ) {
         //Make Sure to forward orgEvent;
-        var didUpdate = oThis.jOstToBt.safeSetVal( stringRatio, orgEvent );
-        didUpdate && console.log("updating jOstToBt to " , stringRatio);
+        var didUpdateOstToBt = oThis.jOstToBt.safeSetVal( stringRatio, orgEvent );
+        didUpdateOstToBt && console.log("updating jOstToBt to " , stringRatio);
+
+        var btToOst = PriceOracle.btToOst(1).toString( 10 );
+        var didUpdateBtToOst = oThis.jBtToOst.safeSetVal( btToOst, orgEvent );
+        didUpdateBtToOst && console.log("updating jBtToOst to " , btToOst);        
+
       });
 
     }
