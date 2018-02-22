@@ -4,20 +4,29 @@
   coin_name   = @presenter_obj.client_token.name;
   coin_symbol = @presenter_obj.client_token.symbol;
 
+  polling_api = '/api/economy/transaction/fetch-detail';        #fetch transaction details api
+  execute_transaction_api = '/api/economy/transaction/execute' ; #Run transaction api
+  transaction_history_api = '/api/economy/transaction/history' ;
+  long_poll_timeout = 500;  #Value needed in milliseconds
+
 %>
+
+<!--This div should always be present with the details-->
+<div id="polling-config" style="display: none;" data-polling-api="<%= polling_api%>" data-polling-timeout="<%= long_poll_timeout %>"></div>
 
 <div class="row ost__planner mb-4">
   <div class="w-100">
     <div class="d-flex justify-content-between align-items-center">
       <h3 class="text-center d-inline-block mb-0">Simulator</h3>
-      <button type="button" class="btn btn-gold run-transaction-btn">run a transaction</button>
+      <button type="button" data-run-transaction-api="<%= execute_transaction_api%>"
+              class="btn btn-gold run-transaction-btn">run a transaction</button>
     </div>
   </div>
 </div>
 
 
 <div class="row ost__planner slider-parent-container" data-slider-content-wrapper=".card" >
-  <div class="col-12" data-simple-table data-url="/api/economy/transaction/history">
+  <div class="col-12" data-simple-table data-url="<%= transaction_history_api %>">
     <script type="text/x-handlebars-template" data-row-template >
       <div class="card row mb-4 ">
         <div class="card-header col-12">
@@ -31,31 +40,38 @@
             <button class="btn btn-white slider-btn">api call</button>
           </div>
         </div>
-        <div class="card-body col-12">
-          <dl class="row mb-0">
-            <dt class="col-sm-3">Tx Hash</dt>
-            <dd class="col-sm-9">{{transaction_hash}}</dd>
-
-            <dt class="col-sm-3">Block Height</dt>
-            <dd class="col-sm-9">  </dd>
-
-            <dt class="col-sm-3">Time Stamp</dt>
-            <dd class="col-sm-9">{{timeStamp}}</dd>
-
-            <dt class="col-sm-3">Transaction Fee</dt>
-            <dd class="col-sm-9">{{transactionFee}} OST</dd>
-          </dl>
-          <div class="content-info row">
-            <comment class="w-100 comment-section">
-              Some code has to come here.
-            </comment>
-            <br>
-            <code class="w-100 code-section">
-              Some curl code has to come here
-              Some curl code has to come here
-            </code>
+        {{#ifTransactionPending status transaction_uuid}}
+          <div class="pending-transaction-wrapper">
+            <span><img src="/ajax-loader.gif" /></span>
+            <span>Getting Transaction Details</span>
           </div>
-        </div>
+        {{else}}
+          <div class="card-body col-12">
+            <dl class="row mb-0">
+              <dt class="col-sm-3">Tx Hash</dt>
+              <dd class="col-sm-9">{{transaction_hash}}</dd>
+
+              <dt class="col-sm-3">Block Height</dt>
+              <dd class="col-sm-9">  </dd>
+
+              <dt class="col-sm-3">Time Stamp</dt>
+              <dd class="col-sm-9">{{timeStamp}}</dd>
+
+              <dt class="col-sm-3">Transaction Fee</dt>
+              <dd class="col-sm-9">{{transactionFee}} OST</dd>
+            </dl>
+            <div class="content-info row">
+              <comment class="w-100 comment-section">
+                Some code has to come here.
+              </comment>
+              <br>
+              <code class="w-100 code-section">
+                Some curl code has to come here
+                Some curl code has to come here
+              </code>
+            </div>
+          </div>
+        {{/ifTransactionPending}}
       </div>
     </script>
   </div>
