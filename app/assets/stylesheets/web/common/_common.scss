@@ -6,17 +6,16 @@
 // Import theme variables
 @import "../Starboy/variables";
 
-
-.content-info {
+.code-session {
   display: none;
   background-color: $black;
   padding: 30px 20px;
 
-  .comment-section  {
+  .code-comment  {
     color: $pink;
   }
 
-  .code-section {
+  .code-line {
     color: $orange;
   }
 }

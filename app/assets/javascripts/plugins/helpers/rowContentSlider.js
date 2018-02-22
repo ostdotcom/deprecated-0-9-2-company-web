@@ -4,7 +4,7 @@
     var jParent  = $('.slider-parent-container'),
         sWrapper = jParent.data('slider-content-wrapper'),
         sBtn     = jParent.data('slider-btn-selector')  || ".slider-btn",
-        sContent = jParent.data('slider-content-selector') || ".content-info"
+        sContent = jParent.data('slider-content-selector') || ".code-session"
       ;
 
     if(jParent && sWrapper) {
