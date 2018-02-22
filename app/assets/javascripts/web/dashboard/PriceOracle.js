@@ -16,6 +16,7 @@
   //All Private Stuff.
   var OST_TO_FIAT = 1;
   var OST_TO_BT = 1;
+  var eventNSHelpler = new ost.EventNameSpacing( "poEvent" ); 
 
   var oThis = PriceOracle = scope.PriceOracle = {
     something: null
@@ -128,9 +129,10 @@
     , observeOstToBt: function ( jBtInput ) {
       var oThis = this
         , logMe = false
+        , bindEvents = eventNSHelpler.nameSpacedEvents("change input blur");
       ;
 
-      $( jBtInput ).on("change input blur", function ( event, val, orgEvent ) {
+      $( jBtInput ).off(bindEvents).on(bindEvents, function ( event, val, orgEvent ) {
 
         var jEl = $( this )
           , bt = jEl.val()
@@ -177,9 +179,11 @@
     }
 
     , observeBtToFiat: function ( jFiatInput ) {
-      var oThis = this;
+      var oThis = this
+        , bindEvents = eventNSHelpler.nameSpacedEvents("change input");
+      ;
 
-      $( jFiatInput ).on("change blur", function ( event, val, orgEvent ) {
+      $( jFiatInput ).off(bindEvents).on(bindEvents, function ( event, val, orgEvent ) {
 
         var jEl = $( this )
           , fiat = jEl.val()
@@ -285,7 +289,9 @@
 
 
 
-      var oThis =  this;
+      var oThis =  this
+        , bindEvents = eventNSHelpler.nameSpacedEvents("change input");
+      ;
       var isChangeValid = function ( event, val, orgEvent ) {
         if ( PriceOracle.isNaN( val ) ) { 
           return false;
@@ -301,7 +307,7 @@
         //Do Other validations if required.
 
         return true;
-      }
+      };
 
       var onBTChanged = function ( event, val, orgEvent ) {
 
@@ -378,11 +384,11 @@
         jBt.safeSetVal(PriceOracle.ostToBt( ostVal ), orgEvent );
       };
 
-      jBt.on('change input', onBTChanged);
+      jBt.off(bindEvents).on(bindEvents, onBTChanged);
 
-      jFiat.on('change input', onFiatChanged);
+      jFiat.off(bindEvents).on(bindEvents, onFiatChanged);
 
-      jOst.on('change input', onOstChanged);
+      jOst.off(bindEvents).on(bindEvents, onOstChanged);
 
     }
   }
