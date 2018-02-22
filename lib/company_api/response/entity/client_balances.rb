@@ -64,6 +64,15 @@ module CompanyApi
           bt_balance.present? ? convert_bt_to_fiat(bt_balance, currency_pref) : nil
         end
 
+        def convert_bt_to_fiat(bt_value, currency_symbol)
+          if @client_token.is_ost_based_token?
+            ost_value = convert_bt_to_ost(bt_value)
+            convert_ost_to_fiat(ost_value, currency_symbol)
+          else
+            fail 'unsupported BT'
+          end
+        end
+
         def ost_to_fiat_conversion_factor(currency_symbol)
           ost_based_conversion_rates[currency_symbol].to_f
         end
@@ -76,15 +85,6 @@ module CompanyApi
 
         def convert_ost_to_fiat(value, currency_symbol)
           value * ost_based_conversion_rates[currency_symbol]
-        end
-
-        def convert_bt_to_fiat(bt_value, currency_symbol)
-          if @client_token.is_ost_based_token?
-            ost_value = convert_bt_to_ost(bt_value)
-            convert_ost_to_fiat(ost_value, currency_symbol)
-          else
-            fail 'unsupported BT'
-          end
         end
 
         def convert_bt_to_ost(value)

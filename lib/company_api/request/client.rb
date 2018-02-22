@@ -45,6 +45,16 @@ module CompanyApi
         post('verify-email', params)
       end
 
+      # Fire Logout request to API
+      #
+      # * Author: Puneet
+      # * Date: 14/02/2018
+      # * Reviewed By:
+      #
+      def logout
+        post('logout')
+      end
+
     end
 
   end
