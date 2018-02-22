@@ -12,61 +12,60 @@
   ost.simulator = {
     simulatorTable : null,
 
-    init : function () {
-      var oThis =  this,
-          jPollingEl =  $('#polling-config');
-      ;
-      pollingApi = jPollingEl.data('polling-api');
-      pollingTimeOut = jPollingEl.data('polling-timeout');
-      oThis.initHandleBarHelpers();
-      oThis.bindEvents();
-
-      if( !oThis.simulatorTable ) {
-        oThis.simulatorTable =  new ost.SimpleDataTable( {
-          resultFetcher: function ( currentData, lastMeta, callback ) {
-            var wrapperCallBack = function ( response ) {
-              oThis.updateRequiredDetails( response );
-              callback && callback.apply( null , arguments );
-            };
-
-            var fetcherScope = this,
-                fetcher = ost.SimpleDataTable.prototype.resultFetcher,
-                args = Array.prototype.slice.call(arguments)
-            ;
-
-            args.pop();
-            args.push(wrapperCallBack);
-            fetcher.apply(fetcherScope, args);
-            oThis.pollPendingTransactions( );
-          }
-        });
-      }
-    },
-
-    bindEvents : function () {
-      var oThis =  this
-      ;
-
-      $('.run-transaction-btn').on('click' ,  function () {
-        var api = $(this).data('run-transaction-api');
-        oThis.runTransaction(api);
-      });
-    },
-
-    runTransaction: function (api) {
+    init : function ( config ) {
       var oThis =  this;
-      $.ajax({
-        url: api,
-        method: "POST",
-        success: function ( response ) {
-          if ( response.success ) {
-            oThis.addNewTransaction(response);
-          }
+      $.extend(oThis, config);
+
+      pollingApi = config["tx_status_polling_url"];
+      pollingTimeOut = config["long_poll_timeout_millisecond"];
+      oThis.initHandleBarHelpers();
+      oThis.createDataTable();
+      oThis.bindEvents();
+    },
+
+    createDataTable: function () {
+      var oThis =  this;
+
+      if( oThis.simulatorTable ) {
+        return; //Safety Net
+      }
+      oThis.simulatorTable =  new ost.SimpleDataTable( {
+        resultFetcher: function ( currentData, lastMeta, callback ) {
+          //Create a wrapper overcallback so that we can intercept data.
+          var wrapperCallBack = function ( response ) {
+            oThis.updateRequiredDetails( response );
+            callback && callback.apply( null , arguments );
+          };
+
+          //Call the default fetcher method as we really don't need any
+          //Special handling while requesting data.
+          //We shall just send our own wrapperCallBack instead of callback we got.
+          var fetcherScope = this,
+            fetcher = ost.SimpleDataTable.prototype.resultFetcher,
+            args = Array.prototype.slice.call(arguments)
+          ;
+
+          args.pop();
+          args.push(wrapperCallBack);
+          fetcher.apply(fetcherScope, args);
         }
       });
     },
 
-    addNewTransaction : function (response) {
+    bindEvents : function () {
+      var oThis =  this;
+
+      $("#run-transaction-form").formHelper({
+        success: function ( response ) {
+          if ( response.success ) {
+            oThis.createNewTransaction( response );
+          }
+        }
+      });
+
+    },
+
+    createNewTransaction : function (response) {
       var oThis =  this,
           data  =  response && response.data,
           transactions = data && data.transactions
@@ -81,6 +80,8 @@
       ;
       oThis.updateUsersHash( data );
       oThis.updateTransactionTypesHash( data );
+      oThis.setPendingTransactions( data );
+      oThis.pollPendingTransactions( );
     },
 
     updateUsersHash : function (data) {
@@ -91,6 +92,19 @@
     updateTransactionTypesHash : function (data) {
       var updatedTransactionTypes = data.transaction_types || {};
       $.extend(transactionTypes , updatedTransactionTypes);
+    },
+
+    setPendingTransactions : function ( data ) {
+      var oThis = this,
+          transactions = data && data.transactions,
+          transaction
+      ;
+      for( var i = 0 ;  i < transactions.length  ; i++ ){
+        transaction = transactions[i];
+        if(transaction.status == 'pending') {
+          oThis.pushPendingTransactions(transaction.transaction_uuid);
+        }
+      }
     },
 
     pollPendingTransactions : function () {
@@ -129,17 +143,18 @@
           data = response && response.data,
           transactions = data && data.transactions,
           currentTransaction , newTransaction,
-          status , id
+          status , transaction_uuid
       ;
       if( !transactions || transactions.length == 0 ) return;
       for(var i = 0 ;  i < transactions.length ; i++) {
         newTransaction = transactions[i] ;
         status = newTransaction['status'] ;
-        id = newTransaction[id] ;
+        transaction_uuid = newTransaction['transaction_uuid'] ;
         if(status !== 'pending'){
-          currentTransaction = oThis.simulatorTable.getElementById(id , 'transaction_uuid');
+          currentTransaction = oThis.simulatorTable.getResultById(transaction_uuid , 'transaction_uuid');
           $.extend( currentTransaction , newTransaction);
-          oThis.simpleDataTable.updateResult( currentTransaction );
+          oThis.simulatorTable.updateResult( currentTransaction );
+          oThis.popPendingTransactions(currentTransaction.transaction_uuid);
         }
       }
     },
@@ -169,14 +184,8 @@
       var oThis = this,
           date = new Date();
 
-      Handlebars.registerHelper('fromUserName' , function (fromUserId , options) {
-        var user = users[fromUserId] || {}
-        ;
-        return user['name'] ;
-      });
-
-      Handlebars.registerHelper('toUserName' , function (toUserId , options) {
-        var user = users[toUserId] || {}
+      Handlebars.registerHelper('getUserName' , function (userId , options) {
+        var user = users[userId] || {}
         ;
         return user['name'] ;
       });
@@ -188,17 +197,10 @@
         }
       });
 
-      Handlebars.registerHelper('ifTransactionPending' , function (status  , uuid ,  options) {
+      Handlebars.registerHelper('ifTransactionPending' , function (status  ,  options) {
         if(status == 'pending') {
-          /*
-          * TODO wrong way
-          * Confirm if UI logic updates your functional logic, if not confirm why.
-          * One disadvantage is that pendingTransactionsUUID is getting updated from here will be tricky to understand.
-          * */
-         oThis.pushPendingTransactions(uuid);
           return options.fn(this);
         }else {
-          oThis.popPendingTransactions(uuid);
           return options.inverse(this);
         }
       });
