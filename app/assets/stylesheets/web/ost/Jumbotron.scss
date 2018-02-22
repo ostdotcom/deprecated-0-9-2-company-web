@@ -78,3 +78,16 @@
     }
   }
 }
+
+.partners{
+  font-size: 0;
+  li{
+    a{
+      display: inline-block;
+      background-color: #fff;
+    }
+    img{
+      mix-blend-mode: luminosity;
+    }
+  }
+}
