@@ -1,17 +1,24 @@
 ;
 (function ( scope, $ ) {
 
+  var logMe = true;
+  //For ROUNDING_MODE, See https://mikemcl.github.io/bignumber.js/#rounding-mode 
 
   // All Constents.
-  var P_OST = 5;
-  var P_BT = 3;
-  var P_FIAT = 3;
+  var P_OST = 5
+    , P_OST_ROUND_ROUNDING_MODE   = BigNumber.ROUND_FLOOR
+    , P_D_OST = 3
+    , P_OST_DISPLAY_ROUND_ROUNDING_MODE   = BigNumber.ROUND_HALF_UP
+  ;
 
-  //For ROUNDING_MODE, See https://mikemcl.github.io/bignumber.js/#rounding-mode 
-  var P_OST_ROUND_ROUNDING_MODE   = BigNumber.ROUND_FLOOR;
-  var P_BT_ROUND_ROUNDING_MODE    = BigNumber.ROUND_HALF_UP;
-  var P_FIAT_ROUND_ROUNDING_MODE  = BigNumber.ROUND_HALF_UP;
+  var P_BT = 3
+    , P_BT_ROUND_ROUNDING_MODE    = BigNumber.ROUND_HALF_UP
+  ;
 
+
+  var P_FIAT = 3
+    , P_FIAT_ROUND_ROUNDING_MODE  = BigNumber.ROUND_HALF_UP
+  ;
 
   //All Private Stuff.
   var OST_TO_FIAT = 1;
@@ -24,6 +31,9 @@
     , fiat_symbol: "$"
     , fiat_type: "usd"
     , fiat_display_text: "USD"
+
+    , bt_symbol: "FRC"
+    , bt_display_text: "USD"
 
 
     , init: function ( config ) {
@@ -80,7 +90,7 @@
       if ( doNotRound ) {
         return result;
       }
-      return oThis.toOst( result );
+      return oThis.toPreciseOst( result );
     }
 
     , btToFiat: function ( bt, doNotRound ) {
@@ -105,7 +115,7 @@
       if ( doNotRound ) {
         return result;
       }
-      return oThis.toOst( result );
+      return oThis.toPreciseOst( result );
     }
 
     , fiatToBt: function ( fiat, doNotRound ) {
@@ -128,7 +138,6 @@
 
     , observeOstToBt: function ( jBtInput ) {
       var oThis = this
-        , logMe = false
         , bindEvents = eventNSHelpler.nameSpacedEvents("change input blur");
       ;
 
@@ -151,7 +160,7 @@
         logMe && console.log("bt val", bt);
         bt = oThis.toBt( bt );
       
-        var existing = oThis.toOst( OST_TO_BT );
+        var existing = oThis.toPreciseOst( OST_TO_BT );
         logMe && console.log("bt", bt, "existing bt", existing);
         if ( existing.eq( bt ) || bt.isLessThanOrEqualTo( 0 ) ) {
           return;
@@ -159,7 +168,7 @@
         jEl.val( bt );
         
 
-        var ostToBt = oThis.toOst( bt )
+        var ostToBt = oThis.toPreciseOst( bt )
           , bt_to_fiat
         ;
         OST_TO_BT   = ostToBt.toString();
@@ -186,7 +195,7 @@
       $( jFiatInput ).off(bindEvents).on(bindEvents, function ( event, val, orgEvent ) {
 
         var jEl = $( this )
-          , fiat = jEl.val()
+          , btTofiat = jEl.val()
         ;
 
         if ( orgEvent && jEl.is( orgEvent.currentTarget ) ) {
@@ -194,22 +203,21 @@
         }
 
         //fiat is same as bt_to_fiat 
-        if ( oThis.isNaN( fiat ) || !fiat ) {
+        if ( oThis.isNaN( btTofiat ) || !btTofiat ) {
           return;
         }
-        fiat = oThis.toFiat( fiat );
-        jEl.val( fiat.toString( 10 ) );
+        btTofiat = oThis.toFiat( btTofiat );
+        jEl.val( btTofiat.toString( 10 ) );
         
-        if ( fiat.isLessThanOrEqualTo( 0 ) ) { 
+        if ( btTofiat.isLessThanOrEqualTo( 0 ) ) { 
           return;
         }
 
-        var ost         = oThis.fiatToOst( fiat )
-          , ostToBt     = BigNumber( 1 ).div( ost )
-          , bt_to_fiat  = fiat
+        var ostToFiat   = oThis.ostToFiat( 1 )
+          , ostToBt     = ostToFiat.dividedBy( btTofiat )
         ;
 
-        ostToBt = oThis.toOst( ostToBt );
+        ostToBt = oThis.toPreciseOst( ostToBt );
 
         if ( ostToBt.eq( OST_TO_BT ) ) {
           return;
@@ -217,14 +225,15 @@
 
         OST_TO_BT = ostToBt.toString( 10 );
 
-        console.log("observeBtToFiat fiat", fiat.toString( 10 ) );
-        console.log("observeBtToFiat ost", ost.toString( 10 ) );
-        console.log("observeBtToFiat ostToBt", OST_TO_BT );
+        logMe && console.log("observeBtToFiat btTofiat", btTofiat.toString( 10 ) );
+        logMe && console.log("observeBtToFiat ostToFiat", ostToFiat.toString( 10 ) );
+        logMe && console.log("observeBtToFiat ostToBt", ostToBt.toString( 10 ) );
+        logMe && console.log("observeBtToFiat ostToBt", OST_TO_BT );
 
         //Fire Events
         orgEvent = orgEvent || event;
         oThis.fireEvent( "ostToBtUpdated", orgEvent, ostToBt, OST_TO_BT );
-        oThis.fireEvent( "btToFiatUpdated", orgEvent, bt_to_fiat, bt_to_fiat.toString(10) );
+        oThis.fireEvent( "btToFiatUpdated", orgEvent, btTofiat, btTofiat.toString(10) );
       });
 
     }
@@ -238,7 +247,7 @@
       $( PriceOracle ).trigger(eventName, args);
     }
 
-    , toOst: function ( ost ) {
+    , toPreciseOst: function ( ost ) {
       var oThis = this;
 
       if ( oThis.isNaN( ost ) ) {
@@ -246,6 +255,17 @@
       }
       ost = BigNumber( ost );
       return BigNumber( ost.toFixed(P_OST, P_OST_ROUND_ROUNDING_MODE) );
+    }
+
+    , toOst: function ( ost ) {
+      var oThis = this;
+
+      if ( oThis.isNaN( ost ) ) {
+        return "";
+      }
+
+      ost = oThis.toPreciseOst( ost );
+      return ost.toFixed(P_D_OST, P_OST_DISPLAY_ROUND_ROUNDING_MODE);
     }
 
     , toFiat: function( fiat ) {
@@ -268,15 +288,25 @@
       return BigNumber( bt.toFixed(P_BT, P_BT_ROUND_ROUNDING_MODE) );
     }
 
-    ,toDisplayFiat : function ( fiat ) {
+    , toDisplayFiat : function ( fiat ) {
       var oThis = this;
 
       fiat = oThis.toFiat( fiat );
       if ( !fiat || oThis.isNaN( fiat ) ) {
-        return NaN;
+        return "";
       }
       return oThis.fiat_symbol + fiat.toString( 10 );
-    } 
+    }
+    , toDisplayBt : function ( bt ) {
+      var oThis = this;
+
+      bt = oThis.toBt( bt );
+      if ( !bt || oThis.isNaN( bt ) ) {
+        return "";
+      }
+      return bt.toString( 10 ) + " " + oThis.bt_symbol;
+    }
+
     , isNaN : function ( val ) {
       return isNaN( val ) || val === "";
     }
@@ -299,8 +329,8 @@
 
         if ( event && orgEvent && event.currentTarget === orgEvent.currentTarget ) {
           //Avoid an infinite loop
-          console.log("---------------\n\tIMPORTANT :: This should never happen. Please Check me\n---------------");
-          console.trace();
+          logMe && console.log("---------------\n\tIMPORTANT :: This should never happen. Please Check me\n---------------");
+          logMe && console.trace();
           return false; 
         }
 
@@ -375,7 +405,7 @@
         }
 
         //Initialisations
-        ostVal = PriceOracle.toOst( val );
+        ostVal = PriceOracle.toPreciseOst( val );
         orgEvent = orgEvent || event;
 
         //Executions

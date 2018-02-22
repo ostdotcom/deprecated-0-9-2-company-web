@@ -28,6 +28,10 @@
     grant_initial_ost = @presenter_obj.client_balances.is_eligible_for_grant?
   end
 
+
+  bt_to_fiat_id = "bt_to_fiat";
+  ost_to_fiat_id = "ost_to_fiat";
+
 %>
 
 <%=
@@ -36,7 +40,7 @@
     end
 %>
 <div class="container">
-  <form id="step1"
+  <form id="step1-form"
         action="/api/economy/token/plan" method="POST"
         data-ost-formhelper
   >
@@ -50,70 +54,87 @@
                            classes_step_3: 'incomplete'
                    }
         %>
-        <hr class="mt-2 mb-4"/>
-        <%= render partial: 'shared/web/common/slider_right',
-                   locals: {
-                           label: 'How much do you want 1 '+coin_name+' to be worth?',
-                           id: 'token_worth_in_usd',
-                           name: 'token_worth_in_usd',
-                           type: 'number',
-                           min: 0.001,
-                           max: 10,
-                           step: 0.001,
-                           value: token_worth_in_usd_value,
-                           prefix: '$',
-                           tooltip: 'show',
-                           classes: 'slider-yellow'
-                   }
-        %>
-        <hr class="mt-2 mb-4"/>
-        <%= render partial: 'shared/web/common/slider_right',
-                   locals: {
-                           label: 'How many '+coin_name+' users do you plan to begin with?',
-                           id: 'initial_number_of_users',
-                           name: 'initial_number_of_users',
-                           type: 'number',
-                           min: 1,
-                           max: 1000000,
-                           step: 1,
-                           value: initial_number_of_users_value,
-                           tooltip: 'show',
-                           classes: 'slider-yellow'
-                   }
-        %>
-        <hr class="mt-2 mb-4"/>
-        <%= render partial: 'shared/web/common/slider_right',
-                   locals: {
-                           label: 'How much '+coin_name+' do you wish to airdrop to each user to begin with?',
-                           id: 'airdrop_bt_per_user',
-                           name: 'airdrop_bt_per_user',
-                           type: 'number',
-                           min: 1,
-                           max: 20,
-                           step: 1,
-                           value: airdrop_bt_per_user_value,
-                           prefix: '$',
-                           tooltip: 'show',
-                           classes: 'slider-yellow'
-                   }
-        %>
-        <hr class="mt-2 mb-4"/>
-      </div>
-      <!--<div class="col-12">
-        <button id="getInitialOstBtn"> Get Initial OST</button>
-      </div>-->
-    </div>
+        <div class="alert alert-info" role="alert">
+          <h4 class="alert-heading">
+            = The first step in creating FC is to set the conversion rate between FC and OST⍺. 
+          </h4>
+          <hr class="mt-2 mb-4"/>
+          <p> 
+            Once you Mint FC, the conversion rate is fixed and cannot be changed. Your customers will always be able to redeem their FC for OST at that conversion rate.
+          </p>
+          <p class="mt-2">
+            The current value of 
+            <strong>OST⍺ = 
+              <%= fiat_symbol %><span data-ost-mock-element="#<%= ost_to_fiat_id %>"><%= ost_to_fiat %></span>
+              <input id="<%= ost_to_fiat_id %>" type="hidden" name="ost_to_fiat" value="<%= ost_to_fiat %>" />
+            </strong> 
+            (OST⍺ tracks the value of OST on public exchanges). 
+          </p>
+          <p class="mt-2">
+            The simple way to set the conversion rate is by deciding 
+            <strong>
+              how much you want 1 FC to initially be worth.
+            </strong>
+          </p>
+        </div>
+        
+        <div class="card card-planner mb-5">
+          <div class="card-header">
+            <div class="d-flex align-items-center">
+              <div class="mr-auto">
+                <h5 class="card-title mb-1">Set Conversion Rate</h5>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="user-form">
+              <%= render partial: 'shared/web/common/slider_right',
+                 locals: {
+                         label: 'How much do you want 1 '+coin_name+' to be worth?',
+                         id: bt_to_fiat_id,
+                         name: 'token_worth_in_usd',
+                         type: 'number',
+                         min: 0.001,
+                         max: 10,
+                         step: 0.001,
+                         value: token_worth_in_usd_value,
+                         prefix: fiat_symbol,
+                         tooltip: 'show',
+                         classes: 'slider-yellow'
+                 }
+              %>
+            </div>
 
-
-    <div class="row">
-      <div class="col-12">
-        <div class="p-3 mt-3 mb-3 text-center" style="background: #f9f8e6; color: #597a84">For the purpose of this simulation we will create 25 users for your application</div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                You have chosen to set
+                <strong>
+                  1 FRC = 
+                  $<span data-type="number" data-ost-mock-element="#<%= bt_to_fiat_id %>">0.1</span>
+                </strong>
+              </li>
+              <li class="list-group-item">
+                Based on the current value of OST⍺ you will set a conversion rate of 
+                <strong id="ost_to_bt_text">154 FC = 1 OST⍺</strong>
+              </li>
+              <li class="list-group-item">
+                You currently have 10,000 OST⍺ to test with. You can
+                <strong>
+                  mint a maximum of 
+                  <span id="maximum_mintbale_bt_text" data-type="number" data-ost-mock-element="maximum_mintbale_bt">2,970</span>
+                  <input type="hidden" name="maximum_mintbale_bt" id="maximum_mintbale_bt" />
+                  FC before requiring more OST⍺.
+                </strong>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
 
     <%= render :partial => "shared/web/economy/invisible_ost_to_bt_widget",
       :locals => {
-        :bt_to_fiat_input_id => "token_worth_in_usd",
+        :bt_to_fiat_input_id => bt_to_fiat_id,
         :ost_to_bt_input_name => "conversion_factor"
       }
     %>
@@ -130,9 +151,13 @@
 <% content_for :end_js do %>
 <script type="text/javascript">
   $( function () {
-    ost.planner.init({
+    ost.planner.step1.init({
       has_verified_email: <%= has_verified_email %>,
-      grant_initial_ost: <%= grant_initial_ost %>
+      grant_initial_ost: <%= grant_initial_ost %>,
+      idBtToFiat: "<%= bt_to_fiat_id %>",
+      idOstToFiat: "<%= ost_to_fiat_id %>",
+      idMaxMintBt: "maximum_mintbale_bt",
+      idOstToBtText: "ost_to_bt_text"
     });
   });
 </script>
