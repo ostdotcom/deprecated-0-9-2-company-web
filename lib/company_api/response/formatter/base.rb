@@ -7,7 +7,7 @@ module CompanyApi
       class Base
 
         attr_reader :user, :client_token, :oracle_price_points, :chain_interaction_params,
-                    :client_token_planner, :client_balances, :next_page_payload
+                    :client_token_planner, :client_balances
 
         # Initialize
         #
@@ -108,20 +108,6 @@ module CompanyApi
         #
         def set_oracle_price_points(orace_price_points_data)
           @oracle_price_points = CompanyApi::Response::Entity::OraclePricePoints.new(orace_price_points_data, @client_token)
-        end
-
-        # Set next page payload
-        #
-        # * Author: Puneet
-        # * Date: 02/02/2018
-        # * Reviewed By: Sunil
-        #
-        # @param [Hash] payload_data (mandatory) - payload hash
-        #
-        # Sets @client_token_balance
-        #
-        def set_next_page_payload(payload_data)
-          @next_page_payload = CompanyApi::Response::Entity::PaginationPayload.new(payload_data)
         end
 
       end

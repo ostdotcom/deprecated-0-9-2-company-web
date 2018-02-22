@@ -9,7 +9,7 @@ module WebPresenter
       # @param [Result::Base] data_obj (mandatory) - Page data
       # @param [Hash] params (optional) - Page params
       #
-      # @return [Web::Economy::TokenSupply] returns an object of Web::Economy::TokenSupply class
+      # @return [WebPresenter::Economy::TokenSupply] returns an object of WebPresenter::Economy::TokenSupply class
       #
       def initialize(data_obj, params = {})
         super

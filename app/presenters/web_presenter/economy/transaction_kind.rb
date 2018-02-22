@@ -9,7 +9,7 @@ module WebPresenter
       # @param [Result::Base] data_obj (mandatory) - Page data
       # @param [Hash] params (optional) - Page params
       #
-      # @return [Web::Economy::TransactionKind] returns an object of Web::Economy::TransactionKind class
+      # @return [WebPresenter::Economy::TransactionKind] returns an object of WebPresenter::Economy::TransactionKind class
       #
       def initialize(data_obj, params = {})
         super

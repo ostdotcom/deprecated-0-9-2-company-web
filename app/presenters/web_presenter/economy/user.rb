@@ -9,7 +9,7 @@ module WebPresenter
       # @param [Result::Base] data_obj (mandatory) - Page data
       # @param [Hash] params (optional) - Page params
       #
-      # @return [Web::Economy::User] returns an object of Web::Economy::User class
+      # @return [WebPresenter::Economy::User] returns an object of WebPresenter::Economy::User class
       #
       def initialize(data_obj, params = {})
         super
