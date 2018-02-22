@@ -1,6 +1,6 @@
 class Web::EconomyController < Web::BaseController
 
-  layout "web"
+  layout "economy"
 
   before_action :set_page_meta_info
 
