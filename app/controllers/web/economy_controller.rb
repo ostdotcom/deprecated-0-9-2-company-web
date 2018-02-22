@@ -177,7 +177,7 @@ class Web::EconomyController < Web::BaseController
         CompanyApi::Response::Formatter::Economy,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).fetch_planner_step_one_details
+    ).fetch_transaction_kinds_details
 
     # Check if error present or not?
     unless @response.success?
