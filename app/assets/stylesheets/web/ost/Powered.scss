@@ -15,4 +15,33 @@
 
 .container-powered-containers{
   margin: -150px auto 20px auto;
+  .container-1, .container-2{
+    background-color: #fff;
+    box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.06);
+    p{
+      color: #234359;
+      font-weight: 300;
+      line-height: 1.58;
+      font-size: 0.85rem;
+      letter-spacing: 0.4px;
+    }
+    .link{
+      color: #d9a025;
+      font-size: 0.8rem;
+      padding-bottom: 3px;
+      display: inline-block;
+      letter-spacing: 2px;
+      border-bottom: 1px solid #d9a025;
+      &:hover{
+        color: #d9a025;
+        text-decoration: none;
+      }
+    }
+  }
+  .container-1{
+    background: url('http://127.0.0.1:3000/images/ostview-bg.svg') no-repeat bottom right #fff;
+  }
+  .container-2{
+    background: url('http://127.0.0.1:3000/images/fingerprint-bg.svg') no-repeat bottom right #fff;
+  }
 }
