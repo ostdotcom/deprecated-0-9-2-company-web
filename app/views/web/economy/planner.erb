@@ -7,12 +7,8 @@
 
   if @presenter_obj.client_token_planner.present?
     token_worth_in_usd_value = @presenter_obj.client_token_planner.token_worth_in_usd
-    initial_number_of_users_value = @presenter_obj.client_token_planner.initial_number_of_users
-    airdrop_bt_per_user_value = @presenter_obj.client_token_planner.airdrop_bt_per_user
   else
     token_worth_in_usd_value = 0.3
-    initial_number_of_users_value = 25
-    airdrop_bt_per_user_value = 10
   end
 
    fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
@@ -39,7 +35,6 @@
    else
     grant_initial_ost = @presenter_obj.client_balances.is_eligible_for_grant?
   end
-
 
   bt_to_fiat_id = "bt_to_fiat";
   ost_to_fiat_id = "ost_to_fiat";
