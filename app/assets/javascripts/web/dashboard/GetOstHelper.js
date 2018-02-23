@@ -78,7 +78,7 @@
         break;
 
         case OST_GRANT_CONFIRMED:
-          console.log("nextStep :: OST_GRANT_CONFIRMED calling getUserEthBalance");
+          oThis.jFormSubmitBtn.attr("disabled", true);
           oThis.getUserEthBalance.apply( oThis, arguments );
         break;
 
