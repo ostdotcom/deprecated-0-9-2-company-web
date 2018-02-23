@@ -372,17 +372,17 @@
       var oThis = this;
       
       var jEl       = oThis.jForm.find('input[name=currency_type]:checked')
-        , val       = Number( jEl.val() )
+        , val       = jEl.val()
         , jEnable
         , jDisable
       ;
 
-      if ( val ) {
-        jEnable   = oThis.jValueInFiat;
-        jDisable  = oThis.jValueInBt;
-      } else {
+      if ( val === "bt" ) {
         jEnable   = oThis.jValueInBt;
         jDisable  = oThis.jValueInFiat;
+      } else {
+        jEnable   = oThis.jValueInFiat;
+        jDisable  = oThis.jValueInBt;
       }
 
       jDisable.prop('disabled', true);
