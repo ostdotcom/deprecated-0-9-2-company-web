@@ -7,7 +7,7 @@ module CompanyApi
       class Base
 
         attr_reader :user, :client_token, :oracle_price_points, :chain_interaction_params,
-                    :client_token_planner, :client_balances
+                    :client_token_planner, :client_balances, :pending_critical_interactions
 
         # Initialize
         #
@@ -46,12 +46,11 @@ module CompanyApi
         # * Reviewed By: Sunil
         #
         # @param [Hash] client_token_data (mandatory) - client token hash
-        # @param [Integer] pending_critical_interaction_id (mandatory) - pending transaction id
         #
         # Sets @client_token
         #
-        def set_client_token(client_token_data, pending_critical_interaction_id)
-          @client_token = CompanyApi::Response::Entity::ClientToken.new(client_token_data, pending_critical_interaction_id)
+        def set_client_token(client_token_data)
+          @client_token = CompanyApi::Response::Entity::ClientToken.new(client_token_data)
         end
 
         # Set client token planner
@@ -108,6 +107,20 @@ module CompanyApi
         #
         def set_oracle_price_points(orace_price_points_data)
           @oracle_price_points = CompanyApi::Response::Entity::OraclePricePoints.new(orace_price_points_data, @client_token)
+        end
+
+        # Set Pending Critical Interactions Data
+        #
+        # * Author: Puneet
+        # * Date: 02/02/2018
+        # * Reviewed By:
+        #
+        # @param [Hash] pending_critical_interactions_data (mandatory)
+        #
+        # Sets @pending_critical_interactions
+        #
+        def set_pending_critical_interactions(pending_critical_interactions_data)
+          @pending_critical_interactions = CompanyApi::Response::Entity::PendingCriticalInteractions.new(pending_critical_interactions_data)
         end
 
       end

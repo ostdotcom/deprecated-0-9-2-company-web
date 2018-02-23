@@ -46,6 +46,12 @@ module WebPresenter
       end
     end
 
+    def pending_critical_interactions
+      @p_c_i ||= begin
+        formatter_obj.present? ? formatter_obj.pending_critical_interactions : nil
+      end
+    end
+
     def client_balances
       @c_balances ||= begin
         formatter_obj.present? ? formatter_obj.client_balances : nil

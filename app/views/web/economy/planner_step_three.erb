@@ -28,7 +28,6 @@
     user_ost_balance = 0
   end
 
-  #Puneet: See this. Make changes here.
   number_of_users = client_token_planner.default_initial_users;
   airdrop_amount = client_token_planner.airdrop_bt_per_user;
   buffer_mint_factor_over_airdrop = client_token_planner.buffer_mint_factor_over_airdrop;
@@ -48,11 +47,17 @@
   value_in_fiat_key = "value_in_" + fiat_type;
   value_in_fiat_sym = value_in_fiat_key.to_sym;
 
-  if @presenter_obj.client_token.pending_critical_interaction_id.present?
-    pending_critical_interaction_id = @presenter_obj.client_token.pending_critical_interaction_id
-  end
-
 %>
+
+<% content_for :end_js do %>
+    <script type="text/javascript">
+      $( function () {
+        //Do PriceOracle Stuff First.
+        window.PriceOracle && PriceOracle.setOstToBtFromErb( "<%= ost_to_bt %>" );
+      });
+      console.log("@presenter_obj.client_token", <%= raw @presenter_obj.client_token.to_json %>);
+    </script>
+<% end %>
 
 <form id="step3_stake_and_mint_form" 
   action="/api/economy/token/stake-and-mint"  method="POST"
@@ -155,7 +160,6 @@
     <script type="text/javascript">
       $( function () {
         //Do PriceOracle Stuff First.
-        window.PriceOracle && PriceOracle.setOstToBtFromErb( "<%= ost_to_bt %>" );
         ost.planner_3.init({
           idMintTokens : "mint_tokens_btn",
           "bt_to_fiat" : "<%= bt_to_fiat %>"
