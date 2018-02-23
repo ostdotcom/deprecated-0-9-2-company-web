@@ -48,19 +48,6 @@
         OST_TO_BT = String( config.ost_to_bt );
       }
 
-      if ( config.fiat_type ) {
-        fiat_type = config.fiat_type ;
-      }
-      if ( config.fiat_symbol ) {
-        fiat_symbol = config.fiat_symbol;
-      }
-      if ( config.fiat_display_text ) {
-        fiat_symbol = config.fiat_display_text ;
-      }
-      if ( config.bt_symbol ) {
-        bt_symbol = config.bt_symbol ;
-      }
-
       $.extend( PriceOracle, config );
 
       oThis.ost_to_bt   && (delete oThis.ost_to_bt);
