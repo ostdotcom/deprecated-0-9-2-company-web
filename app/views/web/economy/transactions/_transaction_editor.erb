@@ -10,16 +10,6 @@
   value_in_fiat_key = "value_in_" + fiat_type;
   value_in_fiat_sym = value_in_fiat_key.to_sym;
 
-  ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type);
-
-  if @presenter_obj.client_token.conversion_factor
-    ost_to_bt   = @presenter_obj.client_token.conversion_factor
-    bt_to_fiat = ost_to_fiat / ost_to_bt
-  elsif @presenter_obj.client_token_planner.present?
-    bt_to_fiat = @presenter_obj.client_token_planner.token_worth_in_usd
-    ost_to_bt = ost_to_fiat / bt_to_fiat
-  end
-
   #Default value for creating new transaction to be set.
   default_fiat_value = 0.10;
 
@@ -254,9 +244,6 @@
 <script type="text/javascript">
   <% #See transactions_editor.js for more options %>
   ost.transactions.editor.init({
-    ost_to_bt           : <%= ost_to_bt %>
-    , ost_to_fiat       : <%= ost_to_fiat %>
-    , bt_to_fiat        : <%= bt_to_fiat %>
     , fiat_symbol       : "<%= fiat_symbol %>"
     , fiat_type         : "<%= fiat_type %>"
     , value_in_fiat_key : "<%= value_in_fiat_key %>"
