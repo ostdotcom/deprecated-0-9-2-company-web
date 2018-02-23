@@ -5,6 +5,8 @@
    min_st_prime_to_mint = 0;
    ost_grant_value = 10000;
 
+   max_allowed_token_worth_in_usd = @presenter_obj.client_token_planner.max_allowed_token_worth_in_usd
+
   if @presenter_obj.client_token_planner.present?
     token_worth_in_usd_value = @presenter_obj.client_token_planner.token_worth_in_usd
   else
@@ -102,7 +104,7 @@
                          name: 'token_worth_in_usd',
                          type: 'number',
                          min: 0.001,
-                         max: 10,
+                         max: <%= max_allowed_token_worth_in_usd %>,
                          step: 0.001,
                          value: token_worth_in_usd_value,
                          prefix: fiat_symbol,
@@ -144,7 +146,7 @@
     <%= render :partial => "shared/web/economy/invisible_ost_to_bt_widget",
       :locals => {
         :bt_to_fiat_input_id => bt_to_fiat_id,
-        :ost_to_bt_input_name => "conversion_factor"
+        :ost_to_bt_input_name => "ost_to_bt"
       }
     %>
   </form>

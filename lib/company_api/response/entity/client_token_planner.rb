@@ -25,15 +25,33 @@ module CompanyApi
         end
 
         def airdrop_bt_per_user
-          @data['initial_airdrop']
+          BigDecimal.new(@data['initial_airdrop'])
         end
 
         def initial_number_of_users
-          @data['initial_no_of_users']
+          @data['initial_no_of_users'].to_i
         end
 
         def token_worth_in_usd
-          @data['token_worth_in_usd'].to_f
+          BigDecimal.new(@data['token_worth_in_usd'])
+        end
+
+        def default_initial_users
+          config['default_initial_users'].to_i
+        end
+
+        def buffer_mint_factor_over_airdrop
+          config['buffer_mint_factor_over_airdrop'].to_i
+        end
+
+        def max_allowed_token_worth_in_usd
+          config['max_allowed_token_worth_in_usd'].to_i
+        end
+
+        private
+
+        def config
+          @data['config']
         end
 
       end

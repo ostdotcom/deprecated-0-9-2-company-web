@@ -31,6 +31,9 @@ module CompanyApi
         def conversion_factors
           @c_r ||= begin
             if @client_token.is_ost_based_token?
+              @data['ost'].each do |currency_symbol, conversion_factor|
+                @data['ost'][currency_symbol] = BigDecimal.new(conversion_factor)
+              end
               @data['ost']
             else
               fail 'unsupported'

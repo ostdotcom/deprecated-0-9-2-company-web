@@ -31,12 +31,18 @@ module CompanyApi
         end
 
         def ost_based_conversion_factors
-          @os_b_c_r ||= conversion_factors.present? ? conversion_factors['ost'] : {}
+          @os_b_c_r ||= begin
+            return {} if conversion_factors.blank?
+            conversion_factors['ost'].each do |currency_symbol, conversion_factor|
+              conversion_factors['ost'][currency_symbol] = BigDecimal.new(conversion_factor)
+            end
+            conversion_factors['ost']
+          end
         end
 
         def ost_balance
           @o_b ||= begin
-            balances['ost'].present? ? balances['ost'].to_f : nil
+            balances['ost'].present? ? BigDecimal.new(balances['ost']) : nil
           end
         end
 
@@ -46,7 +52,7 @@ module CompanyApi
 
         def ost_prime_balance
           @o_p_b ||= begin
-            balances['ostPrime'].present? ? balances['ostPrime'].to_f : nil
+            balances['ostPrime'].present? ? BigDecimal.new(balances['ostPrime']) : nil
           end
         end
 
@@ -56,7 +62,7 @@ module CompanyApi
 
         def bt_balance
           @bt_b ||= begin
-            balances[@client_token.symbol].present? ? balances[@client_token.symbol].to_f : nil
+            balances[@client_token.symbol].present? ? BigDecimal.new(balances[@client_token.symbol]) : nil
           end
         end
 
@@ -74,11 +80,11 @@ module CompanyApi
         end
 
         def ost_to_fiat_conversion_factor(currency_symbol)
-          ost_based_conversion_factors[currency_symbol].to_f
+          ost_based_conversion_factors[currency_symbol]
         end
 
         def is_eligible_for_grant?
-          ost_balance.to_f < 1000
+          ost_balance.blank? || ost_balance < 1000
         end
 
         private
@@ -88,7 +94,7 @@ module CompanyApi
         end
 
         def convert_bt_to_ost(value)
-          value * @client_token.conversion_factor
+          value / @client_token.conversion_factor
         end
 
       end

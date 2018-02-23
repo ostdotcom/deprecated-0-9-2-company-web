@@ -7,6 +7,8 @@
  fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
  fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
 
+ client_token_planner = @presenter_obj.client_token_planner;
+
 
   ost_to_bt_input_name = "conversion_factor"
   bt_to_mint_input_name = "bt_to_mint"
@@ -26,12 +28,15 @@
   end
 
   #Puneet: See this. Make changes here.
-  number_of_users = 25;
-  airdrop_ammount = 10;
-  min_bt_to_mint  = 100;
+  number_of_users = client_token_planner.default_initial_users;
+  airdrop_ammount = client_token_planner.airdrop_bt_per_user;
+  buffer_mint_factor_over_airdrop = client_token_planner.buffer_mint_factor_over_airdrop;
+
+  min_bt_to_mint = number_of_users * airdrop_ammount;
+  bt_to_mint = number_of_users * airdrop_ammount * buffer_mint_factor_over_airdrop;
+
   min_st_prime_to_mint = 30;
   max_st_prime_to_mint = 100;
-
 
   # Note: I would avoid reducing max limit as the slider value changes.
   # Instead discuss with frankie how he would like to compute max_bt_to_mint.
@@ -41,7 +46,6 @@
 
   value_in_fiat_key = "value_in_" + fiat_type;
   value_in_fiat_sym = value_in_fiat_key.to_sym;
-
 
   if @presenter_obj.client_token.pending_critical_interaction_id.present?
     pending_critical_interaction_id = @presenter_obj.client_token.pending_critical_interaction_id
@@ -80,6 +84,7 @@
                   :ost_to_bt_input_name => ost_to_bt_input_name,
                   :bt_to_mint_input_name => bt_to_mint_input_name,
                   :stake_and_mint_form_id => "step3_stake_and_mint_form",
+                  :bt_to_mint => bt_to_mint,
                   :min_bt_to_mint => min_bt_to_mint,
                   :max_bt_to_mint => max_bt_to_mint,
                   :min_st_prime_to_mint => min_st_prime_to_mint,
