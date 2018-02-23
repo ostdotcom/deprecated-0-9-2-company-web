@@ -23,6 +23,7 @@
     , idBtToFiat      : null
     , idForm          : null
     , idTransferHash  : null
+    , idOstToTransfer : null
     , idConfirmModal  : "stake-mint-confirm"
     , idConfirmBtn    : "confirm_mint_button"
     , idProcessModal  : "stake-mint-processing"
@@ -35,6 +36,7 @@
     , jOstToBt        : null
     , jBtToOst        : null
     , jBtToFiat       : null
+    , jOstToTransfer  : null
     , jForm           : null
     , ostFormHelper   : null
     , jTransferHash   : null
@@ -60,6 +62,7 @@
       oThis.jOstBalance     = oThis.jOstBalance     || $( "#" + oThis.idOstBalance );
       oThis.jOstAfter       = oThis.jOstAfter       || $( "#" + oThis.idOstAfter );
       oThis.jStPrimeToMint  = oThis.jStPrimeToMint  || $( "#" + oThis.idStPrimeToMint );
+      oThis.jOstToTransfer  = oThis.jOstToTransfer  || $( "#" + oThis.idOstToTransfer);
 
       //Conversion related inputs
       oThis.jOstToBt        = oThis.jOstToBt        || $( "#" + oThis.idOstToBt );
@@ -72,6 +75,8 @@
       oThis.jConfirmBtn     = oThis.jConfirmBtn     || $( "#" + oThis.idConfirmBtn );
       oThis.jProcessModal   = oThis.jProcessModal   || $( "#" + oThis.idProcessModal );
       oThis.jTransferHash   = oThis.jTransferHash   || $( "#" + oThis.idTransferHash );
+
+      oThis.jOstToBt.val(PriceOracle.ostToBt(1));
 
       console.log("jForm", oThis.jForm);
       oThis.ostFormHelper   = oThis.jForm.formHelper({
@@ -90,14 +95,11 @@
       oThis.setUpBtToMintSlider();
       oThis.setUpStToMintSlider();
 
-      PriceOracle.bindCurrencyElements(oThis.jBtToMint, oThis.jBtToFiat, oThis.jOstStakeForBt);
+      PriceOracle.bindCurrencyElements(oThis.jBtToMint, null, oThis.jOstStakeForBt);
 
       google.charts.load('current', {packages: ['corechart']});
 
       oThis.bindEvents();
-
-
-      console.log("oThis.jBtToFiat.val() |||", oThis.jBtToFiat.val(), "|||");
 
       oThis.jBtToMint.trigger("change");  
 
@@ -132,6 +134,11 @@
 
       oThis.jStPrimeToMint.on("change", function () {
         oThis.updateChart();
+        oThis.updateTotalOstToTransfer();
+      });
+
+      oThis.jOstStakeForBt.on("change" , function () {
+        oThis.updateTotalOstToTransfer();
       });
 
       oThis.jConfirmBtn.on("click", function () {
@@ -151,6 +158,15 @@
         console.log("jBtToFiat changed!" ,oThis.jBtToFiat.val());
         console.trace();
       })
+    }
+
+    ,updateTotalOstToTransfer : function () {
+       var stPrimeToMint = oThis.jStPrimeToMint.val(),
+           ostStakeForBT = oThis.jOstStakeForBt.val(),
+           totalOstToTransfer
+       ;
+       totalOstToTransfer = BigNumber(ostStakeForBT).plus(stPrimeToMint);
+       oThis.jOstToTransfer.val(totalOstToTransfer);
     }
 
     , ostToBtUpdated: function () {

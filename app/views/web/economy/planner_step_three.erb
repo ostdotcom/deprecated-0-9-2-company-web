@@ -54,6 +54,16 @@
 
 %>
 
+<% content_for :end_js do %>
+  <script type="text/javascript">
+    $( function () {
+      //Do PriceOracle Stuff First.
+      window.PriceOracle && PriceOracle.setOstToBtFromErb( "<%= ost_to_bt %>" );
+    });
+    console.log("@presenter_obj.client_token", <%= raw @presenter_obj.client_token.to_json %>);
+  </script>
+<% end %>
+
 <form id="step3_stake_and_mint_form" 
   action="/api/economy/token/stake-and-mint"  method="POST"
   class="form-container user-form" data-ost-formhelper>
@@ -155,7 +165,6 @@
     <script type="text/javascript">
       $( function () {
         //Do PriceOracle Stuff First.
-        window.PriceOracle && PriceOracle.setOstToBtFromErb( "<%= ost_to_bt %>" );
         ost.planner_3.init({
           idMintTokens : "mint_tokens_btn",
           "bt_to_fiat" : "<%= bt_to_fiat %>"

@@ -1,3 +1,8 @@
+// Import functions as variables depend on functions
+@import "../../../plugins/bootstrap/scss/functions";
+
+// Import theme variables
+@import "../../Starboy/variables";
 
 .first-transaction-wrapper ,  .transaction-history-wrapper {
   display: none;
@@ -10,4 +15,12 @@
 
 .first-transaction-wrapper {
   padding: 40px;
+}
+
+.transaction-history-wrapper {
+
+  .card-header ,  .card-body {
+      background-color: $blue-bg;
+      color: $blue-700;
+  }
 }
