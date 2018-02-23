@@ -18,6 +18,15 @@
 
    ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type);
 
+   if @presenter_obj.client_token.conversion_factor
+     ost_to_bt   = @presenter_obj.client_token.conversion_factor
+   elsif @presenter_obj.client_token_planner.present?
+     bt_to_fiat = @presenter_obj.client_token_planner.token_worth_in_usd
+     ost_to_bt = ost_to_fiat / bt_to_fiat
+   else
+     ost_to_bt = 0.03
+   end
+
    value_in_fiat_key = "value_in_" + fiat_type;
    value_in_fiat_sym = value_in_fiat_key.to_sym;
 
@@ -56,28 +65,28 @@
         %>
         <div class="alert alert-info" role="alert">
           <h4 class="alert-heading">
-            = The first step in creating <%= bt_symbol %> is to set the conversion rate between <%= bt_symbol %> and OST⍺. 
+            % The first step in creating <%= bt_symbol %> is to set the conversion rate between <%= bt_symbol %> and OST⍺.
           </h4>
           <hr class="mt-2 mb-4"/>
           <p> 
             Once you Mint <%= bt_symbol %>, the conversion rate is fixed and cannot be changed. Your customers will always be able to redeem their <%= bt_symbol %> for OST at that conversion rate.
           </p>
           <p class="mt-2">
-            The current value of 
-            <strong>OST⍺ = 
+            The current value of
+            <strong>OST⍺ =
               <%= fiat_symbol %><span data-ost-mock-element="#<%= ost_to_fiat_id %>"><%= ost_to_fiat %></span>
               <input id="<%= ost_to_fiat_id %>" type="hidden" name="ost_to_fiat" value="<%= ost_to_fiat %>" />
-            </strong> 
-            (OST⍺ tracks the value of OST on public exchanges). 
+            </strong>
+            (OST⍺ tracks the value of OST on public exchanges).
           </p>
           <p class="mt-2">
-            The simple way to set the conversion rate is by deciding 
+            The simple way to set the conversion rate is by deciding
             <strong>
               how much you want 1 <%= bt_symbol %> to initially be worth.
             </strong>
           </p>
         </div>
-        
+
         <div class="card card-planner mb-5">
           <div class="card-header">
             <div class="d-flex align-items-center">
@@ -109,7 +118,7 @@
               <li class="list-group-item">
                 You have chosen to set
                 <strong>
-                  1 <%= bt_symbol %> = 
+                  1 <%= bt_symbol %> =
                   $<span data-type="number" data-ost-mock-element="#<%= bt_to_fiat_id %>">0.1</span>
                 </strong>
               </li>
@@ -122,7 +131,7 @@
               <li class="list-group-item">
                 You currently have 10,000 OST⍺ to test with. You can
                 <strong>
-                  mint a maximum of 
+                  mint a maximum of
                   <span id="maximum_mintbale_bt_text" data-type="number" data-ost-mock-element="maximum_mintbale_bt">2,970</span>
                   <input type="hidden" name="maximum_mintbale_bt" id="maximum_mintbale_bt" />
                   <%= bt_symbol %> before requiring more OST⍺.
@@ -153,6 +162,9 @@
 <% content_for :end_js do %>
 <script type="text/javascript">
   $( function () {
+    //Do PriceOracle Stuff First.
+    window.PriceOracle && PriceOracle.setOstToBtFromErb( "<%= ost_to_bt %>" );
+    //Not init the page.
     ost.planner.step1.init({
       has_verified_email: <%= has_verified_email %>,
       grant_initial_ost: <%= grant_initial_ost %>,
@@ -164,7 +176,6 @@
   });
 </script>
 <% end %>
-
 <%#= render :partial => "/web/economy/planner/metamask_installed" %>
 <%#= render :partial => "/web/economy/planner/metamask_locked" %>
 <%#= render :partial => "/web/economy/planner/metamask_wrong_network" %>

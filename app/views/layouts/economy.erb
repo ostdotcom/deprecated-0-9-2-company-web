@@ -141,9 +141,8 @@
 <% if page_needs_conversion_rates %>
   <script type="text/javascript">
     $( function () {
-      PriceOracle.init({
-        ost_to_bt           : "<%= ost_to_bt %>"
-        , ost_to_fiat       : "<%= ost_to_fiat %>"
+      var oracleConfig = {
+        ost_to_fiat         : "<%= ost_to_fiat %>"
         , fiat_symbol       : "<%= fiat_symbol %>"
         , fiat_type         : "<%= fiat_type %>"
         , fiat_display_text : "<%= fiat_display_text %>"
@@ -152,6 +151,10 @@
         , bt_precision      : "<%= 3 %>"
         , bt_symbol         : "<%= bt_symbol %>"
       });
+    <% if ost_to_bt.present? %>
+    oracleConfig.ost_to_bt = "<%= ost_to_bt %>";
+    <% end %>
+    PriceOracle.init( oracleConfig );
     })
   </script>
 <% end %>
