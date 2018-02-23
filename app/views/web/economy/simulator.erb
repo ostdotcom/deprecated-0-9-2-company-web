@@ -1,3 +1,27 @@
+<%
+  tx_status_polling_url = '/api/economy/transaction/fetch-detail';  #fetch transaction details api
+  long_poll_timeout_millisecond = 500;  #Value needed in milliseconds
+%>
+
+
+
 <div class="container mt-4">
-  <%= render :partial => "/web/economy/simulator/simulator_1" %>
+
+  <div class="first-transaction-wrapper text-center ">
+    <%= render :partial => "/web/economy/simulator/simulator_1"%>
+  </div>
+
+  <div class="transaction-history-wrapper">
+    <%= render :partial => "/web/economy/simulator/simulator_2" %>
+  </div>
+
 </div>
+
+<% content_for :end_js do %>
+  <script type="text/javascript">
+    ost.simulator.init({
+      long_poll_timeout_millisecond: <%= long_poll_timeout_millisecond %>,
+      tx_status_polling_url: "<%= tx_status_polling_url %>"
+    });
+  </script>
+<% end %>

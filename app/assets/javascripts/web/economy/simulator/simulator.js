@@ -55,6 +55,11 @@
     bindEvents : function () {
       var oThis =  this;
 
+      $(".run-first-transaction-btn").on('click' , function () {
+        oThis.updateDisplayContent();
+        $('#run-transaction-form').submit();
+      });
+
       $("#run-transaction-form").formHelper({
         success: function ( response ) {
           if ( response.success ) {
@@ -78,10 +83,25 @@
       var oThis =  this,
           data  = response && response.data
       ;
+      oThis.updateDisplayContent( data );
       oThis.updateUsersHash( data );
       oThis.updateTransactionTypesHash( data );
       oThis.setPendingTransactions( data );
       oThis.pollPendingTransactions( );
+    },
+
+    updateDisplayContent : function ( data )  {
+      var transactions = data && data.transactions,
+          jFirstTransactionWrapper = $('.first-transaction-wrapper'),
+          jTransactionHistoryWrapper = $('.transaction-history-wrapper')
+      ;
+      if(transactions && transactions.length > 0){
+        jFirstTransactionWrapper.hide();
+        jTransactionHistoryWrapper.show();
+      }else {
+        jFirstTransactionWrapper.show();
+        jTransactionHistoryWrapper.hide();
+      }
     },
 
     updateUsersHash : function (data) {

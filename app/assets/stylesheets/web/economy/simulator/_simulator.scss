@@ -1,5 +1,13 @@
 
+.first-transaction-wrapper ,  .transaction-history-wrapper {
+  display: none;
+}
+
 .pending-transaction-wrapper {
   padding: 40px;
   text-align: center;
+}
+
+.first-transaction-wrapper {
+  padding: 40px;
 }
