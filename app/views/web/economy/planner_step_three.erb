@@ -28,7 +28,6 @@
     user_ost_balance = 0
   end
 
-  #Puneet: See this. Make changes here.
   number_of_users = client_token_planner.default_initial_users;
   airdrop_amount = client_token_planner.airdrop_bt_per_user;
   buffer_mint_factor_over_airdrop = client_token_planner.buffer_mint_factor_over_airdrop;
@@ -47,10 +46,6 @@
 
   value_in_fiat_key = "value_in_" + fiat_type;
   value_in_fiat_sym = value_in_fiat_key.to_sym;
-
-  if @presenter_obj.client_token.pending_critical_interaction_id.present?
-    pending_critical_interaction_id = @presenter_obj.client_token.pending_critical_interaction_id
-  end
 
 %>
 

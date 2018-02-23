@@ -34,9 +34,11 @@ module CompanyApi
 
           pending_critical_interaction_id = @data['pending_critical_interaction_id']
 
-          set_client_token(@data['client_token'], pending_critical_interaction_id)
+          set_client_token(@data['client_token'])
 
           set_oracle_price_points(@data['oracle_price_points'])
+
+          set_pending_critical_interactions(@data['pending_critical_interactions']) if @data['pending_critical_interactions'].present?
 
           set_client_token_planner(@data['client_token_planner']) if @data['client_token_planner'].present?
 

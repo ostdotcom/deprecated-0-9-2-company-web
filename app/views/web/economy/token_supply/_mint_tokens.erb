@@ -14,10 +14,6 @@
   indicative_bt_to_mint =  (bt_st_primt_ratio * ost_balance).to_i
   indicative_stp_to_mint =  ((1-bt_st_primt_ratio) * ost_balance).to_i
 
-  if @presenter_obj.client_token.pending_critical_interaction_id.present?
-    pending_critical_interaction_id = @presenter_obj.client_token.pending_critical_interaction_id
-  end
-
 %>
 <div class="row">
   <div class="col-12">

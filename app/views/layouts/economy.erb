@@ -133,6 +133,11 @@
 
   <%= render :partial => "shared/web/modals/help_video" %>
   <%= render :partial => "/shared/web/modals/verify_account" %>
+
+  <% if @presenter_obj.pending_critical_interactions.present? %>
+    <%= @presenter_obj.pending_critical_interactions %>
+  <% end %>
+
 </main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
