@@ -1,7 +1,7 @@
 <%
   should_show_api_call_button = true;
 
-  coin_name   = @presenter_obj.client_token.name;
+  bt_name   = @presenter_obj.client_token.name;
   bt_symbol = @presenter_obj.client_token.symbol;
 
   tx_status_polling_url = '/api/economy/transaction/fetch-detail';        #fetch transaction details api
@@ -34,7 +34,7 @@
           <div class="d-flex align-items-center justify-content-between">
             <div class="w-100">
               <span class="rounded-circle align-middle"></span>
-              <span class="align-middle">{{getUserName from_user_id}} Sent <%= coin_name %> <%= bt_symbol %> to </span>
+              <span class="align-middle">{{getUserName from_user_id}} Sent <%= bt_name %> <%= bt_symbol %> to </span>
               <span class="rounded-circle align-middle"></span>
               <span class="align-middle">{{getUserName to_user_id}} </span>
             </div>

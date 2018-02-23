@@ -7,7 +7,6 @@
     defaultData         : null          /* Mandetory */
     , fiat_symbol       : "$"
     , fiat_type         : "usd"
-    , value_in_fiat_key : "value_in_usd"
     , createUrl         : "/api/economy/transaction/kind/create"
     , editUrl           : "/api/economy/transaction/kind/edit"
     , eventContext      : transactions

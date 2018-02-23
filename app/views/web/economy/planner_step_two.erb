@@ -1,6 +1,7 @@
 <%
 
-  coin_name = @presenter_obj.client_token.name;
+
+  bt_name = @presenter_obj.client_token.name;
 
   ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type);
 
@@ -10,6 +11,7 @@
     bt_to_fiat = @presenter_obj.client_token_planner.token_worth_in_usd
     ost_to_bt = ost_to_fiat / bt_to_fiat
   end
+  
 
 %>
 
@@ -17,7 +19,7 @@
 
   <div class="row">
     <div class="col-12">
-      <h3 class="text-center mt-4">Plan the <%= coin_name %> Economy in 3 Easy Steps</h3>
+      <h3 class="text-center mt-4">Plan the <%= bt_name %> Economy in 3 Easy Steps</h3>
       <%= render partial: 'shared/web/common/steps',
                  locals: {
                          classes_step_1: '',

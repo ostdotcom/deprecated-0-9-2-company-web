@@ -150,9 +150,9 @@
         , ost_precision     : "<%= 5 %>"
         , bt_precision      : "<%= 3 %>"
         , bt_symbol         : "<%= bt_symbol %>"
-      });
+      };
     <% if ost_to_bt.present? %>
-    oracleConfig.ost_to_bt = "<%= ost_to_bt %>";
+      oracleConfig.ost_to_bt = "<%= ost_to_bt %>";
     <% end %>
     PriceOracle.init( oracleConfig );
     })

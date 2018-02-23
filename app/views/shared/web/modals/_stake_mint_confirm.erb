@@ -6,7 +6,7 @@
   bt_to_ost_input_id = bt_to_ost_input_id
   bt_to_fiat_input_id = bt_to_fiat_input_id
 
-  coin_name   = @presenter_obj.client_token.name;
+  bt_name   = @presenter_obj.client_token.name;
   bt_symbol = @presenter_obj.client_token.symbol;
   fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
   fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
@@ -22,11 +22,11 @@
       </button>
       <div class="modal-body">
         <h1 class="heading font-weight-normal">Please Review and Confirm</h1>
-        <p class="desc font-weight-light"><%= coin_name %></p>
+        <p class="desc font-weight-light"><%= bt_name %></p>
         <div class="row no-gutters">
           <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
             <div class="card rounded font-weight-normal border-0">
-              <div class="item-1"><%= coin_name %> YOU WISH TO MINT</div>
+              <div class="item-1"><%= bt_name %> YOU WISH TO MINT</div>
               <div class="item-2" data-ost-mock-element="#<%= bt_to_mint_input_id %>"></div>
             </div>
           </div>
@@ -42,7 +42,7 @@
             <div class="card rounded font-weight-normal border-0">
               <div class="item-1">TOKEN CONVERSION RATE (OST)</div>
               <div class="item-2">
-                <span>1 <%= coin_name %> = </span>
+                <span>1 <%= bt_name %> = </span>
                 <span data-ost-mock-element="#<%= bt_to_ost_input_id %>"></span>
                 <span>OST</span>
               </div>
@@ -52,7 +52,7 @@
             <div class="card rounded font-weight-normal border-0">
               <div class="item-1">TOKEN CONVERSION RATE (<%= fiat_display_text %>)</div>
               <div class="item-2">
-                <span>1 <%= coin_name %> = <%= fiat_symbol %></span>
+                <span>1 <%= bt_name %> = <%= fiat_symbol %></span>
                 <span data-ost-mock-element="#<%= bt_to_fiat_input_id %>"></span>
               </div>
             </div>

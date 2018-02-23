@@ -1,5 +1,5 @@
 <%
-   coin_name   = @presenter_obj.client_token.name;
+   bt_name   = @presenter_obj.client_token.name;
    bt_symbol = @presenter_obj.client_token.symbol;
 
   if @presenter_obj.client_token_planner.present?
@@ -55,7 +55,7 @@
   >
     <div class="row">
       <div class="col-12">
-        <h3 class="text-center mt-4">Plan the <%= coin_name %> Economy in 3 Easy Steps</h3>
+        <h3 class="text-center mt-4">Plan the <%= bt_name %> Economy in 3 Easy Steps</h3>
         <%= render partial: 'shared/web/common/steps',
                    locals: {
                            classes_step_1: 'active',
@@ -99,7 +99,7 @@
             <div class="user-form">
               <%= render partial: 'shared/web/common/slider_right',
                  locals: {
-                         label: 'How much do you want 1 '+coin_name+' to be worth?',
+                         label: 'How much do you want 1 '+bt_name+' to be worth?',
                          id: bt_to_fiat_id,
                          name: 'token_worth_in_usd',
                          type: 'number',

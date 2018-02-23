@@ -5,7 +5,7 @@
   create_bt_to_fiat_input = !bt_to_fiat_input_id.present? ? true : false;
 
   #Mandetory Params
-  coin_name   = @presenter_obj.client_token.name;
+  bt_name   = @presenter_obj.client_token.name;
   bt_symbol = @presenter_obj.client_token.symbol;
   fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
   fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
@@ -35,7 +35,7 @@
       />
     <% end %>
     <div class="clearfix">
-      <label class="form-label float-left" for="bt"><%=coin_name%></label>
+      <label class="form-label float-left" for="bt"><%=bt_name%></label>
       <span class="form-label float-right">Value Set <%=fiat_symbol%><span data-ost-mock-element="#<%= bt_to_fiat_input_id %>"></span></span>
     </div>
 

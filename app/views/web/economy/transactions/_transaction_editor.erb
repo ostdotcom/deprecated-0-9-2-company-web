@@ -1,6 +1,6 @@
 <%
 
-  coin_name   = @presenter_obj.client_token.name;
+  bt_name   = @presenter_obj.client_token.name;
   bt_symbol = @presenter_obj.client_token.symbol;
 
   fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
@@ -246,7 +246,6 @@
   ost.transactions.editor.init({
     , fiat_symbol       : "<%= fiat_symbol %>"
     , fiat_type         : "<%= fiat_type %>"
-    , value_in_fiat_key : "<%= value_in_fiat_key %>"
     , defaultData       : <%= raw default_transaction_values.to_json %>
     , eventContext      : ost.transactions
     , createUrl         : "<%= create_url %>"
