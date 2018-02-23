@@ -1,10 +1,20 @@
 .container-powered{
-  background-color: #aee1e3;
-  padding-top: 40px;
+  padding-top: 1.5rem;
   padding-bottom: 170px;
-  h1{
-    color: #ffffff;
-    font-weight: 300;
+  overflow: hidden;
+  &.kit{
+    background-color: #aee1e3;
+    h1{
+      color: #ffffff;
+      font-weight: 300;
+    }
+  }
+  &.ost{
+    background-color: #eff9fa;
+    h1{
+      color: #69a2bd;
+      font-weight: 300;
+    }
   }
   p{
     color: #597a84;
