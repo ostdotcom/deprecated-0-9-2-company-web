@@ -165,8 +165,12 @@
            ostStakeForBT = oThis.jOstStakeForBt.val(),
            totalOstToTransfer
        ;
-       totalOstToTransfer = BigNumber(ostStakeForBT).plus(stPrimeToMint);
-       oThis.jOstToTransfer.val(totalOstToTransfer);
+       stPrimeToMint = BigNumber(stPrimeToMint);
+       ostStakeForBT = BigNumber(ostStakeForBT);
+       if( !PriceOracle.isNaN( stPrimeToMint ) && !PriceOracle.isNaN( ostStakeForBT ) ) {
+         totalOstToTransfer = BigNumber(ostStakeForBT).plus(stPrimeToMint);
+         oThis.jOstToTransfer.safeSetVal(totalOstToTransfer);
+       }
     }
 
     , ostToBtUpdated: function () {

@@ -5,6 +5,7 @@
   token_usd_value_id = token_usd_value_id
   bt_to_ost_input_id = bt_to_ost_input_id
   bt_to_fiat_input_id = bt_to_fiat_input_id
+  ost_stake_for_bt_id = ost_stake_for_bt_id
 
   bt_name   = @presenter_obj.client_token.name;
   bt_symbol = @presenter_obj.client_token.symbol;
@@ -32,8 +33,8 @@
           </div>
           <div class="col-xs-12 col-md-6 col-lg-6 mr-auto text-left">
             <div class="card rounded font-weight-normal border-0">
-              <div class="item-1">OST STAKED FOR MINTING</div>
-              <div class="item-2" data-ost-mock-element="#<%= ost_to_transfer_id %>"></div>
+              <div class="item-1">Total Ost to transfer</div>
+              <div class="item-2" data-type="ost" data-ost-mock-element="#<%= ost_to_transfer_id %>"></div>
             </div>
           </div>
         </div>
@@ -48,6 +49,14 @@
               </div>
             </div>
           </div>
+          <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
+            <div class="card rounded font-weight-normal border-0">
+              <div class="item-1">OST ALLOCATED FOR TRANSACTION FEE</div>
+              <div class="item-2" data-ost-mock-element="#<%= st_prime_to_mint_input_id %>"></div>
+            </div>
+          </div>
+        </div>
+        <div class="row no-gutters">
           <div class="col-xs-12 col-md-4 col-lg-6 mr-auto text-left">
             <div class="card rounded font-weight-normal border-0">
               <div class="item-1">TOKEN CONVERSION RATE (<%= fiat_display_text %>)</div>
@@ -57,21 +66,10 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="row no-gutters">
-          <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
-            <div class="card rounded font-weight-normal border-0">
-              <div class="item-1">OST ALLOCATED FOR TRANSACTION FEE</div>
-              <div class="item-2" data-ost-mock-element="#<%= st_prime_to_mint_input_id %>"></div>
-            </div>
-          </div>
           <div class="col-xs-12 col-md-6 col-lg-6 mr-auto text-left">
             <div class="card rounded font-weight-normal border-0">
               <div class="item-1">Total OST Staked For Minting</div>
-              <div class="item-2">
-                <span><%= fiat_symbol %></span>
-                <span></span>
-              </div>
+              <div class="item-2" data-ost-mock-element="#<%= ost_stake_for_bt_id %>"></div>
             </div>
           </div>
         </div>
