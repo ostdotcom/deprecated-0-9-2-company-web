@@ -24,11 +24,15 @@
       
       oThis.bindEvents();
 
+      console.log("oThis.jBtToFiat.val()" , oThis.jBtToFiat.val() );
       //Set initial values
       var ostToBt   = PriceOracle.ostToBt( 1 ).toString( 10 )
         , fiatInBt  = PriceOracle.btToFiat( 1 ).toString( 10 )
         , btToOst   = PriceOracle.btToOst(1).toString( 10 )
       ;
+
+      console.log("fiatInBt" , fiatInBt);
+
       oThis.jOstToBt.safeSetVal( ostToBt );
       oThis.jBtToFiat.safeSetVal( fiatInBt );
       oThis.jBtToOst.safeSetVal( btToOst );
@@ -56,6 +60,12 @@
         didUpdateBtToOst && console.log("updating jBtToOst to " , btToOst);        
 
       });
+
+      $( oThis.jBtToFiat ).on("change", function () {
+        console.log("jBtToFiat val", oThis.jBtToFiat.val() )
+        console.log("oThis.jBtToFiat changed!");
+        console.trace();
+      })
 
     }
   }

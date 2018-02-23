@@ -44,11 +44,14 @@
 <% content_for :end_js do %>
   <script type="text/javascript">
     $( function () {
-      ost.ostToBtWidget.init({
-        idBtToFiat: "<%= bt_to_fiat_input_id %>"
-        , idOstToBt: "<%= ost_to_bt_input_id %>"
-        , idBtToOst: "<%= bt_to_ost_input_id %>" 
-      });
+      //Planner Steps set the OST_TO_BT late in game, lets give them some time.
+      setTimeout(function () {
+        ost.ostToBtWidget.init({
+          idBtToFiat: "<%= bt_to_fiat_input_id %>"
+          , idOstToBt: "<%= ost_to_bt_input_id %>"
+          , idBtToOst: "<%= bt_to_ost_input_id %>"
+        });
+      }, 100);
     })
   </script>
 <% end %>

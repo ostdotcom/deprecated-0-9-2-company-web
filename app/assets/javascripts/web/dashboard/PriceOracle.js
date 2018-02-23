@@ -106,6 +106,12 @@
       var ost     = oThis.btToOst( bt, true )
         , result  = oThis.ostToFiat( ost )
       ;
+
+      logMe && console.log("btToFiat :: bt", bt);
+      logMe && console.log("btToFiat :: OST_TO_BT", OST_TO_BT);
+      logMe && console.log("btToFiat :: ost", ost.toString());
+      logMe && console.log("btToFiat :: result", result.toString());
+
       if ( doNotRound ) {
         return result;
       }
