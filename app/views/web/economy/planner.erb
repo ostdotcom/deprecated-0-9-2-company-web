@@ -5,12 +5,12 @@
    min_st_prime_to_mint = 0;
    ost_grant_value = 10000;
 
-   max_allowed_token_worth_in_usd = @presenter_obj.client_token_planner.max_allowed_token_worth_in_usd
-
   if @presenter_obj.client_token_planner.present?
     token_worth_in_usd_value = @presenter_obj.client_token_planner.token_worth_in_usd
+    max_allowed_token_worth_in_usd = @presenter_obj.client_token_planner.max_allowed_token_worth_in_usd
   else
     token_worth_in_usd_value = 0.3
+    max_allowed_token_worth_in_usd = 1
   end
 
    fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
