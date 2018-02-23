@@ -1,7 +1,7 @@
 <%
 
   coin_name   = @presenter_obj.client_token.name;
-  coin_symbol = @presenter_obj.client_token.symbol;
+  bt_symbol = @presenter_obj.client_token.symbol;
 
   fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
   fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
@@ -118,8 +118,8 @@
 
     <div class="col-4">
       <div class="form-group" id="value_in_bt_form_group">
-        <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Value In (<%= coin_symbol %>)</label>
-        <input id="value_in_bt" type="number" name="currency_value" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= coin_symbol %>)" required/>
+        <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Value In (<%= bt_symbol %>)</label>
+        <input id="value_in_bt" type="number" name="currency_value" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= bt_symbol %>)" required/>
         <div class="invalid-feedback" data-forid="value_in_bt">&nbps;</div>
       </div>
     </div>
@@ -184,7 +184,7 @@
         <div class="col-2">
           <%= render :partial => "/shared/web/common/mocker",
                      :locals => {
-                       :header => "VALUE IN " + coin_symbol,
+                       :header => "VALUE IN " + bt_symbol,
                        :mock_selector => "#commission_in_bt"
                      }
           %>
@@ -224,13 +224,13 @@
       <div class="card-group">
         <%= render :partial => "/shared/web/common/mocker",
           :locals => {
-            :header => "TOTAL TRANSACTION VALUE (" + coin_symbol + ")",
+            :header => "TOTAL TRANSACTION VALUE (" + bt_symbol + ")",
             :mock_selector => "#value_in_bt"
           }
         %>
         <%= render :partial => "/shared/web/common/mocker",
           :locals => {
-            :header => "COMMISSION (" + coin_symbol + ")",
+            :header => "COMMISSION (" + bt_symbol + ")",
             :mock_selector => "#commission_in_bt"
           }
         %>

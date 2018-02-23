@@ -168,7 +168,7 @@
         jEl.val( bt );
         
 
-        var ostToBt = oThis.toPreciseOst( bt )
+        var ostToBt   = oThis.toPreciseOst( bt )
           , bt_to_fiat
         ;
         OST_TO_BT   = ostToBt.toString();
@@ -265,6 +265,7 @@
       }
 
       ost = oThis.toPreciseOst( ost );
+      console.log("ost.toFixed(P_D_OST, P_OST_DISPLAY_ROUND_ROUNDING_MODE)" , ost.toFixed(P_D_OST, P_OST_DISPLAY_ROUND_ROUNDING_MODE));
       return ost.toFixed(P_D_OST, P_OST_DISPLAY_ROUND_ROUNDING_MODE);
     }
 

@@ -1,21 +1,24 @@
 <%
 
   #Things that need to be logically at top.
-  st_prime_to_mint_input_id = st_prime_to_mint_input_id
-  create_prime_mint_input = !st_prime_to_mint_input_id.present? ? true : false;
-
   ost_to_bt_input_id = ost_to_bt_input_id
   create_ost_to_bt_input = !ost_to_bt_input_id.present? ? true : false;
 
   bt_to_fiat_input_id = bt_to_fiat_input_id
   create_bt_to_fiat_input = !bt_to_fiat_input_id.present? ? true : false;
 
+
+  is_eligible_for_grant = @presenter_obj.client_balances.is_eligible_for_grant?
   #Mandetory Params
-  if @presenter_obj.client_balances.present? && @presenter_obj.client_balances.bt_balance.present?
-    user_ost_balance = @presenter_obj.client_balances.bt_balance
+  max_bt_to_mint = max_bt_to_mint;
+  max_st_prime_to_mint = max_st_prime_to_mint;
+  if @presenter_obj.client_balances.present? && @presenter_obj.client_balances.ost_balance.present?
+    user_ost_balance = @presenter_obj.client_balances.ost_balance
   else
-    user_ost_balance = 500
+    user_ost_balance = 0
   end
+
+
 
   if @presenter_obj.chain_interaction_params.present?
     staker_address = @presenter_obj.chain_interaction_params.staker_addr;
@@ -23,26 +26,30 @@
     staker_address = ''
   end
 
+
   stake_and_mint_form_id = stake_and_mint_form_id
 
   #Form Optional Params
-  
-  bt_to_mint = bt_to_mint.present? ? bt_to_mint : 100;
+  min_bt_to_mint = min_bt_to_mint.present? ? min_bt_to_mint : 1;
+  bt_to_mint = bt_to_mint.present? ? bt_to_mint : min_bt_to_mint;
   bt_to_mint_input_name = bt_to_mint_input_name.present? ? bt_to_mint_input_name : "bt_to_mint";
 
 
   #These are used only if st_prime_to_mint_input_id is not specified.
-  st_prime_to_mint = st_prime_to_mint.present? ? st_prime_to_mint : 0;
+  min_st_prime_to_mint = min_st_prime_to_mint.present? ? min_st_prime_to_mint : 1;
+  max_st_prime_to_mint = max_st_prime_to_mint.present? ? max_st_prime_to_mint : user_ost_balance;
+  st_prime_to_mint = st_prime_to_mint.present? ? st_prime_to_mint : min_st_prime_to_mint;
   st_prime_to_mint_input_name = st_prime_to_mint_input_name.present? ? 
     st_prime_to_mint_input_name : "st_prime_to_mint";
   #These are used only if ost_to_bt_input_id is not specified.
   ost_to_bt_input_name = ost_to_bt_input_name.present? ? ost_to_bt_input_name : "conversion_factor";
 
-  user_ost_balance_name = user_ost_balance_name.present? ? user_ost_balance_name : "user_ost_balance";
-  ost_to_transfer_name  = ost_to_transfer_name.present? ? ost_to_transfer_name : "ost_to_transfer";
-  token_usd_value_name  = token_usd_value_name.present? ? token_usd_value_name : "token_usd_value";
-  bt_to_ost_input_name  = bt_to_ost_input_name.present? ? bt_to_ost_input_name : "bt_to_ost";
-  bt_to_fiat_input_name = bt_to_fiat_input_name.present? ? bt_to_fiat_input_name : "bt_to_fiat";
+  user_ost_balance_name = user_ost_balance_name.present? ? user_ost_balance_name  : "user_ost_balance";
+  ost_to_transfer_name  = ost_to_transfer_name.present? ? ost_to_transfer_name    : "ost_to_transfer";
+  token_usd_value_name  = token_usd_value_name.present? ? token_usd_value_name    : "token_usd_value";
+  bt_to_ost_input_name  = bt_to_ost_input_name.present? ? bt_to_ost_input_name    : "bt_to_ost";
+  bt_to_fiat_input_name = bt_to_fiat_input_name.present? ? bt_to_fiat_input_name  : "bt_to_fiat";
+  ost_stake_for_bt_name = ost_stake_for_bt_name.present? ? ost_stake_for_bt_name  : "ost_stake_for_bt";
 
 
   #Optional Params. Further Cusomisations
@@ -60,6 +67,9 @@
 
   ost_to_transfer_id = ost_to_transfer_id.present? ? 
     ost_to_transfer_id : "ost_to_transfer_input";
+
+  ost_stake_for_bt_id = ost_stake_for_bt_id.present? ?
+    ost_stake_for_bt_id : "ost_stake_for_bt_input"
 
   ost_balance_after_transfer_id = ost_balance_after_transfer_id.present? ?
     ost_balance_after_transfer_id : "ost_balance_after_transfer";
@@ -82,26 +92,38 @@
   <div class="col-3">
     <%= render partial: 'shared/web/common/slider_top',
                locals: {
-                 label: 'No of Tokens to Create',
+                 label: 'N&deg; of Tokens to Create',
                  id: bt_to_mint_input_id,
                  name: bt_to_mint_input_name,
                  type: 'number',
-                 min: 1,
-                 max: 500,
+                 min: min_bt_to_mint,
+                 max: max_bt_to_mint,
                  step: 1,
                  value: bt_to_mint,
                  tooltip: 'hide'
                }
     %>
+    <div class="mt-4 mb-2">
+      <%= render partial: 'shared/web/common/slider_top',
+                 locals: {
+                   label: 'ALLOCATE TRANSACTION FEES',
+                   id: st_prime_to_mint_input_id,
+                   name: st_prime_to_mint_input_name,
+                   type: 'number',
+                   min: min_st_prime_to_mint,
+                   max: max_st_prime_to_mint,
+                   step: 1,
+                   value: st_prime_to_mint,
+                   tooltip: 'hide'
+                 }
+      %>
+    </div>
 
-    <% if create_prime_mint_input %>
-      <input type="hidden" 
-        id="<%= st_prime_to_mint_input_id %>" name="<%= st_prime_to_mint_input_name %>"
-        value="<%= st_prime_to_mint %>"
-      />
-    <% end %>
     <input type="hidden"
       id="<%= ost_to_transfer_id %>" name="<%= ost_to_transfer_name %>"
+    />
+    <input type="hidden"
+      id="<%= ost_stake_for_bt_id %>" name="<%= ost_stake_for_bt_name %>"
     />
     <input type="hidden" 
       id="<%= user_ost_balance_id %>" name="<%= user_ost_balance_name %>" 
@@ -128,18 +150,12 @@
 
     <input type="hidden" 
       id="<%= ost_transfered_transaction_hash_id %>" name="transaction_hash" />
-
-
-    <div class="mt-4 mb-2 p-2 token-val-usd">
-      <label class="text-uppercase">Token Value in USD</label>
-      <div data-ost-mock-element="#<%= token_usd_value_id %>"></div>
-    </div>
   </div>
   <div class="col-8 offset-1 user-form form-group" id="ostSupplyPieArea">
     <label class="form-label text-uppercase title">OST Supply</label>
     <div class="d-flex align-items-center">
       <div class="p-2">
-        <div id="ostSupplyPie" style="width:200px; height: 200px"></div>
+        <div id="ostSupplyPie" class="pie-chat" style="width:200px; height: 200px"></div>
       </div>
       <div class="p-2 legend">
         <div class="pl-2 m-3" style="border-left: 5px solid #34445b;">
@@ -150,7 +166,7 @@
         </div>
         <div class="pl-2 m-3" style="border-left: 5px solid #88c7ca;">
           <strong>OST Used For Creating Tokens</strong>
-          <br /><span data-ost-mock-element="#<%= ost_to_transfer_id %>"></span>
+          <br /><span data-ost-mock-element="#<%= ost_stake_for_bt_id %>"></span>
         </div>
       </div>
     </div>
@@ -181,20 +197,25 @@
 <script type="text/javascript">
   $(function () {
     ost.mintBtWidget.init({
-      idOstBalance        : "<%= user_ost_balance_id %>"
-      , idTokenUsdValue   : "<%= token_usd_value_id %>"
-      , idBtToMint        :"<%= bt_to_mint_input_id %>"
-      , idStPrimeToMint   : "<%= st_prime_to_mint_input_id %>"
-      , idOstToTransfer   : "<%= ost_to_transfer_id %>"
-      , idOstAfter        : "<%= ost_balance_after_transfer_id %>"
-      , idOstToBt         : "<%= ost_to_bt_input_id %>"
-      , idBtToOst         : "<%= bt_to_ost_input_id %>"
-      , idBtToFiat        : "<%= bt_to_fiat_input_id %>"
-      , idForm            : "<%= stake_and_mint_form_id %>"
-      , idTransferHash    : "<%= ost_transfered_transaction_hash_id %>"
-      , staker_address: "<%= staker_address %>"
+      is_eligible_for_grant : <%= is_eligible_for_grant %>
+      , user_ost_balance    : "<%= user_ost_balance %>"
+      , idOstBalance        : "<%= user_ost_balance_id %>"
+      , idTokenUsdValue     : "<%= token_usd_value_id %>"
+      , idBtToMint          : "<%= bt_to_mint_input_id %>"
+      , idStPrimeToMint     : "<%= st_prime_to_mint_input_id %>"
+      , idOstToTransfer     : "<%= ost_to_transfer_id %>"
+      , idOstStakeForBt     : "<%= ost_stake_for_bt_id %>"
+      , idOstAfter          : "<%= ost_balance_after_transfer_id %>"
+      , idOstToBt           : "<%= ost_to_bt_input_id %>"
+      , idBtToOst           : "<%= bt_to_ost_input_id %>"
+      , idBtToFiat          : "<%= bt_to_fiat_input_id %>"
+      , idForm              : "<%= stake_and_mint_form_id %>"
+      , idTransferHash      : "<%= ost_transfered_transaction_hash_id %>"
+      , staker_address      : "<%= staker_address %>"
     });
   })
+
+  console.log("client_balances", (<%= raw @presenter_obj.client_balances.to_json %>) );
 </script>
 <% end %>
 

@@ -19,3 +19,7 @@
     color: $orange;
   }
 }
+
+.pie-chat svg > g:last-child > g:last-child { 
+  pointer-events: none;
+}

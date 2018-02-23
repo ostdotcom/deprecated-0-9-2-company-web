@@ -1,19 +1,42 @@
 <%
 
-   coin_name   = @presenter_obj.client_token.name;
-   coin_symbol = @presenter_obj.client_token.symbol;
+ coin_name   = @presenter_obj.client_token.name;
+ bt_symbol = @presenter_obj.client_token.symbol;
 
-   fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
-   fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
-   fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
+ fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
+ fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
+ fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
 
-   ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type);
 
-   value_in_fiat_key = "value_in_" + fiat_type;
-   value_in_fiat_sym = value_in_fiat_key.to_sym;
+  ost_to_bt_input_name = "conversion_factor"
+  bt_to_mint_input_name = "bt_to_mint"
 
-   has_verified_email = @presenter_obj.user.is_verified?
-   grant_initial_ost = @presenter_obj.client_balances.is_eligible_for_grant?
+  ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type);  
+  ost_to_bt = @presenter_obj.client_token.conversion_factor;
+
+  if @presenter_obj.client_balances.present? && @presenter_obj.client_balances.ost_balance.present?
+    user_ost_balance = @presenter_obj.client_balances.ost_balance
+  else
+    user_ost_balance = 0
+  end
+
+  #Puneet: See this. Make changes here.
+  number_of_users = 25;
+  airdrop_ammount = 10;
+  min_bt_to_mint  = 100;
+  min_st_prime_to_mint = 30;
+  max_st_prime_to_mint = 100;
+
+
+  # Note: I would avoid reducing max limit as the slider value changes.
+  # Instead discuss with frankie how he would like to compute max_bt_to_mint.
+  # The problem needs to be solved by reserving part of OST for bt minting & and some other part for st prime minting.
+  max_ost_required_for_bt_minting = user_ost_balance - max_st_prime_to_mint;
+  max_bt_to_mint = (max_ost_required_for_bt_minting * ost_to_bt).to_i;
+
+  value_in_fiat_key = "value_in_" + fiat_type;
+  value_in_fiat_sym = value_in_fiat_key.to_sym;
+
 
   if @presenter_obj.client_token.pending_critical_interaction_id.present?
     pending_critical_interaction_id = @presenter_obj.client_token.pending_critical_interaction_id
@@ -41,68 +64,66 @@
           <div class="card-header">
             <div class="d-flex align-items-center">
               <div class="mr-auto">
-                <h5 class="card-title mb-1">Create Tokens for your economy.</h5>
-                <p class="card-text">OST needed to create the tokens will automatically be used.</p>
+                <h3 class="card-title mb-1">Mint Tokens</h3>
               </div>
-              <div class="text-uppercase small"><a href="#">Know more</a></div>
             </div>
           </div>
           <div class="card-body">
             <div class="user-form">
               <%= render :partial => "web/economy/token_supply/mint_bt_widget",
                 :locals => {
-                  :st_prime_to_mint_input_id => "st_prime_to_mint_input",
+                  :ost_to_bt_input_name => ost_to_bt_input_name,
+                  :bt_to_mint_input_name => bt_to_mint_input_name,
                   :stake_and_mint_form_id => "step3_stake_and_mint_form",
-                  :ost_to_bt_input_id => "ost_to_bt_input",
-                  :bt_to_fiat_input_id => "bt_to_fiat_input"
+                  :min_bt_to_mint => min_bt_to_mint,
+                  :max_bt_to_mint => max_bt_to_mint,
+                  :min_st_prime_to_mint => min_st_prime_to_mint,
+                  :max_st_prime_to_mint => max_st_prime_to_mint
                 }
               %>
             </div>
-          </div>
-        </div>
-
-        <div class="card card-planner mb-5">
-          <div class="card-header">
-            <div class="d-flex align-items-center">
-              <div class="mr-auto">
-                <h5 class="card-title mb-1">Conversion Rate</h5>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="user-form">
-              <%= render :partial => "shared/web/economy/ost_to_bt_widget",
-                :locals => {
-                  :ost_to_bt_input_name => "conversion_factor"
-                }
-              %>
-            </div>
-          </div>
-        </div>
-
-        <div class="card card-planner mb-5">
-          <div class="card-header">
-            <div class="d-flex align-items-center">
-              <div class="mr-auto">
-                <h5 class="card-title mb-1">Reserved OST for Transaction Fees.</h5>
-                <p class="card-text">You can pay for 50000 transactions with just 1 OST</p>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="row user-form">
-              <div class="form-group col-6">
-                <div class="clearfix">
-                  <label class="form-label float-left" for="bt">Allocated OST for Transaction Fees</label>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div class="d-flex align-items-center">
+                  <div class="mr-2">
+                    Based on the current value of OST⍺ you will set a conversion rate of 
+                    <strong>
+                      <span id="ost_to_bt_text">154 FC = 1 OST</span>⍺
+                    </strong>
+                  </div>
+                  <div class="mr-auto text-uppercase">
+                    <a href="/planner/step-1">Edit</a>
+                  </div>
                 </div>
-                <input type="number" min="0" class="form-control" value="30" required
-                  id="st_prime_to_mint_input" name="st_prime_to_mint" />
-                  <div class="invalid-feedback" data-forid="st_prime_to_mint_input">&nbps;</div>
-              </div>
-            </div>
+              </li>
+              <li class="list-group-item">
+                <div class="d-flex align-items-center">
+                  <div class="mr-2"><strong>5</strong> Transaction Types Set Up.</div>
+                  <div class="mr-auto text-uppercase">
+                    <a href="/planner/step-2">Edit</a>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                Initially <strong><%= number_of_users %></strong> users will be automatically created for the simulation and more can be added later. 
+                <input type="hidden" name="number_of_users" value="<%= number_of_users %>" />
+              </li>
+              <li class="list-group-item">
+                In order to enable the transactions simulation
+                <strong>
+                  <%= airdrop_ammount %> <%= bt_symbol %>
+                </strong>
+                will be initially distributed to each user.
+                <input type="hidden" name="airdrop_ammount" value="<%= airdrop_ammount %>" />
+              </li> 
+              <li class="list-group-item">
+                The minimum amount of tokens required to be minted is
+                <strong><%= min_bt_to_mint %> <%= bt_symbol %></strong>.
+                <input type="hidden" name="min_bt_to_mint" value="<%= min_bt_to_mint %>" />
+              </li>
+            </ul>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -125,5 +146,6 @@
             idMintTokens : "mint_tokens_btn"
           });
       });
+      console.log("@presenter_obj.client_token", <%= raw @presenter_obj.client_token.to_json %>);
     </script>
 <% end %>

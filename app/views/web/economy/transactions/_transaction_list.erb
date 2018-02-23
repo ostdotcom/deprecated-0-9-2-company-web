@@ -2,7 +2,7 @@
   should_show_api_call_button = true;
 
   coin_name   = @presenter_obj.client_token.name;
-  coin_symbol = @presenter_obj.client_token.symbol;
+  bt_symbol = @presenter_obj.client_token.symbol;
 
   fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
   fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
@@ -32,7 +32,7 @@
     <tr class="row">
       <th class="col-2">TRANSACTION</th>
       <th class="col-2">VALUE IN <%= fiat_display_text %></th>
-      <th class="col-2">VALUE IN <%= coin_symbol %></th>
+      <th class="col-2">VALUE IN <%= bt_symbol %></th>
       <th class="col-2">PRICE ORACLE</th>
       <th class="col-3">COMMISSION %</th>
     </tr>

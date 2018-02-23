@@ -7,7 +7,7 @@
   bt_to_fiat_input_id = bt_to_fiat_input_id
 
   coin_name   = @presenter_obj.client_token.name;
-  coin_symbol = @presenter_obj.client_token.symbol;
+  bt_symbol = @presenter_obj.client_token.symbol;
   fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
   fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
   fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
@@ -67,7 +67,7 @@
           </div>
           <div class="col-xs-12 col-md-6 col-lg-6 mr-auto text-left">
             <div class="card rounded font-weight-normal border-0">
-              <div class="item-1">MINTED TOKEN VALUE IN USD</div>
+              <div class="item-1">Total OST Staked For Minting</div>
               <div class="item-2">
                 <span><%= fiat_symbol %></span>
                 <span data-ost-mock-element="#<%= token_usd_value_id %>"></span>

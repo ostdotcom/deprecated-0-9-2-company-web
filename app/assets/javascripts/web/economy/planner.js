@@ -30,6 +30,7 @@
 
       oThis.bindEvents();
       oThis.updateConvertionRatioText();
+      oThis.jBtToFiat.trigger("change");
     },
 
     formHelper: null,

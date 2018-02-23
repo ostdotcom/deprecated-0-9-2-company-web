@@ -2,12 +2,11 @@
   <label class="form-label" for="<%=id%>"><%= raw label%></label>
   <div class="input-group slider-with-input top <%= (defined? classes) ? classes : '' %>">
     <span class="slider-input-top">
-        <input id="<%=id%>" value="<%=value%>" type="text" class="form-control mt-1 mb-2">
+        <input id="<%=id%>" name="<%= name %>" value="<%=value%>" type="text" class="form-control mt-1 mb-2">
     </span>
     <input
         type="text"
         id="<%=id%>_slider"
-        name="<%= name %>"
         data-provide="slider"
         data-slider-min="<%=min%>"
         data-slider-max="<%=max%>"

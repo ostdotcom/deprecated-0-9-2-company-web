@@ -13,7 +13,7 @@
     /* Mandetory Configs */
     simple_token_contract_address : null
     , staker_address  : null
-    , idOstToTransfer : null
+    , idOstStakeForBt : null
     , idStPrimeToMint : null
     , idBtToMint      : null
     , idTokenUsdValue : null
@@ -29,7 +29,7 @@
     , idProcessModal  : "stake-mint-processing"
 
     /* jQuery Dom Refrences */
-    , jOstToTransfer  : null
+    , jOstStakeForBt  : null
     , jBtToMint       : null
     , jTokenUsdValue  : null
     , jOstBalance     : null
@@ -57,7 +57,7 @@
 
       $.extend( oThis, config );
 
-      oThis.jOstToTransfer  = oThis.jOstToTransfer  || $( "#" + oThis.idOstToTransfer );
+      oThis.jOstStakeForBt  = oThis.jOstStakeForBt  || $( "#" + oThis.idOstStakeForBt );
       oThis.jBtToMint       = oThis.jBtToMint       || $( "#" + oThis.idBtToMint );
       oThis.jTokenUsdValue  = oThis.jTokenUsdValue  || $( "#" + oThis.idTokenUsdValue );
       oThis.jOstBalance     = oThis.jOstBalance     || $( "#" + oThis.idOstBalance );
@@ -90,7 +90,10 @@
         }
       });
 
-      PriceOracle.bindCurrencyElements(oThis.jBtToMint, oThis.jTokenUsdValue, oThis.jOstToTransfer);
+      oThis.setUpBtToMintSlider();
+      oThis.setUpStToMintSlider();
+
+      PriceOracle.bindCurrencyElements(oThis.jBtToMint, oThis.jTokenUsdValue, oThis.jOstStakeForBt);
 
       oThis.jBtToMint.trigger("change");
       google.charts.load('current', {packages: ['corechart']});
@@ -99,6 +102,18 @@
 
       oThis.updateBtToOst();
 
+    }
+
+    , setUpBtToMintSlider : function () {
+      var oThis = this;
+
+      
+    }
+
+    , setUpStToMintSlider : function () {
+      var oThis = this;
+
+      
     }
 
     , bindEvents: function () {
@@ -221,8 +236,8 @@
         , recipient = oThis.staker_address
         , web3      = ost.metamask.web3()
         , stPrimeToMint
-        , ostToTransfer
-        , totalOstToTransfer
+        , ostStakeForBt
+        , totalOstStakeForBt
         , transactionObject
         , sendCallback
       ;
@@ -230,16 +245,16 @@
       //Set contract curerent Provider -- Not working for web.
       // contract.setProvider( web3.currentProvider );
 
-      ostToTransfer     = oThis.jOstToTransfer.val();
-      ostToTransfer     = BigNumber( ostToTransfer );
+      ostStakeForBt     = oThis.jOstStakeForBt.val();
+      ostStakeForBt     = BigNumber( ostStakeForBt );
       stPrimeToMint     = oThis.jStPrimeToMint.val();
       stPrimeToMint     = BigNumber( stPrimeToMint );
 
-      totalOstToTransfer = stPrimeToMint.plus( ostToTransfer );
-      totalOstToTransfer = totalOstToTransfer.toString( 10 );
+      totalOstStakeForBt = stPrimeToMint.plus( ostStakeForBt );
+      totalOstStakeForBt = totalOstStakeForBt.toString( 10 );
 
       //Conver the ost to wei scale.
-      totalOstToTransfer     = web3.toWei(totalOstToTransfer, "ether");
+      totalOstStakeForBt     = web3.toWei(totalOstStakeForBt, "ether");
 
 
       sendCallback =function (error, result) { 
@@ -280,9 +295,9 @@
 
       };
 
-      console.log("totalOstToTransfer", totalOstToTransfer);
+      console.log("totalOstStakeForBt", totalOstStakeForBt);
       //Create webjs transaction object.
-      transactionObject = contract.transfer(recipient, totalOstToTransfer, {
+      transactionObject = contract.transfer(recipient, totalOstStakeForBt, {
         from: oThis.userAddress
       }, sendCallback);
       //Encode it.
@@ -374,7 +389,7 @@
       var ostBalance    = oThis.jOstBalance.val() || "0"
         , btToMint      = oThis.jBtToMint.val() || "0"
         , stPrimeToMint = oThis.jStPrimeToMint.val() || "0"
-        , ostToTransfer = oThis.jOstToTransfer.val()
+        , ostStakeForBt = oThis.jOstStakeForBt.val()
         , colIndex      = 1
         , remainingOst
       ;
@@ -382,13 +397,13 @@
       console.log("btToMint", btToMint, 
         "stPrimeToMint", stPrimeToMint, 
         "ostBalance", ostBalance , 
-        "ostToTransfer", ostToTransfer 
+        "ostStakeForBt", ostStakeForBt 
       );
 
-      remainingOst  = BigNumber(ostBalance).minus(ostToTransfer);
+      remainingOst  = BigNumber(ostBalance).minus(ostStakeForBt);
 
       oThis.gDataTable.setCell(oThis.giStPrime, colIndex, stPrimeToMint );
-      oThis.gDataTable.setCell(oThis.giBtToMint, colIndex, ostToTransfer.toString(10) );
+      oThis.gDataTable.setCell(oThis.giBtToMint, colIndex, ostStakeForBt.toString(10) );
       oThis.gDataTable.setCell(oThis.giOstAvailable, colIndex, remainingOst.toString(10) );
 
       oThis.gChart.draw(oThis.gDataTable, oThis.chartOptions);

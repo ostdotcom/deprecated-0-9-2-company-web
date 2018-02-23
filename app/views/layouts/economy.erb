@@ -8,6 +8,8 @@
     fiat_type = @presenter_obj.client_fiat_curreny_symbol;
     fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
 
+    bt_symbol = @presenter_obj.client_token.symbol;
+
     if @presenter_obj.client_token && @presenter_obj.client_token.conversion_factor.present?
       ost_to_bt = @presenter_obj.client_token.conversion_factor.to_s;
     else
@@ -146,8 +148,9 @@
         , fiat_type         : "<%= fiat_type %>"
         , fiat_display_text : "<%= fiat_display_text %>"
         , fiat_precision    : "<%= 3 %>"
-        , ost_precision     : "<%= 3 %>"
+        , ost_precision     : "<%= 5 %>"
         , bt_precision      : "<%= 3 %>"
+        , bt_symbol         : "<%= bt_symbol %>"
       });
     })
   </script>
