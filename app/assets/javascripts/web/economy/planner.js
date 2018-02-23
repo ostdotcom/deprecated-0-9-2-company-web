@@ -5,8 +5,10 @@
   var planner = ns("ost.planner");
 
   var oThis   = ost.planner.step1 = {
-    has_verified_email    : false
-    , grant_initial_ost   : false
+    has_verified_email      : false
+    , grant_initial_ost     : false
+    , min_st_prime_to_mint  : "0"
+    , ost_grant_value       : "10000"
 
     , idBtToFiat    : null
     , idOstToFiat   : null
@@ -29,7 +31,7 @@
       oThis.jOstToBtText  = oThis.jOstToBtText  || $("#" + oThis.idOstToBtText );
 
       oThis.bindEvents();
-      oThis.updateConvertionRatioText();
+      oThis.onOstToBtUpdated();
       oThis.jBtToFiat.trigger("change");
     },
 
@@ -60,6 +62,7 @@
       var oThis = this;
 
       oThis.updateConvertionRatioText();
+      oThis.updateMaxMintBt();
     },
 
     updateConvertionRatioText: function () {
@@ -84,6 +87,20 @@
 
       console.log("finalText", finalText);
       oThis.jOstToBtText.html( finalText );
+    },
+
+    updateMaxMintBt: function () {
+      var oThis = this;
+
+      var totalOstSupply  = BigNumber( oThis.ost_grant_value )
+        , ostForStPrime   = BigNumber( oThis.min_st_prime_to_mint )
+        , ostStakeForBt   = totalOstSupply.minus( ostForStPrime )
+        , maxMintableBt   = PriceOracle.ostToBt( ostStakeForBt )
+      ;
+
+      console.log("maxMintableBt", maxMintableBt.toString( 10 ), maxMintableBt);
+
+      oThis.jMaxMintBt.safeSetVal( maxMintableBt );
     },
 
 

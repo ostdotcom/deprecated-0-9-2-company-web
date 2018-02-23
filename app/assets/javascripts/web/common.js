@@ -3,6 +3,7 @@
 //= require plugins/jquery-validate/jquery.validate
 //= require plugins/jquery-validate/ost-jquery-validate-modifications
 //= require plugins/jquery-validate/additional-methods
+//= require plugins/jquery-number/jquery.number
 //= require plugins/bootstrap-slider/bootstrap-slider
 //= require plugins/bootstrap-slider-text-input/bootstrap-slider-text-input
 //= require plugins/bignumber.js/bignumber

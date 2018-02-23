@@ -2,6 +2,9 @@
    bt_name   = @presenter_obj.client_token.name;
    bt_symbol = @presenter_obj.client_token.symbol;
 
+   min_st_prime_to_mint = 0;
+   ost_grant_value = 10000;
+
   if @presenter_obj.client_token_planner.present?
     token_worth_in_usd_value = @presenter_obj.client_token_planner.token_worth_in_usd
     initial_number_of_users_value = @presenter_obj.client_token_planner.initial_number_of_users
@@ -129,10 +132,10 @@
                 </strong>
               </li>
               <li class="list-group-item">
-                You currently have 10,000 OST⍺ to test with. You can
+                You currently have <%= number_with_delimiter(ost_grant_value, :delimiter => ',') %> OST⍺ to test with. You can
                 <strong>
                   mint a maximum of
-                  <span id="maximum_mintbale_bt_text" data-type="number" data-ost-mock-element="maximum_mintbale_bt">2,970</span>
+                  <span id="maximum_mintbale_bt_text" data-type="number" data-ost-mock-element="#maximum_mintbale_bt">2,970</span>
                   <input type="hidden" name="maximum_mintbale_bt" id="maximum_mintbale_bt" />
                   <%= bt_symbol %> before requiring more OST⍺.
                 </strong>
@@ -168,6 +171,8 @@
     ost.planner.step1.init({
       has_verified_email: <%= has_verified_email %>,
       grant_initial_ost: <%= grant_initial_ost %>,
+      min_st_prime_to_mint: "<%= min_st_prime_to_mint %>",
+      ost_grant_value: "<%= ost_grant_value %>",
       idBtToFiat: "<%= bt_to_fiat_id %>",
       idOstToFiat: "<%= ost_to_fiat_id %>",
       idMaxMintBt: "maximum_mintbale_bt",

@@ -41,6 +41,7 @@
 
       var jTarget = $( oThis.targetSelector )
         , targertVal
+        , valType  = oThis.jElement.data("type")
       ;
 
       if ( jTarget.is(":input") ) {
@@ -52,6 +53,9 @@
       if ( oThis.jElement.is(":input") ) {
         oThis.jElement.val( targertVal );
       } else {
+        if ( valType && valType === "number" ) {
+          targertVal = $.number( targertVal );
+        }
         oThis.jElement.html( targertVal );
       }
     }
