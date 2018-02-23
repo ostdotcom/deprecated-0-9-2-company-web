@@ -25,7 +25,8 @@
      bt_to_fiat = @presenter_obj.client_token_planner.token_worth_in_usd
      ost_to_bt = ost_to_fiat / bt_to_fiat
    else
-     ost_to_bt = 0.03
+     bt_to_fiat = 0.1 * ost_to_fiat
+     ost_to_bt = ost_to_fiat / bt_to_fiat
    end
 
    value_in_fiat_key = "value_in_" + fiat_type;

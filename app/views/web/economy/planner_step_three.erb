@@ -16,6 +16,7 @@
   ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type);
   if @presenter_obj.client_token.conversion_factor
     ost_to_bt   = @presenter_obj.client_token.conversion_factor
+    bt_to_fiat = ""
   elsif @presenter_obj.client_token_planner.present?
     bt_to_fiat = @presenter_obj.client_token_planner.token_worth_in_usd
     ost_to_bt = ost_to_fiat / bt_to_fiat
@@ -29,11 +30,11 @@
 
   #Puneet: See this. Make changes here.
   number_of_users = client_token_planner.default_initial_users;
-  airdrop_ammount = client_token_planner.airdrop_bt_per_user;
+  airdrop_amount = client_token_planner.airdrop_bt_per_user;
   buffer_mint_factor_over_airdrop = client_token_planner.buffer_mint_factor_over_airdrop;
 
-  min_bt_to_mint = number_of_users * airdrop_ammount;
-  bt_to_mint = number_of_users * airdrop_ammount * buffer_mint_factor_over_airdrop;
+  min_bt_to_mint = number_of_users * airdrop_amount;
+  bt_to_mint = number_of_users * airdrop_amount * buffer_mint_factor_over_airdrop;
 
   min_st_prime_to_mint = 30;
   max_st_prime_to_mint = 100;
@@ -88,7 +89,8 @@
                   :min_bt_to_mint => min_bt_to_mint,
                   :max_bt_to_mint => max_bt_to_mint,
                   :min_st_prime_to_mint => min_st_prime_to_mint,
-                  :max_st_prime_to_mint => max_st_prime_to_mint
+                  :max_st_prime_to_mint => max_st_prime_to_mint,
+                  :bt_to_fiat => bt_to_fiat
                 }
               %>
             </div>
@@ -116,20 +118,20 @@
               </li>
               <li class="list-group-item">
                 Initially <strong><%= number_of_users %></strong> users will be automatically created for the simulation and more can be added later.
-                <input type="hidden" name="number_of_users" value="<%= number_of_users %>" />
+                <input type="hidden" name="number_of_users" id="number_of_users" value="<%= number_of_users %>" />
               </li>
               <li class="list-group-item">
                 In order to enable the transactions simulation
                 <strong>
-                  <%= airdrop_ammount %> <%= bt_symbol %>
+                  <%= airdrop_amount %> <%= bt_symbol %>
                 </strong>
                 will be initially distributed to each user.
-                <input type="hidden" name="airdrop_ammount" value="<%= airdrop_ammount %>" />
+                <input type="hidden" name="airdrop_amount" id="airdrop_amount" value="<%= airdrop_amount %>" />
               </li>
               <li class="list-group-item">
                 The minimum amount of tokens required to be minted is
                 <strong><%= min_bt_to_mint %> <%= bt_symbol %></strong>.
-                <input type="hidden" name="min_bt_to_mint" value="<%= min_bt_to_mint %>" />
+                <input type="hidden" name="min_bt_to_mint" id="min_bt_to_mint" value="<%= min_bt_to_mint %>" />
               </li>
             </ul>
           </div>
@@ -154,9 +156,10 @@
       $( function () {
         //Do PriceOracle Stuff First.
         window.PriceOracle && PriceOracle.setOstToBtFromErb( "<%= ost_to_bt %>" );
-          ost.planner_3.init({
-            idMintTokens : "mint_tokens_btn"
-          });
+        ost.planner_3.init({
+          idMintTokens : "mint_tokens_btn",
+          "bt_to_fiat" : "<%= bt_to_fiat %>"
+        });
       });
       console.log("@presenter_obj.client_token", <%= raw @presenter_obj.client_token.to_json %>);
     </script>

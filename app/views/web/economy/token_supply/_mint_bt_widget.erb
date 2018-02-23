@@ -8,6 +8,8 @@
   create_bt_to_fiat_input = !bt_to_fiat_input_id.present? ? true : false;
 
 
+
+
   is_eligible_for_grant = @presenter_obj.client_balances.is_eligible_for_grant?
   #Mandetory Params
   max_bt_to_mint = max_bt_to_mint;
@@ -34,6 +36,8 @@
   bt_to_mint = bt_to_mint.present? ? bt_to_mint : min_bt_to_mint;
   bt_to_mint_input_name = bt_to_mint_input_name.present? ? bt_to_mint_input_name : "bt_to_mint";
 
+  bt_to_fiat = bt_to_fiat.present? ? bt_to_fiat : "";
+
 
   #These are used only if st_prime_to_mint_input_id is not specified.
   min_st_prime_to_mint = min_st_prime_to_mint.present? ? min_st_prime_to_mint : 1;
@@ -46,7 +50,6 @@
 
   user_ost_balance_name = user_ost_balance_name.present? ? user_ost_balance_name  : "user_ost_balance";
   ost_to_transfer_name  = ost_to_transfer_name.present? ? ost_to_transfer_name    : "ost_to_transfer";
-  token_usd_value_name  = token_usd_value_name.present? ? token_usd_value_name    : "token_usd_value";
   bt_to_ost_input_name  = bt_to_ost_input_name.present? ? bt_to_ost_input_name    : "bt_to_ost";
   bt_to_fiat_input_name = bt_to_fiat_input_name.present? ? bt_to_fiat_input_name  : "bt_to_fiat";
   ost_stake_for_bt_name = ost_stake_for_bt_name.present? ? ost_stake_for_bt_name  : "ost_stake_for_bt";
@@ -58,9 +61,6 @@
 
   bt_to_mint_input_id = bt_to_mint_input_id.present? ?
      bt_to_mint_input_id : "bt_to_mint_input";
-
-  token_usd_value_id = token_usd_value_id.present? ? 
-    token_usd_value_id : "token_usd_value";
 
   user_ost_balance_id = user_ost_balance_id.present? ? 
     user_ost_balance_id : "user_ost_balance_input";
@@ -79,6 +79,9 @@
 
   bt_to_fiat_input_id = bt_to_fiat_input_id.present? ?
     bt_to_fiat_input_id : "bt_to_fiat_input";
+
+  ost_to_bt_input_id = ost_to_bt_input_id.present? ? 
+    ost_to_bt_input_id : "ost_to_bt_input_id";
 
   ost_transfered_transaction_hash_id = ost_transfered_transaction_hash_id.present? ?
     ost_transfered_transaction_hash_id : "ost_transfered_transaction_hash_input"
@@ -130,9 +133,6 @@
       value="<%= user_ost_balance %>"
     />
 
-    <input type="hidden" 
-      id="<%= token_usd_value_id %>" name="<%= token_usd_value_name %>" 
-    />
 
     <% if create_ost_to_bt_input %>
       <input type="hidden" 
@@ -142,6 +142,7 @@
     <% if create_bt_to_fiat_input %>
       <input type="hidden" 
         id="<%= bt_to_fiat_input_id %>" name="<%= bt_to_fiat_input_name %>"
+        value="<%= bt_to_fiat %>"
       />
     <% end %>
     <input type="hidden" 
@@ -180,7 +181,7 @@
       :bt_to_mint_input_id => bt_to_mint_input_id,
       :st_prime_to_mint_input_id => st_prime_to_mint_input_id,
       :ost_to_transfer_id => ost_to_transfer_id,
-      :token_usd_value_id => token_usd_value_id,
+      :bt_to_fiat_input_id => bt_to_fiat_input_id,
       :bt_to_ost_input_id => bt_to_ost_input_id,
       :bt_to_fiat_input_id => bt_to_fiat_input_id
     }
@@ -198,9 +199,9 @@
   $(function () {
     ost.mintBtWidget.init({
       is_eligible_for_grant : <%= is_eligible_for_grant %>
+      , staker_address      : "<%= staker_address %>"
       , user_ost_balance    : "<%= user_ost_balance %>"
       , idOstBalance        : "<%= user_ost_balance_id %>"
-      , idTokenUsdValue     : "<%= token_usd_value_id %>"
       , idBtToMint          : "<%= bt_to_mint_input_id %>"
       , idStPrimeToMint     : "<%= st_prime_to_mint_input_id %>"
       , idOstToTransfer     : "<%= ost_to_transfer_id %>"
@@ -211,7 +212,6 @@
       , idBtToFiat          : "<%= bt_to_fiat_input_id %>"
       , idForm              : "<%= stake_and_mint_form_id %>"
       , idTransferHash      : "<%= ost_transfered_transaction_hash_id %>"
-      , staker_address      : "<%= staker_address %>"
     });
   })
 

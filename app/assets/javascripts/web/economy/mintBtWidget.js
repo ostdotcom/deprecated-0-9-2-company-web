@@ -16,7 +16,6 @@
     , idOstStakeForBt : null
     , idStPrimeToMint : null
     , idBtToMint      : null
-    , idTokenUsdValue : null
     , idOstBalance    : null
     , idOstAfter      : null
     , idOstToBt       : null
@@ -31,7 +30,6 @@
     /* jQuery Dom Refrences */
     , jOstStakeForBt  : null
     , jBtToMint       : null
-    , jTokenUsdValue  : null
     , jOstBalance     : null
     , jOstAfter       : null
     , jOstToBt        : null
@@ -59,7 +57,6 @@
 
       oThis.jOstStakeForBt  = oThis.jOstStakeForBt  || $( "#" + oThis.idOstStakeForBt );
       oThis.jBtToMint       = oThis.jBtToMint       || $( "#" + oThis.idBtToMint );
-      oThis.jTokenUsdValue  = oThis.jTokenUsdValue  || $( "#" + oThis.idTokenUsdValue );
       oThis.jOstBalance     = oThis.jOstBalance     || $( "#" + oThis.idOstBalance );
       oThis.jOstAfter       = oThis.jOstAfter       || $( "#" + oThis.idOstAfter );
       oThis.jStPrimeToMint  = oThis.jStPrimeToMint  || $( "#" + oThis.idStPrimeToMint );
@@ -93,12 +90,22 @@
       oThis.setUpBtToMintSlider();
       oThis.setUpStToMintSlider();
 
-      PriceOracle.bindCurrencyElements(oThis.jBtToMint, oThis.jTokenUsdValue, oThis.jOstStakeForBt);
+      PriceOracle.bindCurrencyElements(oThis.jBtToMint, oThis.jBtToFiat, oThis.jOstStakeForBt);
 
-      oThis.jBtToMint.trigger("change");
       google.charts.load('current', {packages: ['corechart']});
 
       oThis.bindEvents();
+
+
+      console.log("oThis.jBtToFiat.val() |||", oThis.jBtToFiat.val(), "|||");
+
+      oThis.jBtToMint.trigger("change");  
+
+      if ( String(oThis.jBtToFiat.val()).length > 0 ) {
+        oThis.jBtToFiat.trigger("change");
+      } else {
+        oThis.jOstToBt.trigger("change");
+      }
 
       oThis.updateBtToOst();
 
@@ -139,11 +146,16 @@
       google.charts.setOnLoadCallback( function () {
         oThis.onChartsLoaded.apply(oThis, arguments);
       });
+
+      oThis.jBtToFiat.on("change", function () {
+        console.log("jBtToFiat changed!" ,oThis.jBtToFiat.val());
+        console.trace();
+      })
     }
 
     , ostToBtUpdated: function () {
       var oThis = this;
-
+      console.log("ostToBtUpdated called!");
       oThis.jBtToMint.trigger("change");
       oThis.updateBtToOst();
     }

@@ -53,9 +53,13 @@
       if ( oThis.jElement.is(":input") ) {
         oThis.jElement.val( targertVal );
       } else {
-        if ( valType && valType === "number" ) {
-          targertVal = $.number( targertVal );
-        }
+        if ( valType ) {
+          if ( valType === "number" ) {
+            targertVal = $.number( targertVal, 3 );
+          } else if ( valType === "ost" ) {
+            targertVal = $.number( targertVal, 5 );
+          }
+        } 
         oThis.jElement.html( targertVal );
       }
     }
