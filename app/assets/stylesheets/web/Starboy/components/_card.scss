@@ -1,11 +1,11 @@
 .card-planner{
 
-  box-shadow: 0 3px 7px 2px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 7px 14px 3px rgba(0, 0, 0, 0.08);
   border-radius: 5px;
 
   .card-header{
-    background: #c1e8e9;
-
+    background: $card-bg;
+    border-bottom: 1px solid #dbf2f2;;
     .card-title,
     .card-text{
       color: color('blue-700');
@@ -16,7 +16,8 @@
     }
 
     .card-title{
-      font-size: 1.2rem;
+      color: $boston-blue;
+//      font-size: 1.2rem;
       font-weight: 500;
     }
 
