@@ -2,6 +2,19 @@
   padding-top: 1.5rem;
   padding-bottom: 170px;
   overflow: hidden;
+  &.container-managedash{
+    background-color: #33445b;
+    padding-bottom: 375px;
+    h1{
+      color: #ffffff;
+      font-weight: 300;
+    }
+    p{
+      color: #ffffff;
+      font-weight: 300;
+      letter-spacing: 0.4px;
+    }
+  }
   &.kit{
     background-color: #aee1e3;
     h1{
@@ -25,6 +38,9 @@
 
 .container-powered-containers{
   margin: -150px auto 20px auto;
+  &.container-managedash-containers{
+    margin: -375px auto 20px auto;
+  }
   .container-1, .container-2{
     background-color: #fff;
     box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.06);
