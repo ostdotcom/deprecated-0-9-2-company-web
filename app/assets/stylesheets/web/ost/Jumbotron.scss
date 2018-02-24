@@ -1,15 +1,11 @@
 .container-jumbotron{
-  .desc{
+  h2{
+    color: #438bad;
+  }
+  p{
     color: #597a84;
-    font-size: 18px;
     font-weight: 300;
-    line-height: 1.5;
-    letter-spacing: 0.8px;
-    h1{
-      color: #597a84;
-      line-height: 1.5;
-      letter-spacing: 0.8px;
-    }
+    line-height: 1.6rem;
   }
   .illustration{
     .btn-play{
