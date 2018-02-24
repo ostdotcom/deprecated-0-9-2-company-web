@@ -1,6 +1,20 @@
 .container-launch-bt{
   &.ost{
     background-color: #34445b;
+    h1{
+      color: #ffffff;
+      letter-spacing: 1.2px;
+    }
+    p{
+      color: #ffffff;
+      font-weight: 300;
+      letter-spacing: 0.4px;
+    }
+    ul{
+      li{
+        color: #afe1e3;
+      }
+    }
   }
   &.kit{
     background-color: #afe1e3;
@@ -15,6 +29,11 @@
       color: #597a84;
       font-weight: 300;
       letter-spacing: 0.4px;
+    }
+    ul{
+      li{
+        color: #34445b;
+      }
     }
   }
   ul{
