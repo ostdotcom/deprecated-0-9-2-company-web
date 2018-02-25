@@ -133,6 +133,7 @@
 
   <%= render :partial => "shared/web/modals/help_video" %>
   <%= render :partial => "/shared/web/modals/verify_account" %>
+  <%= render :partial => "/shared/web/economy/tx_status_modal" %>
 
   <% if @presenter_obj.pending_critical_interactions.present? %>
     <%= @presenter_obj.pending_critical_interactions %>

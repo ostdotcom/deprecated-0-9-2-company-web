@@ -60,7 +60,9 @@
 
       console.log("nextStep :: currentStep = " , oThis.currentStep );
       oThis.stopObserver();
-
+      setTimeout(function(){
+        oThis.jFormSubmitBtn.attr("disabled", true);
+      }, 100);
       switch( oThis.currentStep ) {
 
         case NOTHING_IN_PROGRESS:
@@ -71,7 +73,7 @@
         case OST_GRANT_IN_PROGRESS:
           var transaction_hash = arguments[0];
           console.log("nextStep :: OST_GRANT_IN_PROGRESS calling validateTransactionHash \n", transaction_hash);
-          oThis.jFormSubmitBtn.attr("disabled", true);
+
           metamask.validateTransactionHash( transaction_hash, function ( response ) {
             oThis.validateHashCallback(response);
           });
@@ -148,6 +150,8 @@
           , transaction_hash = data.transaction_hash
         ;
         
+        oThis.formHelper.autoEnableSubmitBtn = false;
+
         //OST has been granted.
         oThis.nextStep( transaction_hash );
       } else {

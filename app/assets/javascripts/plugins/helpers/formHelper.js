@@ -36,6 +36,8 @@
     , success: null
     , error: null
     , complete: null
+    , autoDisableSubmitBtn: true
+    , autoEnableSubmitBtn: true
 
     , init: function() {
       var oThis = this;
@@ -151,7 +153,7 @@
         var jEL = $( el );
         jEL.data("beforeSubmitText", jEL.text() );
         jEL.text( jEL.data("submiting") );
-        jEL.prop('disabled', true);
+        oThis.autoDisableSubmitBtn && jEL.prop('disabled', true);
       });
       
 
@@ -209,19 +211,21 @@
           }
         }
         , complete: function () {
-          if ( oThis.complete ) {
-            oThis.complete.apply( oThis, arguments);
-          }
-          //Make sure to reset it. Or else...
-          //the next request will NOT go.
-          oThis.jqXhr = null;
-
           //Revert back the submit text
           oThis.jForm.find("[data-submiting]").each(function ( indx, el) {
             var jEL = $( el );
             jEL.text( jEL.data("beforeSubmitText") );
-            jEL.prop('disabled', false);
+            oThis.autoEnableSubmitBtn && jEL.prop('disabled', false);
           });
+
+          if ( oThis.complete ) {
+            oThis.complete.apply( oThis, arguments);
+          }
+
+          //Make sure to reset it. Or else...
+          //the next request will NOT go.
+          oThis.jqXhr = null;
+
         }
 
         , statusCode: { 

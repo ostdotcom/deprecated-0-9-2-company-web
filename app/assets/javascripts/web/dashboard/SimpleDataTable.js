@@ -20,7 +20,7 @@
     logMe && console.log("oThis", oThis);
 
     oThis.jDataLoader       = oThis.jDataLoader || oThis.createLoadingWrap( oThis.jParent );
-    oThis.jRowTemplateHtml.remove();
+    oThis.jRowTemplateHtml && oThis.jRowTemplateHtml.remove();
 
     oThis.loadTableData();
 

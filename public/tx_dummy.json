@@ -1,0 +1,50 @@
+{
+  "success": true,
+  "data": {
+    "result_type": "critical_chain_interaction_status",
+    "critical_chain_interaction_status": [
+      {
+        "status": "queued",
+        "display_text": "AirDrop 1PC to users is In-Process."
+      },
+      {
+        "status": "queued",
+        "display_text": "AirDrop 1PC to users is In-Process."
+      },
+      {
+        "status": "queued",
+        "display_text": "AirDrop 1PC to users is In-Process."
+      },
+      {
+        "status": "queued",
+        "display_text": "AirDrop 1PC to users is In-Process."
+      }
+    ],
+    "client_token": {
+      "id": 1,
+      "client_id": 9,
+      "name": "Pankaj Coin",
+      "symbol": "PC",
+      "symbol_icon": "blue",
+      "status": "active",
+      "conversion_factor": null,
+      "setup_steps": []
+    },
+    "user": {
+      "id": 2,
+      "email": "pankaj.12@ost.com",
+      "status": "active",
+      "default_client_id": 2,
+      "properties": [
+        "is_client_manager"
+      ]
+    },
+    "client_balances": {},
+    "oracle_price_points": {
+      "ost": {
+        "usd": "0.3"
+      }
+    },
+    "pending_critical_interactions": {}
+  }
+}
