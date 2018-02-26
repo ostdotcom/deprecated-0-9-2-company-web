@@ -45,7 +45,7 @@
           <% if bt_balance.present? %>
               <li class="nav-item">
                 <a class="nav-link active">
-                  <span class="d-block">available frc</span>
+                  <span class="d-block">available <%= client_token.name %></span>
                   <span class="d-block gold text-sm-left text-md-center"><%= "#{bt_balance} (#{client_fiat_curreny_pref_symbol}#{bt_fiat_balance})" %></span>
                 </a>
               </li>
