@@ -88,28 +88,28 @@
       var oThis = this
           , resultTypeKey = "transactions"
         , createdTransactions = [ {
-          name: "Transaction 1",
+          name: "Upvote",
           kind: "user_to_user",
-          currency_type: "bt",
-          currency_value: 10,
+          currency_type: "usd",
+          currency_value: 0.1,
           commission_percent: 0
           }, {
-            name: "Transaction 2",
+            name: "Reward",
             kind: "company_to_user",
             currency_type: "usd",
-            currency_value: 1,
-            commission_percent: 10
+            currency_value: 0.5,
+            commission_percent: 0
           }, {
-            name: "Transaction 3",
-            kind: "user_to_company",
+            name: "Purchase",
+            kind: "user_to_user",
             currency_type: "usd",
-            currency_value: 0.5,
-            commission_percent: 10
+            currency_value: 10,
+            commission_percent: 1
           },{
-            name: "Transaction 4",
-            kind: "company_to_user",
+            name: "Download",
+            kind: "user_to_company",
             currency_type: "bt",
-            currency_value: 0.5,
+            currency_value: 5,
             commission_percent: 0
           }]
           , ts = Date.now()
