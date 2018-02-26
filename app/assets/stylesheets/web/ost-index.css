@@ -10,6 +10,7 @@
  *= require web/ost/OstSvgs
  *= require web/ost/HomeCarousel
  *= require web/ost/OstBuy
+ *= require web/ost/OstTeam
  *= require plugins/slick/slick
  *= require plugins/slick/slick-theme
  */
