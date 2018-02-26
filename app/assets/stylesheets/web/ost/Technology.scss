@@ -1,0 +1,45 @@
+.container-openst-technology{
+  background-color: #ffffff;
+  h1{
+    color: #438cad;
+    letter-spacing: 1.2px;
+  }
+  p{
+    color: #597a84;
+    font-weight: 300;
+    letter-spacing: 0.4px;
+  }
+  .technology-elements{
+    background-image: url('/images/tech-bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    .card{
+      border: none;
+      background-color: transparent;
+    }
+    .card-body{
+      padding: 0;
+    }
+    h5{
+      color: #69a2bd;
+    }
+    p{
+      color: #597a84;
+    }
+    .link{
+      color: #e4b030!important;
+      text-transform: uppercase;
+      font-weight: 300;
+      font-size: 0.85rem;
+      letter-spacing: 0.2rem;
+      display: inline-block;
+      padding-bottom: 2px;
+      border-bottom: 1px solid #e4b030;
+    }
+    .card-footer{
+      padding: 0;
+      border: none;
+      background-color: transparent;
+    }
+  }
+}

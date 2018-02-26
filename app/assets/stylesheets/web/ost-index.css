@@ -11,6 +11,7 @@
  *= require web/ost/HomeCarousel
  *= require web/ost/OstBuy
  *= require web/ost/OstTeam
+ *= require web/ost/Technology
  *= require plugins/slick/slick
  *= require plugins/slick/slick-theme
  */
