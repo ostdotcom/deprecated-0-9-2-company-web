@@ -139,8 +139,11 @@
     pending_critical_interactions = @presenter_obj.pending_critical_interactions
 
     if @presenter_obj.pending_critical_interactions.present?
-       #TODO: Apply priority here to choose one if many exist to show
-      pending_tx_id = pending_critical_interactions.values.first
+      if @presenter_obj.pending_critical_interactions.for_register_bt_id.present?
+        pending_tx_id = pending_critical_interactions.for_register_bt_id
+      elsif @presenter_obj.pending_critical_interactions.for_stake_and_mint_id.present?
+        pending_tx_id = pending_critical_interactions.for_stake_and_mint_id
+      end
   %>
 
     <%= render :partial => "/shared/web/economy/tx_status_modal" %>
