@@ -222,7 +222,7 @@
 
       setTimeout(function () {
         oThis.pollTxStatus();
-      }, 600);
+      }, 3000);
 
     }
 
