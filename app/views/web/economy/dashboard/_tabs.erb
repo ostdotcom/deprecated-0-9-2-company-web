@@ -1,6 +1,7 @@
 <%
 
   client_fiat_curreny_display_text = @presenter_obj.client_fiat_curreny_display_text
+  client_fiat_curreny_pref_symbol = @presenter_obj.client_fiat_curreny_pref_symbol
   fiat_type = @presenter_obj.client_fiat_curreny_symbol;
 
   client_balances = @presenter_obj.client_balances
@@ -30,7 +31,7 @@
           <div class="card">
             <div class="card-body text-uppercase text-center">
               <h5 class="card-title mb-1">Token rate (<%= client_fiat_curreny_display_text %>)</h5>
-              <p class="card-text mb-1"><%=fiat_type%><%= ost_to_fiat %></p>
+              <p class="card-text mb-1"><%=client_fiat_curreny_pref_symbol%> <%= ost_to_fiat %></p>
             </div>
           </div>
       <% end %>
