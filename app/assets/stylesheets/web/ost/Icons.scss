@@ -1,5 +1,5 @@
-$sprite-retina-location: "https://d36lai1ppm9dxu.cloudfront.net/assets/image/simple-token-sprite2x-v32.png";
-$sprite-location: "https://d36lai1ppm9dxu.cloudfront.net/assets/image/simple-token-sprite1x-v32.png";
+$sprite-retina-location: "/images/ost-sprite-v1-@2x.png";
+$sprite-location: "/images/ost-sprite-v1-@1x.png";
 
 @mixin icon-generator($width,$height,$posX,$posY,$offsetHover,$offsetActive,$scale:100) {
   background-image: url($sprite-location);
@@ -30,6 +30,15 @@ $sprite-location: "https://d36lai1ppm9dxu.cloudfront.net/assets/image/simple-tok
   }
 }
 
+.buy-ost-okex-icon{
+  @include icon-generator(172px, 64px, 1px, 1px, -262px, 1px, 70);
+}
+.buy-ost-binance-icon{
+  @include icon-generator(254px, 52px, 1px, -84px, -262px, 1px, 70);
+}
+.buy-ost-huobi-icon{
+  @include icon-generator(200px, 52px, 1px, -164px, -262px, 1px, 70);
+}
 
 // Header social icons CSS
 .header-social-twitter-icon{

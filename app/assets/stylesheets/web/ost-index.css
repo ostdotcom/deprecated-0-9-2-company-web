@@ -9,6 +9,7 @@
  *= require web/ost/LaunchBt
  *= require web/ost/OstSvgs
  *= require web/ost/HomeCarousel
+ *= require web/ost/OstBuy
  *= require plugins/slick/slick
  *= require plugins/slick/slick-theme
  */
