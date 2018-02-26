@@ -1,16 +1,14 @@
 .navbar-simpletoken{
 
   .navbar-brand{
-    padding: .8rem 1rem !important;
+    padding: .6rem 1rem !important;
   }
 
   &.navbar{
     padding: 0 0;
     .nav-item{
       a{
-        @media(min-width: 768px){
           padding: .8rem 1rem !important;
-        }
       }
     }
   }
