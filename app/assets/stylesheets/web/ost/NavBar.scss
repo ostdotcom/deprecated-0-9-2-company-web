@@ -1,19 +1,25 @@
 .navbar-simpletoken{
-  padding: .8rem 1rem !important;
+
+  &.navbar{
+    padding: 0rem 0rem;
+    @media(min-width: 768px){
+      padding: .8rem 1rem !important;
+    }
+  }
 
   .ost-brand{
     margin-right: 1.5rem;
   }
 
   .navbar-toggler {
-    background-color: #edfaf1;
+    background-color: #f4f8f9;
     margin: 0;
     border: 0;
     border-radius: 0;
-    padding: 10px;
+    padding: 17px;
     .icon-bar {
       display: block;
-      width: 22px;
+      width: 26px;
       height: 2px;
       border-radius: 1px;
       margin: 5px 0;
