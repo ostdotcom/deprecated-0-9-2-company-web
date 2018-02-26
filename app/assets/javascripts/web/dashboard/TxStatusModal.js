@@ -278,8 +278,13 @@
     }
     , onTxSuccess : function ( response ) {
       var oThis = this;
-
+      singleInstance = null;
       oThis.callTrigger("txSuccess", response);
+    }
+    , onTxFailed : function ( response ) {
+      var oThis = this;
+      singleInstance = null;
+      oThis.callTrigger("txFailed", response);
     }
 
     , callTrigger: function ( eventKey, data ) {
