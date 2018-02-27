@@ -1,89 +1,113 @@
-<%= render :partial => "/shared/web/common/other-icons.svg" %>
-<form id="sign_up_form" class="form-container-sm user-form"
-  action="/api/client/sign-up" method="POST"
-  data-ost-formhelper data-redirect="/planner"
->
-
-  <h1 class="form-title">Register for the Demo</h1>
-  <div class="general_error invalid-feedback" data-forid="sign_up_form">&nbsp;</div>
-
+<div class="container-fluid">
   <div class="row">
-    <div class="col">
-      <div class="form-group m-0" id="tokenNameFormGrp">
-        <label class="form-label" data-forid="token_name">Token Name</label>
-
-        <input id="user-token-name" type="text" name="token_name" class="form-control" aria-describedby="emailHelp" placeholder="Enter token name" required/>
-        <div class="invalid-feedback" data-forid="token_name">&nbps;</div>
+  <div class="col-sm-12 col-md-6 p-0 sign-up-left py-6">
+    <div class="row">
+      <div class="col-sm-10 mx-auto">
+        <h3 class="form-title text-left">Welcome to OST KIT alpha!</h3>
+        <div class="block">
+          <img src="/images/mint-tokens.png" class="float-left" alt="" width="99" />
+          <div>
+            <h4>Mint Branded Tokens</h4>
+            <p>You will mint your own Branded Token on OpenST test side blockchains, by staking OST⍺ on Ethereum testnet. OST⍺ is a test version of the OST cryptocurrency that tracks the public market value of OST. Branded Tokens are only tradable within your ecosystem or for OST⍺. The staking of OST⍺ functions as a reserve against your token, backing the value of your tokens.</p>
+          </div>
+        </div>
+        <div class="block">
+          <img src="/images/icon-economy@2x.png" class="float-left img-fluid" alt="" />
+          <div>
+            <h4>Simulate Transactions</h4>
+            <p>Simulate transactions within your Branded Token ecosystem. You can setup various transaction types, add more users, and run simulations directly in OST KIT or via our APIs. Track and analyse your token economy in the dashboards. Audit transactions on the OpenST blockchain with the OST VIEW block explorer.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col">
-      <div class="form-group m-0" id="emailFormGrp">
-        <label class="form-label" data-forid="email">Token Symbol</label>
+  </div>
 
-        <input id="user-token-symbol" type="text" pattern="\w{3,4}" name="token_symbol" class="form-control" aria-describedby="emailHelp" placeholder="Enter token symbol" required  maxlength="4" />
-        <div class="invalid-feedback" data-forid="token_symbol">&nbps;</div>
+  <div class="col-sm-12 col-md-4 mx-auto">
+    <form id="sign_up_form" class="user-form"
+          action="/api/client/sign-up" method="POST"
+          data-ost-formhelper data-redirect="/planner"
+    >
+
+      <h1 class="form-title text-left">Register for the Demo</h1>
+      <div class="general_error invalid-feedback" data-forid="sign_up_form">&nbsp;</div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group m-0" id="tokenNameFormGrp">
+            <label class="form-label" data-forid="token_name">Token Name</label>
+
+            <input id="user-token-name" type="text" name="token_name" class="form-control" aria-describedby="emailHelp" placeholder="Enter token name" required/>
+            <div class="invalid-feedback" data-forid="token_name">&nbps;</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group m-0" id="emailFormGrp">
+            <label class="form-label" data-forid="email">Token Symbol</label>
+
+            <input id="user-token-symbol" type="text" pattern="\w{3,4}" name="token_symbol" class="form-control" aria-describedby="emailHelp" placeholder="Enter token symbol" required  maxlength="4" />
+            <div class="invalid-feedback" data-forid="token_symbol">&nbps;</div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="text-center">
-    <label class="form-label d-block text-left" data-forid="email">Select icon for your token</label>
-    <ul class="radio-group list-unstyled">
-      <li>
-        <input type="radio" id="option-one" name="token_icon" value="token_icon_1" checked>
-        <label for="option-one" class="mb-0">
-          <span class="token_icon token_icon_1"></span>
-        </label>
-      </li>
-      <li>
-        <input type="radio" id="option-two" name="token_icon" value="token_icon_2">
-        <label for="option-two" class="mb-0">
-          <span class="token_icon token_icon_2"></span>
-        </label>
-      </li>
-      <li>
-        <input type="radio" id="option-three" name="token_icon" value="token_icon_3">
-        <label for="option-three" class="mb-0">
-          <span class="token_icon token_icon_3"></span>
-        </label>
-      </li>
-      <li>
-        <input type="radio" id="option-four" name="token_icon" value="token_icon_4">
-        <label for="option-four" class="mb-0">
-          <span class="token_icon token_icon_4"></span>
-        </label>
-      </li>
-      <li>
-        <input type="radio" id="option-five" name="token_icon" value="token_icon_5">
-        <label for="option-five" class="mb-0">
-          <span class="token_icon token_icon_5"></span>
-        </label>
-      </li>
-      <li>
-        <input type="radio" id="option-six" name="token_icon" value="token_icon_6">
-        <label for="option-six" class="mb-0">
-          <span class="token_icon token_icon_6"></span>
-        </label>
-      </li>
-    </ul>
-  </div>
+      <div class="text-center form-group">
+        <label class="form-label d-block text-left" data-forid="email">Select icon for your token</label>
+        <ul class="radio-group list-unstyled">
+          <li>
+            <input type="radio" id="option-one" name="token_icon" value="token_icon_1" checked>
+            <label for="option-one" class="mb-0">
+              <span class="token_icon token_icon_1"></span>
+            </label>
+          </li>
+          <li>
+            <input type="radio" id="option-two" name="token_icon" value="token_icon_2">
+            <label for="option-two" class="mb-0">
+              <span class="token_icon token_icon_2"></span>
+            </label>
+          </li>
+          <li>
+            <input type="radio" id="option-three" name="token_icon" value="token_icon_3">
+            <label for="option-three" class="mb-0">
+              <span class="token_icon token_icon_3"></span>
+            </label>
+          </li>
+          <li>
+            <input type="radio" id="option-four" name="token_icon" value="token_icon_4">
+            <label for="option-four" class="mb-0">
+              <span class="token_icon token_icon_4"></span>
+            </label>
+          </li>
+          <li>
+            <input type="radio" id="option-five" name="token_icon" value="token_icon_5">
+            <label for="option-five" class="mb-0">
+              <span class="token_icon token_icon_5"></span>
+            </label>
+          </li>
+          <li>
+            <input type="radio" id="option-six" name="token_icon" value="token_icon_6">
+            <label for="option-six" class="mb-0">
+              <span class="token_icon token_icon_6"></span>
+            </label>
+          </li>
+        </ul>
+      </div>
 
-  <div class="form-group" id="emailFormGrp">
-    <label class="form-label" data-forid="email">Email address</label>
+      <div class="form-group" id="emailFormGrp">
+        <label class="form-label" data-forid="email">Email address</label>
 
-    <input id="user-email" type="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" required/>
-    <div class="invalid-feedback" data-forid="email">&nbps;</div>
-  </div>
+        <input id="user-email" type="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" required/>
+        <div class="invalid-feedback" data-forid="email">&nbps;</div>
+      </div>
 
-  <div class="form-group">
-    <div class="clearfix">
-      <label class="form-label float-left" for="password">Password</label>
-      <span class="form-label float-right">Minimum 8 characters</span>
-    </div>
-    <div class="input-group mb-3">
-      <input type="password" class="form-control form-control-input-group" placeholder="Password"
-             id="password" name="password" required pattern=".{8,}"/>
-      <div class="input-group-append">
+      <div class="form-group">
+        <div class="clearfix">
+          <label class="form-label float-left" for="password">Password</label>
+          <span class="form-label float-right">Minimum 8 characters</span>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control form-control-input-group" placeholder="Password"
+                 id="password" name="password" required pattern=".{8,}"/>
+          <div class="input-group-append">
         <span class="input-group-text input-group-inline input-group-eye">
           <svg class="icon">
             <switch>
@@ -91,28 +115,32 @@
             </switch>
           </svg>
         </span>
+          </div>
+        </div>
+        <!-- ZXCVBN Wrap -->
+        <div class="zxcvbn-group"></div>
+        <div class="invalid-feedback" data-forid="password">&nbps;</div>
       </div>
-    </div>
-    <!-- ZXCVBN Wrap -->
-    <div class="zxcvbn-group"></div>
-    <div class="invalid-feedback" data-forid="password">&nbps;</div>
-  </div>
 
-  <div class="form-group has-error" id="tosFormGrp">
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input"
-      name="agreed_terms_of_service"  id="agreed_terms_of_service" required />
-      <label class="form-check-label" for="tos">By checking this box, you agree to our Terms of Service &amp; acknowledge and consent to our Privacy Policy.</label>
-      <div class="invalid-feedback" data-forid="agreed_terms_of_service">&nbps;</div>
-    </div>
-    
-  </div>
+      <div class="form-group has-error" id="tosFormGrp">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input"
+                 name="agreed_terms_of_service"  id="agreed_terms_of_service" required />
+          <label class="form-check-label" for="tos">By checking this box, you agree to our Terms of Service &amp; acknowledge and consent to our Privacy Policy.</label>
+          <div class="invalid-feedback" data-forid="agreed_terms_of_service">&nbps;</div>
+        </div>
 
-  <div class="form-group text-center" >
-    <button type="submit" class="btn btn-gold" data-submiting="Registering">Register</button>
-    <small class="form-text text-muted" style="line-height: 40px">Have an account already?</small>
-    <a href="/login" class="btn btn-white" title="Login">Login</a>
+      </div>
+
+      <div class="form-group text-center" >
+        <button type="submit" class="btn btn-gold" data-submiting="Registering">Register</button>
+        <small class="form-text text-muted" style="line-height: 40px">Have an account already?</small>
+        <a href="/login" class="btn btn-white" title="Login">Login</a>
+      </div>
+    </form>
   </div>
-</form>
+  </div>
+</div>
+<%= render :partial => "/shared/web/common/other-icons.svg" %>
 
 

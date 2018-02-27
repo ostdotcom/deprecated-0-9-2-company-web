@@ -57,6 +57,7 @@
 @import "components/card";
 @import "components/radio";
 @import "components/icons";
+@import "components/checkbox";
 @import "components/list-group";
 
 // Not theme, but page level CSS (can and should be moved to manifests later)
@@ -66,6 +67,7 @@
 @import "pages/faqs";
 @import "pages/transactions";
 @import "pages/mocker";
+@import "pages/signup";
 
 
 
