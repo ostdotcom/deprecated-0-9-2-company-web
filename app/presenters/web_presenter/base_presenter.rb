@@ -69,7 +69,7 @@ module WebPresenter
     end
 
     def client_fiat_curreny_symbol
-      'usd'
+      'USD'
     end
 
     def client_fiat_curreny_display_text
