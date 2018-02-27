@@ -33,10 +33,10 @@ module CompanyApi
         def ost_based_conversion_factors
           @os_b_c_r ||= begin
             return {} if conversion_factors.blank?
-            conversion_factors['ost'].each do |currency_symbol, conversion_factor|
-              conversion_factors['ost'][currency_symbol] = BigDecimal.new(conversion_factor)
+            conversion_factors['OST'].each do |currency_symbol, conversion_factor|
+              conversion_factors['OST'][currency_symbol] = BigDecimal.new(conversion_factor)
             end
-            conversion_factors['ost']
+            conversion_factors['OST']
           end
         end
 
