@@ -67,6 +67,8 @@
     oThis.jList         = oThis.jList         || oThis.jModal.find("#tx-status-list");
     oThis.jRowTemplate  = oThis.jRowTemplate  || oThis.jModal.find("#tx-status-row-template");
     oThis.rowTemplate   = oThis.rowTemplate   || oThis.createRowTemplate();
+    oThis.jHeader       = oThis.jHeader       || oThis.jModal.find("#tx-status-header");
+    oThis.jFooter       = oThis.jFooter       || oThis.jModal.find("#tx-status-footer");
 
     oThis.init();
 
@@ -77,6 +79,8 @@
     , data      : null
     , url       : "/api/economy/token/get-critical-chain-interaction-status"
     , jModal    : null
+    , jHeader   : null
+    , jFooter   : null
     , isPolling : false
     , events    : {
       pollSuccess     : "pollSuccess"
@@ -108,8 +112,17 @@
         , jRowTemplateHtml  : null
         , rowTemplate       : oThis.rowTemplate
         , fetchResults      : function () {} /* Hack to prevent datatable requests */
-      })
+      });
 
+      oThis.setHeader();
+      oThis.setFooter();
+
+    }
+    , setHeader : function () {
+      oThis.jHeader.html("").text("Processing...");
+    }
+    , setFooter: function () {
+      oThis.jFooter.html("").text("");
     }
     , show      : function () {
       var oThis = this;
@@ -265,15 +278,9 @@
       if ( hasFailed ) {
         oThis.stopPolling();
         oThis.onTxFailed( response );
-        setTimeout(function () {
-          oThis.hide();  
-        }, 900);
       } else if ( proccessedCnt === results.length ) {
         oThis.stopPolling();
         oThis.onTxSuccess( response );
-        setTimeout(function () {
-          oThis.hide();  
-        }, 900);
       }
     }
     , onTxSuccess : function ( response ) {

@@ -2,8 +2,8 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content text-center">
       <div class="modal-body">
-        <h3>Processing...</h3>
-        <div id="tx-status-list"></div>    
+        <h3 id="tx-status-header">Processing...</h3>
+        <div id="tx-status-list"></div>
         <script id="tx-status-row-template" type="text/x-handlebars-template">
           <div class="row">
             <div class="col-8 ml-auto mr-auto text-left rounded border-0 font-weight-lighter">
@@ -14,6 +14,7 @@
             </div>
           </div>
         </script>
+        <div id="tx-status-footer"></div>
       </div>
     </div>
   </div>
@@ -21,23 +22,25 @@
 
 <% content_for :end_js do %>
 <script type="text/javascript">
-  Handlebars.registerHelper('tx_status_img_src', function(status, options ) {
-    switch( status ) {
-      case "pending":
-        return "//dummyimage.com/40x40/FDA629/FDA629";
-        break;
-      case "processed":
-        return "//dummyimage.com/40x40/1EA68A/1EA68A";
-        break;
-      case "failed":
-      case "time_out":
-        return "//dummyimage.com/40x40/F64032/F64032";
-        break;
-      case "queued":
-      default:
-        return "//dummyimage.com/40x40/c4c4c4/c4c4c4";
-        break;
-    }
+  $( function () {
+    Handlebars.registerHelper('tx_status_img_src', function(status, options ) {
+      switch( status ) {
+        case "pending":
+          return "//dummyimage.com/40x40/FDA629/FDA629";
+          break;
+        case "processed":
+          return "//dummyimage.com/40x40/1EA68A/1EA68A";
+          break;
+        case "failed":
+        case "time_out":
+          return "//dummyimage.com/40x40/F64032/F64032";
+          break;
+        case "queued":
+        default:
+          return "//dummyimage.com/40x40/c4c4c4/c4c4c4";
+          break;
+      }
+    });
   });
 </script>
 <% end %>
