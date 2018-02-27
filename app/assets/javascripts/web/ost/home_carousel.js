@@ -1,6 +1,6 @@
 (function (window ,  $) {
 
-  var ost = ns('ost');
+  var ost = ns('OST');
    ost.carousel = {};
 
   ost.carousel.home = {

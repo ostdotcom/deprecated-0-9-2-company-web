@@ -42,7 +42,7 @@ module CompanyApi
 
         def ost_balance
           @o_b ||= begin
-            balances['ost'].present? ? BigDecimal.new(balances['ost']) : nil
+            balances['OST'].present? ? BigDecimal.new(balances['OST']) : nil
           end
         end
 
