@@ -151,7 +151,29 @@
       }
     %>
   </form>
-  <%= render :partial => "shared/web/common/faqs" %>
+  <%=
+      render :partial => "shared/web/common/faqs",
+             locals: {
+                     faqs: [
+                             {
+                                     title: 'How do I decide the conversion rate for my economy?',
+                                     url: '#'
+                             },
+                             {
+                                     title: 'How is my branded token and OST related?',
+                                     url: '#'
+                             },
+                             {
+                                     title: 'What is the value of OSTα?',
+                                     url: '#'
+                             },
+                             {
+                                     title: 'Can I change my conversion rate?',
+                                     url: '#'
+                             }
+                     ]
+             }
+  %>
 </div>
 
 <div class="row" style="background: #d9a025;">

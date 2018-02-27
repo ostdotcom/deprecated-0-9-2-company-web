@@ -5,20 +5,13 @@
     <div class="row">
       <div class="col-sm-6">
         <ul class="list-group list-group-flush show-last-border">
+          <% faqs.each do |faq| %>
           <li class="list-group-item">
-            <a href="#" class="link-item item-heading">
-              Why do I need to reserve gas?
+            <a href=" <%= faq[:url]%>" class="link-item item-heading">
+              <%= faq[:title]%>
             </a>
           </li>
-          <li class="list-group-item">
-            <a href="#" class="link-item item-heading">
-              What is Staking &amp; Minting?
-            </a>
-          </li>
-          <li class="list-group-item">
-            <a href="#" class="link-item item-heading">
-              How many tokens do Ineed to mint?
-            </a>
+          <% end %>
         </ul>
       </div>
       <div class="col-sm-6">
