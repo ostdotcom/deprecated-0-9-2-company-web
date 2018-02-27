@@ -12,8 +12,6 @@
 
     if @presenter_obj.client_token && @presenter_obj.client_token.conversion_factor.present?
       ost_to_bt = @presenter_obj.client_token.conversion_factor.to_s;
-    else
-      ost_to_bt = (10).to_s;
     end
 
     if @presenter_obj.oracle_price_points && @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type) > 0
@@ -168,11 +166,11 @@
       , bt_precision      : "<%= 3 %>"
       , bt_symbol         : "<%= bt_symbol %>"
     };
-  <% if ost_to_bt.present? %>
-    oracleConfig.ost_to_bt = "<%= ost_to_bt %>";
-  <% end %>
-  PriceOracle.init( oracleConfig );
-  })
+    <% if ost_to_bt.present? %>
+      oracleConfig.ost_to_bt = "<%= ost_to_bt %>";
+    <% end %>
+    PriceOracle.init( oracleConfig );
+  });
 </script>
 <% end %>
 <% content_for :end_js do %>

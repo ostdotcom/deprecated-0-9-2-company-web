@@ -19,9 +19,11 @@
 
 <% content_for :end_js do %>
   <script type="text/javascript">
-    ost.simulator.init({
-      long_poll_timeout_millisecond: <%= long_poll_timeout_millisecond %>,
-      tx_status_polling_url: "<%= tx_status_polling_url %>"
+    $( function () {
+      ost.simulator.init({
+        long_poll_timeout_millisecond: <%= long_poll_timeout_millisecond %>,
+        tx_status_polling_url: "<%= tx_status_polling_url %>"
+      });      
     });
   </script>
 <% end %>

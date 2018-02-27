@@ -26,10 +26,12 @@
 
 <% content_for :end_js do %>
 <script type="text/javascript">
-  ost.metamask.getOstHelper.init({
-    has_registered_address: <%= has_registered_address %>,
-    grant_eth_from_metamask_focet: <%= grant_eth_from_metamask_focet %>,
-    grant_eth_from_ost_focet: <%= grant_eth_from_ost_focet %>
-  })
+  $(function () {
+    ost.metamask.getOstHelper.init({
+      has_registered_address: <%= has_registered_address %>,
+      grant_eth_from_metamask_focet: <%= grant_eth_from_metamask_focet %>,
+      grant_eth_from_ost_focet: <%= grant_eth_from_ost_focet %>
+    });    
+  });
 </script>
 <% end %>

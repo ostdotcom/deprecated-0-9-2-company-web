@@ -65,10 +65,12 @@
 
 <% content_for :end_js do %>
   <script type="text/javascript">
-    //Do PriceOracle Stuff First.
-    window.PriceOracle && PriceOracle.setOstToBtFromErb( "<%= ost_to_bt %>" );
-    ost.planner.step2.init({
+    $( function () {
+      //Do PriceOracle Stuff First.
+      window.PriceOracle && PriceOracle.setOstToBtFromErb( "<%= ost_to_bt %>" );
+      ost.planner.step2.init({
 
+      });
     });
   </script>
 <% end %>

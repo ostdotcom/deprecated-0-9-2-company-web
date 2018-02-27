@@ -28,28 +28,29 @@
 </div>
 
 <% content_for :end_js do %>
-
   <script type="text/javascript">
-    Handlebars.registerHelper('tokens_bt', function(response, options ) {
-      var rowData =  response.data.root || {}
-        , val     = rowData.tokens
-      ;
-      val = web3.fromWei( val, "ether" );
-      return PriceOracle.toBt( val );
-    });
-    Handlebars.registerHelper('tokens_earned_bt', function(response, options ) {
-      var rowData =  response.data.root || {}
-        , val     = rowData.tokens_earned
-      ;
-      val = web3.fromWei( val, "ether" );
-      return PriceOracle.toBt( val ).toString( 10 );
-    });
-    Handlebars.registerHelper('tokens_spent_bt', function(response, options ) {
-      var rowData =  response.data.root || {}
-        , val     = rowData.tokens_spent
-      ;
-      val = web3.fromWei( val, "ether" );
-      return PriceOracle.toBt( val ).toString( 10 );
+    $( function () {
+      Handlebars.registerHelper('tokens_bt', function(response, options ) {
+        var rowData =  response.data.root || {}
+          , val     = rowData.tokens
+        ;
+        val = web3.fromWei( val, "ether" );
+        return PriceOracle.toBt( val );
+      });
+      Handlebars.registerHelper('tokens_earned_bt', function(response, options ) {
+        var rowData =  response.data.root || {}
+          , val     = rowData.tokens_earned
+        ;
+        val = web3.fromWei( val, "ether" );
+        return PriceOracle.toBt( val ).toString( 10 );
+      });
+      Handlebars.registerHelper('tokens_spent_bt', function(response, options ) {
+        var rowData =  response.data.root || {}
+          , val     = rowData.tokens_spent
+        ;
+        val = web3.fromWei( val, "ether" );
+        return PriceOracle.toBt( val ).toString( 10 );
+      });
     });
   </script>
 <% end %>

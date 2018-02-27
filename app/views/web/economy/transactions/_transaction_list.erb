@@ -85,54 +85,56 @@
 
 <% content_for :end_js do %>
   <script type="text/javascript">
-    var kindDisplayText = <%= raw kind_display_text.to_json %>;
+    $( function () {
+      var kindDisplayText = <%= raw kind_display_text.to_json %>;
 
-    Handlebars.registerHelper('price_oracle_text', function(response, options ) {
+      Handlebars.registerHelper('price_oracle_text', function(response, options ) {
 
-      var rowData = response.data.root || {};
-      return  rowData.currency_type === "bt" ? "No" : "Yes";
+        var rowData = response.data.root || {};
+        return  rowData.currency_type === "bt" ? "No" : "Yes";
 
-    });
+      });
 
-    
-    Handlebars.registerHelper('kind_display_text', function(response, options ) { 
-      var rowData = response.data.root || {}
-        , kind    = rowData.kind
-      ;
+      
+      Handlebars.registerHelper('kind_display_text', function(response, options ) { 
+        var rowData = response.data.root || {}
+          , kind    = rowData.kind
+        ;
 
-      return kindDisplayText[ kind ];
-    });
+        return kindDisplayText[ kind ];
+      });
 
-    Handlebars.registerHelper('value_in_fiat', function(response, options ) { 
-        var rowData =  response.data.root || {};
-        if ( rowData.currency_type === "bt" ) {
-          return PriceOracle.btToFiat( rowData.currency_value );
+      Handlebars.registerHelper('value_in_fiat', function(response, options ) { 
+          var rowData =  response.data.root || {};
+          if ( rowData.currency_type === "bt" ) {
+            return PriceOracle.btToFiat( rowData.currency_value );
+          } else {
+            return PriceOracle.toFiat( rowData.currency_value );
+          }
+      });
+
+      Handlebars.registerHelper('value_in_bt', function(response, options ) {
+          var rowData =  response.data.root || {};
+          if ( rowData.currency_type === "bt" ) {
+
+            return PriceOracle.toBt( rowData.currency_value );
+          } else {
+            return PriceOracle.fiatToBt( rowData.currency_value );
+          }
+      });
+
+
+      Handlebars.registerHelper('IfShowApiCallButton', function(data, options ) { 
+        if (<%= should_show_api_call_button %>) {
+          return options.fn(this);
         } else {
-          return PriceOracle.toFiat( rowData.currency_value );
+          return options.inverse(this);
         }
+      });
+      ost.transactions.init({
+        auto_create_transactions: <%= auto_create_transactions %>,
+        client_id: "<%= client_id %>",
+      });  
     });
-
-    Handlebars.registerHelper('value_in_bt', function(response, options ) {
-        var rowData =  response.data.root || {};
-        if ( rowData.currency_type === "bt" ) {
-
-          return PriceOracle.toBt( rowData.currency_value );
-        } else {
-          return PriceOracle.fiatToBt( rowData.currency_value );
-        }
-    });
-
-
-    Handlebars.registerHelper('IfShowApiCallButton', function(data, options ) { 
-      if (<%= should_show_api_call_button %>) {
-        return options.fn(this);
-      } else {
-        return options.inverse(this);
-      }
-    });
-    ost.transactions.init({
-      auto_create_transactions: <%= auto_create_transactions %>,
-      client_id: "<%= client_id %>",
-    });  
   </script>
 <% end %>

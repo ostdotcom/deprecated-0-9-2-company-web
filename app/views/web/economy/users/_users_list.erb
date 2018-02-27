@@ -96,6 +96,8 @@
 
 <% content_for :end_js do %>
   <script type="text/javascript">
-    ost.users.list.init();
+    $(function () {
+      ost.users.list.init();  
+    });
   </script>
 <%end%>
