@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-  <div class="col-sm-12 col-md-6 p-0 sign-up-left py-6">
+  <div class="col-sm-12 col-md-6 px-md-0 sign-up-left py-6">
     <div class="row">
       <div class="col-sm-10 mx-auto">
         <h3 class="form-title text-left mb-5">Welcome to <svg class="signup-ost-kit-logo">
@@ -133,7 +133,7 @@
       <div class="form-group">
         <div class="clearfix">
           <label class="form-label float-left" for="password">Password</label>
-          <span class="form-label float-right">Minimum 8 characters</span>
+          <span class="form-label float-right text-capitalize font-weight-light" style="opacity: 0.6">Minimum 8 characters</span>
         </div>
         <div class="input-group mb-3">
           <input type="password" class="form-control form-control-input-group" placeholder="Password"
@@ -154,10 +154,11 @@
       </div>
 
       <div class="form-group has-error" id="tosFormGrp">
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input"
-                 name="agreed_terms_of_service"  id="agreed_terms_of_service" required />
-          <label class="form-check-label" for="tos">By checking this box, you agree to our Terms of Service &amp; acknowledge and consent to our Privacy Policy.</label>
+        <div class="form-check p-0">
+          <input id="tos" class="checkbox-custom form-check-input" name="agreed_terms_of_service" type="checkbox" required>
+          <label for="tos" class="checkbox-custom-label form-check-label">
+            <span>By checking this box, you agree to our <strong>Terms of Service</strong> &amp; acknowledge and consent to our <strong>Privacy Policy</strong>.</span>
+          </label>
           <div class="invalid-feedback" data-forid="agreed_terms_of_service">&nbps;</div>
         </div>
 
