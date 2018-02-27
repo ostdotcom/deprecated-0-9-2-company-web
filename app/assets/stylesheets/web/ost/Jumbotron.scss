@@ -120,10 +120,13 @@
   position: absolute;
   left: -40px;
   right: -40px;
-  top: -30px;
+  bottom: -30px;
   height: 60px;
   transform: rotate(0.8deg);
   background: #fff;
+  &.blue{
+    background-color: #33445b;
+  }
   @media (max-width: 512px){
     transform: rotate(3.6deg);
   }
