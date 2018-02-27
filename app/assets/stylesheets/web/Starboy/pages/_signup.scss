@@ -1,3 +1,24 @@
 .sign-up-left{
   background-color: $yellow-bg;
+  p{
+    color: $blue-700;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    font-weight: $font-weight-light;
+  }
+  .important-notes:nth-child(odd){
+    background-color: transparent;
+  }
+  .important-notes:nth-child(even){
+    background-color: $rice-cake;
+  }
+  hr{
+    opacity: 0.1;
+    border-top: 1px solid $blue-700;
+  }
+}
+
+.signup-ost-kit-logo{
+  height: 25px;
+  width: 92px;
 }
