@@ -6,12 +6,12 @@
 
   // All Constents.
   var P_OST = 5
-    , P_OST_ROUND_ROUNDING_MODE   = BigNumber.ROUND_FLOOR
-    , P_D_OST = 3
+    , P_OST_ROUND_ROUNDING_MODE   = BigNumber.ROUND_HALF_UP
+    , P_D_OST = 5
     , P_OST_DISPLAY_ROUND_ROUNDING_MODE   = BigNumber.ROUND_HALF_UP
   ;
 
-  var P_BT = 3
+  var P_BT = 5
     , P_BT_ROUND_ROUNDING_MODE    = BigNumber.ROUND_HALF_UP
   ;
 
@@ -58,7 +58,11 @@
     /* DO NOT USE THIS METHOD IN FRONTEND JS. */
     /* THIS METHOD IS ONLY FOR BACKEND */
     , setOstToBtFromErb: function ( ost_to_bt ) {
-      OST_TO_BT = String( ost_to_bt );
+      var oThis = this;
+
+      var new_ost_to_bt = String( ost_to_bt );
+      new_ost_to_bt = oThis.toPreciseOst( new_ost_to_bt );
+      OST_TO_BT = new_ost_to_bt.toString( 10 );
     }
 
     , ostToFiat: function ( ost, doNotRound ) {
@@ -81,6 +85,8 @@
       var ostToBt = BigNumber( OST_TO_BT )
         , result = ostToBt.times( ost )
       ;
+      console.log("ostToBt :: ostToBt", ostToBt.toString( 10 ) );
+      console.log("ostToBt :: result", result.toString( 10 ) );
       if ( doNotRound ) {
         return result;
       }
@@ -94,10 +100,14 @@
       var ostToBt = BigNumber( OST_TO_BT )
         , result  = bt.div( ostToBt )
       ;
+      console.log("btToOst :: ostToBt ", ostToBt.toString( 10 ));
+      console.log("btToOst :: result ", result.toString( 10 ));
       if ( doNotRound ) {
         return result;
       }
-      return oThis.toPreciseOst( result );
+      result = oThis.toPreciseOst( result );
+      console.log("btToOst :: toPreciseOst ", result.toString( 10 ));
+      return result;
     }
 
     , btToFiat: function ( bt, doNotRound ) {
