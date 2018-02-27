@@ -1,5 +1,5 @@
-$sprite-retina-location: "/images/ost-sprite-v1-@2x.png";
-$sprite-location: "/images/ost-sprite-v1-@1x.png";
+$sprite-retina-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v1-@2x.png";
+$sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v1-@1x.png";
 
 @mixin icon-generator($width,$height,$posX,$posY,$offsetHover,$offsetActive,$scale:100) {
   background-image: url($sprite-location);
