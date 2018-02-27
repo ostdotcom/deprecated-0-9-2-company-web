@@ -13,7 +13,7 @@
     display: inline-block;
     margin-left: 22px;
     margin-top: -20px;
-    color: #597a84;
+    color: $blue-700;
     font-weight: 300;
     font-size: 0.85rem;
   }
@@ -21,8 +21,8 @@
 
 .checkbox-custom + .checkbox-custom-label:before{
   content: '';
-  background: #fff;
-  border: 1px solid #438BAD;
+  background: $white;
+  border: 1px solid $cyan;
   display: inline-block;
   vertical-align: middle;
   width: 18px;
