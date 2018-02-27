@@ -13,7 +13,10 @@
     bt_to_fiat = @presenter_obj.client_token_planner.token_worth_in_usd
     ost_to_bt = ost_to_fiat / bt_to_fiat
   end
-  
+
+  tx_kind_count = @presenter_obj.client_stats.transaction_kind_count
+  # this 4 should ideally also be passed to dummy data creator
+  tx_kind_count = 4 if tx_kind_count == 0
 
 %>
 
@@ -36,7 +39,7 @@
     <div class="col-12">
       <div class="card card-planner mb-5">
         <div class="card-header">
-          <h5 class="card-title mb-1">We have set up these 4 transaction types for you. You can change them or create new ones.</h5>
+          <h5 class="card-title mb-1">We have set up these <%= tx_kind_count %> transaction types for you. You can change them or create new ones.</h5>
           <p class="card-text">Once you are done please click the next button to start staking and minting.</p>
         </div>
         <% content_for :cover_elements do %>
