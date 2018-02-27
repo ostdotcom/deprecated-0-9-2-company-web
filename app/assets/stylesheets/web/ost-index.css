@@ -6,8 +6,12 @@
  *= require web/ost/Icons
  *= require web/ost/NavBar
  *= require web/ost/Powered
- *= require web/ost/OstSvgs
- *= require web/ost/Technology
  *= require web/ost/LaunchBt
- *= require web/ost/SidebySide
+ *= require web/ost/OstSvgs
+ *= require web/ost/HomeCarousel
+ *= require web/ost/OstBuy
+ *= require web/ost/OstTeam
+ *= require web/ost/Technology
+ *= require plugins/slick/slick
+ *= require plugins/slick/slick-theme
  */

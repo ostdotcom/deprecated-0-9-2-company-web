@@ -1,3 +1,1 @@
-/**
- * Created by Hem on 1/12/18.
- */
+//= require web/ost/index

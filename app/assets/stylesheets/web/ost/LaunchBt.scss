@@ -1,0 +1,50 @@
+.container-launch-bt{
+  &.ost{
+    background-color: #34445b;
+    h1{
+      color: #ffffff;
+      letter-spacing: 1.2px;
+    }
+    p{
+      color: #ffffff;
+      font-weight: 300;
+      letter-spacing: 0.4px;
+    }
+    ul{
+      li{
+        color: #afe1e3;
+      }
+    }
+  }
+  &.kit{
+    background-color: #afe1e3;
+    h1{
+      color: #438bad;
+      letter-spacing: 1.2px;
+      span{
+        color: #34445b;
+      }
+    }
+    p{
+      color: #597a84;
+      font-weight: 300;
+      letter-spacing: 0.4px;
+    }
+    ul{
+      li{
+        color: #34445b;
+      }
+    }
+  }
+  &.dev{
+    background-color: #e7f6f7;
+  }
+  ul{
+    li{
+      padding: 0.5rem 0;
+      font-weight: 300;
+      letter-spacing: 0.4px;
+      border-bottom: 1px solid rgba(141, 201, 204, 0.5);
+    }
+  }
+}

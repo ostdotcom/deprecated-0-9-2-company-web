@@ -1,0 +1,142 @@
+.container-jumbotron{
+  h2{
+    color: #438bad;
+  }
+  p{
+    color: #597a84;
+    font-weight: 300;
+    line-height: 1.6rem;
+  }
+  .illustration{
+    .btn-play{
+      position: absolute;
+      z-index: 1;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      cursor: pointer;
+      font-size: 0.8rem;
+      letter-spacing: 0.1rem;
+      .play{
+        width: 15px;
+        height: 15px;
+        font-size: 0;
+        display: inline-block;
+        svg{
+          width:100%;
+          height:100%;
+          fill: #34445b;
+        }
+      }
+
+      &:hover{
+        .play{
+          .svg{
+            fill: #e4b030;
+          }
+        }
+      }
+    }
+    img{
+      max-width: 490px;
+    }
+  }
+}
+
+// Tablet portrait
+@media (min-width: 768px) and (max-width: 1000px) {
+  .container-jumbotron{
+    .illustration{
+      img{
+        max-width: 490px;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+// Mobile portrait, landscape
+@media (max-width: 767px) {
+  .container-jumbotron{
+    .illustration{
+      .btn-play{
+        .play{
+          width: 30px;
+          height: 30px;
+          margin-left: 5px;
+          padding: 0;
+        }
+      }
+      img{
+        max-width: 300px;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+.partners{
+  font-size: 0;
+  li{
+    a{
+      display: inline-block;
+      background-color: #fff;
+    }
+    img{
+      mix-blend-mode: luminosity;
+    }
+  }
+}
+
+
+.ost-triangleSpace{
+  padding-top: 4em;
+  width: 100%;
+}
+
+.ost-backward-triangle{
+  position: absolute;
+  left: -40px;
+  right: -40px;
+  top: -30px;
+  height: 60px;
+  transform: rotate(-0.8deg);
+  background: #fff;
+  @media (max-width: 512px){
+    transform: rotate(-3.6deg);
+  }
+  @media (min-width: 513px) and (max-width: 768px){
+    transform: rotate(-2.8deg);
+  }
+  @media (min-width: 769px) and (max-width: 1024px){
+    transform: rotate(-1.8deg);
+  }
+  @media (min-width: 1025px){
+    transform: rotate(-2.4deg);
+  }
+}
+
+.ost-forward-triangle{
+  position: absolute;
+  left: -40px;
+  right: -40px;
+  bottom: -30px;
+  height: 60px;
+  transform: rotate(0.8deg);
+  background: #fff;
+  &.blue{
+    background-color: #33445b;
+  }
+  @media (max-width: 512px){
+    transform: rotate(3.6deg);
+  }
+  @media (min-width: 513px) and (max-width: 768px){
+    transform: rotate(2.8deg);
+  }
+  @media (min-width: 769px) and (max-width: 1024px){
+    transform: rotate(1.8deg);
+  }
+  @media (min-width: 1025px){
+    transform: rotate(2.4deg);
+  }
+}

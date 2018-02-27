@@ -1,0 +1,100 @@
+$sprite-retina-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v1-@2x.png";
+$sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v1-@1x.png";
+
+@mixin icon-generator($width,$height,$posX,$posY,$offsetHover,$offsetActive,$scale:100) {
+  background-image: url($sprite-location);
+  background-size: 1000px * $scale/100 1000px * $scale/100;
+  @media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min--moz-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2/1),
+  only screen and (min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+    background-image: url($sprite-retina-location);
+    background-size: 1000px * $scale/100 1000px * $scale/100;
+  }
+  display: inline-block;
+  outline: none !important;
+  &:focus {
+    outline: none;
+    background-position: $posX * $scale/100 $posY * $scale/100;
+  }
+  width: $width * $scale/100;
+  height: $height * $scale/100;
+  background-position: $posX * $scale/100 $posY * $scale/100;
+  &:hover {
+    background-position: $offsetHover * $scale/100 $posY * $scale/100;
+  }
+  &:active {
+    background-position: $offsetActive * $scale/100 $posY * $scale/100;
+  }
+}
+
+.buy-ost-okex-icon{
+  @include icon-generator(172px, 64px, 1px, 1px, -262px, 1px, 70);
+}
+.buy-ost-binance-icon{
+  @include icon-generator(254px, 52px, 1px, -84px, -262px, 1px, 70);
+}
+.buy-ost-huobi-icon{
+  @include icon-generator(200px, 52px, 1px, -164px, -262px, 1px, 70);
+}
+
+// Header social icons CSS
+.header-social-twitter-icon{
+  @include icon-generator(98px, 98px, -765px, -19px, -881px, -881px, 30);
+}
+
+.header-social-linkedIn-icon{
+  @include icon-generator(98px, 98px, -765px, -553px, -881px, -881px, 30);
+}
+
+.header-social-slideshare-icon{
+  @include icon-generator(98px, 98px, -765px, -661px, -881px, -881px, 30);
+}
+
+.header-social-telegram-icon{
+  @include icon-generator(98px, 98px, -765px, -232px, -881px, -881px, 30);
+}
+
+.header-social-medium-icon{
+  @include icon-generator(98px, 98px, -765px, -446px, -881px, -881px, 30);
+}
+
+.header-social-facebook-icon{
+  @include icon-generator(98px, 98px, -765px, -126px, -880px, -880px, 30);
+}
+
+.header-social-github-icon{
+  @include icon-generator(98px, 98px, -766px, -878px, -880px, -880px, 30);
+}
+
+
+// Footer social icons CSS
+.footer-social-twitter-icon{
+  @include icon-generator(98px, 98px, -765px, -19px, -881px, -881px, 50);
+}
+
+.footer-social-linkedIn-icon{
+  @include icon-generator(98px, 98px, -765px, -553px, -881px, -881px, 50);
+}
+
+.footer-social-slideshare-icon{
+  @include icon-generator(98px, 98px, -765px, -661px, -881px, -881px, 50);
+}
+
+.footer-social-telegram-icon{
+  @include icon-generator(98px, 98px, -765px, -232px, -881px, -881px, 50);
+}
+
+.footer-social-medium-icon{
+  @include icon-generator(98px, 98px, -765px, -446px, -881px, -881px, 50);
+}
+
+.footer-social-facebook-icon{
+  @include icon-generator(98px, 98px, -765px, -126px, -880px, -880px, 50);
+}
+
+.footer-social-github-icon{
+  @include icon-generator(98px, 98px, -766px, -878px, -880px, -880px, 50);
+}

@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  constraints(InitOpenSt) do
+    scope '', controller: 'web/ost' do
+      get '/' => :index
+    end
+  end
+
   scope '', controller: 'web/home' do
     get '/' => :index
   end
