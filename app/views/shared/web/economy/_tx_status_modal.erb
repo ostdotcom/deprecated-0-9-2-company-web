@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content text-center">
       <div class="modal-body">
-        <h3 id="tx-status-header">Processing...</h3>
+        <div id="tx-status-header"><h3 >Processing...</h3></div>
         <div id="tx-status-list"></div>
         <script id="tx-status-row-template" type="text/x-handlebars-template">
           <div class="row">
@@ -44,4 +44,36 @@
   });
 </script>
 <% end %>
+<% # Header When the pop-up opens up %>
+<script id="default-tx-status-modal-header-start" type="text/x-handlebars-template">
+  <h3>Start Processing... </h3>
+</script>
+<% # Header When the tx in Processing state %>
+<script id="default-tx-status-modal-header-processing" type="text/x-handlebars-template">
+  <h3>Processing...</h3>
+</script>
+<% # Header When the tx is successful %>
+<script id="default-tx-status-modal-header-success" type="text/x-handlebars-template">
+  <h3>Success!</h3>
+</script>
+<% # Header When the tx failed %>
+<script id="default-tx-status-modal-header-error" type="text/x-handlebars-template">
+  <h3 class="alert alert-danger text-center" role="alert">
+    Something Went Wrong!
+  </h3>
+</script>
 
+<% # Footer When the pop-up opens up %>
+<script id="default-tx-status-modal-footer-start" type="text/x-handlebars-template">
+</script>
+<% # Footer When the tx in Processing state %>
+<script id="default-tx-status-modal-footer-processing" type="text/x-handlebars-template">
+</script>
+<% # Footer When the tx is successful %>
+<script id="default-tx-status-modal-footer-success" type="text/x-handlebars-template">
+  <h3>Success!</h3>
+</script>
+<% # Footer When the tx failed %>
+<script id="default-tx-status-modal-footer-error" type="text/x-handlebars-template">
+  <h3>Somthing Went Wrong!</h3>
+</script>

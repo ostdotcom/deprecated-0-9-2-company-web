@@ -12,5 +12,4 @@
 //= require plugins/helpers/ostMocker
 //= require plugins/helpers/rowContentSlider
 //= require web/common/SimpleTokenNamespace
-//= require web/dashboard/TxStatusModal
 //= require plugins/helpers/eventNameSpacing

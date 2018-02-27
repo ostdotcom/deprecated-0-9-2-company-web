@@ -131,6 +131,9 @@
 
   <%= render :partial => "shared/web/modals/help_video" %>
   <%= render :partial => "/shared/web/modals/verify_account" %>
+  <% # Always render the partials of status modals. %>
+  <%= render :partial => "/shared/web/economy/tx_status_modal" %>
+
 
   <%
 
@@ -144,7 +147,7 @@
       end
   %>
 
-    <%= render :partial => "/shared/web/economy/tx_status_modal" %>
+    
 
   <% end %>
 
@@ -161,9 +164,9 @@
       , fiat_symbol       : "<%= fiat_symbol %>"
       , fiat_type         : "<%= fiat_type %>"
       , fiat_display_text : "<%= fiat_display_text %>"
-      , fiat_precision    : "<%= 3 %>"
+      , fiat_precision    : "<%= 5 %>"
       , ost_precision     : "<%= 5 %>"
-      , bt_precision      : "<%= 3 %>"
+      , bt_precision      : "<%= 5 %>"
       , bt_symbol         : "<%= bt_symbol %>"
     };
     <% if ost_to_bt.present? %>
@@ -182,7 +185,7 @@
             $('a[aria-expanded=true]').attr('aria-expanded', 'false');
         });
 <% if pending_tx_id.present? %>
-  var txStatusModal = new ost.TxStatusModal(<%= pending_tx_id %>);
+  var txStatusModal = new ost.TSM("<%= pending_tx_id %>");
     txStatusModal.show();
 <% end %>
     });

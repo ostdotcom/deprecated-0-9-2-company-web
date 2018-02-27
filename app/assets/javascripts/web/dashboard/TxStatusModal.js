@@ -8,7 +8,7 @@
 
   var myFn = function () {
     var critical_chain_interaction_log_id = 5;
-    var myInstance = new TxStatusModal( critical_chain_interaction_log_id );
+    var myInstance = new ost.TSM( critical_chain_interaction_log_id );
     if ( !myInstance ) {
       //TxStatusModal already being used by someone else.
       return;
@@ -33,14 +33,13 @@
 ;
 (function (window, $) {
 
-  var ost = ns("ost");
 
-  //var txStatusModal = new ost.TxStatusModal(4);
-  //txStatusModal.show(1,"/tx_dummy.json");
+
+  var ost = ns("ost");
 
   var singleInstance = null;
 
-  var TxStatusModal = ost.TxStatusModal = function (data, url, config ) {
+  var TxStatusModal = ost.TSM = function (data, url, config ) {
     var oThis = this;
 
     if ( singleInstance ) {
@@ -58,6 +57,7 @@
 
     oThis.url   = url   || oThis.url;
     oThis.data  = data  || oThis.data;
+    oThis.metaData  = oThis.metaData || {};
 
     if ( !oThis.data ) {
       console.log("IMPORTANT :: TxStatusModal :: please provide critical_chain_interaction_log_id" );
@@ -70,18 +70,52 @@
     oThis.jHeader       = oThis.jHeader       || oThis.jModal.find("#tx-status-header");
     oThis.jFooter       = oThis.jFooter       || oThis.jModal.find("#tx-status-footer");
 
+
     oThis.init();
 
   }
 
+  //Static Stuff
+  TxStatusModal.UiStates = {
+    "START"         : 0
+    , "PROCESSING"  : 1
+    , "SUCCESS"     : 2
+    , "ERROR"       : 3
+  };
+
+  TxStatusModal.ElementTypes = {
+    "HEADER"    : "header"
+    , "FOOTER"  : "footer"
+  }
+
+  TxStatusModal.HeaderTemplateIds = {};
+  TxStatusModal.HeaderTemplateIds[ TxStatusModal.UiStates.START ]       = "default-tx-status-modal-header-start";
+  TxStatusModal.HeaderTemplateIds[ TxStatusModal.UiStates.PROCESSING ]  = "default-tx-status-modal-header-processing";
+  TxStatusModal.HeaderTemplateIds[ TxStatusModal.UiStates.SUCCESS ]     = "default-tx-status-modal-header-success";
+  TxStatusModal.HeaderTemplateIds[ TxStatusModal.UiStates.ERROR ]       = "default-tx-status-modal-header-error";
+
+  TxStatusModal.FooterTemplateIds = {};
+  TxStatusModal.FooterTemplateIds[ TxStatusModal.UiStates.START ]       = "default-tx-status-modal-footer-start";
+  TxStatusModal.FooterTemplateIds[ TxStatusModal.UiStates.PROCESSING ]  = "default-tx-status-modal-footer-processing";
+  TxStatusModal.FooterTemplateIds[ TxStatusModal.UiStates.SUCCESS ]     = "default-tx-status-modal-footer-success";
+  TxStatusModal.FooterTemplateIds[ TxStatusModal.UiStates.ERROR ]       = "default-tx-status-modal-footer-error";
+
   TxStatusModal.prototype = {
     constructor: TxStatusModal
-    , data      : null
-    , url       : "/api/economy/token/get-critical-chain-interaction-status"
-    , jModal    : null
-    , jHeader   : null
-    , jFooter   : null
-    , isPolling : false
+    , data              : null
+    , url               : "/api/economy/token/get-critical-chain-interaction-status"
+    , jModal            : null
+    , jHeader           : null
+    , jFooter           : null
+
+    , headerTemplateIds : null /* An Object/Map of uiState & Ids of Script tags with type != "text/javascript" */
+    , headerTemplates   : null /* An Object/Map of uiState & compiled HandleBar templates */
+
+    , footerTemplateIds : null /* An Object/Map of uiState & Ids of Script tags with type != "text/javascript" */
+    , footerTemplates   : null /* An Object/Map of uiState & compiled HandleBar templates */
+
+    , metaData        : null
+    , isPolling       : false
     , events    : {
       pollSuccess     : "pollSuccess"
       , pollError     : "pollError"
@@ -114,16 +148,185 @@
         , fetchResults      : function () {} /* Hack to prevent datatable requests */
       });
 
-      oThis.setHeader();
-      oThis.setFooter();
+      oThis.initMetaData();
+      oThis.initAllElementTemplates();
+      oThis.setAllElements();
+    }
 
+    , initMetaData: function () {
+      var oThis = this;
+
+      oThis.metaData = oThis.metaData || {};
+      if ( typeof oThis.metaData.uiState != "number" ) {
+        oThis.metaData.uiState = TxStatusModal.UiStates.START;  
+      }
+      
     }
-    , setHeader : function () {
-      oThis.jHeader.html("").text("Processing...");
+    , initAllElementTemplates: function () {
+      var oThis = this;
+
+      oThis.initHeaderTemplates();
+      oThis.initFooterTemplates();
     }
-    , setFooter: function () {
-      oThis.jFooter.html("").text("");
+    , setAllElements : function ( response ) {
+      var oThis = this;
+
+      oThis.setHeader( response );
+      oThis.setFooter( response );
     }
+
+
+    /** BEGIN :: Header & its Templates **/
+    , initHeaderTemplates : function () {
+      var oThis = this;
+
+      oThis.headerTemplateIds = oThis.headerTemplateIds || {};
+      oThis.headerTemplates = oThis.headerTemplates || {};
+      oThis.populateTemplates(oThis.headerTemplates, oThis.getHeaderTemplateId );
+    }
+    , getHeaderTemplateId: function ( uiState ) {
+      var oThis = this;
+
+      return oThis.headerTemplateIds[ uiState ] || TxStatusModal.HeaderTemplateIds[ uiState ];
+    }
+
+    , setHeaderTemplateId: function ( templateId, uiState ) {
+      var oThis = this;
+
+      var headerTemplateIds = oThis.headerTemplateIds;
+      if ( !headerTemplateIds ) {
+        oThis.headerTemplateIds = headerTemplateIds = {};
+      }
+
+      headerTemplateIds[ uiState ] = templateId;
+    }
+
+    , setHeader : function ( responseData ) {
+      var oThis = this;
+
+      var elementType   = TxStatusModal.ElementTypes.HEADER
+        , jEl           = oThis.jHeader
+        , templatesMap  = oThis.headerTemplates
+      ;
+      
+      return oThis.updateElement(elementType, jEl, templatesMap, responseData);
+    }
+
+
+
+    /** BEGIN :: Footer & its Templates **/
+    , initFooterTemplates : function () {
+      var oThis = this;
+
+      oThis.footerTemplateIds = oThis.footerTemplateIds || {};
+      oThis.footerTemplates = oThis.footerTemplates || {};
+      oThis.populateTemplates(oThis.footerTemplates, oThis.getFooterTemplateId );
+    }
+
+    , getFooterTemplateId: function ( uiState ) {
+      var oThis = this;
+
+      return oThis.footerTemplateIds[ uiState ] || TxStatusModal.FooterTemplateIds[ uiState ];
+    }
+
+    , setFooterTemplateId: function ( templateId, uiState ) {
+      var oThis = this;
+
+      var footerTemplateIds = oThis.footerTemplateIds;
+      if ( !footerTemplateIds ) {
+        oThis.footerTemplateIds = footerTemplateIds = {};
+      }
+
+      footerTemplateIds[ uiState ] = templateId;
+    }
+
+    , setFooter: function ( responseData ) {
+      var oThis = this;
+
+      var elementType   = TxStatusModal.ElementTypes.FOOTER
+        , jEl           = oThis.jFooter
+        , templatesMap  = oThis.footerTemplates
+      ;
+      
+      return oThis.updateElement(elementType, jEl, templatesMap, responseData);
+    }
+
+    /** BEGIN :: Generic/Reusable Template Related Stuff **/
+    , populateTemplates: function ( templatesMap, templateIdGetter ) {
+      var oThis = this;
+
+      var uiStakeKey
+        , uiState
+        , templateId
+        , jTemplateEl
+        , templateHtml
+        , template
+      ;
+
+      for( uiStakeKey in TxStatusModal.UiStates ) {
+
+        uiState = TxStatusModal.UiStates[ uiStakeKey ];
+
+
+        if ( templatesMap[ uiState ] ) {
+          //Skiped because templatesMap already has it.
+          continue;
+        }
+
+        
+        templateId = templateIdGetter.call(oThis, uiState);
+        jTemplateEl = $( "#" + templateId );
+        templateHtml = "";
+        if ( jTemplateEl.length ) {
+          templateHtml = jTemplateEl.html() || "";
+        } else {
+          templateHtml = "";
+        }
+        template = Handlebars.compile( templateHtml );
+        templatesMap[ uiState ] = template;
+      }
+    }
+
+    , getCurrentUiState: function () {
+      var oThis = this;
+
+      return oThis.metaData.uiState;
+    }
+
+    , setCurrentUiState: function ( uiState ) {
+      var oThis = this;
+
+      oThis.metaData = oThis.metaData || {};
+      oThis.metaData.uiState = uiState;
+    }
+
+    , updateElement: function ( elementType, jEl, templatesMap, responseData ) {
+      var oThis = this;
+
+      var uiState       = oThis.getCurrentUiState()
+        , template      = templatesMap[ uiState ]
+        , finalHtml     = ""
+        , templatePayload
+      ;
+      
+      if ( template ) {
+        templatePayload = {
+          "uiState"       : uiState
+          , "elementType" : elementType
+          , "metaData"    : oThis.metaData || {}
+          , "data"        : responseData || {}
+        };
+        finalHtml = template( templatePayload );
+      } else {
+        console.log("IMPORTANT :: updateElement :: template not found for uiState = ", uiState, " elementType", elementType);
+      }
+
+      console.log("finalHtml" , finalHtml);
+
+      jEl.html( finalHtml );
+    }
+
+    /** BEGIN :: Show/Hide Methods **/
     , show      : function () {
       var oThis = this;
       //Show the model.
@@ -137,7 +340,7 @@
       oThis.jModal.modal("hide");
     }
 
-
+    /** BEGIN :: Polling Related Methods **/
     , startPolling: function () {
       var oThis = this;
 
@@ -281,19 +484,33 @@
       } else if ( proccessedCnt === results.length ) {
         oThis.stopPolling();
         oThis.onTxSuccess( response );
+      } else {
+        oThis.onTxProcessing( response );
       }
+    }
+
+    /** BEGIN :: Mehtods dealing with different Tx statuses. **/
+    , onTxProcessing : function ( response ) { 
+      var oThis = this;
+      oThis.setCurrentUiState( TxStatusModal.UiStates.PROCESSING );
+      oThis.setAllElements( response );
     }
     , onTxSuccess : function ( response ) {
       var oThis = this;
       singleInstance = null;
+      oThis.setCurrentUiState( TxStatusModal.UiStates.SUCCESS );
+      oThis.setAllElements( response );
       oThis.callTrigger("txSuccess", response);
     }
     , onTxFailed : function ( response ) {
       var oThis = this;
       singleInstance = null;
+      oThis.setCurrentUiState( TxStatusModal.UiStates.ERROR );
+      oThis.setAllElements( response );
       oThis.callTrigger("txFailed", response);
     }
 
+    /** BEGIN :: Generic Methods that trigger events **/
     , callTrigger: function ( eventKey, data ) {
       var oThis = this;
 
@@ -315,7 +532,7 @@
 
 
 
-  // // Code to Simulate:
+  // Code to Simulate:
   // (function () {
   //   //Config for simulation:
   //   var noOfSteps = 5;
@@ -331,7 +548,7 @@
   //     });
   //   }
 
-  //   var txStatusModal = new ost.TxStatusModal(4, "/tx_dummy.json");
+  //   var txStatusModal = new ost.TSM(4, "/tx_dummy.json");
   //   txStatusModal.pollTxStatus = function () {
   //     var response = {
   //       success: true 
