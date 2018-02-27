@@ -15,10 +15,6 @@ module WebPresenter
         super
       end
 
-      def transaction_types
-        @t_types ||= (formatter_obj.transaction_types || [])
-      end
-
     end
 
   end

@@ -6,7 +6,7 @@ module CompanyApi
 
       class Economy < CompanyApi::Response::Formatter::Base
 
-        attr_reader :token_supply_details
+        attr_reader :token_supply_details, :client_stats
 
         # Initialize
         #
@@ -48,6 +48,8 @@ module CompanyApi
 
           set_token_supply_details(@data['token_supply_details']) if @data['token_supply_details'].present?
 
+          set_client_stats(@data['client_stats']) if @data['client_stats'].present?
+
         end
 
         private
@@ -64,6 +66,20 @@ module CompanyApi
         #
         def set_token_supply_details(token_supply_details_data)
           @token_supply_details = CompanyApi::Response::Entity::TokenSupplyDetails.new(token_supply_details_data)
+        end
+
+        # Set client stats details
+        #
+        # * Author: Puneet
+        # * Date: 02/02/2018
+        # * Reviewed By:
+        #
+        # @param [Hash] client_stats_data (mandatory) - client stats hash
+        #
+        # Sets @client_stats
+        #
+        def set_client_stats(client_stats_data)
+          @client_stats = CompanyApi::Response::Entity::ClientStats.new(client_stats_data)
         end
 
       end

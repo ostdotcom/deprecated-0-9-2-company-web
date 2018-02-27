@@ -15,8 +15,8 @@ module WebPresenter
         super
       end
 
-      def transaction_types
-        @t_ty ||= (formatter_obj.transaction_types || [])
+      def client_stats
+        @c_sts ||= (formatter_obj.client_stats || {})
       end
 
       # after step 3 has been completed, we would not allow this page to open up
