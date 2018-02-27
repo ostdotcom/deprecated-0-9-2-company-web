@@ -9,13 +9,19 @@
 
 .checkbox-custom-label{
   position: relative;
-  span{
+  .tos-text{
     display: inline-block;
     margin-left: 22px;
     margin-top: -20px;
     color: $blue-700;
     font-weight: 300;
     font-size: 0.85rem;
+    a{
+      color: $blue-700;
+      &:hover{
+        text-decoration: none;
+      }
+    }
   }
 }
 
