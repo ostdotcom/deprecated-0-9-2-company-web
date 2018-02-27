@@ -61,5 +61,16 @@
       border: 2px solid #fff;
       transition: box-shadow .2s ease-out;
       box-shadow: 0 0 0 1px #84d1d4;
+      position: relative;
+      &:after{
+        content: '';
+        position: absolute;
+        height: 15px;
+        width: 15px;
+        display: inline-block;
+        background: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/select-token-checkmark.svg') no-repeat;
+        background-size: 100%;
+        right: -3px;
+      }
     }
   }
