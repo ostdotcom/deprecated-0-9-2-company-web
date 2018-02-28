@@ -226,11 +226,12 @@
       }
 
       var data            = response.data || {}
-        , interactionId   = data["propose_bt"]
+        , pendingCriticalInteractions = data['pending_critical_interactions'] || {}
+        , interactionId   = pendingCriticalInteractions["propose_bt"]
       ;
 
       if (!interactionId) {
-        interactionId   = data["stake_bt_started"]
+        interactionId   = pendingCriticalInteractions["stake_bt_started"]
       }
 
       if ( interactionId ) {
@@ -238,7 +239,6 @@
       }
 
     }
-
 
     //Everything related to transfer OST to staker.
     , onTransferCallback : null
