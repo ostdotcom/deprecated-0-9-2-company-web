@@ -235,7 +235,9 @@
       }
 
       if ( interactionId ) {
-        new ost.TSM.MintTxStatusModal( interactionId );
+        console.log("onFormSubmitSuccess :: interactionId", interactionId);
+        var mintTxStatusModal = new ost.TSM.MintTxStatusModal( interactionId );
+        mintTxStatusModal && mintTxStatusModal.show();
       }
 
     }
