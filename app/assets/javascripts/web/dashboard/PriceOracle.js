@@ -188,7 +188,7 @@
         if ( existing.eq( bt ) || bt.isLessThanOrEqualTo( 0 ) ) {
           return;
         }
-        jEl.val( bt );
+        // jEl.val( bt );
         
 
         var ostToBt   = oThis.toPreciseOst( bt )
@@ -230,7 +230,7 @@
           return;
         }
         btTofiat = oThis.toFiat( btTofiat );
-        jEl.val( btTofiat.toString( 10 ) );
+        // jEl.val( btTofiat.toString( 10 ) );
         
         if ( btTofiat.isLessThanOrEqualTo( 0 ) ) { 
           return;

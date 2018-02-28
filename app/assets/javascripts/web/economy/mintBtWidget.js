@@ -447,7 +447,7 @@
         "ostStakeForBt", ostStakeForBt 
       );
 
-      remainingOst  = BigNumber(ostBalance).minus(ostStakeForBt);
+      remainingOst  = BigNumber(ostBalance).minus(ostStakeForBt).minus(stPrimeToMint);
 
       oThis.gDataTable.setCell(oThis.giStPrime, colIndex, stPrimeToMint );
       oThis.gDataTable.setCell(oThis.giBtToMint, colIndex, ostStakeForBt.toString(10) );
