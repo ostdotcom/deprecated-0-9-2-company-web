@@ -231,7 +231,7 @@
       ;
 
       if (!interactionId) {
-        interactionId   = pendingCriticalInteractions["stake_bt_started"]
+        interactionId   = pendingCriticalInteractions["staker_initial_transfer"]
       }
 
       if ( interactionId ) {
