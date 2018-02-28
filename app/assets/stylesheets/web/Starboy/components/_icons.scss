@@ -3,15 +3,17 @@ svg.get-help-icon{
   width: 35px;
   fill: rgba(67, 139, 173, 0.5);
 }
-svg.icon-api{
+svg.icon-api-transactions{
   height: 20px;
   width: 20px;
   fill: #84d1d4;
+  pointer-events: none;
 }
-svg.icon-edit{
+svg.icon-edit-transactions{
   height: 18px;
   width: 16px;
   fill: #84d1d4;
+  pointer-events: none;
 }
 svg.icon-play{
   height: 15px;
