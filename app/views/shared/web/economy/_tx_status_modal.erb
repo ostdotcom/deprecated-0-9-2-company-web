@@ -77,3 +77,84 @@
 <script id="default-tx-status-modal-footer-error" type="text/x-handlebars-template">
   <h3>Somthing Went Wrong!</h3>
 </script>
+
+<% # Some generic helpers %>
+<% content_for :end_js do %>
+<script type="text/javascript">
+  $( function () {
+    Handlebars.registerHelper("IfTxStateStart", function( options ) { 
+      var data = options.data || {}
+        , dataRoot = data.root || {}
+        , uiState  = dataRoot.uiState
+      ;
+
+      if ( typeof dataRoot.uiState === "number" ) {
+        uiState  = dataRoot.uiState;
+      } else {
+        uiState  = -1;
+      }
+
+      if ( uiState == ost.TSM.START ) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    });
+    Handlebars.registerHelper("IfTxStateProcessing", function( options ) { 
+      var data = options.data || {}
+        , dataRoot = data.root || {}
+        , uiState  = dataRoot.uiState
+      ;
+
+      if ( typeof dataRoot.uiState === "number" ) {
+        uiState  = dataRoot.uiState;
+      } else {
+        uiState  = -1;
+      }
+      
+      if ( uiState == ost.TSM.PROCESSING ) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    });
+    Handlebars.registerHelper("IfTxStateSuccess", function( options ) { 
+      var data = options.data || {}
+        , dataRoot = data.root || {}
+        , uiState  = dataRoot.uiState
+      ;
+
+      if ( typeof dataRoot.uiState === "number" ) {
+        uiState  = dataRoot.uiState;
+      } else {
+        uiState  = -1;
+      }
+      
+      if ( uiState == ost.TSM.SUCCESS ) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    });
+    Handlebars.registerHelper("IfTxStateFailed", function( options ) { 
+      var data = options.data || {}
+        , dataRoot = data.root || {}
+        , uiState  = dataRoot.uiState
+      ;
+
+      if ( typeof dataRoot.uiState === "number" ) {
+        uiState  = dataRoot.uiState;
+      } else {
+        uiState  = -1;
+      }
+      
+      if ( uiState == ost.TSM.FAILED ) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    });
+  });
+</script>
+<% end %>
+

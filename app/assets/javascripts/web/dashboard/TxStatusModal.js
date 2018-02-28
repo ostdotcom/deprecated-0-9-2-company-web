@@ -80,7 +80,7 @@
     "START"         : 0
     , "PROCESSING"  : 1
     , "SUCCESS"     : 2
-    , "ERROR"       : 3
+    , "FAILED"       : 3
   };
 
   TxStatusModal.ElementTypes = {
@@ -92,13 +92,13 @@
   TxStatusModal.HeaderTemplateIds[ TxStatusModal.UiStates.START ]       = "default-tx-status-modal-header-start";
   TxStatusModal.HeaderTemplateIds[ TxStatusModal.UiStates.PROCESSING ]  = "default-tx-status-modal-header-processing";
   TxStatusModal.HeaderTemplateIds[ TxStatusModal.UiStates.SUCCESS ]     = "default-tx-status-modal-header-success";
-  TxStatusModal.HeaderTemplateIds[ TxStatusModal.UiStates.ERROR ]       = "default-tx-status-modal-header-error";
+  TxStatusModal.HeaderTemplateIds[ TxStatusModal.UiStates.FAILED ]       = "default-tx-status-modal-header-error";
 
   TxStatusModal.FooterTemplateIds = {};
   TxStatusModal.FooterTemplateIds[ TxStatusModal.UiStates.START ]       = "default-tx-status-modal-footer-start";
   TxStatusModal.FooterTemplateIds[ TxStatusModal.UiStates.PROCESSING ]  = "default-tx-status-modal-footer-processing";
   TxStatusModal.FooterTemplateIds[ TxStatusModal.UiStates.SUCCESS ]     = "default-tx-status-modal-footer-success";
-  TxStatusModal.FooterTemplateIds[ TxStatusModal.UiStates.ERROR ]       = "default-tx-status-modal-footer-error";
+  TxStatusModal.FooterTemplateIds[ TxStatusModal.UiStates.FAILED ]      = "default-tx-status-modal-footer-error";
 
   TxStatusModal.prototype = {
     constructor: TxStatusModal
@@ -311,10 +311,10 @@
       
       if ( template ) {
         templatePayload = {
-          "uiState"       : uiState
-          , "elementType" : elementType
-          , "metaData"    : oThis.metaData || {}
-          , "data"        : responseData || {}
+          "uiState"         : uiState
+          , "elementType"   : elementType
+          , "metaData"      : oThis.metaData || {}
+          , "responseData"  : responseData || {}
         };
         finalHtml = template( templatePayload );
       } else {
@@ -505,7 +505,7 @@
     , onTxFailed : function ( response ) {
       var oThis = this;
       singleInstance = null;
-      oThis.setCurrentUiState( TxStatusModal.UiStates.ERROR );
+      oThis.setCurrentUiState( TxStatusModal.UiStates.FAILED );
       oThis.setAllElements( response );
       oThis.callTrigger("txFailed", response);
     }
@@ -532,69 +532,79 @@
 
 
 
-  // Code to Simulate:
-  // (function () {
-  //   //Config for simulation:
-  //   var noOfSteps = 5;
-  //   var noOfPollRequests = (2 * noOfSteps) + Math.max(0, (noOfSteps - 1) );
-  //   var resolveIn        = parseInt( noOfPollRequests/noOfSteps );
-  //   var shouldFail = false;
+// // Code to Simulate:
 
-  //   var results = [];
-  //   for(var cnt = 0; cnt < noOfSteps; cnt++ ) {
-  //     results.push({
-  //       "status": "queued"
-  //       , "display_text": "Step " + Number(cnt + 1) + " is queued"
-  //     });
-  //   }
 
-  //   var txStatusModal = new ost.TSM(4, "/tx_dummy.json");
-  //   txStatusModal.pollTxStatus = function () {
-  //     var response = {
-  //       success: true 
-  //       , data: {
-  //         "result_type" : "tx_data"
-  //         , "tx_data"   : results
-  //       }
-  //     };
-  //     if ( noOfPollRequests % resolveIn == 0 || !noOfPollRequests ) {
-  //       for(var cnt = 0; cnt < noOfSteps; cnt++ ) {
-  //         var thisResult = results[ cnt ];
-  //         if ( thisResult.status === "processed") {
-  //           continue;
-  //         }          
-  //         if ( thisResult.status === "pending" ) {
-  //           thisResult.status = "processed";
-  //           thisResult.display_text = "Step " + Number(cnt + 1) + " is processed";
-  //         }
-  //         if ( thisResult.status === "queued" ) {
-  //           if ( noOfPollRequests ) {
-  //             thisResult.status = "pending"; 
-  //             thisResult.display_text = "Step " + Number(cnt + 1) + " is pending"; 
-  //           }
-  //           if ( noOfPollRequests ) {
-  //             break;
-  //           } else {
-  //             //Last request.
-  //             thisResult.status = shouldFail ? "failed" : "processed";
-  //             thisResult.display_text = "Step " + Number(cnt + 1) + " is " + (shouldFail ? "Failed" : "Processed");
-  //             if ( shouldFail ) {
-  //               break;
-  //             }
-  //           }
-  //         } 
-  //       }
-  //     }
-  //     --noOfPollRequests;
-  //     setTimeout(function () {
-  //       txStatusModal.onPollSuccess( response );
-  //     }, 300)
-  //   }
-  //   setTimeout(function () {
-  //     txStatusModal.show();
-  //   }, 2000);
+// (function () {
+
+//   var fn = function () {
+
+//     //Config for simulation:
+//     var noOfSteps = 5;
+//     var noOfPollRequests = (2 * noOfSteps) + Math.max(0, (noOfSteps - 1) );
+//     var resolveIn        = parseInt( noOfPollRequests/noOfSteps );
+//     var shouldFail = false;
+
+//     var results = [];
+//     for(var cnt = 0; cnt < noOfSteps; cnt++ ) {
+//       results.push({
+//         "status": "queued"
+//         , "display_text": "Step " + Number(cnt + 1) + " is queued"
+//       });
+//     }
+
+//     var txStatusModal = new ost.TSM(4, "/tx_dummy.json");
+//     txStatusModal.pollTxStatus = function () {
+//       var response = {
+//         success: true 
+//         , data: {
+//           "result_type" : "tx_data"
+//           , "tx_data"   : results
+//         }
+//       };
+//       if ( noOfPollRequests % resolveIn == 0 || !noOfPollRequests ) {
+//         for(var cnt = 0; cnt < noOfSteps; cnt++ ) {
+//           var thisResult = results[ cnt ];
+//           if ( thisResult.status === "processed") {
+//             continue;
+//           }          
+//           if ( thisResult.status === "pending" ) {
+//             thisResult.status = "processed";
+//             thisResult.display_text = "Step " + Number(cnt + 1) + " is processed";
+//           }
+//           if ( thisResult.status === "queued" ) {
+//             if ( noOfPollRequests ) {
+//               thisResult.status = "pending"; 
+//               thisResult.display_text = "Step " + Number(cnt + 1) + " is pending"; 
+//             }
+//             if ( noOfPollRequests ) {
+//               break;
+//             } else {
+//               //Last request.
+//               thisResult.status = shouldFail ? "failed" : "processed";
+//               thisResult.display_text = "Step " + Number(cnt + 1) + " is " + (shouldFail ? "Failed" : "Processed");
+//               if ( shouldFail ) {
+//                 break;
+//               }
+//             }
+//           } 
+//         }
+//       }
+//       --noOfPollRequests;
+//       setTimeout(function () {
+//         txStatusModal.onPollSuccess( response );
+//       }, 300)
+//     }
+
+//     txStatusModal.show();
+//   }
+
+
+//   setTimeout(function () {
+//     fn();
+//   }, 2000);
   
-  // })();
+// })();
 
 
 

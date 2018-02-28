@@ -1,0 +1,80 @@
+<%
+  tx_status_meta_data = tx_status_meta_data.present? ? tx_status_meta_data : {}
+
+  bt_name   = @presenter_obj.client_token.name;
+  bt_symbol = @presenter_obj.client_token.symbol;
+
+
+  header_tempate_id = header_tempate_id.present? ? header_tempate_id : "mint-tx-status-modal-header"
+  start_header_tempate_id = header_tempate_id + "-start";
+  processing_header_tempate_id = header_tempate_id + "-processing";
+  success_header_tempate_id = header_tempate_id + "-success";
+  failed_header_tempate_id = header_tempate_id + "-failed";
+
+  footer_tempate_id = footer_tempate_id.present? ? footer_tempate_id : "mint-tx-status-modal-footer"
+  start_footer_tempate_id = footer_tempate_id + "-start";
+  processing_footer_tempate_id = footer_tempate_id + "-processing";
+  success_footer_tempate_id = footer_tempate_id + "-success";
+  failed_footer_tempate_id = footer_tempate_id + "-failed";
+
+
+%>
+
+<script id="<%= start_header_tempate_id %>" type="text/x-handlebars-template">
+  <h3>Processing... </h3>
+</script>
+<script id="<%= processing_header_tempate_id %>" type="text/x-handlebars-template">
+  <h3>Processing... </h3>
+</script>
+<script id="<%= success_header_tempate_id %>" type="text/x-handlebars-template">
+  <h3>Congratulation! <%= bt_symbol %> Token is Minted! </h3>
+</script>
+<script id="<%= failed_header_tempate_id %>" type="text/x-handlebars-template">
+  <h3 class="alert alert-danger text-center" role="alert">
+    Something Went Wrong!
+  </h3>
+</script>
+
+
+<script id="<%= start_footer_tempate_id %>" type="text/x-handlebars-template">
+</script>
+<script id="<%= processing_footer_tempate_id %>" type="text/x-handlebars-template">
+</script>
+<script id="<%= success_footer_tempate_id %>" type="text/x-handlebars-template">
+  <a class="btn btn-gold">SIMULATE TRANSACTIONS</a>
+</script>
+<script id="<%= failed_footer_tempate_id %>" type="text/x-handlebars-template">
+  <h3 class="alert alert-danger text-center" role="alert">
+    Something Went Wrong!
+  </h3>
+</script>
+
+<% content_for :end_js do %>
+<script type="text/javascript">
+  $( function () {
+    var ost = ns("ost")
+      , TSM = ns("ost.TSM")
+    ;
+    var MintTxStatusModal = TSM.MintTxStatusModal = function ( config ) {
+      var oThis = this;
+
+      oThis.setHeaderTemplateId("<%= start_header_tempate_id %>", TSM.UiStates.START );
+      oThis.setHeaderTemplateId("<%= processing_header_tempate_id %>", TSM.UiStates.PROCESSING );
+      oThis.setHeaderTemplateId("<%= success_header_tempate_id %>", TSM.UiStates.SUCCESS );
+      oThis.setHeaderTemplateId("<%= failed_header_tempate_id %>", TSM.UiStates.FAILED );
+
+
+      oThis.setFooterTemplateId("<%= start_footer_tempate_id %>", TSM.UiStates.START );
+      oThis.setFooterTemplateId("<%= processing_footer_tempate_id %>", TSM.UiStates.PROCESSING );
+      oThis.setFooterTemplateId("<%= success_footer_tempate_id %>", TSM.UiStates.SUCCESS );
+      oThis.setFooterTemplateId("<%= failed_footer_tempate_id %>", TSM.UiStates.FAILED );
+
+      TSM.apply( oThis, arguments );      
+
+    };
+    MintTxStatusModal.prototype = Object.create(TSM.prototype);
+
+  });
+</script>
+<% end %>
+

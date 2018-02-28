@@ -115,7 +115,14 @@
     <%= render :partial => "/shared/web/common/sidebar" %>
   <% end %>
 
+
   <%= render :partial => "/shared/web/economy/metamask/metamask" %>
+
+  <% # Always render the partials of status modals. And do it before yield %>
+  <%= render :partial => "/shared/web/economy/tx_status_modal" %>
+  <%= render :partial => "/shared/web/economy/mint_tx_status_modal" %>
+
+
 
   <section id="content" <%= content_style %>>
     <div class="container-fluid">
@@ -131,26 +138,6 @@
 
   <%= render :partial => "shared/web/modals/help_video" %>
   <%= render :partial => "/shared/web/modals/verify_account" %>
-  <% # Always render the partials of status modals. %>
-  <%= render :partial => "/shared/web/economy/tx_status_modal" %>
-
-
-  <%
-
-    pending_critical_interactions = @presenter_obj.pending_critical_interactions
-
-    if @presenter_obj.pending_critical_interactions.present?
-      if @presenter_obj.pending_critical_interactions.for_register_bt_id.present?
-        pending_tx_id = pending_critical_interactions.for_register_bt_id
-      elsif @presenter_obj.pending_critical_interactions.for_stake_and_mint_id.present?
-        pending_tx_id = pending_critical_interactions.for_stake_and_mint_id
-      end
-  %>
-
-    
-
-  <% end %>
-
 </main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -184,10 +171,32 @@
             $('.collapse.in').toggleClass('in');
             $('a[aria-expanded=true]').attr('aria-expanded', 'false');
         });
-<% if pending_tx_id.present? %>
-  var txStatusModal = new ost.TSM("<%= pending_tx_id %>");
-    txStatusModal.show();
-<% end %>
+
+  <%
+
+    mint_bt_status_modal_type = 1;
+
+    pending_critical_interactions = @presenter_obj.pending_critical_interactions
+
+    # Change this based on which popup.
+    pending_critical_interaction_modal_type = mint_bt_status_modal_type
+
+    if @presenter_obj.pending_critical_interactions.present?
+      if @presenter_obj.pending_critical_interactions.for_register_bt_id.present?
+        pending_tx_id = pending_critical_interactions.for_register_bt_id
+      elsif @presenter_obj.pending_critical_interactions.for_stake_and_mint_id.present?
+        pending_tx_id = pending_critical_interactions.for_stake_and_mint_id
+      end
+    end 
+  %>
+
+    <% if pending_tx_id.present? %>
+      var txStatusModal = null;
+      <% if pending_critical_interaction_modal_type == mint_bt_status_modal_type %>
+        txStatusModal = new ost.TSM.MintTxStatusModal("<%= pending_tx_id %>");
+      <% end %>
+        txStatusModal && txStatusModal.show();
+    <% end %>
     });
 </script>
 <% end %>
