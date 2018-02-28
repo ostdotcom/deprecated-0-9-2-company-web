@@ -26,7 +26,6 @@
     , idOstToTransfer : null
     , idConfirmModal  : "stake-mint-confirm"
     , idConfirmBtn    : "confirm_mint_button"
-    , idProcessModal  : "stake-mint-processing"
 
     /* jQuery Dom Refrences */
     , jOstStakeForBt  : null
@@ -42,7 +41,6 @@
     , jTransferHash   : null
     , jConfirmModal   : null
     , jConfirmBtn     : null
-    , jProcessModal   : null
     /* 
       NOTE: Try to only read from jStPrimeToMint, Please avoid setting Property. 
       Discuss if needed, jStPrimeToMint is not always owned by this widget.
@@ -73,7 +71,6 @@
       oThis.jForm           = oThis.jForm           || $( "#" + oThis.idForm );
       oThis.jConfirmModal   = oThis.jConfirmModal   || $( "#" + oThis.idConfirmModal );
       oThis.jConfirmBtn     = oThis.jConfirmBtn     || $( "#" + oThis.idConfirmBtn );
-      oThis.jProcessModal   = oThis.jProcessModal   || $( "#" + oThis.idProcessModal );
       oThis.jTransferHash   = oThis.jTransferHash   || $( "#" + oThis.idTransferHash );
 
       oThis.jOstToBt.val(PriceOracle.ostToBt(1));
@@ -201,7 +198,7 @@
         if ( response.success ) {
           var transaction_hash = response.data.transaction_hash;
           console.log("transaction_hash", transaction_hash);
-          oThis.jConfirmModal.modal("hide");
+          
           oThis.processStaking( transaction_hash );
         }
         oThis.jConfirmBtn.prop("disabled", false);
@@ -215,8 +212,6 @@
     }
 
     , submitForm: function () {
-      //Show pop-up
-      oThis.jProcessModal.modal("show");
       //Submit the form.
       var submitHandler = FormHelper.prototype.submitHandler;
       submitHandler.call( oThis.ostFormHelper, oThis.jForm[0] );      
@@ -224,6 +219,20 @@
 
     , onFormSubmitSuccess: function ( response ) {
       console.log("|||||| onFormSubmitSuccess! ||||||");
+      oThis.jConfirmModal.modal("hide");
+
+      if ( !response.success ) {
+        return;
+      }
+
+      var data            = response.data || {}
+        , interactionId   = data["critical_interaction_id"]
+      ;
+
+      if ( interactionId ) {
+        new ost.TSM.MintTxStatusModal( interactionId );
+      }
+
     }
 
 
