@@ -1,7 +1,7 @@
 ;
 (function (window , $) {
 
-  var ost  = ns('OST'),
+  var ost  = ns('ost'),
       users = {},
       transactionTypes = {},
       pendingTransactionsUUID = [],
