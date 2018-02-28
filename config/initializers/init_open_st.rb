@@ -2,9 +2,9 @@ class InitOpenSt
 
   def self.matches?(request)
     if Rails.env.production?
-      request.host == 'openst.org'
+      request.host == 'ost.com'
     elsif Rails.env.staging?
-      request.host == 'stagingopenst.org'
+      request.host == 'stagingost.com'
     else
       request.host == 'developmentopenst.org'
     end
