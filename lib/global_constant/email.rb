@@ -6,7 +6,15 @@ module GlobalConstant
     class << self
 
       def default_from
-        Rails.env.production? ? 'notifier@ost.com' : 'staging.notifier@ost.com'
+        if Rails.env.production?
+          if GlobalConstant::Base.sub_env == GlobalConstant::Environment.main_sub_environment
+            'notifier@ost.com'
+          else
+            'sandbox.notifier@ost.com'
+          end
+        else
+          'staging.notifier@ost.com'
+        end
       end
 
       def default_to
@@ -22,3 +30,4 @@ module GlobalConstant
   end
 
 end
+
