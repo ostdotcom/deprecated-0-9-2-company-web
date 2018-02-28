@@ -22,6 +22,33 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
+      <h3 class="text-center mt-4">Plan the <%= bt_name %> coin Economy in 3 Easy Steps</h3>
+      <%= render partial: 'shared/web/common/steps',
+          locals: {
+        classes_step_1: 'complete',
+          classes_step_2: 'active',
+          classes_step_3: 'incomplete'
+          }
+      %>
+      </div>
+    </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-info" role="alert">
+        <h4>The second step is setting up transactions</h4>
+        <hr class="mt-3 mb-4"/>
+        <p class="mt-2">We have created 4 default transaction for you. You can edit them or create new ones.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
       <div class="d-flex justify-content-between align-items-center my-4">
         <h3 class="mb-0">Transactions</h3>
         <button id="create_transaction_btn" class="btn btn-gold float-right">ADD TRANSACTIONS</button>
@@ -40,46 +67,50 @@
 </div>
 
 <div class="container slider-parent-container" data-slider-content-wrapper=".ost-table-row">
-  <div id="transaction_list" class="transactions" data-simple-table data-url="/api/economy/transaction/kind/list">
-    <script type="text/x-handlebars-template" data-row-template>
-      <div class="row align-items-center py-3 mt-1 mb-3 rounded ost-table-row" style="background-color: #f1f5f8;">
-        <div class="col-2">{{name}}<br/><small class="font-weight-light">{{kind_display_text}}</small></div>
-        <div class="col-2"><%= fiat_symbol %>{{value_in_fiat}}</div>
-        <div class="col-2">{{value_in_bt}}</div>
-        <div class="col-2">{{price_oracle_text}}</div>
-        <div class="col-1">{{commission_percent}}&#37;</div>
-        <div class="col-3">
-          {{#IfShowApiCallButton id }}
-            <button class="showApiCallBtn btn btn-white slider-btn">
-              <svg class="icon-api align-middle">
-                <switch>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-api"></use>
-                </switch>
-              </svg>
-              <span class="align-middle">API Call</span>
-            </button>
-          {{/IfShowApiCallButton}}
-          <a href="javascript:void(0)" class="editRow rounded-circle edit-btn" data-result-id="{{id}}" title="Edit">
-            <svg class="icon-edit align-middle">
-              <switch>
-                <use class="icon-edit" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-edit"></use>
-              </switch>
-            </svg>
-          </a>
-          <input type="hidden" name="id" value={{id}}/>
-          <input type="hidden" name="uts" value={{uts}}/>
-        </div>
-        <div class="code-session col-12">
-          <comment class="w-100 code-comment">
-            Some code has to come here.
-          </comment>
-          <code class="w-100 code-line">
-              Some curl code has to come here
-              Some curl code has to come here
-          </code>
-        </div>
+  <div class="row">
+    <div class="col-12">
+      <div id="transaction_list" class="transactions" data-simple-table data-url="/api/economy/transaction/kind/list">
+        <script type="text/x-handlebars-template" data-row-template>
+          <div class="row align-items-center py-3 mt-1 mb-3 rounded ost-table-row" style="background-color: #f1f5f8;">
+            <div class="col-2">{{name}}<br/><small class="font-weight-light">{{kind_display_text}}</small></div>
+            <div class="col-2"><%= fiat_symbol %>{{value_in_fiat}}</div>
+            <div class="col-2">{{value_in_bt}}</div>
+            <div class="col-2">{{price_oracle_text}}</div>
+            <div class="col-1">{{commission_percent}}&#37;</div>
+            <div class="col-3">
+              {{#IfShowApiCallButton id }}
+                <button class="showApiCallBtn btn btn-white slider-btn">
+                  <svg class="icon-api align-middle">
+                    <switch>
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-api"></use>
+                    </switch>
+                  </svg>
+                  <span class="align-middle">API Call</span>
+                </button>
+              {{/IfShowApiCallButton}}
+              <a href="javascript:void(0)" class="editRow rounded-circle edit-btn" data-result-id="{{id}}" title="Edit">
+                <svg class="icon-edit align-middle">
+                  <switch>
+                    <use class="icon-edit" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-edit"></use>
+                  </switch>
+                </svg>
+              </a>
+              <input type="hidden" name="id" value={{id}}/>
+              <input type="hidden" name="uts" value={{uts}}/>
+            </div>
+            <div class="code-session col-12">
+              <comment class="w-100 code-comment">
+                Some code has to come here.
+              </comment>
+              <code class="w-100 code-line">
+                  Some curl code has to come here
+                  Some curl code has to come here
+              </code>
+            </div>
+          </div>
+        </script>
       </div>
-    </script>
+    </div>
   </div>
 </div>
 

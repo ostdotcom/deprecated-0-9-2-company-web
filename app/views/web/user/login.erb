@@ -1,21 +1,26 @@
 <%= render :partial => "/shared/web/common/other-icons.svg" %>
-<form id="login_form" class="form-container-sm user-form"
-  action="/api/client/login" method="POST"
-  data-ost-formhelper data-redirect="/planner"
->
-  <h1 class="form-title">Login to the OST KIT</h1>
-  <div class="general_error invalid-feedback">&nbsp;</div>
-  <div class="form-group">
-    <label class="form-label" for="email">Email address</label>
-    <input type="email" class="form-control" id="email" name="email" 
-    aria-describedby="emailHelp" placeholder="Email Address" name="email" required />
-  </div>
-  <div class="form-group">
-    <label class="form-label" for="exampleInputPassword1">Password</label>
-    <div class="input-group mb-3">
-      <input type="password" class="form-control form-control-input-group" placeholder="Password"
-             id="password" name="password" required pattern=".{8,}"/>
-      <div class="input-group-append">
+<div class="container py-6">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-5 mx-auto">
+          <form id="login_form" class="form-container-sm user-form"
+                action="/api/client/login" method="POST"
+                data-ost-formhelper data-redirect="/planner"
+          >
+            <h1 class="form-title">Login to the OST KIT</h1>
+            <div class="general_error invalid-feedback">&nbsp;</div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email address</label>
+              <input type="email" class="form-control" id="email" name="email"
+                     aria-describedby="emailHelp" placeholder="Email Address" name="email" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="exampleInputPassword1">Password</label>
+              <div class="input-group mb-3">
+                <input type="password" class="form-control form-control-input-group" placeholder="Password"
+                       id="password" name="password" required pattern=".{8,}"/>
+                <div class="input-group-append">
         <span class="input-group-text input-group-inline input-group-eye">
           <svg class="icon">
             <switch>
@@ -23,17 +28,22 @@
             </switch>
           </svg>
         </span>
+                </div>
+              </div>
+              <small><a class="form-text" href="/reset-password">Forgot password?</a></small>
+              <div class="invalid-feedback" data-forid="password">&nbps;</div>
+            </div>
+
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-gold" data-submiting="Logging">Login</button>
+              <small class="form-text text-muted" style="line-height: 40px">Don't have an account yet?</small>
+              <a href="/sign-up" class="btn btn-white" title="Register">Register</a>
+            </div>
+
+          </form>
+        </div>
       </div>
     </div>
-    <small><a class="form-text" href="/reset-password">Forgot password?</a></small>
-    <div class="invalid-feedback" data-forid="password">&nbps;</div>
   </div>
-
-  <div class="form-group text-center">
-    <button type="submit" class="btn btn-gold" data-submiting="Logging">Login</button>
-    <small class="form-text text-muted" style="line-height: 40px">Don't have an account yet?</small>
-    <a href="/sign-up" class="btn btn-white" title="Register">Register</a>
-  </div>
-  
-</form>
+</div>
 
