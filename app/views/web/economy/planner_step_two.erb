@@ -37,11 +37,17 @@
 
   <div class="row">
     <div class="col-12">
+      <div class="alert alert-info" role="alert">
+        <h4>The second step is setting up transactions <a href="" class="float-right text-uppercase">Learn More</a></h4>
+        <hr class="my-3"/>
+        <p>We have created 4 default transaction for you. You can edit them or create new ones.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
       <div class="card card-planner mb-5">
-        <div class="card-header">
-          <h5 class="card-title mb-1">We have set up these <%= tx_kind_count %> transaction types for you. You can change them or create new ones.</h5>
-          <p class="card-text">Once you are done please click the next button to start staking and minting.</p>
-        </div>
         <% content_for :cover_elements do %>
             <div id="transaction_editor" class="cover-element metamask-flow">
               <div class="container">
