@@ -35,7 +35,7 @@
   min_bt_to_mint = number_of_users * airdrop_amount;
   bt_to_mint = number_of_users * airdrop_amount * buffer_mint_factor_over_airdrop;
 
-  min_st_prime_to_mint = 30;
+  min_st_prime_to_mint = 10;
   max_st_prime_to_mint = 100;
 
   # Note: I would avoid reducing max limit as the slider value changes.
@@ -86,11 +86,14 @@
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-card-transactions-3"></use>
                   </switch>
                 </svg>
-                The third step in Minting FC <a href="" class="card-link float-right text-uppercase">Learn More</a></h4>
+                The third step in Minting <%= bt_symbol %> <a href="" class="card-link float-right text-uppercase">Learn More</a>
+              </h4>
               <hr class="my-3"/>
-              <p class="font-weight-light">Here you will select the number of FC to mint. Based on your settings, minimum amount of FC required to be minted is <span class="font-weight-bold">45,0000 FC</span>.</p>
-              <p class="font-weight-light">An equivalent value of OST⍺ will be staked automatically at the <span class="font-weight-bold">1 FC = 3 OST⍺</span> Conversion Rate</p>
-              <p class="font-weight-light">You will also need to reserve a minimum of 10 OST⍺ to pay for FC transfers by your users. 10 OST⍺ ensures to pay for approximately <span class="font-weight-bold">500,000 transfers</span>.</p>
+              <p class="font-weight-light">Here you will select the number of <%= bt_symbol %> to mint. Based on your settings, minimum amount of <%= bt_symbol %> required to be minted is 
+                <span class="font-weight-bold"><%= number_with_delimiter(min_bt_to_mint, :delimiter => ',') %> <%= bt_symbol %></span>.
+              </p>
+              <p class="font-weight-light">An equivalent value of OST⍺ will be staked automatically at the <span class="font-weight-bold"><%= ost_to_bt %> <%= bt_symbol %> = 1 OST⍺</span> Conversion Rate</p>
+              <p class="font-weight-light">You will also need to reserve a minimum of <%= min_st_prime_to_mint %> OST⍺ to pay for <%= bt_symbol %> transfers by your users. <%= min_st_prime_to_mint %> OST⍺ ensures to pay for approximately <span class="font-weight-bold">500,000 transfers</span>.</p>
             </div>
           </div>
         </div>
@@ -125,7 +128,7 @@
                   <div class="mr-2">
                     Based on the current value of OST⍺ you will set a conversion rate of
                     <strong class="font-weight-bold">
-                      <span id="ost_to_bt_text"><%= ost_to_bt %> FC = 1 OST</span>⍺
+                      <span id="ost_to_bt_text"><%= ost_to_bt %> <%= bt_symbol %> = 1 OST</span>⍺
                     </strong>
                   </div>
                   <div class="mr-auto text-uppercase">
