@@ -90,25 +90,25 @@
         , createdTransactions = [ {
           name: "Upvote",
           kind: "user_to_user",
-          currency_type: "usd",
+          currency_type: "USD",
           currency_value: 0.1,
           commission_percent: 0
           }, {
             name: "Reward",
             kind: "company_to_user",
-            currency_type: "usd",
+            currency_type: "USD",
             currency_value: 0.5,
             commission_percent: 0
           }, {
             name: "Purchase",
             kind: "user_to_user",
-            currency_type: "usd",
+            currency_type: "USD",
             currency_value: 10,
             commission_percent: 1
           },{
             name: "Download",
             kind: "user_to_company",
-            currency_type: "bt",
+            currency_type: "BT",
             currency_value: 5,
             commission_percent: 0
           }]
@@ -212,7 +212,7 @@
     //   console.log("currentDataCnt", currentDataCnt);
     //   //Custom Data Variables
     //   var transaction_types = ["user_to_user", "company_to_user", "user_to_company"];
-    //   var currency_types = ["bt", "usd"];
+    //   var currency_types = ["BT", "USD"];
 
     //   if (  newDataCnt > 0 ) {
     //     for(var cnt = 0; cnt < newDataCnt; cnt++ ) {

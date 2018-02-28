@@ -226,8 +226,12 @@
       }
 
       var data            = response.data || {}
-        , interactionId   = data["critical_interaction_id"]
+        , interactionId   = data["propose_bt"]
       ;
+
+      if (!interactionId) {
+        interactionId   = data["stake_bt_started"]
+      }
 
       if ( interactionId ) {
         new ost.TSM.MintTxStatusModal( interactionId );

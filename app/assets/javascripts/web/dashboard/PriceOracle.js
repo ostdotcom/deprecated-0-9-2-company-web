@@ -29,7 +29,7 @@
     something: null
 
     , fiat_symbol: "$"
-    , fiat_type: "usd"
+    , fiat_type: "USD"
     , fiat_display_text: "USD"
 
     , bt_symbol: "FRC"

@@ -6,7 +6,7 @@
     /* Properties that should be provided in init method call */
     defaultData         : null          /* Mandetory */
     , fiat_symbol       : "$"
-    , fiat_type         : "usd"
+    , fiat_type         : "USD"
     , createUrl         : "/api/economy/transaction/kind/create"
     , editUrl           : "/api/economy/transaction/kind/edit"
     , eventContext      : transactions
@@ -174,11 +174,11 @@
 
 
       //use_price_oracle
-      var isBtCurrencyType = currentData.currency_type === "bt";
+      var isBtCurrencyType = currentData.currency_type === "BT";
       var currency_type_id;
       var currency_value = currentData.currency_value;
 
-      if ( currentData.currency_type === "bt" ) {
+      if ( currentData.currency_type === "BT" ) {
           currency_type_id = "#currency_type_bt";
           oThis.jValueInBt.safeSetVal( PriceOracle.toBt( currency_value ) );
       } else {
@@ -377,7 +377,7 @@
         , jDisable
       ;
 
-      if ( val === "bt" ) {
+      if ( val === "BT" ) {
         jEnable   = oThis.jValueInBt;
         jDisable  = oThis.jValueInFiat;
       } else {

@@ -41,8 +41,8 @@
     },
     "client_balances": {},
     "oracle_price_points": {
-      "ost": {
-        "usd": "0.3"
+      "OST": {
+        "USD": "0.3"
       }
     },
     "pending_critical_interactions": {}
