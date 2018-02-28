@@ -280,7 +280,7 @@ en:
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 1
-        :specific_js_required: 0
+        :specific_js_required: 1
 
     users:
       :meta:
