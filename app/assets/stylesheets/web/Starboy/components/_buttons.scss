@@ -63,6 +63,25 @@
   }
 }
 
+.btn-api{
+  border-color: #597a84;
+  background: #f1f5f8;
+  color: #597a84;
+  &.focus-cls,
+  &:focus{
+    color: #597a84;
+    outline: none;
+    text-decoration: none;
+  }
+  &.hover-cls, &.active-cls,
+  &:hover, &:active{
+    color: #7f9183;
+    text-decoration: none;
+    background-color: #ffffff;
+    border-color: #7f9183;
+  }
+}
+
 .btn-gold-border{
   border-color: #e4b030;
   background: #ffffff;
