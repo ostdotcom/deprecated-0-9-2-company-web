@@ -30,6 +30,7 @@
         return; //Safety Net
       }
       oThis.simulatorTable =  new ost.SimpleDataTable( {
+        jParent: $("#transaction-history-table"),
         resultFetcher: function ( currentData, lastMeta, callback ) {
           //Create a wrapper overcallback so that we can intercept data.
           var wrapperCallBack = function ( response ) {

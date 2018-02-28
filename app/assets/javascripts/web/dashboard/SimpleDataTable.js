@@ -10,7 +10,10 @@
 
     $.extend( oThis, config );
 
-    oThis.jParent           = oThis.jParent || $('[data-simple-table]');
+    if ( !oThis.jParent ) {
+      console.log("jParent is mandetory config for SimpleDataTable");
+      throw "jParent is mandetory config for SimpleDataTable";
+    }
     oThis.jRowTemplateHtml  = oThis.jRowTemplateHtml || oThis.jParent.find( '[data-row-template]' );
     oThis.rowTemplate       = oThis.rowTemplate ||  Handlebars.compile( oThis.jRowTemplateHtml.html() );
     oThis.fetchResultsUrl   = oThis.fetchResultsUrl || oThis.jParent.data("url") || null ;
@@ -335,10 +338,10 @@
       ;
 
       if ( oThis.jDataLoader.visible(partial,hidden,direction,container) ) {
-        logMe & console.log("---->> oThis.jDataLoader is Visible");
+        logMe && console.log("---->> oThis.jDataLoader is Visible");
         oThis.fetchResults();
       } else {
-        logMe & console.log("---->> oThis.jDataLoader is not Visible ...do");
+        logMe && console.log("---->> oThis.jDataLoader is not Visible ...do");
       }
     }
     , bindScrollObserver: function () {

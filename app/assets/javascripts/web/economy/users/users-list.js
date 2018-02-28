@@ -13,7 +13,10 @@
                 isAirDropInProcess
             ;
             oThis.handelBarHelpers();
-            oThis.simpleDataTable =   new ost.SimpleDataTable( {params : {order_by: "creation_time"} } );
+            oThis.simpleDataTable =   new ost.SimpleDataTable({
+                jParent : $("#user_list"),
+                params  : {order_by: "creation_time"}
+            });
             oThis.bindEvents();
             isAirDropInProcess = $('.users-list-container').data('airdrop-processing');
             if(!!isAirDropInProcess){

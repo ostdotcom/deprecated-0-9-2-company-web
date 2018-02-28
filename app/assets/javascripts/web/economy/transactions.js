@@ -16,7 +16,9 @@
 
       oThis.client_id = config.client_id;
 
-      var dataTableConfig = {};
+      var dataTableConfig = {
+        jParent: $("#transaction_list")
+      };
       if ( config.auto_create_transactions ) {
         dataTableConfig.resultFetcher = function () {
           return oThis.autoCreateTransactions.apply( oThis, arguments);

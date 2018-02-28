@@ -11,7 +11,9 @@
     simpleDataTable: null
     ,init: function ( config ) {
       var oThis = this;
-      oThis.simpleDataTable = new ost.SimpleDataTable();
+      oThis.simpleDataTable = new ost.SimpleDataTable({
+        jParent: $("#top-holders")
+      });
       oThis.googleCharts_1 = new GoogleCharts();
       oThis.googleCharts_2 = new GoogleCharts();
       oThis.googleCharts_3 = new GoogleCharts();
@@ -44,17 +46,17 @@
       }
       switch(interval) {
         case 'day':
-          var url = 'http://devcompany.com:8080/day.json';
+          var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Day';
           var count = 24;
           var format = 'H';
           break;
         case 'hour':
-          var url = 'http://devcompany.com:8080/hour.json'
+          var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Hour'
           var count = 12;
           var format = 'm';
           break;
         case 'month':
-          var url = 'http://devcompany.com:8080/month.json'
+          var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Month'
           var count = 30;
           var format = 'd';
           break;
@@ -116,7 +118,7 @@
     printTypeChart: function(){
       oThis.googleCharts_2.draw({
         ajax: {
-          url: 'http://devcompany.com:8080/transactionByType.json'
+          url: '/api/economy/token/graph/transaction-types'
         },
         selector: '#transactionsType',
         type: 'ColumnChart',

@@ -13,7 +13,7 @@
           <th scope="col">Total <%=@presenter_obj.client_token.symbol%> spent</th>
         </tr>
       </thead>
-      <tbody data-simple-table data-url="/topUsers.json">
+      <tbody id="top-holders" data-simple-table data-url="/api/economy/token/graph/top-users">
         <script type="text/x-handlebars-template" data-row-template>
           <tr>
             <td>{{address}}</td>
