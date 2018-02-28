@@ -28,15 +28,15 @@
       </div>
     </div>
   </div>
-  <table class="transactions">
-    <tr class="row">
-      <th class="col-2">TRANSACTION</th>
-      <th class="col-2">VALUE IN <%= fiat_display_text %></th>
-      <th class="col-2">VALUE IN <%= bt_symbol %></th>
-      <th class="col-2">PRICE ORACLE</th>
-      <th class="col-3">COMMISSION %</th>
-    </tr>
-  </table>
+  <div class="transactions">
+    <div class="row header">
+      <div class="col-2">NAME</div>
+      <div class="col-2">VALUE IN <%= fiat_display_text %></div>
+      <div class="col-2">VALUE IN <%= bt_symbol %></div>
+      <div class="col-2">PRICE ORACLE</div>
+      <div class="col-3">FEES</div>
+    </div>
+  </div>
 </div>
 
 <div class="container slider-parent-container" data-slider-content-wrapper=".ost-table-row">
@@ -44,7 +44,7 @@
     <div class="col-12">
       <div id="transaction_list" class="transactions" data-simple-table data-url="/api/economy/transaction/kind/list">
         <script type="text/x-handlebars-template" data-row-template>
-          <div class="row align-items-center py-3 mt-1 mb-3 rounded ost-table-row" style="background-color: #f1f5f8;">
+          <div class="row align-items-center py-3 mt-1 mb-3 rounded ost-table-row cell">
             <div class="col-2">{{name}}<br/><small class="font-weight-light">{{kind_display_text}}</small></div>
             <div class="col-2"><%= fiat_symbol %>{{value_in_fiat}}</div>
             <div class="col-2">{{value_in_bt}}</div>

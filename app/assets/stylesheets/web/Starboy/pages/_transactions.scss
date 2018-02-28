@@ -1,13 +1,16 @@
 .transactions{
   width: 100%;
   max-width: 100%;
-  th{
+  .header{
     color: $cyan;
     font-size: 0.8rem;
     letter-spacing: 0.03rem;
     font-weight: $font-weight-normal;
   }
-  td {
+  .ost-table-row{
+    background-color: $alice-blue;
+  }
+  .cell{
     color: $blue-700;
   }
   .btn{
