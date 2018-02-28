@@ -25,7 +25,7 @@ module CompanyApi
         end
 
         def for_stake_and_mint_id
-          summary_data['stake_bt_started']
+          summary_data['staker_initial_transfer']
         end
 
         private
