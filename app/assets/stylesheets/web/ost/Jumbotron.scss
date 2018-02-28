@@ -77,13 +77,43 @@
 
 .partners{
   font-size: 0;
+  position: relative;
   li{
+    display: inline-block;
     a{
       display: inline-block;
       background-color: #fff;
     }
     img{
       mix-blend-mode: luminosity;
+    }
+  }
+  .partners-Button{
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    opacity: 0;
+    transition: .7s;
+    top: 50%;
+  }
+  @media (min-width: 880px){
+    ul {
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      transition: 1s cubic-bezier(.19,1,.22,1);
+      will-change: transform;
+      filter: blur(0);
+    }
+    &:hover{
+      ul {
+        opacity: .7;
+        transform: scale(.95);
+        filter: blur(10px);
+      }
+      .partners-Button{
+        opacity: 1;
+      }
     }
   }
 }
