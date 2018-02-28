@@ -20,14 +20,16 @@
 %>
 
 <div class="container">
+
   <div class="row">
-    <div class="col-12">
+    <div class="col-12 p-0">
       <div class="d-flex justify-content-between align-items-center my-4">
         <h3 class="mb-0">Transactions</h3>
         <button id="create_transaction_btn" class="btn btn-gold float-right">ADD TRANSACTIONS</button>
       </div>
     </div>
   </div>
+
   <div class="transactions">
     <div class="row header">
       <div class="col-2">NAME</div>
@@ -37,11 +39,9 @@
       <div class="col-3">FEES</div>
     </div>
   </div>
-</div>
 
-<div class="container slider-parent-container" data-slider-content-wrapper=".ost-table-row">
   <div class="row">
-    <div class="col-12">
+    <div class="col-12 slider-parent-container" data-slider-content-wrapper=".ost-table-row">
       <div id="transaction_list" class="transactions" data-simple-table data-url="/api/economy/transaction/kind/list">
         <script type="text/x-handlebars-template" data-row-template>
           <div class="row align-items-center py-3 mt-1 mb-3 rounded ost-table-row cell">
@@ -99,8 +99,7 @@
 
       });
 
-      
-      Handlebars.registerHelper('kind_display_text', function(response, options ) { 
+      Handlebars.registerHelper('kind_display_text', function(response, options ) {
         var rowData = response.data.root || {}
           , kind    = rowData.kind
         ;
@@ -108,7 +107,7 @@
         return kindDisplayText[ kind ];
       });
 
-      Handlebars.registerHelper('value_in_fiat', function(response, options ) { 
+      Handlebars.registerHelper('value_in_fiat', function(response, options ) {
           var rowData =  response.data.root || {};
           if ( rowData.currency_type === "BT" ) {
             return PriceOracle.btToFiat( rowData.currency_value );
@@ -128,7 +127,7 @@
       });
 
 
-      Handlebars.registerHelper('IfShowApiCallButton', function(data, options ) { 
+      Handlebars.registerHelper('IfShowApiCallButton', function(data, options ) {
         if (<%= should_show_api_call_button %>) {
           return options.fn(this);
         } else {
@@ -138,7 +137,7 @@
       ost.transactions.init({
         auto_create_transactions: <%= auto_create_transactions %>,
         client_id: "<%= client_id %>",
-      });  
+      });
     });
   </script>
 <% end %>

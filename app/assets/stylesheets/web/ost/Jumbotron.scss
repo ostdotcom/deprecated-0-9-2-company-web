@@ -99,9 +99,7 @@
   }
   @media (min-width: 880px){
     ul {
-      -ms-flex-pack: justify;
-      justify-content: space-between;
-      transition: 1s cubic-bezier(.19,1,.22,1);
+      transition: 1s;
       will-change: transform;
       filter: blur(0);
     }

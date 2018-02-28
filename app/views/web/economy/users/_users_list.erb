@@ -11,35 +11,33 @@
   <% end %>
 
 
-    <div class="row">
-      <div class="w-100">
-        <div class="row mb-3">
-          <div class="col-4">
-            <h3 class="mt-4">Users</h3>
-          </div>
-          <div class="col-8 text-right mt-3">
-            <button id="airdrop_btn" class="btn btn-gold">AIRDROP TOKENS</button>
-            <button id="add_users" class="btn btn-gold">ADD USERS</button>
-          </div>
+  <div class="row">
+    <div class="col-12 p-0">
+      <div class="d-flex justify-content-between align-items-center my-4">
+        <h3 class="mb-0">Users</h3>
+        <div class="text-right">
+          <button id="airdrop_btn" class="btn btn-gold">AIRDROP TOKENS</button>
+          <button id="add_users" class="btn btn-gold">ADD USERS</button>
         </div>
-        <table class="transactions">
-          <tr class="row">
-            <th class="col-2">PROFILE</th>
-            <th class="col-3">NAME</th>
-            <th class="col-2">TOKEN AIRDROP</th>
-            <th class="col-2">TOKEN AVAILABLE</th>
-            <th class="col-3"></th>
-          </tr>
-        </table>
       </div>
     </div>
+    <div class="transactions">
+      <div class="row header">
+        <div class="col-2">PROFILE</div>
+        <div class="col-3">NAME</div>
+        <div class="col-2">TOKEN AIRDROP</div>
+        <div class="col-2">TOKEN AVAILABLE</div>
+        <div class="col-3"></div>
+      </div>
+    </div>
+  </div>
 
 
   <div class="row">
     <div class="col-12 slider-parent-container" data-slider-content-wrapper=".ost-table-row">
-      <div id="user_list" class="economy_users w-100 " data-simple-table data-url="/api/economy/users/list">
+      <div id="user_list" class="economy_users w-100 transactions" data-simple-table data-url="/api/economy/users/list">
         <script type="text/x-handlebars-template" data-row-template>
-          <div class="row py-3 mt-1 mb-3 rounded ost-table-row" style="background-color: #f1f5f8;">
+          <div class="row py-3 mt-1 mb-3 rounded ost-table-row cell">
             <div class="col-2"><span>ProfileIcon</span></div>
             {{#ifEditUser mode}}
               <div class="col-10">
