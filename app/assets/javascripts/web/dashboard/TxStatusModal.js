@@ -151,6 +151,11 @@
       oThis.initMetaData();
       oThis.initAllElementTemplates();
       oThis.setAllElements();
+
+      oThis.jModal.modal({
+        backdrop: 'static',
+        keyboard: false
+      });
     }
 
     , initMetaData: function () {
