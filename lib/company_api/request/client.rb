@@ -42,7 +42,7 @@ module CompanyApi
       # @param [Hash] params - contains token (r_t)
       #
       def verify_email(params)
-        post('verify-email', params)
+        get('verify-email', params)
       end
 
       # Fire Logout request to API
