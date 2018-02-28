@@ -2,6 +2,7 @@
 
   box-shadow: 0 7px 14px 3px rgba(0, 0, 0, 0.08);
   border-radius: 5px;
+  border: none;
 
   .card-header{
     background: $card-bg;
@@ -26,4 +27,14 @@
     }
   }
 
+}
+
+.card-link{
+  color: $blue-500;
+  font-size: 0.8rem;
+  letter-spacing: 0.4px;
+  border-bottom: 1px solid $blue-500;
+  &:hover{
+    color: $blue-500;
+  }
 }
