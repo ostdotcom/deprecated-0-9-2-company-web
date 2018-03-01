@@ -67,9 +67,25 @@
       jModal.modal('show');
     },
 
-    onTokenAirDropSuccess: function () {
-      var oThis = this
+    onTokenAirDropSuccess: function ( response ) {
+      var oThis = this;
+
+      if ( !response.success ) {
+        return;
+      }
+
+      var data = response.data || {}
+        , pending_critical_interactions = data.pending_critical_interactions || {}
+        , airdrop_users   = pending_critical_interactions.airdrop_users || false
       ;
+
+      console.log("onTokenAirDropSuccess :: data", data);
+      if ( airdrop_users ) {
+        airdrop_users = String( airdrop_users );
+        var txModal = new ost.TSM.AirdropTxStatusModal( airdrop_users )
+        txModal && txModal.show();
+      }
+      // 
     },
 
     bindEvents: function () {

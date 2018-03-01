@@ -181,7 +181,7 @@
     pending_critical_interactions = @presenter_obj.pending_critical_interactions
 
     # Change this based on which popup.
-    pending_critical_interaction_modal_type = airdrop_bt_status_modal_type
+    pending_critical_interaction_modal_type = mint_bt_status_modal_type
 
     if @presenter_obj.pending_critical_interactions.present?
       if @presenter_obj.pending_critical_interactions.for_register_bt_id.present?
@@ -191,7 +191,6 @@
       end
     end 
 
-    pending_tx_id = 30
   %>
 
     <% if pending_tx_id.present? %>
