@@ -2,6 +2,7 @@
   text-transform: uppercase;
   font-weight: 300;
   min-width: 150px;
+  letter-spacing: 1px;
 }
 
 .btn-gold{
@@ -83,22 +84,22 @@
 }
 
 .btn-gold-border{
-  border-color: #e4b030;
+  border: 1px solid #e4b030;
   background: #ffffff;
   color: #e4b030;
   font-size: 1rem;
   &.focus-cls,
   &:focus{
-    color: #7f9183;
+    color: #ffffff;
     outline: none;
     text-decoration: none;
   }
   &.hover-cls, &.active-cls,
   &:hover, &:active{
-    color: #7f9183;
+    color: #ffffff;
     text-decoration: none;
-    background-color: #ffffff;
-    border-color: #7f9183;
+    background-color: #D9A025;
+    border-color: #D9A025;
   }
 }
 
