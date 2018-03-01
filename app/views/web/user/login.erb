@@ -16,7 +16,7 @@
             <div class="form-group mb-2">
               <label class="form-label" for="email">Email address</label>
               <input type="email" class="form-control" id="email" name="email"
-                     aria-describedby="emailHelp" placeholder="Email Address" name="email" required />
+                     aria-describedby="emailHelp" placeholder="Email Address" name="email" required tabindex="1" />
               <div class="invalid-feedback" data-forid="email">&nbps;</div>
             </div>
             <div class="form-group mb-2">
@@ -24,7 +24,7 @@
               <span class="form-label float-right text-capitalize font-weight-light"><a class="form-text mt-0" href="/reset-password">Forgot password?</a></span>
               <div class="input-group">
                 <input type="password" class="form-control form-control-input-group" placeholder="Password"
-                       id="password" name="password" required pattern=".{8,}"/>
+                       id="password" name="password" required pattern=".{8,}"  tabindex="2"/>
                 <div class="input-group-append">
                   <span class="input-group-text input-group-inline input-group-eye">
                     <svg class="icon">
@@ -39,7 +39,7 @@
             </div>
 
             <div class="form-group text-center">
-              <button type="submit" class="btn btn-gold" data-submiting="Logging">Login</button>
+              <button type="submit" class="btn btn-gold" data-submiting="Logging" tabindex="3">Login</button>
               <small class="form-text text-muted" style="line-height: 40px">Don't have an account yet?</small>
               <a href="/sign-up" class="btn ost-btn-secondary" title="Register">Register</a>
             </div>
