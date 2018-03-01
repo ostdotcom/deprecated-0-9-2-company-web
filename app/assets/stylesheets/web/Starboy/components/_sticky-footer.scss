@@ -1,0 +1,16 @@
+$footer-height: 60px;
+
+.sticky-footer{
+  background: #d9a025;
+  position: fixed;
+  bottom: 0;
+  width: calc(100% - 250px);
+  height: $footer-height;
+  z-index: 1;
+  button{
+    height: $footer-height;
+  }
+}
+.ghosh-footer{
+  height: $footer-height;
+}
