@@ -117,8 +117,12 @@ module CompanyApi
           ost_based_conversion_factors[currency_symbol]
         end
 
-        def is_eligible_for_grant?
+        def is_eligible_for_ost_grant?
           ost_balance.blank? || ost_balance < 1000
+        end
+
+        def is_eligible_for_eth_grant?
+          eth_balance.blank? || eth_balance < 0.05
         end
 
         private

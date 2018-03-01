@@ -9,8 +9,8 @@
 
 
 
-
-  is_eligible_for_grant = @presenter_obj.client_balances.is_eligible_for_grant?
+  grant_initial_eth = @presenter_obj.client_balances.is_eligible_for_eth_grant?
+  is_eligible_for_grant = @presenter_obj.client_balances.is_eligible_for_ost_grant?
   #Mandetory Params
   max_bt_to_mint = max_bt_to_mint;
   max_st_prime_to_mint = max_st_prime_to_mint;
