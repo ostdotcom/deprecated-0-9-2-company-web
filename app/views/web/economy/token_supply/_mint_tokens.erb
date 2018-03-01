@@ -24,7 +24,7 @@
 
 %>
 <div class="row">
-  <div class="col-12" id="token_supply_widget_wrap">
+  <div class="col-12" id="token_supply_widget_wrap" style="display: none">
     <form id="token_supply_mint_form" action="/api/economy/token/stake-and-mint"  method="POST" 
       class="form-container user-form" data-ost-formhelper>
         <div class="card card-planner mb-5">
@@ -58,5 +58,8 @@
           </div>
         </div>
     </form>
+  </div>
+  <div class="col-12" id="token_supply_widget_overlay">
+    <button id="show_token_supply_widget" type="button">Show</button>
   </div>
 </div>
