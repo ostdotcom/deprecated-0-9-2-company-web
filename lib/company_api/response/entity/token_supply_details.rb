@@ -21,11 +21,15 @@ module CompanyApi
         end
 
         def tokens_minted
-          @data['tokens_minted'].to_f
+          @t_m ||= begin
+            @data['tokens_minted'].present? ? BigDecimal.new(@data['tokens_minted']) : @data['tokens_minted']
+          end
         end
 
         def tokens_distributed
-          @data['tokens_distributed'].to_f
+          @t_d ||= begin
+            @data['tokens_distributed'].present? ? BigDecimal.new(@data['tokens_distributed']) : @data['tokens_distributed']
+          end
         end
 
       end

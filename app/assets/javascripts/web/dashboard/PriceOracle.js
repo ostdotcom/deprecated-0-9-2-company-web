@@ -32,9 +32,6 @@
     , fiat_type: "USD"
     , fiat_display_text: "USD"
 
-    , bt_symbol: "FRC"
-
-
     , init: function ( config ) {
       var oThis = this;
 

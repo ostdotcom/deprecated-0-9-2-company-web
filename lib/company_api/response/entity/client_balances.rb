@@ -46,8 +46,18 @@ module CompanyApi
           end
         end
 
+        def ost_balance_s
+          @o_b_s ||= begin
+            ost_balance.present? ? format_balance_to_s(ost_balance) : nil
+          end
+        end
+
         def ost_fiat_balance(currency_pref)
           ost_balance.present? ? convert_ost_to_fiat(ost_balance, currency_pref) : nil
+        end
+
+        def ost_fiat_balance_s(currency_pref)
+          ost_balance.present? ? format_balance_to_s(convert_ost_to_fiat(ost_balance, currency_pref)) : nil
         end
 
         def ost_prime_balance
@@ -56,8 +66,18 @@ module CompanyApi
           end
         end
 
+        def ost_prime_balance_s
+          @o_p_s ||= begin
+            ost_prime_balance.present? ? format_balance_to_s(ost_prime_balance) : nil
+          end
+        end
+
         def ost_prime_fiat_balance(currency_pref)
           ost_prime_balance.present? ? convert_ost_to_fiat(ost_prime_balance, currency_pref) : nil
+        end
+
+        def ost_prime_fiat_balance_s(currency_pref)
+          ost_prime_balance.present? ? format_balance_to_s(convert_ost_to_fiat(ost_prime_balance, currency_pref)) : nil
         end
 
         def bt_balance
@@ -66,8 +86,22 @@ module CompanyApi
           end
         end
 
+        def bt_balance_s
+          @bt_b_s ||= begin
+            bt_balance.present? ? format_balance_to_s(bt_balance) : nil
+          end
+        end
+
         def bt_fiat_balance(currency_pref)
           bt_balance.present? ? convert_bt_to_fiat(bt_balance, currency_pref) : nil
+        end
+
+        def bt_fiat_balance_s(currency_pref)
+          bt_balance.present? ? format_balance_to_s(convert_bt_to_fiat(bt_balance, currency_pref)) : nil
+        end
+
+        def format_balance_to_s(balance)
+          balance.round(2)
         end
 
         def convert_bt_to_fiat(bt_value, currency_symbol)

@@ -1,5 +1,6 @@
 <%
-  bt_name   = @presenter_obj.client_token.name;
+  bt_name   = @presenter_obj.client_token.name
+  bt_balance_s = @presenter_obj.client_balances.bt_balance_s
 %>
 
 <div class="container">
@@ -12,7 +13,7 @@
 
     <div class="col-10 mt-4">
       <div class="p-2 mocker-card-bg">
-        <span> TOTAL <%= bt_name %> AVAILABLE <%= @presenter_obj.client_balances.bt_balance %></span>
+        <span> TOTAL <%= bt_name %> AVAILABLE <%= bt_balance_s %></span>
       </div>
     </div>
 

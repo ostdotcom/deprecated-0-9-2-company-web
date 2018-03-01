@@ -6,10 +6,10 @@
   client_fiat_curreny_symbol = @presenter_obj.client_fiat_curreny_symbol
 
   if client_balances.present? && client_balances.balances.present? && client_token.conversion_factor.present?
-    bt_balance = client_balances.bt_balance
-    bt_fiat_balance = client_balances.bt_fiat_balance(client_fiat_curreny_symbol)
-    ost_balance = client_balances.ost_balance
-    ost_fiat_balance = client_balances.ost_fiat_balance(client_fiat_curreny_symbol)
+    bt_balance_s = client_balances.bt_balance_s
+    bt_fiat_balance_s = client_balances.bt_fiat_balance_s(client_fiat_curreny_symbol)
+    ost_balance_s = client_balances.ost_balance_s
+    ost_fiat_balance_s = client_balances.ost_fiat_balance_s(client_fiat_curreny_symbol)
   end
 
 %>
@@ -42,19 +42,19 @@
 
     <ul class="navbar-nav navbar-right ml-md-auto d-md-flex text-uppercase font-weight-normal">
       <% if client_balances.present? && client_balances.balances.present? %>
-          <% if bt_balance.present? %>
+          <% if bt_balance_s.present? %>
               <li class="nav-item">
                 <a class="nav-link active">
                   <span class="d-block">available <%= client_token.name %></span>
-                  <span class="d-block gold text-sm-left text-md-center"><%= "#{bt_balance} (#{client_fiat_curreny_pref_symbol}#{bt_fiat_balance})" %></span>
+                  <span class="d-block gold text-sm-left text-md-center"><%= "#{bt_balance_s} (#{client_fiat_curreny_pref_symbol}#{bt_fiat_balance_s})" %></span>
                 </a>
               </li>
           <% end %>
-          <% if ost_balance.present? %>
+          <% if ost_balance_s.present? %>
               <li class="nav-item">
                 <a class="nav-link" href="#">
                   <span class="d-block">available ost</span>
-                  <span class="d-block gold text-sm-left text-md-center"><%= "#{ost_balance} (#{client_fiat_curreny_pref_symbol}#{ost_fiat_balance})" %></span>
+                  <span class="d-block gold text-sm-left text-md-center"><%= "#{ost_balance_s} (#{client_fiat_curreny_pref_symbol}#{ost_fiat_balance_s})" %></span>
                 </a>
               </li>
           <% end %>

@@ -4,17 +4,19 @@
   token_symbol = @presenter_obj.client_token_symbol
   fiat_symbol = @presenter_obj.client_fiat_curreny_symbol
   fiat_symbol_upcase = fiat_symbol.upcase
-  tokens_minted = @presenter_obj.token_supply_details.tokens_minted.to_f
+  tokens_minted = @presenter_obj.token_supply_details.tokens_minted
+  tokens_minted_s = @presenter_obj.client_balances.format_balance_to_s(tokens_minted)
 
   if @presenter_obj.client_balances.present?
-    token_balance = @presenter_obj.client_balances.bt_balance.to_f
-    token_balance_flat = @presenter_obj.client_balances.convert_bt_to_fiat(token_balance, fiat_symbol)
+    bt_balance = @presenter_obj.client_balances.bt_balance
+    bt_balance_s = @presenter_obj.client_balances.bt_balance_s
+    bt_fiat_balance_s = @presenter_obj.client_balances.bt_fiat_balance_s(fiat_symbol)
     tokens_minted_fiat = @presenter_obj.client_balances.convert_bt_to_fiat(tokens_minted, fiat_symbol)
-    tokens_distributed = tokens_minted - token_balance
+    tokens_minted_fiat_s = @presenter_obj.client_balances.format_balance_to_s(tokens_minted_fiat)
+    tokens_distributed = tokens_minted - bt_balance
+    tokens_distributed_s = @presenter_obj.client_balances.format_balance_to_s(tokens_distributed)
     tokens_distributed_fiat = @presenter_obj.client_balances.convert_bt_to_fiat(tokens_distributed, fiat_symbol)
-  else
-    token_balance = 0
-    tokens_distributed = 0
+    tokens_distributed_fiat_s = @presenter_obj.client_balances.format_balance_to_s(tokens_distributed_fiat)
   end
 
 %>
@@ -31,11 +33,11 @@
         <h6 class="card-title mb-1"><%= token_symbol %> MINTED</h6>
         <p class="card-text mb-1">
           <span class="blue"><%= "#{token_symbol}" %></span>
-          <span class="orange"><%= "#{tokens_minted}" %></span>
+          <span class="orange"><%= "#{tokens_minted_s}" %></span>
         </p>
         <p class="card-text orange">
           <span class="blue"><%= "#{fiat_symbol_upcase}" %></span>
-          <span class="orange"><%= "#{tokens_minted_fiat}" %></span>
+          <span class="orange"><%= "#{tokens_minted_fiat_s}" %></span>
         </p>
       </div>
     </div>
@@ -46,11 +48,11 @@
         <h6 class="card-title mb-1"><%= token_symbol %> AVAILABLE</h6>
         <p class="card-text mb-1">
           <span class="blue"><%= "#{token_symbol}" %></span>
-          <span class="orange"><%= "#{token_balance}" %></span>
+          <span class="orange"><%= "#{bt_balance_s}" %></span>
         </p>
         <p class="card-text orange">
           <span class="blue"><%= "#{fiat_symbol_upcase}" %></span>
-          <span class="orange"><%= "#{token_balance_flat}" %></span>
+          <span class="orange"><%= "#{bt_fiat_balance_s}" %></span>
         </p>
       </div>
     </div>
@@ -61,11 +63,11 @@
         <h6 class="card-title mb-1"><%= token_symbol %> DISTRIBUTED</h6>
         <p class="card-text mb-1">
           <span class="blue"><%= "#{token_symbol}" %></span>
-          <span class="orange"><%= "#{tokens_distributed}" %></span>
+          <span class="orange"><%= "#{tokens_distributed_s}" %></span>
         </p>
         <p class="card-text orange">
           <span class="blue"><%= "#{fiat_symbol_upcase}" %></span>
-          <span class="orange"><%= "#{tokens_distributed_fiat}" %></span>
+          <span class="orange"><%= "#{tokens_distributed_fiat_s}" %></span>
         </p>
       </div>
     </div>
