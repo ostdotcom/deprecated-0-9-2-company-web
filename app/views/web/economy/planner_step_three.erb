@@ -119,7 +119,7 @@
               %>
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item font-weight-light">
+              <li class="list-group-item font-weight-light font-size-p">
                 <div class="d-flex align-items-center">
                   <div class="mr-2">
                     Based on the current value of OST⍺ you will set a conversion rate of
@@ -132,7 +132,7 @@
                   </div>
                 </div>
               </li>
-              <li class="list-group-item font-weight-light">
+              <li class="list-group-item font-weight-light font-size-p">
                 <div class="d-flex align-items-center">
                   <div class="mr-2"><strong class="font-weight-bold"><%= tx_kind_count %></strong> Transaction types set up.</div>
                   <div class="mr-auto text-uppercase">
@@ -140,11 +140,11 @@
                   </div>
                 </div>
               </li>
-              <li class="list-group-item font-weight-light">
+              <li class="list-group-item font-weight-light font-size-p">
                 <strong class="font-weight-bold"><%= number_of_users %> users</strong> will be automatically created. More can be added later.
                 <input type="hidden" name="number_of_users" id="number_of_users" value="<%= number_of_users %>" />
               </li>
-              <li class="list-group-item font-weight-light">
+              <li class="list-group-item font-weight-light font-size-p">
                 In order to enable the transactions simulation
                 <strong>
                   <%= airdrop_amount %> <%= bt_symbol %>
@@ -152,11 +152,6 @@
                 will be initially distributed to each user.
                 <input type="hidden" name="airdrop_amount" id="airdrop_amount" value="<%= airdrop_amount %>" />
               </li>
-              <!--<li class="list-group-item font-weight-light">-->
-                <!--The minimum amount of tokens required to be minted is-->
-                <!--<strong><%= min_bt_to_mint %> <%= bt_symbol %></strong>.-->
-                <!--<input type="hidden" name="min_bt_to_mint" id="min_bt_to_mint" value="<%= min_bt_to_mint %>" />-->
-              <!--</li>-->
               <input type="hidden" name="airdrop_user_list_type" id="airdrop_user_list_type" value="all" />
             </ul>
           </div>
