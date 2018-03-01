@@ -67,9 +67,9 @@
 }
 
 .btn-api{
-  border-color: #597a84;
-  background: #f1f5f8;
-  color: #597a84;
+  border-color: #a1c5d6;
+  background: transparent;
+  color: #a1c5d6;
   &.focus-cls,
   &:focus{
     color: #597a84;
@@ -78,10 +78,13 @@
   }
   &.hover-cls, &.active-cls,
   &:hover, &:active{
-    color: #7f9183;
+    color: #84d1d4;
     text-decoration: none;
-    background-color: #ffffff;
-    border-color: #7f9183;
+    background-color: #f9fdfd;
+    border-color: #84d1d4;
+    .icon-api-transactions{
+      fill: #84d1d4;
+    }
   }
 }
 
@@ -127,8 +130,15 @@
 
 
 .edit-btn{
-  padding: 4px 8px;
+  padding: 10px 14px;
   display: inline-block;
   text-align: center;
-  border: 1px solid #84d1d4;
+  border: 1px solid #a1c5d6;
+  margin-left: 10px;
+  &:hover{
+    border-color: #84d1d4;
+    .icon-edit-transactions{
+      fill: #84d1d4;
+    }
+  }
 }

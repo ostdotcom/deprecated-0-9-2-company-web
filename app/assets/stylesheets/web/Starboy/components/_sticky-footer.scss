@@ -7,8 +7,9 @@ $footer-height: 60px;
   width: calc(100% - 250px);
   height: $footer-height;
   z-index: 1;
-  button{
+  .btn{
     height: $footer-height;
+    line-height: 30px;
   }
 }
 .ghosh-footer{

@@ -8,7 +8,12 @@
     font-weight: $font-weight-normal;
   }
   .ost-table-row{
+    border: 2px solid $blue-bg;
     background-color: $alice-blue;
+    &:hover{
+      border: 2px solid $teal;
+      background-color: $blue-bg;
+    }
   }
   .cell{
     color: $blue-700;

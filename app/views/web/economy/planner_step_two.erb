@@ -23,8 +23,8 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-12">
-      <h3 class="text-center mt-4">Plan the <%= bt_name %> Economy in 3 Easy Steps</h3>
+    <div class="col-12 pt-6">
+      <h3 class="text-center font-weight-bold letter-space-1">Plan the <%= bt_name %> Economy in 3 Easy Steps</h3>
       <%= render partial: 'shared/web/common/steps',
                  locals: {
                          classes_step_1: '',
@@ -37,23 +37,24 @@
 
   <div class="row">
     <div class="col-12">
-      <div class="alert alert-info" role="alert">
-        <h4>
-          <svg class="icon-card-transactions align-middle">
-            <switch>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-card-transactions-2"></use>
-            </switch>
-          </svg>
-          The second step is setting up transactions <a href="" class="card-link float-right text-uppercase">Learn More</a></h4>
-        <hr class="my-3"/>
-        <p class="font-weight-light">We have created 4 default transaction for you. You can edit them or create new ones.</p>
+      <div class="alert alert-info pt-4 mb-5" role="alert">
+        <h5><svg class="icon-card-transactions align-middle">
+          <switch>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-card-transactions-2"></use>
+          </switch>
+        </svg> The second step is setting up transactions <a href="" class="card-link float-right text-uppercase">Learn More</a></h5>
+        <hr class="mt-3 mb-4"/>
+        <p class="font-weight-light font-size-p">
+          We have created 4 default transaction for you. You can edit them or create new ones.
+        </p>
       </div>
     </div>
   </div>
 
+
   <div class="row">
     <div class="col-12">
-      <div class="card card-planner mb-5">
+      <div class="card mb-5 border-0">
         <% content_for :cover_elements do %>
             <div id="transaction_editor" class="cover-element metamask-flow">
               <div class="container">
