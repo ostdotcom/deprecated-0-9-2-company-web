@@ -4,7 +4,7 @@
 %>
 
 <div class="container">
-  <form id="token-airdrop-form" action="" method="POST" >
+  <form id="token-airdrop-form" action="/api/economy/users/airdrop/" method="POST" data-ost-formhelper>
     <div class="row">
     <div class="col-12">
         <h3 class="mt-4">Air drop Tokens</h3>
@@ -20,11 +20,15 @@
     <div class="col-10">
       <div class="mt-2 mb-2 form-group">
         <div class="col-4 form-check form-check-inline">
-          <input class="form-check-input radio-button" id="all-users" type="radio" name="user_type" value="all_users" checked/>
+          <input class="form-check-input radio-button j-user-type"  
+            id="all-users" type="radio" name="airdrop_list_type" value="all" 
+            data-user-type="all_users"
+            checked/>
           <label class="form-check-label radio-button-label" for="all-users"><span class="radio-button-circle"></span>All Users</label>
         </div>
         <div class="col-4 form-check form-check-inline">
-          <input class="form-check-input radio-button" id="new-users" type="radio" name="user_type" value="new_users"/>
+          <input class="form-check-input radio-button j-user-type" type="radio" data-user-type="new_users"
+          id="new-users" name="airdrop_list_type" value="never_airdropped"/>
           <label class="form-check-label radio-button-label" for="new-users"><span class="radio-button-circle"></span>Newly Added</label>
         </div>
       </div>
@@ -33,7 +37,7 @@
     <div class="col-10">
       <div class="mt-4 form-group">
         <div class="header">NO OF TOKENS TO AIR DROP (EACH USER)</div>
-        <input id="airdrop-value" class="form-control" type="number" required name="token" placeholder="No of tokens" />
+        <input id="airdrop-value" class="form-control" type="number" required name="airdrop_amount" placeholder="No of tokens" />
         <div class="invalid-feedback" data-forname="user-name-{{id}}">&nbps;</div>
         <input class="users_list_type" hidden type="text" name="" >
       </div>
@@ -45,7 +49,7 @@
         <div class="all-users-data-wrapper">
             <div class="content-header ">ALL USERS LIST</div>
             <div class="content-wrapper" id="all-users-list-content-wrapper">
-              <div id="all_users" class="" data-url="/api/economy/users/list">
+              <div id="all_users" class="" data-url="/api/economy/users/list/?filter=all">
                 <script type="text/x-handlebars-template" data-row-template>
                   <div class="users-data">
                     <span class="w-100">{{name}}</span>
@@ -58,7 +62,7 @@
         <div class="new-users-data-wrapper">
           <div class="content-header">NEWLY ADDED USER LIST</div>
           <div class="content-wrapper" id="new-users-list-content-wrapper">
-            <div id="new_users" class="w-100" data-url="/api/economy/users/list">
+            <div id="new_users" class="w-100" data-url="/api/economy/users/list?filter=never_airdropped">
               <script type="text/x-handlebars-template" data-row-template>
                 <div class="users-data">
                   <span class="w-100">{{name}}</span>
@@ -71,7 +75,7 @@
 
     <div class="col-10">
       <div class="row form-group">
-        <button type="submit" id="air-drop-btn" class="mt-4 btn btn-gold d-inline-block float-left">AIRDROP</button>
+        <button type="submit" data-submiting="Airdropping" id="air-drop-btn" class="mt-4 btn btn-gold d-inline-block float-left">AIRDROP</button>
         <button type="button" id="air-drop-cancel-btn"  class="mt-4 ml-4 btn btn-white d-inline-block float-left">CANCEL</button>
       </div>
     </div>

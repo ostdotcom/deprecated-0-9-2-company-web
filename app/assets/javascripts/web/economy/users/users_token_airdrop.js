@@ -17,24 +17,41 @@
       oThis.airdropEditor.scrollTop(0);
       ost.coverElements.show(oThis.airdropEditor);
       oThis.init(config)
-    },
+    }
 
-    init: function (config) {
-      var oThis = this,
-        jUserType = $('[name=user_type]').val();
+    , getSelectedUserType: function () {
+      var oThis = this
+        , jUserType   = $('.j-user-type:checked')
       ;
-      oThis.initSimpleTableData(jUserType);
+
+      if ( !jUserType.length ) {
+        return "all_users";
+      }
+
+      return jUserType.data("userType") || "all_users";
+    }
+    , isInitDone: false
+    , init: function (config) {
+      var oThis = this;
+
+      if ( oThis.isInitDone ) {
+        return;
+      }
+
+      userType = oThis.getSelectedUserType();
+      oThis.initSimpleTableData(userType);
       oThis.bindEvents();
       if (!oThis.airDropTokenFormHelper) {
         oThis.airDropTokenFormHelper = $('#token-airdrop-form').formHelper(oThis.getFormHelperConfig());
       }
+      oThis.isInitDone = true; 
     },
 
     getFormHelperConfig: function () {
       var oThis = this;
       var config = {
         beforeSend: function () {
-          oThis.beforeAirDrop().apply(oThis, arguments)
+          oThis.beforeAirDrop.apply(oThis, arguments)
         },
         success: function () {
           oThis.onTokenAirDropSuccess.apply(oThis, arguments)
@@ -56,71 +73,39 @@
     },
 
     bindEvents: function () {
-      var oThis = this
-      ;
+      var oThis = this;
 
-      $('[name=user_type]').change(function () {
-        var jUserType = $(this).val(),
-          jUserTypeInput = $('.users_list_type')
+      $('.j-user-type').change(function () {
+
+        var userType = oThis.getSelectedUserType()
+          , jUserTypeInput = $('.users_list_type')
         ;
-        jUserTypeInput.val(jUserType);
-        oThis.initSimpleTableData(jUserType);
+        jUserTypeInput.val( userType );
+        oThis.initSimpleTableData(userType );
       });
 
       $('#air-drop-cancel-btn').on('click', function () {
         ost.coverElements.hide(oThis.airdropEditor);
       });
 
-      // all events getting binded twice
-      //TODO: Remove Temporary Changes
-
-      $('#air-drop-btn').on('click', function () {
-        var airdrop_list_type = $('.users_list_type').val();
-
-        if (airdrop_list_type == 'new_users'){
-          airdrop_list_type = 'new';
-        }else{
-          airdrop_list_type = 'all';
-        }
-
-        $.post({
-          url: '/api/economy/users/airdrop',
-          data: {
-            airdrop_amount: $('#airdrop-value').val(),
-            airdrop_list_type: airdrop_list_type,
-          },
-          success: function (response) {
-            if (response.success) {
-              console.log("done");
-            } else {
-              console.log(response);
-            }
-          },
-          error: function () {
-            console.log('error occured in airdrop');
-          }
-        });
-
-      });
     },
 
-    initSimpleTableData: function (jUserType) {
+    initSimpleTableData: function ( userType ) {
       var oThis = this,
         jWrapper = $('#users-list-container')
       ;
 
       jWrapper.removeClass();
-      jWrapper.addClass(jUserType);
-      if (jUserType == "all_users" && !oThis.allUserSimpleData) {
+      jWrapper.addClass( userType );
+      if (userType == "all_users" && !oThis.allUserSimpleData) {
         oThis.allUserSimpleData = new ost.SimpleDataTable({
           jParent: $('#all_users')
           , sScrollParent: "#all-users-list-content-wrapper"
         });
-      } else if (!oThis.newUsersSimpleData) {
+      } else if ( !oThis.newUsersSimpleData ) {
         oThis.newUsersSimpleData = new ost.SimpleDataTable({
           jParent: $('#new_users')
           , sScrollParent: "#new-users-list-content-wrapper"
-          , params: {filter: 'newly_created'}
         });
       }
     }

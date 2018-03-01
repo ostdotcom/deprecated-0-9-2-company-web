@@ -92,7 +92,7 @@
   TxStatusModal.HeaderTemplateIds[ TxStatusModal.UiStates.START ]       = "default-tx-status-modal-header-start";
   TxStatusModal.HeaderTemplateIds[ TxStatusModal.UiStates.PROCESSING ]  = "default-tx-status-modal-header-processing";
   TxStatusModal.HeaderTemplateIds[ TxStatusModal.UiStates.SUCCESS ]     = "default-tx-status-modal-header-success";
-  TxStatusModal.HeaderTemplateIds[ TxStatusModal.UiStates.FAILED ]       = "default-tx-status-modal-header-error";
+  TxStatusModal.HeaderTemplateIds[ TxStatusModal.UiStates.FAILED ]      = "default-tx-status-modal-header-error";
 
   TxStatusModal.FooterTemplateIds = {};
   TxStatusModal.FooterTemplateIds[ TxStatusModal.UiStates.START ]       = "default-tx-status-modal-footer-start";
@@ -146,6 +146,10 @@
         , jRowTemplateHtml  : null
         , rowTemplate       : oThis.rowTemplate
         , fetchResults      : function () {} /* Hack to prevent datatable requests */
+      });
+
+      oThis.jModal.off("click.txStatusModal").on("click.txStatusModal", ".j-close-tx-status-modal", function () {
+        oThis.hide();
       });
 
       oThis.initMetaData();
@@ -341,8 +345,8 @@
 
     , hide    : function () {
       var oThis = this;
-
       oThis.jModal.modal("hide");
+      singleInstance = null;
     }
 
     /** BEGIN :: Polling Related Methods **/
@@ -502,14 +506,12 @@
     }
     , onTxSuccess : function ( response ) {
       var oThis = this;
-      singleInstance = null;
       oThis.setCurrentUiState( TxStatusModal.UiStates.SUCCESS );
       oThis.setAllElements( response );
       oThis.callTrigger("txSuccess", response);
     }
     , onTxFailed : function ( response ) {
       var oThis = this;
-      singleInstance = null;
       oThis.setCurrentUiState( TxStatusModal.UiStates.FAILED );
       oThis.setAllElements( response );
       oThis.callTrigger("txFailed", response);

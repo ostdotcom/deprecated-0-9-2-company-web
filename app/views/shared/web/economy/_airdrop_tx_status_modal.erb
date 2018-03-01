@@ -5,13 +5,13 @@
   bt_symbol = @presenter_obj.client_token.symbol;
 
 
-  header_tempate_id = header_tempate_id.present? ? header_tempate_id : "mint-tx-status-modal-header"
+  header_tempate_id = header_tempate_id.present? ? header_tempate_id : "airdrop-tx-status-modal-header"
   start_header_tempate_id = header_tempate_id + "-start";
   processing_header_tempate_id = header_tempate_id + "-processing";
   success_header_tempate_id = header_tempate_id + "-success";
   failed_header_tempate_id = header_tempate_id + "-failed";
 
-  footer_tempate_id = footer_tempate_id.present? ? footer_tempate_id : "mint-tx-status-modal-footer"
+  footer_tempate_id = footer_tempate_id.present? ? footer_tempate_id : "airdrop-tx-status-modal-footer"
   start_footer_tempate_id = footer_tempate_id + "-start";
   processing_footer_tempate_id = footer_tempate_id + "-processing";
   success_footer_tempate_id = footer_tempate_id + "-success";
@@ -27,7 +27,7 @@
   <h3>Processing... </h3>
 </script>
 <script id="<%= success_header_tempate_id %>" type="text/x-handlebars-template">
-  <h3>Congratulation! <%= bt_symbol %> Token is Minted! </h3>
+  <h3>Aridrop Complete</h3>
 </script>
 <script id="<%= failed_header_tempate_id %>" type="text/x-handlebars-template">
   <h3 class="alert alert-danger text-center" role="alert">
@@ -41,9 +41,10 @@
 <script id="<%= processing_footer_tempate_id %>" type="text/x-handlebars-template">
 </script>
 <script id="<%= success_footer_tempate_id %>" type="text/x-handlebars-template">
-  <a href="/simulator" class="btn btn-gold">SIMULATE TRANSACTIONS</a>
+  <button type="button" class="j-close-tx-status-modal btn btn-primary">Done</button>
 </script>
 <script id="<%= failed_footer_tempate_id %>" type="text/x-handlebars-template">
+  <button type="button" class="j-close-tx-status-modal btn btn-primary">Close</button>
 </script>
 
 <% content_for :end_js do %>
@@ -52,7 +53,7 @@
     var ost = ns("ost")
       , TSM = ns("ost.TSM")
     ;
-    var MintTxStatusModal = TSM.MintTxStatusModal = function ( config ) {
+    var AirdropTxStatusModal = TSM.AirdropTxStatusModal = function ( config ) {
       var oThis = this;
 
       oThis.setHeaderTemplateId("<%= start_header_tempate_id %>", TSM.UiStates.START );
@@ -69,7 +70,7 @@
       TSM.apply( oThis, arguments );      
 
     };
-    MintTxStatusModal.prototype = Object.create(TSM.prototype);
+    AirdropTxStatusModal.prototype = Object.create(TSM.prototype);
 
   });
 </script>
