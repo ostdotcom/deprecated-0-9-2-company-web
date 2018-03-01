@@ -5,10 +5,12 @@
 .radio-button-label {
   cursor: pointer;
   display: inline-block;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.5;
   padding: 14px 0px 0px 25px;
   position: relative;
+  color: $blue-700;
+  letter-spacing: 0.5px;
 }
 
 .radio-button-circle {

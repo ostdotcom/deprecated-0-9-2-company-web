@@ -30,7 +30,7 @@
 
 %>
 
-<form id="transaction_editor_form" action="/api/client/sign-up" method="POST"
+<form id="transaction_editor_form" class="user-form" action="/api/client/sign-up" method="POST"
   data-ost-formhelper>
   <input type="hidden" name="client_transaction_id" id="transaction_id" />
   <input type="hidden" name="device_id" id="transaction_device_id"/>
@@ -46,19 +46,19 @@
         <div class="form-check form-check-inline">
           <input class="form-check-input radio-button" type="radio"
             name="kind" id="kind_user_to_user" value="user_to_user" />
-            <label class="form-check-label radio-button-label" for="kind_user_to_user">
+            <label class="radio-button-label" for="kind_user_to_user">
             <span class="radio-button-circle"></span>User to User</label>
         </div>
         <div class="form-check form-check-inline">
           <input class="form-check-input radio-button" type="radio"
             name="kind" id="kind_user_to_company" value="user_to_company" />
-          <label class="form-check-label radio-button-label" for="kind_user_to_company">
+          <label class="radio-button-label" for="kind_user_to_company">
             <span class="radio-button-circle"></span>User to Company</label>
         </div>
         <div class="form-check form-check-inline">
           <input class="form-check-input radio-button" type="radio"
             name="kind" id="kind_company_to_user" value="company_to_user" />
-          <label class="form-check-label radio-button-label" for="kind_company_to_user">
+          <label class="radio-button-label" for="kind_company_to_user">
             <span class="radio-button-circle"></span>Company to User</label>
         </div>
         <div class="invalid-feedback" data-forname="kind">&nbps;</div>
@@ -75,9 +75,9 @@
     <div class="col-4"></div>
 
 
-    <div class="col-12 form-group">
-      <label class="form-label">Do you wish to keep the USD value for this transaction to be fixed?
-        <a href="/" class="text-uppercase form-link">Learn More About Price Oracle</a>
+    <div class="col-12 form-group mb-0">
+      <label class="form-label">Price Oracle
+        <a href="/" class="text-uppercase card-link">Learn More About Price Oracle</a>
       </label>
     </div>
     <div class="col-12">
@@ -85,13 +85,13 @@
         <div class="form-check form-check-inline">
           <input class="form-check-input radio-button" type="radio"
             name="currency_type" id="currency_type_fiat" value="<%= fiat_type %>" />
-          <label class="form-check-label radio-button-label" for="currency_type_fiat">
+          <label class="radio-button-label" for="currency_type_fiat">
             <span class="radio-button-circle"></span>Yes</label>
         </div>
         <div class="form-check form-check-inline">
           <input class="form-check-input radio-button" type="radio"
             name="currency_type" id="currency_type_bt" value="BT" />
-          <label class="form-check-label radio-button-label" for="currency_type_bt">
+          <label class="radio-button-label" for="currency_type_bt">
             <span class="radio-button-circle"></span>No</label>
         </div>
         <div class="invalid-feedback" data-forname="currency_type">&nbps;</div>
@@ -125,8 +125,8 @@
       %> 
     </div>
 
-    <div class="col-12 form-group">
-      <label class="form-label">Want to get comission on this transaction?</label>
+    <div class="col-12 form-group mb-0">
+      <label class="form-label">Earn Fees</label>
     </div>
 
 
@@ -136,13 +136,13 @@
         <div class="form-check form-check-inline">
           <input class="form-check-input radio-button" type="radio"
             name="has_commission" id="has_commission_yes" value="1" />
-          <label class="form-check-label radio-button-label" for="has_commission_yes">
+          <label class="radio-button-label" for="has_commission_yes">
             <span class="radio-button-circle"></span>Yes</label>
         </div>
         <div class="form-check form-check-inline">
           <input class="form-check-input radio-button" type="radio"
             name="has_commission" id="has_commission_no" value="0" />
-          <label class="form-check-label radio-button-label" for="has_commission_no">
+          <label class="radio-button-label" for="has_commission_no">
             <span class="radio-button-circle"></span>No</label>
         </div>
         <div class="invalid-feedback" data-forname="has_commission">&nbps;</div>
@@ -155,7 +155,7 @@
         <div class="col-8">
           <%= render partial: 'shared/web/common/slider_right',
               locals: {
-              label: 'COMMISSION VALUE IN % <span>(The commission is included in the transaction amount)</span>',
+              label: 'FEES IN % <span>(Your fees is included in the transaction amount)</span>',
               id: 'commission_percent',
               name: 'commission_percent',
               type: 'number',
