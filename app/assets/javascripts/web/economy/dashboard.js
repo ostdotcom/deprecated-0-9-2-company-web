@@ -41,9 +41,6 @@
     },
 
     printTransactionsChart: function(interval){
-      if(['day','hour','month','year','all'].indexOf(interval) == -1) {
-        return;
-      }
       switch(interval) {
         case 'hour':
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Hour'
@@ -54,6 +51,11 @@
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Day';
           var count = 24;
           var format = 'H';
+          break;
+        case 'week':
+          var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Week';
+          var count = 7;
+          var format = 'E';
           break;
         case 'month':
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Month'
@@ -77,6 +79,23 @@
         },
         selector: '#transactionsValue',
         type: 'LineChart',
+        columns: [
+          {
+            type: 'datetime',
+            opt_label: 'Date',
+            opt_id: 'timestamp'
+          },
+          {
+            type: 'number',
+            opt_label: 'No. of Transfers',
+            opt_id: 'transaction_count'
+          },
+          {
+            type: 'number',
+            opt_label: 'Value of Transfers',
+            opt_id: 'ost_amount'
+          }
+        ],
         options: {
           series: {
             0: {
@@ -129,6 +148,11 @@
           var count = 24;
           var format = 'H';
           break;
+        case 'week':
+          var url = '/api/economy/token/graph/transaction-types?graph_duration=Week';
+          var count = 7;
+          var format = 'E';
+          break;
         case 'month':
           var url = '/api/economy/token/graph/transaction-types?graph_duration=Month'
           var count = 30;
@@ -151,6 +175,18 @@
         },
         selector: '#transactionsType',
         type: 'ColumnChart',
+        columns: [
+          {
+            type: 'string',
+            opt_label: 'Type',
+            opt_id: 'type'
+          },
+          {
+            type: 'number',
+            opt_label: 'No. of Transfers',
+            opt_id: 'total_transfers'
+          }
+        ],
         options:{
           series: {
             0: {

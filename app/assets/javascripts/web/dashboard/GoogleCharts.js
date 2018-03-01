@@ -55,7 +55,7 @@
         var ajaxObj = {
           success: function(response){
             oThis.data = oThis.ajaxCallback(response);
-            console.log(oThis.data);
+            console.log('AJAX data: ', oThis.data);
             console.log('Drawing chart using AJAX data and callback...');
             oThis.render();
           }
