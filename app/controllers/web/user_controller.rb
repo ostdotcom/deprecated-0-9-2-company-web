@@ -2,6 +2,7 @@ class Web::UserController < Web::BaseController
 
   layout "user"
 
+  before_action :check_if_client_is_supported
   before_action :set_page_meta_info
 
   before_action :verify_existing_login, only: [:login, :sign_up, :reset_password, :update_password]

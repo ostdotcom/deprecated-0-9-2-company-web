@@ -23,6 +23,9 @@ gem 'exception_notification', '4.2.1'
 
 gem 'listen', '>= 3.0.5', '< 3.2'
 
+# For identifying browser & device type of devices sending requests
+gem 'browser', '~> 1.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

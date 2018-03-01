@@ -2,6 +2,7 @@ class Web::EconomyController < Web::BaseController
 
   layout "economy"
 
+  before_action :check_if_client_is_supported
   before_action :set_page_meta_info
 
   # Dashboard where post setup metrics can be seen
