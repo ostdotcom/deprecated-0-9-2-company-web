@@ -8,7 +8,7 @@
 
 .list-group-item {
     color: $blue-700;
-    border-bottom: 1px solid $blue-100;
+    border: 1px solid $blue-100;
 
     .item-heading {
       padding: $list-group-item-padding-y $list-group-item-padding-x $list-group-item-padding-y 0;  

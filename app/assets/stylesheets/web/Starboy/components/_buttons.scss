@@ -85,6 +85,24 @@
   }
 }
 
+.btn-gold-border{
+  border-color: #e4b030;
+  color: #e4b030;
+  &.focus-cls,
+  &:focus{
+    color: #7f9183;
+    outline: none;
+    text-decoration: none;
+  }
+  &.hover-cls, &.active-cls,
+  &:hover, &:active{
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #D9A025;
+    border-color: #D9A025;
+  }
+}
+
 .ost-btn-secondary{
   border: 1px solid #34445b;
   background: #ffffff;

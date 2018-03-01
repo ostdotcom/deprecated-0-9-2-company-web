@@ -51,6 +51,7 @@
       render :partial => "/shared/web/common/planner_alert"
     end
 %>
+
 <div class="container">
   <form id="step1-form"
         action="/api/economy/token/plan" method="POST"
@@ -66,39 +67,35 @@
                            classes_step_3: 'incomplete'
                    }
         %>
-        <div class="alert alert-info pt-4" role="alert">
+        <div class="alert alert-info pt-4 mb-5" role="alert">
           <h5><svg class="icon-card-transactions align-middle">
             <switch>
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-card-transactions-1"></use>
             </switch>
           </svg> The first step in creating <%= bt_symbol %> is to set the conversion rate between <%= bt_symbol %> and OST⍺.</h5>
           <hr class="mt-3 mb-4"/>
-          <p> 
+          <p class="font-weight-light font-size-p">
             Once you Mint <%= bt_symbol %>, the conversion rate is fixed and cannot be changed. Your customers will always be able to redeem their <%= bt_symbol %> for OST at that conversion rate.
           </p>
-          <p class="mt-2">
+          <p class="font-weight-light mt-2 font-size-p">
             The current value of
-            <strong>OST⍺ =
+            <span class="font-weight-bold">OST⍺ =
               <%= fiat_symbol %><span data-ost-mock-element="#<%= ost_to_fiat_id %>"><%= ost_to_fiat %></span>
               <input id="<%= ost_to_fiat_id %>" type="hidden" name="ost_to_fiat" value="<%= ost_to_fiat %>" />
-            </strong>
+            </span>
             (OST⍺ tracks the value of OST on public exchanges).
           </p>
-          <p class="mt-2">
+          <p class="font-weight-light mt-2 mb-2 font-size-p">
             The simple way to set the conversion rate is by deciding
-            <strong>
+            <span class="font-weight-bold">
               how much you want 1 <%= bt_symbol %> to initially be worth.
-            </strong>
+            </span>
           </p>
         </div>
 
         <div class="card card-planner mb-5">
           <div class="card-header">
-            <div class="d-flex align-items-center">
-              <div class="mr-auto">
-                <h3 class="card-title mb-1">Set Conversion Rate</h3>
-              </div>
-            </div>
+            <h3 class="card-title my-1">Set Conversion Rate</h3>
           </div>
           <div class="card-body">
             <div class="user-form">
@@ -120,27 +117,27 @@
             </div>
 
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">
+              <li class="list-group-item font-weight-light font-size-p">
                 You have chosen to set
-                <strong>
+                <span class="font-weight-bold">
                   1 <%= bt_symbol %> =
                   $<span data-type="number" data-ost-mock-element="#<%= bt_to_fiat_id %>">0.1</span>
-                </strong>
+                </span>
               </li>
-              <li class="list-group-item">
+              <li class="list-group-item font-weight-light font-size-p">
                 Based on the current value of OST⍺ you will set a conversion rate of 
-                <strong>
+                <span class="font-weight-bold">
                   <span id="ost_to_bt_text">154 <%= bt_symbol %> = 1 OST</span>⍺
-                </strong>
+                </span>
               </li>
-              <li class="list-group-item">
+              <li class="list-group-item font-weight-light font-size-p pb-0">
                 You currently have <%= number_with_delimiter(ost_grant_value, :delimiter => ',') %> OST⍺ to test with. You can
-                <strong>
+                <span class="font-weight-bold">
                   mint a maximum of
                   <span id="maximum_mintbale_bt_text" data-type="number" data-ost-mock-element="#maximum_mintbale_bt">2,970</span>
                   <input type="hidden" name="maximum_mintbale_bt" id="maximum_mintbale_bt" />
                   <%= bt_symbol %> before requiring more OST⍺.
-                </strong>
+                </span>
               </li>
             </ul>
           </div>
@@ -183,8 +180,8 @@
 <div class="row" style="background: #d9a025;">
   <div class="container text-right">
     <button  type="submit" class="btn btn-steps-nav bg-yellow pt-3 pb-3" data-submiting="Setting Up..." id="plannerStep1Btn">Set up transactions &gt;</button>
+    </div>
   </div>
-</div>
 
 <% content_for :end_js do %>
 <script type="text/javascript">
