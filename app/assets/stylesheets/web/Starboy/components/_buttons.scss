@@ -85,10 +85,10 @@
   }
 }
 
-.btn-gold-border{
-  border: 1px solid #e4b030;
+.ost-btn-secondary{
+  border: 1px solid #34445b;
   background: #ffffff;
-  color: #e4b030;
+  color: #34445b;
   &.focus-cls,
   &:focus{
     color: #ffffff;
@@ -99,8 +99,8 @@
   &:hover, &:active{
     color: #ffffff;
     text-decoration: none;
-    background-color: #D9A025;
-    border-color: #D9A025;
+    background-color: #34445b;
+    border-color: #34445b;
   }
 }
 
