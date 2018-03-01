@@ -1,6 +1,6 @@
 class Web::HomeController < Web::BaseController
 
-  layout "kit"
+  layout "header_only"
 
   before_action :set_page_meta_info
 
