@@ -161,10 +161,12 @@
   .form-group{
 
     .form-label{
-      color: #6c9ba9;
+      color: $cyanish-gray;
       text-transform: uppercase;
       font-size: 0.75rem;
       margin: 0 0 5px 0;
+      font-weight: 600;
+      letter-spacing: 2px;
     }
 
     .form-check-label{
@@ -182,6 +184,10 @@
       font-size: 12px;
     }
 
+    input::placeholder {
+      color: #cdd7da;
+    }
+
   }
 
   .zxcvbn-group {
@@ -192,7 +198,7 @@
       background: #f2f2f2;
       float: left;
       width: 19%;
-      margin: 8px 1% 0 0;
+      margin: 0 1% 0 0;
     }
     .zxcvbn-0 {
       background-color: #e7003b;

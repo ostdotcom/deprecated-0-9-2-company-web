@@ -28,12 +28,13 @@
 .checkbox-custom + .checkbox-custom-label:before{
   content: '';
   background: $white;
-  border: 1px solid $cyan;
+  border: 1px solid $teal;
   display: inline-block;
   vertical-align: middle;
   width: 18px;
   height: 18px;
   opacity: 0.8;
+  border-radius: 2px;
 }
 
 .checkbox-custom:checked + .checkbox-custom-label:before {
