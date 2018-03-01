@@ -60,6 +60,26 @@ module CompanyApi
           ost_balance.present? ? format_balance_to_s(convert_ost_to_fiat(ost_balance, currency_pref)) : nil
         end
 
+        def eth_balance
+          @e_b ||= begin
+            balances['eth'].present? ? BigDecimal.new(balances['eth']) : nil
+          end
+        end
+
+        def eth_balance_s
+          @e_b_s ||= begin
+            eth_balance.present? ? format_balance_to_s(eth_balance) : nil
+          end
+        end
+
+        def eth_fiat_balance(currency_pref)
+          eth_balance.present? ? convert_ost_to_fiat(eth_balance, currency_pref) : nil
+        end
+
+        def eth_fiat_balance_s(currency_pref)
+          eth_balance.present? ? format_balance_to_s(convert_ost_to_fiat(eth_balance, currency_pref)) : nil
+        end
+
         def ost_prime_balance
           @o_p_b ||= begin
             balances['ostPrime'].present? ? BigDecimal.new(balances['ostPrime']) : nil
@@ -101,7 +121,7 @@ module CompanyApi
         end
 
         def format_balance_to_s(balance)
-          balance.round(2)
+          balance.round(5)
         end
 
         def convert_bt_to_fiat(bt_value, currency_symbol)
