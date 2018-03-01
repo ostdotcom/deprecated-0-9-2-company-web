@@ -1,8 +1,10 @@
 .btn{
   text-transform: uppercase;
-  font-weight: 300;
+  font-weight: 500;
   min-width: 185px;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  font-size: 0.75rem;
+  padding: 0.75rem;
 }
 
 .btn-gold{
@@ -87,7 +89,6 @@
   border: 1px solid #e4b030;
   background: #ffffff;
   color: #e4b030;
-  font-size: 1rem;
   &.focus-cls,
   &:focus{
     color: #ffffff;
