@@ -41,7 +41,6 @@
     },
 
     printTransactionsChart: function(interval){
-      console.log("interval", interval);
       if(['day','hour','month','year','all'].indexOf(interval) == -1) {
         return;
       }
@@ -76,14 +75,8 @@
         ajax: {
           url: url
         },
-        ajaxCallback: function(response){
-          var data = [];
-          data.push(Object.keys(response.data[response.data.result_type][0]));
-          $.each( response.data[response.data.result_type], function( index, value ) {
-            data.push([new Date(value.timestamp*1000), value.transaction_count, value.ost_amount]);
-          });
-          return data;
-        },
+        selector: '#transactionsValue',
+        type: 'LineChart',
         options: {
           series: {
             0: {
@@ -121,15 +114,40 @@
             textStyle: oThis.chartTextStyle
           }
         },
-        selector: '#transactionsValue',
-        type: 'LineChart'
       });
     },
 
-    printTypeChart: function(){
+    printTypeChart: function(interval){
+      switch(interval) {
+        case 'hour':
+          var url = '/api/economy/token/graph/transaction-types?graph_duration=Hour'
+          var count = 12;
+          var format = 'm';
+          break;
+        case 'day':
+          var url = '/api/economy/token/graph/transaction-types?graph_duration=Day';
+          var count = 24;
+          var format = 'H';
+          break;
+        case 'month':
+          var url = '/api/economy/token/graph/transaction-types?graph_duration=Month'
+          var count = 30;
+          var format = 'd';
+          break;
+        case 'year':
+          var url = '/api/economy/token/graph/transaction-types?graph_duration=Year'
+          var count = 12;
+          var format = 'm';
+          break;
+        case 'all':
+          var url = '/api/economy/token/graph/transaction-types?graph_duration=All'
+          var count = 12;
+          var format = 'm';
+          break;
+      }
       oThis.googleCharts_2.draw({
         ajax: {
-          url: '/api/economy/token/graph/transaction-types'
+          url: url
         },
         selector: '#transactionsType',
         type: 'ColumnChart',

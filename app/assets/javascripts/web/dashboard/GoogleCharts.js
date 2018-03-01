@@ -12,12 +12,13 @@
     constructor: GoogleCharts,
     version: 'current',
     packages: ['corechart'],
-    data: [],
-    columns: [],
-    ajax: {},
-    options: {},
+    data: null,
+    columns: null,
+    ajax: null,
+    options: null,
     selector: null,
     type: null,
+    tsUnixToJs: true,
 
     /*
      * Initiates Google Charts by google.charts.load
@@ -45,6 +46,11 @@
         return false;
       }
 
+      if(!$(oThis.selector)[0]){
+        console.warn('Selector '+oThis.selector+' not found in DOM');
+        return false;
+      }
+
       if(!$.isEmptyObject(oThis.ajax)){
         var ajaxObj = {
           success: function(response){
@@ -53,7 +59,7 @@
             console.log('Drawing chart using AJAX data and callback...');
             oThis.render();
           }
-        }
+        };
         $.extend( ajaxObj, oThis.ajax );
         $.ajax(ajaxObj);
       } else {
@@ -74,6 +80,7 @@
         $.each( oThis.columns, function( index, value ) {
           data.addColumn(value);
         });
+        oThis.data.splice(0, 1);
         data.addRows(oThis.data);
         console.log('Using custom columns and data to build DataTable...');
       } else {
@@ -91,20 +98,51 @@
       var oThis = this;
       google.charts.setOnLoadCallback(function(){
         var data = oThis.makeData(oThis.data);
-        var chart = new google.visualization[oThis.type]($(oThis.selector)[0]);
         console.log('Drawing '+oThis.type+' chart in '+oThis.selector);
+        var chart = new google.visualization[oThis.type]($(oThis.selector)[0]);
         chart.draw(data, oThis.options);
       });
+    },
+
+    /*
+     * dataSrc to specify custom data source in ajax response
+     */
+    dataSrc: function(response){
+      return response.data[response.data.result_type];
     },
 
     /*
      * ajaxCallback boilerplate
      */
     ajaxCallback: function(response){
+      var oThis = this;
+      var response_data = oThis.dataSrc(response);
+      if($.isEmptyObject(response_data)){
+        return [];
+      }
       var data = [];
-      data.push(Object.keys(response.data[response.data.result_type][0]));
-      $.each( response.data[response.data.result_type], function( index, value ) {
-        data.push(Object.values(value));
+      var header_temp = Object.keys(response_data[0]);
+      var header = [];
+      if(!$.isEmptyObject(oThis.columns)){
+        $.each( oThis.columns, function( index, value ) {
+          if(header_temp.indexOf(value.opt_id) > -1){
+            header.push(value.opt_id);
+          }
+        });
+      } else {
+        var header = header_temp;
+      }
+      data.push(header);
+      $.each( response_data, function( index, value ) {
+        var row = [];
+        header.forEach(function(elem){
+          if(oThis.tsUnixToJs === true && typeof value[elem] === 'number' && value[elem] > 1262304000 && (new Date(value[elem])).getYear() < 1971){
+            row.push(new Date(value[elem]*1000));
+          } else {
+            row.push(value[elem]);
+          }
+        });
+        data.push(row);
       });
       return data;
     }
