@@ -1,9 +1,12 @@
 <div class="row ost__planner">
+  <div class="col-12 col-md-8 pt-6 mx-auto">
+    <h3 class="text-center font-weight-bold letter-space-1">We will fund <%= eligible_grant_value %> OSTα in to your Metamask wallet shown below</h3>
+  </div>
+</div>
+<div class="row ost__planner">
   <div class="col-12 col-md-6 ml-auto mr-auto">
     <div class="text-center">
-      <h1 class="ost__planner__heading">We will send <%= eligible_grant_value %> OSTα in your Metamask wallet shown below</h1>
       <div id="ost__planner__address" class="ost__planner__address font-weight-light mt-3 mb-3 d-inline-block"></div>
-      <p class="ost__planner__desc font-weight-light mb-5">Lets start the Demo by planning your economy</p>
       <div class="mb-5">
         <form id="get_initial_ost" class="form-container-sm st-form" 
           action="/api/client/get-ost" method="POST"

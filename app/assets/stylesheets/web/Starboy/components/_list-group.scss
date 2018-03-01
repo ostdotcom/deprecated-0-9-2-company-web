@@ -22,6 +22,9 @@
         text-decoration: none;
       }
     }
+    &:hover{
+      background-color: rgba(155, 175, 181, 0.05);
+    }
 }
 
 .card-body .list-group {

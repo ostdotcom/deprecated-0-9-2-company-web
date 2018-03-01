@@ -3,20 +3,20 @@
 %>
 
 <div class="row ost__planner">
-  <div class="col-12">
-    <h1 class="ost__planner__heading text-center">Oops looks like your MetaMask wallet is locked!</h1>
+  <div class="col-12 pt-6">
+    <h3 class="text-center font-weight-bold letter-space-1">Oops looks like your MetaMask wallet is locked!</h3>
   </div>
 </div>
 <div class="row ost__planner">
   <div class="col-12 col-md-6 ml-auto mr-auto">
     <div class="text-center">
-      <p class="ost__planner__desc font-weight-light mb-5">Simply open MetaMask and follow the instructions to unlock it and click the button below once you are done.</p>
+      <p class="font-weight-light mb-5 text-muted">Simply open MetaMask and follow the instructions to unlock it and click the button below once you are done.</p>
       <div class="ost__planner__circle rounded-circle font-weight-light mb-5"><%= bt_name %></div>
       <div class="mb-5">
         <button id="metamask_unlocked" type="button" class="btn btn-gold">i have unlocked metamask</button>
       </div>
       <div>
-        <button type="button" class="font-weight-light btn btn-gold-border h-100 video-btn" title="Watch Help Video" data-toggle="modal" data-src="https://www.youtube.com/embed/EUwzWHD3Htg" data-target="#helpVideoModal">
+        <button type="button" class="font-weight-light btn ost-btn-secondary h-100 video-btn" title="Watch Help Video" data-toggle="modal" data-src="https://www.youtube.com/embed/EUwzWHD3Htg" data-target="#helpVideoModal">
           <svg class="icon-play align-middle">
             <switch>
               <use class="icon-play" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"></use>
@@ -25,10 +25,14 @@
           watch help video
         </button>
       </div>
-      <ul class="ost__planner__list mt-6">
-        <li class="ost__planner__list__item font-weight-normal">FAQ for installing MetaMask</li>
-        <li class="ost__planner__list__item font-weight-light">Installing MetaMask, your digital wallet!</li>
-        <li class="ost__planner__list__item font-weight-light">Why us my MetaMask locked?</li>
+      <h3 class="text-center mt-6 mb-3">FAQ for installing MetaMask</h3>
+      <ul class="list-group list-group-flush show-last-border">
+        <li class="list-group-item font-weight-light">
+          <a href="" class="link-item item-heading">Installing MetaMask, your digital wallet!</a>
+        </li>
+        <li class="list-group-item font-weight-light">
+          <a href="" class="link-item item-heading">Why us my MetaMask locked?</a>
+        </li>
       </ul>
     </div>
   </div>
