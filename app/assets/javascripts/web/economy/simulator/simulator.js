@@ -9,8 +9,16 @@
       pollingApi , pollingTimeOut
   ;
 
-  ost.simulator = {
+
+
+  var oThis = ost.simulator = {
     simulatorTable : null,
+    txStatus: {
+      "PENDING": "processing",
+      "PROCESSING": "processing",
+      "COMPLETE": "complete",
+      "FAILED": "failed"
+    },
 
     init : function ( config ) {
       var oThis =  this;
@@ -122,7 +130,7 @@
       ;
       for( var i = 0 ;  i < transactions.length  ; i++ ){
         transaction = transactions[i];
-        if(transaction.status == 'pending') {
+        if(transaction.status == oThis.txStatus.PENDING ) {
           oThis.pushPendingTransactions(transaction.transaction_uuid);
         }
       }
@@ -171,7 +179,7 @@
         newTransaction = transactions[i] ;
         status = newTransaction['status'] ;
         transaction_uuid = newTransaction['transaction_uuid'] ;
-        if(status !== 'pending'){
+        if( status !== oThis.txStatus.PENDING ){
           currentTransaction = oThis.simulatorTable.getResultById(transaction_uuid , 'transaction_uuid');
           $.extend( currentTransaction , newTransaction);
           oThis.simulatorTable.updateResult( currentTransaction );
@@ -205,32 +213,114 @@
       var oThis = this,
           date = new Date();
 
+      Handlebars.registerHelper('getUserIconClass' , function (userId , options) {
+        var user = users[userId];
+
+        if ( !user ) {
+          return "u-kind-user";
+        }
+
+        if ( "reserve" === user.kind ) {
+          return "u-kind-company"
+        }
+
+        return "u-kind-user";
+      });
+
+
       Handlebars.registerHelper('getUserName' , function (userId , options) {
-        var user = users[userId] || {}
-        ;
+        var user = users[userId];
+
+        if ( !user ) {
+          return "";
+        }
+
+        if ( "reserve" === user.kind ) {
+          return "Company"
+        }
+
         return user['name'] ;
       });
 
-      Handlebars.registerHelper('transactionFee', function(response ) {
-        var rowData = response.data.root || {};
-        if( rowData.gas_value ) {
-          return PriceOracle.toOst(rowData.gas_value);
+      Handlebars.registerHelper('diplay_transaction_fee', function(transaction_fee, options ) {
+        if( transaction_fee ) {
+          return PriceOracle.toOst(transaction_fee) + "OST";
+        } else {
+          return "NA";
         }
       });
 
       Handlebars.registerHelper('ifTransactionPending' , function (status  ,  options) {
-        if(status == 'pending') {
+        if(status == oThis.txStatus.PENDING ) {
           return options.fn(this);
         }else {
           return options.inverse(this);
         }
       });
 
-      Handlebars.registerHelper('timeStamp', function(response) {
-        var rowData = response.data.root || {} ,
-          timeStamp = rowData.block_timestamp
-        ;
-        return date;
+      Handlebars.registerHelper('display_block_timeStamp', function(block_timeStamp, response) {
+        if ( !block_timeStamp ) {
+          return "NA";
+        }
+
+        // block_timeStamp = block_timeStamp * 1000;
+        var momentTs = moment.unix(block_timeStamp);
+
+        return (momentTs.fromNow() + " (" + momentTs.utc().format("MMM-DD-YYYY hh:mm:ss A UTC") + ")");
+
+      });
+
+      Handlebars.registerHelper('ifTransactionComplete' , function (status  ,  options) {
+        if(status == oThis.txStatus.COMPLETE ) {
+          return options.fn(this);
+        }else {
+          return options.inverse(this);
+        }
+      });
+      Handlebars.registerHelper('ifNotPending' , function (status  ,  options) {
+        if(status != oThis.txStatus.PENDING ) {
+          return options.fn(this);
+        }else {
+          return options.inverse(this);
+        }
+      });
+      Handlebars.registerHelper('ifShowBlockNumber' , function (block_number  ,  options) {
+        if( typeof block_number === "number" ) {
+          return options.fn(this);
+        } else {
+          return options.inverse(this);
+        }
+      });
+      Handlebars.registerHelper('diplay_block_number' , function (block_number  ,  options) {
+        if( typeof block_number === "number" ) {
+          return $.number( block_number );
+        }
+        return "NA";
+      });
+
+      Handlebars.registerHelper('diplay_transaction_hash' , function (transaction_hash  ,  options) {
+        if( typeof transaction_hash === "string" ) {
+          return transaction_hash;
+        }
+        return "NA";
+      });
+
+      Handlebars.registerHelper('txName' , function (transaction_type_id  ,  options) {
+        if( !transaction_type_id ) {
+          return "";
+        }
+        var txType = transactionTypes[ transaction_type_id ];
+        if ( !txType ) {
+          return "";
+        }
+        return txType.name;
+      });
+
+      Handlebars.registerHelper('display_bt_transfer_value' , function (bt_transfer_value  ,  options) {
+        if( !bt_transfer_value ) {
+          return "0";
+        }
+        return PriceOracle.toBt( bt_transfer_value ).toString();
       });
     }
 
