@@ -35,6 +35,8 @@
       var oThis = this;
 
       if ( oThis.isInitDone ) {
+        oThis.allUserSimpleData && oThis.allUserSimpleData.reloadTableData();
+        oThis.newUsersSimpleData && oThis.newUsersSimpleData.reloadTableData();
         return;
       }
 
