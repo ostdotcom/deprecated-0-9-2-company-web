@@ -8,4 +8,8 @@ class Web::HomeController < Web::BaseController
 
   end
 
+  def unsupported_client
+
+  end
+
 end

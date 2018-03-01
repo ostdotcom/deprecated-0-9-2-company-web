@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   scope '', controller: 'web/home' do
     get '/' => :index
+    get '/unsupported_client' => :unsupported_client
   end
 
   scope '', controller: 'web/user' do
