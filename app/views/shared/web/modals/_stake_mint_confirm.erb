@@ -24,56 +24,60 @@
       <div class="modal-body">
         <h1 class="heading font-weight-normal">Please Review and Confirm</h1>
         <p class="desc font-weight-light"><%= bt_name %></p>
-        <div class="row no-gutters">
-          <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
-            <div class="card rounded font-weight-normal border-0">
-              <div class="item-1"><%= bt_name %> YOU WISH TO MINT</div>
-              <div class="item-2" data-ost-mock-element="#<%= bt_to_mint_input_id %>"></div>
+        <div class="user-form">
+          <div class="form-group">
+            <div class="row no-gutters">
+              <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
+                <div class="card rounded font-weight-normal border-0">
+                  <div class="item-1 form-label m-0"><%= bt_name %> YOU WISH TO MINT</div>
+                  <div class="item-2" data-ost-mock-element="#<%= bt_to_mint_input_id %>"></div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6 col-lg-6 mr-auto text-left">
+                <div class="card rounded font-weight-normal border-0">
+                  <div class="item-1 form-label m-0">Total Ost to transfer</div>
+                  <div class="item-2" data-type="ost" data-ost-mock-element="#<%= ost_to_transfer_id %>"></div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="col-xs-12 col-md-6 col-lg-6 mr-auto text-left">
-            <div class="card rounded font-weight-normal border-0">
-              <div class="item-1">Total Ost to transfer</div>
-              <div class="item-2" data-type="ost" data-ost-mock-element="#<%= ost_to_transfer_id %>"></div>
+            <div class="row no-gutters">
+              <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
+                <div class="card rounded font-weight-normal border-0">
+                  <div class="item-1 form-label m-0">TOKEN CONVERSION RATE (OST)</div>
+                  <div class="item-2">
+                    <span>1 <%= bt_name %> = </span>
+                    <span data-ost-mock-element="#<%= bt_to_ost_input_id %>"></span>
+                    <span>OST</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
+                <div class="card rounded font-weight-normal border-0">
+                  <div class="item-1 form-label m-0">OST ALLOCATED FOR TRANSACTION FEE</div>
+                  <div class="item-2" data-ost-mock-element="#<%= st_prime_to_mint_input_id %>"></div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="row no-gutters">
-          <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
-            <div class="card rounded font-weight-normal border-0">
-              <div class="item-1">TOKEN CONVERSION RATE (OST)</div>
-              <div class="item-2">
-                <span>1 <%= bt_name %> = </span>
-                <span data-ost-mock-element="#<%= bt_to_ost_input_id %>"></span>
-                <span>OST</span>
+            <div class="row no-gutters">
+              <div class="col-xs-12 col-md-4 col-lg-6 mr-auto text-left">
+                <div class="card rounded font-weight-normal border-0">
+                  <div class="item-1 form-label m-0">TOKEN CONVERSION RATE (<%= fiat_display_text %>)</div>
+                  <div class="item-2">
+                    <span>1 <%= bt_name %> = <%= fiat_symbol %></span>
+                    <span data-ost-mock-element="#<%= bt_to_fiat_input_id %>"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6 col-lg-6 mr-auto text-left">
+                <div class="card rounded font-weight-normal border-0">
+                  <div class="item-1 form-label m-0">Total OST Staked For Minting</div>
+                  <div class="item-2" data-ost-mock-element="#<%= ost_stake_for_bt_id %>"></div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
-            <div class="card rounded font-weight-normal border-0">
-              <div class="item-1">OST ALLOCATED FOR TRANSACTION FEE</div>
-              <div class="item-2" data-ost-mock-element="#<%= st_prime_to_mint_input_id %>"></div>
-            </div>
-          </div>
         </div>
-        <div class="row no-gutters">
-          <div class="col-xs-12 col-md-4 col-lg-6 mr-auto text-left">
-            <div class="card rounded font-weight-normal border-0">
-              <div class="item-1">TOKEN CONVERSION RATE (<%= fiat_display_text %>)</div>
-              <div class="item-2">
-                <span>1 <%= bt_name %> = <%= fiat_symbol %></span>
-                <span data-ost-mock-element="#<%= bt_to_fiat_input_id %>"></span>
-              </div>
-            </div>
-          </div>
-          <div class="col-xs-12 col-md-6 col-lg-6 mr-auto text-left">
-            <div class="card rounded font-weight-normal border-0">
-              <div class="item-1">Total OST Staked For Minting</div>
-              <div class="item-2" data-ost-mock-element="#<%= ost_stake_for_bt_id %>"></div>
-            </div>
-          </div>
-        </div>
-        <p class="desc-2 font-weight-light mt-5 mb-5">You will not be able to change your token name and the Token Conversion rate after confirmation. Please review all the information carefully before Confirming.</p>
+        <p class="desc-2 font-weight-normal mt-5 mb-5">You will not be able to change your token name and the Token Conversion rate after confirmation. Please review all the information carefully before Confirming.</p>
         <button type="button" id="confirm_mint_button" class="btn btn-gold font-weight-light" title="Confirm">confirm</button>
       </div>
     </div>
