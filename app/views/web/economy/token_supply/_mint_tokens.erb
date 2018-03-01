@@ -60,6 +60,18 @@
     </form>
   </div>
   <div class="col-12" id="token_supply_widget_overlay">
-    <button id="show_token_supply_widget" type="button">Show</button>
+    <button id="show_token_supply_widget_btn" type="button">Show</button>
   </div>
 </div>
+
+<% content_for :end_js do %> 
+<script type="text/javascript">
+  $(function () {
+    ost.tokenSupply.init({
+      idMintWidgetOverlay: "token_supply_widget_overlay"
+      , idMintWidgetWrap: "token_supply_widget_wrap"
+      , idShowWidgetBtn: "show_token_supply_widget_btn"
+    });
+  });
+</script>
+<% end %>
