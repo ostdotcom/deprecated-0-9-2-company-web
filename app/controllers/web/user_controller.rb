@@ -16,7 +16,7 @@ class Web::UserController < Web::BaseController
         CompanyApi::Response::Formatter::Client,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).logout
+    ).logout(authenticity_token: form_authenticity_token)
 
     if @response.success?
       redirect_to :login and return
