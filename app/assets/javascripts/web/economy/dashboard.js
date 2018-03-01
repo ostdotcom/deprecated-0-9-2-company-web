@@ -41,24 +41,35 @@
     },
 
     printTransactionsChart: function(interval){
-      if(['day','hour','month'].indexOf(interval) == -1) {
+      console.log("interval", interval);
+      if(['day','hour','month','year','all'].indexOf(interval) == -1) {
         return;
       }
       switch(interval) {
-        case 'day':
-          var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Day';
-          var count = 24;
-          var format = 'H';
-          break;
         case 'hour':
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Hour'
           var count = 12;
           var format = 'm';
           break;
+        case 'day':
+          var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Day';
+          var count = 24;
+          var format = 'H';
+          break;
         case 'month':
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Month'
           var count = 30;
           var format = 'd';
+          break;
+        case 'year':
+          var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Year'
+          var count = 12;
+          var format = 'm';
+          break;
+        case 'all':
+          var url = '/api/economy/token/graph/number-of-transactions?graph_duration=All'
+          var count = 12;
+          var format = 'm';
           break;
       }
       oThis.googleCharts_1.draw({
