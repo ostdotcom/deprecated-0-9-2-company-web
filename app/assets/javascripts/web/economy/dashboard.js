@@ -79,6 +79,7 @@
         },
         selector: '#transactionsValue',
         type: 'LineChart',
+        noDataHTML: $('#graphsNodataHTML').html(),
         columns: [
           {
             type: 'datetime',
@@ -175,6 +176,7 @@
         },
         selector: '#transactionsType',
         type: 'ColumnChart',
+        noDataHTML: $('#graphsNodataHTML').html(),
         columns: [
           {
             type: 'string',

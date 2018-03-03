@@ -19,6 +19,7 @@
     selector: null,
     type: null,
     tsUnixToJs: true,
+    noDataHTML: 'No data to populate graphs',
 
     /*
      * Initiates Google Charts by google.charts.load
@@ -57,7 +58,11 @@
             oThis.data = oThis.ajaxCallback(response);
             console.log('AJAX data: ', oThis.data);
             console.log('Drawing chart using AJAX data and callback...');
-            oThis.render();
+            if(oThis.data.length === 0){
+              oThis.renderBlank();
+            } else {
+              oThis.render();
+            }
           }
         };
         $.extend( ajaxObj, oThis.ajax );
@@ -102,6 +107,11 @@
         var chart = new google.visualization[oThis.type]($(oThis.selector)[0]);
         chart.draw(data, oThis.options);
       });
+    },
+
+    renderBlank: function(){
+      var oThis = this;
+      $(oThis.selector).html(oThis.noDataHTML);
     },
 
     /*
