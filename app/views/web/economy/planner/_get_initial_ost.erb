@@ -37,8 +37,10 @@
   $(function () {
     ost.metamask.getOstHelper.init({
       has_registered_address: <%= has_registered_address %>,
-      grant_eth_from_metamask_focet: <%= grant_eth_from_metamask_focet %>,
-      grant_eth_from_ost_focet: <%= grant_eth_from_ost_focet %>
+      should_use_metamask_focet_for_eth: <%= should_use_metamask_focet_for_eth %>,
+      should_use_ost_focet_for_eth: <%= should_use_ost_focet_for_eth %>,
+      grant_initial_ost: <%= grant_initial_ost %>,
+      grant_initial_eth: <%= grant_initial_eth %>
     });    
   });
 </script>

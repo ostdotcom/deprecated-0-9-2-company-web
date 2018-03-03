@@ -17,11 +17,22 @@
     staker_addr = ''
   end
 
+   if @presenter_obj.client_balances.blank?
+    grant_initial_ost = true
+    grant_initial_eth = true
+   else
+    grant_initial_ost = @presenter_obj.client_balances.is_eligible_for_ost_grant?
+    grant_initial_eth = @presenter_obj.client_balances.is_eligible_for_eth_grant?
+  end
+
+
+
   eligible_grant_value = 10000;
   eligible_grant_unit = "OST &alpha;"
   has_registered_address = false;
-  grant_eth_from_metamask_focet = Rails.env.development? ? false : true
-  grant_eth_from_ost_focet = true;
+  # Should use MetaMask for granting ETH
+  should_use_metamask_focet_for_eth = Rails.env.development? ? false : true
+  should_use_ost_focet_for_eth = true;
   validate_transaction_hash_interval = 5000; #Miliseconds.
   validate_transaction_hash_max_try = 100;
 
@@ -34,8 +45,13 @@
     :eligible_grant_value => eligible_grant_value,
     :eligible_grant_unit => eligible_grant_unit,
     :has_registered_address => has_registered_address,
-    :grant_eth_from_metamask_focet => grant_eth_from_metamask_focet,
-    :grant_eth_from_ost_focet => grant_eth_from_ost_focet,
+
+    :grant_initial_eth => grant_initial_eth,
+    :should_use_metamask_focet_for_eth => should_use_metamask_focet_for_eth,
+    :should_use_ost_focet_for_eth => should_use_ost_focet_for_eth,
+
+    :grant_initial_ost => grant_initial_ost,
+
     :validate_transaction_hash_interval => validate_transaction_hash_interval,
     :validate_transaction_hash_max_try  => validate_transaction_hash_max_try,
     :simple_token_contract_address => simple_token_contract_address
@@ -54,8 +70,8 @@
       valueChainId      : <%= value_chain_id %>,
       utilityChianId    : <%= utility_chain_id %>,
       hasRegisteredAddress : <%= has_registered_address %>,
-      grantEthFromMetamaskFocet: <%= grant_eth_from_metamask_focet %>,
-      grantEthFromOstFocet: <%= grant_eth_from_ost_focet %>,
+      should_use_metamask_focet_for_eth: <%= should_use_metamask_focet_for_eth %>,
+      should_use_ost_focet_for_eth: <%= should_use_ost_focet_for_eth %>,
       validateTransactionHashInterval: <%= validate_transaction_hash_interval %>,
       validateTransactionHashMaxTry: <%= validate_transaction_hash_max_try %>,
       simpleTokenContractAddress: "<%= simple_token_contract_address %>"

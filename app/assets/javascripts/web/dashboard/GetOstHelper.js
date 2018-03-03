@@ -69,7 +69,7 @@
         case NOTHING_IN_PROGRESS:
           console.log("nextStep :: NOTHING_IN_PROGRESS calling getUserEthBalance");
           
-          if ( oThis.grant_eth_from_metamask_focet || oThis.grant_eth_from_ost_focet ) {
+          if ( oThis.grant_initial_eth ) {
             oThis.currentStep = READ_ETH_BALANCE;
             oThis.getUserEthBalance.apply( oThis, arguments );  
           } else {
@@ -110,10 +110,20 @@
         break;
 
         case ETH_GRANT_CONFIRMED:
-          console.log("nextStep :: ETH_GRANT_CONFIRMED calling submitTheForm \n", transaction_hash);
-          oThis.currentStep = OST_GRANT_IN_PROGRESS;
-          oThis.submitTheForm.apply( oThis, arguments );
-          oThis.jFormSubmitBtn.attr("disabled", false);
+
+          if ( !oThis.grant_initial_ost ) {
+            console.log("nextStep :: ETH_GRANT_CONFIRMED Skipping OST grant.");
+            //Dont need to grant OST.
+            oThis.currentStep = OST_GRANT_CONFIRMED;
+            setTimeout(function () {
+              oThis.nextStep();
+            }, 100);
+            
+          } else {
+            console.log("nextStep :: ETH_GRANT_CONFIRMED calling submitTheForm \n", transaction_hash);
+            oThis.currentStep = OST_GRANT_IN_PROGRESS;
+            oThis.submitTheForm.apply( oThis, arguments );
+          }
         break;
         
         case OST_GRANT_IN_PROGRESS:
@@ -137,7 +147,7 @@
           console.log("nextStep :: Something missed out. oThis.currentStep = " , oThis.currentStep);
       }
     }
-    , stepFailed: function () {
+    , stepFailed: function ( response ) {
       var oThis = this;
 
       setTimeout(function(){
@@ -145,6 +155,11 @@
         oThis.jFormSubmitBtn.text("Get Ostα");
       }, 100);
 
+      if ( response && response.err ) {
+        oThis.formHelper.showServerErrors( response );
+      }
+
+      console.log("response", response);
       
       switch( oThis.currentStep ) {
         case NOTHING_IN_PROGRESS:
@@ -309,7 +324,7 @@
             oThis.nextStep( response.data.transaction_hash );  
           }
         } else {
-          oThis.stepFailed();
+          oThis.stepFailed( response );
         }
       };
 
@@ -323,10 +338,17 @@
         }
       };
 
-      if ( oThis.grant_eth_from_metamask_focet ) {
+      if ( oThis.should_use_metamask_focet_for_eth ) {
         oThis.getEthFromMetaMaskFocet(address, metaMaskFocetCallback);  
-      } else if ( oThis.grant_eth_from_ost_focet ) {
+      } else if ( oThis.should_use_ost_focet_for_eth ) {
         oThis.getEthFromOstFocet(address, ostFocetCallback);  
+      } else {
+        console.log("!!!! IMPORTANT !!!! CAN NOT GRANT ETH! Hacking my way out!");
+        //Hack your way out.
+        oThis.currentStep = ETH_GRANT_CONFIRMED;
+        setTimeout(function () {
+          oThis.nextStep();
+        }, 100);
       }
       
 

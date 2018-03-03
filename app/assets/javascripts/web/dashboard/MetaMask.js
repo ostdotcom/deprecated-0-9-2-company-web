@@ -332,7 +332,7 @@
               "transaction_hash": transactionHash
             },
             err: {
-              msg: "Transaction Timed-out. Transaction may still be mined."
+              display_text: "Transaction Timed-out. Transaction may still be mined. Transaction-Hash: " + transactionHash
             }
           })
         }, 100);
@@ -407,6 +407,11 @@
     },
 
     initInstallScreen: function () {
+      $("#install_metamask").on("click", function () {
+        console.log("Here!");
+        $("#metamask_installed").removeClass("d-none");
+        $("#install_metamask").hide()
+      });
       $("#metamask_installed").on("click", function () {
         location.reload();
       });

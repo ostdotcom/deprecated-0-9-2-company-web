@@ -9,7 +9,10 @@
       <p class="font-weight-light mb-5 text-muted">Follow the instruction to set up your MetaMask Wallet and click the button below once you have installed it.</p>
       <div class="ost__planner__circle rounded-circle font-weight-light mb-5 <%= token_icon %>"><%= token_symbol %></div>
       <div class="mb-5">
-        <button id="metamask_installed" type="button" class="btn btn-gold">i have installed metamask</button>
+        <a id="install_metamask" 
+          href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" 
+          target="_blank" class="btn btn-gold">Install Metamask</a>
+        <button id="metamask_installed" type="button" class="btn btn-gold d-none">i have installed metamask</button>
       </div>
       <div>
         <button type="button" class="font-weight-light btn ost-btn-secondary h-100 video-btn" title="Watch Help Video" data-toggle="modal" data-src="https://www.youtube.com/embed/6Gf_kRE4MJU" data-target="#helpVideoModal">

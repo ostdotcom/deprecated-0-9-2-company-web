@@ -111,7 +111,7 @@
       if ( !oThis.has_verified_email ) {
         console.log("oThis.has_varified_email", oThis.has_verified_email);
         oThis.showValidateEmailLightBox();
-      } else if ( oThis.grant_initial_ost ) {
+      } else if ( oThis.grant_initial_ost || oThis.grant_initial_eth ) {
         //Get Ost Next.
         oThis.getInitialOst();
       } else {
