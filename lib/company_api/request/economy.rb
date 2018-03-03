@@ -93,6 +93,16 @@ module CompanyApi
         get('transaction/kind/list')
       end
 
+      # Fetch simulator details
+      #
+      # * Author: Puneet
+      # * Date: 03/03/2018
+      # * Reviewed By:
+      #
+      def fetch_simulator_details
+        get('transaction/fetch-simulator-details')
+      end
+
       private
 
     end

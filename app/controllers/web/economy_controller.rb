@@ -197,13 +197,11 @@ class Web::EconomyController < Web::BaseController
   #
   def simulator
 
-    #TODO: Change this when we know what is to be shown on this page
-
     @response = CompanyApi::Request::Economy.new(
         CompanyApi::Response::Formatter::Economy,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).fetch_transaction_kinds_details
+    ).fetch_simulator_details
 
     # Check if error present or not?
     unless @response.success?
