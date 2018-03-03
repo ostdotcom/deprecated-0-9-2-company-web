@@ -315,6 +315,18 @@
         }
         return txType.name;
       });
+      Handlebars.registerHelper('transaction_kind', function(response, options ) {
+        var rowData = response.data.root || {}
+          , transaction_type_id    = rowData.transaction_type_id
+        ;
+        var txType = transactionTypes[ transaction_type_id ];
+        if ( !txType ) {
+          return "";
+        }
+        return encodeURIComponent( txType.name );
+      });
+
+      
 
       Handlebars.registerHelper('display_bt_transfer_value' , function (bt_transfer_value  ,  options) {
         if( !bt_transfer_value ) {
