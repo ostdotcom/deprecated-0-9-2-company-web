@@ -9,3 +9,7 @@ export CW_CLOUDFRONT_DOMAIN=''
 
 # Company API details
 export CW_CA_ROOT_URL='http://devcompany.com:8080/'
+
+# Basic Auth credentials
+export CW_BASIC_AUTH_USERNAME='ost'
+export CW_BASIC_AUTH_PASSWORD='A$F^&n!@$ghf%7'

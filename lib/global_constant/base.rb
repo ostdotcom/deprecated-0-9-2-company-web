@@ -17,6 +17,10 @@ module GlobalConstant
         @company_api_config ||= fetch_config.fetch('company_api', {}).with_indifferent_access
       end
 
+      def basic_auth_config
+        @basic_auth_config ||= fetch_config.fetch('basic_auth', {}).with_indifferent_access
+      end
+
       private
 
       def fetch_config
