@@ -62,69 +62,105 @@
       oThis.stopObserver();
       setTimeout(function(){
         oThis.jFormSubmitBtn.attr("disabled", true);
+        oThis.jFormSubmitBtn.text("Requesting...");
       }, 100);
       switch( oThis.currentStep ) {
 
         case NOTHING_IN_PROGRESS:
-          console.log("nextStep :: NOTHING_IN_PROGRESS calling submitTheForm");
-          oThis.submitTheForm.apply( oThis, arguments );
-        break;
-        
-        case OST_GRANT_IN_PROGRESS:
-          var transaction_hash = arguments[0];
-          console.log("nextStep :: OST_GRANT_IN_PROGRESS calling validateTransactionHash \n", transaction_hash);
-
-          metamask.validateTransactionHash( transaction_hash, function ( response ) {
-            oThis.validateHashCallback(response);
-          });
-        break;
-
-        case OST_GRANT_CONFIRMED:
-          oThis.jFormSubmitBtn.attr("disabled", true);
-          oThis.getUserEthBalance.apply( oThis, arguments );
+          console.log("nextStep :: NOTHING_IN_PROGRESS calling getUserEthBalance");
+          
+          if ( oThis.grant_eth_from_metamask_focet || oThis.grant_eth_from_ost_focet ) {
+            oThis.currentStep = READ_ETH_BALANCE;
+            oThis.getUserEthBalance.apply( oThis, arguments );  
+          } else {
+            oThis.currentStep = ETH_GRANT_CONFIRMED;
+            setTimeout(function () {
+              oThis.nextStep();
+            }, 100);
+          }
+          
         break;
 
         case READ_ETH_BALANCE:
-          console.log("nextStep :: READ_ETH_BALANCE calling getEthFromFocet");
-          oThis.getEthFromFocet();
+          
+          oThis.currentStep = ETH_GRANT_IN_PROGRESS;
+
+          var currentEthBalance = BigNumber( arguments[ 0 ] || "0" );
+          if ( currentEthBalance.isGreaterThan("0.1") ) {
+            oThis.currentStep = ETH_GRANT_CONFIRMED;
+            console.log("nextStep :: READ_ETH_BALANCE calling nextStep (As user has sufficient balance)");
+            setTimeout(function () {
+              oThis.nextStep();
+            }, 100);
+
+          } else {
+            console.log("nextStep :: READ_ETH_BALANCE calling getEthFromFocet");
+            oThis.getEthFromFocet();
+          }
+
         break;
 
         case ETH_GRANT_IN_PROGRESS:
           var transaction_hash = arguments[0];
           console.log("nextStep :: ETH_GRANT_IN_PROGRESS calling validateTransactionHash \n", transaction_hash);
+          oThis.currentStep = ETH_GRANT_CONFIRMED;
           metamask.validateTransactionHash( transaction_hash, function ( response ) {
             oThis.validateHashCallback(response);
           });
         break;
 
         case ETH_GRANT_CONFIRMED:
-          console.log("nextStep :: ETH_GRANT_CONFIRMED calling allStepsCompleted \n", transaction_hash);
-          oThis.allStepsCompleted.apply( oThis, arguments);
+          console.log("nextStep :: ETH_GRANT_CONFIRMED calling submitTheForm \n", transaction_hash);
+          oThis.currentStep = OST_GRANT_IN_PROGRESS;
+          oThis.submitTheForm.apply( oThis, arguments );
           oThis.jFormSubmitBtn.attr("disabled", false);
+        break;
+        
+        case OST_GRANT_IN_PROGRESS:
+          var transaction_hash = arguments[0];
+          console.log("nextStep :: OST_GRANT_IN_PROGRESS calling validateTransactionHash \n", transaction_hash);
+          oThis.currentStep = OST_GRANT_CONFIRMED;
+          metamask.validateTransactionHash( transaction_hash, function ( response ) {
+            oThis.validateHashCallback(response);
+          });
+        break;
+
+        case OST_GRANT_CONFIRMED:
+          setTimeout(function(){
+            oThis.jFormSubmitBtn.attr("disabled", false);
+            oThis.jFormSubmitBtn.text("Get Ostα");
+          }, 100);
+          oThis.allStepsCompleted.apply( oThis, arguments);
         break;
 
         default: 
           console.log("nextStep :: Something missed out. oThis.currentStep = " , oThis.currentStep);
-
       }
-      oThis.currentStep++;
     }
     , stepFailed: function () {
+      var oThis = this;
 
-      oThis.jFormSubmitBtn.attr("disabled", false);
+      setTimeout(function(){
+        oThis.jFormSubmitBtn.attr("disabled", false);
+        oThis.jFormSubmitBtn.text("Get Ostα");
+      }, 100);
+
+      
       switch( oThis.currentStep ) {
         case NOTHING_IN_PROGRESS:
+        case READ_ETH_BALANCE: 
+        case ETH_GRANT_IN_PROGRESS:
+          //Reset to NOTHING_IN_PROGRESS. Start from granting Eth again.
+          oThis.currentStep = NOTHING_IN_PROGRESS;
+        break;
+        case ETH_GRANT_CONFIRMED:
+          oThis.currentStep =  ETH_GRANT_CONFIRMED;
+        break;
         case OST_GRANT_IN_PROGRESS:
         case OST_GRANT_CONFIRMED:
           //Reset to NOTHING_IN_PROGRESS. Start from begining.
-          oThis.currentStep = NOTHING_IN_PROGRESS;
+          oThis.currentStep = ETH_GRANT_CONFIRMED;
           oThis.startObserver();
-        break;
-        case READ_ETH_BALANCE: 
-        case ETH_GRANT_IN_PROGRESS:
-        case ETH_GRANT_CONFIRMED:
-          //Reset to OST_GRANT_CONFIRMED. Start from granting Eth again.
-          oThis.currentStep = OST_GRANT_CONFIRMED;
         break;
         default:
           console.log("stepFailed :: Something missed out. oThis.currentStep = " , oThis.currentStep);
@@ -174,26 +210,23 @@
         if ( !error && response ) {
           console.log("web3.eth.getBalance callback \n", response);
           try {
-            var amt       = web3.fromWei( response, "ether" )
-              , strAmt    = amt.toString()
-              , maxLen    = Math.min(strAmt.length, 4)
-              , subStrAmt = strAmt.substring(0, maxLen)
-              , subStrVal = Number( subStrAmt )
+            response = String( response || "0" );
+
+            var amtInWei = BigNumber( response )
+              , ethToWie = BigNumber( 10 ).exponentiatedBy( 18 )
+              , amtInEth = amtInWei.dividedBy( ethToWie )
             ;
 
-            console.log("subStrVal", subStrVal);
-            if ( subStrVal > 20 ) {
-              //We have sufficient Balance.
-              oThis.allStepsCompleted();
-            } else {
-              oThis.nextStep( subStrVal );
-            }
+            console.log( "amtInWei", amtInWei.toString( 10 ) );
+            console.log( "ethToWie", amtInWei.toString( 10 ) );
+            console.log( "amtInEth", amtInWei.toString( 10 ) );
+            oThis.nextStep( amtInEth );
             
           } catch( e ) {
             console.log("Error converting response");
             console.log( e );
+            oThis.stepFailed();
           }
-          
           
         }
         
