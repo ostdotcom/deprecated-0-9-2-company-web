@@ -1,0 +1,7 @@
+.alert{
+  &.alert-secondary{
+    color: $blue-600;
+    font-size: 0.875rem;
+    background-color: $alice-blue;
+  }
+}

@@ -2,14 +2,13 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content text-center">
       <div class="modal-body">
-        <div id="tx-status-header"><h3 >Processing...</h3></div>
+        <div id="tx-status-header"><h3 class="mb-5">Processing...</h3></div>
         <div id="tx-status-list"></div>
         <script id="tx-status-row-template" type="text/x-handlebars-template">
           <div class="row">
-            <div class="col-8 ml-auto mr-auto text-left rounded border-0 font-weight-lighter">
+            <div class="col-10 mx-auto text-left rounded border-0 font-weight-lighter">
               <div class="alert alert-secondary" role="alert">
-                <img src="{{tx_status_img_src status}}" width="40" height="40" />
-                {{display_text}}
+                <img src="{{tx_status_img_src status}}" width="40" height="40" /><span class="ml-3">{{display_text}}</span>
               </div>
             </div>
           </div>
@@ -26,7 +25,7 @@
     Handlebars.registerHelper('tx_status_img_src', function(status, options ) {
       switch( status ) {
         case "pending":
-          return "//dummyimage.com/40x40/FDA629/FDA629";
+          return "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader.gif";
           break;
         case "processed":
           return "//dummyimage.com/40x40/1EA68A/1EA68A";
