@@ -25,6 +25,11 @@ class Web::EconomyController < Web::BaseController
       return
     end
 
+    unless @presenter_obj.client_token.step_three_done?
+      redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect
+      return
+    end
+
     @presenter_obj = ::WebPresenter::Economy::Planner.new(@response, params)
 
   end
@@ -121,6 +126,11 @@ class Web::EconomyController < Web::BaseController
       return
     end
 
+    unless @presenter_obj.client_token.step_three_done?
+      redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect
+      return
+    end
+
     @presenter_obj = ::WebPresenter::Economy::TokenSupply.new(@response, params)
 
   end
@@ -145,6 +155,11 @@ class Web::EconomyController < Web::BaseController
       return
     end
 
+    unless @presenter_obj.client_token.step_three_done?
+      redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect
+      return
+    end
+
     @presenter_obj = ::WebPresenter::Economy::User.new(@response, params)
 
   end
@@ -166,6 +181,11 @@ class Web::EconomyController < Web::BaseController
     # Check if error present or not?
     unless @response.success?
       render_error_response(@response)
+      return
+    end
+
+    unless @presenter_obj.client_token.step_three_done?
+      redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect
       return
     end
 
@@ -195,6 +215,11 @@ class Web::EconomyController < Web::BaseController
       return
     end
 
+    unless @presenter_obj.client_token.step_three_done?
+      redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect
+      return
+    end
+
     @presenter_obj = ::WebPresenter::Economy::Planner.new(@response, params)
 
   end
@@ -218,6 +243,11 @@ class Web::EconomyController < Web::BaseController
     # Check if error present or not?
     unless @response.success?
       render_error_response(@response)
+      return
+    end
+
+    unless @presenter_obj.client_token.step_three_done?
+      redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect
       return
     end
 
