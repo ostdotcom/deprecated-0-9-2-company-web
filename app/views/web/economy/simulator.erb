@@ -1,9 +1,15 @@
 <%
+
   tx_status_polling_url = '/api/economy/transaction/fetch-detail';  #fetch transaction details api
   long_poll_timeout_millisecond = 500;  #Value needed in milliseconds
+
+  if @presenter_obj.api_console_data.present?
+    api_console_data = @presenter_obj.api_console_data.for_execute_transaction
+  else
+    api_console_data = {}
+  end
+
 %>
-
-
 
 <div class="container mt-4">
 

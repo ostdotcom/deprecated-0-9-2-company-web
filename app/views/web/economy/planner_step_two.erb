@@ -18,6 +18,12 @@
   # this 4 should ideally also be passed to dummy data creator
   tx_kind_count = 4 if tx_kind_count == 0
 
+  if @presenter_obj.api_console_data.present?
+    api_console_data = @presenter_obj.api_console_data.for_create_transaction_kind
+  else
+    api_console_data = {}
+  end
+
 %>
 
 <div class="container">

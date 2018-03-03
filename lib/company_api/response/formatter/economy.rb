@@ -6,7 +6,7 @@ module CompanyApi
 
       class Economy < CompanyApi::Response::Formatter::Base
 
-        attr_reader :token_supply_details, :client_stats
+        attr_reader :token_supply_details, :client_stats, :api_console_data
 
         # Initialize
         #
@@ -50,6 +50,8 @@ module CompanyApi
 
           set_client_stats(@data['client_stats']) if @data['client_stats'].present?
 
+          set_api_console_data(@data['api_console_data']) if @data['api_console_data'].present?
+
         end
 
         private
@@ -80,6 +82,20 @@ module CompanyApi
         #
         def set_client_stats(client_stats_data)
           @client_stats = CompanyApi::Response::Entity::ClientStats.new(client_stats_data)
+        end
+
+        # Set API Console details
+        #
+        # * Author: Puneet
+        # * Date: 02/02/2018
+        # * Reviewed By:
+        #
+        # @param [Hash] api_console_data (mandatory) - API Console hash
+        #
+        # Sets @api_console_data
+        #
+        def set_api_console_data(api_console_data)
+          @api_console_data = CompanyApi::Response::Entity::ApiConsoleData.new(api_console_data)
         end
 
       end

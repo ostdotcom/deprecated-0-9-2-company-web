@@ -17,6 +17,12 @@
     :company_to_user => "Company to User"
   };
 
+  if @presenter_obj.api_console_data.present?
+    api_console_data = @presenter_obj.api_console_data.for_execute_transaction
+  else
+    api_console_data = {}
+  end
+
 %>
 
 <div class="container">
