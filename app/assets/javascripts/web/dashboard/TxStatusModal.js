@@ -539,79 +539,79 @@
 
 
 
-// // Code to Simulate:
-
-
-// (function () {
-
-//   var fn = function () {
-
-//     //Config for simulation:
-//     var noOfSteps = 5;
-//     var noOfPollRequests = (2 * noOfSteps) + Math.max(0, (noOfSteps - 1) );
-//     var resolveIn        = parseInt( noOfPollRequests/noOfSteps );
-//     var shouldFail = false;
-
-//     var results = [];
-//     for(var cnt = 0; cnt < noOfSteps; cnt++ ) {
-//       results.push({
-//         "status": "queued"
-//         , "display_text": "Step " + Number(cnt + 1) + " is queued"
-//       });
-//     }
-
-//     var txStatusModal = new ost.TSM(4, "/tx_dummy.json");
-//     txStatusModal.pollTxStatus = function () {
-//       var response = {
-//         success: true 
-//         , data: {
-//           "result_type" : "tx_data"
-//           , "tx_data"   : results
-//         }
-//       };
-//       if ( noOfPollRequests % resolveIn == 0 || !noOfPollRequests ) {
-//         for(var cnt = 0; cnt < noOfSteps; cnt++ ) {
-//           var thisResult = results[ cnt ];
-//           if ( thisResult.status === "processed") {
-//             continue;
-//           }          
-//           if ( thisResult.status === "pending" ) {
-//             thisResult.status = "processed";
-//             thisResult.display_text = "Step " + Number(cnt + 1) + " is processed";
-//           }
-//           if ( thisResult.status === "queued" ) {
-//             if ( noOfPollRequests ) {
-//               thisResult.status = "pending"; 
-//               thisResult.display_text = "Step " + Number(cnt + 1) + " is pending"; 
-//             }
-//             if ( noOfPollRequests ) {
-//               break;
-//             } else {
-//               //Last request.
-//               thisResult.status = shouldFail ? "failed" : "processed";
-//               thisResult.display_text = "Step " + Number(cnt + 1) + " is " + (shouldFail ? "Failed" : "Processed");
-//               if ( shouldFail ) {
-//                 break;
-//               }
-//             }
-//           } 
-//         }
-//       }
-//       --noOfPollRequests;
-//       setTimeout(function () {
-//         txStatusModal.onPollSuccess( response );
-//       }, 300)
-//     }
-
-//     txStatusModal.show();
-//   }
-
-
-//   setTimeout(function () {
-//     fn();
-//   }, 2000);
-  
-// })();
+ //// Code to Simulate:
+ //
+ //
+ //(function () {
+ //
+ //  var fn = function () {
+ //
+ //    //Config for simulation:
+ //    var noOfSteps = 5;
+ //    var noOfPollRequests = (2 * noOfSteps) + Math.max(0, (noOfSteps - 1) );
+ //    var resolveIn        = parseInt( noOfPollRequests/noOfSteps );
+ //    var shouldFail = false;
+ //
+ //    var results = [];
+ //    for(var cnt = 0; cnt < noOfSteps; cnt++ ) {
+ //      results.push({
+ //        "status": "queued"
+ //        , "display_text": "Step " + Number(cnt + 1) + " is queued"
+ //      });
+ //    }
+ //
+ //    var txStatusModal = new ost.TSM(4, "/tx_dummy.json");
+ //    txStatusModal.pollTxStatus = function () {
+ //      var response = {
+ //        success: true
+ //        , data: {
+ //          "result_type" : "tx_data"
+ //          , "tx_data"   : results
+ //        }
+ //      };
+ //      if ( noOfPollRequests % resolveIn == 0 || !noOfPollRequests ) {
+ //        for(var cnt = 0; cnt < noOfSteps; cnt++ ) {
+ //          var thisResult = results[ cnt ];
+ //          if ( thisResult.status === "processed") {
+ //            continue;
+ //          }
+ //          if ( thisResult.status === "pending" ) {
+ //            thisResult.status = "processed";
+ //            thisResult.display_text = "Step " + Number(cnt + 1) + " is processed";
+ //          }
+ //          if ( thisResult.status === "queued" ) {
+ //            if ( noOfPollRequests ) {
+ //              thisResult.status = "pending";
+ //              thisResult.display_text = "Step " + Number(cnt + 1) + " is pending";
+ //            }
+ //            if ( noOfPollRequests ) {
+ //              break;
+ //            } else {
+ //              //Last request.
+ //              thisResult.status = shouldFail ? "failed" : "processed";
+ //              thisResult.display_text = "Step " + Number(cnt + 1) + " is " + (shouldFail ? "Failed" : "Processed");
+ //              if ( shouldFail ) {
+ //                break;
+ //              }
+ //            }
+ //          }
+ //        }
+ //      }
+ //      --noOfPollRequests;
+ //      setTimeout(function () {
+ //        txStatusModal.onPollSuccess( response );
+ //      }, 300)
+ //    }
+ //
+ //    txStatusModal.show();
+ //  }
+ //
+ //
+ //  setTimeout(function () {
+ //    fn();
+ //  }, 2000);
+ //
+ //})();
 
 
 
