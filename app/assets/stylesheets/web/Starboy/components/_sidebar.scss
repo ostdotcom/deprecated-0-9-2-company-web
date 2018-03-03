@@ -26,11 +26,17 @@
   //
 
   .nav-pills {
-
+    .nav-item{
+      &:first-child{
+        .nav-link{
+          border-top: none;
+        }
+      }
+    }
     .nav-link{
       color: color("blue-400");
       border-radius: inherit;
-      border-top: 1px solid rgba($teal, 0.2);
+      border-top: solid 1px rgba(175, 225, 227, 0.2);;
       padding: 0.8rem $nav-link-padding-x;
 
       svg.icon{
