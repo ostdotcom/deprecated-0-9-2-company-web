@@ -47,6 +47,8 @@
 
 }
 
+svg > g:last-child > g:last-child { pointer-events: none }
+
 .token-val-usd{
   background: #f1f5f8;
   color: #819aa1;
