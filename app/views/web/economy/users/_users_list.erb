@@ -1,7 +1,7 @@
 <div class="container users-list-container"  data-airdrop-processing="false">
   <div class="row">
     <div class="col-12 p-0">
-      <div class="d-flex justify-content-between align-items-center my-5">
+      <div class="d-flex justify-content-between align-items-center mt-6 mb-5">
         <h3 class="mb-0">Users</h3>
         <div class="text-right">
           <button id="airdrop_btn" class="btn btn-gold mr-3">AIRDROP TOKENS</button>
@@ -11,7 +11,7 @@
     </div>
     <div class="transactions">
       <div class="row header">
-        <div class="col-2">PROFILE</div>
+        <div class="col-2"></div>
         <div class="col-3">NAME</div>
         <div class="col-2">TOKEN AIRDROP</div>
         <div class="col-2">TOKEN AVAILABLE</div>
@@ -26,7 +26,13 @@
       <div id="user_list" class="economy_users w-100 transactions" data-simple-table data-url="/api/economy/users/list">
         <script type="text/x-handlebars-template" data-row-template>
           <div class="row mt-1 mb-3 rounded ost-table-row cell align-items-center">
-            <div class="col-2">ProfileIcon</div>
+            <div class="col-2">
+              <svg class="icon-users align-middle">
+                <switch>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-users"></use>
+                </switch>
+              </svg>
+            </div>
             {{#ifEditUser mode}}
               <div class="col-10">
                 <form class="add-user-form" id="save-user-{{id}}" action="/api/economy/users/create" method="POST" data-user-id="{{id}}">
