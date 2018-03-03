@@ -38,3 +38,17 @@
     color: $blue-500;
   }
 }
+
+._tabs{
+
+  .card{
+    background: $alice-blue;
+    font-size: 0.8rem;
+    border: 0;
+
+    .card-title{
+      font-size: 0.8rem;
+    }
+  }
+
+}

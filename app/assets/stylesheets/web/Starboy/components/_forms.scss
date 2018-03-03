@@ -121,6 +121,30 @@
       }
     }
 
+    &.slider-banana{
+      .slider-selection{
+        background: $banana;
+      }
+      .slider-handle{
+        background: $banana;
+      }
+      .slider-track-high{
+        border: 1px solid $banana;
+      }
+    }
+
+    &.slider-aqua{
+      .slider-selection{
+        background: $aqua;
+      }
+      .slider-handle{
+        background: $aqua;
+      }
+      .slider-track-high{
+        border: 1px solid $aqua;
+      }
+    }
+
     &.slider-primary {
       .slider-selection{
         background: $blue-700;

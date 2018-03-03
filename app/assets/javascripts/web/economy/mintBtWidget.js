@@ -464,7 +464,7 @@
       pieHole: 0.7,
       pieSliceText: 'none',
       pieSliceBorderColor: 'none',
-      colors: ['f6c62b','88c7ca','34445b'],
+      colors: ['fbd764','84d1d4','34445b'],
       legend: 'none',
       chartArea: {
         width: 180,
