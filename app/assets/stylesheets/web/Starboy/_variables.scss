@@ -49,6 +49,7 @@ $sherpa:  #61818a !default; // customized
 $boston-blue: #438BAD !default; // customized
 $rice-cake: #EEEDDC !default; // customized
 $cyanish-gray: #9BAFB5 !default; // customized
+$mystic: #dadfdc !default; // customized
 
 // Theme background colors
 $yellow-bg: #F9F8E6 !default;
@@ -621,6 +622,8 @@ $nav-tabs-link-active-border-color: $gray-300 $gray-300 $nav-tabs-link-active-bg
 $nav-pills-border-radius:           $border-radius !default;
 $nav-pills-link-active-color:       $component-active-color !default;
 $nav-pills-link-active-bg:          $component-active-bg !default;
+$nav-pills-link-inactive-color:     $mystic;
+$nav-pills-link-inactive-bg:        $teal-bg;
 
 // Navbar
 
