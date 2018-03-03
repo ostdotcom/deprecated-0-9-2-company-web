@@ -111,9 +111,10 @@
   border: 1px solid #34445b;
   background: #ffffff;
   color: #34445b;
+  box-shadow: none;
   &.focus-cls,
   &:focus{
-    color: #ffffff;
+    color: #34445b;
     outline: none;
     text-decoration: none;
   }
