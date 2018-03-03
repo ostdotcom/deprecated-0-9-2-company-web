@@ -39,6 +39,9 @@
     , jRowTemplateHtml : null
     , rowTemplate : null
     , sScrollParent: null
+    , events: {
+      "responseProcessed": "responseProcessed"
+    }
     
     , getRowTemplate: function () {
       var oThis = this;
@@ -292,6 +295,7 @@
         oThis.showDataLoadError( response );
       }
       logMe && console.log("Datatable :: processResponse done!");
+      oThis.applyTrigger(oThis.events.responseProcessed, arguments );
     }
     , createLoadingWrap: function ( jParent ) {
       var jWrap = $('<div data-simple-table-end></div>');
@@ -394,6 +398,22 @@
     }
     , dataDeletedResult: {
       id: "__deleted"
+    }
+
+    /** BEGIN :: Generic Methods that trigger events **/
+    , callTrigger: function ( eventKey, data ) {
+      var oThis = this;
+
+      var args = Array.prototype.slice.call(arguments);
+      args.shift();
+      $( oThis ).trigger(oThis.events[eventKey], args );
+    }
+
+    , applyTrigger: function ( eventKey, argsAsArgumnets ) {
+      var oThis = this;
+
+      var args = Array.prototype.slice.call( argsAsArgumnets );
+      $( oThis ).trigger(oThis.events[eventKey], args );
     }
 
   }
