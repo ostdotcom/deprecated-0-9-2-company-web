@@ -447,7 +447,7 @@
 
       setTimeout(function () {
         oThis.pollTxStatus();
-      }, 60000);
+      }, 5000);
 
     }
 
