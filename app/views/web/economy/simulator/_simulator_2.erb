@@ -1,5 +1,5 @@
 <%
-  should_show_api_call_button = true;
+  
 
   bt_name   = @presenter_obj.client_token.name;
   bt_symbol = @presenter_obj.client_token.symbol;
@@ -9,11 +9,11 @@
   transaction_history_api = '/api/economy/transaction/history' ;
   long_poll_timeout_millisecond = 500;  #Value needed in milliseconds
 
-  hide_api_call_btn = false
-  if @presenter_obj.api_console_data.present?
+  should_show_api_call_button = true;
+  if @presenter_obj.api_console_data.present? && @presenter_obj.api_console_data.for_execute_transaction.present?
     api_console_data = @presenter_obj.api_console_data.for_execute_transaction
   else
-    hide_api_call_btn = true
+    should_show_api_call_button = false
   end
   
 %>
@@ -75,7 +75,7 @@
                 <span class="align-middle">{{getUserName to_user_id}} </span>
               </span>
             </div>
-            <% if !hide_api_call_btn %>
+            <% if should_show_api_call_button %>
               <button class="btn btn-white slider-btn">api call</button>
             <% end %>
           </div>
@@ -101,9 +101,12 @@
 
               <div class="col-sm-3 pb-2">Transaction Fee</div>
               <div class="col-sm-9 pb-2">{{diplay_transaction_fee transaction_fee}}</div>
+
+              <div class="col-sm-3 pb-2">Status</div>
+              <div class="col-sm-9 pb-2">{{diplay_transaction_fee transaction_fee}}</div>              
             </div>
           </div>
-          <% if !hide_api_call_btn %>
+          <% if should_show_api_call_button %>
           <div class="code-session col-12">
               <!-- comment class="w-100 code-comment"></comment -->
               <code class="w-100 code-line">
@@ -128,6 +131,11 @@
     Handlebars.registerHelper('bt_symbol', function(response, options ) {
       return "<%= bt_symbol %>";
     });
+    //{{uri_encoded key}}
+    Handlebars.registerHelper('uri_encoded', function(data, options ) {
+      return encodeURIComponent( data );
+    });
+
   });
 
 </script>
