@@ -299,7 +299,7 @@
       var jContent = $(''
         + '<div class="container simple-data-table-loader" style="display: none;">'
           + '<div class="text-center">'
-            + '<img src="/ajax-loader.gif" />'
+            + '<img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader.gif" height="30" width="30"/>'
           + '</div>'
         + '</div>'
       );
