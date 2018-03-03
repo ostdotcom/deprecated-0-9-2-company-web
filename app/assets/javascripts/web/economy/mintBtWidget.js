@@ -104,6 +104,7 @@
         oThis.jBtToFiat.trigger("change");
       } else {
         oThis.jOstToBt.trigger("change");
+        oThis.jBtToFiat.safeSetVal( PriceOracle.btToFiat( 1 ) );
       }
 
       oThis.updateBtToOst();
@@ -192,8 +193,6 @@
 
     , formSubmitConfirmed : function () {
       var oThis = this;
-
-      oThis.jConfirmBtn.prop("disabled", true);
       oThis.transferToStaker( function ( response ) {
         if ( response.success ) {
           var transaction_hash = response.data.transaction_hash;
@@ -201,8 +200,8 @@
           
           oThis.processStaking( transaction_hash );
         }
-        oThis.jConfirmBtn.prop("disabled", false);
       });
+      oThis.jConfirmModal.modal("hide");
     }
 
     , processStaking: function ( transaction_hash ) {
