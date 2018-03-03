@@ -12,7 +12,7 @@ class Web::HomeController < Web::BaseController
 
   end
 
-def resolve_layout
+  def resolve_layout
     case action_name
     when "unsupported_client"
       "header_only"

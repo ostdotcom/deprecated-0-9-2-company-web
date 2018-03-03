@@ -5,6 +5,8 @@ class Web::EconomyController < Web::BaseController
   before_action :check_if_client_is_supported
   before_action :set_page_meta_info
 
+  after_action :remove_browser_caching
+
   # Dashboard where post setup metrics can be seen
   #
   # * Author: Puneet
