@@ -22,7 +22,7 @@
 
 <div class="row mb-4">
   <div class="w-100">
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between">
       <h3 class="mb-0 mt-2">Simulator</h3>
       <form id="run-transaction-form" action="<%= execute_transaction_api%>" method="POST" data-ost-formhelper >
         <button type="submit" class="btn btn-gold run-transaction-btn" data-submiting="Running...">run a transaction</button>
@@ -49,7 +49,7 @@
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-card-transactions-3"></use>
                   </switch>
                 </svg>
-                <span class="align-middle badge" style="background-color: #9cc5c1;">{{display_bt_transfer_value bt_transfer_value}} <%= bt_symbol %></span>
+                <span class="align-middle badge rounded" style="background-color: #9cc5c1;">{{display_bt_transfer_value bt_transfer_value}} <%= bt_symbol %></span>
                 &nbsp;
                 From
                 &nbsp;
