@@ -74,7 +74,7 @@ class Web::UserController < Web::BaseController
   # * Reviewed By:
   #
   def verify_existing_login
-    return if request.cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].blank?
+    return if cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].blank?
 
     @response = CompanyApi::Request::Client.new(
         CompanyApi::Response::Formatter::Client,

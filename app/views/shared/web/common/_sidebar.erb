@@ -1,5 +1,7 @@
 <%
   action = @presenter_obj.action
+
+  setup_not_complete_class = @presenter_obj.client_token.step_three_done? ? '' : 'disabled'
 %>
 <%= render :partial => "/shared/web/common/sidebar-icons.svg" %>
 
@@ -19,7 +21,7 @@
         </li>
     <% end %>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= action == 'dashboard' ? 'active' : ''%>" href="/dashboard">
+      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %> <%= action == 'dashboard' ? 'active' : ''%>" href="/dashboard">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-dashboard"></use>
@@ -29,7 +31,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= action == 'token_supply' ? 'active' : ''%>" href="/token-supply">
+      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %> <%= action == 'token_supply' ? 'active' : ''%>" href="/token-supply">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-token-supply"></use>
@@ -39,7 +41,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= action == 'users' ? 'active' : ''%>" href="/users">
+      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %> <%= action == 'users' ? 'active' : ''%>" href="/users">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-users"></use>
@@ -49,7 +51,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= action == 'transactions' ? 'active' : ''%>" href="/transactions">
+      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %> <%= action == 'transactions' ? 'active' : ''%>" href="/transactions">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-transactions"></use>
@@ -59,7 +61,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= action == 'simulator' ? 'active' : ''%>" href="/simulator">
+      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %> <%= action == 'simulator' ? 'active' : ''%>" href="/simulator">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-simulator"></use>
@@ -69,7 +71,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= action == 'token_design' ? 'active' : ''%>" href="/token-design">
+      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %> <%= action == 'token_design' ? 'active' : ''%>" href="/token-design">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-token-design"></use>
@@ -79,7 +81,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center" href="/">
+      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %>" href="#">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-bt-explorer"></use>
@@ -89,7 +91,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center" href="#">
+      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %>" href="#">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-campaigns"></use>
@@ -99,7 +101,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center" href="#">
+      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %>" href="#">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-analytics"></use>
@@ -109,7 +111,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center" href="#">
+      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %>" href="#">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-kyc"></use>
