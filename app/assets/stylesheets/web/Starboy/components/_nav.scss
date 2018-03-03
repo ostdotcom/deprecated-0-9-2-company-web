@@ -49,17 +49,6 @@ $token-symbol-height:40px;
         .gold{
           color: color('yellow-300');
         }
-        &.active{
-          &:after{
-            content: '';
-            display: inline-block;
-            border-bottom: 2px solid red;
-            width: 100%;
-            bottom: 0;
-            left: 0;
-            position: absolute;
-          }
-        }
       }
     }
   }

@@ -44,18 +44,18 @@
       <% if client_balances.present? && client_balances.balances.present? %>
           <% if bt_balance_s.present? %>
               <li class="nav-item">
-                <a class="nav-link active">
+                <span class="nav-link active">
                   <span class="d-block">available <%= client_token.name %></span>
                   <span class="d-block gold text-sm-left text-md-center"><%= "#{bt_balance_s} (#{client_fiat_curreny_pref_symbol}#{bt_fiat_balance_s})" %></span>
-                </a>
+                </span>
               </li>
           <% end %>
           <% if ost_balance_s.present? %>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <span class="nav-link" href="#">
                   <span class="d-block">available ost</span>
                   <span class="d-block gold text-sm-left text-md-center"><%= "#{ost_balance_s} (#{client_fiat_curreny_pref_symbol}#{ost_fiat_balance_s})" %></span>
-                </a>
+                </span>
               </li>
           <% end %>
       <% end %>
