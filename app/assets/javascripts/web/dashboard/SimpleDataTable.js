@@ -298,10 +298,10 @@
       oThis.applyTrigger(oThis.events.responseProcessed, arguments );
     }
     , createLoadingWrap: function ( jParent ) {
-      var jWrap = $('<div data-simple-table-end></div>');
+      var jWrap = $('<div data-simple-table-end class="w-100"></div>');
       //Do you magic here.
       var jContent = $(''
-        + '<div class="container simple-data-table-loader" style="display: none;">'
+        + '<div class="container simple-data-table-loader mb-4" style="display: none;">'
           + '<div class="text-center">'
             + '<img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader.gif" height="30" width="30"/>'
           + '</div>'
