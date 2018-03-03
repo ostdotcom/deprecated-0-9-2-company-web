@@ -16,14 +16,14 @@
 
 <%#= render :partial => "/shared/web/common/alert" %>
 <nav class="navbar navbar-expand-md navbar-light ">
-  <a class="navbar-brand font-weight-normal" href="#">
-    <spna class="token-symbol <%= client_token.symbol_icon %>">
+  <span class="navbar-brand font-weight-normal">
+    <span class="token-symbol <%= client_token.symbol_icon %>">
       <%= client_token.symbol %>  
-    </spna>
+    </span>
     <span class="token-name">
       <%= client_token.name %>  
     </span>
-  </a>
+  </span>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -60,7 +60,7 @@
           <% end %>
       <% end %>
       <li class="nav-item">
-        <a class="nav-link d-flex" href="#">
+        <a class="nav-link d-flex" href="https://help.ost.com/support/home" target="_blank">
           <svg class="get-help-icon">
             <switch>
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ost-get-help-logo"></use>
