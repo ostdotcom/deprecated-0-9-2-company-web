@@ -6,7 +6,7 @@ module GlobalConstant
     class << self
 
       def user_cookie_name
-        'ca'
+        'ost_kit_ca'
       end
 
       # Not a actual cookie. but key is used internally to manage cookies instructed by company API
