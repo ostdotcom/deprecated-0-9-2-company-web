@@ -13,7 +13,7 @@
   }
   .desc{
     font-size: 0.9rem;
-    color: color('blue-700');
+    color: $blue-700;
   }
   .desc-2{
     font-size: 0.8rem;
@@ -31,6 +31,13 @@
     right: 10px;
     position: absolute;
   }
+  .link{
+    color: color('cyan');
+    border-bottom: 1px solid $cyan;
+    &:hover{
+      text-decoration: none;
+    }
+  }
   .card{
     padding: 8px;
     margin: 10px;
@@ -42,19 +49,6 @@
     .item-2{
       color: $blue-600;
       font-size: 0.8rem;
-    }
-  }
-  .badge{
-    top: 0;
-    right: 0;
-    padding: 5px 15px;
-    color: color('white');
-    width: 25%;
-    &.test-net{
-      background-color: #f5a623;
-    }
-    &.side-chain{
-      background-color: $blue-700;
     }
   }
 }
