@@ -223,15 +223,13 @@ class Web::EconomyController < Web::BaseController
   # * Date: 02/02/2018
   # * Reviewed By:
   #
-  def token_design
-
-    #TODO: Change this when we know what is to be shown on this page
+  def developer_api_console
 
     @response = CompanyApi::Request::Economy.new(
         CompanyApi::Response::Formatter::Economy,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).fetch_transaction_kinds_details
+    ).fetch_developer_api_console_details
 
     # Check if error present or not?
     unless @response.success?

@@ -374,7 +374,7 @@ en:
         :specific_css_required: 1
         :specific_js_required: 1
 
-    token_design:
+    developer_api_console:
       :meta:
         :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
         :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'

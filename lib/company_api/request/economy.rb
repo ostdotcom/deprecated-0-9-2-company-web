@@ -103,6 +103,16 @@ module CompanyApi
         get('transaction/fetch-simulator-details')
       end
 
+      # Fetch developer API Console Details
+      #
+      # * Author: Puneet
+      # * Date: 03/03/2018
+      # * Reviewed By:
+      #
+      def fetch_developer_api_console_details
+        get('developer-api-console')
+      end
+
       private
 
     end

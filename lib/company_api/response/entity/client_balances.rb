@@ -57,7 +57,7 @@ module CompanyApi
         end
 
         def ost_fiat_balance_s(currency_pref)
-          ost_balance.present? ? format_balance_to_s(convert_ost_to_fiat(ost_balance, currency_pref)) : nil
+          ost_balance.present? ? format_fiat_balance_to_s(convert_ost_to_fiat(ost_balance, currency_pref)) : nil
         end
 
         def eth_balance
@@ -77,7 +77,7 @@ module CompanyApi
         end
 
         def eth_fiat_balance_s(currency_pref)
-          eth_balance.present? ? format_balance_to_s(convert_ost_to_fiat(eth_balance, currency_pref)) : nil
+          eth_balance.present? ? format_fiat_balance_to_s(convert_ost_to_fiat(eth_balance, currency_pref)) : nil
         end
 
         def ost_prime_balance
@@ -97,7 +97,7 @@ module CompanyApi
         end
 
         def ost_prime_fiat_balance_s(currency_pref)
-          ost_prime_balance.present? ? format_balance_to_s(convert_ost_to_fiat(ost_prime_balance, currency_pref)) : nil
+          ost_prime_balance.present? ? format_fiat_balance_to_s(convert_ost_to_fiat(ost_prime_balance, currency_pref)) : nil
         end
 
         def bt_balance
@@ -117,7 +117,11 @@ module CompanyApi
         end
 
         def bt_fiat_balance_s(currency_pref)
-          bt_balance.present? ? format_balance_to_s(convert_bt_to_fiat(bt_balance, currency_pref)) : nil
+          bt_balance.present? ? format_fiat_balance_to_s(convert_bt_to_fiat(bt_balance, currency_pref)) : nil
+        end
+
+        def format_fiat_balance_to_s(balance)
+          balance.round(2)
         end
 
         def format_balance_to_s(balance)

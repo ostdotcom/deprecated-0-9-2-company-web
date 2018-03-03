@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     get '/users' => :users
     get '/transactions' => :transactions
     get '/simulator' => :simulator
-    get '/token-design' => :token_design
+    get '/developer-api-console' => :developer_api_console
   end
 
   # Route not found handler. Should be the last entry here
