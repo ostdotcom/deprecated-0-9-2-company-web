@@ -1,5 +1,6 @@
 .alert{
   &.alert-secondary{
+    border: none;
     color: $blue-600;
     font-size: 0.875rem;
     background-color: $alice-blue;
