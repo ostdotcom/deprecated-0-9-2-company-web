@@ -18,9 +18,43 @@
 }
 
 .transaction-history-wrapper {
-
-  .card-header ,  .card-body {
-      background-color: $blue-bg;
-      color: $blue-700;
+  .card{
+    border: none;
   }
+  .card-header ,  .card-body {
+    background-color: $alice-blue;
+    color: $blue-700;
+    border: none;
+  }
+}
+
+.badge{
+  background-color: #9cc5c1;
+  color: #fff;
+  font-weight: 300;
+  font-size: 12px;
+  padding: 2px 10px;
+}
+
+
+.u-kind-company {
+  background-image: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/simulator-company.svg');
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  background-size: 100% 100%;
+}
+.u-kind-user {
+  background-image: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/simulator-user.svg');
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  background-size: 100% 100%;
+}
+.receiver.u-kind-user {
+  background-image: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/simulator-receiver.svg');
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  background-size: 100% 100%;
 }

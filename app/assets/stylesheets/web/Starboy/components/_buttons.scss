@@ -72,9 +72,10 @@
   color: #a1c5d6;
   &.focus-cls,
   &:focus{
-    color: #597a84;
+    color: #a1c5d6;
     outline: none;
     text-decoration: none;
+    box-shadow: none;
   }
   &.hover-cls, &.active-cls,
   &:hover, &:active{

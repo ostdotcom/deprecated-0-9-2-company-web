@@ -18,29 +18,12 @@
   
 %>
 
-
-<style>
-  <% # @Thahir/Akshay Please move these styles. to appropriate place %>
-  .u-kind-company {
-    background-image: url(https://dummyimage.com/100x100/FDA629/FDA629);
-    width: 32px;
-    height: 32px;
-    display: inline-block;
-  }
-  .u-kind-user {
-    background-image: url(https://dummyimage.com/100x100/c4c4c4/c4c4c4);
-    width: 32px;
-    height: 32px;
-    display: inline-block;
-  }
-</style>
-
 <!--This div should always be present with the details-->
 
-<div class="row ost__planner mb-4">
+<div class="row mb-4">
   <div class="w-100">
     <div class="d-flex justify-content-between align-items-center">
-      <h3 class="d-inline-block">Simulator</h3>
+      <h3 class="mb-0 mt-2">Simulator</h3>
       <form id="run-transaction-form" action="<%= execute_transaction_api%>" method="POST" data-ost-formhelper >
         <button type="submit" class="btn btn-gold run-transaction-btn" data-submiting="Running...">run a transaction</button>
         <div class="general_error invalid-feedback" data-forid="run-transaction-form">&nbsp;</div>
@@ -50,33 +33,43 @@
 </div>
 
 
-<div class="row ost__planner slider-parent-container" data-slider-content-wrapper=".card" >
-  <div id="transaction-history-table" class="col-12" data-simple-table data-url="<%= transaction_history_api %>">
+<div class="row slider-parent-container" data-slider-content-wrapper=".card" >
+  <div id="transaction-history-table" class="col-12 transaction-history-wrapper" data-simple-table data-url="<%= transaction_history_api %>">
     <script type="text/x-handlebars-template" data-row-template >
-      <div class="card row mb-4 ">
+      <div class="card row mb-4 rounded">
         <div class="card-header col-12">
           <div class="d-flex align-items-center justify-content-between p2">
             <div class="w-100">
               <span class="rounded-circle align-middle"></span>
               <span class="align-middle">
-                <span class="align-middle">{{txName transaction_type_id}}</span> 
-
-                <span class="align-middle" style="background-color: #9cc5c1;">
+                <span class="align-middle">{{txName transaction_type_id}}</span>
+                &nbsp;
+                <span class="align-middle badge" style="background-color: #9cc5c1;">
                   {{display_bt_transfer_value bt_transfer_value}} <%= bt_symbol %>
                 </span>
-
+                &nbsp;
                 From
+                &nbsp;
                 <span class="align-middle {{getUserIconClass from_user_id}}"></span>
-
+                &nbsp;
                 <span> {{getUserName from_user_id}}</span>
-
-                To
-                <span class="align-middle {{getUserIconClass to_user_id}}"></span>
+                &nbsp;
+                to
+                &nbsp;
+                <span class="align-middle receiver {{getUserIconClass to_user_id}}"></span>
+                &nbsp;
                 <span class="align-middle">{{getUserName to_user_id}} </span>
               </span>
             </div>
             <% if should_show_api_call_button %>
-              <button class="btn btn-white slider-btn">api call</button>
+              <button class="showApiCallBtn btn btn-api slider-btn">
+                <svg class="icon-api-transactions align-middle">
+                  <switch>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-api-transactions"></use>
+                  </switch>
+                </svg>
+                <span class="align-middle">API Call</span>
+              </button>
             <% end %>
           </div>
         </div>
@@ -86,6 +79,7 @@
             <span>Getting Transaction Details</span>
           </div>
         {{else}}
+        <hr class="m-0"/>
           <div class="card-body p-4">
             <div class="row mb-0">
               <div class="col-sm-3 pb-2">Tx Hash</div>
