@@ -19,7 +19,7 @@
     bt_to_fiat = ""
   elsif @presenter_obj.client_token_planner.present?
     bt_to_fiat = @presenter_obj.client_token_planner.token_worth_in_usd
-    ost_to_bt = ost_to_fiat / bt_to_fiat
+    ost_to_bt = (ost_to_fiat / bt_to_fiat).round(5)
   end
 
   if @presenter_obj.client_balances.present? && @presenter_obj.client_balances.ost_balance.present?
