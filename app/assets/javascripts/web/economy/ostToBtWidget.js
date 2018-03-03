@@ -27,14 +27,13 @@
       console.log("oThis.jBtToFiat.val()" , oThis.jBtToFiat.val() );
       //Set initial values
       var ostToBt   = PriceOracle.ostToBt( 1 ).toString( 10 )
-        , fiatInBt  = PriceOracle.btToFiat( 1 ).toString( 10 )
+        , fiatInBt  = oThis.jBtToFiat.val()
         , btToOst   = PriceOracle.btToOst(1).toString( 10 )
       ;
 
       console.log("fiatInBt" , fiatInBt);
 
       oThis.jOstToBt.safeSetVal( ostToBt );
-      oThis.jBtToFiat.safeSetVal( fiatInBt );
       oThis.jBtToOst.safeSetVal( btToOst );
 
     }

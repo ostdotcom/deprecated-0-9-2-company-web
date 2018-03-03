@@ -6,39 +6,31 @@
    ost_grant_value = 10000;
 
   if @presenter_obj.client_token_planner.present?
-    token_worth_in_usd_value = @presenter_obj.client_token_planner.token_worth_in_usd
+    bt_to_fiat = @presenter_obj.client_token_planner.token_worth_in_usd
     max_allowed_token_worth_in_usd = @presenter_obj.client_token_planner.max_allowed_token_worth_in_usd
   else
-    token_worth_in_usd_value = 0.3
+    bt_to_fiat = 0.3
     max_allowed_token_worth_in_usd = 10
   end
+  
 
-   fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
-   fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
-   fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
+  fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
+  fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
+  fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
 
-   ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type);
+  ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type);
+  ost_to_bt = ost_to_fiat / bt_to_fiat
 
-   if @presenter_obj.client_token.conversion_factor
-     ost_to_bt   = @presenter_obj.client_token.conversion_factor
-   elsif @presenter_obj.client_token_planner.present?
-     bt_to_fiat = @presenter_obj.client_token_planner.token_worth_in_usd
-     ost_to_bt = ost_to_fiat / bt_to_fiat
-   else
-     bt_to_fiat = 0.1 * ost_to_fiat
-     ost_to_bt = ost_to_fiat / bt_to_fiat
-   end
+  value_in_fiat_key = "value_in_" + fiat_type;
+  value_in_fiat_sym = value_in_fiat_key.to_sym;
 
-   value_in_fiat_key = "value_in_" + fiat_type;
-   value_in_fiat_sym = value_in_fiat_key.to_sym;
-
-   has_verified_email = @presenter_obj.user.is_verified?
-   if @presenter_obj.client_balances.blank?
-    grant_initial_ost = true
-    grant_initial_eth = true
-   else
-    grant_initial_ost = @presenter_obj.client_balances.is_eligible_for_ost_grant?
-    grant_initial_eth = @presenter_obj.client_balances.is_eligible_for_eth_grant?
+  has_verified_email = @presenter_obj.user.is_verified?
+  if @presenter_obj.client_balances.blank?
+  grant_initial_ost = true
+  grant_initial_eth = true
+  else
+  grant_initial_ost = @presenter_obj.client_balances.is_eligible_for_ost_grant?
+  grant_initial_eth = @presenter_obj.client_balances.is_eligible_for_eth_grant?
   end
 
   bt_to_fiat_id = "bt_to_fiat";
@@ -108,7 +100,7 @@
                          min: 0.01,
                          max: max_allowed_token_worth_in_usd,
                          step: 0.01,
-                         value: token_worth_in_usd_value,
+                         value: bt_to_fiat,
                          prefix: fiat_symbol,
                          tooltip: 'show',
                          classes: 'slider-yellow'

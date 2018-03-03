@@ -156,7 +156,9 @@
           success: function ( response ) {
             if ( response.success ) {
               oThis.updatePendingTransaction(response);
-              oThis.pollPendingTransactions();
+              setTimeout(function () {
+                oThis.pollPendingTransactions();
+              }, 30 * 1000);
             }
           },
           error : function () {
