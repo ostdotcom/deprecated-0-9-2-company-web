@@ -8,10 +8,10 @@
     font-weight: $font-weight-normal;
   }
   .ost-table-row{
-    border: 2px solid $blue-bg;
+    border: 1px solid $blue-bg;
     background-color: $alice-blue;
     &:hover{
-      border: 2px solid $teal;
+      border: 1px solid $teal;
       background-color: $blue-bg;
     }
     > [class*="col-"]{
