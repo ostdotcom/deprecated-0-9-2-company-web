@@ -9,6 +9,9 @@
     newUsersSimpleData: null,
     airDropTokenFormHelper: null,
 
+    idAirDropBtn: "air-drop-btn",
+    jAirDropBtn: null,
+
     showEditor: function (config) {
       var oThis = this
       ;
@@ -40,6 +43,8 @@
         return;
       }
 
+
+      oThis.jAirDropBtn = oThis.jAirDropBtn || $("#" + oThis.idAirDropBtn );
       userType = oThis.getSelectedUserType();
       oThis.initSimpleTableData(userType);
       oThis.bindEvents();
@@ -120,12 +125,45 @@
           jParent: $('#all_users')
           , sScrollParent: "#all-users-list-content-wrapper"
         });
+
+        $( oThis.allUserSimpleData ).on(oThis.allUserSimpleData.events.responseProcessed, function () {
+          oThis.updateAirDropBtn.apply(oThis, arguments);
+        });
+
       } else if ( !oThis.newUsersSimpleData ) {
         oThis.newUsersSimpleData = new ost.SimpleDataTable({
           jParent: $('#new_users')
           , sScrollParent: "#new-users-list-content-wrapper"
         });
+
+        $( oThis.newUsersSimpleData ).on(oThis.newUsersSimpleData.events.responseProcessed, function () {
+          oThis.updateAirDropBtn.apply(oThis, arguments);
+        });
       }
+
+      oThis.updateAirDropBtn();
+    },
+
+    updateAirDropBtn: function () {
+      var oThis = this;
+
+      var userType  = oThis.getSelectedUserType()
+        , dataTable = oThis.newUsersSimpleData
+        , results
+      ;
+
+      if ( userType === "all_users" ) {
+        dataTable = oThis.allUserSimpleData;
+      }
+
+      results = dataTable.results || [];
+
+      if ( results.length ) {
+        oThis.jAirDropBtn.attr("disabled", false);
+      } else {
+        oThis.jAirDropBtn.attr("disabled", true );
+      }
+
     }
 
   }
