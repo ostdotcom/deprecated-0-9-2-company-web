@@ -39,7 +39,11 @@
       var oThis = this;
 
       oThis.jMintWidgetOverlay.slideUp();
-      oThis.jMintWidgetWrap.slideDown();
+      oThis.jMintWidgetWrap.slideDown({
+        complete: function () {
+          ost.mintBtWidget.jBtToMint.trigger("change");
+        }
+      });
     }
 
   };
