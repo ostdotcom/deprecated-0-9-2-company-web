@@ -28,6 +28,10 @@ module CompanyApi
           summary_data['staker_initial_transfer']
         end
 
+        def for_airdrop_users_id
+          summary_data['airdrop_users']
+        end
+
         private
 
         def summary_data
