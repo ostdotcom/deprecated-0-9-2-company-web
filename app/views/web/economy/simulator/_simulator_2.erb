@@ -44,9 +44,12 @@
               <span class="align-middle">
                 <span class="align-middle">{{txName transaction_type_id}}</span>
                 &nbsp;
-                <span class="align-middle badge" style="background-color: #9cc5c1;">
-                  {{display_bt_transfer_value bt_transfer_value}} <%= bt_symbol %>
-                </span>
+                <svg class="icon-card-transactions align-middle">
+                  <switch>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-card-transactions-3"></use>
+                  </switch>
+                </svg>
+                <span class="align-middle badge" style="background-color: #9cc5c1;">{{display_bt_transfer_value bt_transfer_value}} <%= bt_symbol %></span>
                 &nbsp;
                 From
                 &nbsp;
