@@ -2,14 +2,14 @@ module WebPresenter
 
   module Economy
 
-    class User < ::WebPresenter::BasePresenter
+    class Simulator < ::WebPresenter::BasePresenter
 
       # Init
       #
       # @param [Result::Base] data_obj (mandatory) - Page data
       # @param [Hash] params (optional) - Page params
       #
-      # @return [WebPresenter::Economy::User] returns an object of WebPresenter::Economy::User class
+      # @return [WebPresenter::Economy::Simulator] returns an object of WebPresenter::Economy::Simulator class
       #
       def initialize(data_obj, params = {})
         super

@@ -209,7 +209,7 @@ class Web::EconomyController < Web::BaseController
       return
     end
 
-    @presenter_obj = ::WebPresenter::Economy::Planner.new(@response, params)
+    @presenter_obj = ::WebPresenter::Economy::Simulator.new(@response, params)
     unless @presenter_obj.client_token.step_three_done?
       redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect
       return
@@ -237,7 +237,7 @@ class Web::EconomyController < Web::BaseController
       return
     end
 
-    @presenter_obj = ::WebPresenter::Economy::Planner.new(@response, params)
+    @presenter_obj = ::WebPresenter::Economy::DeveloperApiConsole.new(@response, params)
     unless @presenter_obj.client_token.step_three_done?
       redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect
       return

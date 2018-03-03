@@ -15,6 +15,10 @@ module WebPresenter
         super
       end
 
+      def api_console_data
+        @a_cd ||= (formatter_obj.api_console_data || {})
+      end
+
     end
 
   end

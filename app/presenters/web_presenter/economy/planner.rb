@@ -19,6 +19,10 @@ module WebPresenter
         @c_sts ||= (formatter_obj.client_stats || {})
       end
 
+      def api_console_data
+        @a_cd ||= (formatter_obj.api_console_data || {})
+      end
+
       # after step 3 has been completed, we would not allow this page to open up
       def is_valid_request?
         !client_token.step_three_done?
