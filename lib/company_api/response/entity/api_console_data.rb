@@ -39,7 +39,7 @@ module CompanyApi
         end
 
         def user_data
-          @u_d ||= {@data['user'] || {}}
+          @u_d ||= (@data['user'] || {})
         end
 
         def transaction_kind_data
