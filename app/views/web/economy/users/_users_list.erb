@@ -55,8 +55,14 @@
                     </div>
                     <div class="col-2"></div>
                     <div class="col-6">
-                      <button type="submit" class="save-user-btn btn float-left mr-1" data-submiting="Saving...">Save</button>
-                      <button type="button" class="cancel-user-btn btn float-left">Cancel</button>
+                      <button type="submit" class="save-user-btn btn float-left mr-1 btn-gold" data-submiting="Saving...">Save</button>
+                      <a href="javascript:void(0)" class="cancel-user-btn rounded-circle edit-btn" title="Close">
+                        <svg class="icon-edit-transactions align-middle">
+                          <switch>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-users-cancel"></use>
+                          </switch>
+                        </svg>
+                      </a>
                     </div>
                   </div>
                 </form>
@@ -66,7 +72,7 @@
               <div class="col-2">{{total_airdropped_tokens}}</div>
               <div class="col-2">{{token_balance}} </div>
               <div class="col-3">
-                <button class="showApiCallBtn btn btn-white slider-btn btn-api">
+                <button class="showApiCallBtn btn ost-btn-secondary slider-btn btn-api">
                   <svg class="icon-api-transactions align-middle">
                     <switch>
                       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-api-transactions"></use>
