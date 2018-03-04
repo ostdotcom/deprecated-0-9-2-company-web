@@ -1,0 +1,30 @@
+<div class="row ost__alert font-weight-light">
+  <div class="col text-center">
+    <span class="ost__alert__text">We have sent an email to <%= @presenter_obj.user.email %>
+      please click on the Verify Button in the email to Activate your Account.</span>
+    <a href="javascript:void(0)" id="notification-email-resend-btn" class="btn ost__alert__button font-weight-normal">
+      Re-send email
+    </a>
+  </div>
+</div>
+
+<% content_for :popups do %>
+  <%= render :partial => "/shared/web/modals/verify_account" %>
+<% end %>
+
+<% content_for :end_js do %>
+  <script type="text/javascript">
+    $( function () {
+      $('#notification-email-resend-btn').off('click').on('click' , function () {
+        var jVerifyModal = $('#verify-modal');
+        jVerifyModal.modal('show');
+        jVerifyModal.on('shown.bs.modal', function () {
+          var oThis =  this ;
+          setTimeout(function () {
+            $(oThis).find('#resend-verification-email-btn').trigger('click');
+          } , 300 );
+        });
+      });
+    });
+  </script>
+<% end %>

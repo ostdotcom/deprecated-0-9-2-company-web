@@ -1,5 +1,8 @@
 <header >
 
+  <%#= render :partial => "/shared/web/common/low_on_gas_alert" %>
+  <%#= render :partial => "/shared/web/common/email_validation_alert" %>
+
   <div class="fixed-top header-height">
     <% if @presenter_obj.is_client_logged_in? %>
         <%= render :partial => "/shared/web/common/header_logged_in" %>
@@ -8,4 +11,5 @@
     <% end %>
   </div>
   <div class="header-height"></div>
+
 </header>

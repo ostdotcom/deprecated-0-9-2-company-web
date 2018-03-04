@@ -4,3 +4,4 @@
 //= require web/dashboard/GetOstHelper
 //= require web/utils-simple-data-table
 //= require web/dashboard/TxStatusModal
+//= require web/common/verify-account
