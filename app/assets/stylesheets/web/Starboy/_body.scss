@@ -31,8 +31,8 @@ html, body{
   width: calc(100% - #{$side-bar-nav-width});
   margin-left: $side-bar-nav-width;
   min-height: calc(100vh - #{$ost-header-height});
-  min-width: 920px;
-  overflow-x: auto;
+  min-width: $content-min-width;
+  
   transition: all 0.3s;
 
   #cover-container {
@@ -68,6 +68,11 @@ html, body{
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
+@media (max-width: $content-min-width) {
+  #content {
+    overflow-x: auto;
+  }
+}
 @media (max-width: 768px) {
   #content {
     width: 100%;
