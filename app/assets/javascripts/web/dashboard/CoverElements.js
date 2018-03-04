@@ -43,7 +43,8 @@
       var finalCss = {
         display: "block",
         zIndex: newZIndex,
-        top: newTop
+        top: newTop,
+        scrollTop: 0
       };
 
 
@@ -61,7 +62,8 @@
         display: "block",
         zIndex: newZIndex
       }).animate({
-        top: newTop
+        top: newTop,
+        scrollTop: 0
       }, {
         complete: onAnimationComplete
       });

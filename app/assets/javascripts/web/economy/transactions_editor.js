@@ -215,7 +215,6 @@
     , showEditor: function () {
       var oThis = this;
 
-      oThis.jEditor.scrollTop(0);
       ost.coverElements.show( oThis.jEditor );
     }
     , cleanUp: function () {
