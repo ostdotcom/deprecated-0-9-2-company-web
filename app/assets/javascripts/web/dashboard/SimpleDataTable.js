@@ -273,11 +273,20 @@
           , result_type     = data.result_type
           , newResults      = data[ result_type ] || []
           , nextPagePayload = newMeta.next_page_payload || {}
+          , newResult       = null
+          , oldResult       = null
         ;
 
         if ( newResults.length ) {
           for(var cnt = 0; cnt < newResults.length; cnt++ ) {
-            oThis.appendResult( newResults[ cnt ] );
+            newResult = newResults[ cnt ];
+            oldResult = oThis.isResultPresent( newResult );
+            if( !oldResult ){
+              oThis.appendResult( newResult );
+            }else {
+              $.extend( oldResult , newResult );
+             // oThis.updateResult( oldResult );
+            }
           }
         }
 
@@ -383,6 +392,14 @@
 
       return oThis.results;
     }
+
+    ,isResultPresent : function ( newResult ) {
+      var oThis = this
+        , resultId = newResult['id']
+      ;
+      return oThis.getResultById( resultId );
+    }
+
     , getResultById: function ( resultId, idKey ) {
       var oThis = this;
 

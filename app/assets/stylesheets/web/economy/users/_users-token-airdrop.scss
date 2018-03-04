@@ -8,15 +8,14 @@
 #users-list-container {
   border: 1px solid $blue-300;
 
-  .content-header {
-    padding: 10px ;
-    background-color: $blue-300;
-    color: $teal;
-    font-weight: 500;
-  }
-
   .users-data {
     padding: 10px ;
+  }
+
+  .table-header {
+    padding: 10px;
+    background-color:  $cyan;
+    color: $white;
   }
 }
 
@@ -35,4 +34,8 @@
 
 .new_users .new-users-data-wrapper {
   display: block;
+}
+
+#token-airdrop-form .total-token-available {
+  color: $cyan;
 }

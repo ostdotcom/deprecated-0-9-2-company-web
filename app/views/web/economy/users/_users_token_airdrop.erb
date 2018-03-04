@@ -1,19 +1,20 @@
 <%
   bt_name   = @presenter_obj.client_token.name
   bt_balance_s = @presenter_obj.client_balances.bt_balance_s
+  bt_symbol = @presenter_obj.client_token.symbol;
 %>
 
 <div class="container">
   <form id="token-airdrop-form" action="/api/economy/users/airdrop/" method="POST" data-ost-formhelper>
     <div class="row">
     <div class="col-12">
-        <h3 class="mt-4">Air drop Tokens</h3>
+        <h3 class="mt-4">Airdrop <%= bt_symbol %></h3>
         <hr class="mb-0">
     </div>
 
     <div class="col-10 mt-4">
       <div class="p-2 mocker-card-bg">
-        <span> TOTAL <%= bt_name %> AVAILABLE <%= bt_balance_s %></span>
+        <span class="total-token-available"> TOTAL <%= bt_name %> AVAILABLE <%= bt_balance_s %></span>
       </div>
     </div>
 
@@ -29,26 +30,26 @@
         <div class="col-4 form-check form-check-inline">
           <input class="form-check-input radio-button j-user-type" type="radio" data-user-type="new_users"
           id="new-users" name="airdrop_list_type" value="never_airdropped"/>
-          <label class="form-check-label radio-button-label" for="new-users"><span class="radio-button-circle"></span>Newly Added</label>
+          <label class="form-check-label radio-button-label" for="new-users"><span class="radio-button-circle"></span>Since last Airdrop</label>
         </div>
       </div>
     </div>
 
-    <div class="col-10">
+    <div class="col-10 user-form">
       <div class="mt-4 form-group">
-        <div class="header">NO OF TOKENS TO AIR DROP (EACH USER)</div>
+        <div class="form-label">NO OF TOKENS TO AIRDROP (EACH USER)</div>
         <input id="airdrop-value" class="form-control" type="number" min="1" required name="amount" placeholder="No of tokens" />
         <div class="invalid-feedback" data-forname="amount">&nbps;</div>
         <input class="users_list_type" hidden type="text" name="" >
       </div>
     </div>
 
-    <div class="col-10 mt-4">
-      <div id="users-list-container">
+    <div class="col-10">
+      <div id="users-list-container" class="ost-simple-table">
 
         <div class="all-users-data-wrapper">
-            <div class="content-header ">ALL USERS LIST</div>
-            <div class="content-wrapper" id="all-users-list-content-wrapper">
+            <div class="table-header">ALL USERS</div>
+            <div class="table-content" id="all-users-list-content-wrapper">
               <div id="all_users" class="" data-url="/api/economy/users/list/?filter=all">
                 <script type="text/x-handlebars-template" data-row-template>
                   <div class="users-data">
@@ -60,8 +61,8 @@
         </div>
 
         <div class="new-users-data-wrapper">
-          <div class="content-header">NEWLY ADDED USER LIST</div>
-          <div class="content-wrapper" id="new-users-list-content-wrapper">
+          <div class="table-header">NEW USER</div>
+          <div class="table-content" id="new-users-list-content-wrapper">
             <div id="new_users" class="w-100" data-url="/api/economy/users/list?filter=never_airdropped">
               <script type="text/x-handlebars-template" data-row-template>
                 <div class="users-data">
