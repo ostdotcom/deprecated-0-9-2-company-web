@@ -138,7 +138,7 @@
       oThis.updateSubmitText();
 
       //Submit the form!
-      oThis.submitForm();
+      oThis.submitForm( ajaxConfig );
     }
 
     , updateSubmitText: function () {

@@ -238,6 +238,8 @@
 
       if ( !has_commission ) {
         oThis.setDataInAjaxData("commission_percent", 0, ajaxData);
+        oThis.setDataInAjaxData("commission_in_bt", 0, ajaxData);
+        oThis.setDataInAjaxData("commission_in_fiat", 0, ajaxData);
       }
 
     }
