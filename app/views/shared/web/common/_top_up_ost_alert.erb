@@ -1,6 +1,28 @@
-<div class="row font-weight-light">
-  <div class="col text-center p-2">
-    <span class="ost__alert__text">You are running low on OST. Please topup to continue.</span>
-    <a href="" class="btn ost__alert__button font-weight-normal">topup OST </a>
+<%
+  height_cls_name = "alert-height";
+%>
+<div class="<%= height_cls_name %> ost__alert">
+  <div class="row font-weight-light">
+    <div class="col text-center p-2">
+      <span class="ost__alert__text">You are running low on OST. Please topup to continue.</span>
+      <a href="javascript:void(0)" class="btn ost__alert__button font-weight-normal j-top-up-ost-btn">topup OST </a>
+    </div>
   </div>
 </div>
+
+<% content_for :phantom_header_el do %>
+  <div class="<%= height_cls_name %>"></div>
+<% end %>
+
+
+<% content_for :end_js do %>
+  <script type="text/javascript">
+    (function () {
+      $('.j-top-up-ost-btn').off('click').on('click' , function () {
+        ost.metamask.getOstHelper.getOst( function () {
+          window.location.reload(true);
+        });
+      });
+    })();
+  </script>
+<% end %>

@@ -7,6 +7,10 @@
 
 <aside id="sidebar" class="sidebar-nav">
 
+  <div class="header-phantom-el-wrapper">
+    <%= yield(:phantom_header_el) %>
+  </div>
+
   <ul class="nav nav-pills flex-column">
     <% if action == 'planner' %>
         <li class="nav-item">

@@ -30,16 +30,14 @@
 
     <!-- Header alerts, if any alert is rendered than below phantom element with class name alert-height should also be rendered-->
     <% if show_notification > 0 %>
-        <div class="alert-height ost__alert">
-          <% case show_notification %>
-          <% when 1 %>
-              <%= render :partial => "/shared/web/common/email_validation_alert" %>
-          <% when 2 %>
-              <%= render :partial => "/shared/web/common/top_up_ost_alert" %>
-          <% when 3 %>
-              <%= render :partial => "/shared/web/common/top_up_transaction_alert" %>
-          <% end %>
-        </div>
+        <% case show_notification %>
+        <% when 1 %>
+            <%= render :partial => "/shared/web/common/email_validation_alert" %>
+        <% when 2 %>
+            <%= render :partial => "/shared/web/common/top_up_ost_alert" %>
+        <% when 3 %>
+            <%= render :partial => "/shared/web/common/top_up_transaction_alert" %>
+        <% end %>
     <% end %>
 
     <div class="header-height">
@@ -52,10 +50,10 @@
   </div>
 
   <!-- This is a phantom element for header alerts,  if any alert is rendered this should also be rendered -->
-  <% if show_notification > 0 %>
-    <div class="alert-height"></div>
-  <% end %>
 
-  <div class="header-height"></div>
+  <% content_for :phantom_header_el do %>
+    <div class="header-height"></div>
+  <% end %>
+  <%= yield(:phantom_header_el) %>
 
 </header>

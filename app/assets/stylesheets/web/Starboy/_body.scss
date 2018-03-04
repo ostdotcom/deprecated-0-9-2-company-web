@@ -30,7 +30,7 @@ html, body{
 #content {
   width: calc(100% - #{$side-bar-nav-width});
   margin-left: $side-bar-nav-width;
-  min-height: calc(100vh - #{$ost-header-height});
+ // min-height: calc(100vh - #{$ost-header-height});
   min-width: $content-min-width;
   
   transition: all 0.3s;

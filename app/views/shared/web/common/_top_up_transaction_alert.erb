@@ -1,6 +1,15 @@
-<div class="row font-weight-light">
-  <div class="col text-center p-2">
-    <span class="ost__alert__text">You are running low on transaction fees. Please topup to continue.</span>
-    <a href="/token-supply" class="btn ost__alert__button font-weight-normal">topup transaction fees</a>
+<%
+  height_cls_name = "alert-height";
+%>
+<div class="<%= height_cls_name %> ost__alert">
+  <div class="row font-weight-light">
+    <div class="col text-center p-2">
+      <span class="ost__alert__text">You are running low on transaction fees. Please topup to continue.</span>
+      <a href="/token-supply" class="btn ost__alert__button font-weight-normal">topup transaction fees</a>
+    </div>
   </div>
 </div>
+
+<% content_for :phantom_header_el do %>
+  <div class="<%= height_cls_name %>"></div>
+<% end %>

@@ -1,13 +1,21 @@
-<div class="row font-weight-light">
-  <div class="col text-center p-2">
-    <span class="ost__alert__text">We have sent an email to <%= @presenter_obj.user.email %>
-      please click on the Verify Button in the email to Activate your Account.</span>
-    <a href="javascript:void(0)" id="notification-email-resend-btn" class="btn ost__alert__button font-weight-normal">
-      Re-send email
-    </a>
+<%
+  height_cls_name = "alert-height";
+%>
+
+<div class="<%= height_cls_name %> ost__alert">
+  <div class="row font-weight-light">
+    <div class="col text-center p-2">
+      <span class="ost__alert__text">We have sent an email to <%= @presenter_obj.user.email %>
+        please click on the Verify Button in the email to Activate your Account.</span>
+      <a href="javascript:void(0)" id="notification-email-resend-btn" class="btn ost__alert__button font-weight-normal">
+        Re-send email
+      </a>
+    </div>
   </div>
 </div>
-
+<% content_for :phantom_header_el do %>
+  <div class="<%= height_cls_name %>"></div>
+<% end %>
 <% content_for :popups do %>
   <%= render :partial => "/shared/web/modals/verify_account" %>
 <% end %>
