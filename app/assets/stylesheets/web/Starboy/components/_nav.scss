@@ -58,7 +58,8 @@ $token-symbol-height:45px;
 .ost__alert{
   background-color: color('orange');
   color: color('white');
-  padding: 13px 0;
+  height: 60px;
+//  padding: 13px 0;
 
   &__planner{
     background-color: #f9f8e6;

@@ -42,10 +42,9 @@
 ._tabs{
 
   .card{
-    background: $alice-blue;
+    background: $white;
     font-size: 0.8rem;
-    border: 0;
-
+    border: 1px solid $shakespeare;
     .card-title{
       font-size: 0.8rem;
     }
