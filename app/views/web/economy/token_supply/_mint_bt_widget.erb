@@ -155,20 +155,20 @@
       id="<%= ost_transfered_transaction_hash_id %>" name="transaction_hash" />
   </div>
   <div class="col-8 offset-1 user-form form-group" id="ostSupplyPieArea">
-    <label class="form-label text-uppercase title">OST Supply</label>
+    <label class="form-label text-uppercase title">OST⍺ Supply</label>
     <div class="d-flex align-items-center">
       <div class="p-2">
         <div id="ostSupplyPie" class="pie-chat" style="width:200px; height: 200px"></div>
       </div>
       <div class="p-2 legend">
         <div class="pl-2 m-3" style="border-left: 5px solid #34445b;">
-          <strong>OST Available</strong><br /><span id="<%= ost_balance_after_transfer_id %>"></span>
+          <strong>OST⍺ Available</strong><br /><span id="<%= ost_balance_after_transfer_id %>"></span>
         </div>
         <div class="pl-2 m-3" style="border-left: 5px solid #fbd764;">
           <strong>Allocated For Transaction Fee</strong><br /><span data-ost-mock-element="#<%= st_prime_to_mint_input_id %>"></span>
         </div>
         <div class="pl-2 m-3" style="border-left: 5px solid #84D1D4;">
-          <strong>OST Used For Creating Tokens</strong>
+          <strong>OST⍺ Used For Creating Tokens</strong>
           <br /><span data-ost-mock-element="#<%= ost_stake_for_bt_id %>"></span>
         </div>
       </div>
@@ -186,11 +186,6 @@
       :bt_to_fiat_input_id => bt_to_fiat_input_id,
       :bt_to_ost_input_id => bt_to_ost_input_id,
       :ost_stake_for_bt_id => ost_stake_for_bt_id
-    }
-  %>
-  <%= render partial: 'shared/web/modals/stake_mint_processing',
-    locals: {
-
     }
   %>
 <% end %>

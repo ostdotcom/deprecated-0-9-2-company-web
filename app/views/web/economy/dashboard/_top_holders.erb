@@ -17,9 +17,9 @@
         <script type="text/x-handlebars-template" data-row-template>
           <tr>
             <td>{{name}}</td>
-            <td>{{tokens}}</td>
-            <td>{{tokens_earned}}</td>
-            <td>{{tokens_spent}}</td>
+            <td>{{display_token tokens}}</td>
+            <td>{{display_token tokens_earned}}</td>
+            <td>{{display_token tokens_spent}}</td>
           </tr>
         </script>
       </tbody>
@@ -30,25 +30,7 @@
 <% content_for :end_js do %>
   <script type="text/javascript">
     $( function () {
-      Handlebars.registerHelper('tokens_bt', function(response, options ) {
-        var rowData =  response.data.root || {}
-          , val     = rowData.tokens
-        ;
-        val = web3.fromWei( val, "ether" );
-        return PriceOracle.toBt( val );
-      });
-      Handlebars.registerHelper('tokens_earned_bt', function(response, options ) {
-        var rowData =  response.data.root || {}
-          , val     = rowData.tokens_earned
-        ;
-        val = web3.fromWei( val, "ether" );
-        return PriceOracle.toBt( val ).toString( 10 );
-      });
-      Handlebars.registerHelper('tokens_spent_bt', function(response, options ) {
-        var rowData =  response.data.root || {}
-          , val     = rowData.tokens_spent
-        ;
-        val = web3.fromWei( val, "ether" );
+      Handlebars.registerHelper('display_token', function(val, options ) {
         return PriceOracle.toBt( val ).toString( 10 );
       });
     });

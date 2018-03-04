@@ -79,7 +79,7 @@
         {{#ifTransactionPending status }}
           <div class="pending-transaction-wrapper text-center">
             <div><img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader-1.gif" height="30" width="30"/></div>
-            <span>Getting Transaction Details</span>
+            <span>Fetching Details</span>
           </div>
         {{else}}
           <div class="card-body px-4 pt-4 pb-3">
@@ -95,7 +95,7 @@
               <div class="col-sm-3 pb-2">Time Stamp</div>
               <div class="col-sm-9 pb-2">{{display_block_timeStamp transaction_timestamp}} </div>
 
-              <div class="col-sm-3 pb-2">Transaction Fee</div>
+              <div class="col-sm-3 pb-2">Gas</div>
               <div class="col-sm-9 pb-2">{{diplay_transaction_fee transaction_fee}}</div>
 
               <div class="col-sm-3 pb-2">Status</div>

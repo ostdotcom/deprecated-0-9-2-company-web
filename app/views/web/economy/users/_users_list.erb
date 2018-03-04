@@ -1,4 +1,7 @@
 <%
+   bt_name   = @presenter_obj.client_token.name;
+   bt_symbol = @presenter_obj.client_token.symbol;
+
   if @presenter_obj.api_console_data.present?
     api_console_data = @presenter_obj.api_console_data.for_create_user
     should_show_api_call_button = true
@@ -24,8 +27,8 @@
     <div class="row table-header">
       <div class="col-2"></div>
       <div class="col-3">NAME</div>
-      <div class="col-2">TOKEN AIRDROP</div>
-      <div class="col-3">TOKEN AVAILABLE</div>
+      <div class="col-2"><%= bt_symbol %> AIRDROP</div>
+      <div class="col-3"><%= bt_symbol %> AVAILABLE</div>
       <div class="col-2"></div>
     </div>
   </div>
@@ -69,8 +72,8 @@
               </div>
             {{else}}
               <div class="col-3">{{name}}</div>
-              <div class="col-2">{{total_airdropped_tokens}}</div>
-              <div class="col-2">{{token_balance}} </div>
+              <div class="col-2">{{display_total_airdropped_tokens total_airdropped_tokens}}</div>
+              <div class="col-2">{{display_token_balance token_balance}} </div>
               <div class="col-3">
                 <button class="showApiCallBtn btn btn-info slider-btn">
                   <svg class="icon-api-transactions align-middle">
@@ -109,6 +112,15 @@
       Handlebars.registerHelper('uri_encoded', function(data, options ) {
         return encodeURIComponent( data );
       });
+
+      Handlebars.registerHelper('display_total_airdropped_tokens', function(tokens, options ) {
+        return PriceOracle.toBt( tokens ).toString( 10 );
+      });
+
+      Handlebars.registerHelper('display_token_balance', function(tokens, options ) {
+        return PriceOracle.toBt( tokens ).toString( 10 );
+      });
+
       ost.users.list.init();  
 
     });

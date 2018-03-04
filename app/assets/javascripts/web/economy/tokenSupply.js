@@ -38,10 +38,13 @@
     , showMintWidget: function () {
       var oThis = this;
 
-      oThis.jMintWidgetOverlay.slideUp();
-      oThis.jMintWidgetWrap.slideDown({
+      oThis.jMintWidgetOverlay.fadeOut({
         complete: function () {
-          ost.mintBtWidget.jBtToMint.trigger("change");
+          oThis.jMintWidgetWrap.fadeIn({
+            complete: function () {
+              ost.mintBtWidget.jBtToMint.trigger("change");
+            }
+          });
         }
       });
     }
