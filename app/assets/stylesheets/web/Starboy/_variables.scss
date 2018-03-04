@@ -936,4 +936,5 @@ $print-page-size:                   a3 !default;
 $print-body-min-width:              map-get($grid-breakpoints, "lg") !default;
 
 $ost-header-height:                 60px;
+$ost-header-alert-height:           60px;
 $cover-element-height-factor: $ost-header-height - 10;

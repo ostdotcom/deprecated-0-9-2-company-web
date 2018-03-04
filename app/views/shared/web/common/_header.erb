@@ -1,15 +1,24 @@
-<header >
+<header>
 
-  <%#= render :partial => "/shared/web/common/low_on_gas_alert" %>
-  <%#= render :partial => "/shared/web/common/email_validation_alert" %>
+  <div class="header-wrapper fixed-top">
 
-  <div class="fixed-top header-height">
-    <% if @presenter_obj.is_client_logged_in? %>
-        <%= render :partial => "/shared/web/common/header_logged_in" %>
-    <% else %>
-        <%= render :partial => "/shared/web/common/header_logged_out" %>
-    <% end %>
+    <div class="alert-height">
+      <%= render :partial => "/shared/web/common/top_up_transaction_alert" %>
+      <%#= render :partial => "/shared/web/common/top_up_ost_alert" %>
+      <%#= render :partial => "/shared/web/common/email_validation_alert" %>
+    </div>
+
+
+    <div class="header-height">
+      <% if @presenter_obj.is_client_logged_in? %>
+          <%= render :partial => "/shared/web/common/header_logged_in" %>
+      <% else %>
+          <%= render :partial => "/shared/web/common/header_logged_out" %>
+      <% end %>
+    </div>
   </div>
+
+  <div class="alert-height"></div>
   <div class="header-height"></div>
 
 </header>
