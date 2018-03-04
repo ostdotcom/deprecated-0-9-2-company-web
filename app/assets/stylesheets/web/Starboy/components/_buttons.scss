@@ -130,6 +130,29 @@
   }
 }
 
+.btn-info{
+  border: 1px solid #69a2bd;
+  background: #fff;
+  color: #69a2bd;
+  &.focus-cls,
+  &:focus{
+    color: #69a2bd;
+    outline: none;
+    box-shadow: none;
+    text-decoration: none;
+  }
+  &.hover-cls, &.active-cls,
+  &:hover, &:active{
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #69a2bd;
+    border-color: #69a2bd;
+    .icon-api-transactions{
+      fill: #ffffff;
+    }
+  }
+}
+
 
 .edit-btn{
   padding: 10px 14px;
