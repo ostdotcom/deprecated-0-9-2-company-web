@@ -11,6 +11,7 @@
 
     idAirDropBtn: "air-drop-btn",
     jAirDropBtn: null,
+    txStatusModal: null,
 
     showEditor: function (config) {
       var oThis = this
@@ -20,6 +21,11 @@
       oThis.airdropEditor.scrollTop(0);
       ost.coverElements.show(oThis.airdropEditor);
       oThis.init(config)
+    }
+    , hideEditor: function () {
+      var oThis = this;
+
+      ost.coverElements.hide(oThis.airdropEditor);
     }
 
     , getSelectedUserType: function () {
@@ -90,7 +96,10 @@
       if ( airdrop_users ) {
         airdrop_users = String( airdrop_users );
         var txModal = new ost.TSM.AirdropTxStatusModal( airdrop_users )
-        txModal && txModal.show();
+        if ( txModal ){
+          txModal.show();
+          oThis.setTxStatusModal( txModal ); 
+        }
       }
       // 
     },
@@ -108,7 +117,7 @@
       });
 
       $('#air-drop-cancel-btn').on('click', function () {
-        ost.coverElements.hide(oThis.airdropEditor);
+        oThis.hideEditor();
       });
 
     },
@@ -162,6 +171,19 @@
         oThis.jAirDropBtn.attr("disabled", false);
       } else {
         oThis.jAirDropBtn.attr("disabled", true );
+      }
+
+    },
+
+    setTxStatusModal: function ( txStatusModal ) {
+      var oThis = this;
+
+      oThis.txStatusModal = txStatusModal;
+
+      if ( txStatusModal.jModal ) {
+        txStatusModal.jModal.off("hidden.bs.modal.airDropTxStatus").on("hidden.bs.modal.airDropTxStatus", function () {
+          window.location.reload( true );
+        });
       }
 
     }

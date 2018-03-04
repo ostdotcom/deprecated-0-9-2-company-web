@@ -200,6 +200,9 @@
         txStatusModal = new ost.TSM.MintTxStatusModal("<%= pending_tx_id %>");
       <% elsif pending_critical_interaction_modal_type == airdrop_bt_status_modal_type %>
         txStatusModal = new ost.TSM.AirdropTxStatusModal("<%= pending_tx_id %>");
+        if ( ost.users && ost.users.airDropEditor ) {
+          ost.users.airDropEditor.setTxStatusModal( txStatusModal );
+        }
       <% end %>
         txStatusModal && txStatusModal.show();
     <% end %>
