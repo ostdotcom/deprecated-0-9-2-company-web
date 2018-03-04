@@ -13,14 +13,16 @@
 
   <ul class="nav nav-pills flex-column">
     <% if ['planner', 'planner_step_two', 'planner_step_three'].include?(action) %>
+        <% planner_url =  nil; %>
         <li class="nav-item">
           <% if action == 'planner' %>
-            <a class="nav-link d-flex align-items-center active" href="/planner">
+            <% planner_url =  '/planner' %>
           <% elsif action == 'planner_step_two' %>
-              <a class="nav-link d-flex align-items-center active" href="/planner/step-2">
+            <% planner_url =  '/planner/step-2' %>
           <% elsif action == 'planner_step_three' %>
-            <a class="nav-link d-flex align-items-center active" href="/planner/step-3">
+            <% planner_url =  '/planner/step-3' %>
           <% end %>
+          <a class="nav-link d-flex align-items-center active" href="<%= planner_url %>">
             <svg class="icon">
               <switch>
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-planner"></use>
