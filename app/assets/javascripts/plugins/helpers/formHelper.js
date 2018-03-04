@@ -21,7 +21,7 @@
       console.log( jForm );
       throw "FormHelper only works on form elements.";
     }
-  }
+  };
 
   FormHelper.eventNameSpace  = eventNameSpace;
   FormHelper.jqDataNameSpace = jqDataNameSpace;
