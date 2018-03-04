@@ -176,7 +176,7 @@
         },
         selector: '#transactionsType',
         type: 'ColumnChart',
-        noDataHTML: $('#graphsNodataHTML').html(),
+        noDataHTML: $('#transactionsbytype').html(),
         columns: [
           {
             type: 'string',
