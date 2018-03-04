@@ -246,7 +246,7 @@
 
       Handlebars.registerHelper('diplay_transaction_fee', function(transaction_fee, options ) {
         if( transaction_fee ) {
-          return PriceOracle.toOst(transaction_fee) + "OST";
+          return PriceOracle.toOst(transaction_fee) + " OST⍺";
         } else {
           return "NA";
         }
