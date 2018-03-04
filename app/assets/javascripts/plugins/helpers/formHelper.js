@@ -71,8 +71,10 @@
 
       if ( !jqValidateOptions.showErrors ) {
         jqValidateOptions.showErrors = function () {
+          var oValidator = this;
           // this.defaultShowErrors();
           oThis.showErrors.apply(oThis, arguments);
+          oValidator.hideErrors();
         }
       }
 
@@ -338,10 +340,6 @@
       try {
         var oThis = this;
 
-        if ( !arrayData.length ) {
-          return;
-        }
-
         $.each(arrayData, function(indx, errorData ) {
           if ( errorData.element ) {
             var jEl = $( errorData.element );
@@ -363,7 +361,6 @@
         var validElements = oThis.validator.validElements();
         validElements.each(function (indx, el) {
           var jEl = $(el);
-          console.log("validElements", jEl);
           jEl.removeClass("is-invalid");
         });
       } catch( ex ) {
