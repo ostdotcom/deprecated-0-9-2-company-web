@@ -6,6 +6,7 @@
 //= require plugins/jquery-number/jquery.number
 //= require plugins/moment/moment.min
 //= require plugins/bootstrap-slider/bootstrap-slider
+//= require plugins/bootstrap-slider/ost-bootstrap-slider-modifications
 //= require plugins/bootstrap-slider-text-input/bootstrap-slider-text-input
 //= require plugins/bignumber.js/bignumber
 //= require plugins/helpers/ajaxHooks
