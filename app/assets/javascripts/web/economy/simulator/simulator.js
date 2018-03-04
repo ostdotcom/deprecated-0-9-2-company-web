@@ -100,11 +100,14 @@
     },
 
     updateDisplayContent : function ( data )  {
+      data = data || {};
       var transactions = data && data.transactions,
           jFirstTransactionWrapper = $('.first-transaction-wrapper'),
           jTransactionHistoryWrapper = $('.transaction-history-wrapper')
       ;
-      if(transactions && transactions.length > 0){
+      if ( (oThis.simulatorTable && oThis.simulatorTable.results && oThis.simulatorTable.results.length ) 
+          || (transactions && transactions.length > 0) 
+      ) {
         jFirstTransactionWrapper.hide();
         jTransactionHistoryWrapper.show();
       }else {
