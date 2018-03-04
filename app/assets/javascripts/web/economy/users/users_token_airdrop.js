@@ -95,7 +95,7 @@
       console.log("onTokenAirDropSuccess :: data", data);
       if ( airdrop_users ) {
         airdrop_users = String( airdrop_users );
-        var txModal = new ost.TSM.AirdropTxStatusModal( airdrop_users )
+        var txModal = new ost.TSM.AirdropTxStatusModal( airdrop_users );
         if ( txModal ){
           txModal.show();
           oThis.setTxStatusModal( txModal ); 

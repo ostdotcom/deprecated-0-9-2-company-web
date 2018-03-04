@@ -38,11 +38,7 @@
 
 %>
 
-<%=
-    if !@presenter_obj.user.is_verified?
-      render :partial => "/shared/web/common/planner_alert"
-    end
-%>
+<%= render :partial => "/shared/web/common/planner_alert" %>
 
 <div class="container">
   <form id="step1-form"
