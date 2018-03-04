@@ -50,7 +50,11 @@
     </div>
   </div>
 
-  <div class="alert-height"></div>
+  <!-- This is a phantom element for header alerts,  if any alert is rendered this should also be rendered -->
+  <% if show_notification > 0 %>
+    <div class="alert-height"></div>
+  <% end %>
+
   <div class="header-height"></div>
 
 </header>
