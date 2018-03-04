@@ -135,12 +135,10 @@
   padding: 10px 14px;
   display: inline-block;
   text-align: center;
-  border: 1px solid #a1c5d6;
   margin-left: 10px;
   &:hover{
-    border-color: #84d1d4;
     .icon-edit-transactions{
-      fill: #84d1d4;
+      fill: #ffffff;
     }
   }
 }
