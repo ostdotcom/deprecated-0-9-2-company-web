@@ -303,7 +303,7 @@
       var jContent = $(''
         + '<div class="container simple-data-table-loader mb-4" style="display: none;">'
           + '<div class="text-center">'
-            + '<img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader.gif" height="30" width="30"/>'
+            + '<img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader-1.gif" height="30" width="30"/>'
           + '</div>'
         + '</div>'
       );

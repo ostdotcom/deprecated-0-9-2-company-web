@@ -47,6 +47,9 @@
       span.label{
         margin-left: 12px;
       }
+      &:hover{
+        background-color: rgba(155, 175, 181, 0.1);
+      }
     }
 
     .nav-link.active,
