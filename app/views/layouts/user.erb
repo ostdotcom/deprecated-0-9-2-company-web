@@ -53,20 +53,7 @@
 
   <%= csrf_meta_tags %>
 
-  <link rel="icon" type="image/png" sizes="64x64" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/64.png"/>
-  <link rel="apple-touch-icon" sizes="57x57" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/180.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/192.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/96.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/v2/16.png">
+  <%= render :partial => "/shared/web/common/fav_icons" %>
 
   <%= stylesheet_link_tag "web/bootstrap-theme" %>
   <%= stylesheet_link_tag "#{specific_manifest_file_path}", media: 'all' if has_specific_css_manifest_file? %>
