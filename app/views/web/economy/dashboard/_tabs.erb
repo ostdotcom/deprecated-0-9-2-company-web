@@ -23,7 +23,7 @@
           <div class="card">
             <div class="card-body text-uppercase text-center">
               <h5 class="card-title mb-1"><%=@presenter_obj.client_token.symbol%> available</h5>
-              <p class="card-text mb-1"><%= bt_balance_s %></p>
+              <div class="card-text mb-1"><span class="orange"><%= bt_balance_s %></span></div>
             </div>
           </div>
       <% end %>
@@ -31,7 +31,7 @@
           <div class="card">
             <div class="card-body text-uppercase text-center">
               <h5 class="card-title mb-1">Token rate (<%= client_fiat_curreny_display_text %>)</h5>
-              <p class="card-text mb-1"><%=client_fiat_curreny_pref_symbol%> <%= ost_to_fiat %></p>
+              <div class="card-text mb-1"><span class="orange"><%=client_fiat_curreny_pref_symbol%> <%= ost_to_fiat %></span></div>
             </div>
           </div>
       <% end %>

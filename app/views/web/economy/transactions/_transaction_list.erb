@@ -44,7 +44,7 @@
       <div class="col-2">VALUE (<%= fiat_display_text %>)</div>
       <div class="col-2">VALUE (<%= bt_symbol %>)</div>
       <div class="col-2">PRICE ORACLE</div>
-      <div class="col-3">FEES</div>
+      <div class="col-3 p-0">FEES</div>
     </div>
   </div>
 
@@ -57,7 +57,7 @@
             <div class="col-2"><%= fiat_symbol %>{{value_in_fiat}}</div>
             <div class="col-2">{{value_in_bt}}</div>
             <div class="col-2">{{price_oracle_text}}</div>
-            <div class="col-1">{{commission_percent}}&#37;</div>
+            <div class="col-1 px-0">{{commission_percent}}&#37;</div>
             <div class="col-3">
               <% if should_show_api_call_button %>
                 <button class="showApiCallBtn btn ost-btn-secondary btn-api slider-btn">

@@ -19,13 +19,14 @@
 
 .transaction-history-wrapper {
   .card{
-    border: none;
+    font-size: 1rem;
+    color: $shakespeare;
   }
-  .card-header ,  .card-body {
-    background-color: $alice-blue;
-    color: $blue-700;
-    border: none;
-  }
+//  .card-header ,  .card-body {
+//    background-color: $alice-blue;
+//    color: $blue-700;
+//    border: none;
+//  }
 }
 
 .badge{

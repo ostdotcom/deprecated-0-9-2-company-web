@@ -4,24 +4,6 @@
 // Import theme variables
 @import "../Starboy/variables";
 
-._tabs{
-
-  .card{
-    background: $alice-blue;
-    font-size: 0.8rem;
-    border: 0;
-
-    .card-title{
-      font-size: 0.8rem;
-    }
-
-    .card-text{
-      color: $yellow-300
-    }
-  }
-
-}
-
 ._transactions_value,
 ._transactions_type,
 ._top_holders{
@@ -51,8 +33,11 @@
     font-size: 0.8rem;
     color: #597a84;
     .thead-light th{
-      background: #c1e8e9;
-      font-weight: 300;
+      color: $white;
+      letter-spacing: 0.5px;
+      background: #438BAD;
+      font-weight: 500;
+      border: none;
       text-transform: uppercase;
     }
   }
@@ -64,10 +49,22 @@
   border-radius: 5px;
 }
 
-.graphs-nodata{
+.graphs-nodata-1{
   width: 100%;
   height: 100%;
   background-image: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/graph-blur-no-data.jpg');
+  background-size: cover;
+  padding: 10px;
+  text-align: center;
+  p{
+    color: #438bad;
+  }
+}
+
+.graphs-nodata-2{
+  width: 100%;
+  height: 100%;
+  background-image: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/graph-blur-no-data-2.png');
   background-size: cover;
   padding: 10px;
   text-align: center;

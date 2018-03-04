@@ -1,32 +1,40 @@
-.card-planner{
-
-  box-shadow: 0 3px 14px 4px rgba(0, 0, 0, 0.04);
-  border-radius: 5px;
-  border: none;
-
+.card{
+  background: $white;
+  font-size: 0.8rem;
+  border: 1px solid #438BAD;;
+  &.card-planner{
+    box-shadow: 0 3px 14px 4px rgba(0, 0, 0, 0.04);
+    border-radius: 5px;
+    border: none;
+  }
   .card-header{
     background: $card-bg;
-    border-bottom: 1px solid #dbf2f2;;
-    .card-title,
-    .card-text{
-      color: color('blue-700');
-    }
-
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #dbf2f2;
     a{
       color: color('blue-700');
     }
-
-    .card-title{
-      color: $cyan;
-//      font-size: 1.2rem;
-      font-weight: 500;
+  }
+  .card-title{
+    color: $cyan;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .card-text{
+    font-size: 0.8rem;
+    color: $yellow-300;
+    .blue{
+      color: $blue-700;
     }
-
-    .card-text{
-      font-size: 0.8rem;
+    .orange{
+      color: $yellow-300;
     }
   }
-
+  p{
+    color: $cyan;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+  }
 }
 
 .card-link{
@@ -37,22 +45,4 @@
   &:hover{
     color: $blue-500;
   }
-}
-
-._tabs{
-
-  .card{
-    background: $white;
-    font-size: 0.8rem;
-    border: 1px solid $shakespeare;
-    .card-title{
-      font-size: 0.8rem;
-    }
-  }
-  p{
-    color: $cyan;
-    font-size: 1rem;
-    letter-spacing: 0.5px;
-  }
-
 }

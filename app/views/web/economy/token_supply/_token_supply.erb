@@ -4,6 +4,7 @@
   token_symbol = @presenter_obj.client_token_symbol
   fiat_symbol = @presenter_obj.client_fiat_curreny_symbol
   fiat_symbol_upcase = fiat_symbol.upcase
+  client_fiat_curreny_pref_symbol = @presenter_obj.client_fiat_curreny_pref_symbol
   tokens_minted = @presenter_obj.token_supply_details.tokens_minted
   tokens_minted_s = @presenter_obj.client_balances.format_balance_to_s(tokens_minted)
 
@@ -26,36 +27,22 @@
     <h3 class="mt-6 mb-5">Token Supply</h3>
   </div>
 </div>
-<div class="row _tabs">
+<div class="row">
   <div class="col-12">
     <div class="card-deck">
-      <div class="card card-bg mb-5">
+      <div class="card mb-5">
         <div class="card-body text-uppercase text-center">
-          <h6 class="card-title mb-1"><%= token_symbol %> MINTED</h6>
+          <h6 class="card-title mb-1">Total <%= token_symbol %></h6>
           <div class="card-text mb-1">
             <span class="blue"><%= "#{token_symbol}" %></span>
             <span class="orange"><%= "#{tokens_minted_s}" %></span>
           </div>
           <div class="card-text orange">
-            <span class="blue"><%= "#{fiat_symbol_upcase}" %></span>
-            <span class="orange"><%= "#{tokens_minted_fiat_s}" %></span>
+            <span class="orange"><%= "#{client_fiat_curreny_pref_symbol}" %><%= "#{tokens_minted_fiat_s}" %></span>
           </div>
         </div>
       </div>
-      <div class="card card-bg mb-5">
-        <div class="card-body text-uppercase text-center">
-          <h6 class="card-title mb-1"><%= token_symbol %> AVAILABLE</h6>
-          <div class="card-text mb-1">
-            <span class="blue"><%= "#{token_symbol}" %></span>
-            <span class="orange"><%= "#{bt_balance_s}" %></span>
-          </div>
-          <div class="card-text orange">
-            <span class="blue"><%= "#{fiat_symbol_upcase}" %></span>
-            <span class="orange"><%= "#{bt_fiat_balance_s}" %></span>
-          </div>
-        </div>
-      </div>
-      <div class="card card-bg mb-5">
+      <div class="card mb-5">
         <div class="card-body text-uppercase text-center">
           <h6 class="card-title mb-1"><%= token_symbol %> DISTRIBUTED</h6>
           <div class="card-text mb-1">
@@ -63,8 +50,19 @@
             <span class="orange"><%= "#{tokens_distributed_s}" %></span>
           </div>
           <div class="card-text orange">
-            <span class="blue"><%= "#{fiat_symbol_upcase}" %></span>
-            <span class="orange"><%= "#{tokens_distributed_fiat_s}" %></span>
+            <span class="orange"><%= "#{client_fiat_curreny_pref_symbol}" %><%= "#{tokens_distributed_fiat_s}" %></span>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-5">
+        <div class="card-body text-uppercase text-center">
+          <h6 class="card-title mb-1"><%= token_symbol %> not distributed</h6>
+          <div class="card-text mb-1">
+            <span class="blue"><%= "#{token_symbol}" %></span>
+            <span class="orange"><%= "#{bt_balance_s}" %></span>
+          </div>
+          <div class="card-text orange">
+            <span class="orange"><%= "#{client_fiat_curreny_pref_symbol}" %><%= "#{bt_fiat_balance_s}" %></span>
           </div>
         </div>
       </div>
