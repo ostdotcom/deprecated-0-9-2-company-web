@@ -99,7 +99,7 @@
             name: "Reward",
             kind: "company_to_user",
             currency_type: "BT",
-            currency_value: 5,
+            currency_value: 1,
             commission_percent: 0
           }, {
             name: "Purchase",
