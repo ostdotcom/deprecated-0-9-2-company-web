@@ -377,18 +377,26 @@
         , val       = jEl.val()
         , jEnable
         , jDisable
+        , jShow
+        , jHide
       ;
 
       if ( val === "BT" ) {
         jEnable   = oThis.jValueInBt;
         jDisable  = oThis.jValueInFiat;
+        jShow     = $("#currency_type_bt_help_text");
+        jHide     = $("#currency_type_fiat_help_text");
       } else {
         jEnable   = oThis.jValueInFiat;
         jDisable  = oThis.jValueInBt;
+        jShow     = $("#currency_type_fiat_help_text");
+        jHide     = $("#currency_type_bt_help_text");
       }
 
       jDisable.prop('disabled', true);
       jEnable.prop('disabled', false);
+      jShow.show();
+      jHide.hide();
     }
 
     , onCommissionChanged: function () {

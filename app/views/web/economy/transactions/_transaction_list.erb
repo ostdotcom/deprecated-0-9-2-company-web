@@ -104,7 +104,7 @@
       Handlebars.registerHelper('price_oracle_text', function(response, options ) {
 
         var rowData = response.data.root || {};
-        return  rowData.currency_type === "BT" ? "No" : "Yes";
+        return  rowData.currency_type === "BT" ? "Off" : "On";
 
       });
 
