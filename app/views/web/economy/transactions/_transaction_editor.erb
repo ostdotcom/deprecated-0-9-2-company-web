@@ -43,19 +43,19 @@
     </div>
     <div class="col-12">
       <div class="form-group m-0" id="kindFormGroup">
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button" type="radio"
             name="kind" id="kind_user_to_user" value="user_to_user" />
             <label class="radio-button-label" for="kind_user_to_user">
             <span class="radio-button-circle"></span>User to User</label>
         </div>
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button" type="radio"
             name="kind" id="kind_user_to_company" value="user_to_company" />
           <label class="radio-button-label" for="kind_user_to_company">
             <span class="radio-button-circle"></span>User to Company</label>
         </div>
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button" type="radio"
             name="kind" id="kind_company_to_user" value="company_to_user" />
           <label class="radio-button-label" for="kind_company_to_user">
@@ -82,18 +82,19 @@
     </div>
     <div class="col-12">
       <div class="form-group" id="value_currency_type_group">
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button" type="radio"
             name="currency_type" id="currency_type_fiat" value="<%= fiat_type %>" />
           <label class="radio-button-label" for="currency_type_fiat">
             <span class="radio-button-circle"></span>Yes</label>
         </div>
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button" type="radio"
             name="currency_type" id="currency_type_bt" value="BT" />
           <label class="radio-button-label" for="currency_type_bt">
             <span class="radio-button-circle"></span>No</label>
         </div>
+        <label class="radio-button-label p-0 font-weight-light">(<%= bt_symbol %> value remains constant <%= fiat_display_text %> value will auto adjust)</label>
         <div class="invalid-feedback" data-forname="currency_type">&nbps;</div>
       </div>
     </div>
@@ -133,13 +134,13 @@
     <div class="col-12">
       <% # Below form-group is UI only %>
       <div class="form-group" id="has_commission_group">
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button" type="radio"
             name="has_commission" id="has_commission_yes" value="1" />
           <label class="radio-button-label" for="has_commission_yes">
             <span class="radio-button-circle"></span>Yes</label>
         </div>
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button" type="radio"
             name="has_commission" id="has_commission_no" value="0" />
           <label class="radio-button-label" for="has_commission_no">
@@ -232,7 +233,7 @@
       <button id="transaction_editor_submit_btn" type="submit" data-submiting="Adding..." 
         class="mt-4 btn btn-gold d-inline-block float-left">ADD TRANSACTION</button>
       <a id="transaction_editor_cancel_btn" href="javascript:void(0)"
-        class="mt-4 ml-4 btn btn-white d-inline-block float-left">CANCEL</a>
+        class="mt-4 ml-4 btn ost-btn-secondary d-inline-block float-left">CANCEL</a>
     </div>
     <div class="col-12">
       <div class="mt-5 mb-5" style="height: 20px" />
