@@ -149,6 +149,10 @@ module CompanyApi
           eth_balance.blank? || eth_balance < 0.05
         end
 
+        def show_mint_st_prime_popup?
+          ost_prime_balance.blank? || ost_prime_balance < 1
+        end
+
         private
 
         def convert_ost_to_fiat(value, currency_symbol)

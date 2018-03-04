@@ -88,6 +88,14 @@ module WebPresenter
       @params[:action]
     end
 
+    def can_show_email_verify_notification?
+      false
+    end
+
+    def can_show_low_balance_notification?
+      true
+    end
+
   end
 
 end

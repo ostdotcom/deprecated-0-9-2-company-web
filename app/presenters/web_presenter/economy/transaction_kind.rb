@@ -19,6 +19,10 @@ module WebPresenter
         @a_cd ||= (formatter_obj.api_console_data || {})
       end
 
+      def client_stats
+        @c_sts ||= (formatter_obj.client_stats || {})
+      end
+
     end
 
   end

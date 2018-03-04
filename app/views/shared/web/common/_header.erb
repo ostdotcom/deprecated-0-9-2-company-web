@@ -2,12 +2,44 @@
 
   <div class="header-wrapper fixed-top">
 
-    <div class="alert-height">
-      <%= render :partial => "/shared/web/common/top_up_transaction_alert" %>
-      <%#= render :partial => "/shared/web/common/top_up_ost_alert" %>
-      <%#= render :partial => "/shared/web/common/email_validation_alert" %>
-    </div>
+    <%
 
+      show_notification = 0
+
+      if @presenter_obj.is_client_logged_in?
+
+        if @presenter_obj.can_show_email_verify_notification? && @presenter_obj.user.present? && !@presenter_obj.user.is_verified?
+
+          show_notification = 1
+
+        elsif @presenter_obj.can_show_low_balance_notification? && @presenter_obj.client_balances.present? &&
+            @presenter_obj.client_balances.is_eligible_for_ost_grant?
+
+          show_notification = 2
+
+        elsif @presenter_obj.can_show_low_balance_notification? && @presenter_obj.client_balances.present? &&
+            @presenter_obj.client_balances.show_mint_st_prime_popup?
+
+          show_notification = 3
+
+        end
+
+      end
+
+    %>
+
+    <% if show_notification > 0 %>
+        <div class="alert-height">
+          <% case show_notification %>
+          <% when 1 %>
+              <%= render :partial => "/shared/web/common/email_validation_alert" %>
+          <% when 2 %>
+              <%= render :partial => "/shared/web/common/top_up_ost_alert" %>
+          <% when 3 %>
+              <%= render :partial => "/shared/web/common/top_up_transaction_alert" %>
+          <% end %>
+        </div>
+    <% end %>
 
     <div class="header-height">
       <% if @presenter_obj.is_client_logged_in? %>

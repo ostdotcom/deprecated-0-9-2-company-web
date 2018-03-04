@@ -23,9 +23,12 @@ module WebPresenter
         @a_cd ||= (formatter_obj.api_console_data || {})
       end
 
-      # after step 3 has been completed, we would not allow this page to open up
-      def is_valid_request?
-        !client_token.step_three_done?
+      def can_show_email_verify_notification?
+        true
+      end
+
+      def can_show_low_balance_notification?
+        false
       end
 
     end

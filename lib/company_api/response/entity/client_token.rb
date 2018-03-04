@@ -75,7 +75,7 @@ module CompanyApi
 
         def step_three_done?
           if @s_th_d.nil?
-            @s_th_d = setup_steps.include?('registered_on_vc')
+            @s_th_d = setup_steps.include?('airdrop_setup_done')
           end
           @s_th_d
         end
