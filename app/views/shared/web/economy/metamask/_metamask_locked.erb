@@ -25,15 +25,27 @@
           watch help video
         </button>
       </div>
-      <h3 class="text-center mt-6 mb-3">FAQ for installing MetaMask</h3>
-      <ul class="list-group list-group-flush show-last-border">
-        <li class="list-group-item font-weight-light link">
-          <a href="" class="link-item item-heading">Installing MetaMask, your digital wallet!</a>
-        </li>
-        <li class="list-group-item font-weight-light link">
-          <a href="" class="link-item item-heading">Why us my MetaMask locked?</a>
-        </li>
-      </ul>
+
+      <%=
+          render :partial => "shared/web/common/faqs",
+                 locals: {
+            header: "FAQ for installing MetaMask",
+            faqs: [
+            {
+              title: 'Why do I need to use Chrome and install MetaMask?',
+          url: 'https://help.ost.com/support/solutions/articles/35000059263-why-do-i-need-to-install-metamask-'
+          },
+          {
+            title: 'How do I unlock MetaMask?',
+          url: 'https://help.ost.com/support/solutions/articles/35000059264-how-do-i-unlock-metamask-'
+          },
+          {
+            title: 'Why can I use only one MetaMask account with OST KIT⍺?',
+          url: 'https://help.ost.com/support/solutions/articles/35000059265-why-can-i-use-only-one-metamask-account-with-ost-kit%E2%8D%BA-'
+          }
+          ]
+          }
+      %>
     </div>
   </div>
 </div>
