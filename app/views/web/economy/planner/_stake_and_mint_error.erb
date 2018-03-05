@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-12 text-center p-4">
+    <div class="card border-0">
+      <div class="card-body">
+        <h3>
+          Oops, it looks like there a problem!
+        </h3>
+        <p class="p-4">
+          Unfortunately, due to network connectivity issues the Stake & Mint process has failed and cannot be re-started without our help.
+        </p>
+        <h6 class="pb-4">
+          Please contact support@ost.com for assistance.
+        </h6>
+        <button class="btn ost-btn-secondary"> Back </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% content_for :end_js do %>
+  <script type="text/javascript">
+    $(function () {
+      ost.coverElements.show("#stake-and-mint-error-cover");
+    });
+  </script>
+<% end %>

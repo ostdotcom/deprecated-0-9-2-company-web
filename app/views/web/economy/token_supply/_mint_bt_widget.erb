@@ -190,6 +190,13 @@
   %>
 <% end %>
 
+<% content_for :cover_elements do %>
+  <div id="stake-and-mint-error-cover" class="cover-element">
+    <div class="container">
+      <%#= render :partial => "/web/economy/planner/stake_and_mint_error" %>
+    </div>
+  </div>
+<%end%>
 
 <% content_for :end_js do %> 
 <script type="text/javascript">

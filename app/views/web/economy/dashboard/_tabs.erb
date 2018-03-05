@@ -40,7 +40,7 @@
           <div class="card-body text-uppercase text-center">
             <h5 class="mb-1">
               <input hidden id="dashboard_value_in_ost" name="dashboard_value_in_ost">
-              <span data-ost-mock-element="#dashboard_value_in_ost"></span> OST⍺
+              <span data-ost-mock-element="#dashboard_value_in_ost" class="imp-value"></span> OST⍺
             </h5>
           </div>
           <div class="icon-wrapper">
@@ -54,9 +54,11 @@
         <div class="card m-0">
           <div class="card-body text-uppercase text-center">
             <h5 class="mb-1">
-              <%= client_fiat_curreny_pref_symbol %>
-              <input hidden id="dashboard_value_in_fiat" name="dashboard_value_in_fiat">
-              <span data-ost-mock-element="#dashboard_value_in_fiat" class="imp-value"></span>
+              <span class="imp-value">
+                <%= client_fiat_curreny_pref_symbol %>
+                <input hidden id="dashboard_value_in_fiat" name="dashboard_value_in_fiat">
+                <span data-ost-mock-element="#dashboard_value_in_fiat" class="imp-value"></span>
+              </span>
               <%= client_fiat_curreny_display_text %>
             </h5>
           </div>
