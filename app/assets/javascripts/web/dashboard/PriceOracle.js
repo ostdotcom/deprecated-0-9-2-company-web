@@ -121,7 +121,7 @@
       var oThis = this;
 
       var ost     = oThis.btToOst( bt, true )
-        , result  = oThis.ostToFiat( ost )
+        , result  = oThis.ostToFiat( ost, true )
       ;
 
       logMe && console.log("btToFiat :: bt", bt);
@@ -153,7 +153,7 @@
 
       fiat = BigNumber( fiat );
       var ost     = oThis.fiatToOst( fiat, true )
-        , result  = oThis.ostToBt( ost )
+        , result  = oThis.ostToBt( ost, true )
       ;
       if ( doNotRound ) {
         return result;
@@ -243,7 +243,7 @@
           return;
         }
 
-        var ostToFiat   = oThis.ostToFiat( 1 )
+        var ostToFiat   = oThis.ostToFiat( 1, true )
           , ostToBt     = ostToFiat.dividedBy( btTofiat )
         ;
 
