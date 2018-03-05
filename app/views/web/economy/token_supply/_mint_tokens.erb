@@ -11,7 +11,7 @@
   bt_st_primt_ratio = 0.9
 
   min_bt_to_mint = 0
-  min_st_prime_to_mint = 100
+  min_st_prime_to_mint = 0
 
   max_bt_to_mint = bt_st_primt_ratio * (ost_balance - min_st_prime_to_mint) * ost_to_bt
 
@@ -55,7 +55,7 @@
         </div>  
         <div class="row">
           <div class="col-12">
-            <button type="submit" class="btn btn-gold">Mint Tokens</button>
+            <button id="mint-token-btn" type="submit" class="btn btn-gold">Mint Tokens</button>
           </div>
         </div>
     </form>
