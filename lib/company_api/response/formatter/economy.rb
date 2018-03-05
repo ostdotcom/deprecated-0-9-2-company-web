@@ -6,7 +6,7 @@ module CompanyApi
 
       class Economy < CompanyApi::Response::Formatter::Base
 
-        attr_reader :client_stats, :api_console_data
+        attr_reader :client_stats, :api_console_data, :client_bt_addresses
 
         # Initialize
         #
@@ -32,8 +32,6 @@ module CompanyApi
 
           set_user(@data['user'])
 
-          pending_critical_interaction_id = @data['pending_critical_interaction_id']
-
           set_client_token(@data['client_token'])
 
           set_oracle_price_points(@data['oracle_price_points'])
@@ -51,6 +49,8 @@ module CompanyApi
           set_client_stats(@data['client_stats']) if @data['client_stats'].present?
 
           set_api_console_data(@data['api_console_data']) if @data['api_console_data'].present?
+
+          set_client_bt_addresses_data(@data['client_bt_addresses']) if @data['client_bt_addresses'].present?
 
         end
 
@@ -82,6 +82,20 @@ module CompanyApi
         #
         def set_api_console_data(api_console_data)
           @api_console_data = CompanyApi::Response::Entity::ApiConsoleData.new(api_console_data)
+        end
+
+        # Set Client BT Addresss Data
+        #
+        # * Author: Puneet
+        # * Date: 02/02/2018
+        # * Reviewed By:
+        #
+        # @param [Hash] client_bt_addresses_data (mandatory) - client_bt_addresses_data hash
+        #
+        # Sets @client_bt_addresses
+        #
+        def set_client_bt_addresses_data(client_bt_addresses_data)
+          @client_bt_addresses = CompanyApi::Response::Entity::ClientBrandedTokenAddresses.new(client_bt_addresses_data)
         end
 
       end
