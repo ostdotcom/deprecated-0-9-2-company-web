@@ -7,7 +7,7 @@ module CompanyApi
       class Base
 
         attr_reader :user, :client_token, :oracle_price_points, :chain_interaction_params,
-                    :client_token_planner, :client_balances, :pending_critical_interactions
+                    :client_token_planner, :client_balances, :token_supply_details, :pending_critical_interactions
 
         # Initialize
         #
@@ -93,6 +93,20 @@ module CompanyApi
         #
         def set_client_balances(client_balances_data)
           @client_balances = CompanyApi::Response::Entity::ClientBalances.new(client_balances_data, @client_token)
+        end
+
+        # Set token supply details
+        #
+        # * Author: Puneet
+        # * Date: 02/02/2018
+        # * Reviewed By: Sunil
+        #
+        # @param [Hash] token_supply_details_data (mandatory) - token supply details hash
+        #
+        # Sets @client_token_balance
+        #
+        def set_token_supply_details(token_supply_details_data)
+          @token_supply_details = CompanyApi::Response::Entity::TokenSupplyDetails.new(token_supply_details_data)
         end
 
         # Set orace_price_points_data
