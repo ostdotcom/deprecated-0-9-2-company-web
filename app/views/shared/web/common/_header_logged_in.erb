@@ -17,7 +17,7 @@
     tokens_minted = token_supply_details.tokens_minted
     tokens_minted_s = client_balances.format_balance_to_s(tokens_minted)
     tokens_minted_fiat = client_balances.convert_bt_to_fiat(tokens_minted, client_fiat_curreny_symbol)
-    tokens_minted_fiat_s = client_balances.format_balance_to_s(tokens_minted_fiat)
+    tokens_minted_fiat_s = client_balances.format_fiat_balance_to_s(tokens_minted_fiat)
   end
 
 %>
