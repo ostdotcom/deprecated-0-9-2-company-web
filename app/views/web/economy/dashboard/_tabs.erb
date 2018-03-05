@@ -1,5 +1,7 @@
 <%
 
+  bt_symbol = @presenter_obj.client_token.symbol;
+
   client_fiat_curreny_display_text = @presenter_obj.client_fiat_curreny_display_text
   client_fiat_curreny_pref_symbol = @presenter_obj.client_fiat_curreny_pref_symbol
   fiat_type = @presenter_obj.client_fiat_curreny_symbol;
@@ -15,34 +17,64 @@
 
 %>
 
-<div class="row">
+<div class="row dashboard-tabs">
 
   <div class="col-12">
     <div class="card-deck mt-4">
-      <% if bt_balance_s.present? %>
-          <div class="card">
-            <div class="card-body text-uppercase text-center">
-              <h5 class="card-title mb-1"><%=@presenter_obj.client_token.symbol%> available</h5>
-              <div class="card-text mb-1"><span class="orange"><%= bt_balance_s %></span></div>
-            </div>
+        <div class="card m-0">
+          <div class="card-body text-uppercase text-center">
+            <h5 class="mb-1">
+              <input hidden id="dashboard_value_in_bt"  name="dashboard_value_in_bt">
+              <span data-ost-mock-element="#dashboard_value_in_bt" class="imp-value"></span> <%= bt_symbol %>
+            </h5>
           </div>
-      <% end %>
-      <% if ost_to_fiat.present? %>
-          <div class="card">
-            <div class="card-body text-uppercase text-center">
-              <h5 class="card-title mb-1">Token rate (<%= client_fiat_curreny_display_text %>)</h5>
-              <div class="card-text mb-1"><span class="orange"><%=client_fiat_curreny_pref_symbol%> <%= ost_to_fiat %></span></div>
-            </div>
+        </div>
+        <div class="middle-content-wrapper card m-0 border-right-0 border-left-0">
+          <div class="icon-wrapper">
+            <svg class="icon-equal-to">
+              <switch>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-equal-to"></use>
+              </switch>
+            </svg>
           </div>
-      <% end %>
-      <!--open this section when BE is able to return revenue-->
-      <!--<div class="card">-->
-        <!--<div class="card-body text-uppercase text-center">-->
-          <!--<h5 class="card-title mb-1">Revenue last 24hrs (USD)</h5>-->
-          <!--<p class="card-text mb-1">$10,000</p>-->
-        <!--</div>-->
-      <!--</div>-->
+          <div class="card-body text-uppercase text-center">
+            <h5 class="mb-1">
+              <input hidden id="dashboard_value_in_ost" name="dashboard_value_in_ost">
+              <span data-ost-mock-element="#dashboard_value_in_ost"></span> OST⍺
+            </h5>
+          </div>
+          <div class="icon-wrapper">
+            <svg class="icon-equal-to">
+              <switch>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-equal-to"></use>
+              </switch>
+            </svg>
+          </div>
+        </div>
+        <div class="card m-0">
+          <div class="card-body text-uppercase text-center">
+            <h5 class="mb-1">
+              <%= client_fiat_curreny_pref_symbol %>
+              <input hidden id="dashboard_value_in_fiat" name="dashboard_value_in_fiat">
+              <span data-ost-mock-element="#dashboard_value_in_fiat" class="imp-value"></span>
+              <%= client_fiat_curreny_display_text %>
+            </h5>
+          </div>
+        </div>
     </div>
   </div>
 
 </div>
+
+<% content_for :end_js do %>
+<script type="text/javascript">
+  $( function () {
+    var jBt   = $('#dashboard_value_in_bt')
+      , jFiat = $('#dashboard_value_in_fiat')
+      , jOst  = $('#dashboard_value_in_ost')
+    ;
+    window.PriceOracle && PriceOracle.bindCurrencyElements( jBt , jFiat , jOst );
+    jBt.safeSetVal(1);
+  });
+</script>
+<% end %>

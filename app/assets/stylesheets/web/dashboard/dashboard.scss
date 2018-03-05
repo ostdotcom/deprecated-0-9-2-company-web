@@ -72,3 +72,33 @@
     color: #438bad;
   }
 }
+
+.dashboard-tabs {
+
+  .card {
+    border-radius: 0;
+  }
+
+  .middle-content-wrapper {
+    position: relative;
+
+    .icon-wrapper {
+      position: absolute;
+      background-color: $white;
+      padding: 5px;
+      z-index: 1;
+    }
+
+    .icon-wrapper:first-child {
+      top: 50%;
+      margin-top: -15px;
+      left: -10px;
+    }
+
+    .icon-wrapper:last-child {
+      top: 50%;
+      margin-top: -15px;
+      right: -10px;
+    }
+  }
+}
