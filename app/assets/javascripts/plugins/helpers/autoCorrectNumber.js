@@ -13,7 +13,7 @@
 
   var jqDataNameSpace     = "ostNumberAutoCorrector";
   var eventNameSpace      = ".numberAutoCorrectEventNamesapce";
-  var delegateAttr        = "data-ost-num-autocorrect-delegate-element";
+  var delegateAttr        = "data-ost-num-autocorrect-delegate-element"; /* FUTURE (MAY BE) */
   var autoBinderAttr      = "data-ost-num-autocorrect-element";
   var PluginClass;
 
@@ -26,10 +26,6 @@
     oThis.onChange = function () {
       oThis.update();
     };
-
-    logMe && console.log("Corrector called!");
-
-
   }
 
   PluginClass.prototype = {
@@ -59,6 +55,7 @@
         , finalVal    = targertVal
 
         /* Variables Required for step correction */
+        /* e Values are values represented in exponential scale. */
         , toFixedFactor
         , eFactor
         , eStep
@@ -95,7 +92,9 @@
 
       /* Validate Step */
       else if ( !stepBn.isNaN() && !targertBn.modulo( stepBn ).isZero() ) {
+        //Find Decimal Palces
         toFixedFactor = stepBn.decimalPlaces();
+
         //Some comment here that explains things below.
         eFactor   = BigNumber( 10 ).exponentiatedBy( toFixedFactor );
         eStep     = eFactor.multipliedBy( stepBn );
