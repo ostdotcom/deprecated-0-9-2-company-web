@@ -1,6 +1,7 @@
 //= require plugins/popper/popper
 //= require plugins/bootstrap/bootstrap
 //= require plugins/bignumber.js/bignumber
+//= require plugins/helpers/autoCorrectNumber
 //= require plugins/jquery-validate/jquery.validate
 //= require plugins/jquery-validate/ost-jquery-validate-modifications
 //= require plugins/jquery-validate/additional-methods

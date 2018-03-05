@@ -107,7 +107,10 @@
     <div class="col-4">
       <div class="form-group" id="transaction_value_in_fiat_form_group">
         <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Value IN (<%= fiat_display_text %>)</label>
-        <input id="value_in_fiat" type="number" name="currency_value" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= fiat_display_text %>)" required/>
+        <input id="value_in_fiat" type="number" name="currency_value" 
+        class="form-control" aria-describedby="emailHelp" 
+        step="0.01" min="0.01" data-ost-num-autocorrect-element
+        placeholder="Value in (<%= fiat_display_text %>)" required/>
         <div class="invalid-feedback" data-forid="value_in_fiat">&nbps;</div>
       </div>
     </div>
@@ -115,7 +118,11 @@
     <div class="col-4">
       <div class="form-group" id="value_in_bt_form_group">
         <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Value In (<%= bt_symbol %>)</label>
-        <input id="value_in_bt" type="number" name="currency_value" class="form-control" aria-describedby="emailHelp" placeholder="Value in (<%= bt_symbol %>)" required/>
+        <input id="value_in_bt" type="number" 
+          name="currency_value" class="form-control" 
+          step="0.00001" min="0.00001"
+          data-ost-num-autocorrect-element
+          aria-describedby="emailHelp" placeholder="Value in (<%= bt_symbol %>)" required/>
         <div class="invalid-feedback" data-forid="value_in_bt">&nbps;</div>
       </div>
     </div>
