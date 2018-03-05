@@ -15,6 +15,10 @@ module WebPresenter
         super
       end
 
+      def client_bt_addresses
+        @c_bt_addrs ||= (formatter_obj.client_bt_addresses || nil)
+      end
+
     end
 
   end

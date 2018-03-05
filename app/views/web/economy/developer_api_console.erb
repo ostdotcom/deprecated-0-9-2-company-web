@@ -49,11 +49,13 @@
 
 
   <%
-    branded_token_contract_address = "0x61fa4c39ec1A1DB1b8F2785109A32C68A23731c4"
-    member_reserve_key = "0x47EbBCD23DDE4DC4B5ad4e5A0b24583bc22D6268"
-    airdrop_contract_address = "0x61fa4c39ec1A1DB1b8F2785109A32C68A23731c4"
-    budget_holder_key_address = "0x47EbBCD23DDE4DC4B5ad4e5A0b24583bc22D6268"
+    client_bt_addresses = @presenter_obj.client_bt_addresses
+    branded_token_contract_address = client_bt_addresses.erc20_contract_address
+    member_reserve_key = client_bt_addresses.reserve_address
+    airdrop_contract_address = client_bt_addresses.airdrop_contract_address
+    budget_holder_key_address = client_bt_addresses.airdrop_holder_address
   %>
+
   <div class="row">
     <div class="col-12">
       <h4 class="mr-auto mb-2">Your Addresses On Utility Chain</h4>
