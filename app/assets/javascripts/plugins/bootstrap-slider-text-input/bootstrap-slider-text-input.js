@@ -23,17 +23,17 @@
       if (Array.isArray(value)) {
         if ($(textInputLeft).val() !== value[0]) {
           $(textInputLeft).setVal(value[0]);
-          $(textInputLeft).valid && $(textInputLeft).valid();
+          //$(textInputLeft).valid && $(textInputLeft).valid();
         }
 
         if ($(textInputRight).val() !== value[1]) {
           $(textInputRight).setVal(value[1]);
-          $(textInputRight).valid && $(textInputRight).valid();
+          //$(textInputRight).valid && $(textInputRight).valid();
         }
       } else {
         if ($(textInput).val() !== value) {
           $(textInput).setVal(value);
-          $(textInput).valid && $(textInput).valid();
+          //$(textInput).valid && $(textInput).valid();
         }
       }
     }
