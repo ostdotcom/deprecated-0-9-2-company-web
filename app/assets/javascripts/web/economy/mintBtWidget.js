@@ -459,6 +459,10 @@
       oThis.jOstAfter.html( remainingOst.toString( 10 ) );
     }
 
+    ,showStakeAndMintErrorCover : function () {
+      ost.coverElements.show("#stake-and-mint-error-cover");
+    }
+
     , chartOptions : {
       pieHole: 0.7,
       pieSliceText: 'none',
