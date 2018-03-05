@@ -217,9 +217,11 @@
       //commission_percent
       var commission_percent = Number( currentData.commission_percent );
       commission_percent = isNaN( commission_percent ) ? 0 : commission_percent;
-      oThis.jCommission.safeSetVal( commission_percent );
+      commission_percent = commission_percent;
+      
 
-      var has_commission_id;
+      var has_commission_id, display_commission_percent;
+      display_commission_percent = commission_percent || 1;
       
       if ( commission_percent ) {
         has_commission_id = "#has_commission_yes";
@@ -231,7 +233,7 @@
       oThis.jForm.find( has_commission_id )
         .prop("checked", true)
       ;
-      
+      oThis.jCommission.safeSetVal( display_commission_percent );
       //Use currentData.
     }
     , showEditor: function () {
