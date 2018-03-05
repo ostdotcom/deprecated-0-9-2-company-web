@@ -13,3 +13,6 @@ export CW_CA_ROOT_URL='http://devcompany.com:8080/'
 # Basic Auth credentials
 export CW_BASIC_AUTH_USERNAME='ost'
 export CW_BASIC_AUTH_PASSWORD='A$F^&n!@$ghf%7'
+
+export CA_REDIS_ENDPOINT="redis://ca:st123@127.0.0.1:6379"
+export CW_SK_ADMIN_PW="7BU]K]9Lz)_3ZADr"

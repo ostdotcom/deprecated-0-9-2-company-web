@@ -150,7 +150,7 @@ module CompanyApi
         end
 
         def show_mint_st_prime_popup?
-          ost_prime_balance.blank? || ost_prime_balance < 1
+          ost_prime_balance.blank? || ost_prime_balance < 20
         end
 
         private

@@ -32,17 +32,19 @@
   airdrop_amount = client_token_planner.airdrop_bt_per_user;
   buffer_mint_factor_over_airdrop = client_token_planner.buffer_mint_factor_over_airdrop;
 
-  min_bt_to_mint = number_of_users * airdrop_amount;
+  min_bt_to_mint = number_of_users * airdrop_amount * 2;
   bt_to_mint = number_of_users * airdrop_amount * buffer_mint_factor_over_airdrop;
 
-  min_st_prime_to_mint = 10;
-  max_st_prime_to_mint = 100;
+  min_st_prime_to_mint = 100;
+  st_prime_to_mint = 300;
+  max_st_prime_to_mint = 500;
 
   # Note: I would avoid reducing max limit as the slider value changes.
   # Instead discuss with frankie how he would like to compute max_bt_to_mint.
   # The problem needs to be solved by reserving part of OST for bt minting & and some other part for st prime minting.
   max_ost_required_for_bt_minting = user_ost_balance - max_st_prime_to_mint;
   max_bt_to_mint = (max_ost_required_for_bt_minting * ost_to_bt).to_i;
+  min_bt_to_mint = max_bt_to_mint if min_bt_to_mint > max_bt_to_mint
 
   value_in_fiat_key = "value_in_" + fiat_type;
   value_in_fiat_sym = value_in_fiat_key.to_sym;
@@ -102,7 +104,7 @@
           <div class="card-header">
             <h3 class="mb-0">Mint Tokens</h3>
           </div>
-          <div class="card-body">
+          <div class="card-body pb-2">
             <div class="user-form">
               <%= render :partial => "web/economy/token_supply/mint_bt_widget",
                 :locals => {
@@ -114,7 +116,8 @@
                   :max_bt_to_mint => max_bt_to_mint,
                   :min_st_prime_to_mint => min_st_prime_to_mint,
                   :max_st_prime_to_mint => max_st_prime_to_mint,
-                  :bt_to_fiat => bt_to_fiat
+                  :bt_to_fiat => bt_to_fiat,
+                  :st_prime_to_mint => st_prime_to_mint
                 }
               %>
             </div>
@@ -144,7 +147,7 @@
                 <strong class="font-weight-bold"><%= number_of_users %> users</strong> will be automatically created. More can be added later.
                 <input type="hidden" name="number_of_users" id="number_of_users" value="<%= number_of_users %>" />
               </li>
-              <li class="list-group-item font-weight-light font-size-p">
+              <li class="list-group-item font-weight-light font-size-p border-bottom-0">
                 In order to enable the transactions simulation
                 <strong>
                   <%= airdrop_amount %> <%= bt_symbol %>

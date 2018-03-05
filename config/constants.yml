@@ -11,6 +11,11 @@ constants:
     open_timeout: 5
     read_timeout: 5
 
+  api_sidekiq_interface:
+    redis_url: <%= ENV['CA_REDIS_ENDPOINT'] %>
+    admin_user: 'sidekiq.admin'
+    admin_pw: <%= ENV['CW_SK_ADMIN_PW'] %>
+
   basic_auth:
     username: <%= ENV['CW_BASIC_AUTH_USERNAME'] %>
     password: <%= ENV['CW_BASIC_AUTH_PASSWORD'] %>

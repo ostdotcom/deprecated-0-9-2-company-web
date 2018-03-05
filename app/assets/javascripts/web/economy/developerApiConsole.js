@@ -6,12 +6,14 @@
 
   var developerApi = oThis = ost.developerApi = {
     idForm              : "fetch-api-details-form"
+    , idFormWrap        : "fetch-api-details-form-wrap"
     , idFetchDetailsBtn : "fetch-api-details-btn"
     , idApiDetails      : "api-details-wrap"
     , idApiKey          : "api-key-text"
     , idApiSecret       : "api-secret-text"
 
     , jForm             : null
+    , jFormWrap         : null
     , jFetchDetailsBtn  : null
     , jApiDetails       : null
     , jApiKey           : null
@@ -25,6 +27,7 @@
       $.extend( oThis, config );
 
       oThis.jForm             = oThis.jForm             || $( "#" + oThis.idForm )
+      oThis.jFormWrap         = oThis.jFormWrap         || $( "#" + oThis.idFormWrap )
       oThis.jFetchDetailsBtn  = oThis.jFetchDetailsBtn  || $( "#" + oThis.idFetchDetailsBtn );
       oThis.jApiDetails       = oThis.jApiDetails       || $( "#" + oThis.idApiDetails );
       oThis.jApiKey           = oThis.jApiKey           || $( "#" + oThis.idApiKey );
@@ -58,8 +61,21 @@
       oThis.jApiKey.html( api_key );
       oThis.jApiSecret.html( api_secret );
 
-      oThis.jApiDetails.slideDown();
-      oThis.jFetchDetailsBtn.fadeOut();
+      // oThis.jApiDetails.slideDown({
+      //   complete: function () {
+      //     oThis.jFormWrap.fadeOut();    
+      //   }
+      // });
+
+      oThis.jFormWrap.fadeOut({
+        complete: function () {
+          oThis.jApiDetails.slideDown();
+        }
+      });
+
+      // oThis.jFormWrap.fadeOut();
+      // oThis.jApiDetails.slideDown();
+      
 
     }
 

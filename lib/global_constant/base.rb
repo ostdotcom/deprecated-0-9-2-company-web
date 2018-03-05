@@ -17,6 +17,11 @@ module GlobalConstant
         @company_api_config ||= fetch_config.fetch('company_api', {}).with_indifferent_access
       end
 
+      # api sidekiq admin interface related configs
+      def api_sidekiq_interface
+        @api_sidekiq_interface ||= fetch_config.fetch('api_sidekiq_interface', {})
+      end
+
       def basic_auth_config
         @basic_auth_config ||= fetch_config.fetch('basic_auth', {}).with_indifferent_access
       end
