@@ -16,10 +16,12 @@
   ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type);
   if @presenter_obj.client_token.conversion_factor
     ost_to_bt = @presenter_obj.client_token.conversion_factor
+    bt_to_ost = (1 / ost_to_bt).round(5)
     bt_to_fiat = ""
   elsif @presenter_obj.client_token_planner.present?
     bt_to_fiat = @presenter_obj.client_token_planner.token_worth_in_usd
     ost_to_bt = (ost_to_fiat / bt_to_fiat).round(5)
+    bt_to_ost = (bt_to_fiat / ost_to_fiat).round(5)
   end
 
   if @presenter_obj.client_balances.present? && @presenter_obj.client_balances.ost_balance.present?
@@ -94,7 +96,12 @@
               <p class="font-weight-light font-size-p">Here you will select the number of <%= bt_symbol %> to mint. Based on your settings, minimum amount of <%= bt_symbol %> required to be minted is
                 <span class="font-weight-bold"><%= number_with_delimiter(min_bt_to_mint, :delimiter => ',') %> <%= bt_symbol %></span>.
               </p>
-              <p class="font-weight-light font-size-p">An equivalent value of OST⍺ will be staked automatically at the <span class="font-weight-bold"><%= ost_to_bt %> <%= bt_symbol %> = 1 OST⍺</span> Conversion Rate</p>
+              <p class="font-weight-light font-size-p">
+                An equivalent value of OST⍺ will be staked automatically at the 
+                  <span class="font-weight-bold d-none"><%= ost_to_bt %> <%= bt_symbol %> = 1 OST⍺</span> 
+                  <span class="font-weight-bold">1 <%= bt_symbol %> = <%= bt_to_ost %> OST⍺</span> 
+                Conversion Rate
+              </p>
               <p class="font-weight-light font-size-p">You will also need to reserve a minimum of <%= min_st_prime_to_mint %> OST⍺ to pay for <%= bt_symbol %> transfers by your users. <%= min_st_prime_to_mint %> OST⍺ ensures to pay for approximately <span class="font-weight-bold">500,000 transfers</span>.</p>
             </div>
           </div>
@@ -127,7 +134,8 @@
                   <div class="mr-2">
                     Based on the current value of OST⍺ you will set a conversion rate of
                     <strong class="font-weight-bold">
-                      <span id="ost_to_bt_text"><%= ost_to_bt %> <%= bt_symbol %> = 1 OST</span>⍺
+                      <span class="d-none"><%= ost_to_bt %> <%= bt_symbol %> = 1 OST⍺</span>
+                      <span>1 <%= bt_symbol %> = <%= bt_to_ost %> OST⍺</span>
                     </strong>
                   </div>
                   <div class="mr-auto text-uppercase">
