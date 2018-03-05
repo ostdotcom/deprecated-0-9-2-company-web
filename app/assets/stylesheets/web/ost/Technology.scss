@@ -36,6 +36,9 @@
     display: inline-block;
     padding-bottom: 2px;
     border-bottom: 1px solid #e4b030;
+    &:hover{
+      text-decoration: none;
+    }
   }
   .card-footer{
     padding: 0;
