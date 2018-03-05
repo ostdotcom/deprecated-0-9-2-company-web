@@ -15,10 +15,6 @@ module WebPresenter
         super
       end
 
-      def token_supply_details
-        @t_sly_dtls ||= formatter_obj.token_supply_details
-      end
-
     end
 
   end

@@ -6,7 +6,7 @@ module CompanyApi
 
       class Economy < CompanyApi::Response::Formatter::Base
 
-        attr_reader :token_supply_details, :client_stats, :api_console_data
+        attr_reader :client_stats, :api_console_data
 
         # Initialize
         #
@@ -55,20 +55,6 @@ module CompanyApi
         end
 
         private
-
-        # Set token supply details
-        #
-        # * Author: Puneet
-        # * Date: 02/02/2018
-        # * Reviewed By: Sunil
-        #
-        # @param [Hash] token_supply_details_data (mandatory) - token supply details hash
-        #
-        # Sets @client_token_balance
-        #
-        def set_token_supply_details(token_supply_details_data)
-          @token_supply_details = CompanyApi::Response::Entity::TokenSupplyDetails.new(token_supply_details_data)
-        end
 
         # Set client stats details
         #

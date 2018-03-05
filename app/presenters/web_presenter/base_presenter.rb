@@ -58,6 +58,10 @@ module WebPresenter
       end
     end
 
+    def token_supply_details
+      @t_sly_dtls ||= formatter_obj.present? ? formatter_obj.token_supply_details : nil
+    end
+
     def is_client_logged_in?
       client_token.present?
     end
