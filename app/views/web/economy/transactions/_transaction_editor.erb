@@ -1,5 +1,8 @@
 <%
 
+  # IMPORTANT NOTE FOR BACKEND-DEV #Puneet #Sunil #Pankaj
+  # IF YOU ARE CHANGING "name" property, please scroll down and also update inputNameKeys
+
   bt_name   = @presenter_obj.client_token.name;
   bt_symbol = @presenter_obj.client_token.symbol;
 
@@ -44,19 +47,19 @@
     <div class="col-12">
       <div class="form-group m-0" id="kindFormGroup">
         <div class="form-check form-check-inline mr-4">
-          <input class="form-check-input radio-button" type="radio"
+          <input class="form-check-input radio-button j-tx-kind" type="radio"
             name="kind" id="kind_user_to_user" value="user_to_user" />
             <label class="radio-button-label" for="kind_user_to_user">
             <span class="radio-button-circle"></span>User to User</label>
         </div>
         <div class="form-check form-check-inline mr-4">
-          <input class="form-check-input radio-button" type="radio"
+          <input class="form-check-input radio-button j-tx-kind" type="radio"
             name="kind" id="kind_user_to_company" value="user_to_company" />
           <label class="radio-button-label" for="kind_user_to_company">
             <span class="radio-button-circle"></span>User to Company</label>
         </div>
         <div class="form-check form-check-inline mr-4">
-          <input class="form-check-input radio-button" type="radio"
+          <input class="form-check-input radio-button j-tx-kind" type="radio"
             name="kind" id="kind_company_to_user" value="company_to_user" />
           <label class="radio-button-label" for="kind_company_to_user">
             <span class="radio-button-circle"></span>Company to User</label>
@@ -137,7 +140,8 @@
         }
       %> 
     </div>
-
+  </div>
+  <div class="row" id="commission-options-row">
     <div class="col-12 form-group mb-0">
       <label class="form-label">Earn Fees</label>
     </div>
@@ -147,13 +151,13 @@
       <% # Below form-group is UI only %>
       <div class="form-group" id="has_commission_group">
         <div class="form-check form-check-inline mr-4">
-          <input class="form-check-input radio-button" type="radio"
+          <input class="form-check-input radio-button j-has-commission" type="radio"
             name="has_commission" id="has_commission_yes" value="1" />
           <label class="radio-button-label" for="has_commission_yes">
             <span class="radio-button-circle"></span>Yes</label>
         </div>
         <div class="form-check form-check-inline mr-4">
-          <input class="form-check-input radio-button" type="radio"
+          <input class="form-check-input radio-button j-has-commission" type="radio"
             name="has_commission" id="has_commission_no" value="0" />
           <label class="radio-button-label" for="has_commission_no">
             <span class="radio-button-circle"></span>No</label>
@@ -204,8 +208,8 @@
         </div>
       </div>
     </div>
-
-
+  </div>
+  <div class="row">
     <div class="col-12 my-3">
       <div class="card-group">
         <%= render :partial => "/shared/web/common/mocker",
@@ -263,6 +267,13 @@
     , eventContext      : ost.transactions
     , createUrl         : "<%= create_url %>"
     , editUrl           : "<%= edit_url %>"
+    , inputNameKeys: {
+      tx_kind               : "kind"
+      , has_commission      : "has_commission"
+      , commission_percent  : "commission_percent"
+      , commission_in_bt    : "commission_in_bt"
+      , commission_in_fiat  : "commission_in_fiat"
+    }
   });
 </script>
 <% end %>

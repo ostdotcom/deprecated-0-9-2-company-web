@@ -17,6 +17,20 @@
       , "created" : "created"
     }
 
+    , txKindMap: {
+      user_to_company: "user_to_company",
+      company_to_user: "company_to_user",
+      user_to_user: "user_to_user"
+    }
+
+    , inputNameKeys: {
+      tx_kind               : "kind"
+      , has_commission      : "has_commission"
+      , commission_percent  : "commission_percent"
+      , commission_in_bt    : "commission_in_bt"
+      , commission_in_fiat  : "commission_in_fiat"
+    }
+
     , formHelper      : null
     , jEditor         : null
     , jForm           : null
@@ -29,6 +43,7 @@
     , jValueInBt      : null
     , jValueInOst     : null
     , jHasCommission  : null
+    , jCommissionRow  : null
     , jCommission     : null
     , jCommissionWrap : null
     , jCInFiat        : null
@@ -49,10 +64,12 @@
       oThis.jValueInFiat    = oThis.jValueInFiat    || oThis.jForm.find("#value_in_fiat");
       oThis.jValueInBt      = oThis.jValueInBt      || oThis.jForm.find("#value_in_bt");
       oThis.jValueInOst     = oThis.jValueInOst     || oThis.jForm.find("#value_in_ost");
+      oThis.jCommissionRow  = oThis.jCommissionRow  || oThis.jForm.find("#commission-options-row");
       oThis.jCommission     = oThis.jCommission     || oThis.jForm.find("#commission_percent");
       oThis.jCommissionWrap = oThis.jCommissionWrap || oThis.jForm.find("#commission_percent_wrap");
       oThis.jCInFiat        = oThis.jCInFiat        || oThis.jForm.find("#commission_in_fiat");
       oThis.jCInBt          = oThis.jCInBt          || oThis.jForm.find("#commission_in_bt");
+
 
 
       oThis.formHelper = oThis.jForm.formHelper();
@@ -77,10 +94,14 @@
       });
 
       oThis.jForm.find('[name="currency_type"]').change( function () {
-          oThis.toggleCurrencyInput.apply(oThis, arguments);
+        oThis.toggleCurrencyInput.apply(oThis, arguments);
       });
 
-      oThis.jForm.find('[name="has_commission"]').change( function () {
+      oThis.jForm.find('.j-tx-kind').change( function () {
+        oThis.toggleCommissionsRow.apply(oThis, arguments);
+      });
+
+      oThis.jForm.find('.j-has-commission').change( function () {
         var val = Number( this.value );
         console.log("this.value", this.value);
         if( val ) {
@@ -154,6 +175,7 @@
       oThis.showEditor();
 
       oThis.toggleCurrencyInput();
+      oThis.toggleCommissionsRow();
     }
     , fillForm: function () {
       var oThis = this;
@@ -230,15 +252,19 @@
     , correctCommissionData: function ( ajaxData ) {
       var oThis = this;
 
-      var has_commission = oThis.getDataFromAjaxData( "has_commission", ajaxData );
-      console.log("has_commission", has_commission);
+      var nameKeys        = oThis.inputNameKeys
+        , tx_kind         = oThis.getDataFromAjaxData( nameKeys.tx_kind , ajaxData )
+        , has_commission  = oThis.getDataFromAjaxData( nameKeys.has_commission , ajaxData )
+      ;
+
       has_commission = Number( has_commission );
 
 
-      if ( !has_commission ) {
-        oThis.setDataInAjaxData("commission_percent", 0, ajaxData);
-        oThis.setDataInAjaxData("commission_in_bt", 0, ajaxData);
-        oThis.setDataInAjaxData("commission_in_fiat", 0, ajaxData);
+      if ( oThis.txKindMap.user_to_user !== tx_kind || !has_commission ) {
+        oThis.setDataInAjaxData(nameKeys.has_commission, 0, ajaxData);
+        oThis.setDataInAjaxData(nameKeys.commission_percent, 0, ajaxData);
+        oThis.setDataInAjaxData(nameKeys.commission_in_bt, 0, ajaxData);
+        oThis.setDataInAjaxData(nameKeys.commission_in_fiat, 0, ajaxData);
       }
 
     }
@@ -396,6 +422,21 @@
       jEnable.prop('disabled', false);
       jShow.show();
       jHide.hide();
+    }
+
+    , toggleCommissionsRow: function () {
+      var oThis = this;
+
+      var jEl       = oThis.jForm.find('.j-tx-kind:checked')
+        , val       = jEl.val()
+      ;
+
+      if ( oThis.txKindMap.user_to_user === val ) {
+        oThis.jCommissionRow.slideDown( 300 );
+      } else {
+        oThis.jCommissionRow.slideUp( 300 );
+      }
+
     }
 
     , onCommissionChanged: function () {
