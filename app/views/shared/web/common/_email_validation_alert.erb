@@ -5,7 +5,12 @@
 <div class="<%= height_cls_name %> ost__alert">
   <div class="row font-weight-light">
     <div class="col text-center p-2">
-      <span class="ost__alert__text">We have sent an email to <%= @presenter_obj.user.email %>.
+      <svg class="icon-banner align-middle">
+        <switch>
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-validation-alert"></use>
+        </switch>
+      </svg>
+      <span class="ost__alert__text ml-1">We have sent an email to <%= @presenter_obj.user.email %>.
         Please click on the Verify button in the email to activate your account.</span>
       <a href="javascript:void(0)" id="notification-email-resend-btn" class="btn ost__alert__button font-weight-normal">
         Re-send email
