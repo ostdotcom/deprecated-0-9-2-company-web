@@ -1,7 +1,7 @@
 .list-group {
     &.show-last-border {
       &:last-child{
-        border-bottom: $list-group-border-width solid $list-group-border-color !important;
+        border-bottom: $list-group-border-width solid 1px solid $blue-100 !important;
       }
     }
 }
@@ -27,6 +27,9 @@
       &:hover{
         background-color: rgba(155, 175, 181, 0.05);
       }
+    }
+    &:last-child{
+      border-bottom: 1px solid #D9E8EF!important;
     }
 }
 
