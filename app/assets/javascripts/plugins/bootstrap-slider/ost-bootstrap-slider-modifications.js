@@ -13,7 +13,6 @@
     eFinal = eFinal.multipliedBy( eStep );
     finalNum = eFinal.dividedBy( eFactor );
 
-    console.log("num", num, "finalNum.toString( 10 )", finalNum.toString( 10 ) );
     return parseFloat( finalNum.toString( 10 ) );
   };
 

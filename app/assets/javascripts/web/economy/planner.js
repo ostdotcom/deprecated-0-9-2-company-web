@@ -75,17 +75,12 @@
         , finalText
       ;
 
-      if ( btToOst.isGreaterThan( 1 ) ) {
-        btVal = 1;
-        ostVal = btToOst;
-      } else {
-        btVal  = ostToBt;
-        ostVal = 1;
-      }
+      btVal = 1;
+      ostVal = btToOst;
+
 
       finalText = PriceOracle.toDisplayBt( btVal ) + " = " + PriceOracle.toOst( ostVal ) + " OST";
 
-      console.log("finalText", finalText);
       oThis.jOstToBtText.html( finalText );
     },
 
