@@ -35,8 +35,9 @@
   min_bt_to_mint = number_of_users * airdrop_amount;
   bt_to_mint = number_of_users * airdrop_amount * buffer_mint_factor_over_airdrop;
 
-  min_st_prime_to_mint = 10;
-  max_st_prime_to_mint = 100;
+  min_st_prime_to_mint = 100;
+  st_prime_to_mint = 300;
+  max_st_prime_to_mint = 500;
 
   # Note: I would avoid reducing max limit as the slider value changes.
   # Instead discuss with frankie how he would like to compute max_bt_to_mint.
@@ -114,7 +115,8 @@
                   :max_bt_to_mint => max_bt_to_mint,
                   :min_st_prime_to_mint => min_st_prime_to_mint,
                   :max_st_prime_to_mint => max_st_prime_to_mint,
-                  :bt_to_fiat => bt_to_fiat
+                  :bt_to_fiat => bt_to_fiat,
+                  :st_prime_to_mint => st_prime_to_mint
                 }
               %>
             </div>
