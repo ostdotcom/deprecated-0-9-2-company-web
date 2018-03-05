@@ -4,7 +4,12 @@
 <div class="<%= height_cls_name %> ost__alert">
   <div class="row font-weight-light">
     <div class="col text-center p-2">
-      <span class="ost__alert__text">You are running low on transaction fees. Please topup to continue.</span>
+      <svg class="icon-empty-tank align-middle">
+        <switch>
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-empty-tank"></use>
+        </switch>
+      </svg>
+      <span class="ost__alert__text ml-1">You are running low on transaction fees. Please topup to continue.</span>
       <a href="/token-supply" class="btn ost__alert__button font-weight-normal">topup transaction fees</a>
     </div>
   </div>
