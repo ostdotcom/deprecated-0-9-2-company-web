@@ -63,7 +63,7 @@
           </svg> The first step in creating <%= bt_symbol %> is to set the conversion rate between <%= bt_symbol %> and OST⍺.</h5>
           <hr class="mt-3 mb-4"/>
           <p class="font-weight-light font-size-p">
-            Once you Mint <%= bt_symbol %>, the conversion rate is fixed and cannot be changed. Your customers will always be able to redeem their <%= bt_symbol %> for OST at that conversion rate.
+            Once you mint <%= bt_symbol %>, the conversion rate is fixed and cannot be changed. Your customers will always be able to redeem their <%= bt_symbol %> for OST at that conversion rate.
           </p>
           <p class="font-weight-light mt-2 font-size-p">
             The current value of
@@ -89,7 +89,7 @@
             <div class="user-form">
               <%= render partial: 'shared/web/common/slider_right',
                  locals: {
-                         label: 'How much do you want 1 '+bt_name+' to be worth?',
+                         label: 'How much do you want 1 '+ bt_symbol +' to be worth?',
                          id: bt_to_fiat_id,
                          name: 'token_worth_in_usd',
                          type: 'number',
@@ -113,7 +113,7 @@
                 </span>
               </li>
               <li class="list-group-item font-weight-light font-size-p">
-                Based on the current value of OST⍺ you will set a conversion rate of 
+                Based on the current value of OST⍺ your conversion rate will be set to
                 <span class="font-weight-bold">
                   <span id="ost_to_bt_text">154 <%= bt_symbol %> = 1 OST</span>⍺
                 </span>
