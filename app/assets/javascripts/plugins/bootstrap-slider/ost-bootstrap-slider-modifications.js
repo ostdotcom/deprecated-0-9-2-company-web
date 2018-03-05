@@ -5,7 +5,7 @@
         step =  this.options.step ,
         eFactor = BigNumber( 10 ^ toFixedInput ),
         eStep   = eFactor.multipliedBy( step ),
-        eNum    = eFactor.multipliedBy( num ),
+        eNum    = eFactor.multipliedBy( String( num ) ),
         eFinal  = eNum.dividedBy( eStep ),
         finalNum
     ;
@@ -13,7 +13,7 @@
     eFinal = eFinal.multipliedBy( eStep );
     finalNum = eFinal.dividedBy( eFactor );
 
-    console.log("num", num, "finalNum.toString( 10 )", finalNum.toString( 10 ) )
+    console.log("num", num, "finalNum.toString( 10 )", finalNum.toString( 10 ) );
     return parseFloat( finalNum.toString( 10 ) );
   };
 

@@ -7,8 +7,6 @@
   // All Constents.
   var P_OST = 5
     , P_OST_ROUND_ROUNDING_MODE   = BigNumber.ROUND_HALF_UP
-    , P_D_OST = 5
-    , P_OST_DISPLAY_ROUND_ROUNDING_MODE   = BigNumber.ROUND_HALF_UP
   ;
 
   var P_BT = 5
@@ -43,6 +41,18 @@
 
       if ( config.ost_to_bt ) {
         OST_TO_BT = String( config.ost_to_bt );
+      }
+
+      if( config.ost_precision ) {
+        P_OST = Number( config.ost_precision );
+      }
+
+      if( config.bt_precision ) {
+        P_BT = Number( config.bt_precision  );
+      }
+
+      if( config.fiat_precision ){
+        P_FIAT = Number( config.fiat_precision );
       }
 
       $.extend( PriceOracle, config );
@@ -285,8 +295,8 @@
       }
 
       ost = oThis.toPreciseOst( ost );
-      console.log("ost.toFixed(P_D_OST, P_OST_DISPLAY_ROUND_ROUNDING_MODE)" , ost.toFixed(P_D_OST, P_OST_DISPLAY_ROUND_ROUNDING_MODE));
-      return ost.toFixed(P_D_OST, P_OST_DISPLAY_ROUND_ROUNDING_MODE);
+      console.log("ost.toFixed(P_OST, P_OST_ROUND_ROUNDING_MODE)" , ost.toFixed(P_OST, P_OST_ROUND_ROUNDING_MODE));
+      return ost.toFixed(P_OST, P_OST_ROUND_ROUNDING_MODE);
     }
 
     , toFiat: function( fiat ) {
@@ -330,6 +340,18 @@
 
     , isNaN : function ( val ) {
       return isNaN( val ) || val === "";
+    }
+
+    , getOstPrecession : function () {
+      return P_OST ;
+    }
+
+    , getFiatPrecession : function () {
+      return P_FIAT ;
+    }
+
+    , getBtPrecession : function () {
+      return P_BT ;
     }
 
     , bindCurrencyElements: function ( jBt, jFiat , jOst ) {

@@ -35,6 +35,10 @@
     , update : function () {
       var oThis = this;
 
+      var numPrecisionMapping = oThis.getNumberPrecisionMapping()
+        , mockPrecession
+      ;
+
       if ( !oThis.targetSelector || !oThis.jElement ) {
         return;
       }
@@ -52,17 +56,33 @@
 
       if ( oThis.jElement.is(":input") ) {
         oThis.jElement.val( targertVal );
-      } else {
-        if ( valType ) {
-          if ( valType === "number" ) {
-            targertVal = $.number( targertVal, 3 );
-          } else if ( valType === "ost" ) {
-            targertVal = $.number( targertVal, 5 );
-          }
-        } 
-        oThis.jElement.html( targertVal );
+      } else if ( typeof valType === "string" ) {
+        valType = valType.toLowerCase();
+        if ( numPrecisionMapping[ valType ] ) {
+          mockPrecession = numPrecisionMapping[ valType ];
+          targertVal = $.number( targertVal, mockPrecession );
+        } else {
+          console.log("Unknown type '", valType, "'. Kindly Check.");
+        }
       }
+      oThis.jElement.html( targertVal );
     }
+
+    , getNumberPrecisionMapping: function () {
+      var numPrecisionMapping = {
+        "number": 2
+        ,"ost"  : 5
+        ,"bt"   : 5
+        ,"fiat" : 2
+      };
+      if ( PriceOracle ) {
+        numPrecisionMapping["ost"]  = PriceOracle.getOstPrecession();
+        numPrecisionMapping["bt"]   = PriceOracle.getBtPrecession();
+        numPrecisionMapping["fiat"] = PriceOracle.getFiatPrecession();
+      }
+      return numPrecisionMapping;
+    }
+
     , start : function () {
       var oThis = this;
 
