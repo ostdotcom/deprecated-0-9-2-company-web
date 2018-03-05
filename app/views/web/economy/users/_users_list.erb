@@ -47,11 +47,11 @@
               </svg>
             </div>
             {{#ifEditUser mode}}
-              <div class="col-10">
+              <div class="col-10 pb-2">
                 <form class="add-user-form" id="save-user-{{id}}" action="/api/economy/users/create" method="POST" data-user-id="{{id}}">
                   <div class="row">
                     <div class="col-4">
-                      <div>
+                      <div class="user-name-input-wrapper">
                         <input type="text" class="form-control" id="user-name-{{id}}" name="name" required/>
                         <div class="invalid-feedback" data-forname="user-name-{{id}}">&nbps;</div>
                       </div>
