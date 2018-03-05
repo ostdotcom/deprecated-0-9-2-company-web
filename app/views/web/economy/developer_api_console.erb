@@ -1,9 +1,11 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <h3 class="mt-5 mb-4" id="transaction_editor_mode_heading">Developers APIs</h3>
-      
+      <h3 class="mt-5 mb-4" id="transaction_editor_mode_heading">Developers APIs</h3>      
     </div>
+  </div>
+
+  <div class="row">
     <div class="col-12">
       <h4 class="mr-auto mb-2">Get API Keys</h4>
     </div>
@@ -13,9 +15,8 @@
       </p>
     </div>
     
-    <div class="col-12">
+    <div class="col-12" id="fetch-api-details-form-wrap">
       <form id="fetch-api-details-form" action="/api/client/fetch-api-credentials/" method="GET" data-ost-formhelpe>
-        <a target="_blank" href="//dev.ost.com/" class="btn btn-secondary">Api Docs</a>
         <button id="fetch-api-details-btn" type="submit" class="btn btn-primary" data-submiting="Fetching...">Show Key</button>
         <div class="general_error invalid-feedback" data-forid="fetch-api-details-form">&nbsp;</div>
       </form>
@@ -23,13 +24,72 @@
     
     <div class="col-12 mt-3" id="api-details-wrap" style="display: none;">
       <div class="alert alert-info pt-4 mb-5" role="alert">
-        <h4 class="mr-auto mb-2">API Key:</h4>
+        <h5 class="mr-auto mb-2">API Key:</h5>
         <p class="font-weight-light font-size-p" id="api-key-text"></p>
-        <h4 class="mr-auto mb-2">Secret:</h4>
+        <h5 class="mr-auto mb-2">Secret:</h5>
         <p class="font-weight-light font-size-p" id="api-secret-text"></p>
       </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h4 class="mr-auto mb-2">API Documentation</h4>
+    </div>
+    <div class="col-12">
+      <p class="desc font-weight-light">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+    </div>
+    
+    <div class="col-12 mb-4">      
+      <a target="_blank" href="//dev.ost.com/" class="btn btn-primary">Api Docs</a>
+    </div>
+  </div>
+
+
+  <%
+    utility_token_contract_address = "0x61fa4c39ec1A1DB1b8F2785109A32C68A23731c4"
+    member_reserve_key = "0x47EbBCD23DDE4DC4B5ad4e5A0b24583bc22D6268"
+    airdrop_contract_address = "0x61fa4c39ec1A1DB1b8F2785109A32C68A23731c4"
+    budget_holder_key_address = "0x47EbBCD23DDE4DC4B5ad4e5A0b24583bc22D6268"
+  %>
+  <div class="row">
+    <div class="col-12">
+      <h4 class="mr-auto mb-2">Your Addresses On Utility Chain</h4>
+    </div>
+    <div class="col-12">
+      <p class="desc font-weight-light">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+    </div>
+    
+    <div class="col-12 mt-3" id="api-details-wrap">
+      <div class="alert alert-info pt-4 mb-5" role="alert">
+        <div class="row">
+          <div class="col-6">
+            <h5 class="mr-auto mb-2">Branded Token Contract Address:</h5>
+            <p class="font-weight-light font-size-p"> <%= utility_token_contract_address %></p>
+          </div>
+          <div class="col-6">
+            <h5 class="mr-auto mb-2">Member Reserve Key Address:</h5>
+            <p class="font-weight-light font-size-p"><%= member_reserve_key %></p>
+          </div>
+          <div class="col-6">
+            <h5 class="mr-auto mb-2">Budget Holder Key Address:</h5>
+            <p class="font-weight-light font-size-p"><%= budget_holder_key_address %></p>
+          </div>
+          <div class="col-6">
+            <h5 class="mr-auto mb-2">Airdrop Contract Address:</h5>
+            <p class="font-weight-light font-size-p"><%= airdrop_contract_address %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 </div>
 
 <% content_for :end_js do %>
@@ -37,6 +97,7 @@
   $(function() {
     ost.developerApi.init({
       idForm              : "fetch-api-details-form"
+      , idFormWrap        : "fetch-api-details-form-wrap"
       , idFetchDetailsBtn : "fetch-api-details-btn"
       , idApiDetails      : "api-details-wrap"
       , idApiKey          : "api-key-text"
