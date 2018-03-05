@@ -258,7 +258,7 @@ module CompanyApi
             elsif c_sub_element_key == "domain"
               new_api_cookies[cookie_name][c_sub_element_key.to_sym] = Rails.env.development? ? :all : c_sub_element_value
             elsif c_sub_element_key == "secure"
-              new_api_cookies[cookie_name][c_sub_element_key.to_sym] = true
+              new_api_cookies[cookie_name][c_sub_element_key.to_sym] = Rails.env.production?
             elsif c_sub_element_key == "HttpOnly"
               new_api_cookies[cookie_name][:http_only] = true
             elsif c_sub_element_key == "SameSite"
