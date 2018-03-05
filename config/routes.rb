@@ -33,6 +33,12 @@ Rails.application.routes.draw do
     get '/developer-api-console' => :developer_api_console
   end
 
+
+  namespace 'devadmin' do
+    # ST Api sidekiq web interface endpoint
+    mount ApiSidekiqServer => '/api-sidekiq'
+  end
+
   # Route not found handler. Should be the last entry here
   match '*permalink', to: 'application#not_found', via: :all
 
