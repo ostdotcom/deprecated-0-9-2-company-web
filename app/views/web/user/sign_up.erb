@@ -67,7 +67,8 @@
           <div class="form-group mb-2" id="tokenNameFormGrp">
             <label class="form-label" data-forid="token_name">Token Name</label>
 
-            <input id="user-token-name" type="text" name="token_name" class="form-control" aria-describedby="emailHelp" placeholder="Enter token name" required/>
+            <input id="user-token-name" type="text" name="token_name" class="form-control"
+                   minlength="3" maxlength="20" aria-describedby="emailHelp" placeholder="Enter token name" required/>
             <div class="invalid-feedback" data-forid="token_name">&nbps;</div>
           </div>
         </div>
@@ -75,7 +76,10 @@
           <div class="form-group m-0" id="emailFormGrp">
             <label class="form-label" data-forid="email">Token Symbol</label>
 
-            <input id="user-token-symbol" type="text" data-msg-pattern="Please enter from 3 to 4 letters or numbers. No special characters allowed." pattern="\w{3,4}" name="token_symbol" class="form-control" aria-describedby="emailHelp" placeholder="Enter token symbol" required  maxlength="4" />
+            <input id="user-token-symbol" type="text"
+                   data-msg-pattern="Please enter from 3 to 4 letters or numbers. No special characters allowed."
+                   pattern="^(?=.*[a-zA-Z])[a-zA-Z0-9]{3,4}$" name="token_symbol" class="form-control"
+                   aria-describedby="emailHelp" placeholder="Enter token symbol" required  maxlength="4" />
             <div class="invalid-feedback" data-forid="token_symbol">&nbps;</div>
           </div>
         </div>
