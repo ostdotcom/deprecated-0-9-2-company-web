@@ -1,7 +1,9 @@
 ;
 (function (window , $ ) {
 
-  var ostFormHelper = $('#form-resend-verification').formHelper({
+  var jForm = $('#form-resend-verification') ;
+  if( !jForm ||  jForm.length == 0) return ;
+  var ostFormHelper = jForm.formHelper({
     success : function ( response ) {
       if( response.success ){
         setTimeout( function () {
