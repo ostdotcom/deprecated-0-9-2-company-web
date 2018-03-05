@@ -119,6 +119,26 @@
   </div>
 </div>
 
+    <%=
+        render :partial => "shared/web/common/faqs",
+               locals: {
+          faqs: [
+          {
+            title: 'How does the Simulator work?',
+        url: 'https://help.ost.com/support/solutions/articles/35000059267-how-does-the-simulator-work-'
+        },
+        {
+          title: 'How can I run a specific transaction between two users?',
+        url: 'https://help.ost.com/support/solutions/articles/35000059268-how-can-i-run-a-specific-transaction-between-two-users-'
+        },
+        {
+          title: 'Are there Developer APIs available?',
+        url: 'https://help.ost.com/support/solutions/articles/35000059270-are-there-developer-apis-available-'
+        }
+        ]
+        }
+    %>
+
 <% content_for :end_js do %>
 <script type="text/javascript">
   console.log("api_console_data", <%= raw api_console_data.to_json %>);

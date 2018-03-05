@@ -1,29 +1,15 @@
 <div class="row">
-  <div class="col-12">
+  <div class="col-sm-12">
     <h3 class="mt-5">FAQ</h3>
-    <div class="row">
-      <div class="col-sm-12">
-        <ul class="list-group list-group-flush show-last-border">
-          <% faqs.each do |faq| %>
-          <li class="list-group-item link">
-            <a href=" <%= faq[:url]%>" class="link-item item-heading" target="_blank">
-              <%= faq[:title]%>
-            </a>
-          </li>
-          <% end %>
-        </ul>
-      </div>
-      <!--<div class="col-sm-6">-->
-        <!--<button type="button" class="font-weight-light btn btn-gold-border h-100 video-btn" title="Watch Help Video" data-toggle="modal" data-src="https://www.youtube.com/embed/EUwzWHD3Htg" data-target="#helpVideoModal" style="width: 100%;">-->
-          <!--<svg class="icon-play align-middle">-->
-            <!--<switch>-->
-              <!--<use class="icon-play" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"></use>-->
-            <!--</switch>-->
-          <!--</svg>-->
-          <!--<span class="align-middle">watch help video</span>-->
-        <!--</button>-->
-      <!--</div>-->
-    </div>
-    <div class="mb-4"></div>
+    <ul class="list-group list-group-flush show-last-border">
+      <% faqs.each do |faq| %>
+        <li class="list-group-item link">
+          <a href=" <%= faq[:url]%>" class="link-item item-heading" target="_blank">
+            <%= faq[:title]%>
+          </a>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>
+<div class="mb-6"></div>
