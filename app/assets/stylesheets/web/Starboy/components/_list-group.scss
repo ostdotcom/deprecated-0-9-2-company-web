@@ -1,14 +1,14 @@
 .list-group {
     &.show-last-border {
       &:last-child{
-        border-bottom: $list-group-border-width solid 1px solid $blue-100 !important;
+        border-bottom: $list-group-border-width solid $list-group-border-width solid $blue-100 !important;
       }
     }
 }
 
 .list-group-item {
     color: $blue-700;
-    border: 1px solid $blue-100;
+    border: $list-group-border-width solid $blue-100;
 
     .item-heading {
       padding: $list-group-item-padding-y $list-group-item-padding-x $list-group-item-padding-y 0;  
