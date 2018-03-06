@@ -494,6 +494,9 @@
       ost.metamask.stopObserver( oThis );
     }
 
+    , showSendingOstGrantModal : function () {
+        $('#sending_ost_grant_modal').modal('show');
+    }
 
 
   };

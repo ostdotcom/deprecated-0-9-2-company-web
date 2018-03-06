@@ -89,3 +89,11 @@ html, body{
 .imp-value {
   color: $yellow-300;
 }
+
+.hover-link {
+
+  &:hover , &:active {
+    color: $yellow-400;
+    border-bottom: 1px solid $yellow-400;
+  }
+}
