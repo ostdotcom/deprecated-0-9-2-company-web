@@ -1,0 +1,19 @@
+// Import functions as variables depend on functions
+@import "../../plugins/bootstrap/scss/functions";
+
+// Import theme variables
+@import "../Starboy/variables";
+
+.header-alerts {
+  .ost__alert__button {
+
+    &:hover {
+      background-color: $orange-100;
+    }
+  }
+
+  .alert-height {
+    height: $ost-header-alert-height;
+  }
+
+}

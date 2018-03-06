@@ -125,12 +125,12 @@
 }
 
 .ost-btn-secondary{
-  border: 1px solid $navy-blue;
+  border: 1px solid $blue-800;
   background: $white;
-  color: $navy-blue;
+  color: $blue-800;
   &.focus-cls,
   &:focus{
-    color: $navy-blue;
+    color: $blue-800;
     outline: none;
     box-shadow: none;
     text-decoration: none;
@@ -139,8 +139,8 @@
   &:hover, &:active{
     color: $white;
     text-decoration: none;
-    background-color: $navy-blue;
-    border-color: $navy-blue;
+    background-color: $blue-800;
+    border-color: $blue-800;
     svg.icon-play{
       fill: $white;
     }
@@ -148,16 +148,16 @@
 }
 
 .btn-secondary{
-  border: 1px solid $navy-blue;
-  color: $navy-blue;
+  border: 1px solid $blue-800;
+  color: $blue-800;
   &:focus{
     color: $white;
   }
   &:hover, &:active{
     color: $white;
     text-decoration: none;
-    background-color: $navy-blue;
-    border-color: $navy-blue;
+    background-color: $blue-800;
+    border-color: $blue-800;
   }
 }
 

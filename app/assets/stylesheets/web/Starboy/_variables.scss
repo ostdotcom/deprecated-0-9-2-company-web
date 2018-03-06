@@ -52,7 +52,6 @@ $mystic: #DADFDC !default; // customized
 $banana: #FBD764 !default; // customized
 $aqua: #84D1D4 !default; // customized
 $shakespeare: #69A2BD !default; // customized
-$navy-blue : #34445b !default;
 
 // Theme background colors
 $yellow-bg: #F9F8E6 !default;
@@ -69,11 +68,15 @@ $blue-400:  #84d1d4 !default;
 $blue-500:  #8EB9CE !default;
 $blue-600:  #819AA1 !default;
 $blue-700:  #597A84 !default; // font-primary
+$blue-800:  #34445b !default;
 
 // Theme yellow shades
 $yellow-300:  #E4B030 !default;
 $yellow-400:  #D9A025 !default;
 $yellow-500:  #af7f19 !default;
+
+//Theme orange shades
+$orange-100: #f8c2a1 !default;
 
 // Theme cyan shades
 $cyan-100:  #c1e8e9 !default;
@@ -938,6 +941,6 @@ $print-page-size:                   a3 !default;
 $print-body-min-width:              map-get($grid-breakpoints, "lg") !default;
 
 $ost-header-height:                 60px;
-$ost-header-alert-height:           60px;
+$ost-header-alert-height:           70px;
 $cover-element-height-factor: $ost-header-height - 10;
 $content-min-width:                 920px;
