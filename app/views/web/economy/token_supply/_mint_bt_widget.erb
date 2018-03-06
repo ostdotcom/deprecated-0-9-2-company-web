@@ -95,7 +95,8 @@
 
 <div class="row">
   <div class="col-4">
-    <%= render partial: 'shared/web/common/slider_top',
+    <%= 
+    render partial: 'shared/web/common/slider_top',
                locals: {
                  label: "N&deg; of #{bt_symbol} to Mint",
                  id: bt_to_mint_input_id,
@@ -106,13 +107,14 @@
                  step: 1,
                  value: bt_to_mint,
                  tooltip: 'hide',
-                 classes: 'slider-aqua'
+                 classes: 'slider-bt'
                }
     %>
     <div class="mt-4 mb-2">
-      <%= render partial: 'shared/web/common/slider_top',
+      <%= 
+        render partial: 'shared/web/common/slider_top',
                  locals: {
-                   label: 'Reserved for gas OST⍺',
+                   label: 'OST⍺ reserved for gas',
                    id: st_prime_to_mint_input_id,
                    name: st_prime_to_mint_input_name,
                    type: 'number',
@@ -121,7 +123,7 @@
                    step: 1,
                    value: st_prime_to_mint,
                    tooltip: 'hide',
-                   classes: 'slider-banana'
+                   classes: 'slider-ost-gas'
                  }
       %>
     </div>

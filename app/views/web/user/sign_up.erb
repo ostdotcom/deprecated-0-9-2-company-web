@@ -87,44 +87,46 @@
 
       <div class="text-center form-group">
         <label class="form-label d-block text-left mb-2" data-forid="email">Select icon for your token</label>
-        <ul class="radio-group list-unstyled text-center">
-          <li>
-            <input type="radio" id="option-one" name="token_icon" value="token_icon_1" checked>
-            <label for="option-one" class="mb-0">
-              <span class="token_icon token_icon_1"></span>
-            </label>
-          </li>
-          <li>
-            <input type="radio" id="option-two" name="token_icon" value="token_icon_2">
-            <label for="option-two" class="mb-0">
-              <span class="token_icon token_icon_2"></span>
-            </label>
-          </li>
-          <li>
-            <input type="radio" id="option-three" name="token_icon" value="token_icon_3">
-            <label for="option-three" class="mb-0">
-              <span class="token_icon token_icon_3"></span>
-            </label>
-          </li>
-          <li>
-            <input type="radio" id="option-four" name="token_icon" value="token_icon_4">
-            <label for="option-four" class="mb-0">
-              <span class="token_icon token_icon_4"></span>
-            </label>
-          </li>
-          <li>
-            <input type="radio" id="option-five" name="token_icon" value="token_icon_5">
-            <label for="option-five" class="mb-0">
-              <span class="token_icon token_icon_5"></span>
-            </label>
-          </li>
-          <li>
-            <input type="radio" id="option-six" name="token_icon" value="token_icon_6">
-            <label for="option-six" class="mb-0">
-              <span class="token_icon token_icon_6"></span>
-            </label>
-          </li>
-        </ul>
+
+        <% 
+          icon_options = []
+          no_of_icons = 6
+          cnt  = no_of_icons
+          no_of_icons.times do | cnt |
+            indx = (cnt + 1);
+            data = {
+              :id => "token-option-" + indx.to_s,
+              :value => "token_icon_" + indx.to_s,
+            }
+            icon_options.push( data )
+          end
+          icon_options = icon_options.shuffle
+        %>
+
+        <div class="row">
+          <% no_of_icons.times do | cnt | 
+            open_ul = (cnt % 3) == 0;
+            close_ul = ((cnt + 1) % 3) == 0
+            data = icon_options[ cnt ]
+          %>
+            <% if open_ul %>
+              <div class="col-xl-6 col-lg-12 mt-1 mb-1"><div class="row radio-group list-unstyled text-center">
+            <% end # end of if open_ul %>
+                <div class="col-4">
+                  <input type="radio"  name="token_icon" 
+                    id="<%= data[:id] %>" value="<%= data[:value] %>" 
+                    <% if cnt < 1 %> checked <% end %>
+                  />
+                  <label for="<%= data[:id] %>" class="mb-0">
+                    <span class="token_icon <%= data[:value] %>"></span>
+                  </label>
+                </div>
+            <% if close_ul %>
+              </div></div>
+            <% end # end of if close_ul %>
+
+          <% end # end the loop %>
+        </div>
       </div>
 
       <div class="form-group mb-2" id="emailFormGrp">
