@@ -27,6 +27,29 @@
     }
   }
 
+  &.btn-secondary{
+    border: 1px solid #34445b;
+    background-color: #ffffff;
+    color: #34445b;
+    &:focus{
+      color: #34445b;
+      outline: none;
+      text-decoration: none;
+      box-shadow: none;
+    }
+    &:active{
+      color: #34445b!important;
+      border-color:#34445b!important;
+      background-color: #ffffff!important;
+    }
+    &:hover{
+      color: #fff;
+      text-decoration: none;
+      background-color: #34445b;
+      border-color: #34445b;
+    }
+  }
+
   &.btn-gold-border{
     border: 1px solid #e4b030;
     background: #ffffff;
@@ -43,41 +66,6 @@
       text-decoration: none;
       background-color: #ffffff;
       border: 1px solid #7f9183;
-    }
-  }
-
-
-  &.btn-white-border-blue{
-    border: 1px solid #34445b;
-    background-color: #ffffff;
-    color: #34445b;
-    &:focus{
-      color: #34445b;
-      outline: none;
-      text-decoration: none;
-    }
-    &:hover,&:active{
-      color: #fff;
-      text-decoration: none;
-      background-color: #34445b;
-      border-color: #34445b;
-    }
-  }
-
-  &.btn-trans-border-blue{
-    border: 1px solid #34445b;
-    background-color: transparent;
-    color: #34445b;
-    &:focus{
-      color: #34445b;
-      outline: none;
-      text-decoration: none;
-    }
-    &:hover,&:active{
-      color: #fff;
-      text-decoration: none;
-      background-color: #34445b;
-      border-color: #34445b;
     }
   }
 
