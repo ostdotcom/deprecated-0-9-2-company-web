@@ -3,7 +3,7 @@ body{
   font-family: 'Quasimoda', sans-serif !important;
 }
 .container-jumbotron{
-  h2{
+  h1{
     color: #438bad;
   }
   p{
@@ -82,6 +82,7 @@ body{
 .partners{
   font-size: 0;
   position: relative;
+  mix-blend-mode: luminosity;
   li{
     display: inline-block;
     a{
@@ -98,12 +99,12 @@ body{
     left: 50%;
     transform: translate(-50%,-50%);
     opacity: 0;
-    transition: .7s;
+    transition: .5s;
     top: 50%;
   }
   @media (min-width: 880px){
     ul {
-      transition: 1s;
+      transition: 0.5s;
       will-change: transform;
       filter: blur(0);
     }
