@@ -26,6 +26,23 @@
   }
 }
 
+.btn-primary {
+  color: $white;
+  &:focus{
+    color: $white;
+  }
+  &:hover{
+    color: $white;
+    background-color: $yellow-400;
+    border-color: $yellow-400;
+  }
+  &:active{
+    color: $white;
+    background-color: $yellow-400;
+    border-color: $yellow-400;
+  }
+}
+
 .btn-steps-nav{
   font-size: 0.8rem;
   border-radius: 0;
