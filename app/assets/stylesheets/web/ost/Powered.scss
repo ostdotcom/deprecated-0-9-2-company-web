@@ -1,5 +1,5 @@
 .container-powered{
-  padding-top: 1.5rem;
+//  padding-top: 1.5rem;
   padding-bottom: 170px;
   overflow: hidden;
   &.container-managedash{
@@ -64,10 +64,17 @@
     }
   }
   .container-1{
-    background: url('http://127.0.0.1:3000/images/ostview-bg.svg') no-repeat bottom right #fff;
+    background-image: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/powered-ost-view-bg.svg');
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: 40%;
   }
   .container-2{
-    background: url('http://127.0.0.1:3000/images/fingerprint-bg.svg') no-repeat bottom right #fff;
+    background-image: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/powered-ost-kyc-bg.svg');
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: 30%;
+
   }
 }
 
