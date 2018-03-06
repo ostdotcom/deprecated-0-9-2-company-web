@@ -102,3 +102,13 @@
     }
   }
 }
+
+.dashboard-user-table {
+
+  position: relative;
+
+  .simple-data-table-loader {
+    position: absolute;
+    top: 50px
+  }
+}
