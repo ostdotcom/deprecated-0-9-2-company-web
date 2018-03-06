@@ -21,28 +21,30 @@
 %>
 
 <script id="<%= start_header_tempate_id %>" type="text/x-handlebars-template">
-  <h3 class="mb-2">Processing </h3>
-  <div class="desc mb-4">Please allow some minutes</div>
+  <h3 class="mb-2">Minting the <%= bt_symbol %> Token Economy</h3>
+  <div class="desc">
+    The <%= bt_symbol %> token economy is being initialized. This process takes several minutes on testnet. 
+    Watch our <a href="" class="link" target="_blank">video</a> to learn what's going on under the hood!
+  </div>
 </script>
 <script id="<%= processing_header_tempate_id %>" type="text/x-handlebars-template">
-  <h3 class="mb-4">Processing</h3>
-  <div class="desc mb-4">Please allow some minutes</div>
+  <h3 class="mb-2">Minting the <%= bt_symbol %> Token Economy</h3>
+  <div class="desc">
+    The <%= bt_symbol %> token economy is being initialized. This process takes several minutes on testnet. 
+    Watch our <a href="" class="link" target="_blank">video</a> to learn what's going on under the hood!
+  </div>
 </script>
 <script id="<%= success_header_tempate_id %>" type="text/x-handlebars-template">
   <h3 class="mb-4">Congratulations! <%= bt_symbol %> Token is Minted! </h3>
 </script>
 <script id="<%= failed_header_tempate_id %>" type="text/x-handlebars-template">
-  <h3 class="alert alert-danger text-center" role="alert">
-    Something Went Wrong!
-  </h3>
+  <h3 class="mb-2">Something went wrong!</h3>
 </script>
 
 
 <script id="<%= start_footer_tempate_id %>" type="text/x-handlebars-template">
-  <div class="desc">Watch <a href="" class="link" target="_blank">this video</a> while waiting</div>
 </script>
 <script id="<%= processing_footer_tempate_id %>" type="text/x-handlebars-template">
-  <div class="desc">Watch <a href="" class="link" target="_blank">this video</a> while waiting</div>
 </script>
 <script id="<%= success_footer_tempate_id %>" type="text/x-handlebars-template">
   <a href="/simulator" class="btn btn-gold mr-2">SIMULATE TRANSACTIONS</a>

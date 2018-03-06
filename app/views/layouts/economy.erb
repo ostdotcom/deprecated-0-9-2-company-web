@@ -105,12 +105,6 @@
 
   <%= render :partial => "/shared/web/economy/metamask/metamask" %>
 
-  <% # Always render the partials of status modals. And do it before yield %>
-  <%= render :partial => "/shared/web/economy/tx_status_modal" %>
-  <%= render :partial => "/shared/web/economy/mint_tx_status_modal" %>
-  <%= render :partial => "/shared/web/economy/airdrop_tx_status_modal" %>
-
-
 
   <section id="content" <%= content_style %>>
     <div class="container-fluid">
@@ -126,6 +120,11 @@
 
   <%= render :partial => "shared/web/modals/help_video" %>
 </main>
+  <% # Always render the partials of status modals. And do it before yield %>
+  <%= render :partial => "/shared/web/economy/tx_status_modal" %>
+  <%= render :partial => "/shared/web/economy/propose_tx_status_modal" %>
+  <%= render :partial => "/shared/web/economy/airdrop_tx_status_modal" %>
+
 <%= yield(:popups) %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <%= javascript_include_tag "web/common" %>
