@@ -43,7 +43,7 @@
       var __submitHandler = formHelper.submitHandler;
       oThis.submitTheForm = function () {
         __submitHandler.apply( formHelper, arguments);
-      }
+      };
 
       formHelper.submitHandler = function () {
         console.log("submitHandler triggered!");
@@ -60,6 +60,7 @@
 
       console.log("nextStep :: currentStep = " , oThis.currentStep );
       oThis.stopObserver();
+      oThis.showSendingOstGrantModal();
       setTimeout(function(){
         oThis.jFormSubmitBtn.attr("disabled", true);
         oThis.jFormSubmitBtn.text("Requesting...");
@@ -157,6 +158,8 @@
 
       if ( response && response.err ) {
         oThis.formHelper.showServerErrors( response );
+        oThis.hideSendingOstGrantModal();
+        ost.coverElements.show("#process_failure_error_cover");
       }
 
       console.log("response", response);
@@ -186,6 +189,7 @@
       console.log("allStepsCompleted!");
       oThis.currentStep = COMPLETED;
       ost.coverElements.hide("#getInitialOstCover");
+      oThis.hideSendingOstGrantModal();
       if ( oThis.onOstGrantedCallback ) {
         oThis.onOstGrantedCallback();
       }
@@ -416,7 +420,7 @@
             });
           }, 10);
         }
-      }
+      };
 
       var xhr = $.ajax("https://faucet.metamask.io/", {
         type: "POST",
@@ -496,6 +500,10 @@
 
     , showSendingOstGrantModal : function () {
         $('#sending_ost_grant_modal').modal('show');
+    }
+
+    , hideSendingOstGrantModal : function () {
+        $('#sending_ost_grant_modal').modal('hide');
     }
 
 
