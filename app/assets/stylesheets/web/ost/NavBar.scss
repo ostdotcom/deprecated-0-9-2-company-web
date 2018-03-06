@@ -57,6 +57,7 @@
         font-weight: 300;
         font-size: 1rem;
         letter-spacing: 0.4px;
+        text-transform: uppercase;
       }
 
       .dropdown-menu{
@@ -90,6 +91,7 @@
             text-transform: uppercase;
             font-size: 0.85rem;
             padding: 8px 8px !important;
+            color: #34445b;
           }
           &:first-child{
             margin-bottom: 8px;
@@ -120,6 +122,19 @@
             z-index: 8;
           }
       }
+    }
+  }
+  .dropdown-toggle{
+    &:after{
+      border: none;
+      content: "";
+      display: inline-block;
+      background: url('http://127.0.0.1:3000/drop-down-arrow.svg') no-repeat center;
+      background-size: 75%;
+      height: 18px;
+      width: 18px;
+      position: relative;
+      top: 3px;
     }
   }
 }
