@@ -125,25 +125,39 @@
 }
 
 .ost-btn-secondary{
-  border: 1px solid #34445b;
-  background: #ffffff;
-  color: #34445b;
+  border: 1px solid $navy-blue;
+  background: $white;
+  color: $navy-blue;
   &.focus-cls,
   &:focus{
-    color: #34445b;
+    color: $navy-blue;
     outline: none;
     box-shadow: none;
     text-decoration: none;
   }
   &.hover-cls, &.active-cls,
   &:hover, &:active{
-    color: #ffffff;
+    color: $white;
     text-decoration: none;
-    background-color: #34445b;
-    border-color: #34445b;
+    background-color: $navy-blue;
+    border-color: $navy-blue;
     svg.icon-play{
-      fill: #ffffff;
+      fill: $white;
     }
+  }
+}
+
+.btn-secondary{
+  border: 1px solid $navy-blue;
+  color: $navy-blue;
+  &:focus{
+    color: $white;
+  }
+  &:hover, &:active{
+    color: $white;
+    text-decoration: none;
+    background-color: $navy-blue;
+    border-color: $navy-blue;
   }
 }
 

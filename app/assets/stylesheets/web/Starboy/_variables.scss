@@ -52,6 +52,7 @@ $mystic: #DADFDC !default; // customized
 $banana: #FBD764 !default; // customized
 $aqua: #84D1D4 !default; // customized
 $shakespeare: #69A2BD !default; // customized
+$navy-blue : #34445b !default;
 
 // Theme background colors
 $yellow-bg: #F9F8E6 !default;
@@ -102,7 +103,7 @@ $colors: map-merge((
 ), $colors);
 
 $primary:       $yellow-300 !default;
-$secondary:     $gray-600 !default;
+$secondary:     $white !default;
 $success:       $green !default;
 $info:          $cyan-100 !default;
 $warning:       $yellow !default;
