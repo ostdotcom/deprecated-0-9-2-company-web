@@ -1,27 +1,21 @@
-.svg.ost-nav-logo{
+.ost-nav-logo{
   width: 68px;
   height: 35px;
-  font-size: 0;
-  display: inline-block;
-  svg{
-    width:100%;
-    height:100%;
-    fill: #34445b;
-  }
+  fill: #34445b;
 }
 
 .svg.ost-kit-logo{
   width: 200px;
   height: 45px;
-  font-size: 0;
-  display: inline-block;
+  fill: #34445b;
 }
 
-.svg.ost-powered-logo{
+.ost-powered-logo{
   width: 68px;
   height: 40px;
-  font-size: 0;
-  display: inline-block;
+  fill: #34445b;
+  position: relative;
+  top: 3px;
 }
 
 .svg.ost-powered-view-logo{
