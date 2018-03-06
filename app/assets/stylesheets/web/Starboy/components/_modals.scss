@@ -1,11 +1,23 @@
 .modal{
   .modal-content{
+    max-height: 90vh;
+    overflow: hidden;
     padding: 1rem;
     border-radius: 0;
     position: relative;
   }
   .modal-header{
+    justify-content: center;
     border-bottom: none;
+    padding-bottom: 0;
+  }
+  .modal-body {
+    overflow-y: auto;
+  }
+  .modal-footer {
+    justify-content: center;
+    border-top: none;
+    padding-top: 0;
   }
   .heading{
     font-size: 1.6rem;
