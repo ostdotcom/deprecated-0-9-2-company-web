@@ -35,6 +35,11 @@
   buffer_mint_factor_over_airdrop = client_token_planner.buffer_mint_factor_over_airdrop;
 
   min_bt_to_mint = number_of_users * airdrop_amount * 2;
+
+  min_ost_needed_to_mint_bt = min_bt_to_mint / ost_to_bt
+
+  show_error_modal = min_ost_needed_to_mint_bt > user_ost_balance
+
   bt_to_mint = number_of_users * airdrop_amount * buffer_mint_factor_over_airdrop;
 
   min_st_prime_to_mint = 100;
@@ -211,6 +216,7 @@
 </form>
 
 <% content_for :end_js do %>
+
     <script type="text/javascript">
       $( function () {
         //Do PriceOracle Stuff First.
@@ -221,4 +227,13 @@
       });
       console.log("@presenter_obj.client_token", <%= raw @presenter_obj.client_token.to_json %>);
     </script>
+
+    <% if show_error_modal %>
+      <script type="text/javascript">
+        $( function () {
+          ost.mintBtWidget.showStakeAndMintErrorCover();
+        });
+      </script>
+    <% end %>
+
 <% end %>
