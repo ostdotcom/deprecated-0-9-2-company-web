@@ -8,15 +8,17 @@
       <thead class="thead-light">
         <tr>
           <th scope="col">User Name</th>
-          <th scope="col">Total <%=@presenter_obj.client_token.symbol%> available</th>
-          <th scope="col">Total <%=@presenter_obj.client_token.symbol%> earned</th>
-          <th scope="col">Total <%=@presenter_obj.client_token.symbol%> spent</th>
+          <th scope="col">Total transactions</th>
+          <th scope="col">Total <%=@presenter_obj.client_token.symbol%></th>
+          <th scope="col"><%=@presenter_obj.client_token.symbol%> earned</th>
+          <th scope="col"><%=@presenter_obj.client_token.symbol%> spent</th>
         </tr>
       </thead>
       <tbody id="top-holders" data-simple-table data-url="/api/economy/token/graph/top-users">
         <script type="text/x-handlebars-template" data-row-template>
           <tr>
             <td>{{name}}</td>
+            <td>{{total_transactions}}</td>
             <td>{{display_token tokens}}</td>
             <td>{{display_token tokens_earned}}</td>
             <td>{{display_token tokens_spent}}</td>
