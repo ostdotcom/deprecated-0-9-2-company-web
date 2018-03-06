@@ -21,8 +21,8 @@
     max_st_prime_to_mint = ost_balance
   end
 
-  max_st_prime_to_mint = 0 if max_st_prime_to_mint < 1
-  max_bt_to_mint = 0 if max_bt_to_mint < 1
+  max_st_prime_to_mint = max_st_prime_to_mint.floor
+  max_bt_to_mint = max_bt_to_mint.floor
 
   indicative_bt_to_mint =  (max_bt_to_mint * indicative_fraction).to_i
   indicative_stp_to_mint =  (max_st_prime_to_mint * indicative_fraction).to_i
