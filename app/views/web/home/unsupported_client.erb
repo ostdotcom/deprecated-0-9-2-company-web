@@ -10,12 +10,27 @@
         <p class="lead font-weight-light mb-5">OST KIT alpha requires Google Chrome desktop browser and MetaMask.
           See the instructions below to get started.</p>
         <img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/only-chrome-logo.png" width="210" height="55" alt="Only Chrome "/>
-        <h3 class="text-center mt-6">Getting started</h3>
-        <ul class="ost__planner__list">
-          <li class="ost__planner__list__item font-weight-light">Installing MetaMask, your digital wallet!</li>
-          <li class="ost__planner__list__item font-weight-light">Why is MetaMask locked?</li>
-        </ul>
       </div>
     </div>
   </div>
+  <%=
+    render :partial => "shared/web/common/faqs",
+           locals: {
+               header: "FAQ for installing MetaMask",
+               faqs: [
+                   {
+                       title: 'Why do I need to use Chrome and install MetaMask?',
+                       url: 'https://help.ost.com/support/solutions/articles/35000059263-why-do-i-need-to-install-metamask-'
+                   },
+                   {
+                       title: 'How do I unlock MetaMask?',
+                       url: 'https://help.ost.com/support/solutions/articles/35000059264-how-do-i-unlock-metamask-'
+                   },
+                   {
+                       title: 'Why can I use only one MetaMask account with OST KIT⍺?',
+                       url: 'https://help.ost.com/support/solutions/articles/35000059265-why-can-i-use-only-one-metamask-account-with-ost-kit%E2%8D%BA-'
+                   }
+               ]
+           }
+  %>
 </div>
