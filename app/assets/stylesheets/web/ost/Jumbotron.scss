@@ -179,3 +179,23 @@ body{
     transform: rotate(2.4deg);
   }
 }
+
+.uber-banner{
+  background: linear-gradient(80deg, #84D1D4 0%, #27B9D2 100%);
+  padding: 10px 0;
+  font-weight: 300;
+  letter-spacing: 0.6px;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+    &:hover, &:focus{
+      text-decoration: none;
+      font-weight: 500;
+      color: #fff;
+    }
+    .icon-megaphone{
+      height: 20px;
+      width: 30px;
+      vertical-align: middle;
+    }
+  }
