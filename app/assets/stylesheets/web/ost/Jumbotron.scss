@@ -163,6 +163,9 @@ body{
   &.aqua{
     background-color: #aee1e3;
   }
+  &.trans{
+    background-color: #eff9fa;
+  }
   @media (max-width: 512px){
     transform: rotate(3.6deg);
   }
