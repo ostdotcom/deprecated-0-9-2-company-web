@@ -255,9 +255,9 @@
         }
       });
 
-      Handlebars.registerHelper('display_transaction_commission_fee', function(transaction_commission_fee, options ) {
-        if( transaction_commission_fee ) {
-          return PriceOracle.toFiat(transaction_commission_fee);
+      Handlebars.registerHelper('display_bt_commission_amount', function(bt_commission_amount, options ) {
+        if( bt_commission_amount ) {
+          return PriceOracle.toBt(bt_commission_amount);
         } else {
           return "NA";
         }

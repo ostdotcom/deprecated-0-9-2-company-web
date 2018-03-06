@@ -101,8 +101,8 @@
 
               <div class="col-sm-3 pb-2">Commission Fee</div>
               <div class="col-sm-9 pb-2">
-                {{fiat_symbol transaction_commission_fee}}
-                {{display_transaction_commission_fee  transaction_commission_fee}}
+                {{bt_symbol bt_commission_amount}}
+                {{display_bt_commission_amount  bt_commission_amount}}
               </div>
 
               <div class="col-sm-3 pb-2">Status</div>
@@ -152,16 +152,20 @@
   console.log("api_console_data", <%= raw api_console_data.to_json %>);
 
   $( function () {
-    Handlebars.registerHelper('bt_symbol', function(response, options ) {
-      return "<%= bt_symbol %>";
+    Handlebars.registerHelper('bt_symbol', function(value, options ) {
+      if( value ){
+        return "<%= bt_symbol %>";
+      }else {
+        return null;
+      }
     });
     //{{uri_encoded key}}
     Handlebars.registerHelper('uri_encoded', function(data, options ) {
       return encodeURIComponent( data );
     });
 
-    Handlebars.registerHelper('fiat_symbol', function( transaction_commission_fee  , options ) {
-      if(transaction_commission_fee) {
+    Handlebars.registerHelper('fiat_symbol', function( value  , options ) {
+      if(value) {
        return "<%= client_fiat_curreny_pref_symbol %>";
       }else{
         return null;
