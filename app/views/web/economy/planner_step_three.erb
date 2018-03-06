@@ -93,16 +93,15 @@
                 The third step is minting <%= bt_symbol %> <a href="" class="card-link float-right text-uppercase">Learn More</a>
               </h5>
               <hr class="mt-3 mb-4"/>
-              <p class="font-weight-light font-size-p">Here you will select the number of <%= bt_symbol %> to mint. Based on your settings, minimum amount of <%= bt_symbol %> required to be minted is
-                <span class="font-weight-bold"><%= number_with_delimiter(min_bt_to_mint, :delimiter => ',') %> <%= bt_symbol %></span>.
+              <p class="font-weight-light font-size-p">Here you will select the number of <%= bt_symbol %> to mint. Based on your settings, the minimum amount of <%= bt_symbol %> required to mint is
+                <span class="font-weight-bold"><%= number_with_delimiter(min_bt_to_mint, :delimiter => ',') %> <%#= bt_symbol %></span>.
               </p>
               <p class="font-weight-light font-size-p">
-                An equivalent value of OST⍺ will be staked automatically at the 
+                An equivalent value of OST⍺ will be staked automatically at
                   <span class="font-weight-bold d-none"><%= ost_to_bt %> <%= bt_symbol %> = 1 OST⍺</span> 
-                  <span class="font-weight-bold">1 <%= bt_symbol %> = <%= bt_to_ost %> OST⍺</span> 
-                Conversion Rate
+                  <span class="font-weight-bold">1 <%= bt_symbol %> = <%= bt_to_ost %> OST⍺</span>
               </p>
-              <p class="font-weight-light font-size-p">You will also need to reserve a minimum of <%= min_st_prime_to_mint %> OST⍺ to pay for <%= bt_symbol %> transfers by your users. <%= min_st_prime_to_mint %> OST⍺ ensures to pay for approximately <span class="font-weight-bold">500,000 transfers</span>.</p>
+              <p class="font-weight-light font-size-p">You will need to reserve a minimum of <%= min_st_prime_to_mint %> OST⍺ to pay "gas" for <%= bt_symbol %> transaction by your users. <%= min_st_prime_to_mint %> OST⍺ is enough gas reserve for approximately <span class="font-weight-bold">500,000 transfers</span>.</p>
             </div>
           </div>
         </div>
@@ -201,7 +200,7 @@
     <div class="row sticky-footer">
       <div class="container">
         <a href="/planner/step-2" class="btn btn-steps-nav pt-3 pb-3 float-left text-left">&lt; Transactions</a>
-        <button type="submit" id="mint_tokens_btn" href="javascript:void(0)" class="btn btn-steps-nav bg-yellow pt-3 pb-3 float-right">Mint coins &gt;</button>
+        <button type="submit" id="mint_tokens_btn" href="javascript:void(0)" class="btn btn-steps-nav bg-yellow pt-3 pb-3 float-right">Mint Tokens &gt;</button>
       </div>
     </div>
     <div class="pseudo-footer"></div>

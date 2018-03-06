@@ -50,14 +50,12 @@
         totalMint     = BigNumber(btToMint).plus( stPrimeToMint ),
         jMintTokenBtn =  $('#mint-token-btn')
       ;
-      console.log( "totalMint" , totalMint );
       if( totalMint.isZero() ){
         jMintTokenBtn.prop('disabled', true);
       }else {
         jMintTokenBtn.prop('disabled', false);
       }
     }
-
 
     , showMintWidget: function () {
       var oThis = this;

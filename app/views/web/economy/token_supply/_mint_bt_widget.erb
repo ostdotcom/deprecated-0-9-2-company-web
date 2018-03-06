@@ -1,5 +1,7 @@
 <%
 
+  bt_symbol = @presenter_obj.client_token.symbol;
+
   #Things that need to be logically at top.
   ost_to_bt_input_id = ost_to_bt_input_id
   create_ost_to_bt_input = !ost_to_bt_input_id.present? ? true : false;
@@ -92,10 +94,10 @@
 %>
 
 <div class="row">
-  <div class="col-3">
+  <div class="col-4">
     <%= render partial: 'shared/web/common/slider_top',
                locals: {
-                 label: 'N&deg; of Tokens to Create',
+                 label: "N&deg; of #{bt_symbol} to Mint",
                  id: bt_to_mint_input_id,
                  name: bt_to_mint_input_name,
                  type: 'number',
@@ -110,7 +112,7 @@
     <div class="mt-4 mb-2">
       <%= render partial: 'shared/web/common/slider_top',
                  locals: {
-                   label: 'ALLOCATE TRANSACTION FEES',
+                   label: 'Reserved for gas OST⍺',
                    id: st_prime_to_mint_input_id,
                    name: st_prime_to_mint_input_name,
                    type: 'number',
@@ -154,7 +156,7 @@
     <input type="hidden" 
       id="<%= ost_transfered_transaction_hash_id %>" name="transaction_hash" />
   </div>
-  <div class="col-8 offset-1 user-form form-group" id="ostSupplyPieArea">
+  <div class="col-7 offset-1 user-form form-group" id="ostSupplyPieArea">
     <label class="form-label text-uppercase title">OST⍺ Supply</label>
     <div class="d-flex align-items-center">
       <div class="p-2">
@@ -162,13 +164,13 @@
       </div>
       <div class="p-2 legend">
         <div class="pl-2 m-3" style="border-left: 5px solid #34445b;">
-          <strong>OST⍺ Available</strong><br /><span id="<%= ost_balance_after_transfer_id %>"></span>
+          <strong>OST⍺ allocated</strong><br /><span id="<%= ost_balance_after_transfer_id %>"></span>
         </div>
         <div class="pl-2 m-3" style="border-left: 5px solid #fbd764;">
-          <strong>Allocated For Transaction Fee</strong><br /><span data-ost-mock-element="#<%= st_prime_to_mint_input_id %>"></span>
+          <strong>OST⍺ reserved for gas</strong><br /><span data-ost-mock-element="#<%= st_prime_to_mint_input_id %>"></span>
         </div>
         <div class="pl-2 m-3" style="border-left: 5px solid #84D1D4;">
-          <strong>OST⍺ Used For Creating Tokens</strong>
+          <strong>OST⍺ staked for minting tokens</strong>
           <br /><span data-ost-mock-element="#<%= ost_stake_for_bt_id %>"></span>
         </div>
       </div>
@@ -218,7 +220,8 @@
       , idTransferHash      : "<%= ost_transfered_transaction_hash_id %>"
     });
 
-   // ost.mintBtWidget.showStakeAndMintErrorCover();
+    // TO be integrated when error occures on stake and mint.
+    //ost.mintBtWidget.showStakeAndMintErrorCover();
   });
 
 </script>

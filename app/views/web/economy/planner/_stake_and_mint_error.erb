@@ -1,18 +1,31 @@
 <div class="row">
-  <div class="col-12 text-center p-4">
-    <div class="card border-0">
-      <div class="card-body">
-        <h3>
-          Oops, it looks like there a problem!
-        </h3>
-        <p class="p-4">
-          Unfortunately, due to network connectivity issues the Stake & Mint process has failed and cannot be re-started without our help.
-        </p>
-        <h6 class="pb-4">
-          Please contact support@ost.com for assistance.
-        </h6>
-        <button class="btn ost-btn-secondary"> Back </button>
+  <div class="col-12 pt-6 pb-3">
+    <h3 class="text-center font-weight-bold letter-space-1"> Oops, it looks like there a problem!</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 col-md-8 ml-auto mr-auto">
+    <div class="text-center">
+      <p class="font-weight-light mb-5 text-muted">
+        Unfortunately, due to network connectivity issues the Stake & Mint process has failed and cannot be re-started without our help.
+      </p>
+      <div class="mb-5">
+        <span class="font-weight-normal mb-5 text-muted"> Please contact support@ost.com for assistance. </span>
+      </div>
+      <div class="btn-wrapper">
+        <button class="btn ost-btn-secondary stake-and-mint-error-close-btn"> Back </button>
       </div>
     </div>
   </div>
 </div>
+
+<% content_for :end_js do %>
+  <script type="text/javascript">
+    $(function () {
+     $('.stake-and-mint-error-close-btn').on('click' , function () {
+       ost.coverElements.hide("#stake-and-mint-error-cover");
+     });
+    });
+  </script>
+<% end %>
