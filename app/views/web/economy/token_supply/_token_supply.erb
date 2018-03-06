@@ -18,6 +18,8 @@
     tokens_distributed_s = @presenter_obj.client_balances.format_balance_to_s(tokens_distributed)
     tokens_distributed_fiat = @presenter_obj.client_balances.convert_bt_to_fiat(tokens_distributed, fiat_symbol)
     tokens_distributed_fiat_s = @presenter_obj.client_balances.format_balance_to_s(tokens_distributed_fiat)
+    ost_prime_balance_s = @presenter_obj.client_balances.ost_prime_balance_s
+    ost_prime_balance_fiat_s = @presenter_obj.client_balances.ost_prime_fiat_balance_s(fiat_symbol)
   end
 
 %>
@@ -60,13 +62,13 @@
           <div class="card-text mb-1">
             <span class="blue"> OST⍺</span>
             <span class="orange">
-              <%= "#{tokens_minted_s}" %>
+              <%= "#{ost_prime_balance_s}" %>
             </span>
           </div>
           <div class="card-text orange">
             <span class="orange">
               <%= "#{client_fiat_curreny_pref_symbol}" %>
-              <%= "#{tokens_minted_fiat_s}" %>
+              <%= "#{ost_prime_balance_fiat_s}" %>
             </span>
           </div>
         </div>
