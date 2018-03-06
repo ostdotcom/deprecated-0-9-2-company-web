@@ -7,15 +7,22 @@
   ost_balance = @presenter_obj.client_balances.ost_balance
   ost_to_bt = @presenter_obj.client_token.conversion_factor
 
-  indicative_fraction = 0.25
-  bt_st_primt_ratio = 0.9
-
   min_bt_to_mint = 0
   min_st_prime_to_mint = 0
 
-  max_bt_to_mint = bt_st_primt_ratio * (ost_balance - min_st_prime_to_mint) * ost_to_bt
+  if ost_balance > 10
+    indicative_fraction = 0.25
+    bt_st_primt_ratio = 0.9
+    max_bt_to_mint = bt_st_primt_ratio * (ost_balance - min_st_prime_to_mint) * ost_to_bt
+    max_st_prime_to_mint = (1-bt_st_primt_ratio) * ost_balance
+  else
+    indicative_fraction = 1
+    max_bt_to_mint = 0
+    max_st_prime_to_mint = ost_balance
+  end
 
-  max_st_prime_to_mint = (1-bt_st_primt_ratio) * ost_balance
+  max_st_prime_to_mint = 0 if max_st_prime_to_mint < 1
+  max_bt_to_mint = 0 if max_bt_to_mint < 1
 
   indicative_bt_to_mint =  (max_bt_to_mint * indicative_fraction).to_i
   indicative_stp_to_mint =  (max_st_prime_to_mint * indicative_fraction).to_i
