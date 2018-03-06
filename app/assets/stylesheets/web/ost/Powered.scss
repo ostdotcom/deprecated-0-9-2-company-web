@@ -7,7 +7,6 @@
     padding-bottom: 375px;
     h1{
       color: #ffffff;
-      font-weight: 300;
     }
     p{
       color: #ffffff;
@@ -19,7 +18,6 @@
     background-color: #aee1e3;
     h1{
       color: #ffffff;
-      font-weight: 300;
     }
   }
   &.ost{
@@ -56,7 +54,8 @@
       font-size: 0.8rem;
       padding-bottom: 3px;
       display: inline-block;
-      letter-spacing: 2px;
+      letter-spacing: 4px;
+      font-weight: 700;
       border-bottom: 1px solid #d9a025;
       &:hover{
         color: #d9a025;

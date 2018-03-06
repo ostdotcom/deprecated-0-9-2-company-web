@@ -142,7 +142,7 @@ module CompanyApi
         end
 
         def is_eligible_for_ost_grant?
-          ost_balance.blank? || ost_balance < 1000
+          ost_balance.blank? || ost_balance < 2000
         end
 
         def is_eligible_for_eth_grant?

@@ -24,12 +24,16 @@
   li{
     margin: 12px 0;
     font-weight: 300;
-    letter-spacing: 1.4px;
+    letter-spacing: 1px;
     font-size: 0.875rem;
     a{
       color: #597a84;
-      &:hover, &:focus{
+      &:hover{
+        color: #E4B030;
         text-decoration: none;
+      }
+      &:focus{
+        outline: none;
       }
     }
   }

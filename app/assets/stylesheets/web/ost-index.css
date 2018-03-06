@@ -12,6 +12,7 @@
  *= require web/ost/OstBuy
  *= require web/ost/OstTeam
  *= require web/ost/Technology
+ *= require web/ost/Text
  *= require plugins/slick/slick
  *= require plugins/slick/slick-theme
  */

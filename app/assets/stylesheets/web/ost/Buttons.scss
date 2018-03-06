@@ -1,26 +1,29 @@
 .btn{
-  font-weight: 300!important;
+  font-weight: 500!important;
   text-transform: uppercase;
-  border-style: solid;
-  border-width: 1px;
-  padding: 0.75rem 1.875rem!important;
+  font-size: 0.9rem!important;
+  border-width: 1.5px!important;
+  padding: 0.75rem 1.6rem!important;
+  letter-spacing: 1px;
 
-  &.btn-gold{
+  &.btn-primary{
     border-color:#E4B030;
     background: #E4B030;
-    color: #fff;
-    &.focus-cls,
     &:focus{
       color: #fff;
       outline: none;
       text-decoration: none;
+      box-shadow: none;
     }
-    &.hover-cls, &.active-cls,
-    &:hover, &:active{
+    &:active{
+      border-color:#D9A025!important;
+      background-color: #D9A025!important;
+    }
+    &:hover{
       color: #fff;
       text-decoration: none;
-      background-color: #D9A025;
-      border: 1px solid #D9A025;
+      border-color:#D9A025!important;
+      background-color: #D9A025!important;
     }
   }
 
@@ -28,7 +31,6 @@
     border: 1px solid #e4b030;
     background: #ffffff;
     color: #e4b030;
-    font-size: 1rem;
     &.focus-cls,
     &:focus{
       color: #7f9183;
