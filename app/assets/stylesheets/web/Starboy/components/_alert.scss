@@ -5,4 +5,10 @@
     font-size: 0.875rem;
     background-color: $alice-blue;
   }
+
+  &.alert-warning {
+    border: none;
+    background-color: none;
+    color: $orange;
+  }
 }
