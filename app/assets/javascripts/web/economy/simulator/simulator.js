@@ -255,6 +255,14 @@
         }
       });
 
+      Handlebars.registerHelper('display_transaction_commission_fee', function(transaction_commission_fee, options ) {
+        if( transaction_commission_fee ) {
+          return PriceOracle.toFiat(transaction_commission_fee);
+        } else {
+          return "NA";
+        }
+      });
+
       Handlebars.registerHelper('ifTransactionPending' , function (status  ,  options) {
         if(status == oThis.txStatus.PENDING ) {
           return options.fn(this);

@@ -23,14 +23,14 @@
 %>
 
 <nav class="navbar navbar-expand-md navbar-light ">
-  <span class="navbar-brand font-weight-normal">
+  <a href="/dashboard" class="navbar-brand font-weight-normal">
     <span class="token-symbol <%= client_token.symbol_icon %>">
       <%= client_token.symbol %>  
     </span>
     <span class="token-name">
       <%= client_token.name %>  
     </span>
-  </span>
+  </a>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <% content_for :do_not_reder do %>
       <% # The below mark is kept for future and will not render %>
@@ -49,12 +49,12 @@
           <% if tokens_minted_s.present? %>
             <li class="nav-item">
                   <span class="nav-link" href="#">
-                    <span class="d-block">minted <%= client_token.symbol %></span>
+                    <span class="d-block">total <%= client_token.symbol %></span>
                     <span class="d-block gold text-sm-left text-md-center"><%= "#{tokens_minted_s} (#{client_fiat_curreny_pref_symbol}#{tokens_minted_fiat_s})" %></span>
                   </span>
             </li>
           <% end %>
-          <% if bt_balance_s.present? %>
+          <% if false && bt_balance_s.present? %>
               <li class="nav-item">
                 <span class="nav-link active">
                   <span class="d-block">available <%= client_token.symbol %></span>

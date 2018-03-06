@@ -3,6 +3,7 @@
 
   bt_name   = @presenter_obj.client_token.name;
   bt_symbol = @presenter_obj.client_token.symbol;
+  client_fiat_curreny_pref_symbol = @presenter_obj.client_fiat_curreny_pref_symbol
 
   tx_status_polling_url = '/api/economy/transaction/fetch-detail';        #fetch transaction details api
   execute_transaction_api = '/api/economy/transaction/execute' ; #Run transaction api
@@ -98,6 +99,12 @@
               <div class="col-sm-3 pb-2">Gas</div>
               <div class="col-sm-9 pb-2">{{diplay_transaction_fee transaction_fee}}</div>
 
+              <div class="col-sm-3 pb-2">Commission Fee</div>
+              <div class="col-sm-9 pb-2">
+                {{fiat_symbol transaction_commission_fee}}
+                {{display_transaction_commission_fee  transaction_commission_fee}}
+              </div>
+
               <div class="col-sm-3 pb-2">Status</div>
               <div class="col-sm-9 pb-2">{{status}}</div>
             </div>
@@ -151,6 +158,14 @@
     //{{uri_encoded key}}
     Handlebars.registerHelper('uri_encoded', function(data, options ) {
       return encodeURIComponent( data );
+    });
+
+    Handlebars.registerHelper('fiat_symbol', function( transaction_commission_fee  , options ) {
+      if(transaction_commission_fee) {
+       return "<%= client_fiat_curreny_pref_symbol %>";
+      }else{
+        return null;
+      }
     });
 
   });
