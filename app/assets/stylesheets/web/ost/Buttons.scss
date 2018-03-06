@@ -69,22 +69,4 @@
     }
   }
 
-
-  &.btn-white-border-blue{
-    border: 1px solid #34445b;
-    background-color: #ffffff;
-    color: #34445b;
-    &:focus{
-      color: #34445b;
-      outline: none;
-      text-decoration: none;
-    }
-    &:hover,&:active{
-      color: #fff;
-      text-decoration: none;
-      background-color: #34445b;
-      border-color: #34445b;
-    }
-  }
-
 }
