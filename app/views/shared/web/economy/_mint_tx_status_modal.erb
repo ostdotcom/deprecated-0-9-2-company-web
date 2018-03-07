@@ -57,7 +57,7 @@
     var ost = ns("ost")
       , TSM = ns("ost.TSM")
     ;
-    var MintTxStatusModal = TSM.MintTxStatusModal = function ( config ) {
+    var MintTxStatusModal = TSM.MintTxStatusModal = function (data, url, config ) {
       var oThis = this;
 
       oThis.setHeaderTemplateId("<%= start_header_tempate_id %>", TSM.UiStates.START );
@@ -75,6 +75,15 @@
 
     };
     MintTxStatusModal.prototype = Object.create(TSM.prototype);
+
+
+    var _onTxFailed = TSM.prototype.onTxFailed;
+    MintTxStatusModal.prototype.onTxFailed = function () {
+      var oThis = this;
+      _onTxFailed.apply(oThis, arguments);
+      oThis.hide();
+      ost.coverElements.show('#process_failure_error_cover');
+    }
 
   });
 </script>

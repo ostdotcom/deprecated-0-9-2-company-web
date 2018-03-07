@@ -459,6 +459,10 @@
       oThis.jOstAfter.html( remainingOst.toString( 10 ) );
     }
 
+    ,showProcessFailureErrorCover : function () {
+      ost.coverElements.show('#process_failure_error_cover');
+    }
+
     , chartOptions : {
       pieHole: 0.7,
       pieSliceText: 'none',

@@ -18,7 +18,7 @@
   ;
 
 
-  
+
   var oThis = metamask.getOstHelper = {
     currentStep: NOTHING_IN_PROGRESS
     , idFormSubmitBtn : "get-initial-ost-button"
@@ -159,7 +159,7 @@
       if ( response && response.err ) {
         oThis.formHelper.showServerErrors( response );
         oThis.hideSendingOstGrantModal();
-        ost.coverElements.show("#process_failure_error_cover");
+        oThis.showProcessFailureErrorCover();
       }
 
       console.log("response", response);
@@ -504,6 +504,10 @@
 
     , hideSendingOstGrantModal : function () {
         $('#sending_ost_grant_modal').modal('hide');
+    }
+
+    ,showProcessFailureErrorCover : function () {
+      ost.coverElements.show('#process_failure_error_cover');
     }
 
 

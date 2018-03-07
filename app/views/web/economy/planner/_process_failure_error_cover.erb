@@ -14,7 +14,7 @@
         <span class="font-weight-normal mb-5 text-muted"> Please contact support@ost.com for assistance. </span>
       </div>
       <div class="btn-wrapper">
-        <button class="btn ost-btn-secondary stake-and-mint-error-close-btn"> Back </button>
+        <button class="btn ost-btn-secondary close-process-failure-error-btn"> Back </button>
       </div>
     </div>
   </div>
@@ -23,7 +23,7 @@
 <% content_for :end_js do %>
   <script type="text/javascript">
     $(function () {
-     $('.stake-and-mint-error-close-btn').on('click' , function () {
+     $('.close-process-failure-error-btn').on('click' , function () {
        ost.coverElements.hide("#process_failure_error_cover");
      });
     });
