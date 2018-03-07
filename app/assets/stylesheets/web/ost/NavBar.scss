@@ -59,7 +59,7 @@
       }
 
       .dropdown-menu{
-        padding: 8px 5px 0;
+        padding: 12px 5px 0;
         width: 200px;
         border: none;
         opacity: 0;
@@ -93,9 +93,6 @@
             font-size: 0.85rem;
             padding: 8px 8px !important;
             color: #34445b;
-          }
-          &:first-child{
-            margin-bottom: 8px;
           }
           img{
             display: block;
