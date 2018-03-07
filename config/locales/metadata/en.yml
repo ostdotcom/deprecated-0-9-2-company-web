@@ -4,22 +4,22 @@ en:
 
     index:
       :meta:
-        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :title: 'OST KIT | The Complete Blockchain Toolkit for Business'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
         :robots: 'index, follow'
         :og:
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | The Complete Blockchain Toolkit for Business'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | The Complete Blockchain Toolkit for Business'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 1
@@ -30,9 +30,9 @@ en:
         :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
         :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, nofollow'
         :og:
           :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
           :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
@@ -52,22 +52,22 @@ en:
 
     login:
       :meta:
-        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :title: 'OST KIT | Login'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, nofollow'
         :og:
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Login'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Login'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 1
@@ -75,22 +75,22 @@ en:
 
     logout:
       :meta:
-        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :title: 'OST KIT | Logout'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, nofollow'
         :og:
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Logout'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Logout'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 0
@@ -98,22 +98,22 @@ en:
 
     reset_password:
       :meta:
-        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :title: 'OST KIT | Reset Password'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, nofollow'
         :og:
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Reset Password'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Reset Password'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 1
@@ -121,22 +121,22 @@ en:
 
     update_password:
       :meta:
-        :title: 'Change your password for the Simple Token Project Token Sale'
-        :description: 'Change your password for the Simple Token Token Sale. Simple Token is the bridge between cryptocurrencies and consumer apps.'
+        :title: 'OST KIT | Update Password'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, noindex'
         :og:
-          :title: 'Change your password for the Simple Token Project Token Sale'
-          :description: 'Change your password for the Simple Token Token Sale. Simple Token is the bridge between cryptocurrencies and consumer apps.'
+          :title: 'OST KIT | Update Password'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Change your password for the Simple Token Project Token Sale'
-          :description: 'Change your password for the Simple Token Token Sale. Simple Token is the bridge between cryptocurrencies and consumer apps.'
+          :title: 'OST KIT | Update Password'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 1
@@ -144,22 +144,22 @@ en:
 
     verify_email:
       :meta:
-        :title: 'Verify your email for the Simple Token Project Token Sale'
-        :description: 'Change your password for the Simple Token Token Sale. Simple Token is the bridge between cryptocurrencies and consumer apps.'
+        :title: 'OST KIT | Verify Email'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, noindex'
         :og:
-          :title: 'Change your password for the Simple Token Project Token Sale'
-          :description: 'Change your password for the Simple Token Token Sale. Simple Token is the bridge between cryptocurrencies and consumer apps.'
+          :title: 'OST KIT | Verify Email'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Change your password for the Simple Token Project Token Sale'
-          :description: 'Change your password for the Simple Token Token Sale. Simple Token is the bridge between cryptocurrencies and consumer apps.'
+          :title: 'OST KIT | Verify Email'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 0
@@ -167,22 +167,22 @@ en:
 
     sign_up:
       :meta:
-        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :title: 'OST KIT | Sign Up'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, nofollow'
         :og:
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Sign Up'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Sign Up'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 1
@@ -192,22 +192,22 @@ en:
 
     dashboard:
       :meta:
-        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :title: 'OST KIT | Dashboard'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, nofollow'
         :og:
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Dashboard'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Dashboard'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 1
@@ -215,22 +215,22 @@ en:
 
     planner:
       :meta:
-        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :title: 'OST KIT | Economy Planner - Step One'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, nofollow'
         :og:
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Economy Planner - Step One'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Economy Planner - Step One'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 1
@@ -238,22 +238,22 @@ en:
 
     planner_step_two:
       :meta:
-        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :title: 'OST KIT | Economy Planner - Step Two'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, nofollow'
         :og:
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Economy Planner - Step Two'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Economy Planner - Step Two'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 1
@@ -261,22 +261,22 @@ en:
 
     planner_step_three:
       :meta:
-        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :title: 'OST KIT | Economy Planner - Step Three'
+        :description: 'OST KIT | Economy Planner - Step Three gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, noindex'
         :og:
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Economy Planner - Step Three'
+          :description: 'OST KIT | Economy Planner - Step Three gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Economy Planner - Step Three'
+          :description: 'OST KIT | Economy Planner - Step Three gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 0
@@ -284,22 +284,22 @@ en:
 
     token_supply:
       :meta:
-        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :title: 'OST KIT | Stake and Mint OST Alpha'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, nofollow'
         :og:
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Stake and Mint OST Alpha'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Stake and Mint OST Alpha'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 1
@@ -307,22 +307,22 @@ en:
 
     users:
       :meta:
-        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :title: 'OST KIT | Users'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, nofollow'
         :og:
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Users'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Users'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 1
@@ -330,22 +330,22 @@ en:
 
     transactions:
       :meta:
-        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :title: 'OST KIT | Transactions'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, nofollow'
         :og:
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Transactions'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Transactions'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 1
@@ -353,22 +353,22 @@ en:
 
     simulator:
       :meta:
-        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :title: 'OST KIT | Simulator'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, nofollow'
         :og:
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Simulator'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Simulator'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 1
@@ -376,22 +376,22 @@ en:
 
     developer_api_console:
       :meta:
-        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :title: 'OST KIT | Developers'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token'
-        :name: 'Simple Token'
-        :robots: 'index, follow'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, nofollow'
         :og:
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Developers'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Developers'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
       :assets:
         :specific_css_required: 0
@@ -400,22 +400,22 @@ en:
   web/ost:
     index:
       :meta:
-        :title: 'OpenST Foundation'
-        :description: 'The OpenST Foundation is a non-profit Hong Kong membership company with a mandate is to develop the OpenST protocol, oversee the OST token economy and further the OST ecosystem.'
+        :title: 'OST | Connect to The Utility Blockchain'
+        :description: 'The OST software platform helps businesses gain competitive advantage from blockchain and turn the potential of decentralization into reality.'
         :canonical: '%{canonical}'
-        :keywords: 'Simple Token, OpenST Foundation'
-        :name: 'OpenST Foundation'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
         :robots: 'index, follow'
         :og:
-          :title: 'OpenST Foundation'
-          :description: 'The OpenST Foundation is a non-profit Hong Kong membership company with a mandate is to develop the OpenST protocol, oversee the OST token economy and further the OST ecosystem.'
+          :title: 'OST | Connect to The Utility Blockchain'
+          :description: 'The OST software platform helps businesses gain competitive advantage from blockchain and turn the potential of decentralization into reality.'
           :type: 'website'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/open-st/images/openst-og-v1.png'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'OpenST Foundation'
-          :description: 'The OpenST Foundation is a non-profit Hong Kong membership company with a mandate is to develop the OpenST protocol, oversee the OST token economy and further the OST ecosystem.'
+          :title: 'OST | Connect to The Utility Blockchain'
+          :description: 'The OST software platform helps businesses gain competitive advantage from blockchain and turn the potential of decentralization into reality.'
           :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/open-st/images/openst-og-v1.png'
       :assets:
         :specific_css_required: 1
