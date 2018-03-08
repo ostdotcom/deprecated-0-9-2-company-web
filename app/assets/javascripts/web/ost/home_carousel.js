@@ -17,7 +17,7 @@
   function createCarousel(data) {
     var oneElCarousel = Handlebars.compile($("#one-el-carousel").html()),
         towElCarousel = Handlebars.compile($("#two-el-carousel").html()),
-        jWrapper = $('#carousel-wrapper'),
+        jWrapper = $('#home-carousel-wrapper'),
         jMarkup
       ;
     jWrapper.empty();
@@ -30,8 +30,8 @@
   }
 
   function initCarousel() {
-    $('#carousel-wrapper').slick({
-      dots: true,
+    $('#home-carousel-wrapper').slick({
+      dots: false,
       infinite: true,
       speed: 300,
       slidesToShow: 3,

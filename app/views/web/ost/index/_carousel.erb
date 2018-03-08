@@ -1,88 +1,96 @@
-<div class="container" id="carousel-wrapper">
+<div class="container-fluid technology-elements">
 
-      <script id="one-el-carousel" type="text/x-handlebars-template">
-        <div class="w-100 one-el-wrapper">
-          <div class="content-wrapper">
-            <div class="w-100 content">
-              {{#ifVideo video_embed}}
-              <div class="video-wrapper">
-                <button type="button" class="font-weight-light btn btn-gold-border h-100 video-btn w-100" data-toggle="modal" data-src="{{video_embed}}" data-target="#helpVideoModal">
+  <div class="container" id="home-carousel-wrapper">
+    <script id="one-el-carousel" type="text/x-handlebars-template">
+      <div class="w-100 one-el-wrapper">
+        <div class="content-wrapper">
+          <div class="w-100 content">
+            {{#ifVideo video_embed}}
+            <div class="video-wrapper">
+              <button type="button" class="font-weight-light btn h-100 video-btn w-100" data-toggle="modal" data-src="{{video_embed}}" data-target="#helpVideoModal">
+                <span class="play-icon">
                   <svg class="icon-play align-middle">
                     <switch>
                       <use class="icon-play" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"></use>
                     </switch>
                   </svg>
-                </button>
-                {{#ifImage image}}
-                <div class="img-wrapper">
-                  <img class="img-fluid" src="{{image}}" alt="image"/>
-                </div>
-                {{/ifImage}}
+                </span>
+              </button>
+              {{#ifImage image}}
+              <div class="img-wrapper">
+                <img class="img-fluid" src="{{image}}" alt="image"/>
               </div>
-              {{/ifVideo}}
-              {{#ifTitle title }}
-              <div class="carousel-title">
-                {{title}}
-              </div>
-              {{/ifTitle}}
-              {{#ifDescription description}}
-              <div class="carousel-description">
-                {{description}}
-              </div>
-              {{/ifDescription}}
-              {{#ifDate date}}
-                <div class="w-100 date-wrapper">
-                  <div class='date-content'>15 FEB 2017{{date}}</div>
-                </div>
-              {{/ifDate}}
+              {{/ifImage}}
             </div>
+            {{/ifVideo}}
+            {{#ifTitle title }}
+            <div class="carousel-title">
+              {{title}}
+            </div>
+            {{/ifTitle}}
+            {{#ifDescription description}}
+            <div class="carousel-description">
+              {{description}}
+            </div>
+            {{/ifDescription}}
+            {{#ifDate date}}
+              <div class="w-100 date-wrapper">
+                <div class='date-content'>
+                  <div class="date-text">15 FEB 2017{{date}}</div>
+                </div>
+              </div>
+            {{/ifDate}}
           </div>
         </div>
-      </script>
+      </div>
+    </script>
 
-
-      <script id="two-el-carousel" type="text/x-handlebars-template">
-        <div class="w-100 tow-el-wrapper">
-          <div class="content-wrapper">
-            {{#each this}}
-            <div class="w-100 content">
-              {{#ifVideo video_embed}}
-              <div class="video-wrapper">
-                <button type="button" class="font-weight-light btn btn-gold-border video-btn h-100 w-100" data-toggle="modal" data-src="{{video_embed}}" data-target="#helpVideoModal">
+    <script id="two-el-carousel" type="text/x-handlebars-template">
+      <div class="w-100 tow-el-wrapper">
+        <div class="content-wrapper">
+          {{#each this}}
+          <div class="w-100 content">
+            {{#ifVideo video_embed}}
+            <div class="video-wrapper">
+              <button type="button" class="font-weight-light btn video-btn h-100 w-100" data-toggle="modal" data-src="{{video_embed}}" data-target="#helpVideoModal">
+                <span class="play-icon">
                   <svg class="icon-play align-middle">
                     <switch>
                       <use class="icon-play" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"></use>
                     </switch>
                   </svg>
-                </button>
-                {{#ifImage image}}
-                <div class="img-wrapper">
-                  <img class="img-fluid" src="{{image}}" alt="image"/>
-                </div>
-                {{/ifImage}}
+                </span>
+              </button>
+              {{#ifImage image}}
+              <div class="img-wrapper">
+                <img class="img-fluid" src="{{image}}" alt="image"/>
               </div>
-              {{/ifVideo}}
-              {{#ifTitle title }}
-              <div class="carousel-title">
-                {{title}}
-              </div>
-              {{/ifTitle}}
-              {{#ifDescription description}}
-              <div class="carousel-description">
-                {{description}}
-              </div>
-              {{/ifDescription}}
-              {{#ifDate date}}
-                <div class="w-100 date-wrapper">
-                  <div class='date-content'>15 FEB 2017{{date}}</div>
-                </div>
-              {{/ifDate}}
+              {{/ifImage}}
             </div>
-            {{/each}}
+            {{/ifVideo}}
+            {{#ifTitle title }}
+            <div class="carousel-title">
+              {{title}}
+            </div>
+            {{/ifTitle}}
+            {{#ifDescription description}}
+            <div class="carousel-description">
+              {{description}}
+            </div>
+            {{/ifDescription}}
+            {{#ifDate date}}
+              <div class="w-100 date-wrapper">
+                <div class='date-content'>
+                  <div class="date-text">15 FEB 2017{{date}}</div>
+                </div>
+              </div>
+            {{/ifDate}}
           </div>
+          {{/each}}
         </div>
-      </script>
-
+      </div>
+    </script>
+  </div>
 </div>
 
 <% content_for :end_js do %>
