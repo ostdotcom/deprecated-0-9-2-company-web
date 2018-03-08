@@ -53,7 +53,10 @@
       a.nav-link{
         color: #34445b;
         font-weight: 300;
-        font-size: 1rem;
+        font-size: 0.8rem;
+        @media(min-width: 991px){
+          font-size: 1rem;
+        }
         letter-spacing: 0.4px;
         text-transform: uppercase;
       }
