@@ -35,6 +35,8 @@
     , jEditor         : null
     , jForm           : null
     , jHeading        : null
+    , jCreateHeading  : null
+    , jEditHeading    : null
     , jSubmit         : null 
     , jId             : null
     , jDeviceId       : null
@@ -59,6 +61,8 @@
       oThis.jEditor         = oThis.jEditor         || $("#transaction_editor");
       oThis.jForm           = oThis.jForm           || oThis.jEditor.find("#transaction_editor_form");
       oThis.jHeading        = oThis.jHeading        || oThis.jForm.find("#transaction_editor_mode_heading");
+      oThis.jCreateHeading  = oThis.jCreateHeading  || oThis.jForm.find("#transaction_heading_create");
+      oThis.jEditHeading    = oThis.jEditHeading    || oThis.jForm.find("#transaction_heading_update");
       oThis.jSubmit         = oThis.jSubmit         || oThis.jForm.find("#transaction_editor_submit_btn");
       oThis.jId             = oThis.jId             || oThis.jForm.find("#transaction_id");
       oThis.jDeviceId       = oThis.jDeviceId       || oThis.jForm.find("#transaction_device_id");
@@ -135,7 +139,7 @@
       }
 
       //Update Heading
-      oThis.jHeading.text("Create Transaction");
+      oThis.jHeading.text( oThis.jCreateHeading.val() );
 
       //Update Submit Button Text
       oThis.jSubmit.text("Add Transaction")
@@ -160,7 +164,7 @@
       currentData = transactionData;
 
       //Update Heading
-      oThis.jHeading.text("Update Transaction");
+      oThis.jHeading.text( oThis.jEditHeading.val() );
 
       //Update Submit Button Text
       oThis.jSubmit.text("Update Transaction")

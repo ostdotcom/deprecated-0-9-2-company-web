@@ -20,6 +20,8 @@
     tokens_minted_fiat_s = client_balances.format_fiat_balance_to_s(tokens_minted_fiat)
   end
 
+  show_bt_balance = false;
+
 %>
 
 <nav class="navbar navbar-expand-md navbar-light ">
@@ -49,23 +51,23 @@
           <% if tokens_minted_s.present? %>
             <li class="nav-item">
                   <span class="nav-link" href="#">
-                    <span class="d-block">total <%= client_token.symbol %></span>
+                    <span class="d-block">total <%= client_token.symbol %> Supply</span>
                     <span class="d-block gold text-sm-left text-md-center"><%= "#{tokens_minted_s} (#{client_fiat_curreny_pref_symbol}#{tokens_minted_fiat_s})" %></span>
                   </span>
             </li>
           <% end %>
-          <% if false && bt_balance_s.present? %>
-              <li class="nav-item">
-                <span class="nav-link active">
-                  <span class="d-block">available <%= client_token.symbol %></span>
-                  <span class="d-block gold text-sm-left text-md-center"><%= "#{bt_balance_s} (#{client_fiat_curreny_pref_symbol}#{bt_fiat_balance_s})" %></span>
-                </span>
-              </li>
+          <% if show_bt_balance && bt_balance_s.present? %>
+                <li class="nav-item">
+                  <span class="nav-link active">
+                    <span class="d-block">total <%= client_token.symbol %></span>
+                    <span class="d-block gold text-sm-left text-md-center"><%= "#{bt_balance_s} (#{client_fiat_curreny_pref_symbol}#{bt_fiat_balance_s})" %></span>
+                  </span>
+                </li>
           <% end %>
           <% if ost_balance_s.present? %>
               <li class="nav-item">
                 <span class="nav-link" href="#">
-                  <span class="d-block">available ost</span>
+                  <span class="d-block">available ost⍺</span>
                   <span class="d-block gold text-sm-left text-md-center"><%= "#{ost_balance_s} (#{client_fiat_curreny_pref_symbol}#{ost_fiat_balance_s})" %></span>
                 </span>
               </li>

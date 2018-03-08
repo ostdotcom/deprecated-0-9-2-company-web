@@ -1,15 +1,15 @@
 <div class="row _top_holders">
   <div class="col-12">
-    <h3 class="mt-5 mb-3">User</h3>
+    <h3 class="mt-5 mb-3">User Engagement</h3>
     <div class="d-flex graph-header">
-      <div class="mr-auto p-2">Top <%=@presenter_obj.client_token.symbol%> Holders</div>
+      <div class="mr-auto p-2">Most Active Users</div>
     </div>
     <table class="table dashboard-user-table">
       <thead class="thead-light">
         <tr>
           <th scope="col">User Name</th>
-          <th scope="col">Total transactions</th>
-          <th scope="col">Total <%=@presenter_obj.client_token.symbol%></th>
+          <th scope="col">No. of transactions</th>
+          <th scope="col"><%=@presenter_obj.client_token.symbol%> Balance</th>
           <th scope="col"><%=@presenter_obj.client_token.symbol%> earned</th>
           <th scope="col"><%=@presenter_obj.client_token.symbol%> spent</th>
         </tr>

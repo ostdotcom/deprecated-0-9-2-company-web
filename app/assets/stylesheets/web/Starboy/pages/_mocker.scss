@@ -1,6 +1,10 @@
-.mocker-card-bg{
+.mocker-card {
   border: none;
   background-color: $alice-blue;
+
+  &.right-border {
+    border-right: solid 1px #D9E8EF;
+  }
   .card-body{
     font-size: 0.8rem;
     padding: 0.5rem;

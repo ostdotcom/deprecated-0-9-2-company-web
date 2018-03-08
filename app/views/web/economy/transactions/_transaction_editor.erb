@@ -43,7 +43,9 @@
 
   <div class="row">
     <div class="col-12">
-      <h3 class="mt-4" id="transaction_editor_mode_heading">Create Transactions</h3>
+      <input type="hidden" id="transaction_heading_create" value="Create a Transaction Type"/>
+      <input type="hidden" id="transaction_heading_update" value="Update a Transaction Type"/>
+      <h3 class="mt-4" id="transaction_editor_mode_heading">Create a Transaction Type</h3>
       <hr class="mb-0"/>
     </div>
     <div class="col-12">
@@ -82,7 +84,7 @@
 
     <div class="col-12 form-group mb-0">
       <label class="form-label">Price Oracle
-        <a href="/" class="text-uppercase card-link hover-link">Learn More About Price Oracle</a>
+        <a href="/" class="text-uppercase card-link hover-link">Learn More</a>
       </label>
     </div>
     <div class="col-12">
@@ -100,10 +102,10 @@
             <span class="radio-button-circle"></span>Off</label>
         </div>
         <label class="radio-button-label p-0 font-weight-light" id="currency_type_bt_help_text">
-          (<%= bt_symbol %> value remains constant <%= fiat_display_text %> value will auto adjust)
+          (When the price oracle is Off the <%= bt_symbol %> value remains constant and the <%= fiat_display_text %> value will auto adjust)
         </label>
         <label class="radio-button-label p-0 font-weight-light" id="currency_type_fiat_help_text">
-          (<%= fiat_display_text %> value remains constant <%= bt_symbol %> value will auto adjust)
+          (When the price oracle is On the <%= fiat_display_text %> value remains constant and the <%= bt_symbol %> value will auto adjust)
         </label>
         <div class="invalid-feedback" data-forname="currency_type">&nbps;</div>
       </div>
@@ -111,7 +113,7 @@
 
     <div class="col-4">
       <div class="form-group" id="transaction_value_in_fiat_form_group">
-        <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Value IN (<%= fiat_display_text %>)</label>
+        <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Value IN <%= fiat_display_text %></label>
         <input id="value_in_fiat" type="number" name="currency_value" 
         class="form-control" aria-describedby="emailHelp" max="100"
         step="0.01" min="0.01" data-ost-num-autocorrect-element
@@ -122,7 +124,7 @@
 
     <div class="col-4">
       <div class="form-group" id="value_in_bt_form_group">
-        <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Value In (<%= bt_symbol %>)</label>
+        <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Value In <%= bt_symbol %></label>
         <input id="value_in_bt" type="number" 
           name="currency_value" class="form-control" 
           step="0.00001" min="0.00001"
@@ -145,7 +147,7 @@
   </div>
   <div class="row" id="commission-options-row">
     <div class="col-12 form-group mb-0">
-      <label class="form-label">Earn Fees</label>
+      <label class="form-label">Charge Transaction Fees</label>
     </div>
 
 
@@ -171,10 +173,15 @@
 
     <div class="col-12" id="commission_percent_wrap">
       <div class="row">
+        <div class="col-12">
+          <div class="form-group mb-0">
+          <label class="form-label" for="commission_percent">SET TRANSACTION FEE (IN %). <span>The Fee will be deducted from the transaction amount.</span></label>          
+          </div>
+        </div>
         <div class="col-8">
           <%= render partial: 'shared/web/common/slider_right',
               locals: {
-              label: 'FEES IN % <span>(Your fees is included in the transaction amount)</span>',
+              label: '',
               id: 'commission_percent',
               name: 'commission_percent',
               type: 'number',
@@ -190,7 +197,7 @@
           <input type="hidden" name="commission_in_fiat" id="commission_in_fiat" value="1.5" />
         </div>
 
-        <div class="col-2 mt-5">
+        <div class="col-2 mt-1">
           <%= render :partial => "/shared/web/common/mocker",
                      :locals => {
                        :header => "VALUE IN " + bt_symbol,
@@ -199,7 +206,7 @@
           %>
         </div>
 
-        <div class="col-2 mt-5">
+        <div class="col-2 mt-1">
 
           <%= render :partial => "/shared/web/common/mocker",
                      :locals => {
@@ -217,7 +224,8 @@
         <%= render :partial => "/shared/web/common/mocker",
           :locals => {
             :header => "TOTAL TRANSACTION VALUE (" + fiat_display_text + ")",
-            :mock_selector => "#value_in_fiat"
+            :mock_selector => "#value_in_fiat",
+            :card_classes => "right-border"
           }
         %>
         <%= render :partial => "/shared/web/common/mocker",
@@ -234,7 +242,8 @@
         <%= render :partial => "/shared/web/common/mocker",
           :locals => {
             :header => "TOTAL TRANSACTION VALUE (" + bt_symbol + ")",
-            :mock_selector => "#value_in_bt"
+            :mock_selector => "#value_in_bt",
+            :card_classes => "right-border"
           }
         %>
         <%= render :partial => "/shared/web/common/mocker",

@@ -1,5 +1,7 @@
 <div class="form-group" id="<%=id%>_slider_form_group">
-  <label class="form-label" for="<%=id%>"><%= raw label%></label>
+  <% if label.present? %>
+    <label class="form-label" for="<%=id%>"><%= raw label%></label>
+  <% end %>
   <div class="input-group slider-with-input right d-flex align-items-center mt-4 mb-3 <%= (defined? classes) ? classes : '' %>">
     <input
         type="text"

@@ -17,7 +17,7 @@
         <h3 class="mb-0">Users</h3>
         <div class="text-right">
           <button id="airdrop_btn" class="btn btn-gold mr-3">AIRDROP TOKENS</button>
-          <button id="add_users" class="btn ost-btn-secondary">ADD USERS</button>
+          <button id="add_users" class="btn ost-btn-secondary">ADD USER</button>
         </div>
       </div>
     </div>
@@ -25,10 +25,10 @@
 
   <div class="user-list">
     <div class="row table-header">
-      <div class="col-2"></div>
+      <div class="col-1"></div>
       <div class="col-3">NAME</div>
-      <div class="col-2"><%= bt_symbol %> AIRDROP</div>
-      <div class="col-3"><%= bt_symbol %> AVAILABLE</div>
+      <div class="col-3"><%= bt_symbol %> AIRDROPPED</div>
+      <div class="col-3"><%= bt_symbol %> BALANCE</div>
       <div class="col-2"></div>
     </div>
   </div>
@@ -39,7 +39,7 @@
       <div id="user_list" class="economy_users w-100 transactions" data-simple-table data-url="/api/economy/users/list">
         <script type="text/x-handlebars-template" data-row-template>
           <div class="row mt-1 mb-3 rounded ost-table-row cell align-items-center">
-            <div class="col-2">
+            <div class="col-1">
               <svg class="icon-users-list align-middle">
                 <switch>
                   <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-users-list"></use>
@@ -72,7 +72,7 @@
               </div>
             {{else}}
               <div class="col-3">{{name}}</div>
-              <div class="col-2">{{display_total_airdropped_tokens total_airdropped_tokens}}</div>
+              <div class="col-3">{{display_total_airdropped_tokens total_airdropped_tokens}}</div>
               <div class="col-2">{{display_token_balance token_balance}} </div>
               <div class="col-3">
                 <button class="showApiCallBtn btn btn-info slider-btn">

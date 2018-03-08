@@ -27,14 +27,14 @@
         $(this).addClass('active');
         oThis.printTransactionsChart($(this).data('interval'));
       });
-      $("._transactions_value [data-interval='hour']").trigger('click');
+      $("._transactions_value [data-interval='day']").trigger('click');
 
       $('._transactions_type .interval').on('click', function(){
         $('._transactions_type .interval').removeClass('active');
         $(this).addClass('active');
         oThis.printTypeChart($(this).data('interval'));
       });
-      $("._transactions_type [data-interval='hour']").trigger('click');
+      $("._transactions_type [data-interval='day']").trigger('click');
 
       oThis.printSupplyChart();
 
@@ -49,28 +49,28 @@
           break;
         case 'day':
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Day';
-          var count = 24;
-          var format = 'H';
+          var count = 12;
+          var format = 'h aa';
           break;
         case 'week':
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Week';
           var count = 7;
-          var format = 'E';
+          var format = 'EEE';
           break;
         case 'month':
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Month'
-          var count = 30;
+          var count = 15;
           var format = 'd';
           break;
         case 'year':
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Year'
           var count = 12;
-          var format = 'm';
+          var format = "MMM''yy";
           break;
         case 'all':
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=All'
           var count = 12;
-          var format = 'm';
+          var format = "MMM''yy";
           break;
       }
       oThis.googleCharts_1.draw({
@@ -88,12 +88,12 @@
           },
           {
             type: 'number',
-            opt_label: 'No. of Transfers',
+            opt_label: 'No. of Transactions',
             opt_id: 'transaction_count'
           },
           {
             type: 'number',
-            opt_label: 'Value of Transfers',
+            opt_label: 'Volume of Transactions',
             opt_id: 'ost_amount'
           }
         ],
@@ -101,12 +101,12 @@
           series: {
             0: {
               targetAxisIndex: 0,
-              labelInLegend: 'No. of Transfers',
+              labelInLegend: 'No. of Transactions',
               color: '84d1d4'
             },
             1: {
               targetAxisIndex: 1,
-              labelInLegend: 'Value of Transfers',
+              labelInLegend: 'Value of Transactions',
               color: 'ff5f5a'
             }
           },
@@ -146,28 +146,28 @@
           break;
         case 'day':
           var url = '/api/economy/token/graph/transaction-types?graph_duration=Day';
-          var count = 24;
-          var format = 'H';
+          var count = 12;
+          var format = 'h aa';
           break;
         case 'week':
           var url = '/api/economy/token/graph/transaction-types?graph_duration=Week';
           var count = 7;
-          var format = 'E';
+          var format = 'EEE';
           break;
         case 'month':
           var url = '/api/economy/token/graph/transaction-types?graph_duration=Month'
-          var count = 30;
+          var count = 15;
           var format = 'd';
           break;
         case 'year':
           var url = '/api/economy/token/graph/transaction-types?graph_duration=Year'
           var count = 12;
-          var format = 'm';
+          var format = "MMM''yy";
           break;
         case 'all':
           var url = '/api/economy/token/graph/transaction-types?graph_duration=All'
           var count = 12;
-          var format = 'm';
+          var format = "MMM''yy";
           break;
       }
       oThis.googleCharts_2.draw({
@@ -185,14 +185,14 @@
           },
           {
             type: 'number',
-            opt_label: 'No. of Transfers',
+            opt_label: 'No. of Transactions',
             opt_id: 'total_transfers'
           }
         ],
         options:{
           series: {
             0: {
-              labelInLegend: 'Type of Transfers',
+              labelInLegend: 'Type of Transactions',
               color: 'f6c62b'
             }
           },

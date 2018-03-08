@@ -9,10 +9,11 @@
   value_postfix = value_postfix.present? ? value_postfix : "";
   footer = footer.present? ? footer : "";
   value = value.present? ? value : "";
+  card_classes = card_classes.present? ? card_classes : "";
 
 %>
 
-<div class="card mocker-card-bg">
+<div class="card mocker-card <%= card_classes %> ">
   <div class="card-body">
     <div class="ost-mocker-header"><%= raw header %></div>
     <div class="ost-mocker-value-wrap">

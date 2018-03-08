@@ -8,13 +8,13 @@
   <form id="token-airdrop-form" action="/api/economy/users/airdrop/" method="POST" data-ost-formhelper>
     <div class="row">
     <div class="col-12">
-        <h3 class="mt-4">Airdrop <%= bt_symbol %></h3>
+        <h3 class="mt-4">Airdrop Tokens</h3>
         <hr class="mb-0">
     </div>
 
     <div class="col-10 mt-4">
-      <div class="p-2 mocker-card-bg">
-        <span class="total-token-available"> TOTAL <%= bt_symbol %> AVAILABLE <%= bt_balance_s %></span>
+      <div class="p-2 mocker-card">
+        <span class="total-token-available text-uppercase"><%= bt_symbol %> UNALLOCATED <%= bt_balance_s %></span>
       </div>
     </div>
 
@@ -37,7 +37,7 @@
 
     <div class="col-10 user-form">
       <div class="mt-4 form-group">
-        <div class="form-label">NO OF TOKENS TO AIRDROP (EACH USER)</div>
+        <div class="form-label">NO. OF TOKENS TO AIRDROP TO EACH USER</div>
         <input id="airdrop-value" class="form-control" type="number" min="1" required name="amount" placeholder="No of tokens" />
         <div class="invalid-feedback" data-forname="amount">&nbps;</div>
         <input class="users_list_type" hidden type="text" name="" >
@@ -61,7 +61,7 @@
         </div>
 
         <div class="new-users-data-wrapper">
-          <div class="table-header">NEW USER</div>
+          <div class="table-header">NEW USERS</div>
           <div class="table-content" id="new-users-list-content-wrapper">
             <div id="new_users" class="w-100" data-url="/api/economy/users/list?filter=never_airdropped">
               <script type="text/x-handlebars-template" data-row-template>

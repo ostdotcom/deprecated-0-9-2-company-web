@@ -26,7 +26,7 @@
 
 <div class="row">
   <div class="col-12">
-    <h3 class="mt-6 mb-5">Token Supply</h3>
+    <h3 class="mt-6 mb-5">Token Supply &amp; Reserves for Gas </h3>
   </div>
 </div>
 <div class="row">
@@ -34,41 +34,39 @@
     <div class="card-deck">
       <div class="card mb-5">
         <div class="card-body text-uppercase text-center">
-          <h6 class="card-title mb-1"><%= token_symbol %> DISTRIBUTED</h6>
+          <h6 class="card-title mb-1"><%= token_symbol %> ALLOCATED</h6>
           <div class="card-text mb-1">
-            <span class="blue"><%= "#{token_symbol}" %></span>
             <span class="orange"><%= "#{tokens_distributed_s}" %></span>
           </div>
           <div class="card-text orange">
-            <span class="orange"><%= "#{client_fiat_curreny_pref_symbol}" %><%= "#{tokens_distributed_fiat_s}" %></span>
+            (<span class="orange"><%= "#{client_fiat_curreny_pref_symbol}" %><%= "#{tokens_distributed_fiat_s}" %></span>)
           </div>
         </div>
       </div>
       <div class="card mb-5">
         <div class="card-body text-uppercase text-center">
-          <h6 class="card-title mb-1"><%= token_symbol %> not distributed</h6>
+          <h6 class="card-title mb-1"><%= token_symbol %> UNALLOCATED</h6>
           <div class="card-text mb-1">
-            <span class="blue"><%= "#{token_symbol}" %></span>
             <span class="orange"><%= "#{bt_balance_s}" %></span>
           </div>
           <div class="card-text orange">
-            <span class="orange"><%= "#{client_fiat_curreny_pref_symbol}" %><%= "#{bt_fiat_balance_s}" %></span>
+            <% # DO NOT PROVIDE SPACE between client_fiat_curreny_pref_symbol & bt_fiat_balance_s %>
+            (<span class="orange"><%= "#{client_fiat_curreny_pref_symbol}" %><%= "#{bt_fiat_balance_s}" %></span>)
           </div>
         </div>
       </div>
       <div class="card mb-5">
         <div class="card-body text-uppercase text-center">
-          <h6 class="card-title mb-1">TRANSACTION GAS AVAILABLE </h6>
+          <h6 class="card-title mb-1">OST⍺ RESERVED FOR GAS</h6>
           <div class="card-text mb-1">
-            <span class="blue"> OST⍺</span>
             <span class="orange">
               <%= "#{ost_prime_balance_s}" %>
             </span>
           </div>
           <div class="card-text orange">
             <span class="orange">
-              <%= "#{client_fiat_curreny_pref_symbol}" %>
-              <%= "#{ost_prime_balance_fiat_s}" %>
+              <% # DO NOT PROVIDE SPACE between client_fiat_curreny_pref_symbol & ost_prime_balance_fiat_s %>
+              (<%= "#{client_fiat_curreny_pref_symbol}" %><%= "#{ost_prime_balance_fiat_s}" %>)
             </span>
           </div>
         </div>
