@@ -48,7 +48,7 @@ module CompanyApi
 
         def sanitize_data(data)
           data['request_params'] = URI.unescape(data['request_params'])
-          data['request_params'].gsub('+', ' ') #TODO: Figure out a better solution to this
+          data['request_params'].gsub!('+', ' ') #TODO: Figure out a better solution to this
           data
         end
 
