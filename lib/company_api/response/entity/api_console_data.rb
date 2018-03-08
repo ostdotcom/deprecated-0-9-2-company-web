@@ -21,15 +21,15 @@ module CompanyApi
         end
 
         def for_execute_transaction
-          sanitize_data!(transaction_data['execute'])
+          sanitize_data(transaction_data['execute'])
         end
 
         def for_create_user
-          sanitize_data!(user_data['create'])
+          sanitize_data(user_data['create'])
         end
 
         def for_create_transaction_kind
-          sanitize_data!(transaction_kind_data['create'])
+          sanitize_data(transaction_kind_data['create'])
         end
 
         private
@@ -46,8 +46,9 @@ module CompanyApi
           @t_k_d ||= (@data['transaction_kind'] || {})
         end
 
-        def sanitize_data!(data)
+        def sanitize_data(data)
           data['request_params'] = URI.unescape(data['request_params'])
+          data
         end
 
       end
