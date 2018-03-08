@@ -1,6 +1,9 @@
 #home-carousel-wrapper {
 
   position: relative;
+  @media(max-width: 736px){
+    overflow: hidden;
+  }
 
   .content-wrapper {
 
@@ -129,6 +132,17 @@
 
     .slick-next {
       right: -20px!important;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1070px) {
+
+    .slick-prev {
+      left: -35px!important;
+    }
+
+    .slick-next {
+      right: -35px!important;
     }
   }
 
