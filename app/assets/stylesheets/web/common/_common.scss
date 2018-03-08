@@ -17,6 +17,14 @@
 
   .code-line {
     color: $orange;
+
+    .curl-param-header {
+      color: $white;
+    }
+
+    .curl-escape-character {
+      color: $pink;
+    }
   }
 }
 

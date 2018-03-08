@@ -1,0 +1,13 @@
+<div class="code-session col-12">
+  <comment class="w-100 code-comment">
+    // An important aspect of setting up a branded token economy is to setup transactions. <br />
+    // Below is an example request which was used to create this transaction. <br />
+    // For more details please refer to our Developer API Page. <br />
+  </comment>
+  <code class="w-100 code-line">
+    <span class="curl-param-header">curl -i </span> <span class="curl-escape-character">\</span>
+    <br /><span class="curl-param-header"> -H</span> "Accept: application/json" <span class="curl-escape-character">\</span>
+    <br /><span class="curl-param-header"> -d</span> '<%= api_console_data['request_params'] %>' <span class="curl-escape-character">\</span>
+    <br /><span class="curl-param-header"> -X</span> <%= api_console_data['request_type'] %> <%= api_console_data['request_uri'] %>
+  </code>
+</div>

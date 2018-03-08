@@ -85,19 +85,7 @@
                 </button>
               </div>
               <% if should_show_api_call_button %>
-                <div class="code-session col-12">
-                   <comment class="w-100 code-comment">
-                     // For onboarding your end-users to participate in your branded token economy, you need to create users on OST KIT alpha.<br />
-                     // You can do so programatically via our User API. Shown below is an example request which was used to create this user.<br />
-                     // For more details please refer to our Developer API Page. <br />
-                   </comment>
-                  <code class="w-100 code-line">
-                    curl -i \
-                    <br /> -H "Accept: application/json" \
-                    <br /> -d '<%= api_console_data['request_params'] %>' \
-                    <br /> -X <%= api_console_data['request_type'] %> <%= api_console_data['request_uri'] %>
-                  </code>
-                </div>
+                <%= render :partial => "/shared/web/common/curl_code", locals: {api_console_data: api_console_data} %>
               <% end %>
               {{/ifEditUser}}
             </div>
