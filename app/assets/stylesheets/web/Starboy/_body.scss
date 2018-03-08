@@ -64,6 +64,9 @@ html, body{
 
 }
 
+.blur-content {
+  @include blur(10px);
+}
 
 /* ---------------------------------------------------
     MEDIAQUERIES
