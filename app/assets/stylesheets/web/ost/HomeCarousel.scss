@@ -1,6 +1,20 @@
-#home-carousel-wrapper {
-
+.container-carousel{
+  h1{
+    color: #69a2bd;
+  }
+  .ost-nav-logo{
+    position: relative;
+    top: 1px;
+    width: 75px;
+    height: 40px;
+  }
   position: relative;
+  &.bg-image {
+    background-image: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/tech-bg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+  }
   @media(max-width: 736px){
     overflow: hidden;
   }
@@ -108,43 +122,44 @@
     }
   }
 
-    svg.icon-play {
-      height: 20px;
-      width: 20px;
-      margin-left: 10px;
-      margin-top: 15px;
-      fill: #34445B;
+  svg.icon-play {
+    height: 20px;
+    width: 20px;
+    margin-left: 10px;
+    margin-top: 15px;
+    fill: #34445B;
+  }
+}
+
+
+@media (max-width: 768px) {
+
+  .slick-arrow {
+    z-index: 1;
+    &:before {
+      font-size: 30px!important;
     }
   }
 
-  @media (max-width: 768px) {
-
-    .slick-arrow {
-      z-index: 1;
-      &:before {
-        font-size: 30px!important;
-      }
-    }
-
-    .slick-prev {
-      left: -20px!important;
-    }
-
-    .slick-next {
-      right: -20px!important;
-    }
+  .slick-prev {
+    left: -20px!important;
   }
 
-  @media (min-width: 769px) and (max-width: 1070px) {
-
-    .slick-prev {
-      left: -35px!important;
-    }
-
-    .slick-next {
-      right: -35px!important;
-    }
+  .slick-next {
+    right: -20px!important;
   }
+}
+
+@media (min-width: 769px) and (max-width: 1070px) {
+
+  .slick-prev {
+    left: -35px!important;
+  }
+
+  .slick-next {
+    right: -35px!important;
+  }
+}
 
 
 

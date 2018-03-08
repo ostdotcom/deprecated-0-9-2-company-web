@@ -1,13 +1,21 @@
-<section class="container-fluid technology-elements">
+<section class="container-fluid bg-image container-carousel">
   <div class="row">
-    <div class="container" id="home-carousel-wrapper">
-      <script id="one-el-carousel" type="text/x-handlebars-template">
-        <div class="w-100 one-el-wrapper">
-          <div class="content-wrapper">
-            <div class="w-100 content">
-              {{#ifVideo video_embed}}
-              <div class="video-wrapper">
-                <button type="button" class="font-weight-light btn h-100 video-btn w-100" data-toggle="modal" data-src="{{video_embed}}" data-target="#helpVideoModal">
+    <div class="container">
+      <h1 class="pl-2">
+        <svg class="ost-nav-logo">
+          <switch>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo"></use>
+          </switch>
+        </svg>&nbsp;news
+      </h1>
+      <div id="home-carousel-wrapper" class="pb-5">
+        <script id="one-el-carousel" type="text/x-handlebars-template">
+          <div class="w-100 one-el-wrapper">
+            <div class="content-wrapper">
+              <div class="w-100 content">
+                {{#ifVideo video_embed}}
+                <div class="video-wrapper">
+                  <button type="button" class="font-weight-light btn h-100 video-btn w-100" data-toggle="modal" data-src="{{video_embed}}" data-target="#helpVideoModal">
                   <span class="play-icon">
                     <svg class="icon-play align-middle">
                       <switch>
@@ -15,44 +23,44 @@
                       </switch>
                     </svg>
                   </span>
-                </button>
-                {{#ifImage image}}
-                <div class="img-wrapper">
-                  <img class="img-fluid" src="{{image}}" alt="image"/>
+                  </button>
+                  {{#ifImage image}}
+                  <div class="img-wrapper">
+                    <img class="img-fluid" src="{{image}}" alt="image"/>
+                  </div>
+                  {{/ifImage}}
                 </div>
-                {{/ifImage}}
-              </div>
-              {{/ifVideo}}
-              {{#ifTitle title }}
-              <div class="carousel-title">
-                {{title}}
-              </div>
-              {{/ifTitle}}
-              {{#ifDescription description}}
-              <div class="carousel-description">
-                {{description}}
-              </div>
-              {{/ifDescription}}
-              {{#ifDate date}}
+                {{/ifVideo}}
+                {{#ifTitle title }}
+                <div class="carousel-title">
+                  {{title}}
+                </div>
+                {{/ifTitle}}
+                {{#ifDescription description}}
+                <div class="carousel-description">
+                  {{description}}
+                </div>
+                {{/ifDescription}}
+                {{#ifDate date}}
                 <div class="w-100 date-wrapper">
                   <div class='date-content'>
                     <div class="date-text">15 FEB 2017{{date}}</div>
                   </div>
                 </div>
-              {{/ifDate}}
+                {{/ifDate}}
+              </div>
             </div>
           </div>
-        </div>
-      </script>
+        </script>
 
-      <script id="two-el-carousel" type="text/x-handlebars-template">
-        <div class="w-100 tow-el-wrapper">
-          <div class="content-wrapper">
-            {{#each this}}
-            <div class="w-100 content">
-              {{#ifVideo video_embed}}
-              <div class="video-wrapper">
-                <button type="button" class="font-weight-light btn video-btn h-100 w-100" data-toggle="modal" data-src="{{video_embed}}" data-target="#helpVideoModal">
+        <script id="two-el-carousel" type="text/x-handlebars-template">
+          <div class="w-100 tow-el-wrapper">
+            <div class="content-wrapper">
+              {{#each this}}
+              <div class="w-100 content">
+                {{#ifVideo video_embed}}
+                <div class="video-wrapper">
+                  <button type="button" class="font-weight-light btn video-btn h-100 w-100" data-toggle="modal" data-src="{{video_embed}}" data-target="#helpVideoModal">
                   <span class="play-icon">
                     <svg class="icon-play align-middle">
                       <switch>
@@ -60,36 +68,37 @@
                       </switch>
                     </svg>
                   </span>
-                </button>
-                {{#ifImage image}}
-                <div class="img-wrapper">
-                  <img class="img-fluid" src="{{image}}" alt="image"/>
+                  </button>
+                  {{#ifImage image}}
+                  <div class="img-wrapper">
+                    <img class="img-fluid" src="{{image}}" alt="image"/>
+                  </div>
+                  {{/ifImage}}
                 </div>
-                {{/ifImage}}
-              </div>
-              {{/ifVideo}}
-              {{#ifTitle title }}
-              <div class="carousel-title">
-                {{title}}
-              </div>
-              {{/ifTitle}}
-              {{#ifDescription description}}
-              <div class="carousel-description">
-                {{description}}
-              </div>
-              {{/ifDescription}}
-              {{#ifDate date}}
+                {{/ifVideo}}
+                {{#ifTitle title }}
+                <div class="carousel-title">
+                  {{title}}
+                </div>
+                {{/ifTitle}}
+                {{#ifDescription description}}
+                <div class="carousel-description">
+                  {{description}}
+                </div>
+                {{/ifDescription}}
+                {{#ifDate date}}
                 <div class="w-100 date-wrapper">
                   <div class='date-content'>
                     <div class="date-text">15 FEB 2017{{date}}</div>
                   </div>
                 </div>
-              {{/ifDate}}
+                {{/ifDate}}
+              </div>
+              {{/each}}
             </div>
-            {{/each}}
           </div>
-        </div>
-      </script>
+        </script>
+      </div>
     </div>
   </div>
 </section>
