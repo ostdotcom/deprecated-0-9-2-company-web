@@ -5,6 +5,9 @@
   border-width: 1.5px!important;
   padding: 0.75rem 1.6rem!important;
   letter-spacing: 1px;
+  -webkit-transition: color .3s ease-in-out,background-color .3s ease-in-out,border-color .3s ease-in-out,box-shadow .3s ease-in-out !important;
+  -moz-transition: color .3s ease-in-out,background-color .3s ease-in-out,border-color .3s ease-in-out,box-shadow .3s ease-in-out !important;
+  transition: color .3s ease-in-out,background-color .3s ease-in-out,border-color .3s ease-in-out,box-shadow .3s ease-in-out !important;
 
   &.btn-primary{
     border-color:#E4B030;
