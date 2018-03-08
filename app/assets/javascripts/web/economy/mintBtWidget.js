@@ -309,6 +309,8 @@
           , data: {}
         }
 
+        ost.coverElements.hide('#metamaskSignTransaction');
+
         console.log("sendCallback");
         console.log.apply(console, arguments);
 
@@ -350,6 +352,8 @@
       // encodedAbi        = transactionObject.encodeABI();
 
       console.log("transactionObject", transactionObject);
+
+      ost.coverElements.show('#metamaskSignTransaction');
 
       return;
 

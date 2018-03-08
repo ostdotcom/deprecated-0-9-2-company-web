@@ -115,7 +115,13 @@
 
   <div id="process_failure_error_cover" class="cover-element">
     <div class="container">
-        <%= render :partial => "/web/economy/planner/process_failure_error_cover" %>
+        <%= render :partial => "shared/web/economy/metamask/process_failure_error_cover" %>
+    </div>
+  </div>
+
+  <div id="metamaskSignTransaction" class="cover-element">
+    <div class="container">
+      <%= render :partial => "shared/web/economy/metamask/metamask_sign_transaction" %>
     </div>
   </div>
 

@@ -1,0 +1,35 @@
+<div class="row ost__planner">
+  <div class="col-12 pt-6">
+    <h3 class="text-center font-weight-bold letter-space-1">Sign the transaction!</h3>
+  </div>
+</div>
+<div class="row ost__planner">
+  <div class="col-12 col-md-8 ml-auto mr-auto">
+    <div class="text-center">
+      <p class="font-weight-light mb-5 text-muted">Please open MetaMask extention and submit the transaction.</p>
+      <div class="mb-4">
+        <img class="img-fluid" width="320" src="//dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-metamask-sign.jpg" alt="" />
+      </div>
+      <%=
+        render :partial => "shared/web/common/faqs",
+               locals: {
+                   header: "FAQ for installing MetaMask",
+                   faqs: [
+                       {
+                           title: 'Why do I need to use Chrome and install MetaMask?',
+                           url: 'https://help.ost.com/support/solutions/articles/35000059263-why-do-i-need-to-install-metamask-'
+                       },
+                       {
+                           title: 'How do I unlock MetaMask?',
+                           url: 'https://help.ost.com/support/solutions/articles/35000059264-how-do-i-unlock-metamask-'
+                       },
+                       {
+                           title: 'Why can I use only one MetaMask account with OST KIT⍺?',
+                           url: 'https://help.ost.com/support/solutions/articles/35000059265-why-can-i-use-only-one-metamask-account-with-ost-kit%E2%8D%BA-'
+                       }
+                   ]
+               }
+      %>
+    </div>
+  </div>
+</div>
