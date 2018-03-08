@@ -49,6 +49,8 @@
     , jCInFiat        : null
     , jCInBt          : null
 
+    ,maxTransactionVal: null
+
     , init: function ( config ) {
       var oThis = this;
 
@@ -70,7 +72,7 @@
       oThis.jCInFiat        = oThis.jCInFiat        || oThis.jForm.find("#commission_in_fiat");
       oThis.jCInBt          = oThis.jCInBt          || oThis.jForm.find("#commission_in_bt");
 
-
+      oThis.maxTransactionVal = oThis.maxTransactionVal || 100 ;
 
       oThis.formHelper = oThis.jForm.formHelper();
       oThis.formHelper.success = function () {
@@ -179,6 +181,9 @@
     }
     , fillForm: function () {
       var oThis = this;
+
+      //clear errors
+      oThis.formHelper.clearErrors();
 
       //id & device_id
       oThis.jId.val( currentData.id );
@@ -421,7 +426,9 @@
       }
 
       jDisable.prop('disabled', true);
+      jDisable.removeAttr('max');
       jEnable.prop('disabled', false);
+      jEnable.attr('max' , oThis.maxTransactionVal );
       jShow.show();
       jHide.hide();
     }

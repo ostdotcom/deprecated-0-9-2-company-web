@@ -123,7 +123,7 @@
       console.log("jqValidateOptions.submitHandler triggered!");
 
       //Clear all errors
-      oThis.jForm.find(".is-invalid").removeClass("is-invalid");
+      oThis.clearErrors();
 
       //Generate AjaxConfig
       var ajaxConfig = oThis.getAjaxConfig();
@@ -334,6 +334,11 @@
           .addClass("is-invalid")
           .html( generalErrorMessage );
       }
+    }
+
+    , clearErrors: function () {
+      var oThis = this;
+      oThis.jForm.find(".is-invalid").removeClass("is-invalid");
     }
 
     , showErrors: function ( mapData, arrayData ) {
