@@ -14,18 +14,8 @@
         <span class="font-weight-normal mb-5 text-muted"> Please contact support@ost.com for assistance. </span>
       </div>
       <div class="btn-wrapper">
-        <button class="btn ost-btn-secondary close-process-failure-error-btn"> Back </button>
+        <a href="javascript:window.location.reload(true)" class="btn ost-btn-secondary close-process-failure-error-btn"> Back </a>
       </div>
     </div>
   </div>
 </div>
-
-<% content_for :end_js do %>
-  <script type="text/javascript">
-    $(function () {
-     $('.close-process-failure-error-btn').on('click' , function () {
-       ost.coverElements.hide("#process_failure_error_cover");
-     });
-    });
-  </script>
-<% end %>
