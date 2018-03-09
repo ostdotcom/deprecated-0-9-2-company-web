@@ -148,8 +148,10 @@
           console.log("nextStep :: Something missed out. oThis.currentStep = " , oThis.currentStep);
       }
     }
-    , stepFailed: function ( response ) {
+    , stepFailed: function ( response, isApiError ) {
       var oThis = this;
+
+      isApiError = isApiError || false;
 
       setTimeout(function(){
         oThis.jFormSubmitBtn.attr("disabled", false);
@@ -159,7 +161,12 @@
       if ( response && response.err ) {
         oThis.formHelper.showServerErrors( response );
         oThis.hideSendingOstGrantModal();
-        oThis.showProcessFailureErrorCover();
+        if ( isApiError ) {
+
+        } else {
+          oThis.showProcessFailureErrorCover();  
+        }
+        
       }
 
       console.log("response", response);
@@ -211,7 +218,8 @@
         oThis.nextStep( transaction_hash );
       } else {
         //Failed to grant OST.
-        oThis.stepFailed();
+        var isApiError = true;
+        oThis.stepFailed(response, isApiError);
       }
     }
     , validateHashCallback: function ( response ) {
@@ -328,7 +336,8 @@
             oThis.nextStep( response.data.transaction_hash );  
           }
         } else {
-          oThis.stepFailed( response );
+          var isApiError = true;
+          oThis.stepFailed( response, isApiError );
         }
       };
 
