@@ -1,11 +1,10 @@
 /**
- * Created by fab on 2/16/18.
+ * Created by Akshay on 2/16/18.
  */
 ;
 (function ( window, $){
 
   var ost  = ns("ost");
-
 
   var oThis = ost.dashboard = {
     simpleDataTable: null
@@ -110,6 +109,14 @@
               color: 'ff5f5a'
             }
           },
+          vAxes: {
+            0: {
+              title: 'No. of Transfers'
+            },
+            1: {
+              title: 'Value of Transfers'
+            }
+          },
           legend: {
             alignment: 'end',
             position: 'top',
@@ -202,6 +209,9 @@
             textStyle: oThis.chartTextStyle
           },
           bars: 'vertical',
+          bar: {
+            groupWidth: 20
+          },
           chartArea: {
             width: '90%',
             height: '80%'
