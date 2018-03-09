@@ -9,7 +9,8 @@ export CW_SUB_ENV='sandbox'
 export CW_CLOUDFRONT_DOMAIN=''
 
 # Company API details
-export CW_CA_ROOT_URL='http://devcompany.com:8080/'
+export CW_ROOT_URL='http://developmentost.com:8080/'
+export CW_CA_ROOT_URL='http://developmentost.com:8080/'
 
 # Basic Auth credentials
 export CW_BASIC_AUTH_USERNAME='ost'
@@ -17,3 +18,8 @@ export CW_BASIC_AUTH_PASSWORD='A$F^&n!@$ghf%7'
 
 export CA_REDIS_ENDPOINT="redis://ca:st123@127.0.0.1:6379"
 export CW_SK_ADMIN_PW="7BU]K]9Lz)_3ZADr"
+
+# OST Other Product Urls
+export COMPANY_KIT_ROOT_URL='http://kit.developmentost.com:8080/'
+export COMPANY_KYC_ROOT_URL='http://kyc.developmentost.com:8080/'
+export COMPANY_VIEW_ROOT_URL='http://view.developmentost.com:8080/'

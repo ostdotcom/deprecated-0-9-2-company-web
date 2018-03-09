@@ -1,5 +1,6 @@
 constants:
   sub_env: <%= ENV['CW_SUB_ENV']%>
+  root_url: <%= ENV['CW_ROOT_URL']%>
 
   cloudfront:
     domain: <%= ENV['CW_CLOUDFRONT_DOMAIN'] %>
@@ -19,3 +20,8 @@ constants:
   basic_auth:
     username: <%= ENV['CW_BASIC_AUTH_USERNAME'] %>
     password: <%= ENV['CW_BASIC_AUTH_PASSWORD'] %>
+
+  company_other_product_urls:
+    kyc_root_url: <%= ENV['COMPANY_KYC_ROOT_URL'] %>
+    kit_root_url: <%= ENV['COMPANY_KIT_ROOT_URL'] %>
+    view_root_url: <%= ENV['COMPANY_VIEW_ROOT_URL'] %>

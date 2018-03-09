@@ -10,13 +10,13 @@
 > vim /usr/local/etc/nginx/nginx.conf
     server {
         listen       8080;
-        server_name  devcompany.com;
+        server_name  developmentost.com;
         location /api/ {
-            proxy_pass http://devcompany.com:4000;
+            proxy_pass http://developmentost.com:4001;
         }
 
         location / {
-            proxy_pass http://devcompany.com:3000;
+            proxy_pass http://developmentost.com:3001;
         }
     }
 > sudo nginx -s reload
@@ -26,7 +26,7 @@
 ```
 > sudo vim /etc/hosts
 
-127.0.0.1       devcompany.com
+127.0.0.1       developmentost.com
 ```
 
 # Start Services
@@ -38,6 +38,6 @@
 ```
 
 #Go to browser
-http://devcompany.com:8080/login
+http://kit.developmentost.com:8080/login
 
 

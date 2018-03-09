@@ -1,7 +1,7 @@
 <%= render :partial => "/web/ost/index/uber_banner" %>
 <nav class="navbar navbar-expand-md navbar-simpletoken">
   <div class="container">
-    <a class="navbar-brand ost-brand" href="#">
+    <a class="navbar-brand ost-brand" href="<%= GlobalConstant::Base.root_url %>">
       <svg class="ost-nav-logo">
         <switch>
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo"></use>
@@ -21,19 +21,19 @@
           </a>
           <ul class="dropdown-menu mega-dropdown-menu">
             <li>
-              <a href="#" class="p-0">
+              <a href="<%= GlobalConstant::CompanyOtherProductUrls.kit_root_url %>" class="p-0">
                 <img src="//d36lai1ppm9dxu.cloudfront.net/assets/image/ost-kyc/ost-kit-brand-nav-menu.svg" width="80"/>
                 Launch your own Branded Tokens and turn your business into a dynamic ecosystem.
               </a>
             </li>
             <li>
-              <a href="#" class="p-0">
+              <a href="<%= GlobalConstant::CompanyOtherProductUrls.view_root_url %>" class="p-0">
                 <img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-view-brand-nav-menu.svg" width="86"/>
                 View and analyze transactions across the OpenST side blockchains for a macro view of the OpenST ecosystem.
               </a>
             </li>
             <li>
-              <a href="#" class="p-0">
+              <a href="<%= GlobalConstant::CompanyOtherProductUrls.kyc_root_url %>" class="p-0">
                 <img src="//d36lai1ppm9dxu.cloudfront.net/assets/image/ost-kyc/ost-kyc-brand-nav-menu.svg" width="80"/>
                 The one place for your team to quickly review and process the KYC applications.
               </a>
@@ -178,8 +178,18 @@
       <div class="d-none d-md-inline" style="font-size: 0">
         <ul class="navbar-nav">
           <li>
+            <a href="https://t.me/ostdotcom" target="_blank" title="OST - Telegram">
+              <span class="header-social-telegram-icon"></span>
+            </a>
+          </li>
+          <li class="ml-2">
             <a href="https://twitter.com/OSTdotcom" target="_blank" title="OST - Twitter">
               <span class="header-social-twitter-icon"></span>
+            </a>
+          </li>
+          <li class="ml-2">
+            <a href="https://medium.com/ostdotcom" target="_blank" title="OST - Medium">
+              <span class="header-social-medium-icon"></span>
             </a>
           </li>
           <li class="ml-2">
@@ -193,13 +203,8 @@
             </a>
           </li>
           <li class="ml-2">
-            <a href="https://t.me/ostdotcom" target="_blank" title="OST - Telegram">
-              <span class="header-social-telegram-icon"></span>
-            </a>
-          </li>
-          <li class="ml-2">
-            <a href="https://medium.com/ostdotcom" target="_blank" title="OST - Medium">
-              <span class="header-social-medium-icon"></span>
+            <a href="https://www.youtube.com/ostdotcom" target="_blank" title="OST - Youtube">
+              <span class="header-social-youtube-icon"></span>
             </a>
           </li>
           <li class="ml-2">

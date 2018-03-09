@@ -14,36 +14,36 @@ en:
           :title: 'OST KIT | The Complete Blockchain Toolkit for Business'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | The Complete Blockchain Toolkit for Business'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 1
         :specific_js_required: 1
 
     unsupported_client:
       :meta:
-        :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-        :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+        :title: 'OST KIT | Chrome Desktop Browser Required'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
         :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
         :name: 'OST'
         :robots: 'noindex, nofollow'
         :og:
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
+          :title: 'OST KIT | Chrome Desktop Browser Required'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'Simple Token | Cryptocurrency to Power Digital Communities'
-          :description: 'Simple Token is a protocol for consumer-app tokenization and an ERC-20 utility token that enables any app to launch branded tokens on open scalable side-chains'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :title: 'OST KIT | Chrome Desktop Browser Required'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 0
         :specific_js_required: 0
@@ -62,13 +62,13 @@ en:
           :title: 'OST KIT | Login'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | Login'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 1
         :specific_js_required: 0
@@ -85,13 +85,13 @@ en:
           :title: 'OST KIT | Logout'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | Logout'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 0
         :specific_js_required: 0
@@ -108,13 +108,13 @@ en:
           :title: 'OST KIT | Reset Password'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | Reset Password'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 1
         :specific_js_required: 1
@@ -131,13 +131,13 @@ en:
           :title: 'OST KIT | Update Password'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | Update Password'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 1
         :specific_js_required: 1
@@ -154,13 +154,13 @@ en:
           :title: 'OST KIT | Verify Email'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | Verify Email'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 0
         :specific_js_required: 0
@@ -177,13 +177,13 @@ en:
           :title: 'OST KIT | Sign Up'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | Sign Up'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 1
         :specific_js_required: 1
@@ -202,13 +202,13 @@ en:
           :title: 'OST KIT | Dashboard'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | Dashboard'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 1
         :specific_js_required: 1
@@ -225,13 +225,13 @@ en:
           :title: 'OST KIT | Economy Planner - Step One'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | Economy Planner - Step One'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 1
         :specific_js_required: 1
@@ -248,13 +248,13 @@ en:
           :title: 'OST KIT | Economy Planner - Step Two'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | Economy Planner - Step Two'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 1
         :specific_js_required: 1
@@ -271,13 +271,13 @@ en:
           :title: 'OST KIT | Economy Planner - Step Three'
           :description: 'OST KIT | Economy Planner - Step Three gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | Economy Planner - Step Three'
           :description: 'OST KIT | Economy Planner - Step Three gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 0
         :specific_js_required: 1
@@ -294,13 +294,13 @@ en:
           :title: 'OST KIT | Stake and Mint OST Alpha'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | Stake and Mint OST Alpha'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 1
         :specific_js_required: 1
@@ -317,13 +317,13 @@ en:
           :title: 'OST KIT | Users'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | Users'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 1
         :specific_js_required: 1
@@ -340,13 +340,13 @@ en:
           :title: 'OST KIT | Transactions'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | Transactions'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 1
         :specific_js_required: 1
@@ -363,13 +363,13 @@ en:
           :title: 'OST KIT | Simulator'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | Simulator'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 1
         :specific_js_required: 1
@@ -386,13 +386,13 @@ en:
           :title: 'OST KIT | Developers'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST KIT | Developers'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/fav-icon/Simple-Token-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image.jpg'
       :assets:
         :specific_css_required: 0
         :specific_js_required: 1
@@ -410,13 +410,13 @@ en:
           :title: 'OST | Connect to The Utility Blockchain'
           :description: 'The OST software platform helps businesses gain competitive advantage from blockchain and turn the potential of decentralization into reality.'
           :type: 'website'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/open-st/images/openst-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost/images/ost-og-image.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
           :title: 'OST | Connect to The Utility Blockchain'
           :description: 'The OST software platform helps businesses gain competitive advantage from blockchain and turn the potential of decentralization into reality.'
-          :image: 'https://d36lai1ppm9dxu.cloudfront.net/assets/open-st/images/openst-og-v1.png'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost/images/ost-og-image.jpg'
       :assets:
         :specific_css_required: 1
         :specific_js_required: 1

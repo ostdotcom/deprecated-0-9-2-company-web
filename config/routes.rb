@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  constraints(InitOpenSt) do
+  constraints(InitOst) do
     scope '', controller: 'web/ost' do
       get '/' => :index
     end

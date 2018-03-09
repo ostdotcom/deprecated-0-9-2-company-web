@@ -1,4 +1,4 @@
-class InitOpenSt
+class InitOst
 
   def self.matches?(request)
     if Rails.env.production?
@@ -6,7 +6,7 @@ class InitOpenSt
     elsif Rails.env.staging?
       request.host == 'stagingost.com'
     else
-      request.host == 'developmentopenst.org'
+      request.host == 'developmentost.com'
     end
   end
 

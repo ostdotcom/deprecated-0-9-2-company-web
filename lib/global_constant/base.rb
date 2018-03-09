@@ -9,6 +9,10 @@ module GlobalConstant
         @sub_environment ||= fetch_config.fetch('sub_env', '')
       end
 
+      def root_url
+        @root_url ||= fetch_config.fetch('root_url', '')
+      end
+
       def cloudfront_config
         @cloudfront ||= fetch_config.fetch('cloudfront', {}).with_indifferent_access
       end
@@ -24,6 +28,10 @@ module GlobalConstant
 
       def basic_auth_config
         @basic_auth_config ||= fetch_config.fetch('basic_auth', {}).with_indifferent_access
+      end
+
+      def company_other_product_urls
+        @company_other_product_urls ||= fetch_config.fetch('company_other_product_urls', {}).with_indifferent_access
       end
 
       private
