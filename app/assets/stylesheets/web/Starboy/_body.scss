@@ -100,3 +100,17 @@ html, body{
     border-bottom: 1px solid $yellow-400;
   }
 }
+
+.video-link-wrapper {
+  .video-link {
+    text-decoration: none;
+
+    &:hover {
+      .hover-link {
+        color: $yellow-400;
+        border-bottom: 1px solid $yellow-400;
+      }
+    }
+
+  }
+}
