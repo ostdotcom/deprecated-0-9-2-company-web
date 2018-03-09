@@ -113,7 +113,7 @@
         case ETH_GRANT_CONFIRMED:
 
           if ( !oThis.grant_initial_ost ) {
-            console.log("nextStep :: ETH_GRANT_CONFIRMED Skipping OST grant.");
+            console.log("nextStep :: ETH_GRANT_CONFIRMED Skipping OST⍺ grant.");
             //Dont need to grant OST.
             oThis.currentStep = OST_GRANT_CONFIRMED;
             setTimeout(function () {
@@ -465,7 +465,7 @@
     },
 
     getEthFromOstFocet: function ( address, callback ) {
-      console.log("getEthFromOstFocet :: Get Eth from OST Focet!");
+      console.log("getEthFromOstFocet :: Get Eth from OST⍺ Focet!");
       //To-Do: Write an Api call to backend. Below is a dummy code.
 
       var ajaxConfig = {

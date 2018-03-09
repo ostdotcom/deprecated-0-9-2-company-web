@@ -219,7 +219,7 @@ class OstDataTable extends React.Component {
 
     const dataSource = this.props.data_source ;
     if ( !dataSource ) {
-      console.error("Hey OST Dev! You forgot to configure data_source prop.");
+      console.error("Hey OST⍺ Dev! You forgot to configure data_source prop.");
       return;
     }
 
