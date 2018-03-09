@@ -49,7 +49,7 @@
         server_name  view.developmentost.com;
 
         location / {
-            proxy_pass http://view.developmentost.com:3002;
+            proxy_pass http://view.developmentost.com:7000;
         }
     }
     server {
@@ -57,7 +57,7 @@
         server_name  api.developmentost.com;
 
         location / {
-            proxy_pass http://api.developmentost.com:3003;
+            proxy_pass http://api.developmentost.com:7001;
         }
     }
 > sudo nginx -s reload
