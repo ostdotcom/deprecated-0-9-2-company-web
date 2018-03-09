@@ -81,6 +81,8 @@
 ```bash
 > sudo vim /etc/hosts
 
+127.0.0.1       developmentsimpletoken.org
+127.0.0.1       sale.developmentsimpletoken.org
 127.0.0.1       developmentost.com
 127.0.0.1       kit.developmentost.com
 127.0.0.1       kyc.developmentost.com
