@@ -1,12 +1,14 @@
 # Pre Setup
 
 * Install nginx
+
 ```bash
 > brew install nginx
 ```
 
 * Modify nginx config file
-```
+
+```bash
 > vim /usr/local/etc/nginx/nginx.conf
     server {
         listen       8080;
@@ -60,11 +62,11 @@
             proxy_pass http://api.developmentost.com:7001;
         }
     }
-> sudo nginx -s reload
 ```
 
 * Add custom host
-```
+
+```bash
 > sudo vim /etc/hosts
 
 127.0.0.1       developmentost.com
@@ -74,9 +76,17 @@
 127.0.0.1       api.developmentost.com
 ```
 
-# Start Services
+# Start Web Services
 
+* Start nginx
+
+```bash
+> sudo nginx -s reload
 ```
+
+* Start Rails
+
+```bash
 > bundle install
 > source set_env_vars.sh
 > rails s -p 3001
