@@ -8,7 +8,9 @@
   .ost__alert__button {
 
     &:hover {
-      background-color: $orange-100;
+      background-color: $white;
+      border-color: $orange;
+      color: $orange;
     }
   }
 

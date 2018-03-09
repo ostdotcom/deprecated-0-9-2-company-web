@@ -223,42 +223,38 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-12 my-3">
-      <div class="card-group">
-        <%= render :partial => "/shared/web/common/mocker",
-          :locals => {
-            :header => "TOTAL TRANSACTION VALUE (" + fiat_display_text + ")",
-            :mock_selector => "#value_in_fiat",
-            :card_classes => "right-border"
-          }
-        %>
-        <%= render :partial => "/shared/web/common/mocker",
-          :locals => {
-            :header => "COMMISSION (" + fiat_display_text + ")",
-            :mock_selector => "#commission_in_fiat"
-          }
-        %>
-      </div>
-    </div>
 
+  <div class="row">
     <div class="col-12">
-      <div class="card-group">
-        <%= render :partial => "/shared/web/common/mocker",
-          :locals => {
-            :header => "TOTAL TRANSACTION VALUE (" + bt_symbol + ")",
-            :mock_selector => "#value_in_bt",
-            :card_classes => "right-border"
-          }
-        %>
-        <%= render :partial => "/shared/web/common/mocker",
-          :locals => {
-            :header => "COMMISSION (" + bt_symbol + ")",
-            :mock_selector => "#commission_in_bt"
-          }
-        %>
+      <div class="card-deck">
+        <div class="card mb-5">
+          <div class="card-body text-uppercase text-center">
+            <h6 class="card-title mb-1">TRANSACTION VALUE IN <%= bt_symbol %></h6>
+            <div class="card-text mb-1">
+              <span class="orange" data-ost-mock-element="#commission_in_bt"></span>
+            </div>
+            <div class="card-text orange">
+              (<span class="orange"><%= fiat_symbol %><span data-ost-mock-element="#value_in_fiat"></span></span>)
+            </div>
+          </div>
+        </div>
+        <div class="card mb-5">
+          <div class="card-body text-uppercase text-center">
+            <h6 class="card-title mb-1">TRANSACTION FEES IN <%= bt_symbol %></h6>
+            <div class="card-text mb-1">
+              <span class="orange" data-ost-mock-element="#commission_in_bt"></span>
+            </div>
+            <div class="card-text orange">
+              <% # DO NOT PROVIDE SPACE between fiat_symbol & commission_in_fiat %>
+              (<span class="orange"><%= fiat_symbol %><span data-ost-mock-element="#commission_in_fiat"></span></span>)
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+
+  <div class="row">
 
     <% # Form Buttons %>
     <div class="col-12">
