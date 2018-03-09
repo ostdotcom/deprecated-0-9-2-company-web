@@ -2,6 +2,7 @@ ost.carousel.home.init(
 	[
    {
      title: "Thomas Power interviews OST CEO Jason Goldberg re: Powering Cryptocurrencies",
+     description: "Thomas Power interviews Simple Token CEO Jason Goldberg about the impact of cryptocurrencies on mainstream businesses and Simple Token’s plans to power cryptocurrencies for businesses of all sizes."
      video_embed: "https://www.youtube.com/embed/gfazD-zRTJQ?rel=0&autoplay=1",
      image: "https://img.youtube.com/vi/gfazD-zRTJQ/maxresdefault.jpg",
    },

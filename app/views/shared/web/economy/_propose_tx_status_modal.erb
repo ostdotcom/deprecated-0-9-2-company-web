@@ -28,10 +28,19 @@
   </div>
 </script>
 <script id="<%= processing_header_tempate_id %>" type="text/x-handlebars-template">
-  <h3 class="mb-2">Minting the <%= bt_symbol %> Token Economy</h3>
+  <h3 class="mb-2">Minting <%= bt_symbol %> Tokens</h3>
   <div class="desc">
-    The <%= bt_symbol %> token economy is being initialized. This process takes several minutes on testnet. 
-    Watch our <a href="" class="link" target="_blank">video</a> to learn what's going on under the hood!
+    The <%= bt_symbol %> token economy is being initialized.
+    This process takes several minutes on testnet.
+    Watch our video to learn what's going on under the hood!<br />
+    <a href="" target="_blank">
+      <svg class="icon-banner align-middle">
+        <switch>
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play-arrow"></use>
+        </switch>
+      </svg>
+      <span class="hover-link link">WATCH VIDEO</span>
+    </a>
   </div>
 </script>
 <script id="<%= success_header_tempate_id %>" type="text/x-handlebars-template">

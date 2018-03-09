@@ -10,7 +10,7 @@
           <div class="row">
             <div class="col-10 mx-auto text-left rounded border-0 font-weight-lighter">
               <div class="alert alert-secondary" role="alert">
-                <img src="{{tx_status_img_src status}}" width="30" height="30" /><span class="ml-3 align-middle">{{display_text}}</span>
+                {{{tx_status_icon status}}}<span class="ml-3 align-middle">{{display_text}}</span>
               </div>
             </div>
           </div>
@@ -26,21 +26,25 @@
 <% content_for :end_js do %>
 <script type="text/javascript">
   $( function () {
-    Handlebars.registerHelper('tx_status_img_src', function(status, options ) {
+    Handlebars.registerHelper('tx_status_icon', function(status, options ) {
       switch( status ) {
         case "pending":
-          return "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader-1.gif";
+          return '<img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader-1.gif" width="30" height="30" />' ;
           break;
         case "processed":
-          return "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/select-token-checkmark.svg";
+          return '<img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/select-token-checkmark.svg" width="30" height="30" />' ;
           break;
         case "failed":
         case "time_out":
-          return "//dummyimage.com/40x40/F64032/F64032";
+          return '<svg class="icon-banner align-middle">' +
+                    '<switch> ' +
+                        '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use> ' +
+                    '</switch> ' +
+                  '</svg>' ;
           break;
         case "queued":
         default:
-          return "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/pending-loader-1.svg";
+          return '<img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/pending-loader-1.svg" width="30" height="30" />' ;
           break;
       }
     });
