@@ -36,6 +36,18 @@
     }
     server {
         listen       8080;
+        server_name  sale.developmentsimpletoken.org;
+        
+        location /api/ {
+            proxy_pass http://sale.developmentsimpletoken.org:4000;
+        }
+
+        location / {
+            proxy_pass http://sale.developmentsimpletoken.org:3000;
+        }
+    }
+    server {
+        listen       8080;
         server_name  kit.developmentost.com;
         
         location /api/ {
