@@ -116,13 +116,13 @@
 
    function getBreakPoint( windowWidth ) {
      var breakPoint = "" ;
-      if( windowWidth < oThis.getBreakPointMinWidth('xs') ) {
+      if( windowWidth < oThis.getBreakPointMaxWidth('xs') ) {
         breakPoint = 'xs' ;
-      }else if( windowWidth < oThis.getBreakPointMinWidth('sm') ){
+      }else if( windowWidth < oThis.getBreakPointMaxWidth('sm') ){
         breakPoint = 'sm' ;
-      }else if( windowWidth < oThis.getBreakPointMinWidth('md')  ){
+      }else if( windowWidth < oThis.getBreakPointMaxWidth('md')  ){
         breakPoint = 'md' ;
-      }else if( windowWidth < oThis.getBreakPointMinWidth('lg') ){
+      }else if( windowWidth < oThis.getBreakPointMaxWidth('lg') ){
         breakPoint = 'lg' ;
       } else  {
         breakPoint = 'xl' ;
