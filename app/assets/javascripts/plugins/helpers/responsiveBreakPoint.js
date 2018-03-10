@@ -54,7 +54,7 @@
      $('body').addClass( breakPointClass );
    }
 
-   $(window).onResize( function () {
+   $(window).resize( function () {
      setBreakPointClassOnBody();
    });
 
