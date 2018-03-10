@@ -14,7 +14,9 @@
   }
 }
 .technology-elements{
-  background-image: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/tech-bg.png');
+  @media(min-width: 768px){
+    background-image: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/tech-bg.png');
+  }
   .card{
     border: none;
     background-color: transparent;
