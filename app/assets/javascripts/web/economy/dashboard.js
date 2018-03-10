@@ -72,6 +72,7 @@
           var format = "MMM''yy";
           break;
       }
+
       oThis.googleCharts_1.draw({
         ajax: {
           url: url
@@ -92,7 +93,7 @@
           },
           {
             type: 'number',
-            opt_label: 'Volume of Transactions',
+            opt_label: 'Volume of Transactions in OST⍺',
             opt_id: 'ost_amount'
           }
         ],
@@ -100,21 +101,22 @@
           series: {
             0: {
               targetAxisIndex: 0,
-              labelInLegend: 'No. of Transactions',
+              labelInLegend: 'No. of Transactions (left axis)',
               color: '84d1d4'
             },
             1: {
               targetAxisIndex: 1,
-              labelInLegend: 'Value of Transactions',
+              labelInLegend: 'Volume of Transactions in OST⍺ (right axis)',
               color: 'ff5f5a'
             }
           },
           vAxes: {
             0: {
-              title: 'No. of Transfers'
+              title: ''
             },
             1: {
-              title: 'Value of Transfers'
+              title: '',
+              format: 'short'
             }
           },
           legend: {
@@ -142,6 +144,42 @@
           }
         },
       });
+
+
+      setTimeout(function () {
+        oThis.modifyOstAmountAxisLables();
+      },100);
+    },
+
+    modifyOstAmountAxisLables: function () {
+      var oThis = this;
+      var allTextTags = $("#transactionsValue svg g text[text-anchor='start']")
+        , len   = allTextTags.length
+        , maxX  = 0
+        , axisTextTags 
+        
+        , jThisTag
+        , thisTagText
+        , xAttr
+      ;
+
+      if ( !len ) {
+        setTimeout(function () {
+          oThis.modifyOstAmountAxisLables();
+        },100);
+        return;
+      }
+
+      while( len-- ) {
+        jThisTag    = allTextTags.eq( len );
+        thisTagText = jThisTag.text();
+        xAttr       = jThisTag.attr("x");
+        ;
+        maxX = Math.max(maxX, Number(xAttr) )
+      }
+
+      allTextTags.filter("[x='" + maxX + "']")
+
     },
 
     printTypeChart: function(interval){
