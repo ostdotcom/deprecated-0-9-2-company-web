@@ -9,20 +9,18 @@
     font-weight: 300;
     letter-spacing: 0.4px;
   }
+  h5{
+    color: #69a2bd;
+  }
 }
 .technology-elements{
   background-image: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/tech-bg.png');
-  background-size: cover;
-  background-repeat: no-repeat;
   .card{
     border: none;
     background-color: transparent;
   }
   .card-body{
     padding: 0;
-  }
-  h5{
-    color: #69a2bd;
   }
   p{
     color: #597a84;
