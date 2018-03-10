@@ -1,57 +1,146 @@
 ;
 (function (window , $) {
 
-  var breakPointClasses = "ost-cbp-xs  ost-cbp-sm  ost-cbp-md  ost-cbp-lg  ost-cbp-xl",
-      breakPointClass = ""
-  ;
+  /* *
+  * Default breakpoint config across website
+  * Use only these breakPoints getters, If breakpoints ever changes, this will be the single end point to change.
+  * */
+  var breakPoints = {
+    xs : {
+      minWidth : 320,
+      maxWidth : 576,
+      class : 'ost-cbp-xs'
+    },
+    sm : {
+      minWidth : 576,
+      maxWidth : 768,
+      class : 'ost-cbp-sm'
+    },
+    md : {
+      minWidth : 768,
+      maxWidth : 992,
+      class : 'ost-cbp-md'
+    },
+    lg : {
+      minWidth : 992,
+      maxWidth : 1200,
+      class : 'ost-cbp-lg'
+    },
+    xl : {
+      minWidth : 1200,
+      maxWidth : 3000,
+      class : 'ost-cbp-xl'
+    }
+  };
 
   var ost = ns('ost');
 
-  var responsiveBreakPoint = ost.responsiveBreakPoint =  {
+  var oThis = ost.responsiveBreakPoint =  {
 
+    /* *
+    * Return window width
+    * */
     getWindowWidth : function () {
         return $(window).width();
     },
 
-    getBreakPointClass : function () {
-      return breakPointClass;
-    }
+    /* *
+    * Return breakpoint hash depending on width passed or default current window width.
+    * param : width , eg : 1024
+    * */
+    getBreakPointByWidth : function ( width ) {
+      var oThis =  this ,
+          width =  width || oThis.getWindowWidth()
+      ;
+      return getBreakPoint( width );
+    },
 
+    /* *
+    * Return breakpoint hash
+    * param : width , eg : 'xs'
+    * */
+    getBreakPointConfig: function ( breakpoint ) {
+      return breakpoint && breakPoints[breakpoint];
+    },
+
+    /* *
+    * Return breakpoint min width
+    * param : breakPoint string , eg : 'xs'
+    * */
+    getBreakPointMinWidth : function ( breakPoint  ) {
+      return breakPoint && breakPoints[breakPoint]['minWidth'];
+    },
+
+    /* *
+    * Return breakpoint max width
+    * param : breakPoint string , eg : 'xs'
+    *  */
+    getBreakPointMaxWidth : function ( breakPoint ) {
+      return breakPoint && breakPoints[breakPoint]['maxWidth'];
+    },
+
+    /* *
+    * Return breakpoint class width
+    * param : breakPoint string , eg : 'xs'
+    *  */
+    getBreakPointClass : function ( breakPoint ) {
+      return breakPoint && breakPoints[breakPoint]['class'];
+    },
+
+    /* *
+    * Returns class which is added on body
+    * */
+    getBodyBreakPointClass : function () {
+      var jBody = $('body') ;
+      for ( var key in breakPoints ) {
+        var breakPointObj = breakPoints[key] ;
+        if( jBody.hasClass( breakPointObj['class'] ) ){
+          return breakPointObj['class'];
+        }
+      }
+      return "";
+    }
   };
 
+    /**Private Functions **/
+
    function setBreakPointClassOnBody() {
-     var windowWidth = responsiveBreakPoint.getWindowWidth()
+     var windowWidth = oThis.getWindowWidth(),
+         breakPointObj , bodyClass
      ;
-     setBreakPointClass( windowWidth );
+     breakPointObj = getBreakPoint( windowWidth );
+     bodyClass     = breakPointObj['class'];
      removeBreakPointBodyClasses( );
-     addBodyClass( breakPointClass );
+     addBreakPointBodyClass( bodyClass );
    }
 
-   function setBreakPointClass( windowWidth ) {
-      if( windowWidth <  576 ) {
-        //xs
-        breakPointClass = 'ost-cbp-xs';
-      }else if( windowWidth < 768 ){
-        //sm
-        breakPointClass = 'ost-cbp-sm';
-      }else if( windowWidth < 992 ){
-        //md
-        breakPointClass = 'ost-cbp-md';
-      }else if( windowWidth  < 1200 ){
-        //lg
-        breakPointClass = 'ost-cbp-lg';
+   function getBreakPoint( windowWidth ) {
+     var breakPoint = "" ;
+      if( windowWidth < oThis.getBreakPointMinWidth('xs') ) {
+        breakPoint = 'xs' ;
+      }else if( windowWidth < oThis.getBreakPointMinWidth('sm') ){
+        breakPoint = 'sm' ;
+      }else if( windowWidth < oThis.getBreakPointMinWidth('md')  ){
+        breakPoint = 'md' ;
+      }else if( windowWidth < oThis.getBreakPointMinWidth('lg') ){
+        breakPoint = 'lg' ;
       } else  {
-        //xl
-        breakPointClass = 'ost-cbp-xl';
+        breakPoint = 'xl' ;
       }
-   }
+      return oThis.getBreakPointConfig( breakPoint );
+   };
 
    function removeBreakPointBodyClasses( ) {
-      $('body').removeClass( breakPointClasses ) ;
+     for ( var key in breakPoints ) {
+       var breakPointObj = breakPoints[key] ;
+       $('body').removeClass( breakPointObj['class']  ) ;
+     }
    }
 
-   function addBodyClass( breakPointClass) {
-     $('body').addClass( breakPointClass );
+   function addBreakPointBodyClass( bodyClass ) {
+     if( !!bodyClass ){
+       $('body').addClass( bodyClass );
+     }
    }
 
    $(window).resize( function () {
