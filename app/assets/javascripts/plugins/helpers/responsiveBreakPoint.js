@@ -1,7 +1,8 @@
 ;
 (function (window , $) {
 
-  var breakPointClasses = "ost-cbp-xs  ost-cbp-sm  ost-cbp-md  ost-cbp-lg  ost-cbp-xl"
+  var breakPointClasses = "ost-cbp-xs  ost-cbp-sm  ost-cbp-md  ost-cbp-lg  ost-cbp-xl",
+      breakPointClass = ""
   ;
 
   var ost = ns('ost');
@@ -13,27 +14,20 @@
     },
 
     getBreakPointClass : function () {
-
+      return breakPointClass;
     }
 
   };
 
-   $(window).onResize( function () {
-     var oThis =  this,
-         wWidth = $(oThis).width(),
-         breakPointClass
-
+   function setBreakPointClassOnBody() {
+     var windowWidth = responsiveBreakPoint.getWindowWidth()
      ;
-     setWindowWidth( wWidth );
-     breakPointClass = getBreakPointClass( );
-     removeBreakPointBodyClass( );
-     addBreakPointBodyClass( breakPointClass );
-   });
+     setBreakPointClass( windowWidth );
+     removeBreakPointBodyClasses( );
+     addBodyClass( breakPointClass );
+   }
 
-
-   function getBreakPointClass() {
-      var breakPointClass
-      ;
+   function setBreakPointClass( windowWidth ) {
       if( windowWidth <  576 ) {
         //xs
         breakPointClass = 'ost-cbp-xs';
@@ -50,24 +44,20 @@
         //xl
         breakPointClass = 'ost-cbp-xl';
       }
-      return breakPointClass ;
    }
 
-   function removeBreakPointBodyClass( ) {
-      $('body').removeClass(breakPointClasses)
+   function removeBreakPointBodyClasses( ) {
+      $('body').removeClass( breakPointClasses ) ;
    }
 
-   function addBreakPointBodyClass ( breakPointClass ) {
-     $('body').removeClass(breakPointClass)
+   function addBodyClass( breakPointClass) {
+     $('body').addClass( breakPointClass );
    }
 
-   function setWindowWidth( width ) {
-     windowWidth = width;
-   }
+   $(window).onResize( function () {
+     setBreakPointClassOnBody();
+   });
 
-   function setBreakPointClass( windowClass ) {
-     breakPointClass = windowClass;
-   }
-
+   setBreakPointClassOnBody();
 
 })(window , jQuery);
