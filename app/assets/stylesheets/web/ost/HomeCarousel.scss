@@ -11,7 +11,7 @@
   position: relative;
   &.bg-image {
     background-image: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/tech-bg.png');
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: bottom;
   }
@@ -142,22 +142,22 @@
   }
 
   .slick-prev {
-    left: -20px!important;
+    left: -35px !important
   }
 
   .slick-next {
-    right: -20px!important;
+    right: -35px !important
   }
 }
 
 @media (min-width: 769px) and (max-width: 1070px) {
 
   .slick-prev {
-    left: -35px!important;
+    left: -45px!important;
   }
 
   .slick-next {
-    right: -35px!important;
+    right: -45px!important;
   }
 }
 

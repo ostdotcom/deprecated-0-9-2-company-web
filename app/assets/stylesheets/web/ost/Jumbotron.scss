@@ -124,7 +124,7 @@ body{
 
 
 .ost-triangleSpace{
-  padding-top: 3em;
+  padding-top: 5em;
   width: 100%;
 }
 
@@ -132,8 +132,8 @@ body{
   position: absolute;
   left: -40px;
   right: -40px;
-  top: -30px;
-  height: 60px;
+  top: -60px;
+  height: 120px;
   transform: rotate(-0.8deg);
   background: #fff;
   @media (max-width: 512px){
@@ -154,8 +154,8 @@ body{
   position: absolute;
   left: -40px;
   right: -40px;
-  bottom: -30px;
-  height: 60px;
+  bottom: -60px;
+  height: 120px;
   transform: rotate(0.8deg);
   background: #fff;
   &.blue{
