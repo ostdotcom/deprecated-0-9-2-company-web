@@ -1,40 +1,35 @@
 ;
 (function (window , $) {
 
-  var ost  = ns('ost'),
-      users = {},
-      transactionTypes = {},
-      pendingTransactionsUUID = [],
-      pollPendingTransactions = null,
-      pollingApi ,
-      viewTXDetailUrlPrefix,
-      isPolling = false
-  ;
-
-
+  var ost  = ns('ost');
 
   var oThis = ost.simulator = {
-    simulatorTable : null,
-    txStatus: {
+    simulatorTable : null
+    ,txStatus: {
       "PENDING": "processing",
       "PROCESSING": "processing",
       "COMPLETE": "complete",
       "FAILED": "failed"
-    },
+    }
 
-    init : function ( config ) {
+    ,init : function ( config ) {
       var oThis =  this;
       $.extend(oThis, config);
 
-      pollingApi = config["tx_status_polling_url"];
-      oThis.long_poll_timeout_millisecond = config["long_poll_timeout_millisecond"];
+      oThis.users = {};
+      oThis.transactionTypes = {};
+      oThis.pendingTransactionsUUID = [];
+      oThis.pollingApi = config["tx_status_polling_url"];
+      oThis.isPolling = false;
+
+      oThis.pollingInterval = config["long_poll_timeout_millisecond"];
       viewTXDetailUrlPrefix = config['ost_view_tx_detail_url_prefix'];
       oThis.initHandleBarHelpers();
       oThis.createDataTable();
       oThis.bindEvents();
-    },
+    }
 
-    createDataTable: function () {
+    ,createDataTable: function () {
       var oThis =  this;
 
       if( oThis.simulatorTable ) {
@@ -62,9 +57,9 @@
           fetcher.apply(fetcherScope, args);
         }
       });
-    },
+    }
 
-    bindEvents : function () {
+    ,bindEvents : function () {
       var oThis =  this;
 
       $(".run-first-transaction-btn").on('click' , function () {
@@ -80,18 +75,18 @@
         }
       });
 
-    },
+    }
 
-    createNewTransaction : function (response) {
+    ,createNewTransaction : function (response) {
       var oThis =  this,
           data  =  response && response.data,
           transactions = data && data.transactions
       ;
       oThis.updateRequiredDetails(response);
       oThis.simulatorTable.prependResult(transactions[0]);
-    },
+    }
 
-    updateRequiredDetails : function (response) {
+    ,updateRequiredDetails : function (response) {
       var oThis =  this,
           data  = response && response.data
       ;
@@ -99,10 +94,10 @@
       oThis.updateUsersHash( data );
       oThis.updateTransactionTypesHash( data );
       oThis.setPendingTransactions( data );
-      oThis.pollPendingTransactions( );
-    },
+      oThis.startPolling();
+    }
 
-    updateDisplayContent : function ( data )  {
+    ,updateDisplayContent : function ( data )  {
       data = data || {};
       var transactions = data && data.transactions,
           jFirstTransactionWrapper = $('.first-transaction-wrapper'),
@@ -117,19 +112,19 @@
         jFirstTransactionWrapper.show();
         jTransactionHistoryWrapper.hide();
       }
-    },
+    }
 
-    updateUsersHash : function (data) {
+    ,updateUsersHash : function (data) {
       var updatedUsers  = data.economy_users || {};
-      $.extend(users , updatedUsers);
-    },
+      $.extend( oThis.users , updatedUsers);
+    }
 
-    updateTransactionTypesHash : function (data) {
+    ,updateTransactionTypesHash : function (data) {
       var updatedTransactionTypes = data.transaction_types || {};
-      $.extend(transactionTypes , updatedTransactionTypes);
-    },
+      $.extend( oThis.transactionTypes , updatedTransactionTypes);
+    }
 
-    setPendingTransactions : function ( data ) {
+    ,setPendingTransactions : function ( data ) {
       var oThis = this,
           transactions = data && data.transactions,
           transaction
@@ -137,48 +132,120 @@
       for( var i = 0 ;  i < transactions.length  ; i++ ){
         transaction = transactions[i];
         if(transaction.status == oThis.txStatus.PENDING ) {
-          oThis.pushPendingTransactions(transaction.transaction_uuid);
+          console.log("Peding transaction.transaction_uuid", transaction.transaction_uuid);
+          oThis.pushPendingTransactions( transaction.transaction_uuid );
         }
       }
-    },
+    }
 
-    pollPendingTransactions : function () {
-      var oThis = this
-      ;
-      if(oThis.isPollingRequired()){
-        oThis.startPolling();
-      }else {
-        oThis.stopPolling();
+
+    ,isPolling: false
+    ,shouldPoll: false
+    ,startPolling : function () {
+      var oThis = this;
+      if ( oThis.isPolling ) {
+        console.log("Polling Already in Progress");
+        return false;
       }
-    },
+      console.log("Polling has been started");
+      oThis.shouldPoll = true;
+      oThis.isPolling = true;
+      return oThis.pollTxStatus();
+    }
 
-    startPolling : function () {
-      var oThis = this
+    , stopPolling: function () {
+      var oThis = this;
+      oThis.shouldPoll = false;
+      oThis.isPolling = false;
+      console.log("Polling has been stopped");
+    }
+
+    , pollXhr : null
+    , pollTxStatus: function () {
+      var oThis = this;
+
+      if ( oThis.pollXhr ) {
+        console.log("Polling request already in progress.");
+        return false;
+      }
+
+      if ( !oThis.isPollingRequired() ) {
+        oThis.stopPolling();
+        return false;
+      }
+
+      var transaction_uuids = oThis.pendingTransactionsUUID
+        , pollData = {
+          transaction_uuids: oThis.pendingTransactionsUUID
+        }
       ;
-      isPolling = true;
-      pollPendingTransactions =  setTimeout( function () {
-        $.get({
-          url: pollingApi,
-          data : {transaction_uuids : pendingTransactionsUUID},
-          success: function ( response ) {
-            if ( response.success ) {
-              isPolling = false;
-              oThis.updatePendingTransaction(response);
-              setTimeout(function () {
-                oThis.pollPendingTransactions();
-              }, oThis.long_poll_timeout_millisecond);
-            }
-          },
-          error : function () {
-            console.log('error occured in polling');
-            isPolling = false;
-            oThis.pollPendingTransactions();
-          }
-        });
-      } , oThis.long_poll_timeout_millisecond )
-    },
 
-    updatePendingTransaction : function ( response ) {
+
+
+      console.log("pollData", pollData);
+      oThis.pollXhr = $.ajax({
+        url         : oThis.pollingApi
+        , data      : pollData
+        , success   : function () {
+          oThis.onPollSuccess.apply(oThis, arguments);
+        }
+        , error     : function () {
+          oThis.onPollError.apply(oThis, arguments);
+        } 
+        , complete  : function () {
+          oThis.onPollComplete.apply(oThis, arguments);
+          oThis.pollXhr = null;
+        }
+      });
+      return true;
+    }
+    , onPollSuccess: function ( response ) {
+      var oThis = this;
+
+      console.log("onPollSuccess triggered \n", arguments);
+
+      if ( response.success ) {
+        oThis.updatePendingTransaction( response );
+      } else {
+        console.log("Keep it quite, we have an api error!");
+        //Shhh....
+        //Keep it a secret.
+      }
+    }
+
+    , onPollError: function () {
+      var oThis = this;
+      console.log("onPollError triggered \n", arguments);
+    }
+
+    , onPollComplete: function () {
+      var oThis = this;
+
+      //This request has done its job.
+      oThis.pollXhr = null;
+      oThis.scheduleNextPoll();
+    }
+
+
+
+    , scheduleNextPoll: function () {
+      var oThis = this;
+
+      if ( !oThis.shouldPoll ) {
+        oThis.isPolling = false;
+        console.log("scheduleNextPoll :: Not scheduling next poll. shouldPoll is false");
+        return;
+      }
+
+      console.log("scheduleNextPoll :: Next Poll Scheduled");
+
+      setTimeout(function () {
+        oThis.pollTxStatus();
+      }, oThis.pollingInterval );
+
+    }
+
+    , updatePendingTransaction : function ( response ) {
       var oThis = this,
           data = response && response.data,
           transactions = data && data.transactions,
@@ -197,35 +264,33 @@
           oThis.popPendingTransactions(currentTransaction.transaction_uuid);
         }
       }
-    },
+    }
 
-    stopPolling : function () {
-      clearTimeout(pollPendingTransactions);
-    },
 
-    isPollingRequired : function () {
-      return pendingTransactionsUUID.length > 0 && !isPolling;
-    },
+    , isPollingRequired : function () {
+      return oThis.pendingTransactionsUUID.length > 0;
+    }
 
-    pushPendingTransactions : function (uuid) {
-      if(pendingTransactionsUUID.indexOf(uuid) < 0){
-          pendingTransactionsUUID.push(uuid);
+    , pushPendingTransactions : function ( uuid ) {
+      console.log("pushPendingTransactions :: oThis.pendingTransactionsUUID", oThis.pendingTransactionsUUID);
+      if( oThis.pendingTransactionsUUID.indexOf(uuid) < 0){
+          oThis.pendingTransactionsUUID.push(uuid);
       }
-    },
+    }
 
-    popPendingTransactions : function (uuid) {
-      var index = pendingTransactionsUUID.indexOf(uuid);
+    , popPendingTransactions : function (uuid) {
+      var index = oThis.pendingTransactionsUUID.indexOf(uuid);
       if( index > -1  ){
-        pendingTransactionsUUID.splice(index ,  1);
+        oThis.pendingTransactionsUUID.splice(index ,  1);
       }
-    },
+    }
 
-    initHandleBarHelpers : function ( ) {
+    , initHandleBarHelpers : function () {
       var oThis = this,
           date = new Date();
 
       Handlebars.registerHelper('getUserIconClass' , function (userId , options) {
-        var user = users[userId];
+        var user = oThis.users[userId];
 
         if ( !user ) {
           return "u-kind-user";
@@ -240,7 +305,7 @@
 
 
       Handlebars.registerHelper('getUserName' , function (userId , options) {
-        var user = users[userId];
+        var user = oThis.users[userId];
 
         if ( !user ) {
           return "";
@@ -319,7 +384,7 @@
 
       Handlebars.registerHelper('diplay_transaction_hash' , function (transaction_hash  ,  options) {
         if( typeof transaction_hash === "string" ) {
-          return  '<a href="' +  viewTXDetailUrlPrefix + transaction_hash + '">' + transaction_hash + '</a>';
+          return  '<a href="' +  oThis.viewTXDetailUrlPrefix + transaction_hash + '">' + transaction_hash + '</a>';
         }
         return "NA";
       });
@@ -328,7 +393,7 @@
         if( !transaction_type_id ) {
           return "";
         }
-        var txType = transactionTypes[ transaction_type_id ];
+        var txType = oThis.transactionTypes[ transaction_type_id ];
         if ( !txType ) {
           return "";
         }
@@ -338,7 +403,7 @@
         var rowData = response.data.root || {}
           , transaction_type_id    = rowData.transaction_type_id
         ;
-        var txType = transactionTypes[ transaction_type_id ];
+        var txType = oThis.transactionTypes[ transaction_type_id ];
         if ( !txType ) {
           return "";
         }
