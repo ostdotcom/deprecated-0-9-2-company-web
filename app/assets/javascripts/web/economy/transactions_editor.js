@@ -117,6 +117,7 @@
           //Some falsey value
           oThis.jCommissionWrap.slideUp( 300 );
         }
+        oThis.updateDisplayCommission();
       });
 
 
@@ -449,7 +450,23 @@
       } else {
         oThis.jCommissionRow.slideUp( 300 );
       }
+      oThis.updateDisplayCommission();
+    }
 
+    ,updateDisplayCommission : function () {
+      var jCommission   = oThis.jForm.find('.j-has-commission:checked') ,
+          commissionVal = Number( jCommission.val() );
+
+      var jTX   = oThis.jForm.find('.j-tx-kind:checked') ,
+          txVal = jTX.val() ;
+
+      var jEl   = $('.commission-content-wrapper') ;
+
+      if( commissionVal && txVal === oThis.txKindMap.user_to_user ) {
+        jEl.addClass('has-commission');
+      }else{
+        jEl.removeClass('has-commission');
+      }
     }
 
     , onCommissionChanged: function () {

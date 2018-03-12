@@ -1,0 +1,20 @@
+.commission-content-wrapper {
+
+  .commission-enabled-content {
+    display: none;
+  }
+
+  .commission-disabled-content {
+    display: block;
+  }
+
+  &.has-commission {
+    .commission-enabled-content {
+      display: block;
+    }
+
+    .commission-disabled-content {
+      display: none;
+    }
+  }
+}

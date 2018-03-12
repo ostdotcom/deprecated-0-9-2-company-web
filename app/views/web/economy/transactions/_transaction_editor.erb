@@ -238,15 +238,23 @@
             </div>
           </div>
         </div>
-        <div class="card mb-5">
+        <div class="card mb-5 commission-content-wrapper">
           <div class="card-body text-uppercase text-center">
             <h6 class="card-title mb-1">TRANSACTION FEES IN <%= bt_symbol %></h6>
-            <div class="card-text mb-1">
-              <span class="orange" data-ost-mock-element="#commission_in_bt"></span>
+            <div class="commission-enabled-content">
+              <div class="card-text mb-1">
+                <span class="orange" data-ost-mock-element="#commission_in_bt"></span>
+              </div>
+              <div class="card-text orange">
+                <% # DO NOT PROVIDE SPACE between fiat_symbol & commission_in_fiat %>
+                (<span class="orange"><%= fiat_symbol %><span data-ost-mock-element="#commission_in_fiat"></span></span>)
+              </div>
             </div>
-            <div class="card-text orange">
-              <% # DO NOT PROVIDE SPACE between fiat_symbol & commission_in_fiat %>
-              (<span class="orange"><%= fiat_symbol %><span data-ost-mock-element="#commission_in_fiat"></span></span>)
+            <div class="commission-disabled-content">
+              <div class="card-text mb-1">
+                <span class="orange">0</span>
+              </div>
+              <div class="card-text orange">($0)</div>
             </div>
           </div>
         </div>
