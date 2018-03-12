@@ -57,8 +57,8 @@
 
   function initHandleBarHelper (){
 
-    Handlebars.registerHelper('ifVideo', function(video, options ) {
-      if( video ){
+    Handlebars.registerHelper('ifVideo', function(video, article_link ,  options ) {
+      if( video && !article_link){
         return options.fn(this);
       } else {
         return options.inverse(this);
