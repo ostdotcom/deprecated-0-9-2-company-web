@@ -8,7 +8,7 @@
   tx_status_polling_url = '/api/economy/transaction/fetch-detail';        #fetch transaction details api
   execute_transaction_api = '/api/economy/transaction/execute' ; #Run transaction api
   transaction_history_api = '/api/economy/transaction/history' ;
-  long_poll_timeout_millisecond = 500;  #Value needed in milliseconds
+  long_poll_timeout_millisecond = 4000;  #Value needed in milliseconds
 
   should_show_api_call_button = true;
   if @presenter_obj.api_console_data.present? && @presenter_obj.api_console_data.for_execute_transaction.present?

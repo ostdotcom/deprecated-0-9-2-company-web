@@ -6,7 +6,7 @@
       transactionTypes = {},
       pendingTransactionsUUID = [],
       pollPendingTransactions = null,
-      pollingApi , pollingTimeOut ,
+      pollingApi ,
       viewTXDetailUrlPrefix,
       isPolling = false
   ;
@@ -27,7 +27,7 @@
       $.extend(oThis, config);
 
       pollingApi = config["tx_status_polling_url"];
-      pollingTimeOut = config["long_poll_timeout_millisecond"];
+      oThis.long_poll_timeout_millisecond = config["long_poll_timeout_millisecond"];
       viewTXDetailUrlPrefix = config['ost_view_tx_detail_url_prefix'];
       oThis.initHandleBarHelpers();
       oThis.createDataTable();
@@ -166,7 +166,7 @@
               oThis.updatePendingTransaction(response);
               setTimeout(function () {
                 oThis.pollPendingTransactions();
-              }, 30 * 1000);
+              }, oThis.long_poll_timeout_millisecond);
             }
           },
           error : function () {
@@ -175,7 +175,7 @@
             oThis.pollPendingTransactions();
           }
         });
-      } , pollingTimeOut )
+      } , oThis.long_poll_timeout_millisecond )
     },
 
     updatePendingTransaction : function ( response ) {
