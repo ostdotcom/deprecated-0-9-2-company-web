@@ -25,7 +25,8 @@ constants:
     kyc_root_url: <%= ENV['COMPANY_KYC_ROOT_URL'] %>
     kit_root_url: <%= ENV['COMPANY_KIT_ROOT_URL'] %>
     view_root_url: <%= ENV['COMPANY_VIEW_ROOT_URL'] %>
-    
+    token_sale_url: <%= ENV['COMPANY_TOKEN_SALE_URL'] %>
+
   pepo_campaign:
     encrypted_client_id: <%= ENV['STW_CAMPAIGN_ENCRYPTED_CLIENT_ID'] %>
     encrypted_list_id: <%= ENV['STW_CAMPAIGN_ENCRYPTED_LIST_ID'] %>
