@@ -47,7 +47,7 @@
               </svg>
             </div>
             {{#ifEditUser mode}}
-              <div class="col-10 pb-2">
+              <div class="col-11 pb-2">
                 <form class="add-user-form" id="save-user-{{id}}" action="/api/economy/users/create" method="POST" data-user-id="{{id}}">
                   <div class="row">
                     <div class="col-4">
@@ -56,16 +56,17 @@
                         <div class="invalid-feedback" data-forname="user-name-{{id}}">&nbps;</div>
                       </div>
                     </div>
-                    <div class="col-4"></div>
-                    <div class="col-4 text-right">
-                      <button type="submit" class="save-user-btn btn mr-1 btn-gold" data-submiting="Saving...">Save</button>
-                      <a href="javascript:void(0)" class="cancel-user-btn rounded-circle edit-btn btn-info" title="Close">
-                        <svg class="icon-edit-transactions align-middle">
-                          <switch>
-                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-users-cancel"></use>
-                          </switch>
-                        </svg>
-                      </a>
+                    <div class="col-4 offset-4 text-right">
+                      <div class="mr-1">
+                        <button type="submit" class="save-user-btn btn mr-1 btn-gold" data-submiting="Saving...">Save</button>
+                        <a href="javascript:void(0)" class="cancel-user-btn rounded-circle edit-btn btn-info" title="Close">
+                          <svg class="icon-edit-transactions align-middle">
+                            <switch>
+                              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-users-cancel"></use>
+                            </switch>
+                          </svg>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </form>

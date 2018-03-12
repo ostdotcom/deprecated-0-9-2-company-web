@@ -101,6 +101,10 @@ html, body{
   }
 }
 
+.play-video-icon {
+  fill: $blue-500;
+}
+
 .video-link-wrapper {
   .video-link {
     text-decoration: none;
@@ -110,7 +114,9 @@ html, body{
         color: $yellow-400;
         border-bottom: 1px solid $yellow-400;
       }
+      .play-video-icon {
+        fill: $yellow-400;
+      }
     }
-
   }
 }

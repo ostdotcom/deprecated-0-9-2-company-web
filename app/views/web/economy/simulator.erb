@@ -2,7 +2,7 @@
 
   tx_status_polling_url = '/api/economy/transaction/fetch-detail';  #fetch transaction details api
   long_poll_timeout_millisecond = 500;  #Value needed in milliseconds
-
+  ost_view_tx_detail_url_prefix = @presenter_obj.ost_view_tx_detail_url_prefix;
 %>
 
 <div class="container mt-4">
@@ -22,7 +22,8 @@
     $( function () {
       ost.simulator.init({
         long_poll_timeout_millisecond: <%= long_poll_timeout_millisecond %>,
-        tx_status_polling_url: "<%= tx_status_polling_url %>"
+        tx_status_polling_url: "<%= tx_status_polling_url %>",
+        ost_view_tx_detail_url_prefix : "<%= ost_view_tx_detail_url_prefix%>"
       });      
     });
   </script>

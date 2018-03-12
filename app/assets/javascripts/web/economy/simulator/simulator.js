@@ -6,7 +6,9 @@
       transactionTypes = {},
       pendingTransactionsUUID = [],
       pollPendingTransactions = null,
-      pollingApi , pollingTimeOut
+      pollingApi , pollingTimeOut ,
+      viewTXDetailUrlPrefix,
+      isPolling = false
   ;
 
 
@@ -26,6 +28,7 @@
 
       pollingApi = config["tx_status_polling_url"];
       pollingTimeOut = config["long_poll_timeout_millisecond"];
+      viewTXDetailUrlPrefix = config['ost_view_tx_detail_url_prefix'];
       oThis.initHandleBarHelpers();
       oThis.createDataTable();
       oThis.bindEvents();
@@ -152,12 +155,14 @@
     startPolling : function () {
       var oThis = this
       ;
+      isPolling = true;
       pollPendingTransactions =  setTimeout( function () {
         $.get({
           url: pollingApi,
           data : {transaction_uuids : pendingTransactionsUUID},
           success: function ( response ) {
             if ( response.success ) {
+              isPolling = false;
               oThis.updatePendingTransaction(response);
               setTimeout(function () {
                 oThis.pollPendingTransactions();
@@ -166,6 +171,7 @@
           },
           error : function () {
             console.log('error occured in polling');
+            isPolling = false;
             oThis.pollPendingTransactions();
           }
         });
@@ -198,7 +204,7 @@
     },
 
     isPollingRequired : function () {
-      return pendingTransactionsUUID.length > 0 ;
+      return pendingTransactionsUUID.length > 0 && !isPolling;
     },
 
     pushPendingTransactions : function (uuid) {
@@ -313,7 +319,7 @@
 
       Handlebars.registerHelper('diplay_transaction_hash' , function (transaction_hash  ,  options) {
         if( typeof transaction_hash === "string" ) {
-          return transaction_hash;
+          return  '<a href="' +  viewTXDetailUrlPrefix + transaction_hash + '">' + transaction_hash + '</a>';
         }
         return "NA";
       });

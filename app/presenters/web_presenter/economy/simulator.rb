@@ -19,6 +19,10 @@ module WebPresenter
         @a_cd ||= (formatter_obj.api_console_data || {})
       end
 
+      def ost_view_tx_detail_url_prefix
+        "#{GlobalConstant::CompanyOtherProductUrls::view_root_url}chain-id/#{chain_interaction_params.utility_chain_id}/transaction/"
+      end
+
     end
 
   end
