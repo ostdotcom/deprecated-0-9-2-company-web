@@ -65,6 +65,14 @@
       }
     });
 
+    Handlebars.registerHelper('ifArticle', function(article_link, options ) {
+      if( article_link ){
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    });
+
     Handlebars.registerHelper('ifImage', function(image, options ) {
       if(image){
         return options.fn(this);
@@ -72,6 +80,8 @@
         return options.inverse(this);
       }
     });
+
+
     Handlebars.registerHelper('ifTitle', function(title, options ) {
       if(title){
         return options.fn(this);

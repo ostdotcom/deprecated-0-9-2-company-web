@@ -33,7 +33,6 @@
       var jsonpurl = $("#subscribe-form-submit").data('jsonp');
       var email = $("#subscribe-form-email").val();
 
-      var attr_obj = {};
       var errors = [];
 
       if (email == '') {
@@ -48,17 +47,12 @@
       oThis.resetError();
       $("#subscribe-form-submit").prop('disabled', true);
 
-      var attr_obj = {
-        is_general_update: 1,
-        is_web_after_ico: 1
-      };
-
       $.ajax({
 
         url: jsonpurl,
         jsonp: "callback",
         dataType: "jsonp",
-        data: {email: email, attributes: attr_obj},
+        data: {email: email},
         method: 'GET',
         success: function (responseJson) {
           if ((responseJson.error != undefined) && (responseJson.error != '')) {

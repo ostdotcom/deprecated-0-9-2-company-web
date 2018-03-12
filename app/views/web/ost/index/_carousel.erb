@@ -14,23 +14,34 @@
             <div class="content-wrapper">
               <div class="w-100 content">
                 {{#ifVideo video_embed}}
-                <div class="video-wrapper">
-                  <button type="button" class="font-weight-light btn h-100 video-btn w-100" data-toggle="modal" data-src="{{video_embed}}" data-target="#helpVideoModal">
-                  <span class="play-icon">
-                    <svg class="icon-play align-middle">
-                      <switch>
-                        <use class="icon-play" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"></use>
-                      </switch>
-                    </svg>
-                  </span>
-                  </button>
-                  {{#ifImage image}}
-                  <div class="img-wrapper">
-                    <img class="img-fluid" src="{{image}}" alt="image"/>
+                  <div class="video-wrapper">
+                    <button type="button" class="font-weight-light btn h-100 video-btn w-100" data-toggle="modal" data-src="{{video_embed}}" data-target="#helpVideoModal">
+                    <span class="play-icon">
+                      <svg class="icon-play align-middle">
+                        <switch>
+                          <use class="icon-play" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"></use>
+                        </switch>
+                      </svg>
+                    </span>
+                    </button>
+                    {{#ifImage image}}
+                    <div class="img-wrapper">
+                      <img class="img-fluid" src="{{image}}" alt="image"/>
+                    </div>
+                    {{/ifImage}}
                   </div>
-                  {{/ifImage}}
-                </div>
                 {{/ifVideo}}
+                {{#ifArticle article_link}}
+                  <div class="article-wrapper">
+                    <a href="{{article_link}}" target="_blank">
+                      {{#ifImage image}}
+                      <div class="img-wrapper">
+                        <img class="img-fluid" src="{{image}}" alt="image"/>
+                      </div>
+                      {{/ifImage}}
+                    </a>
+                  </div>
+                {{/ifArticle}}
                 {{#ifTitle title }}
                 <div class="carousel-title">
                   {{title}}
@@ -44,7 +55,7 @@
                 {{#ifDate date}}
                 <div class="w-100 date-wrapper">
                   <div class='date-content'>
-                    <div class="date-text">15 FEB 2017{{date}}</div>
+                    <div class="date-text">{{date}}</div>
                   </div>
                 </div>
                 {{/ifDate}}
@@ -76,6 +87,17 @@
                   {{/ifImage}}
                 </div>
                 {{/ifVideo}}
+                {{#ifArticle article_link}}
+                <div class="article-wrapper">
+                  <a href="{{article_link}}" target="_blank">
+                    {{#ifImage image}}
+                    <div class="img-wrapper">
+                      <img class="img-fluid" src="{{image}}" alt="image"/>
+                    </div>
+                    {{/ifImage}}
+                  </a>
+                </div>
+                {{/ifArticle}}
                 {{#ifTitle title }}
                 <div class="carousel-title">
                   {{title}}
@@ -89,7 +111,7 @@
                 {{#ifDate date}}
                 <div class="w-100 date-wrapper">
                   <div class='date-content'>
-                    <div class="date-text">15 FEB 2017{{date}}</div>
+                    <div class="date-text">{{date}}</div>
                   </div>
                 </div>
                 {{/ifDate}}

@@ -7,11 +7,11 @@
             <h1>Get the Latest Updates from OST</h1>
             <form class="simpletoken-form" id="subscribe-form">
               <div class="subscribe">
-                <div class="form-group form-group align-items-center d-flex justify-content-center">
+                <div class="form-group mb-0">
                   <input type="email" class="form-control mt-4" id="subscribe-form-email" name="email" placeholder="email@example.com">
-                  <button type="submit" class="btn btn-primary ml-md-3 mt-4" id="subscribe-form-submit" data-jsonp="<%#= GlobalConstant::PepoCampaign.subscribe_url %>">Sign up</button>
-                  <div class="error"></div>
+                  <button type="submit" class="btn btn-primary ml-md-3 mt-4" id="subscribe-form-submit" data-jsonp="<%= GlobalConstant::PepoCampaign.subscribe_url %>">Sign up</button>
                 </div>
+                <div class="error"></div>
               </div>
             </form>
             <div id="subscribe-success" style="display: none">
