@@ -113,10 +113,21 @@
   }
 }
 
-.loader{
-  background: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader-1.gif');
-  height: 60px;
-  width: 60px;
-  margin: 0 auto;
-  background-size: 60px;
+.graph-container{
+  position: relative;
+  width: 100%;
+  height: 350px;
+  display: -webkit-box!important;
+  display: -ms-flexbox!important;
+  display: flex!important;
+  -webkit-box-align: center!important;
+  -ms-flex-align: center!important;
+  align-items: center!important;
+  .loader{
+    background: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader-1.gif');
+    height: 60px;
+    width: 60px;
+    margin: 0 auto;
+    background-size: 60px;
+  }
 }
