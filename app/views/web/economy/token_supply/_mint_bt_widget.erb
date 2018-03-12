@@ -98,7 +98,7 @@
     <%= 
     render partial: 'shared/web/common/slider_top',
                locals: {
-                 label: "N&deg; of #{bt_symbol} to Mint",
+                 label: "NO. OF TOKENS TO MINT",
                  id: bt_to_mint_input_id,
                  name: bt_to_mint_input_name,
                  type: 'number',
@@ -159,14 +159,14 @@
       id="<%= ost_transfered_transaction_hash_id %>" name="transaction_hash" />
   </div>
   <div class="col-7 offset-1 user-form form-group" id="ostSupplyPieArea">
-    <label class="form-label text-uppercase title">OST⍺ Supply</label>
+    <!--<label class="form-label text-uppercase title">OST⍺ Supply</label>-->
     <div class="d-flex align-items-center">
       <div class="p-2">
         <div id="ostSupplyPie" class="pie-chat" style="width:200px; height: 200px"></div>
       </div>
       <div class="p-2 legend">
         <div class="pl-2 m-3" style="border-left: 5px solid #34445b;">
-          <strong>OST⍺ allocated</strong><br /><span id="<%= ost_balance_after_transfer_id %>"></span>
+          <strong>OST⍺ unallocated</strong><br /><span id="<%= ost_balance_after_transfer_id %>"></span>
         </div>
         <div class="pl-2 m-3" style="border-left: 5px solid #fbd764;">
           <strong>OST⍺ reserved for gas</strong><br /><span data-ost-mock-element="#<%= st_prime_to_mint_input_id %>"></span>

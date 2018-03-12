@@ -4,6 +4,8 @@
 
   if @presenter_obj.api_console_data.present?
     api_console_data = @presenter_obj.api_console_data.for_create_user
+    request_params_str = api_console_data['request_params']
+    request_params = request_params_str.split('&')
     should_show_api_call_button = true
   else
     should_show_api_call_button = false
@@ -86,7 +88,22 @@
                 </button>
               </div>
               <% if should_show_api_call_button %>
-                <%= render :partial => "/shared/web/common/curl_code", locals: {api_console_data: api_console_data} %>
+                <div class="code-session col-12">
+                  <comment class="w-100 code-comment">
+                    // Below is as an example the API call that was requested to create this user.<br/>
+                    // The user uuid is {{uuid}}.<br/>
+                    // Note that the signature and the request_timestamp will have expired and need to be recalculated for each request.<br/>
+                    // Please access the API and SDK documentation from the Developers section for more details.<br/>
+                  </comment>
+                  <code class="w-100 code-line">
+                    <span class="curl-param-header">curl -i </span> <span class="curl-escape-character">\</span>
+                    <br /><span class="curl-param-header"> -H</span> "Accept: application/json" <span class="curl-escape-character">\</span>
+                    <% request_params.each do |request_param| %>
+                      <br /><span class="curl-param-header"> -d</span> '<%= request_param %>' <span class="curl-escape-character">\</span>
+                    <% end %>
+                    <br /><span class="curl-param-header"> -X</span> <%= api_console_data['request_type'] %> <%= api_console_data['request_uri'] %>
+                  </code>
+                </div>
               <% end %>
               {{/ifEditUser}}
             </div>

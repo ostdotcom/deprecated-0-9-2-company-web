@@ -20,6 +20,8 @@
   should_show_api_call_button = true;
   if @presenter_obj.api_console_data.present? && @presenter_obj.api_console_data.for_create_transaction_kind.present?
     api_console_data = @presenter_obj.api_console_data.for_create_transaction_kind
+    request_params_str = api_console_data['request_params']
+    request_params = request_params_str.split('&')
   else
     should_show_api_call_button = false
   end
@@ -80,7 +82,21 @@
               <input type="hidden" name="uts" value={{uts}}/>
             </div>
             <% if should_show_api_call_button %>
-              <%= render :partial => "/shared/web/common/curl_code", locals: {api_console_data: api_console_data} %>
+              <div class="code-session col-12">
+                <comment class="w-100 code-comment">
+                  // Below is as an example the API call that was requested to create this transaction type. <br />
+                  // Note that the signature and the request_timestamp will have expired and need to be recalculated for each request. <br />
+                  // Please access the API and SDK documentation from the Developers section for more details. <br />
+                </comment>
+                <code class="w-100 code-line">
+                  <span class="curl-param-header">curl -i </span> <span class="curl-escape-character">\</span>
+                  <br /><span class="curl-param-header"> -H</span> "Accept: application/json" <span class="curl-escape-character">\</span>
+                  <% request_params.each do |request_param| %>
+                    <br /><span class="curl-param-header"> -d</span> '<%= request_param %>' <span class="curl-escape-character">\</span>
+                  <% end %>
+                  <br /><span class="curl-param-header"> -X</span> <%= api_console_data['request_type'] %> <%= api_console_data['request_uri'] %>
+                </code>
+              </div>
             <% end %>
           </div>
         </script>
