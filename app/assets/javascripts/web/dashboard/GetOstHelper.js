@@ -512,7 +512,9 @@
     }
 
     , hideSendingOstGrantModal : function () {
+      setTimeout(function () {
         $('#sending_ost_grant_modal').modal('hide');
+      }, 300);
     }
 
     ,showProcessFailureErrorCover : function () {

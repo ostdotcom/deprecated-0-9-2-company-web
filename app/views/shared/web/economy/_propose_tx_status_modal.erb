@@ -24,7 +24,7 @@
   <h3 class="mb-2">Minting the <%= bt_symbol %> Token Economy</h3>
   <div class="desc">
     The <%= bt_symbol %> token economy is being initialized. This process takes several minutes on testnet. 
-    Watch our <a href="" class="link" target="_blank">video</a> to learn what's going on under the hood!
+    Watch our <a href="https://www.youtube.com/embed/E60izm6xi0k" class="link" target="_blank">video</a> to learn what's going on under the hood!
   </div>
 </script>
 <script id="<%= processing_header_tempate_id %>" type="text/x-handlebars-template">
@@ -35,7 +35,7 @@
     Watch our video to learn what's going on under the hood!<br />
   </div>
   <div class="video-link-wrapper mt-2">
-    <a href="" class="video-link" target="_blank">
+    <a href="https://www.youtube.com/embed/E60izm6xi0k" class="video-link" target="_blank">
       <svg class="icon-banner align-middle">
         <switch>
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play-arrow"></use>
@@ -88,7 +88,13 @@
 
     };
     MintTxStatusModal.prototype = Object.create(TSM.prototype);
-
+    var _onTxFailed = TSM.prototype.onTxFailed;
+    MintTxStatusModal.prototype.onTxFailed = function () {
+      var oThis = this;
+      _onTxFailed.apply(oThis, arguments);
+      oThis.hide();
+      ost.coverElements.show('#process_failure_error_cover');
+    }
   });
 </script>
 <% end %>

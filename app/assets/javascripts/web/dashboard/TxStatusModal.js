@@ -116,6 +116,7 @@
 
     , metaData        : null
     , isPolling       : false
+    , pollingInterval : 2500
     , events    : {
       pollSuccess     : "pollSuccess"
       , pollError     : "pollError"
@@ -447,7 +448,7 @@
 
       setTimeout(function () {
         oThis.pollTxStatus();
-      }, 5000);
+      }, oThis.pollingInterval );
 
     }
 
@@ -539,19 +540,20 @@
 
 
 
- //// Code to Simulate:
- //
- //
- //(function () {
- //
+ // Code to Simulate:
+ 
+ 
+ // (function () {
+ 
  //  var fn = function () {
- //
+ 
  //    //Config for simulation:
- //    var noOfSteps = 5;
+ //    var noOfSteps = 1;
  //    var noOfPollRequests = (2 * noOfSteps) + Math.max(0, (noOfSteps - 1) );
  //    var resolveIn        = parseInt( noOfPollRequests/noOfSteps );
- //    var shouldFail = false;
- //
+ //    var shouldFail = true;
+ //    resolveIn = resolveIn + 1;
+ 
  //    var results = [];
  //    for(var cnt = 0; cnt < noOfSteps; cnt++ ) {
  //      results.push({
@@ -559,8 +561,8 @@
  //        , "display_text": "Step " + Number(cnt + 1) + " is queued"
  //      });
  //    }
- //
- //    var txStatusModal = new ost.TSM(4, "/tx_dummy.json");
+ 
+ //    var txStatusModal = new ost.TSM.MintTxStatusModal(4, "/tx_dummy.json");
  //    txStatusModal.pollTxStatus = function () {
  //      var response = {
  //        success: true
@@ -602,16 +604,16 @@
  //        txStatusModal.onPollSuccess( response );
  //      }, 300)
  //    }
- //
+ 
  //    txStatusModal.show();
  //  }
- //
- //
+ 
+ 
  //  setTimeout(function () {
  //    fn();
  //  }, 2000);
- //
- //})();
+ 
+ // })();
 
 
 
