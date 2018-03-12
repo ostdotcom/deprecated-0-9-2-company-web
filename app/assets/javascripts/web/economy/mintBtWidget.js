@@ -221,6 +221,7 @@
       oThis.jConfirmModal.modal("hide");
 
       if ( !response.success ) {
+        ost.coverElements.show('#process_failure_error_cover');
         return;
       }
 
