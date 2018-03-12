@@ -20,6 +20,7 @@
     type: null,
     tsUnixToJs: true,
     noDataHTML: 'No data to populate graphs',
+    loadingHTML: '<div style="width:60px;font-size:12px;margin:0 auto">Loading...</div>',
 
     /*
      * Initiates Google Charts by google.charts.load
@@ -51,6 +52,8 @@
         console.warn('Selector '+oThis.selector+' not found in DOM');
         return false;
       }
+
+      $(oThis.selector).append('<div style="position:absolute;z-index:1;width:100%;">'+oThis.loadingHTML+'</div>');
 
       if(!$.isEmptyObject(oThis.ajax)){
         var ajaxObj = {

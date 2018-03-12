@@ -80,6 +80,7 @@
         selector: '#transactionsValue',
         type: 'LineChart',
         noDataHTML: $('#graphsNodataHTML').html(),
+        loadingHTML: "<div class='loader'></div>",
         columns: [
           {
             type: 'datetime',
@@ -222,6 +223,7 @@
         selector: '#transactionsType',
         type: 'ColumnChart',
         noDataHTML: $('#transactionsbytype').html(),
+        loadingHTML: "<div class='loader'></div>",
         columns: [
           {
             type: 'string',
@@ -248,7 +250,7 @@
           },
           bars: 'vertical',
           bar: {
-            groupWidth: 20
+            groupWidth: 30
           },
           chartArea: {
             width: '90%',
