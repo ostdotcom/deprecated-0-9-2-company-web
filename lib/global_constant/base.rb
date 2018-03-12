@@ -34,8 +34,8 @@ module GlobalConstant
         @company_other_product_urls ||= fetch_config.fetch('company_other_product_urls', {}).with_indifferent_access
       end
       
-      def stw_campaign_details
-        @stw_campaign_details ||= fetch_config.fetch('stw_campaign_details', {}).with_indifferent_access
+      def pepo_campaign
+        @stw_campaign_details ||= fetch_config.fetch('pepo_campaign', {}).with_indifferent_access
       end
 
       private
