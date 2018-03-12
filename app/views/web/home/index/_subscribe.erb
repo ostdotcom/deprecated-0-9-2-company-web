@@ -9,9 +9,10 @@
               <div class="subscribe">
                 <div class="form-group mb-0">
                   <input type="email" class="form-control mt-4" id="subscribe-form-email" name="email" placeholder="email@example.com">
+                  <div class="error d-block d-sm-none"></div>
                   <button type="submit" class="btn btn-primary ml-md-3 mt-4" id="subscribe-form-submit" data-jsonp="<%= GlobalConstant::PepoCampaign.subscribe_url %>">Sign up</button>
                 </div>
-                <div class="error"></div>
+                <div class="error d-none d-sm-block"></div>
               </div>
             </form>
             <div id="subscribe-success" style="display: none">
