@@ -56,9 +56,9 @@
         return false;
       }
 
-      var jELBlur = $(oThis.selector).find('> div').eq(0);
+      var jELBlur = $(oThis.selector).find('> div');
       if( jELBlur && oThis.loadingCSS ) {
-        jELBlur.css(oThis.loadingCSS);
+        jELBlur.css( oThis.loadingCSS );
       }
 
       $(oThis.selector).prepend('<div style="position:absolute;left:0;z-index:1;width:100%;">'+oThis.loadingHTML+'</div>');
