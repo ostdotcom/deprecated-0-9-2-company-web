@@ -139,7 +139,7 @@
         case OST_GRANT_CONFIRMED:
           setTimeout(function(){
             oThis.jFormSubmitBtn.attr("disabled", false);
-            oThis.jFormSubmitBtn.text("Get Ostα");
+            oThis.jFormSubmitBtn.text("Get Ost⍺");
           }, 100);
           oThis.allStepsCompleted.apply( oThis, arguments);
         break;
@@ -155,7 +155,7 @@
 
       setTimeout(function(){
         oThis.jFormSubmitBtn.attr("disabled", false);
-        oThis.jFormSubmitBtn.text("Get Ostα");
+        oThis.jFormSubmitBtn.text("Get Ost⍺");
       }, 100);
 
       if ( response && response.err ) {

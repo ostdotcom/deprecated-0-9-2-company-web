@@ -44,7 +44,8 @@
         display: "block",
         zIndex: newZIndex,
         top: newTop,
-        scrollTop: 0
+        scrollTop: 0,
+        height: "calc(100vh - " + newTop + "px)"
       };
 
 
