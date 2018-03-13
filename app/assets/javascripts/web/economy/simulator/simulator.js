@@ -23,7 +23,7 @@
       oThis.isPolling = false;
 
       oThis.pollingInterval = config["long_poll_timeout_millisecond"];
-      viewTXDetailUrlPrefix = config['ost_view_tx_detail_url_prefix'];
+      oThis.viewTXDetailUrlPrefix = config['ost_view_tx_detail_url_prefix'];
       oThis.initHandleBarHelpers();
       oThis.createDataTable();
       oThis.bindEvents();
