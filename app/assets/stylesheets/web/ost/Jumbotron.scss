@@ -98,10 +98,14 @@ body{
     position: absolute;
     z-index: 1;
     left: 50%;
-    transform: translate(-50%,-50%);
     opacity: 0;
-    transition: .5s;
     top: 50%;
+    transition: .5s;
+    -moz-transition: .5s;
+    -webkit-transition: .5s;
+    transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
   }
   @media (min-width: 880px){
     ul {
@@ -112,8 +116,12 @@ body{
     &:hover{
       ul {
         opacity: .7;
-        transform: scale(.95);
         filter: blur(10px);
+        -moz-filter: blur(10px);
+        -webkit-filter: blur(10px);
+        transform: scale(.95);
+        -moz-transform: scale(.95);
+        -webkit-transform: scale(.95);
       }
       .partners-Button{
         opacity: 1;

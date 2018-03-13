@@ -54,11 +54,16 @@
         color: #34445b;
         font-weight: 300;
         font-size: 0.8rem;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
         @media(min-width: 991px){
           font-size: 1rem;
         }
-        letter-spacing: 0.4px;
-        text-transform: uppercase;
+        &:hover,
+        &:focus{
+          outline: none;
+          background-color: #fff;
+        }
       }
 
       .dropdown-menu{
