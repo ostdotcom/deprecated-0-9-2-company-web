@@ -29,6 +29,10 @@ module GlobalConstant
         500
       end
 
+      def under_maintainence_error
+        503
+      end
+
     end
 
   end

@@ -5,19 +5,22 @@ class Web::UserController < Web::BaseController
   before_action :check_if_client_is_supported
   before_action :set_page_meta_info
 
-  before_action :verify_existing_login, only: [:sign_up, :reset_password, :update_password]
+  before_action :verify_existing_login, only: [:reset_password, :update_password]
 
   after_action :remove_browser_caching
 
   def login
 
-    # Everytime a user hits Logs in URL, he should be logged out
-    if cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].present?
-      CompanyApi::Request::Client.new(
-          CompanyApi::Response::Formatter::Client,
-          request.cookies,
-          {"User-Agent" => http_user_agent}
-      ).logout(authenticity_token: form_authenticity_token)
+    @response = CompanyApi::Request::Client.new(
+        CompanyApi::Response::Formatter::Client,
+        request.cookies,
+        {"User-Agent" => http_user_agent}
+    ).logout(authenticity_token: form_authenticity_token)
+
+    if @response.success?
+      redirect_to :login and return
+    else
+      render_error_response(@response) and return
     end
 
   end
@@ -39,6 +42,18 @@ class Web::UserController < Web::BaseController
   end
 
   def sign_up
+
+    @response = CompanyApi::Request::Client.new(
+        CompanyApi::Response::Formatter::Client,
+        request.cookies,
+        {"User-Agent" => http_user_agent}
+    ).logout(authenticity_token: form_authenticity_token)
+
+    if @response.success?
+      redirect_to :login and return
+    else
+      render_error_response(@response) and return
+    end
 
   end
 

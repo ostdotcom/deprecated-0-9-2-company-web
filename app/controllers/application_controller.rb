@@ -106,6 +106,8 @@ class ApplicationController < ActionController::Base
         redirect_to :login and return
       elsif http_code == GlobalConstant::ErrorCode.temporary_redirect
         handle_temporary_redirects(service_response)
+      elsif http_code.to_i == GlobalConstant::ErrorCode.under_maintainence_error
+        redirect_to :service_unavailable and return
       else
         render file: "public/#{http_code}.html", layout: false, status: http_code and return
       end
@@ -130,6 +132,8 @@ class ApplicationController < ActionController::Base
         redirect_to :planner_step_two and return
       when 'economy_planner_step_three'
         redirect_to :planner_step_three and return
+      when 'service_unavailable'
+        redirect_to :service_unavailable and return
       else
         fail "unhandled internal redirect: #{service_response.go_to}"
     end
