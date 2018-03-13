@@ -1,5 +1,5 @@
-$sprite-retina-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v2-@2x.png";
-$sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v2-@1x.png";
+$sprite-retina-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v3-@2x.png";
+$sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v3-@1x.png";
 
 @mixin icon-generator($width,$height,$posX,$posY,$offsetHover,$offsetActive,$scale:100) {
   background-image: url($sprite-location);
@@ -106,4 +106,8 @@ $sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprit
 
 .footer-social-youtube-icon{
   @include icon-generator(98px, 98px, -520px, -232px, -637px, -637px, 40);
+}
+
+.footer-social-gitter-icon{
+  @include icon-generator(98px, 98px, -520px, -338px, -637px, -637px, 40);
 }
