@@ -36,6 +36,10 @@ module CompanyApi
           @data['airdrop_holder_address']
         end
 
+        def reserve_uuid
+          @data['reserve_uuid']
+        end
+
       end
 
     end
