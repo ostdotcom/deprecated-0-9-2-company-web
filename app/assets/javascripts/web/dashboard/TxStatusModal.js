@@ -331,8 +331,6 @@
         console.log("IMPORTANT :: updateElement :: template not found for uiState = ", uiState, " elementType", elementType);
       }
 
-      console.log("finalHtml" , finalHtml);
-
       jEl.html( finalHtml );
     }
 
