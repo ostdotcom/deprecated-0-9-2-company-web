@@ -12,9 +12,15 @@ class Web::HomeController < Web::BaseController
 
   end
 
+  def service_unavailable
+
+  end
+
   def resolve_layout
     case action_name
     when "unsupported_client"
+      "header_only"
+    when "service_unavailable"
       "header_only"
     else
       "kit"
