@@ -386,7 +386,19 @@
 
         var jEl   = $( this )
           , btVal
+          , shouldInformOthers = true
         ;
+
+        if ( orgEvent ) {
+          if ( !jEl.is( orgEvent.currentTarget ) ) {
+            shouldInformOthers = false;
+          }
+        } 
+
+        if ( !shouldInformOthers ) {
+          return;
+        }
+
         val   = val || jEl.val();
 
         //Validations
@@ -412,7 +424,19 @@
 
         var jEl     = $( this )
           , fiatVal
+          , shouldInformOthers = true
         ;
+
+        if ( orgEvent ) {
+          if ( !jEl.is( orgEvent.currentTarget ) ) {
+            shouldInformOthers = false;
+          }
+        } 
+
+        if ( !shouldInformOthers ) {
+          return;
+        }
+
         val = val || jEl.val();
 
         //Validations
