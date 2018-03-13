@@ -68,27 +68,6 @@ html, body{
   @include blur(10px);
 }
 
-/* ---------------------------------------------------
-    MEDIAQUERIES
------------------------------------------------------ */
-@media (max-width: $content-min-width) {
-  #content {
-    overflow-x: auto;
-  }
-}
-@media (max-width: 768px) {
-  #content {
-    width: 100%;
-    margin-left: 0px;
-  }
-  #content.active {
-    width: calc(100% - #{$side-bar-nav-width});
-  }
-  #sidebarCollapse span {
-    display: none;
-  }
-}
-
 .imp-value {
   color: $yellow-300;
 }
@@ -112,3 +91,43 @@ html, body{
     }
   }
 }
+
+body.has-cover-element {
+  overflow-y: hidden;
+}
+
+
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+@media (max-width: $content-min-width) {
+  #content {
+    overflow-x: auto;
+  }
+
+  #content #cover-container .cover-element.active-cover {
+    overflow-x: auto;
+    & >.container {
+      min-width: $content-min-width;
+    }
+  }
+
+  body.has-cover-element {
+    overflow-x: hidden ;
+  }
+}
+
+@media (max-width: 768px) {
+  #content {
+    width: 100%;
+    margin-left: 0px;
+  }
+  #content.active {
+    width: calc(100% - #{$side-bar-nav-width});
+  }
+  #sidebarCollapse span {
+    display: none;
+  }
+}
+

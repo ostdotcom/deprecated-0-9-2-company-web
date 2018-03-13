@@ -137,13 +137,15 @@
 
     <div class="col-2 mt-2">
       <input type="hidden" name="value_in_ost" id="value_in_ost" value="7.5" />
-      <%= render :partial => "/shared/web/common/mocker", 
-        :locals => {
-          :header => "VALUE IN OST⍺",
-          :mock_selector => "#value_in_ost",
-          :value => "15.898"
-        }
-      %> 
+      <div style="margin-top: 2px;">
+        <%= render :partial => "/shared/web/common/mocker",
+          :locals => {
+            :header => "VALUE IN OST⍺",
+            :mock_selector => "#value_in_ost",
+            :value => "15.898"
+          }
+        %>
+      </div>
     </div>
   </div>
   <div class="row" id="commission-options-row">

@@ -15,7 +15,8 @@
 
       var oThis = this;
 
-      $('body').css('overflow-y', 'hidden');
+      $('body').addClass('has-cover-element');
+
       var activeElements = oThis.jRoot.find(".active-cover")
         , jEl = $( selector )
       ;
@@ -51,7 +52,7 @@
 
       var onAnimationComplete = function () {
         jEl.addClass("active-cover").css( finalCss );
-        $('body').css('overflow-y', 'hidden');
+        $('body').addClass('has-cover-element');
       };
 
       if ( withoutAnimation ) {
@@ -92,7 +93,7 @@
         if ( !activeElements.length ) {
           console.log("onAnimationComplete :: activeElements", activeElements);
           //No Active Elements.
-          $('body').css('overflow-y', 'auto');
+          $('body').removeClass('has-cover-element');
         }
       }
       if ( withoutAnimation ) {

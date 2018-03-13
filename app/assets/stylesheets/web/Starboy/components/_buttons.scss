@@ -150,9 +150,14 @@
 .btn-secondary{
   border: 1px solid $blue-800;
   color: $blue-800;
-  &:focus{
+  &.focus-cls,
+  &:focus {
     color: $white;
+    text-decoration: none;
+    background-color: $blue-800;
+    border-color: $blue-800;
   }
+  &.hover-cls, &.active-cls,
   &:hover, &:active{
     color: $white;
     text-decoration: none;
