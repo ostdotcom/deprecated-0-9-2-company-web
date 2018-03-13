@@ -1,0 +1,30 @@
+// Import functions as variables depend on functions
+@import "../../plugins/bootstrap/scss/functions";
+
+// Import theme variables
+@import "../Starboy/variables";
+
+.notification-icon {
+  height: 16px;
+  width: 16px;
+  fill : $telegram-color;
+  vertical-align: middle;
+}
+
+.live-update-btn {
+  border: 1px solid $telegram-color;
+  color: $telegram-color;
+
+  &:focus {
+    color: $telegram-color;
+  }
+
+  &:hover , &:active {
+    color: $white;
+    background-color: $telegram-color;
+    border: 1px solid $telegram-color;
+    .notification-icon {
+      fill : $white;
+    }
+  }
+}
