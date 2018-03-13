@@ -384,7 +384,7 @@
 
       Handlebars.registerHelper('diplay_transaction_hash' , function (transaction_hash  ,  options) {
         if( typeof transaction_hash === "string" ) {
-          return  '<a href="' +  oThis.viewTXDetailUrlPrefix + transaction_hash + '">' + transaction_hash + '</a>';
+          return  '<a target="_blank" href="' +  oThis.viewTXDetailUrlPrefix + transaction_hash + '">' + transaction_hash + '</a>';
         }
         return "NA";
       });
