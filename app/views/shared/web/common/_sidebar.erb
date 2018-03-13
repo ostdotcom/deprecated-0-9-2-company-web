@@ -1,7 +1,7 @@
 <%
   action = @presenter_obj.action
 
-  setup_not_complete_class = @presenter_obj.client_token.step_three_done? ? '' : 'disabled'
+  setup_not_complete_class = @presenter_obj.is_planner_route? ? 'disabled' : ''
 %>
 <%= render :partial => "/shared/web/common/sidebar-icons.svg" %>
 

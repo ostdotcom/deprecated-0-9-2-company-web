@@ -140,10 +140,10 @@
 </main>
   <% # Always render the partials of status modals. And do it before yield %>
   <%= render :partial => "/shared/web/economy/tx_status_modal" %>
-  <% if @presenter_obj.client_token.step_three_done? %>
-    <%= render :partial => "/shared/web/economy/mint_tx_status_modal" %>
-  <% else %>
+  <% if @presenter_obj.is_planner_route? %>
     <%= render :partial => "/shared/web/economy/propose_tx_status_modal" %>
+  <% else %>
+    <%= render :partial => "/shared/web/economy/mint_tx_status_modal" %>
   <% end %>
   <%= render :partial => "/shared/web/economy/airdrop_tx_status_modal" %>
 

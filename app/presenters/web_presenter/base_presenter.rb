@@ -88,6 +88,10 @@ module WebPresenter
       curreny.to_s #TODO: Figure out a logic to handle this
     end
 
+    def is_planner_route?
+      ['planner' , 'planner_step_two' , 'planner_step_three'].include?(action)
+    end
+
     def action
       @params[:action]
     end
