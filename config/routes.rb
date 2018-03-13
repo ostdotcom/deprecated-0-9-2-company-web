@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   scope '', controller: 'web/home' do
     get '/' => :index
     get '/unsupported-client' => :unsupported_client
-    get '/service_unavailable' => :service_unavailable
+    get '/service-unavailable' => :service_unavailable
   end
 
   scope '', controller: 'web/user' do
