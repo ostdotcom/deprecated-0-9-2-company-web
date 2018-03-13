@@ -17,9 +17,7 @@ class Web::UserController < Web::BaseController
         {"User-Agent" => http_user_agent}
     ).logout(authenticity_token: form_authenticity_token)
 
-    if @response.success?
-      redirect_to :login and return
-    else
+    unless @response.success?
       render_error_response(@response) and return
     end
 
@@ -49,9 +47,7 @@ class Web::UserController < Web::BaseController
         {"User-Agent" => http_user_agent}
     ).logout(authenticity_token: form_authenticity_token)
 
-    if @response.success?
-      redirect_to :login and return
-    else
+    unless @response.success?
       render_error_response(@response) and return
     end
 
