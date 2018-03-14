@@ -22,7 +22,14 @@
       ;
 
       //Compute z-index.
-      var newZIndex = Number ( jEl.css("zIndex") || 0 );
+      var minZIndex  = 1
+        , newZIndex  = Number ( jEl.css("zIndex") )
+      ;
+      if ( isNaN( newZIndex ) ) {
+        newZIndex = 0;
+      }
+      newZIndex = newZIndex || minZIndex;
+
       activeElements.each(function (i, el) {
         if ( jEl.is( el ) ) {
           return;
