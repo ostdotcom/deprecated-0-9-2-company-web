@@ -136,7 +136,10 @@
     </div>
   </section>
 
-  <%= render :partial => "shared/web/modals/help_video" %>
+  <% content_for :popups do %>
+    <%= render :partial => "shared/web/modals/help_video" %>
+  <%end%>
+
 </main>
   <% # Always render the partials of status modals. And do it before yield %>
   <%= render :partial => "/shared/web/economy/tx_status_modal" %>
