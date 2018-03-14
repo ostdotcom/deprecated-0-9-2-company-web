@@ -5,8 +5,8 @@ module GlobalConstant
 
     class << self
 
-      def root_url
-        config['root_url']
+      def domain
+        config['domain']
       end
 
       private

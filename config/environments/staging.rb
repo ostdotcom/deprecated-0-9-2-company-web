@@ -34,7 +34,7 @@ Rails.application.configure do
   config.assets.digest = true
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = "https://#{ENV['OST_CLOUDFRONT_DOMAIN']}/"
+  config.action_controller.asset_host = "https://#{ENV['CW_CLOUDFRONT_DOMAIN']}/"
 
   # Incase we want to test asset precompile in development
   config.assets.prefix = "/js-css/stag"
