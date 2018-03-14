@@ -25,7 +25,9 @@ class Web::OstController < Web::BaseController
 
     return if params['open_new_website'].to_i == 1
 
-    redirect_to "#{GlobalConstant::CompanyOtherProductUrls.simple_token_url}#{request.fullpath}", status: GlobalConstant::ErrorCode.temporary_redirect and return
+    # replace first '/' with ''
+    path = request.fullpath.sub('/', '')
+    redirect_to "#{GlobalConstant::CompanyOtherProductUrls.simple_token_url}#{path}", status: GlobalConstant::ErrorCode.temporary_redirect and return
 
   end
 
