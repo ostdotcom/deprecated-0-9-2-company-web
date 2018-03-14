@@ -7,7 +7,7 @@ module GlobalConstant
 
       def default_from
         if Rails.env.production?
-          if GlobalConstant::Base.sub_env == GlobalConstant::Environment.main_sub_environment
+          if GlobalConstant::Base.sub_environment == GlobalConstant::Environment.main_sub_environment
             'notifier@ost.com'
           else
             'sandbox.notifier@ost.com'
