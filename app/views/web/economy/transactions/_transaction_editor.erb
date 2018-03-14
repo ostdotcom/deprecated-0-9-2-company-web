@@ -103,10 +103,10 @@
           <label class="radio-button-label" for="currency_type_bt">
             <span class="radio-button-circle"></span>Off</label>
         </div>
-        <label class="radio-button-label p-0 font-weight-light" id="currency_type_bt_help_text">
+        <label class="radio-button-label p-0 font-weight-light" id="currency_type_bt_help_text" style="pointer-events: none;" >
           (When the price oracle is Off the <%= bt_symbol %> value remains constant and the <%= fiat_display_text %> value will auto adjust)
         </label>
-        <label class="radio-button-label p-0 font-weight-light" id="currency_type_fiat_help_text">
+        <label class="radio-button-label p-0 font-weight-light" id="currency_type_fiat_help_text" style="pointer-events: none;">
           (When the price oracle is On the <%= fiat_display_text %> value remains constant and the <%= bt_symbol %> value will auto adjust)
         </label>
         <div class="invalid-feedback" data-forname="currency_type">&nbps;</div>
@@ -183,7 +183,9 @@
       <div class="row">
         <div class="col-12">
           <div class="form-group mb-0">
-          <label class="form-label" for="commission_percent">SET TRANSACTION FEE (IN %). <span>The Fee will be deducted from the transaction amount.</span></label>          
+          <label class="form-label" for="commission_percent">SET TRANSACTION FEE (IN %).
+            <span>THE FEE WILL BE ADDED ON TOP OF THE TRANSACTION VALUE.</span>
+          </label>
           </div>
         </div>
         <div class="col-8">
