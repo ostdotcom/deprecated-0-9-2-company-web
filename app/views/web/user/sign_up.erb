@@ -74,6 +74,7 @@
             <label class="form-label" data-forid="token_name">Token Name</label>
 
             <input id="user-token-name" type="text" name="token_name" class="form-control"
+                  data-msg-required="Only letters, numbers and spaces allowed. (Max 20 characters, 3 words)"
                    minlength="3" maxlength="20" aria-describedby="emailHelp" placeholder="Enter token name" required/>
             <div class="invalid-feedback" data-forid="token_name">&nbps;</div>
           </div>
@@ -83,7 +84,8 @@
             <label class="form-label" data-forid="email">Token Symbol</label>
 
             <input id="user-token-symbol" type="text"
-                   data-msg-pattern="Please enter 3 to 4 letters or numbers. Minimum one letter required. No special characters allowed."
+                  data-msg-required="Please enter 3 to 4 letters or numbers. Minimum one letter required. No special characters allowed."
+                  data-msg-pattern="Please enter 3 to 4 letters or numbers. Minimum one letter required. No special characters allowed."
                    pattern="^(?=.*[a-zA-Z])[a-zA-Z0-9]{3,4}$" name="token_symbol" class="form-control"
                    aria-describedby="emailHelp" placeholder="Enter token symbol" required  maxlength="4" />
             <div class="invalid-feedback" data-forid="token_symbol">&nbps;</div>
@@ -167,7 +169,10 @@
 
       <div class="form-group has-error mb-2" id="tosFormGrp">
         <div class="form-check p-0">
-          <input id="tos" class="checkbox-custom form-check-input" name="agreed_terms_of_service" type="checkbox" required>
+          <input id="tos" class="checkbox-custom form-check-input" name="agreed_terms_of_service" 
+            type="checkbox" required
+            data-msg-required="You must agree to the OST KIST⍺ Terms of Service & Privacy Policy to register."
+          />
           <label for="tos" class="checkbox-custom-label form-check-label">
             <span class="tos-text">By checking this box, you agree to our
               <a href="//drive.google.com/file/d/1rNemmuIq7ZamlwS962uqenNsljhEXKU_/view" target="_blank"
