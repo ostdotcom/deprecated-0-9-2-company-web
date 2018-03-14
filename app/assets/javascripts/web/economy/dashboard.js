@@ -245,7 +245,7 @@
         options:{
           series: {
             0: {
-              labelInLegend: 'Type of Transactions',
+              labelInLegend: 'Type of Transaction',
               color: 'f6c62b'
             }
           },
