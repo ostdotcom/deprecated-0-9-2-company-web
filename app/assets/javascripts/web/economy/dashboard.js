@@ -78,7 +78,7 @@
           url: url
         },
         selector: '#transactionsValue',
-        type: 'LineChart',
+        type: 'ComboChart',
         noDataHTML: $('#graphsNodataHTML').html(),
         loadingHTML: "<div class='loader'></div>",
         columns: [
@@ -99,16 +99,18 @@
           }
         ],
         options: {
+          seriesType: 'bars',
           series: {
             0: {
               targetAxisIndex: 0,
               labelInLegend: 'No. of Transactions (left axis)',
-              color: '84d1d4'
+              color: 'ff8385',
+              type: 'line'
             },
             1: {
               targetAxisIndex: 1,
               labelInLegend: 'Volume of Transactions in OST⍺ (right axis)',
-              color: 'ff5f5a'
+              color: 'b2dde6'
             }
           },
           vAxes: {
@@ -119,6 +121,10 @@
               title: '',
               format: 'short'
             }
+          },
+          lineWidth: 2,
+          bar: {
+            groupWidth: 30
           },
           legend: {
             alignment: 'end',
