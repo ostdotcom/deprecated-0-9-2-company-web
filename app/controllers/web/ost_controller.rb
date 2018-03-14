@@ -23,7 +23,7 @@ class Web::OstController < Web::BaseController
 
     return if GlobalConstant::Base.is_public_launch_done?
 
-    return if params['open_new_website'] == 1
+    return if params['open_new_website'].to_i == 1
 
     redirect_to "#{GlobalConstant::CompanyOtherProductUrls.simple_token_url}#{request.fullpath}", status: GlobalConstant::ErrorCode.temporary_redirect and return
 
