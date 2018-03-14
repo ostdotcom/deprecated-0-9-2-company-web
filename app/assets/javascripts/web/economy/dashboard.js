@@ -45,31 +45,61 @@
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Hour'
           var count = 12;
           var format = 'm';
+          var columns_1 = {
+            type: 'datetime',
+            opt_label: 'Date',
+            opt_id: 'timestamp'
+          };
           break;
         case 'day':
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Day';
           var count = 12;
           var format = 'h aa';
+          var columns_1 = {
+            type: 'datetime',
+            opt_label: 'Date',
+            opt_id: 'timestamp'
+          };
           break;
         case 'week':
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Week';
           var count = 7;
           var format = 'EEE';
+          var columns_1 = {
+            type: 'date',
+            opt_label: 'Date',
+            opt_id: 'timestamp'
+          };
           break;
         case 'month':
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Month'
           var count = 15;
           var format = 'd';
+          var columns_1 = {
+            type: 'date',
+            opt_label: 'Date',
+            opt_id: 'timestamp'
+          };
           break;
         case 'year':
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=Year'
           var count = 12;
           var format = "MMM''yy";
+          var columns_1 = {
+            type: 'date',
+            opt_label: 'Date',
+            opt_id: 'timestamp'
+          };
           break;
         case 'all':
           var url = '/api/economy/token/graph/number-of-transactions?graph_duration=All'
           var count = 12;
           var format = "MMM''yy";
+          var columns_1 = {
+            type: 'date',
+            opt_label: 'Date',
+            opt_id: 'timestamp'
+          };
           break;
       }
 
@@ -82,11 +112,7 @@
         noDataHTML: $('#graphsNodataHTML').html(),
         loadingHTML: "<div class='loader'></div>",
         columns: [
-          {
-            type: 'datetime',
-            opt_label: 'Date',
-            opt_id: 'timestamp'
-          },
+          columns_1,
           {
             type: 'number',
             opt_label: 'No. of Transactions',
@@ -192,34 +218,22 @@
     printTypeChart: function(interval){
       switch(interval) {
         case 'hour':
-          var url = '/api/economy/token/graph/transaction-types?graph_duration=Hour'
-          var count = 12;
-          var format = 'm';
+          var url = '/api/economy/token/graph/transaction-types?graph_duration=Hour';
           break;
         case 'day':
           var url = '/api/economy/token/graph/transaction-types?graph_duration=Day';
-          var count = 12;
-          var format = 'h aa';
           break;
         case 'week':
           var url = '/api/economy/token/graph/transaction-types?graph_duration=Week';
-          var count = 7;
-          var format = 'EEE';
           break;
         case 'month':
-          var url = '/api/economy/token/graph/transaction-types?graph_duration=Month'
-          var count = 15;
-          var format = 'd';
+          var url = '/api/economy/token/graph/transaction-types?graph_duration=Month';
           break;
         case 'year':
-          var url = '/api/economy/token/graph/transaction-types?graph_duration=Year'
-          var count = 12;
-          var format = "MMM''yy";
+          var url = '/api/economy/token/graph/transaction-types?graph_duration=Year';
           break;
         case 'all':
-          var url = '/api/economy/token/graph/transaction-types?graph_duration=All'
-          var count = 12;
-          var format = "MMM''yy";
+          var url = '/api/economy/token/graph/transaction-types?graph_duration=All';
           break;
       }
       oThis.googleCharts_2.draw({
