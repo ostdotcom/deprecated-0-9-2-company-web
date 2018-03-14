@@ -23,7 +23,7 @@ class Web::OstController < Web::BaseController
 
     return if GlobalConstant::Base.is_public_launch_done?
 
-    return if params['open_new_website'].to_i == 1
+    return if params['onw'].to_i == 1
 
     # replace first '/' with ''
     path = request.fullpath.sub('/', '')
