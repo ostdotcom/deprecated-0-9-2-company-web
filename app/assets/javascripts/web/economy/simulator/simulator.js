@@ -342,6 +342,14 @@
         }
       });
 
+      Handlebars.registerHelper('ifTransactionComplete' , function (status) {
+        if(status == oThis.txStatus.PENDING ) {
+          return options.fn(this);
+        }else {
+          return options.inverse(this);
+        }
+      });
+
       Handlebars.registerHelper('display_block_timeStamp', function(block_timeStamp, response) {
         if ( !block_timeStamp ) {
           return "NA";

@@ -68,6 +68,7 @@
               </span>
             </div>
             <% if should_show_api_call_button %>
+              {{#ifTransactionComplete status}}
               <button class="showApiCallBtn btn btn-info slider-btn">
                 <svg class="icon-api-transactions align-middle">
                   <switch>
@@ -76,6 +77,7 @@
                 </svg>
                 <span class="align-middle">API Call</span>
               </button>
+              {{/ifTransactionComplete}}
             <% end %>
           </div>
         </div>
