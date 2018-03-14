@@ -21,6 +21,10 @@ module GlobalConstant
         config['token_sale_url']
       end
 
+      def simple_token_url
+        config['simple_token_url']
+      end
+
       private
 
       def config

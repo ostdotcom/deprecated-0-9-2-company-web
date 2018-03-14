@@ -26,6 +26,7 @@ constants:
     kit_root_url: <%= ENV['COMPANY_KIT_ROOT_URL'] %>
     view_root_url: <%= ENV['COMPANY_VIEW_ROOT_URL'] %>
     token_sale_url: <%= ENV['COMPANY_TOKEN_SALE_URL'] %>
+    simple_token_url: <%= ENV['COMPANY_SIMPLE_TOKEN_URL'] %>
 
   pepo_campaign:
     encrypted_client_id: <%= ENV['STW_CAMPAIGN_ENCRYPTED_CLIENT_ID'] %>

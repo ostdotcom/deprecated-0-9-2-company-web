@@ -32,10 +32,9 @@ class Web::BaseController < ApplicationController
   #
   def basic_auth
 
-    #TODO: Use this condition for Launch Code Push
-    # return unless Rails.env.staging?
-
     return if Rails.env.development?
+
+    return if Rails.env.production? && GlobalConstant::Base.is_public_launch_done?
 
     users = {
       GlobalConstant::BasicAuth.username => GlobalConstant::BasicAuth.password

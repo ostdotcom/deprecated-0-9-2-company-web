@@ -23,6 +23,7 @@ export CW_SK_ADMIN_PW="7BU]K]9Lz)_3ZADr"
 export COMPANY_KIT_ROOT_URL='http://kit.developmentost.com:8080/'
 export COMPANY_KYC_ROOT_URL='http://kyc.developmentost.com:8080/'
 export COMPANY_VIEW_ROOT_URL='http://view.developmentost.com:8080/'
+export COMPANY_SIMPLE_TOKEN_URL='http://developmentsimpletoken.org:8080/'
 export COMPANY_TOKEN_SALE_URL='http://sale.developmentsimpletoken.org:8080/'
 
 # OST.com (token sale account) Pepo Campaigns Account details
