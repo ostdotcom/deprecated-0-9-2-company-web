@@ -9,6 +9,7 @@
   fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
   fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
   fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
+  percent_symbol = "%" ;
 
   value_in_fiat_key = "value_in_" + fiat_type;
   value_in_fiat_sym = value_in_fiat_key.to_sym;
@@ -196,6 +197,8 @@
               max: 100,
               step: 0.05,
               value: 1,
+              postfix: percent_symbol,
+              suffix: percent_symbol,
               tooltip: 'show',
               classes: 'slider-primary'
               }

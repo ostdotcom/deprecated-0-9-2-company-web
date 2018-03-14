@@ -26,6 +26,12 @@
         <input type="<%=type%>" class="form-control" id="<%=id%>" name="<%=name%>" 
           min="<%=min%>" max="<%=max%>" step="<%=step%>" value="<%=value%>" 
         />
+        <% if defined? postfix %>
+          <span class="input-group-append">
+            <span class="input-group-text">
+              <%= postfix %></span>
+            </span>
+        <% end %>
       </div>
     </span>
   </div>
