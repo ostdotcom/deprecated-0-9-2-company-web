@@ -40,7 +40,7 @@ module GlobalConstant
 
       def is_public_launch_done?
         # Change this to true when we launch Kit to general public
-        false
+        true
       end
 
       private
