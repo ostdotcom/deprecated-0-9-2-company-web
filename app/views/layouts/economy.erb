@@ -97,6 +97,10 @@
 
   <%= csrf_meta_tags %>
 
+  <% if Rails.env.production? %>
+    <%= render :partial => 'shared/web/common/ga_config_economy' %>
+  <% end %>
+
   <%= render :partial => "/shared/web/common/fav_icons" %>
 
   <%= stylesheet_link_tag "web/bootstrap-theme" %>
