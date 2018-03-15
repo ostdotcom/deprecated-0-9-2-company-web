@@ -99,7 +99,7 @@
             name: "Reward",
             kind: "company_to_user",
             currency_type: "BT",
-            currency_value: 1,
+            currency_value: 2,
             commission_percent: 0
           }, {
             name: "Purchase",
@@ -111,7 +111,7 @@
             name: "Download",
             kind: "user_to_company",
             currency_type: "BT",
-            currency_value: 0.1,
+            currency_value: 1,
             commission_percent: 0
           }]
           , ts = Date.now()
