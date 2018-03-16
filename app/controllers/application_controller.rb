@@ -109,6 +109,7 @@ class ApplicationController < ActionController::Base
       elsif http_code.to_i == GlobalConstant::ErrorCode.under_maintainence_error
         redirect_to :service_unavailable and return
       else
+        response.headers['Content-Type'] = 'text/html'
         render file: "public/#{http_code}.html", layout: false, status: http_code and return
       end
     end
