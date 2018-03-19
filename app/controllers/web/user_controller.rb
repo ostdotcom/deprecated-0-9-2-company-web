@@ -15,7 +15,7 @@ class Web::UserController < Web::BaseController
         CompanyApi::Response::Formatter::Client,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).logout(authenticity_token: form_authenticity_token)
+    ).logout
 
     unless @response.success?
       render_error_response(@response) and return
@@ -29,7 +29,7 @@ class Web::UserController < Web::BaseController
         CompanyApi::Response::Formatter::Client,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).logout(authenticity_token: form_authenticity_token)
+    ).logout
 
     if @response.success?
       redirect_to :login and return

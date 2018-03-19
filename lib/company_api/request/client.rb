@@ -54,7 +54,7 @@ module CompanyApi
       # @param [Hash] params - contains authenticity_token (authenticity_token)
       #
       def logout(params)
-        post('logout', params)
+        get('logout', params)
       end
 
     end
