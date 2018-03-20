@@ -155,6 +155,8 @@
 
       //Show the editor
       oThis.showEditor();
+
+      oThis.toggleCommissionsRow();
       
     }
 
