@@ -72,6 +72,14 @@
     };
     AirdropTxStatusModal.prototype = Object.create(TSM.prototype);
 
+    var _onTxFailed = TSM.prototype.onTxFailed;
+    AirdropTxStatusModal.prototype.onTxFailed = function () {
+      var oThis = this;
+      _onTxFailed.apply(oThis, arguments);
+      oThis.hide();
+      ost.coverElements.show('#process_failure_error_cover');
+    }
+
   });
 </script>
 <% end %>
