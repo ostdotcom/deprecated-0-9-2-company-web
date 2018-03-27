@@ -17,6 +17,8 @@
 
   &:focus {
     color: $telegram-color;
+    background-color: $white;
+    border: 1px solid $telegram-color;
   }
 
   &:hover , &:active {
