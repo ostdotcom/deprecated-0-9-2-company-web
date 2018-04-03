@@ -8,6 +8,7 @@
     ,txStatus: {
       "PENDING": "processing",
       "PROCESSING": "processing",
+      "WaitingForMining" : "waiting_for_mining",
       "COMPLETE": "complete",
       "FAILED": "failed"
     }
@@ -127,11 +128,12 @@
     ,setPendingTransactions : function ( data ) {
       var oThis = this,
           transactions = data && data.transactions,
-          transaction
+          transaction , status
       ;
       for( var i = 0 ;  i < transactions.length  ; i++ ){
         transaction = transactions[i];
-        if(transaction.status == oThis.txStatus.PENDING ) {
+        status = transaction.status ;
+        if( !oThis.isTransactionComplete(status) ) {
           console.log("Peding transaction.transaction_uuid", transaction.transaction_uuid);
           oThis.pushPendingTransactions( transaction.transaction_uuid );
         }
@@ -257,7 +259,7 @@
         newTransaction = transactions[i] ;
         status = newTransaction['status'] ;
         transaction_uuid = newTransaction['transaction_uuid'] ;
-        if( status !== oThis.txStatus.PENDING ){
+        if( oThis.isTransactionComplete( status )  ){
           currentTransaction = oThis.simulatorTable.getResultById(transaction_uuid , 'transaction_uuid');
           $.extend( currentTransaction , newTransaction);
           oThis.simulatorTable.updateResult( currentTransaction );
@@ -269,6 +271,10 @@
 
     , isPollingRequired : function () {
       return oThis.pendingTransactionsUUID.length > 0;
+    }
+
+    , isTransactionComplete : function ( status ) {
+      return status !== oThis.txStatus.PENDING && status !== oThis.txStatus.WaitingForMining ;
     }
 
     , pushPendingTransactions : function ( uuid ) {
@@ -335,7 +341,7 @@
       });
 
       Handlebars.registerHelper('ifTransactionPending' , function (status  ,  options) {
-        if(status == oThis.txStatus.PENDING ) {
+        if( !oThis.isTransactionComplete( status ) ) {
           return options.fn(this);
         }else {
           return options.inverse(this);
@@ -355,19 +361,13 @@
       });
 
       Handlebars.registerHelper('ifTransactionComplete' , function (status  ,  options) {
-        if(status == oThis.txStatus.COMPLETE ) {
+        if( status == oThis.txStatus.COMPLETE ) {
           return options.fn(this);
         }else {
           return options.inverse(this);
         }
       });
-      Handlebars.registerHelper('ifNotPending' , function (status  ,  options) {
-        if(status != oThis.txStatus.PENDING ) {
-          return options.fn(this);
-        }else {
-          return options.inverse(this);
-        }
-      });
+
       Handlebars.registerHelper('ifShowBlockNumber' , function (block_number  ,  options) {
         if( typeof block_number === "number" ) {
           return options.fn(this);
@@ -375,6 +375,7 @@
           return options.inverse(this);
         }
       });
+
       Handlebars.registerHelper('diplay_block_number' , function (block_number  ,  options) {
         if( typeof block_number === "number" ) {
           return $.number( block_number );
@@ -399,6 +400,7 @@
         }
         return txType.name;
       });
+
       Handlebars.registerHelper('transaction_kind', function(response, options ) {
         var rowData = response.data.root || {}
           , transaction_type_id    = rowData.transaction_type_id
@@ -409,8 +411,6 @@
         }
         return encodeURIComponent( txType.name );
       });
-
-      
 
       Handlebars.registerHelper('display_bt_transfer_value' , function (bt_transfer_value  ,  options) {
         if( !bt_transfer_value ) {
