@@ -38,6 +38,7 @@
                 var jResult = oThis.simpleDataTable.prependResult(createNewUser()),
                     jForm = jResult.find("form");
                 jForm.formHelper( config );
+                oThis.autoFocus();
             });
 
             $('#user_list').on('click' , '.cancel-user-btn' ,  function () {
@@ -47,13 +48,19 @@
                 var resultToDelete =oThis.simpleDataTable.getResultById( userId );
                 console.log("resultToDelete" , resultToDelete );
                 oThis.simpleDataTable.deleteResult( resultToDelete );
-
             });
 
             $('#airdrop_btn').on('click' ,  function () {
                 oThis.showAirDropTokenEditor();
             });
         },
+
+       autoFocus : function() {
+         var jUserNameInput =  $('.add-user-name-input');
+         if( jUserNameInput && jUserNameInput.length > 0 ) {
+           jUserNameInput.eq(0).focus();
+         }
+       },
 
         onFormSuccess : function ( response ) {
             var oThis =  this;
