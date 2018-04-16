@@ -338,6 +338,21 @@
       return bt.toString( 10 ) + " " + oThis.bt_symbol;
     }
 
+    ,fromWei : function( val ) {
+      var oThis = this,
+          exp
+      ;
+
+      if ( oThis.isNaN( val ) ) {
+        return NaN;
+      }
+
+      val = BigNumber( val ) ;
+      exp = BigNumber(10).exponentiatedBy(18) ;
+      return val.dividedBy(exp).toString(10);
+
+    }
+
     , isNaN : function ( val ) {
       return isNaN( val ) || val === "";
     }
