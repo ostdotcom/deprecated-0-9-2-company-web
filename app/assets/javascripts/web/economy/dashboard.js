@@ -116,12 +116,12 @@
           {
             type: 'number',
             opt_label: 'No. of Transactions',
-            opt_id: 'transaction_count'
+            opt_id: 'token_transactions'
           },
           {
             type: 'number',
             opt_label: 'Volume of Transactions in OST⍺',
-            opt_id: 'ost_amount'
+            opt_id: 'token_ost_volume'
           }
         ],
         options: {
