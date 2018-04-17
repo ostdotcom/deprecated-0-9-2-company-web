@@ -369,7 +369,7 @@
       });
 
       Handlebars.registerHelper('ifShowBlockNumber' , function (block_number  ,  options) {
-        if( typeof block_number === "number" ) {
+        if( !PriceOracle.isNaN( block_number ) ) {
           return options.fn(this);
         } else {
           return options.inverse(this);
@@ -377,10 +377,11 @@
       });
 
       Handlebars.registerHelper('diplay_block_number' , function (block_number  ,  options) {
-        if( typeof block_number === "number" ) {
-          return $.number( block_number );
+        if ( PriceOracle.isNaN( block_number ) ) {
+          return "NA";
         }
-        return "NA";
+        var bNumber = BigNumber( block_number );
+        return bNumber.toString();
       });
 
       Handlebars.registerHelper('diplay_transaction_hash' , function (transaction_hash  ,  options) {
