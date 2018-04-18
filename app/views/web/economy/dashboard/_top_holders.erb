@@ -34,8 +34,7 @@
   <script type="text/javascript">
     $( function () {
       Handlebars.registerHelper('display_token', function(val, options ) {
-        var ethVal =  PriceOracle.fromWei( val );
-        return PriceOracle.toBt( ethVal ).toString( 10 );
+        return PriceOracle.toBt( val ).toString( 10 );
       });
     });
   </script>
