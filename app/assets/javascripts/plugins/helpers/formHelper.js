@@ -319,13 +319,19 @@
 
     , showServerErrors: function ( response ) {
       var oThis = this;
-
+      var errorHash = {};
       var serverErrors = response.err.error_data || {};
-      if ( serverErrors instanceof Array ) {
-        //Hack for now.
-        serverErrors = serverErrors[ 0 ] || {};
+      if ( serverErrors instanceof Array && serverErrors.length) {
+
+        var errObj = serverErrors[0];
+        if ( errObj.hasOwnProperty( 'parameter' ) && errObj.hasOwnProperty( 'msg' ) ) {
+          $(serverErrors).each(function(index, currErrObj) {
+            var parameter = currErrObj.parameter;
+            errorHash[ parameter ] = currErrObj.msg;
+          });
+        }
       }
-      oThis.validator.showErrors( serverErrors );
+      oThis.validator.showErrors( errorHash );
 
       var generalErrorMessage = response.err.display_text;
 
