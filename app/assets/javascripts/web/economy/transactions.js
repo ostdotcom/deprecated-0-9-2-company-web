@@ -99,8 +99,7 @@
             name: "Reward",
             kind: "company_to_user",
             currency_type: "BT",
-            currency_value: 2,
-            commission_percent: 0
+            currency_value: 2
           }, {
             name: "Purchase",
             kind: "user_to_user",
@@ -111,8 +110,7 @@
             name: "Download",
             kind: "user_to_company",
             currency_type: "BT",
-            currency_value: 1,
-            commission_percent: 0
+            currency_value: 1
           }]
           , ts = Date.now()
           , totalCnt = cnt = createdTransactions.length

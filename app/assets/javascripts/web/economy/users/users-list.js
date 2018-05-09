@@ -15,7 +15,7 @@
             oThis.handelBarHelpers();
             oThis.simpleDataTable =   new ost.SimpleDataTable({
                 jParent : $("#user_list"),
-                params  : {order_by: "creation_time"}
+                params  : {order_by: "created"}
             });
             oThis.bindEvents();
             isAirDropInProcess = $('.users-list-container').data('airdrop-processing');
@@ -109,7 +109,7 @@
             id: -Date.now(),
             name: null,
             token_balance: null,
-            total_airdropped_tokens: null,
+            airdropped_tokens: null,
             mode: 'new'
         }
     }
