@@ -26,8 +26,8 @@
     :commission_percent => 0,
     :kind => "user_to_user",
     :name => "",
-    :currency_type => fiat_type.to_s,
-    :currency_value => default_fiat_value.to_s
+    :currency => fiat_type.to_s,
+    :amount => default_fiat_value.to_s
   };
 
   default_transaction_values[ value_in_fiat_sym ] = default_fiat_value;  
@@ -38,9 +38,10 @@
 
 <form id="transaction_editor_form" class="user-form" action="/api/client/sign-up" method="POST"
   data-ost-formhelper>
-  <input type="hidden" name="client_transaction_id" id="transaction_id" />
+  <input type="hidden" name="id" id="transaction_id" />
   <input type="hidden" name="device_id" id="transaction_device_id"/>
-
+  <input type="hidden" name="arbitrary_amount" id="transaction_arbitrary_amount" value="false"/>
+  <input type="hidden" name="arbitrary_commission" id=transaction_arbitrary_commission" value="false"/>
 
   <div class="row">
     <div class="col-12">
@@ -93,13 +94,13 @@
       <div class="form-group" id="value_currency_type_group">
         <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button" type="radio"
-            name="currency_type" id="currency_type_fiat" value="<%= fiat_type %>" />
+            name="currency" id="currency_type_fiat" value="<%= fiat_type %>" />
           <label class="radio-button-label" for="currency_type_fiat">
             <span class="radio-button-circle"></span>On</label>
         </div>
         <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button" type="radio"
-            name="currency_type" id="currency_type_bt" value="BT" />
+            name="currency" id="currency_type_bt" value="BT" />
           <label class="radio-button-label" for="currency_type_bt">
             <span class="radio-button-circle"></span>Off</label>
         </div>
@@ -109,14 +110,14 @@
         <label class="radio-button-label p-0 font-weight-light" id="currency_type_fiat_help_text" style="pointer-events: none;">
           (When the price oracle is On the <%= fiat_display_text %> value remains constant and the <%= bt_symbol %> value will auto adjust)
         </label>
-        <div class="invalid-feedback" data-forname="currency_type">&nbps;</div>
+        <div class="invalid-feedback" data-forname="currency">&nbps;</div>
       </div>
     </div>
 
     <div class="col-4">
       <div class="form-group" id="transaction_value_in_fiat_form_group">
         <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Value IN <%= fiat_display_text %></label>
-        <input id="value_in_fiat" type="number" name="currency_value" 
+        <input id="value_in_fiat" type="number" name="amount"
         class="form-control" aria-describedby="emailHelp" max="100"
         step="0.01" min="0.01" data-ost-num-autocorrect-element
         placeholder="Value in (<%= fiat_display_text %>)" required/>
@@ -128,7 +129,7 @@
       <div class="form-group" id="value_in_bt_form_group">
         <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Value In <%= bt_symbol %></label>
         <input id="value_in_bt" type="number" 
-          name="currency_value" class="form-control" 
+          name="amount" class="form-control"
           step="0.00001" min="0.00001"
           data-ost-num-autocorrect-element
           aria-describedby="emailHelp" placeholder="Value in (<%= bt_symbol %>)" required/>

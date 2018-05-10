@@ -99,7 +99,7 @@
         oThis.correctCommissionData( ajaxData );
       });
 
-      oThis.jForm.find('[name="currency_type"]').change( function () {
+      oThis.jForm.find('[name="currency"]').change( function () {
         oThis.toggleCurrencyInput.apply(oThis, arguments);
       });
 
@@ -208,11 +208,11 @@
 
 
       //use_price_oracle
-      var isBtCurrencyType = currentData.currency_type === "BT";
+      var isBtCurrencyType = currentData.currency === "BT";
       var currency_type_id;
-      var currency_value = currentData.currency_value;
+      var currency_value = currentData.amount;
 
-      if ( currentData.currency_type === "BT" ) {
+      if ( currentData.currency === "BT" ) {
           currency_type_id = "#currency_type_bt";
           oThis.jValueInBt.safeSetVal( PriceOracle.toBt( currency_value ) );
       } else {
@@ -286,7 +286,7 @@
     , correctPostUrl : function ( ajaxConfig ) {
       var oThis = this;
 
-      var client_transaction_id = oThis.getDataFromAjaxData( "client_transaction_id", ajaxConfig.data );
+      var client_transaction_id = oThis.getDataFromAjaxData( "id", ajaxConfig.data );
       client_transaction_id = Number( client_transaction_id );
       if ( isNaN( client_transaction_id ) ) {
         client_transaction_id = 0;
@@ -412,7 +412,7 @@
     , toggleCurrencyInput: function () {
       var oThis = this;
       
-      var jEl       = oThis.jForm.find('input[name=currency_type]:checked')
+      var jEl       = oThis.jForm.find('input[name=currency]:checked')
         , val       = jEl.val()
         , jEnable
         , jDisable

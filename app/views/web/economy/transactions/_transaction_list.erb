@@ -141,7 +141,7 @@
       Handlebars.registerHelper('price_oracle_text', function(response, options ) {
 
         var rowData = response.data.root || {};
-        return  rowData.currency_type === "BT" ? "Off" : "On";
+        return  rowData.currency === "BT" ? "Off" : "On";
 
       });
 
@@ -155,20 +155,20 @@
 
       Handlebars.registerHelper('value_in_fiat', function(response, options ) {
           var rowData =  response.data.root || {};
-          if ( rowData.currency_type === "BT" ) {
-            return PriceOracle.btToFiat( rowData.currency_value );
+          if ( rowData.currency === "BT" ) {
+            return PriceOracle.btToFiat( rowData.amount );
           } else {
-            return PriceOracle.toFiat( rowData.currency_value );
+            return PriceOracle.toFiat( rowData.amount );
           }
       });
 
       Handlebars.registerHelper('value_in_bt', function(response, options ) {
           var rowData =  response.data.root || {};
-          if ( rowData.currency_type === "BT" ) {
+          if ( rowData.currency === "BT" ) {
 
-            return PriceOracle.toBt( rowData.currency_value );
+            return PriceOracle.toBt( rowData.amount );
           } else {
-            return PriceOracle.fiatToBt( rowData.currency_value );
+            return PriceOracle.fiatToBt( rowData.amount );
           }
       });
 
