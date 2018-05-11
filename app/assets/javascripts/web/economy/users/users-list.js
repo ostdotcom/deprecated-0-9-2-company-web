@@ -67,16 +67,20 @@
             oThis.updateNewAddedUser(response);
         },
 
-        updateNewAddedUser : function (responces) {
-            if( responces && responces.success ) {
-                var oThis   =  this ,
-                    data    = responces && responces['data'],
-                    result_type = data && data['result_type'],
-                    newData = result_type && data[result_type][0],
-                    currentData
+        updateNewAddedUser : function ( response ) {
+            if( response && response.success ) {
+                var oThis       =  this
+                  , data        = response['data'] || {}
+                  , newData     = data["user"]
+                  , currentData
                 ;
+
                 currentData = oThis.simpleDataTable.getResultById( savedUserId );
+                console.log("currentData", currentData);
+                console.log("newData", newData);
+
                 $.extend(currentData , newData);
+                console.log("finalData", currentData);
                 oThis.updateUserMode(currentData);
                 oThis.simpleDataTable.updateResult( currentData );
             }

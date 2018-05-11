@@ -155,21 +155,27 @@
 
       Handlebars.registerHelper('value_in_fiat', function(response, options ) {
           var rowData =  response.data.root || {};
-          if ( rowData.currency === "BT" ) {
-            return PriceOracle.btToFiat( rowData.amount );
-          } else {
-            return PriceOracle.toFiat( rowData.amount );
+          if (rowData.amount){
+            if ( rowData.currency === "BT" ) {
+              return PriceOracle.btToFiat( rowData.amount );
+            } else {
+              return PriceOracle.toFiat( rowData.amount );
+            }
           }
+          return undefined;
       });
 
       Handlebars.registerHelper('value_in_bt', function(response, options ) {
           var rowData =  response.data.root || {};
-          if ( rowData.currency === "BT" ) {
+        if (rowData.amount) {
+          if (rowData.currency === "BT") {
 
-            return PriceOracle.toBt( rowData.amount );
+            return PriceOracle.toBt(rowData.amount);
           } else {
-            return PriceOracle.fiatToBt( rowData.amount );
+            return PriceOracle.fiatToBt(rowData.amount);
           }
+        }
+        return undefined;
       });
 
 
