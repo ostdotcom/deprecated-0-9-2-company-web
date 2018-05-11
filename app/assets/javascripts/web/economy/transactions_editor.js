@@ -122,21 +122,7 @@
       });
 
       oThis.jForm.find('.j-has-commission').change( function () {
-        var val =  this.value ;
-        console.log("this.value", this.value);
-        var jCommission   = oThis.jForm.find('.j-has-commission:checked')
-          , jCommissionId = jCommission[0].id
-        ;
-
-        if( val === 'true' || jCommissionId === 'charge_fees_no') {
-          //Some truthy value
-          oThis.jCommissionWrap.slideUp( 300 );
-
-        } else {
-          //Some falsey value
-          oThis.jCommissionWrap.slideDown( 300 );
-
-        }
+        oThis.hasCommissionModified();
         oThis.updateDisplayCommission();
       });
 
@@ -149,6 +135,22 @@
 
     }
 
+    , hasCommissionModified : function () {
+      var val =  this.value ;
+      console.log("this.value", this.value);
+      var jCommission   = oThis.jForm.find('.j-has-commission:checked')
+        , jCommissionId = jCommission[0].id
+      ;
+
+      if( val === 'true' || jCommissionId === 'charge_fees_no') {
+        //Some truthy value
+        oThis.jCommissionWrap.slideUp( 300 );
+
+      } else {
+        //Some falsey value
+        oThis.jCommissionWrap.slideDown( 300 );
+      }
+    }
     , createNewTransaction: function ( transactionData ) {
       var oThis = this;
 
@@ -176,6 +178,7 @@
       //Show the editor
       oThis.showEditor();
 
+      // oThis.toggleActionAmountInput();
       oThis.toggleCommissionsRow();
       
     }
@@ -203,7 +206,7 @@
       //Show the editor
       oThis.showEditor();
 
-      oThis.toggleCurrencyInput();
+      oThis.toggleActionAmountInput();
       oThis.toggleCommissionsRow();
     }
     , fillForm: function () {
@@ -311,7 +314,13 @@
         oThis.setDataInAjaxData(nameKeys.commission_in_fiat, 0, ajaxData);
       }
 
-      if (arbitrary_commission === 'true'){
+
+      if (oThis.txKindMap.user_to_user !== tx_kind ) {
+        // oThis.removeDataFromAjaxData( nameKeys.arbitrary_commission, ajaxData );
+        arbitrary_commission = "true";
+      }
+
+      if ( arbitrary_commission === 'true' ){
         oThis.removeDataFromAjaxData(nameKeys.commission_percent,ajaxData);
         oThis.removeDataFromAjaxData(nameKeys.commission_in_bt,ajaxData);
         oThis.removeDataFromAjaxData(nameKeys.commission_in_fiat,ajaxData);
@@ -563,6 +572,16 @@
         console.log("here 2");
         jEl.addClass('has-commission');
       }
+
+      if(txVal !== oThis.txKindMap.user_to_user){
+        var has_commission_id = "#charge_fees_no";
+        oThis.jForm.find( has_commission_id )
+          .prop("checked", true)
+        ;
+        oThis.hasCommissionModified();
+
+      }
+
     }
 
     , onCommissionChanged: function () {
