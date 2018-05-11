@@ -229,7 +229,6 @@
 
       //ToDO: Kuch karna hai
       var arbitrary_amount =  currentData.arbitrary_amount || false;
-
       var amount_setting_id = "#amount_set_here";
       if (arbitrary_amount === true){
         amount_setting_id = "#amount_set_before_execution";
@@ -242,8 +241,6 @@
       var isBtCurrencyType = currentData.currency === "BT";
       var currency_type_id;
       var currency_value = currentData.amount;
-
-      debugger
 
       if ( currentData.currency === "BT" ) {
           currency_type_id = "#currency_type_bt";
@@ -330,7 +327,6 @@
       var nameKeys        = oThis.inputNameKeys
         , arbitrary_amount  = oThis.getDataFromAjaxData( nameKeys.arbitrary_amount , ajaxData )
       ;
-      debugger
       console.log("Before correctCommissionData : ajaxData :",ajaxData);
       if (arbitrary_amount === 'true'){
         oThis.removeDataFromAjaxData(nameKeys.value_in_ost,ajaxData);
