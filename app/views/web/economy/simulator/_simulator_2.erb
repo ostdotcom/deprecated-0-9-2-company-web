@@ -56,15 +56,15 @@
                 &nbsp;
                 From
                 &nbsp;
-                <span class="align-middle {{getUserIconClass from_user_id}}"></span>
+                <span class="align-middle {{getFromUserIconClass from_user_id transaction_type_id}}"></span>
                 &nbsp;
-                <span> {{getUserName from_user_id}}</span>
+                <span> {{getFromUserName from_user_id transaction_type_id}}</span>
                 &nbsp;
                 to
                 &nbsp;
-                <span class="align-middle receiver {{getUserIconClass to_user_id}}"></span>
+                <span class="align-middle receiver {{getToUserIconClass to_user_id transaction_type_id}}"></span>
                 &nbsp;
-                <span class="align-middle">{{getUserName to_user_id}} </span>
+                <span class="align-middle">{{getToUserName to_user_id transaction_type_id}} </span>
               </span>
             </div>
             <% if should_show_api_call_button %>

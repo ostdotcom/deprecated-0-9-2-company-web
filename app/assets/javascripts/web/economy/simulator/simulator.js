@@ -116,7 +116,7 @@
     }
 
     ,updateUsersHash : function (data) {
-      var updatedUsers  = data.economy_users || {};
+      var updatedUsers  = data.users || {};
       $.extend( oThis.users , updatedUsers);
     }
 
@@ -295,33 +295,66 @@
       var oThis = this,
           date = new Date();
 
-      Handlebars.registerHelper('getUserIconClass' , function (userId , options) {
+      Handlebars.registerHelper('getFromUserIconClass' , function ( userId, transaction_type_id, options ) {
         var user = oThis.users[userId];
 
         if ( !user ) {
           return "u-kind-user";
         }
 
-        if ( "reserve" === user.kind ) {
-          return "u-kind-company"
+        var txType = oThis.transactionTypes[ transaction_type_id ];
+        if ( txType && txType.kind && txType.kind.indexOf("company_") === 0 ) {
+          return "u-kind-company";
         }
 
         return "u-kind-user";
       });
 
 
-      Handlebars.registerHelper('getUserName' , function (userId , options) {
+      Handlebars.registerHelper('getFromUserName' , function ( userId , transaction_type_id, options ) {
         var user = oThis.users[userId];
 
         if ( !user ) {
           return "";
         }
 
-        if ( "reserve" === user.kind ) {
-          return "Company"
+        var txType = oThis.transactionTypes[ transaction_type_id ];
+        if ( txType && txType.kind && txType.kind.indexOf("company_") === 0  ) {
+          return "Company";
         }
 
         return user['name'] ;
+      });
+
+      Handlebars.registerHelper('getToUserIconClass' , function ( userId, transaction_type_id, options ) {
+        var user = oThis.users[userId];
+
+        if ( !user ) {
+          return "u-kind-user";
+        }
+
+        var txType = oThis.transactionTypes[ transaction_type_id ];
+        if ( txType && txType.kind && txType.kind.indexOf("_company") > 0 ) {
+          return "u-kind-company";
+        }
+
+        return "u-kind-user";
+      });
+
+
+      Handlebars.registerHelper('getToUserName' , function ( userId , transaction_type_id, options ) {
+        var user = oThis.users[userId];
+
+        if ( !user ) {
+          return "";
+        }
+
+        var txType = oThis.transactionTypes[ transaction_type_id ];
+        if ( txType && txType.kind && txType.kind.indexOf("_company") > 0 ) {
+          return "Company";
+        }
+
+        return user['name'];
       });
 
       Handlebars.registerHelper('diplay_transaction_fee', function(transaction_fee, options ) {
