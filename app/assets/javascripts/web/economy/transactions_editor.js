@@ -138,13 +138,11 @@
     }
 
     , hasCommissionModified : function () {
-      var val =  this.value ;
-      console.log("this.value", this.value);
       var jCommission   = oThis.jForm.find('.j-has-commission:checked')
         , jCommissionId = jCommission[0].id
+        , jCommissionVal = jCommission[0].value
       ;
-
-      if( val === 'true' || jCommissionId === 'charge_fees_no') {
+      if( jCommissionVal === 'true' || jCommissionId === 'charge_fees_no') {
         //Some truthy value
         oThis.jCommissionWrap.slideUp( 300 );
 
@@ -319,7 +317,7 @@
 
 
       if (oThis.txKindMap.user_to_user !== tx_kind ) {
-        // oThis.removeDataFromAjaxData( nameKeys.arbitrary_commission, ajaxData );
+        oThis.removeDataFromAjaxData( nameKeys.arbitrary_commission, ajaxData );
         arbitrary_commission = "true";
       }
 
