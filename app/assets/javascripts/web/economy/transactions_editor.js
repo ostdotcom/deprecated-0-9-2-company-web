@@ -236,8 +236,9 @@
 
       //name
       oThis.jName.val( currentData.name || "" );
+      var arbitrary_amount =  currentData.arbitrary_amount || false
+      ;
 
-      var arbitrary_amount =  currentData.arbitrary_amount || false;
       var amount_setting_id = "#amount_set_here";
       if (arbitrary_amount === true){
         amount_setting_id = "#amount_set_before_execution";
@@ -269,19 +270,22 @@
       ;
 
       //commission_percent
-      var commission_percent = Number( currentData.commission_percent );
-      commission_percent = isNaN( commission_percent ) ? 0 : commission_percent;
-
+      var arbitrary_commission = currentData.arbitrary_commission
+        , commission_percent = Number(currentData.commission_percent)
+      ;
 
       var has_commission_id, display_commission_percent;
       display_commission_percent = commission_percent || 1;
       
-      if ( commission_percent ) {
-        has_commission_id = "#charge_fees_here";
-        oThis.jCommissionWrap.show();
-      } else {
+      if ( arbitrary_commission === true) {
         has_commission_id = "#charge_fees_before_execution";
         oThis.jCommissionWrap.hide();
+      }else if(commission_percent < 1){
+        has_commission_id = "#charge_fees_no";
+        oThis.jCommissionWrap.hide();
+      }else{
+        has_commission_id = "#charge_fees_here";
+        oThis.jCommissionWrap.show();
       }
       oThis.jForm.find( has_commission_id )
         .prop("checked", true)
