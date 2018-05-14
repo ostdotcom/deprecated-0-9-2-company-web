@@ -271,20 +271,35 @@
   <div class="row">
     <div class="col-12">
       <div class="card-deck">
-        <div class="card mb-5">
+        <div class="card mb-5 action-amount-content-wrapper">
           <div class="card-body text-uppercase text-center">
             <h6 class="card-title mb-1">Total action amount in (<%= bt_symbol %>)</h6>
-            <div class="card-text mb-1">
-              <span class="orange" data-ost-mock-element="#value_in_bt"></span>
+
+            <div class="action-amount-enabled-content">
+
+              <div class="card-text mb-1">
+                <span class="orange" data-ost-mock-element="#value_in_bt"></span>
+              </div>
+              <div class="card-text orange">
+                (<span class="orange"><%= fiat_symbol %><span data-ost-mock-element="#value_in_fiat"></span></span>)
+              </div>
+
             </div>
-            <div class="card-text orange">
-              (<span class="orange"><%= fiat_symbol %><span data-ost-mock-element="#value_in_fiat"></span></span>)
+
+            <div class="action-amount-disabled-content">
+
+              <div class="card-text mb-1">
+                <span class="orange">0</span>
+              </div>
+              <div class="card-text orange">(<%= fiat_symbol %>0)</div>
+
             </div>
+
           </div>
         </div>
         <div class="card mb-5 commission-content-wrapper">
           <div class="card-body text-uppercase text-center">
-            <h6 class="card-title mb-1">FEES in <%= bt_symbol %></h6>
+            <h6 class="card-title mb-1">FEES in (<%= bt_symbol %>)</h6>
             <div class="commission-enabled-content">
               <div class="card-text mb-1">
                 <span class="orange" data-ost-mock-element="#commission_in_bt"></span>

@@ -18,3 +18,23 @@
     }
   }
 }
+
+.action-amount-content-wrapper{
+  .action-amount-enabled-content {
+    display: none;
+  }
+
+  .action-amount-disabled-content {
+    display: block;
+  }
+
+  &.has-action-amount {
+    .action-amount-enabled-content {
+      display: block;
+    }
+
+    .action-amount-disabled-content {
+      display: none;
+    }
+  }
+}

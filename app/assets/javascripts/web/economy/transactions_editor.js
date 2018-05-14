@@ -34,28 +34,29 @@
       , value_in_ost         : "value_in_ost"
     }
 
-    , formHelper         : null
-    , jEditor            : null
-    , jForm              : null
-    , jHeading           : null
-    , jCreateHeading     : null
-    , jEditHeading       : null
-    , jSubmit            : null
-    , jId                : null
-    , jDeviceId          : null
-    , jName              : null
-    , jValueInFiat       : null
-    , jValueInBt         : null
-    , jValueInOst        : null
-    , jHasCommission     : null
-    , jCommissionRow     : null
-    , jCommission        : null
-    , jCommissionWrap    : null
-    , jCInFiat           : null
-    , jCInBt             : null
-    , jSetHere           : null
-    , jBeforeExecution   : null
-    , jCurrencyWrap      : null
+    , formHelper              : null
+    , jEditor                 : null
+    , jForm                   : null
+    , jHeading                : null
+    , jCreateHeading          : null
+    , jEditHeading            : null
+    , jSubmit                 : null
+    , jId                     : null
+    , jDeviceId               : null
+    , jName                   : null
+    , jValueInFiat            : null
+    , jValueInBt              : null
+    , jValueInOst             : null
+    , jHasCommission          : null
+    , jCommissionRow          : null
+    , jCommission             : null
+    , jCommissionWrap         : null
+    , jCInFiat                : null
+    , jCInBt                  : null
+    , jSetHere                : null
+    , jBeforeExecution        : null
+    , jCurrencyWrap           : null
+    , jActionAmountSetHere    : null
     ,maxTransactionVal: null
 
     , init: function ( config ) {
@@ -63,26 +64,27 @@
 
       $.extend(oThis, config);
 
-      oThis.jEditor             = oThis.jEditor             || $("#transaction_editor");
-      oThis.jForm               = oThis.jForm               || oThis.jEditor.find("#transaction_editor_form");
-      oThis.jHeading            = oThis.jHeading            || oThis.jForm.find("#transaction_editor_mode_heading");
-      oThis.jCreateHeading      = oThis.jCreateHeading      || oThis.jForm.find("#transaction_heading_create");
-      oThis.jEditHeading        = oThis.jEditHeading        || oThis.jForm.find("#transaction_heading_update");
-      oThis.jSubmit             = oThis.jSubmit             || oThis.jForm.find("#transaction_editor_submit_btn");
-      oThis.jId                 = oThis.jId                 || oThis.jForm.find("#transaction_id");
-      oThis.jDeviceId           = oThis.jDeviceId           || oThis.jForm.find("#transaction_device_id");
-      oThis.jName               = oThis.jName               || oThis.jForm.find("#transaction_name");
-      oThis.jValueInFiat        = oThis.jValueInFiat        || oThis.jForm.find("#value_in_fiat");
-      oThis.jValueInBt          = oThis.jValueInBt          || oThis.jForm.find("#value_in_bt");
-      oThis.jValueInOst         = oThis.jValueInOst         || oThis.jForm.find("#value_in_ost");
-      oThis.jCommissionRow      = oThis.jCommissionRow      || oThis.jForm.find("#commission-options-row");
-      oThis.jCommission         = oThis.jCommission         || oThis.jForm.find("#commission_percent");
-      oThis.jCommissionWrap     = oThis.jCommissionWrap     || oThis.jForm.find("#commission_percent_wrap");
-      oThis.jCInFiat            = oThis.jCInFiat            || oThis.jForm.find("#commission_in_fiat");
-      oThis.jCInBt              = oThis.jCInBt              || oThis.jForm.find("#commission_in_bt");
-      oThis.jSetHere            = oThis.jSetHere            || oThis.jForm.find("#amount_set_here");
-      oThis.jBeforeExecution    = oThis.jBeforeExecution    || oThis.jForm.find("#amount_set_before_execution");
-      oThis.jCurrencyWrap        = oThis.jCurrencyWrap      || oThis.jForm.find("#currency_wrap");
+      oThis.jEditor                 = oThis.jEditor                 || $("#transaction_editor");
+      oThis.jForm                   = oThis.jForm                   || oThis.jEditor.find("#transaction_editor_form");
+      oThis.jHeading                = oThis.jHeading                || oThis.jForm.find("#transaction_editor_mode_heading");
+      oThis.jCreateHeading          = oThis.jCreateHeading          || oThis.jForm.find("#transaction_heading_create");
+      oThis.jEditHeading            = oThis.jEditHeading            || oThis.jForm.find("#transaction_heading_update");
+      oThis.jSubmit                 = oThis.jSubmit                 || oThis.jForm.find("#transaction_editor_submit_btn");
+      oThis.jId                     = oThis.jId                     || oThis.jForm.find("#transaction_id");
+      oThis.jDeviceId               = oThis.jDeviceId               || oThis.jForm.find("#transaction_device_id");
+      oThis.jName                   = oThis.jName                   || oThis.jForm.find("#transaction_name");
+      oThis.jValueInFiat            = oThis.jValueInFiat            || oThis.jForm.find("#value_in_fiat");
+      oThis.jValueInBt              = oThis.jValueInBt              || oThis.jForm.find("#value_in_bt");
+      oThis.jValueInOst             = oThis.jValueInOst             || oThis.jForm.find("#value_in_ost");
+      oThis.jCommissionRow          = oThis.jCommissionRow          || oThis.jForm.find("#commission-options-row");
+      oThis.jCommission             = oThis.jCommission             || oThis.jForm.find("#commission_percent");
+      oThis.jCommissionWrap         = oThis.jCommissionWrap         || oThis.jForm.find("#commission_percent_wrap");
+      oThis.jCInFiat                = oThis.jCInFiat                || oThis.jForm.find("#commission_in_fiat");
+      oThis.jCInBt                  = oThis.jCInBt                  || oThis.jForm.find("#commission_in_bt");
+      oThis.jSetHere                = oThis.jSetHere                || oThis.jForm.find("#amount_set_here");
+      oThis.jBeforeExecution        = oThis.jBeforeExecution        || oThis.jForm.find("#amount_set_before_execution");
+      oThis.jCurrencyWrap           = oThis.jCurrencyWrap           || oThis.jForm.find("#currency_wrap");
+      oThis.jActionAmountSetHere    = oThis.jActionAmountSetHere    || oThis.jForm.find("#amount_set_here");
 
       oThis.maxTransactionVal = oThis.maxTransactionVal || 100 ;
 
@@ -229,8 +231,6 @@
       //name
       oThis.jName.val( currentData.name || "" );
 
-
-      //ToDO: Kuch karna hai
       var arbitrary_amount =  currentData.arbitrary_amount || false;
       var amount_setting_id = "#amount_set_here";
       if (arbitrary_amount === true){
@@ -239,6 +239,7 @@
       oThis.jForm.find( amount_setting_id )
         .prop("checked", true)
       ;
+      oThis.updateDisplayActionAmount();
 
       //use_price_oracle
       var isBtCurrencyType = currentData.currency === "BT";
@@ -251,7 +252,9 @@
       } else {
           currency_type_id ="#currency_type_fiat";
           console.log("currency_value", currency_value);
-          oThis.jValueInFiat.safeSetVal( PriceOracle.toFiat( currency_value ) );
+          if (currency_value) {
+            oThis.jValueInFiat.safeSetVal(PriceOracle.toFiat(currency_value));
+          }
       }
 
       oThis.jForm.find( currency_type_id )
@@ -539,6 +542,8 @@
       jEnable.attr('max' , oThis.maxTransactionVal );
       jShow.show();
       jHide.hide();
+
+      oThis.updateDisplayActionAmount();
     }
 
     , toggleCommissionsRow: function () {
@@ -554,9 +559,17 @@
         oThis.jCommissionRow.slideUp( 300 );
       }
       oThis.updateDisplayCommission();
+
+      if(val !== oThis.txKindMap.user_to_user){
+        var has_commission_id = "#charge_fees_no";
+        oThis.jForm.find( has_commission_id )
+          .prop("checked", true)
+        ;
+        oThis.hasCommissionModified();
+      }
     }
 
-    ,updateDisplayCommission : function () {
+    , updateDisplayCommission : function () {
       var jCommission   = oThis.jForm.find('.j-has-commission:checked')
         ,  commissionVal = jCommission.val()
         , jCommissionId = jCommission[0].id
@@ -566,23 +579,31 @@
           txVal = jTX.val() ;
 
       var jEl   = $('.commission-content-wrapper') ;
-      if(txVal === oThis.txKindMap.user_to_user && (commissionVal === 'true' || jCommissionId=='charge_fees_no')) {
+
+      if((txVal === oThis.txKindMap.user_to_user && (commissionVal === 'true' || jCommissionId=='charge_fees_no')) || txVal!==oThis.txKindMap.user_to_user) {
         jEl.removeClass('has-commission');
       }else{
-        console.log("here 2");
         jEl.addClass('has-commission');
       }
+    }
 
-      if(txVal !== oThis.txKindMap.user_to_user){
-        var has_commission_id = "#charge_fees_no";
-        oThis.jForm.find( has_commission_id )
-          .prop("checked", true)
-        ;
-        oThis.hasCommissionModified();
+    , updateDisplayActionAmount : function () {
+      var jActionAmount   = oThis.jForm.find('.j-action-amount-setting:checked')
+        , jActionAmountVal = jActionAmount.val()
+      ;
+
+      var jEl   = $('.action-amount-content-wrapper') ;
+      debugger
+
+      if (jActionAmountVal === 'true'){
+        jEl.removeClass('has-action-amount');
+
+      }else{
+        jEl.addClass('has-action-amount');
 
       }
-
     }
+
 
     , onCommissionChanged: function () {
       var oThis = this;
