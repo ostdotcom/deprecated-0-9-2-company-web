@@ -77,7 +77,7 @@
       if ( !isFirstLoad && oThis.isLoadingData ) {
         return;
       }
-
+      logMe && console.log("oThis.hasNextPage", oThis.hasNextPage);
       if ( !oThis.hasNextPage ) {
         return;
       }
@@ -325,8 +325,8 @@
     , showLoading: function () {
       var oThis = this;
       oThis.jDataLoader.find(":first-child").show();
-      console.log("showLoading", oThis.jDataLoader);
-      console.log("showLoading", oThis.jDataLoader.find(":first-child"));
+      logMe && console.log("showLoading", oThis.jDataLoader);
+      logMe && console.log("showLoading", oThis.jDataLoader.find(":first-child"));
       oThis.unbindScrollObserver();
       logMe && console.log("showLoading");
     }

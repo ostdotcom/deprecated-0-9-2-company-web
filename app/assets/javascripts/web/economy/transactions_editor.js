@@ -215,6 +215,14 @@
       //clear errors
       oThis.formHelper.clearErrors();
 
+      for( var dKey in oThis.defaultData ) {
+        if ( !(oThis.defaultData.hasOwnProperty(dKey) ) ){
+          continue;
+        }
+        if ( !currentData.hasOwnProperty( dKey) || currentData[ dKey ] === null ) {
+          currentData[ dKey ] = oThis.defaultData[ dKey ];
+        }
+      }
       //id & device_id
       oThis.jId.val( currentData.id );
       oThis.jDeviceId.val( currentData.id );
@@ -511,11 +519,9 @@
       ;
 
       if ( amountSetting === "true" ) {
-        oThis.jCurrencyWrap.slideUp(300);
         jEnable = $(); // Nothing to enable
         jDisable  = oThis.jValueInFiat.add( oThis.jValueInBt );
       }else {
-        oThis.jCurrencyWrap.slideDown(300);
         if ( currencyVal === "BT" ) {
           jEnable   = oThis.jValueInBt;
           jDisable  = oThis.jValueInFiat;

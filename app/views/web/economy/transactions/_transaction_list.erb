@@ -56,10 +56,19 @@
         <script type="text/x-handlebars-template" data-row-template>
           <div class="row align-items-center mt-1 mb-3 rounded ost-table-row cell">
             <div class="col-2">{{name}}<br/><small class="font-weight-light">{{kind_display_text}}</small></div>
-            <div class="col-2"><%= fiat_symbol %>{{value_in_fiat}}</div>
-            <div class="col-2">{{value_in_bt}}</div>
+            {{#IfIsAmountSet amount}}
+              <div class="col-2"><%= fiat_symbol %>{{value_in_fiat}}</div>
+              <div class="col-2">{{value_in_bt}}</div>
+            {{else}}
+              <div class="col-2">NA</div>
+               <div class="col-2">NA</div>
+            {{/IfIsAmountSet}}
             <div class="col-2">{{price_oracle_text}}</div>
+            {{#arbitrary_commission}}
+            <div class="col-1 px-0">NA</div>
+            {{else}}
             <div class="col-1 px-0">{{commission_percent}}&#37;</div>
+            {{/arbitrary_commission}}
             <div class="col-3">
               <% if should_show_api_call_button %>
                 <button class="showApiCallBtn btn btn-info slider-btn">
@@ -162,7 +171,7 @@
               return PriceOracle.toFiat( rowData.amount );
             }
           }
-          return undefined;
+          return 'NA';
       });
 
       Handlebars.registerHelper('value_in_bt', function(response, options ) {
@@ -191,6 +200,12 @@
         return encodeURIComponent( data );
       });
 
+      Handlebars.registerHelper('IfIsAmountSet', function(amount, options ) {
+        if (amount) {
+          return options.fn(true);
+        }
+        return options.inverse(false);
+      });
 
       ost.transactions.init({
         auto_create_transactions: <%= auto_create_transactions %>,
