@@ -593,7 +593,6 @@
       ;
 
       var jEl   = $('.action-amount-content-wrapper') ;
-      debugger
 
       if (jActionAmountVal === 'true'){
         jEl.removeClass('has-action-amount');
