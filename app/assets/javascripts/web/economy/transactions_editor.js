@@ -57,6 +57,9 @@
     , jBeforeExecution        : null
     , jCurrencyWrap           : null
     , jActionAmountSetHere    : null
+    , jUserToUser             : null
+    , jUserToCompany          : null
+    , jCompanyToUser          : null
     ,maxTransactionVal: null
 
     , init: function ( config ) {
@@ -84,7 +87,9 @@
       oThis.jSetHere                = oThis.jSetHere                || oThis.jForm.find("#amount_set_here");
       oThis.jBeforeExecution        = oThis.jBeforeExecution        || oThis.jForm.find("#amount_set_before_execution");
       oThis.jCurrencyWrap           = oThis.jCurrencyWrap           || oThis.jForm.find("#currency_wrap");
-      oThis.jActionAmountSetHere    = oThis.jActionAmountSetHere    || oThis.jForm.find("#amount_set_here");
+      oThis.jUserToUser             = oThis.jUserToUser             || oThis.jForm.find("#kind_user_to_user");
+      oThis.jUserToCompany          = oThis.jUserToCompany          || oThis.jForm.find("#kind_user_to_company");
+      oThis.jCompanyToUser          = oThis.jCompanyToUser           || oThis.jForm.find("#kind_company_to_user");
 
       oThis.maxTransactionVal = oThis.maxTransactionVal || 100 ;
 
@@ -208,7 +213,22 @@
 
       oThis.toggleActionAmountInput();
       oThis.toggleCommissionsRow();
+
+      oThis.disableKindOptions();
     }
+
+    , disableKindOptions : function () {
+      oThis.jUserToUser.attr('disabled','disabled');
+      oThis.jUserToCompany.attr('disabled','disabled');
+      oThis.jCompanyToUser.attr('disabled','disabled');
+    }
+    
+    , enableKindOptions : function () {
+      oThis.jUserToUser.removeAttr('disabled');
+      oThis.jUserToCompany.removeAttr('disabled');
+      oThis.jCompanyToUser.removeAttr('disabled');
+    }
+    
     , fillForm: function () {
       var oThis = this;
 
@@ -304,7 +324,7 @@
     }
     , hideEditor: function () {
       var oThis = this;
-
+      oThis.enableKindOptions();
       ost.coverElements.hide( oThis.jEditor );
     }
 
@@ -319,6 +339,12 @@
       var jCommission   = oThis.jForm.find('.j-has-commission:checked')
         , jCommissionId = jCommission[0].id
       ;
+
+      oThis.enableKindOptions();
+      if ( !tx_kind ) {
+        var jKind = oThis.jForm.find('.j-tx-kind:checked');
+        tx_kind = jKind.val();
+      }
 
       console.log("Before correctCommissionData : ajaxData :",ajaxData);
       if ( oThis.txKindMap.user_to_user !== tx_kind || jCommissionId === 'charge_fees_no') {
