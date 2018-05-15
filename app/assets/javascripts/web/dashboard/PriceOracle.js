@@ -354,7 +354,7 @@
     }
 
     , isNaN : function ( val ) {
-      return isNaN( val ) || val === "";
+      return typeof val === "undefined" || val === "" || val === null || isNaN( val );
     }
 
     , getOstPrecession : function () {

@@ -310,6 +310,18 @@
         return "u-kind-user";
       });
 
+      Handlebars.registerHelper('commission_percent', function( options ) {
+        //var oThis = this;
+
+        var data = options.data.root
+          , actionId = data.action_id
+          , txType = oThis.transactionTypes[ actionId ]
+        ;
+        console.log( "commission_percent :: txType", txType );
+
+        return txType.commission_percent;
+      });
+
 
       Handlebars.registerHelper('getFromUserName' , function ( userId , transaction_type_id, options ) {
         var user = oThis.users[userId];
@@ -424,11 +436,11 @@
         return "NA";
       });
 
-      Handlebars.registerHelper('txName' , function (transaction_type_id  ,  options) {
-        if( !transaction_type_id ) {
+      Handlebars.registerHelper('txName' , function (action_id  ,  options) {
+        if( !action_id ) {
           return "";
         }
-        var txType = oThis.transactionTypes[ transaction_type_id ];
+        var txType = oThis.transactionTypes[ action_id ];
         if ( !txType ) {
           return "";
         }
