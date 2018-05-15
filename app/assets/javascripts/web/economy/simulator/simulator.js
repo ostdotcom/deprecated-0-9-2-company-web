@@ -295,14 +295,14 @@
       var oThis = this,
           date = new Date();
 
-      Handlebars.registerHelper('getFromUserIconClass' , function ( userId, transaction_type_id, options ) {
+      Handlebars.registerHelper('getFromUserIconClass' , function ( userId, action_id, options ) {
         var user = oThis.users[userId];
 
         if ( !user ) {
           return "u-kind-user";
         }
 
-        var txType = oThis.transactionTypes[ transaction_type_id ];
+        var txType = oThis.transactionTypes[ action_id ];
         if ( txType && txType.kind && txType.kind.indexOf("company_") === 0 ) {
           return "u-kind-company";
         }
@@ -323,14 +323,14 @@
       });
 
 
-      Handlebars.registerHelper('getFromUserName' , function ( userId , transaction_type_id, options ) {
+      Handlebars.registerHelper('getFromUserName' , function ( userId , action_id, options ) {
         var user = oThis.users[userId];
 
         if ( !user ) {
           return "";
         }
 
-        var txType = oThis.transactionTypes[ transaction_type_id ];
+        var txType = oThis.transactionTypes[ action_id ];
         if ( txType && txType.kind && txType.kind.indexOf("company_") === 0  ) {
           return "Company";
         }
@@ -338,14 +338,14 @@
         return user['name'] ;
       });
 
-      Handlebars.registerHelper('getToUserIconClass' , function ( userId, transaction_type_id, options ) {
+      Handlebars.registerHelper('getToUserIconClass' , function ( userId, action_id, options ) {
         var user = oThis.users[userId];
 
         if ( !user ) {
           return "u-kind-user";
         }
 
-        var txType = oThis.transactionTypes[ transaction_type_id ];
+        var txType = oThis.transactionTypes[ action_id ];
         if ( txType && txType.kind && txType.kind.indexOf("_company") > 0 ) {
           return "u-kind-company";
         }
@@ -354,14 +354,14 @@
       });
 
 
-      Handlebars.registerHelper('getToUserName' , function ( userId , transaction_type_id, options ) {
+      Handlebars.registerHelper('getToUserName' , function ( userId , action_id, options ) {
         var user = oThis.users[userId];
 
         if ( !user ) {
           return "";
         }
 
-        var txType = oThis.transactionTypes[ transaction_type_id ];
+        var txType = oThis.transactionTypes[ action_id ];
         if ( txType && txType.kind && txType.kind.indexOf("_company") > 0 ) {
           return "Company";
         }
