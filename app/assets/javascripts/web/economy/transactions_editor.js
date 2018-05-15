@@ -489,6 +489,7 @@
 
         if ( !newData ) {
           console.log("transaction data missing :-/");
+          oThis.disableKindOptions();
           return;
         }
 
@@ -508,6 +509,8 @@
         }
 
         oThis.completeEditSession();
+      }else{
+        oThis.disableKindOptions();
       }
     }
 
