@@ -124,7 +124,9 @@
                 <span class="curl-param-header">curl -i </span> <span class="curl-escape-character">\</span>
                 <br /><span class="curl-param-header"> -H</span> "Accept: application/json" <span class="curl-escape-character">\</span>
                 <% request_params.each do |request_param| %>
-                  <br /><span class="curl-param-header"> -d</span> '<%= request_param %>' <span class="curl-escape-character">\</span>
+                  {{#ifShouldShowRequestParam '<%= request_param %>'}}
+                    <br /><span class="curl-param-header"> -d</span> '<%= request_param %>' <span class="curl-escape-character">\</span>
+                  {{/ifShouldShowRequestParam}}
                 <% end %>
                 <br /><span class="curl-param-header"> -X</span> <%= api_console_data['request_type'] %> <%= api_console_data['request_uri'] %>
               </code>

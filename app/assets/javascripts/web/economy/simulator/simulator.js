@@ -452,6 +452,11 @@
         }
         return PriceOracle.toBt( bt_transfer_value ).toString();
       });
+
+      Handlebars.registerHelper('ifShouldShowRequestParam', function ( param_name , options ) {
+        console.log("param_name", param_name);
+        return options.fn(this);
+      });
     }
 
 
