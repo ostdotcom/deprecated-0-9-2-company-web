@@ -279,9 +279,7 @@
       } else {
           currency_type_id ="#currency_type_fiat";
           console.log("currency_value", currency_value);
-          if (currency_value) {
-            oThis.jValueInFiat.safeSetVal(PriceOracle.toFiat(currency_value));
-          }
+          oThis.jValueInFiat.safeSetVal(PriceOracle.toFiat(currency_value));
       }
 
       oThis.jForm.find( currency_type_id )
