@@ -107,6 +107,6 @@
 ```
 
 #Go to browser
-http://developmentost.com:8080/
+http://kit.developmentost.com:8080/
 
 
