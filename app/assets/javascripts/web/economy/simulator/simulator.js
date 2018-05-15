@@ -397,9 +397,8 @@
         if ( !block_timeStamp ) {
           return "NA";
         }
-
-        // block_timeStamp = block_timeStamp * 1000;
-        var momentTs = moment.unix(block_timeStamp);
+        // block_timeStamp should be millisecond;
+        var momentTs = moment(block_timeStamp);
 
         return (momentTs.fromNow() + " (" + momentTs.utc().format("MMM-DD-YYYY hh:mm:ss A UTC") + ")");
 
