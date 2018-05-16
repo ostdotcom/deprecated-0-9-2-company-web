@@ -339,7 +339,6 @@
         , jCommissionId = jCommission[0].id
       ;
 
-      oThis.enableKindOptions();
       if ( !tx_kind ) {
         var jKind = oThis.jForm.find('.j-tx-kind:checked');
         tx_kind = jKind.val();
@@ -490,7 +489,6 @@
 
         if ( !newData ) {
           console.log("transaction data missing :-/");
-          oThis.disableKindOptions();
           return;
         }
 
@@ -510,8 +508,6 @@
         }
 
         oThis.completeEditSession();
-      }else{
-        oThis.disableKindOptions();
       }
     }
 
