@@ -134,8 +134,8 @@
         transaction = transactions[i];
         status = transaction.status ;
         if( !oThis.isTransactionComplete(status) ) {
-          console.log("Peding transaction.transaction_uuid", transaction.transaction_uuid);
-          oThis.pushPendingTransactions( transaction.transaction_uuid );
+          console.log("Pending transaction.id", transaction.id);
+          oThis.pushPendingTransactions( transaction.id );
         }
       }
     }
@@ -252,18 +252,18 @@
           data = response && response.data,
           transactions = data && data.transactions,
           currentTransaction , newTransaction,
-          status , transaction_uuid
+          status , transaction_id
       ;
       if( !transactions || transactions.length == 0 ) return;
       for(var i = 0 ;  i < transactions.length ; i++) {
         newTransaction = transactions[i] ;
         status = newTransaction['status'] ;
-        transaction_uuid = newTransaction['transaction_uuid'] ;
+        transaction_id = newTransaction['id'] ;
         if( oThis.isTransactionComplete( status )  ){
-          currentTransaction = oThis.simulatorTable.getResultById(transaction_uuid , 'transaction_uuid');
+          currentTransaction = oThis.simulatorTable.getResultById(transaction_id , 'id');
           $.extend( currentTransaction , newTransaction);
           oThis.simulatorTable.updateResult( currentTransaction );
-          oThis.popPendingTransactions(currentTransaction.transaction_uuid);
+          oThis.popPendingTransactions(currentTransaction.id);
         }
       }
     }
