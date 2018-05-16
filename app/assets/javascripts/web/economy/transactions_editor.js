@@ -61,6 +61,7 @@
     , jUserToCompany          : null
     , jCompanyToUser          : null
     , jActionAmountWrap       : null
+    , jMockerContentWrap      : null
     ,maxTransactionVal: null
 
     , init: function ( config ) {
@@ -92,6 +93,7 @@
       oThis.jUserToCompany          = oThis.jUserToCompany          || oThis.jForm.find("#kind_user_to_company");
       oThis.jCompanyToUser          = oThis.jCompanyToUser          || oThis.jForm.find("#kind_company_to_user");
       oThis.jActionAmountWrap       = oThis.jActionAmountWrap       || oThis.jForm.find("#j-action-amount-wrap");
+      oThis.jMockerContentWrap      = oThis.jMockerContentWrap       || oThis.jForm.find("#j-mocker-content-wrap");
 
       oThis.maxTransactionVal = oThis.maxTransactionVal || 100 ;
 
@@ -299,9 +301,6 @@
       
       if ( arbitrary_commission === true) {
         has_commission_id = "#charge_fees_before_execution";
-        oThis.jCommissionWrap.hide();
-      }else if(commission_percent < 1){
-        has_commission_id = "#charge_fees_no";
         oThis.jCommissionWrap.hide();
       }else{
         has_commission_id = "#charge_fees_here";
@@ -553,11 +552,12 @@
 
       if ( amountSetting === "true" ) {
         oThis.jActionAmountWrap.slideUp(300);
+        oThis.jMockerContentWrap.addClass('d-none');
         jEnable = $(); // Nothing to enable
         jDisable  = oThis.jValueInFiat.add( oThis.jValueInBt );
       }else {
         oThis.jActionAmountWrap.slideDown(300);
-
+        oThis.jMockerContentWrap.removeClass('d-none');
         if ( currencyVal === "BT" ) {
           jEnable   = oThis.jValueInBt;
           jDisable  = oThis.jValueInFiat;

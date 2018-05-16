@@ -43,8 +43,8 @@
 
   <div class="row">
     <div class="col-12">
-      <input type="hidden" id="transaction_heading_create" value="Create Action Type"/>
-      <input type="hidden" id="transaction_heading_update" value="Update Action Type"/>
+      <input type="hidden" id="transaction_heading_create" value="Create an action"/>
+      <input type="hidden" id="transaction_heading_update" value="Update an action"/>
       <h3 class="mt-4" id="transaction_editor_mode_heading">Create Action Type</h3>
       <hr class="mb-0"/>
     </div>
@@ -85,7 +85,7 @@
 <!--Aniket modification-->
 
     <div class="col-12 form-group mb-0">
-      <label class="form-label">Set action amount
+      <label class="form-label">ARBITRARY AMOUNT AT EXECUTION
         <a href="//help.ost.com/support/solutions/articles/35000059258-what-is-a-price-oracle"
            target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
       </label>
@@ -95,16 +95,16 @@
     <div class="col-12">
       <div class="form-group" id="value_action_amount">
         <div class="form-check form-check-inline mr-4">
-          <input class="form-check-input radio-button j-action-amount-setting" type="radio"
-                 name="arbitrary_amount" id="amount_set_here" value="false" />
-          <label class="radio-button-label" for="amount_set_here">
-            <span class="radio-button-circle text-capitalize"></span>Set here</label>
-        </div>
-        <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button  j-action-amount-setting" type="radio"
                  name="arbitrary_amount" id="amount_set_before_execution" value="true" />
           <label class="radio-button-label" for="amount_set_before_execution">
-            <span class="radio-button-circle text-capitalize"></span>Set before execution</label>
+            <span class="radio-button-circle text-capitalize"></span>On</label>
+        </div>
+        <div class="form-check form-check-inline mr-4">
+          <input class="form-check-input radio-button j-action-amount-setting" type="radio"
+                 name="arbitrary_amount" id="amount_set_here" value="false" />
+          <label class="radio-button-label" for="amount_set_here">
+            <span class="radio-button-circle text-capitalize"></span>Off</label>
         </div>
         <div class="invalid-feedback" data-forname="arbitrary_amount">&nbps;</div>
       </div>
@@ -185,7 +185,7 @@
   <div class="row" id="commission-options-row">
     <div class="col-12 form-group mb-0">
       <label class="form-label">
-        Charge Action Fees
+        ARBITRARY COMMISSION AT EXECUTION
         <a href="//help.ost.com/support/solutions/articles/35000059259-what-are-fees-on-transactions"
            target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
       </label>
@@ -197,22 +197,23 @@
       <div class="form-group" id="has_commission_group">
         <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button j-has-commission" type="radio"
+                 name="arbitrary_commission" id="charge_fees_before_execution" value="true" />
+          <label class="radio-button-label" for="charge_fees_before_execution">
+            <span class="radio-button-circle text-capitalize"></span>On</label>
+        </div>
+        <div class="form-check form-check-inline mr-4">
+          <input class="form-check-input radio-button j-has-commission" type="radio"
             name="arbitrary_commission" id="charge_fees_here" value="false" />
           <label class="radio-button-label" for="charge_fees_here">
-            <span class="radio-button-circle text-capitalize"></span>Set fees here</label>
+            <span class="radio-button-circle text-capitalize"></span>Off</label>
         </div>
-        <div class="form-check form-check-inline mr-4">
-          <input class="form-check-input radio-button j-has-commission" type="radio"
-            name="arbitrary_commission" id="charge_fees_before_execution" value="true" />
-          <label class="radio-button-label" for="charge_fees_before_execution">
-            <span class="radio-button-circle text-capitalize"></span>Set fees before execution</label>
-        </div>
-        <div class="form-check form-check-inline mr-4">
-          <input class="form-check-input radio-button j-has-commission" type="radio"
-                 name="arbitrary_commission" id="charge_fees_no" value="false" />
-          <label class="radio-button-label" for="charge_fees_no">
-            <span class="radio-button-circle text-capitalize"></span>No fees</label>
-        </div>
+
+        <!--<div class="form-check form-check-inline mr-4">-->
+          <!--<input class="form-check-input radio-button j-has-commission" type="radio"-->
+                 <!--name="arbitrary_commission" id="charge_fees_no" value="false" />-->
+          <!--<label class="radio-button-label" for="charge_fees_no">-->
+            <!--<span class="radio-button-circle text-capitalize"></span>No fees</label>-->
+        <!--</div>-->
         <div class="invalid-feedback" data-forname="has_commission">&nbps;</div>
       </div>
     </div>
@@ -222,8 +223,8 @@
       <div class="row">
         <div class="col-12">
           <div class="form-group mb-0">
-          <label class="form-label" for="commission_percent">SET FEE (IN %).
-            <span class="text-lowercase">(<span class="text-capitalize">The</span> fee will be added on top of the action value.)</span>
+          <label class="form-label" for="commission_percent">SET COMMISSION IN %
+            <span class="text-lowercase">(<span class="text-capitalize">The</span> fee will be added on top of the action amount.)</span>
           </label>
           </div>
         </div>
@@ -234,7 +235,7 @@
               id: 'commission_percent',
               name: 'commission_percent',
               type: 'number',
-              min: 1,
+              min: 0,
               max: 100,
               step: 0.05,
               value: 1,
@@ -248,24 +249,28 @@
           <input type="hidden" name="commission_in_fiat" id="commission_in_fiat" value="1.5" />
         </div>
 
-        <div class="col-2 mt-1">
-          <%= render :partial => "/shared/web/common/mocker",
-                     :locals => {
-                       :header => "AMOUNT IN " + bt_symbol,
-                       :mock_selector => "#commission_in_bt"
-                     }
-          %>
+        <div class="col-4" id="j-mocker-content-wrap">
+          <div class="row">
+            <div class="col-6 mt-1">
+              <%= render :partial => "/shared/web/common/mocker",
+                         :locals => {
+                             :header => "AMOUNT IN " + bt_symbol,
+                             :mock_selector => "#commission_in_bt"
+                         }
+              %>
+            </div>
+
+            <div class="col-6 mt-1">
+              <%= render :partial => "/shared/web/common/mocker",
+                         :locals => {
+                             :header => "AMOUNT IN " + fiat_display_text,
+                             :mock_selector => "#commission_in_fiat"
+                         }
+              %>
+            </div>
+          </div>
         </div>
 
-        <div class="col-2 mt-1">
-
-          <%= render :partial => "/shared/web/common/mocker",
-                     :locals => {
-                       :header => "AMOUNT IN " + fiat_display_text,
-                       :mock_selector => "#commission_in_fiat"
-                     }
-          %>
-        </div>
       </div>
     </div>
   </div>
