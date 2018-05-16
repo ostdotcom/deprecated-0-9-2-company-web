@@ -151,7 +151,7 @@
         , jCommissionId = jCommission[0].id
         , jCommissionVal = jCommission[0].value
       ;
-      if( jCommissionVal === 'true' || jCommissionId === 'charge_fees_no') {
+      if( jCommissionVal === 'true') {
         //Some truthy value
         oThis.jCommissionWrap.slideUp( 300 );
 
@@ -346,7 +346,7 @@
       }
 
       console.log("Before correctCommissionData : ajaxData :",ajaxData);
-      if ( oThis.txKindMap.user_to_user !== tx_kind || jCommissionId === 'charge_fees_no') {
+      if ( oThis.txKindMap.user_to_user !== tx_kind) {
         oThis.setDataInAjaxData(nameKeys.commission_percent, 0, ajaxData);
         oThis.setDataInAjaxData(nameKeys.commission_in_bt, 0, ajaxData);
         oThis.setDataInAjaxData(nameKeys.commission_in_fiat, 0, ajaxData);
@@ -601,7 +601,7 @@
       oThis.updateDisplayCommission();
 
       if(val !== oThis.txKindMap.user_to_user){
-        var has_commission_id = "#charge_fees_no";
+        var has_commission_id = "#charge_fees_here";
         oThis.jForm.find( has_commission_id )
           .prop("checked", true)
         ;
@@ -620,7 +620,7 @@
 
       var jEl   = $('.commission-content-wrapper') ;
 
-      if((txVal === oThis.txKindMap.user_to_user && (commissionVal === 'true' || jCommissionId=='charge_fees_no')) || txVal!==oThis.txKindMap.user_to_user) {
+      if((txVal === oThis.txKindMap.user_to_user && commissionVal === 'true') || txVal!==oThis.txKindMap.user_to_user) {
         jEl.removeClass('has-commission');
       }else{
         jEl.addClass('has-commission');

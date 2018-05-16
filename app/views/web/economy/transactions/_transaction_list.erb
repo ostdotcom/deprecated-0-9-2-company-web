@@ -64,11 +64,11 @@
                <div class="col-2">NA</div>
             {{/IfIsAmountSet}}
             <div class="col-2">{{price_oracle_text}}</div>
-            {{#arbitrary_commission}}
-            <div class="col-1 px-0">NA</div>
+            {{#IfIsarbitraryCommission arbitrary_commission}}
+              <div class="col-1 px-0">NA</div>
             {{else}}
-            <div class="col-1 px-0">{{commission_percent}}&#37;</div>
-            {{/arbitrary_commission}}
+              <div class="col-1 px-0">{{commission_percent}}&#37;</div>
+            {{/IfIsarbitraryCommission}}
             <div class="col-3">
               <% if should_show_api_call_button %>
                 <button class="showApiCallBtn btn btn-info slider-btn">
@@ -205,6 +205,18 @@
           return options.fn(true);
         }
         return options.inverse(false);
+      });
+      Handlebars.registerHelper('IfIsarbitraryCommission', function(arbitraryCommission, options ) {
+        if (arbitraryCommission === false) {
+          return options.inverse(false);
+        }
+        return options.fn(true);
+
+      });
+
+      Handlebars.registerHelper('commission_percent', function(response, options ) {
+        var rowData =  response.data.root || {};
+        return rowData.commission_percent;
       });
 
       ost.transactions.init({
