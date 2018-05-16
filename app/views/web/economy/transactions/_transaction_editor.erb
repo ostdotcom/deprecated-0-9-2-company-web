@@ -43,9 +43,9 @@
 
   <div class="row">
     <div class="col-12">
-      <input type="hidden" id="transaction_heading_create" value="Create a Transaction Type"/>
-      <input type="hidden" id="transaction_heading_update" value="Update a Transaction Type"/>
-      <h3 class="mt-4" id="transaction_editor_mode_heading">Create a Transaction Type</h3>
+      <input type="hidden" id="transaction_heading_create" value="Create Action Type"/>
+      <input type="hidden" id="transaction_heading_update" value="Update Action Type"/>
+      <h3 class="mt-4" id="transaction_editor_mode_heading">Create Action Type</h3>
       <hr class="mb-0"/>
     </div>
     <div class="col-12">
@@ -75,7 +75,7 @@
     <div class="col-8">
       <div class="form-group" id="transaction_name_form_group">
         <label class="form-label text-uppercase" data-forid="transaction_name">Action name</label>
-        <input id="transaction_name" type="text" name="name" class="form-control" aria-describedby="emailHelp" placeholder="Enter Transaction Name" required/>
+        <input id="transaction_name" type="text" name="name" class="form-control" aria-describedby="emailHelp" placeholder="Enter Action Name" required/>
         <div class="invalid-feedback" data-forid="transaction_name">&nbps;</div>
       </div>
     </div>
@@ -142,7 +142,8 @@
           <div class="invalid-feedback" data-forname="currency">&nbps;</div>
         </div>
       </div>
-
+  </div>
+  <div class="row" id="j-action-amount-wrap">
       <div class="col-4">
         <div class="form-group" id="transaction_value_in_fiat_form_group">
           <label class="form-label text-uppercase" data-forid="transaction_name">Action amount (<%= fiat_display_text %>)</label>
@@ -178,12 +179,13 @@
           %>
         </div>
       </div>
-    </div>
+  </div>
+
 
   <div class="row" id="commission-options-row">
     <div class="col-12 form-group mb-0">
       <label class="form-label">
-        Charge Transaction Fees
+        Charge Action Fees
         <a href="//help.ost.com/support/solutions/articles/35000059259-what-are-fees-on-transactions"
            target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
       </label>
@@ -220,8 +222,8 @@
       <div class="row">
         <div class="col-12">
           <div class="form-group mb-0">
-          <label class="form-label" for="commission_percent">SET TRANSACTION FEE (IN %).
-            <span class="text-lowercase">(<span class="text-capitalize">The</span> fee will be added on top of the transaction value.)</span>
+          <label class="form-label" for="commission_percent">SET FEE (IN %).
+            <span class="text-lowercase">(<span class="text-capitalize">The</span> fee will be added on top of the action value.)</span>
           </label>
           </div>
         </div>
@@ -326,7 +328,7 @@
     <% # Form Buttons %>
     <div class="col-12">
       <button id="transaction_editor_submit_btn" type="submit" data-submiting="Adding..." 
-        class="mt-4 btn btn-gold d-inline-block float-left">ADD TRANSACTION</button>
+        class="mt-4 btn btn-gold d-inline-block float-left">ADD Action</button>
       <a id="transaction_editor_cancel_btn" href="javascript:void(0)"
         class="mt-4 ml-4 btn ost-btn-secondary d-inline-block float-left">CANCEL</a>
     </div>

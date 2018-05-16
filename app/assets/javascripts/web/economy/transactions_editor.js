@@ -60,6 +60,7 @@
     , jUserToUser             : null
     , jUserToCompany          : null
     , jCompanyToUser          : null
+    , jActionAmountWrap       : null
     ,maxTransactionVal: null
 
     , init: function ( config ) {
@@ -89,7 +90,8 @@
       oThis.jCurrencyWrap           = oThis.jCurrencyWrap           || oThis.jForm.find("#currency_wrap");
       oThis.jUserToUser             = oThis.jUserToUser             || oThis.jForm.find("#kind_user_to_user");
       oThis.jUserToCompany          = oThis.jUserToCompany          || oThis.jForm.find("#kind_user_to_company");
-      oThis.jCompanyToUser          = oThis.jCompanyToUser           || oThis.jForm.find("#kind_company_to_user");
+      oThis.jCompanyToUser          = oThis.jCompanyToUser          || oThis.jForm.find("#kind_company_to_user");
+      oThis.jActionAmountWrap       = oThis.jActionAmountWrap       || oThis.jForm.find("#j-action-amount-wrap");
 
       oThis.maxTransactionVal = oThis.maxTransactionVal || 100 ;
 
@@ -170,7 +172,7 @@
       oThis.jHeading.text( oThis.jCreateHeading.val() );
 
       //Update Submit Button Text
-      oThis.jSubmit.text("Add Transaction")
+      oThis.jSubmit.text("Add Action")
         .data( "submiting", "Adding...")
       ;
 
@@ -198,7 +200,7 @@
       oThis.jHeading.text( oThis.jEditHeading.val() );
 
       //Update Submit Button Text
-      oThis.jSubmit.text("Update Transaction")
+      oThis.jSubmit.text("Update Action")
         .data( "submiting", "Updating...")
       ;
 
@@ -550,9 +552,12 @@
       ;
 
       if ( amountSetting === "true" ) {
+        oThis.jActionAmountWrap.slideUp(300);
         jEnable = $(); // Nothing to enable
         jDisable  = oThis.jValueInFiat.add( oThis.jValueInBt );
       }else {
+        oThis.jActionAmountWrap.slideDown(300);
+
         if ( currencyVal === "BT" ) {
           jEnable   = oThis.jValueInBt;
           jDisable  = oThis.jValueInFiat;
