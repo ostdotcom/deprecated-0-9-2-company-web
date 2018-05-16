@@ -102,8 +102,7 @@
             kind: "company_to_user",
             currency: "BT",
             amount: 2,
-            arbitrary_amount: false,
-            arbitrary_commission: false
+            arbitrary_amount: false
           }, {
             name: "Purchase",
             kind: "user_to_user",
@@ -117,8 +116,7 @@
             kind: "user_to_company",
             currency: "BT",
             amount: 1,
-            arbitrary_amount: false,
-            arbitrary_commission: false
+            arbitrary_amount: false
           }]
           , ts = Date.now()
           , totalCnt = cnt = createdTransactions.length
