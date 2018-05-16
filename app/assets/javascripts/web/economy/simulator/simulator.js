@@ -19,7 +19,7 @@
 
       oThis.users = {};
       oThis.transactionTypes = {};
-      oThis.pendingTransactionsUUID = [];
+      oThis.pendingTransactionsID = [];
       oThis.pollingApi = config["tx_status_polling_url"];
       oThis.isPolling = false;
 
@@ -176,9 +176,9 @@
         return false;
       }
 
-      var transaction_uuids = oThis.pendingTransactionsUUID
+      var transaction_uuids = oThis.pendingTransactionsID
         , pollData = {
-          transaction_uuids: oThis.pendingTransactionsUUID
+          transaction_uuids: oThis.pendingTransactionsID
         }
       ;
 
@@ -270,24 +270,24 @@
 
 
     , isPollingRequired : function () {
-      return oThis.pendingTransactionsUUID.length > 0;
+      return oThis.pendingTransactionsID.length > 0;
     }
 
     , isTransactionComplete : function ( status ) {
       return status !== oThis.txStatus.PENDING && status !== oThis.txStatus.WaitingForMining ;
     }
 
-    , pushPendingTransactions : function ( uuid ) {
-      console.log("pushPendingTransactions :: oThis.pendingTransactionsUUID", oThis.pendingTransactionsUUID);
-      if( oThis.pendingTransactionsUUID.indexOf(uuid) < 0){
-          oThis.pendingTransactionsUUID.push(uuid);
+    , pushPendingTransactions : function ( transaction_id ) {
+      console.log("pushPendingTransactions :: oThis.pendingTransactionsID", oThis.pendingTransactionsID);
+      if( oThis.pendingTransactionsID.indexOf(transaction_id) < 0){
+          oThis.pendingTransactionsID.push(transaction_id);
       }
     }
 
-    , popPendingTransactions : function (uuid) {
-      var index = oThis.pendingTransactionsUUID.indexOf(uuid);
+    , popPendingTransactions : function (transaction_id) {
+      var index = oThis.pendingTransactionsID.indexOf(transaction_id);
       if( index > -1  ){
-        oThis.pendingTransactionsUUID.splice(index ,  1);
+        oThis.pendingTransactionsID.splice(index ,  1);
       }
     }
 
