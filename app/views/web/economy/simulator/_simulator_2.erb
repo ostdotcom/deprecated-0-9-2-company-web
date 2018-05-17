@@ -45,26 +45,26 @@
             <div class="w-100">
               <span class="rounded-circle align-middle"></span>
               <span class="align-middle">
-                <span class="align-middle">{{txName transaction_type_id}}</span>
+                <span class="align-middle">{{txName action_id}}</span>
                 &nbsp;
                 <svg class="icon-card-transactions align-middle">
                   <switch>
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-card-transactions-3"></use>
                   </switch>
                 </svg>
-                <span class="align-middle badge rounded" style="background-color: #9cc5c1;">{{display_bt_transfer_value bt_transfer_value}} <%= bt_symbol %></span>
+                <span class="align-middle badge rounded" style="background-color: #9cc5c1;">{{display_bt_transfer_value amount}} <%= bt_symbol %></span>
                 &nbsp;
                 From
                 &nbsp;
-                <span class="align-middle {{getUserIconClass from_user_id}}"></span>
+                <span class="align-middle {{getFromUserIconClass from_user_id action_id}}"></span>
                 &nbsp;
-                <span> {{getUserName from_user_id}}</span>
+                <span> {{getFromUserName from_user_id action_id}}</span>
                 &nbsp;
                 to
                 &nbsp;
-                <span class="align-middle receiver {{getUserIconClass to_user_id}}"></span>
+                <span class="align-middle receiver {{getToUserIconClass to_user_id action_id}}"></span>
                 &nbsp;
-                <span class="align-middle">{{getUserName to_user_id}} </span>
+                <span class="align-middle">{{getToUserName to_user_id action_id}} </span>
               </span>
             </div>
             <% if should_show_api_call_button %>
@@ -98,15 +98,15 @@
               
 
               <div class="col-sm-3 pb-2">Timestamp</div>
-              <div class="col-sm-9 pb-2">{{display_block_timeStamp transaction_timestamp}} </div>
+              <div class="col-sm-9 pb-2">{{display_block_timeStamp timestamp}} </div>
 
               <div class="col-sm-3 pb-2">Gas</div>
               <div class="col-sm-9 pb-2">{{diplay_transaction_fee transaction_fee}}</div>
 
               <div class="col-sm-3 pb-2">Fee</div>
               <div class="col-sm-9 pb-2">
-                {{display_bt_commission_amount  bt_commission_amount}}
-                {{bt_symbol bt_commission_amount}}
+                {{display_bt_commission_amount  commission_amount}}
+                {{bt_symbol commission_amount}}
               </div>
 
               <div class="col-sm-3 pb-2">Status</div>
@@ -124,7 +124,9 @@
                 <span class="curl-param-header">curl -i </span> <span class="curl-escape-character">\</span>
                 <br /><span class="curl-param-header"> -H</span> "Accept: application/json" <span class="curl-escape-character">\</span>
                 <% request_params.each do |request_param| %>
-                  <br /><span class="curl-param-header"> -d</span> '<%= request_param %>' <span class="curl-escape-character">\</span>
+                  {{#ifShouldShowRequestParam '<%= request_param.split('=')[0] %>'}}
+                    <br /><span class="curl-param-header"> -d</span> '<%= request_param %>' <span class="curl-escape-character">\</span>
+                  {{/ifShouldShowRequestParam}}
                 <% end %>
                 <br /><span class="curl-param-header"> -X</span> <%= api_console_data['request_type'] %> <%= api_console_data['request_uri'] %>
               </code>

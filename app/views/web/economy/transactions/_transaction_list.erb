@@ -34,8 +34,8 @@
   <div class="row">
     <div class="col-12 p-0">
       <div class="d-flex justify-content-between align-items-center mt-6 mb-5">
-        <h3 class="mb-0">Transaction Types</h3>
-        <button id="create_transaction_btn" class="btn btn-gold float-right">ADD TRANSACTION</button>
+        <h3 class="mb-0">Actions</h3>
+        <button id="create_transaction_btn" class="btn btn-gold float-right">ADD Action</button>
       </div>
     </div>
   </div>
@@ -56,10 +56,19 @@
         <script type="text/x-handlebars-template" data-row-template>
           <div class="row align-items-center mt-1 mb-3 rounded ost-table-row cell">
             <div class="col-2">{{name}}<br/><small class="font-weight-light">{{kind_display_text}}</small></div>
-            <div class="col-2"><%= fiat_symbol %>{{value_in_fiat}}</div>
-            <div class="col-2">{{value_in_bt}}</div>
+            {{#IfIsAmountSet amount}}
+              <div class="col-2"><%= fiat_symbol %>{{value_in_fiat}}</div>
+              <div class="col-2">{{value_in_bt}}</div>
+            {{else}}
+              <div class="col-2">NA</div>
+               <div class="col-2">NA</div>
+            {{/IfIsAmountSet}}
             <div class="col-2">{{price_oracle_text}}</div>
-            <div class="col-1 px-0">{{commission_percent}}&#37;</div>
+            {{#IfIsarbitraryCommission arbitrary_commission}}
+              <div class="col-1 px-0">NA</div>
+            {{else}}
+              <div class="col-1 px-0">{{commission_percent}}&#37;</div>
+            {{/IfIsarbitraryCommission}}
             <div class="col-3">
               <% if should_show_api_call_button %>
                 <button class="showApiCallBtn btn btn-info slider-btn">
@@ -84,7 +93,7 @@
             <% if should_show_api_call_button %>
               <div class="code-session col-12">
                 <comment class="w-100 code-comment">
-                  // Below is as an example the API call that was requested to create this transaction type. <br />
+                  // Below is as an example the API call that was requested to create this action type. <br />
                   // Note that the signature and the request_timestamp will have expired and need to be recalculated for each request. <br />
                   // Please access the API and SDK documentation from the Developers section for more details. <br />
                 </comment>
@@ -109,11 +118,11 @@
              header: "FAQ",
         faqs: [
         {
-          title: 'What are transactions and transaction values?',
+          title: 'What are Actions and Action Amounts?',
       url: 'https://help.ost.com/support/solutions/articles/35000059256-what-are-transactions-and-transaction-values-'
       },
       {
-        title: 'What are the different types of transactions?',
+        title: 'What are the different types of Actions?',
       url: 'https://help.ost.com/support/solutions/articles/35000059257-what-are-the-different-types-of-transactions-'
       },
       {
@@ -121,11 +130,11 @@
       url: 'https://help.ost.com/support/solutions/articles/35000059258-what-is-a-price-oracle-'
       },
       {
-        title: 'What are Fees on Transactions?',
+        title: 'What are fees on Transactions?',
       url: 'https://help.ost.com/support/solutions/articles/35000059259-what-are-fees-on-transactions-'
       },
       {
-        title: 'How do you set Transaction Values?',
+        title: 'How do you set Action Amount?',
       url: 'https://help.ost.com/support/solutions/articles/35000059260-how-do-you-set-transaction-values-'
       }
       ]
@@ -141,7 +150,7 @@
       Handlebars.registerHelper('price_oracle_text', function(response, options ) {
 
         var rowData = response.data.root || {};
-        return  rowData.currency_type === "BT" ? "Off" : "On";
+        return  rowData.currency === "BT" ? "Off" : "On";
 
       });
 
@@ -155,21 +164,27 @@
 
       Handlebars.registerHelper('value_in_fiat', function(response, options ) {
           var rowData =  response.data.root || {};
-          if ( rowData.currency_type === "BT" ) {
-            return PriceOracle.btToFiat( rowData.currency_value );
-          } else {
-            return PriceOracle.toFiat( rowData.currency_value );
+          if (rowData.amount){
+            if ( rowData.currency === "BT" ) {
+              return PriceOracle.btToFiat( rowData.amount );
+            } else {
+              return PriceOracle.toFiat( rowData.amount );
+            }
           }
+          return 'NA';
       });
 
       Handlebars.registerHelper('value_in_bt', function(response, options ) {
           var rowData =  response.data.root || {};
-          if ( rowData.currency_type === "BT" ) {
+        if (rowData.amount) {
+          if (rowData.currency === "BT") {
 
-            return PriceOracle.toBt( rowData.currency_value );
+            return PriceOracle.toBt(rowData.amount);
           } else {
-            return PriceOracle.fiatToBt( rowData.currency_value );
+            return PriceOracle.fiatToBt(rowData.amount);
           }
+        }
+        return undefined;
       });
 
 
@@ -185,6 +200,24 @@
         return encodeURIComponent( data );
       });
 
+      Handlebars.registerHelper('IfIsAmountSet', function(amount, options ) {
+        if (amount) {
+          return options.fn(true);
+        }
+        return options.inverse(false);
+      });
+      Handlebars.registerHelper('IfIsarbitraryCommission', function(arbitraryCommission, options ) {
+        if (arbitraryCommission === false) {
+          return options.inverse(false);
+        }
+        return options.fn(true);
+
+      });
+
+      Handlebars.registerHelper('commission_percent', function(response, options ) {
+        var rowData =  response.data.root || {};
+        return rowData.commission_percent;
+      });
 
       ost.transactions.init({
         auto_create_transactions: <%= auto_create_transactions %>,

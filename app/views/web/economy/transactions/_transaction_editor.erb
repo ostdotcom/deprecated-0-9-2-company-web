@@ -26,8 +26,8 @@
     :commission_percent => 0,
     :kind => "user_to_user",
     :name => "",
-    :currency_type => fiat_type.to_s,
-    :currency_value => default_fiat_value.to_s
+    :currency => fiat_type.to_s,
+    :amount => default_fiat_value.to_s
   };
 
   default_transaction_values[ value_in_fiat_sym ] = default_fiat_value;  
@@ -38,15 +38,14 @@
 
 <form id="transaction_editor_form" class="user-form" action="/api/client/sign-up" method="POST"
   data-ost-formhelper>
-  <input type="hidden" name="client_transaction_id" id="transaction_id" />
+  <input type="hidden" name="id" id="transaction_id" />
   <input type="hidden" name="device_id" id="transaction_device_id"/>
-
 
   <div class="row">
     <div class="col-12">
-      <input type="hidden" id="transaction_heading_create" value="Create a Transaction Type"/>
-      <input type="hidden" id="transaction_heading_update" value="Update a Transaction Type"/>
-      <h3 class="mt-4" id="transaction_editor_mode_heading">Create a Transaction Type</h3>
+      <input type="hidden" id="transaction_heading_create" value="Create an action"/>
+      <input type="hidden" id="transaction_heading_update" value="Update an action"/>
+      <h3 class="mt-4" id="transaction_editor_mode_heading">Create Action Type</h3>
       <hr class="mb-0"/>
     </div>
     <div class="col-12">
@@ -75,84 +74,118 @@
 
     <div class="col-8">
       <div class="form-group" id="transaction_name_form_group">
-        <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Name</label>
-        <input id="transaction_name" type="text" name="name" class="form-control" aria-describedby="emailHelp" placeholder="Enter Transaction Name" required/>
+        <label class="form-label text-uppercase" data-forid="transaction_name">Action name</label>
+        <input id="transaction_name" type="text" name="name" class="form-control" aria-describedby="emailHelp" placeholder="Enter Action Name" required/>
         <div class="invalid-feedback" data-forid="transaction_name">&nbps;</div>
       </div>
     </div>
     <div class="col-4"></div>
 
 
+<!--Aniket modification-->
+
     <div class="col-12 form-group mb-0">
-      <label class="form-label">Price Oracle
-        <a href="//help.ost.com/support/solutions/articles/35000059258-what-is-a-price-oracle"
+      <label class="form-label">ARBITRARY AMOUNT AT EXECUTION
+        <a href="https://help.ost.com/support/solutions/articles/35000059260-how-do-you-set-transaction-values"
            target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
       </label>
     </div>
+
+
     <div class="col-12">
-      <div class="form-group" id="value_currency_type_group">
+      <div class="form-group" id="value_action_amount">
         <div class="form-check form-check-inline mr-4">
-          <input class="form-check-input radio-button" type="radio"
-            name="currency_type" id="currency_type_fiat" value="<%= fiat_type %>" />
-          <label class="radio-button-label" for="currency_type_fiat">
-            <span class="radio-button-circle"></span>On</label>
+          <input class="form-check-input radio-button  j-action-amount-setting" type="radio"
+                 name="arbitrary_amount" id="amount_set_before_execution" value="true" />
+          <label class="radio-button-label" for="amount_set_before_execution">
+            <span class="radio-button-circle text-capitalize"></span>On</label>
         </div>
         <div class="form-check form-check-inline mr-4">
-          <input class="form-check-input radio-button" type="radio"
-            name="currency_type" id="currency_type_bt" value="BT" />
-          <label class="radio-button-label" for="currency_type_bt">
-            <span class="radio-button-circle"></span>Off</label>
+          <input class="form-check-input radio-button j-action-amount-setting" type="radio"
+                 name="arbitrary_amount" id="amount_set_here" value="false" />
+          <label class="radio-button-label" for="amount_set_here">
+            <span class="radio-button-circle text-capitalize"></span>Off</label>
         </div>
-        <label class="radio-button-label p-0 font-weight-light" id="currency_type_bt_help_text" style="pointer-events: none;" >
-          (When the price oracle is Off the <%= bt_symbol %> value remains constant and the <%= fiat_display_text %> value will auto adjust)
-        </label>
-        <label class="radio-button-label p-0 font-weight-light" id="currency_type_fiat_help_text" style="pointer-events: none;">
-          (When the price oracle is On the <%= fiat_display_text %> value remains constant and the <%= bt_symbol %> value will auto adjust)
-        </label>
-        <div class="invalid-feedback" data-forname="currency_type">&nbps;</div>
-      </div>
-    </div>
-
-    <div class="col-4">
-      <div class="form-group" id="transaction_value_in_fiat_form_group">
-        <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Value IN <%= fiat_display_text %></label>
-        <input id="value_in_fiat" type="number" name="currency_value" 
-        class="form-control" aria-describedby="emailHelp" max="100"
-        step="0.01" min="0.01" data-ost-num-autocorrect-element
-        placeholder="Value in (<%= fiat_display_text %>)" required/>
-        <div class="invalid-feedback" data-forid="value_in_fiat">&nbps;</div>
-      </div>
-    </div>
-
-    <div class="col-4">
-      <div class="form-group" id="value_in_bt_form_group">
-        <label class="form-label text-uppercase" data-forid="transaction_name">Transaction Value In <%= bt_symbol %></label>
-        <input id="value_in_bt" type="number" 
-          name="currency_value" class="form-control" 
-          step="0.00001" min="0.00001"
-          data-ost-num-autocorrect-element
-          aria-describedby="emailHelp" placeholder="Value in (<%= bt_symbol %>)" required/>
-        <div class="invalid-feedback" data-forid="value_in_bt">&nbps;</div>
-      </div>
-    </div>
-
-    <div class="col-2 mt-2">
-      <input type="hidden" name="value_in_ost" id="value_in_ost" value="7.5" />
-      <div style="margin-top: 2px;">
-        <%= render :partial => "/shared/web/common/mocker",
-          :locals => {
-            :header => "VALUE IN OST⍺",
-            :mock_selector => "#value_in_ost",
-            :value => "15.898"
-          }
-        %>
+        <div class="invalid-feedback" data-forname="arbitrary_amount">&nbps;</div>
       </div>
     </div>
   </div>
+
+    <!--end-->
+  <div id="currency_wrap" class="row">
+      <div class="col-12 form-group mb-0">
+        <label class="form-label">Price Oracle
+          <a href="//help.ost.com/support/solutions/articles/35000059258-what-is-a-price-oracle"
+             target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
+        </label>
+      </div>
+      <div class="col-12">
+        <div class="form-group" id="value_currency_type_group">
+          <div class="form-check form-check-inline mr-4">
+            <input class="form-check-input radio-button j-currency" type="radio"
+              name="currency" id="currency_type_fiat" value="<%= fiat_type %>" />
+            <label class="radio-button-label" for="currency_type_fiat">
+              <span class="radio-button-circle"></span>On</label>
+          </div>
+          <div class="form-check form-check-inline mr-4">
+            <input class="form-check-input radio-button j-currency" type="radio"
+              name="currency" id="currency_type_bt" value="BT" />
+            <label class="radio-button-label" for="currency_type_bt">
+              <span class="radio-button-circle"></span>Off</label>
+          </div>
+          <label class="radio-button-label p-0 font-weight-light" id="currency_type_bt_help_text" style="pointer-events: none;" >
+            (When the price oracle is Off the <%= bt_symbol %> value remains constant and the <%= fiat_display_text %> value will auto adjust)
+          </label>
+          <label class="radio-button-label p-0 font-weight-light" id="currency_type_fiat_help_text" style="pointer-events: none;">
+            (When the price oracle is On the <%= fiat_display_text %> value remains constant and the <%= bt_symbol %> value will auto adjust)
+          </label>
+          <div class="invalid-feedback" data-forname="currency">&nbps;</div>
+        </div>
+      </div>
+  </div>
+  <div class="row" id="j-action-amount-wrap">
+      <div class="col-4">
+        <div class="form-group" id="transaction_value_in_fiat_form_group">
+          <label class="form-label text-uppercase" data-forid="transaction_name">Action amount (<%= fiat_display_text %>)</label>
+          <input id="value_in_fiat" type="number" name="amount"
+          class="form-control" aria-describedby="emailHelp" max="100"
+          step="0.01" min="0.01" data-ost-num-autocorrect-element
+          placeholder="Value in (<%= fiat_display_text %>)" required/>
+          <div class="invalid-feedback" data-forid="value_in_fiat">&nbps;</div>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="form-group" id="value_in_bt_form_group">
+          <label class="form-label text-uppercase" data-forid="transaction_name">Action amount (<%= bt_symbol %>)</label>
+          <input id="value_in_bt" type="number"
+            name="amount" class="form-control"
+            step="0.00001" min="0.00001"
+            data-ost-num-autocorrect-element
+            aria-describedby="emailHelp" placeholder="Amount in (<%= bt_symbol %>)" required/>
+          <div class="invalid-feedback" data-forid="value_in_bt">&nbps;</div>
+        </div>
+      </div>
+
+      <div class="col-2 mt-2">
+        <input type="hidden" name="value_in_ost" id="value_in_ost" value="7.5" />
+        <div style="margin-top: 2px;">
+          <%= render :partial => "/shared/web/common/mocker",
+            :locals => {
+              :header => "AMOUNT IN OST⍺",
+              :mock_selector => "#value_in_ost",
+              :value => "15.898"
+            }
+          %>
+        </div>
+      </div>
+  </div>
+
+
   <div class="row" id="commission-options-row">
     <div class="col-12 form-group mb-0">
       <label class="form-label">
-        Charge Transaction Fees
+        ARBITRARY COMMISSION AT EXECUTION
         <a href="//help.ost.com/support/solutions/articles/35000059259-what-are-fees-on-transactions"
            target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
       </label>
@@ -164,16 +197,23 @@
       <div class="form-group" id="has_commission_group">
         <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button j-has-commission" type="radio"
-            name="has_commission" id="has_commission_yes" value="1" />
-          <label class="radio-button-label" for="has_commission_yes">
-            <span class="radio-button-circle"></span>Yes</label>
+                 name="arbitrary_commission" id="charge_fees_before_execution" value="true" />
+          <label class="radio-button-label" for="charge_fees_before_execution">
+            <span class="radio-button-circle text-capitalize"></span>On</label>
         </div>
         <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button j-has-commission" type="radio"
-            name="has_commission" id="has_commission_no" value="0" />
-          <label class="radio-button-label" for="has_commission_no">
-            <span class="radio-button-circle"></span>No</label>
+            name="arbitrary_commission" id="charge_fees_here" value="false" />
+          <label class="radio-button-label" for="charge_fees_here">
+            <span class="radio-button-circle text-capitalize"></span>Off</label>
         </div>
+
+        <!--<div class="form-check form-check-inline mr-4">-->
+          <!--<input class="form-check-input radio-button j-has-commission" type="radio"-->
+                 <!--name="arbitrary_commission" id="charge_fees_no" value="false" />-->
+          <!--<label class="radio-button-label" for="charge_fees_no">-->
+            <!--<span class="radio-button-circle text-capitalize"></span>No fees</label>-->
+        <!--</div>-->
         <div class="invalid-feedback" data-forname="has_commission">&nbps;</div>
       </div>
     </div>
@@ -183,8 +223,8 @@
       <div class="row">
         <div class="col-12">
           <div class="form-group mb-0">
-          <label class="form-label" for="commission_percent">SET TRANSACTION FEE (IN %).
-            <span>THE FEE WILL BE ADDED ON TOP OF THE TRANSACTION VALUE.</span>
+          <label class="form-label" for="commission_percent">SET COMMISSION IN %
+            <span class="text-lowercase">(<span class="text-capitalize">The</span> fee will be added on top of the action amount.)</span>
           </label>
           </div>
         </div>
@@ -195,9 +235,9 @@
               id: 'commission_percent',
               name: 'commission_percent',
               type: 'number',
-              min: 1,
+              min: 0,
               max: 100,
-              step: 0.05,
+              step: 0.01,
               value: 1,
               postfix: percent_symbol,
               suffix: percent_symbol,
@@ -209,62 +249,28 @@
           <input type="hidden" name="commission_in_fiat" id="commission_in_fiat" value="1.5" />
         </div>
 
-        <div class="col-2 mt-1">
-          <%= render :partial => "/shared/web/common/mocker",
-                     :locals => {
-                       :header => "VALUE IN " + bt_symbol,
-                       :mock_selector => "#commission_in_bt"
-                     }
-          %>
-        </div>
-
-        <div class="col-2 mt-1">
-
-          <%= render :partial => "/shared/web/common/mocker",
-                     :locals => {
-                       :header => "VALUE IN " + fiat_display_text,
-                       :mock_selector => "#commission_in_fiat"
-                     }
-          %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <div class="card-deck">
-        <div class="card mb-5">
-          <div class="card-body text-uppercase text-center">
-            <h6 class="card-title mb-1">TRANSACTION VALUE IN <%= bt_symbol %></h6>
-            <div class="card-text mb-1">
-              <span class="orange" data-ost-mock-element="#value_in_bt"></span>
+        <div class="col-4" id="j-mocker-content-wrap">
+          <div class="row">
+            <div class="col-6 mt-1">
+              <%= render :partial => "/shared/web/common/mocker",
+                         :locals => {
+                             :header => "AMOUNT IN " + bt_symbol,
+                             :mock_selector => "#commission_in_bt"
+                         }
+              %>
             </div>
-            <div class="card-text orange">
-              (<span class="orange"><%= fiat_symbol %><span data-ost-mock-element="#value_in_fiat"></span></span>)
+
+            <div class="col-6 mt-1">
+              <%= render :partial => "/shared/web/common/mocker",
+                         :locals => {
+                             :header => "AMOUNT IN " + fiat_display_text,
+                             :mock_selector => "#commission_in_fiat"
+                         }
+              %>
             </div>
           </div>
         </div>
-        <div class="card mb-5 commission-content-wrapper">
-          <div class="card-body text-uppercase text-center">
-            <h6 class="card-title mb-1">TRANSACTION FEES IN <%= bt_symbol %></h6>
-            <div class="commission-enabled-content">
-              <div class="card-text mb-1">
-                <span class="orange" data-ost-mock-element="#commission_in_bt"></span>
-              </div>
-              <div class="card-text orange">
-                <% # DO NOT PROVIDE SPACE between fiat_symbol & commission_in_fiat %>
-                (<span class="orange"><%= fiat_symbol %><span data-ost-mock-element="#commission_in_fiat"></span></span>)
-              </div>
-            </div>
-            <div class="commission-disabled-content">
-              <div class="card-text mb-1">
-                <span class="orange">0</span>
-              </div>
-              <div class="card-text orange">(<%= fiat_symbol %>0)</div>
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>
@@ -274,7 +280,7 @@
     <% # Form Buttons %>
     <div class="col-12">
       <button id="transaction_editor_submit_btn" type="submit" data-submiting="Adding..." 
-        class="mt-4 btn btn-gold d-inline-block float-left">ADD TRANSACTION</button>
+        class="mt-4 btn btn-gold d-inline-block float-left">ADD Action</button>
       <a id="transaction_editor_cancel_btn" href="javascript:void(0)"
         class="mt-4 ml-4 btn ost-btn-secondary d-inline-block float-left">CANCEL</a>
     </div>
@@ -301,6 +307,10 @@
       , commission_percent  : "commission_percent"
       , commission_in_bt    : "commission_in_bt"
       , commission_in_fiat  : "commission_in_fiat"
+      , arbitrary_commission : "arbitrary_commission"
+      , arbitrary_amount     : "arbitrary_amount"
+      , value_in_ost         : "value_in_ost"
+
     }
   });
 </script>

@@ -19,7 +19,7 @@
 
       oThis.users = {};
       oThis.transactionTypes = {};
-      oThis.pendingTransactionsUUID = [];
+      oThis.pendingTransactionsID = [];
       oThis.pollingApi = config["tx_status_polling_url"];
       oThis.isPolling = false;
 
@@ -116,7 +116,7 @@
     }
 
     ,updateUsersHash : function (data) {
-      var updatedUsers  = data.economy_users || {};
+      var updatedUsers  = data.users || {};
       $.extend( oThis.users , updatedUsers);
     }
 
@@ -134,8 +134,8 @@
         transaction = transactions[i];
         status = transaction.status ;
         if( !oThis.isTransactionComplete(status) ) {
-          console.log("Peding transaction.transaction_uuid", transaction.transaction_uuid);
-          oThis.pushPendingTransactions( transaction.transaction_uuid );
+          console.log("Pending transaction.id", transaction.id);
+          oThis.pushPendingTransactions( transaction.id );
         }
       }
     }
@@ -176,9 +176,9 @@
         return false;
       }
 
-      var transaction_uuids = oThis.pendingTransactionsUUID
+      var transaction_uuids = oThis.pendingTransactionsID
         , pollData = {
-          transaction_uuids: oThis.pendingTransactionsUUID
+          transaction_uuids: oThis.pendingTransactionsID
         }
       ;
 
@@ -252,42 +252,42 @@
           data = response && response.data,
           transactions = data && data.transactions,
           currentTransaction , newTransaction,
-          status , transaction_uuid
+          status , transaction_id
       ;
       if( !transactions || transactions.length == 0 ) return;
       for(var i = 0 ;  i < transactions.length ; i++) {
         newTransaction = transactions[i] ;
         status = newTransaction['status'] ;
-        transaction_uuid = newTransaction['transaction_uuid'] ;
+        transaction_id = newTransaction['id'] ;
         if( oThis.isTransactionComplete( status )  ){
-          currentTransaction = oThis.simulatorTable.getResultById(transaction_uuid , 'transaction_uuid');
+          currentTransaction = oThis.simulatorTable.getResultById(transaction_id , 'id');
           $.extend( currentTransaction , newTransaction);
           oThis.simulatorTable.updateResult( currentTransaction );
-          oThis.popPendingTransactions(currentTransaction.transaction_uuid);
+          oThis.popPendingTransactions(currentTransaction.id);
         }
       }
     }
 
 
     , isPollingRequired : function () {
-      return oThis.pendingTransactionsUUID.length > 0;
+      return oThis.pendingTransactionsID.length > 0;
     }
 
     , isTransactionComplete : function ( status ) {
       return status !== oThis.txStatus.PENDING && status !== oThis.txStatus.WaitingForMining ;
     }
 
-    , pushPendingTransactions : function ( uuid ) {
-      console.log("pushPendingTransactions :: oThis.pendingTransactionsUUID", oThis.pendingTransactionsUUID);
-      if( oThis.pendingTransactionsUUID.indexOf(uuid) < 0){
-          oThis.pendingTransactionsUUID.push(uuid);
+    , pushPendingTransactions : function ( transaction_id ) {
+      console.log("pushPendingTransactions :: oThis.pendingTransactionsID", oThis.pendingTransactionsID);
+      if( oThis.pendingTransactionsID.indexOf(transaction_id) < 0){
+          oThis.pendingTransactionsID.push(transaction_id);
       }
     }
 
-    , popPendingTransactions : function (uuid) {
-      var index = oThis.pendingTransactionsUUID.indexOf(uuid);
+    , popPendingTransactions : function (transaction_id) {
+      var index = oThis.pendingTransactionsID.indexOf(transaction_id);
       if( index > -1  ){
-        oThis.pendingTransactionsUUID.splice(index ,  1);
+        oThis.pendingTransactionsID.splice(index ,  1);
       }
     }
 
@@ -295,33 +295,78 @@
       var oThis = this,
           date = new Date();
 
-      Handlebars.registerHelper('getUserIconClass' , function (userId , options) {
+      Handlebars.registerHelper('getFromUserIconClass' , function ( userId, action_id, options ) {
         var user = oThis.users[userId];
 
         if ( !user ) {
           return "u-kind-user";
         }
 
-        if ( "reserve" === user.kind ) {
-          return "u-kind-company"
+        var txType = oThis.transactionTypes[ action_id ];
+        if ( txType && txType.kind && txType.kind.indexOf("company_") === 0 ) {
+          return "u-kind-company";
         }
 
         return "u-kind-user";
       });
 
+      Handlebars.registerHelper('commission_percent', function( options ) {
+        //var oThis = this;
 
-      Handlebars.registerHelper('getUserName' , function (userId , options) {
+        var data = options.data.root
+          , actionId = data.action_id
+          , txType = oThis.transactionTypes[ actionId ]
+        ;
+        console.log( "commission_percent :: txType", txType );
+
+        return txType.commission_percent;
+      });
+
+
+      Handlebars.registerHelper('getFromUserName' , function ( userId , action_id, options ) {
         var user = oThis.users[userId];
 
         if ( !user ) {
           return "";
         }
 
-        if ( "reserve" === user.kind ) {
-          return "Company"
+        var txType = oThis.transactionTypes[ action_id ];
+        if ( txType && txType.kind && txType.kind.indexOf("company_") === 0  ) {
+          return "Company";
         }
 
         return user['name'] ;
+      });
+
+      Handlebars.registerHelper('getToUserIconClass' , function ( userId, action_id, options ) {
+        var user = oThis.users[userId];
+
+        if ( !user ) {
+          return "u-kind-user";
+        }
+
+        var txType = oThis.transactionTypes[ action_id ];
+        if ( txType && txType.kind && txType.kind.indexOf("_company") > 0 ) {
+          return "u-kind-company";
+        }
+
+        return "u-kind-user";
+      });
+
+
+      Handlebars.registerHelper('getToUserName' , function ( userId , action_id, options ) {
+        var user = oThis.users[userId];
+
+        if ( !user ) {
+          return "";
+        }
+
+        var txType = oThis.transactionTypes[ action_id ];
+        if ( txType && txType.kind && txType.kind.indexOf("_company") > 0 ) {
+          return "Company";
+        }
+
+        return user['name'];
       });
 
       Handlebars.registerHelper('diplay_transaction_fee', function(transaction_fee, options ) {
@@ -352,9 +397,8 @@
         if ( !block_timeStamp ) {
           return "NA";
         }
-
-        // block_timeStamp = block_timeStamp * 1000;
-        var momentTs = moment.unix(block_timeStamp);
+        // block_timeStamp should be millisecond;
+        var momentTs = moment(block_timeStamp);
 
         return (momentTs.fromNow() + " (" + momentTs.utc().format("MMM-DD-YYYY hh:mm:ss A UTC") + ")");
 
@@ -391,11 +435,11 @@
         return "NA";
       });
 
-      Handlebars.registerHelper('txName' , function (transaction_type_id  ,  options) {
-        if( !transaction_type_id ) {
+      Handlebars.registerHelper('txName' , function (action_id  ,  options) {
+        if( !action_id ) {
           return "";
         }
-        var txType = oThis.transactionTypes[ transaction_type_id ];
+        var txType = oThis.transactionTypes[ action_id ];
         if ( !txType ) {
           return "";
         }
@@ -418,6 +462,11 @@
           return "0";
         }
         return PriceOracle.toBt( bt_transfer_value ).toString();
+      });
+
+      Handlebars.registerHelper('ifShouldShowRequestParam', function ( param_name , options ) {
+        console.log("param_name", param_name);
+        return options.fn(this);
       });
     }
 

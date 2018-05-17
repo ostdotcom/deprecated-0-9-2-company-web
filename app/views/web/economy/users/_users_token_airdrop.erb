@@ -22,14 +22,14 @@
       <div class="mt-2 mb-2 form-group">
         <div class="col-4 form-check form-check-inline">
           <input class="form-check-input radio-button j-user-type"  
-            id="all-users" type="radio" name="airdrop_list_type" value="all" 
+            id="all-users" type="radio" name="airdropped" value="all"
             data-user-type="all_users"
             checked/>
           <label class="form-check-label radio-button-label" for="all-users"><span class="radio-button-circle"></span>All Users</label>
         </div>
         <div class="col-4 form-check form-check-inline">
           <input class="form-check-input radio-button j-user-type" type="radio" data-user-type="new_users"
-          id="new-users" name="airdrop_list_type" value="never_airdropped"/>
+          id="new-users" name="airdropped" value="false"/>
           <label class="form-check-label radio-button-label" for="new-users"><span class="radio-button-circle"></span>Added since last Airdrop</label>
         </div>
       </div>
@@ -50,7 +50,7 @@
         <div class="all-users-data-wrapper">
             <div class="table-header">ALL USERS</div>
             <div class="table-content" id="all-users-list-content-wrapper">
-              <div id="all_users" class="" data-url="/api/economy/users/list/?filter=all">
+              <div id="all_users" class="" data-url="/api/economy/users/list/">
                 <script type="text/x-handlebars-template" data-row-template>
                   <div class="users-data">
                     <span class="w-100">{{name}}</span>
@@ -63,7 +63,7 @@
         <div class="new-users-data-wrapper">
           <div class="table-header">NEW USERS</div>
           <div class="table-content" id="new-users-list-content-wrapper">
-            <div id="new_users" class="w-100" data-url="/api/economy/users/list?filter=never_airdropped">
+            <div id="new_users" class="w-100" data-url="/api/economy/users/list?airdropped=false">
               <script type="text/x-handlebars-template" data-row-template>
                 <div class="users-data">
                   <span class="w-100">{{name}}</span>
