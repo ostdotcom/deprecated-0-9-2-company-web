@@ -220,9 +220,9 @@
     }
 
     , disableKindOptions : function () {
-      oThis.jUserToUser.attr('disabled','disabled');
-      oThis.jUserToCompany.attr('disabled','disabled');
-      oThis.jCompanyToUser.attr('disabled','disabled');
+
+      oThis.jForm.find('.j-tx-kind').prop("disabled", true);
+      oThis.jForm.find('.j-tx-kind:checked').prop("disabled",false)
     }
     
     , enableKindOptions : function () {
