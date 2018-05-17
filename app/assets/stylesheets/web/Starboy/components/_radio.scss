@@ -43,3 +43,15 @@
 .radio-button:checked + .radio-button-label .radio-button-circle {
   background-color: $blue-700;
 }
+
+.radio-button[disabled] + .radio-button-label .radio-button-circle{
+  &:before{
+    background-color: $alice-blue;
+    border: 2px solid $zumthor;
+  }
+}
+
+.radio-button[disabled] + .radio-button-label{
+  color: rgba(89, 122, 132, 0.5);
+  font-weight: $font-weight-light;
+}

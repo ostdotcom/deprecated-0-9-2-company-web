@@ -220,15 +220,13 @@
     }
 
     , disableKindOptions : function () {
-      oThis.jUserToUser.attr('disabled','disabled');
-      oThis.jUserToCompany.attr('disabled','disabled');
-      oThis.jCompanyToUser.attr('disabled','disabled');
+
+      oThis.jForm.find('.j-tx-kind').prop("disabled", true);
+      oThis.jForm.find('.j-tx-kind:checked').prop("disabled",false)
     }
     
     , enableKindOptions : function () {
-      oThis.jUserToUser.removeAttr('disabled');
-      oThis.jUserToCompany.removeAttr('disabled');
-      oThis.jCompanyToUser.removeAttr('disabled');
+      oThis.jForm.find('.j-tx-kind').prop("disabled", false);
     }
     
     , fillForm: function () {
