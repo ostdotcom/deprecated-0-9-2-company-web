@@ -134,13 +134,11 @@
 
       oThis.jForm.find('.j-has-commission').change( function () {
         oThis.hasCommissionModified();
-        oThis.updateDisplayCommission();
       });
 
       PriceOracle.bindCurrencyElements( oThis.jValueInBt , oThis.jValueInFiat , oThis.jValueInOst );
 
       oThis.jCommission.add( oThis.jValueInOst ).on("change", function ( event ) {
-        console.log("calling onCommissionChanged event", event.currentTarget );
         oThis.onCommissionChanged.apply( oThis, arguments );
       });
 
@@ -594,7 +592,6 @@
       } else {
         oThis.jCommissionRow.slideUp( 300 );
       }
-      oThis.updateDisplayCommission();
 
       if(val !== oThis.txKindMap.user_to_user){
         var has_commission_id = "#charge_fees_here";
@@ -602,24 +599,6 @@
           .prop("checked", true)
         ;
         oThis.hasCommissionModified();
-      }
-    }
-
-    , updateDisplayCommission : function () {
-      var jCommission   = oThis.jForm.find('.j-has-commission:checked')
-        ,  commissionVal = jCommission.val()
-        , jCommissionId = jCommission[0].id
-      ;
-
-      var jTX   = oThis.jForm.find('.j-tx-kind:checked') ,
-          txVal = jTX.val() ;
-
-      var jEl   = $('.commission-content-wrapper') ;
-
-      if((txVal === oThis.txKindMap.user_to_user && commissionVal === 'true') || txVal!==oThis.txKindMap.user_to_user) {
-        jEl.removeClass('has-commission');
-      }else{
-        jEl.addClass('has-commission');
       }
     }
 
