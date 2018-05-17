@@ -226,9 +226,7 @@
     }
     
     , enableKindOptions : function () {
-      oThis.jUserToUser.removeAttr('disabled');
-      oThis.jUserToCompany.removeAttr('disabled');
-      oThis.jCompanyToUser.removeAttr('disabled');
+      oThis.jForm.find('.j-tx-kind').prop("disabled", false);
     }
     
     , fillForm: function () {
