@@ -464,9 +464,22 @@
         return PriceOracle.toBt( bt_transfer_value ).toString();
       });
 
-      Handlebars.registerHelper('ifShouldShowRequestParam', function ( param_name , options ) {
+      Handlebars.registerHelper('ifShouldShowRequestParam', function ( param_name ,response ) {
         console.log("param_name", param_name);
-        return options.fn(this);
+        var rowData =  response.data.root || {}
+          , actionId = rowData.action_id
+          , txType = oThis.transactionTypes[ actionId ]
+        ;
+        if (param_name === 'commission_percent'){
+          var commissionPercent = txType.commission_percent;
+
+          if (commissionPercent){
+            return response.fn(this);
+          }else{
+            return response.inverse(this);;
+          }
+        }
+        return response.fn(this);
       });
     }
 

@@ -101,7 +101,9 @@
                   <span class="curl-param-header">curl -i </span> <span class="curl-escape-character">\</span>
                   <br /><span class="curl-param-header"> -H</span> "Accept: application/json" <span class="curl-escape-character">\</span>
                   <% request_params.each do |request_param| %>
-                    <br /><span class="curl-param-header"> -d</span> '<%= request_param %>' <span class="curl-escape-character">\</span>
+                    {{#IfShowRequesetParam '<%= request_param %>'}}
+                     <br /><span class="curl-param-header"> -d</span> ' <%= request_param %> ' <span class="curl-escape-character">\</span>
+                    {{/IfShowRequesetParam}}
                   <% end %>
                   <br /><span class="curl-param-header"> -X</span> <%= api_console_data['request_type'] %> <%= api_console_data['request_uri'] %>
                 </code>
@@ -217,6 +219,38 @@
       Handlebars.registerHelper('commission_percent', function(response, options ) {
         var rowData =  response.data.root || {};
         return rowData.commission_percent;
+      });
+
+      Handlebars.registerHelper('IfShowRequesetParam', function(param, response) {
+        var rowData =  response.data.root || {}
+          , splitParams = param.split('=')
+          , paramKey = splitParams[0]
+        ;
+        if (paramKey === 'commission_percent'){
+          var commissionPercent = rowData.commission_percent;
+
+          if (!commissionPercent){
+            return response.inverse(this);;
+          }
+
+        }else if (paramKey === 'arbitrary_commission'){
+          var arbitraryCommission = rowData.arbitrary_commission;
+          console.log("param : ",param, "arbitrary_commission : ",commissionPercent);
+
+          if(!(arbitraryCommission === true || arbitraryCommission === false)){
+            return response.inverse(this);
+          }
+
+        }else if (paramKey === 'amount') {
+          var amount = rowData.amount;
+          console.log("param : ", param, "amount : ", amount);
+
+          if (!amount) {
+            return response.inverse(this);
+          }
+        }
+
+        return response.fn(this);
       });
 
       ost.transactions.init({
