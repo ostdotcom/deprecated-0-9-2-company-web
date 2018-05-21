@@ -90,7 +90,7 @@ module CompanyApi
       # * Reviewed By: Sunil
       #
       def fetch_transaction_kinds_details
-        get('transaction/kind/list')
+        get('action/list')
       end
 
       # Fetch simulator details

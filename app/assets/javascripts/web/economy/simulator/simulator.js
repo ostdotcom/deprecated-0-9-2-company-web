@@ -12,6 +12,17 @@
       "COMPLETE": "complete",
       "FAILED": "failed"
     }
+    , txKindMap: {
+      user_to_company: "user_to_company",
+      company_to_user: "company_to_user",
+      user_to_user: "user_to_user"
+    }
+    , txParams: {
+      commission_percent : "commission_percent",
+      amount : "amount",
+      arbitrary_commission : "arbitrary_commission",
+      arbitrary_amount : "arbitrary_amount"
+    }
 
     ,init : function ( config ) {
       var oThis =  this;
@@ -464,8 +475,40 @@
         return PriceOracle.toBt( bt_transfer_value ).toString();
       });
 
-      Handlebars.registerHelper('ifShouldShowRequestParam', function ( param_name , options ) {
+      Handlebars.registerHelper('ifShouldShowRequestParam', function ( param_name ,options ) {
         console.log("param_name", param_name);
+        var rowData =  options.data.root || {}
+          , actionId = rowData.action_id
+          , txType = oThis.transactionTypes[ actionId ]
+          , txKind = txType.kind
+          , txParams = oThis.txParams
+          , txKindMap = oThis.txKindMap
+        ;
+
+
+        if (param_name === txParams.commission_percent) {
+          var arbitraryCommission = txType[txParams.arbitrary_commission]
+          ;
+
+          if (txKind !== txKindMap.user_to_user || arbitraryCommission === false ) {
+            return options.inverse(this);
+          }
+
+        }else if (param_name === txParams.arbitrary_commission){
+
+          if (txKind !== txKindMap.user_to_user){
+            return options.inverse(this);
+          }
+
+        }else if (param_name === txParams.amount){
+          var arbitraryAmount = txType[txParams.arbitrary_amount]
+          ;
+
+          if ( arbitraryAmount === false ) { 
+            return options.inverse(this);
+          }
+        }
+
         return options.fn(this);
       });
     }

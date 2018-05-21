@@ -46,13 +46,13 @@
       <div class="col-2">VALUE (<%= fiat_display_text %>)</div>
       <div class="col-2">VALUE (<%= bt_symbol %>)</div>
       <div class="col-2">PRICE ORACLE</div>
-      <div class="col-3 p-0">FEES</div>
+      <div class="col-3 p-0">COMMISSION</div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-12 slider-parent-container" data-slider-content-wrapper=".ost-table-row">
-      <div id="transaction_list" class="transactions" data-simple-table data-url="/api/economy/transaction/kind/list">
+      <div id="transaction_list" class="transactions" data-simple-table data-url="/api/economy/action/list">
         <script type="text/x-handlebars-template" data-row-template>
           <div class="row align-items-center mt-1 mb-3 rounded ost-table-row cell">
             <div class="col-2">{{name}}<br/><small class="font-weight-light">{{kind_display_text}}</small></div>
@@ -101,7 +101,9 @@
                   <span class="curl-param-header">curl -i </span> <span class="curl-escape-character">\</span>
                   <br /><span class="curl-param-header"> -H</span> "Accept: application/json" <span class="curl-escape-character">\</span>
                   <% request_params.each do |request_param| %>
-                    <br /><span class="curl-param-header"> -d</span> '<%= request_param %>' <span class="curl-escape-character">\</span>
+                    {{#IfShowRequesetParam '<%= request_param %>'}}
+                     <br /><span class="curl-param-header"> -d</span> ' <%= request_param %> ' <span class="curl-escape-character">\</span>
+                    {{/IfShowRequesetParam}}
                   <% end %>
                   <br /><span class="curl-param-header"> -X</span> <%= api_console_data['request_type'] %> <%= api_console_data['request_uri'] %>
                 </code>
@@ -217,6 +219,37 @@
       Handlebars.registerHelper('commission_percent', function(response, options ) {
         var rowData =  response.data.root || {};
         return rowData.commission_percent;
+      });
+
+      Handlebars.registerHelper('IfShowRequesetParam', function(param, options) {
+        var rowData =  options.data.root || {}
+          , splitParams = param.split('=')
+          , param_name = splitParams[0]
+          , txKind = rowData.kind
+        ;
+
+        if (param_name === 'commission_percent') {
+          var arbitraryCommission = rowData.arbitrary_commission
+          ;
+
+          if (txKind !== 'user_to_user' || arbitraryCommission === true ) {
+            return options.inverse(this);
+          }
+        }else if (param_name === 'amount'){
+          var arbitraryAmount = rowData.arbitrary_amount
+          ;
+
+          if ( arbitraryAmount === true ) {
+            return options.inverse(this);
+          }
+        }else if (param_name === 'arbitrary_commission'){
+
+          if (txKind !== 'user_to_user'){
+            return options.inverse(this);
+          }
+        }
+
+        return options.fn(this);
       });
 
       ost.transactions.init({

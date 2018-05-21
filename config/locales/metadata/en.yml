@@ -353,21 +353,21 @@ en:
 
     transactions:
       :meta:
-        :title: 'OST KIT | Transactions'
+        :title: 'OST KIT | Actions'
         :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
         :canonical: '%{canonical}'
         :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
         :name: 'OST'
         :robots: 'noindex, nofollow'
         :og:
-          :title: 'OST KIT | Transactions'
+          :title: 'OST KIT | Actions'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :type: 'website'
           :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image-1.jpg'
           :url: '%{og_url}'
         :twitter:
           :card: 'summary_large_image'
-          :title: 'OST KIT | Transactions'
+          :title: 'OST KIT | Actions'
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image-1.jpg'
       :assets:

@@ -19,8 +19,8 @@
   #Default value for creating new transaction to be set.
   default_fiat_value = 0.10;
 
-  create_url = "/api/economy/transaction/kind/create";
-  edit_url = "/api/economy/transaction/kind/edit";
+  create_url = "/api/economy/action/create";
+  edit_url = "/api/economy/action/edit";
   
   default_transaction_values = { 
     :commission_percent => 0,
@@ -82,15 +82,12 @@
     <div class="col-4"></div>
 
 
-<!--Aniket modification-->
-
     <div class="col-12 form-group mb-0">
       <label class="form-label">ARBITRARY AMOUNT AT EXECUTION
         <a href="https://help.ost.com/support/solutions/articles/35000059260-how-do-you-set-transaction-values"
            target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
       </label>
     </div>
-
 
     <div class="col-12">
       <div class="form-group" id="value_action_amount">
@@ -111,7 +108,6 @@
     </div>
   </div>
 
-    <!--end-->
   <div id="currency_wrap" class="row">
       <div class="col-12 form-group mb-0">
         <label class="form-label">Price Oracle
@@ -224,7 +220,7 @@
         <div class="col-12">
           <div class="form-group mb-0">
           <label class="form-label" for="commission_percent">SET COMMISSION IN %
-            <span class="text-lowercase">(<span class="text-capitalize">The</span> fee will be added on top of the action amount.)</span>
+            <span class="text-lowercase">(<span class="text-capitalize">The</span> commission will be added on top of the action amount)</span>
           </label>
           </div>
         </div>

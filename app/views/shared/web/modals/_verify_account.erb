@@ -8,7 +8,7 @@
         <h1 id="verify-email-header" data-success-text="Verification Email Sent" class="heading font-weight-normal">
           Please Verify Your Email Address to Continue
         </h1>
-        <p class="desc font-weight-light">We have sent an email to <%= @presenter_obj.user.email %> please click on the Verify Button in the email to Activate your account</p>
+        <p class="desc font-weight-light">We have sent an email to <%= @presenter_obj.user.email %>. Please click on the Verify Button in the email to Activate your account.</p>
         <div class="desc font-weight-light mb-2">Can't find the verification link?</div>
         <form id="form-resend-verification" action="/api/client/send-verify-email-link" method="POST" data-ost-formhelper>
           <button id="resend-verification-email-btn" type="submit" class="btn btn-gold font-weight-light" data-submiting="Sending...">Re-send email</button>
