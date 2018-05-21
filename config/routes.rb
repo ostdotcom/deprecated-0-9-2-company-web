@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     get '/planner/step-3' => :planner_step_three, as: 'planner_step_three'
     get '/token-supply' => :token_supply
     get '/users' => :users
-    get '/transactions' => :transactions
+    get '/actions' => :transactions
     get '/simulator' => :simulator
     get '/developer-api-console' => :developer_api_console
   end
