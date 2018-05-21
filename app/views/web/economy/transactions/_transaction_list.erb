@@ -221,36 +221,35 @@
         return rowData.commission_percent;
       });
 
-      Handlebars.registerHelper('IfShowRequesetParam', function(param, response) {
-        var rowData =  response.data.root || {}
+      Handlebars.registerHelper('IfShowRequesetParam', function(param, options) {
+        var rowData =  options.data.root || {}
           , splitParams = param.split('=')
-          , paramKey = splitParams[0]
+          , param_name = splitParams[0]
+          , txKind = rowData.kind
         ;
-        if (paramKey === 'commission_percent'){
-          var commissionPercent = rowData.commission_percent;
 
-          if (!commissionPercent){
-            return response.inverse(this);
+        if (param_name === 'commission_percent') {
+          var arbitraryCommission = rowData.arbitrary_commission
+          ;
+
+          if (txKind !== 'user_to_user' || arbitraryCommission !== false) {
+            return options.inverse(this);
           }
+        }else if (param_name === 'amount'){
+          var arbitraryAmount = rowData.arbitrary_amount
+          ;
 
-        }else if (paramKey === 'arbitrary_commission'){
-          var arbitraryCommission = rowData.arbitrary_commission;
-          console.log("param : ",param, "arbitrary_commission : ",commissionPercent);
-
-          if(!(arbitraryCommission === true || arbitraryCommission === false)){
-            return response.inverse(this);
+          if (arbitraryAmount !== false) {
+            return options.inverse(this);
           }
+        }else if (param_name === 'arbitrary_commission'){
 
-        }else if (paramKey === 'amount') {
-          var amount = rowData.amount;
-          console.log("param : ", param, "amount : ", amount);
-
-          if (!amount) {
-            return response.inverse(this);
+          if (txKind !== 'user_to_user'){
+            return options.inverse(this);
           }
         }
 
-        return response.fn(this);
+        return options.fn(this);
       });
 
       ost.transactions.init({
