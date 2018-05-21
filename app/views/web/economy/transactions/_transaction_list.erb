@@ -232,14 +232,14 @@
           var arbitraryCommission = rowData.arbitrary_commission
           ;
 
-          if (txKind !== 'user_to_user' || arbitraryCommission !== false) {
+          if (txKind !== 'user_to_user' || arbitraryCommission === true ) {
             return options.inverse(this);
           }
         }else if (param_name === 'amount'){
           var arbitraryAmount = rowData.arbitrary_amount
           ;
 
-          if (arbitraryAmount !== false) {
+          if ( arbitraryAmount === true ) {
             return options.inverse(this);
           }
         }else if (param_name === 'arbitrary_commission'){

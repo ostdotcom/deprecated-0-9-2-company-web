@@ -490,19 +490,21 @@
           var arbitraryCommission = txType[txParams.arbitrary_commission]
           ;
 
-          if (txKind !== txKindMap.user_to_user || arbitraryCommission !== true) {
+          if (txKind !== txKindMap.user_to_user || arbitraryCommission === false ) {
             return options.inverse(this);
           }
+
         }else if (param_name === txParams.arbitrary_commission){
 
           if (txKind !== txKindMap.user_to_user){
             return options.inverse(this);
           }
+
         }else if (param_name === txParams.amount){
           var arbitraryAmount = txType[txParams.arbitrary_amount]
           ;
 
-          if (arbitraryAmount !== false) {
+          if ( arbitraryAmount === false ) { 
             return options.inverse(this);
           }
         }
