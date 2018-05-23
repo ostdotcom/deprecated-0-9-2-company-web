@@ -327,10 +327,16 @@
         var data = options.data.root
           , actionId = data.action_id
           , txType = oThis.transactionTypes[ actionId ]
+          , amount = BigNumber( data.amount )
+          , commission_amount =  BigNumber( data.commission_amount )
+          , commission_percent = amount.dividedBy(commission_amount)
+          , P_Percent = 2
+          , commission_percent = BigNumber( commission_percent.toFixed(P_Percent,P_Percent) ).toString(10)
         ;
-        console.log( "commission_percent :: txType", txType );
 
-        return txType.commission_percent;
+        console.log( "commission_percent ::", commission_percent );
+
+        return commission_percent;
       });
 
 
@@ -504,7 +510,7 @@
           var arbitraryAmount = txType[txParams.arbitrary_amount]
           ;
 
-          if ( arbitraryAmount === false ) { 
+          if ( arbitraryAmount === false ) {
             return options.inverse(this);
           }
         }
