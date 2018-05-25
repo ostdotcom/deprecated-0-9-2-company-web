@@ -36,6 +36,8 @@
       oThis.formHelper = oThis.jForm.formHelper();
 
       oThis.bindEvents();
+
+      oThis.jFetchDetailsBtn.css({"visibility": "visible"});
     }
     , bindEvents: function () {
       var oThis = this;
