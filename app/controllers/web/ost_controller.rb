@@ -11,6 +11,10 @@ class Web::OstController < Web::BaseController
 
   end
 
+  def poc
+
+  end
+
   private
 
   # basic auth

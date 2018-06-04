@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   constraints(InitOst) do
     scope '', controller: 'web/ost' do
       get '/' => :index
+      get '/poc' => :poc #TODO: Thahir, we can change the route but not the name of action
     end
   end
 
