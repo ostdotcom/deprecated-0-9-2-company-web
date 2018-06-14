@@ -27,6 +27,18 @@
       }
     }
   }
+
+  .ost-nav-link {
+    color: #597a84;
+    a{
+      color: #597a84;
+      &:hover, &:active,  &:focus{
+        color: #c0993a;
+        text-decoration: none;
+      }
+    }
+  }
+
 }
 
 #subscribe-success{
