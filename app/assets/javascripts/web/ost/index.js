@@ -30,29 +30,46 @@
     },
 
     onSubscribe: function () {
-      var jsonpurl = $("#subscribe-form-submit").data('jsonp');
-      var email = $("#subscribe-form-email").val();
 
-      var errors = [];
+      var oThis = this,
+        jForm   = $('#subscribe-form'),
+        jSubmitBtn = $("#subscribe-form-submit"),
+        jsonpUrl = jSubmitBtn.data('jsonp'),
+        jEmail = $("#subscribe-form-email"),
+        emailVal = jEmail.val().trim();
+        isFormValid = true;
 
-      if (email == '') {
-        errors.push('Email is Mandatory!');
+      pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      oThis.resetError( jForm );
+      if (!emailVal) {
+        oThis.showError('Email is mandatory', '.email-error' );
+        isFormValid = false;
+      } else if (pattern.test(emailVal) == false) {
+        oThis.showError('Invalid email', '.email-error' );
+        isFormValid = false;
       }
 
-      if (errors.length > 0) {
-        oThis.showError(errors.join(' '));
+      if (! $("input#subscribe_confirmation").is(":checked")){
+
+        oThis.showError('Please select the checkbox to continue', '.confirmation_error' );
+        isFormValid = false;
+
+      }
+
+      if (! isFormValid) {
         return false;
       }
 
-      oThis.resetError();
-      $("#subscribe-form-submit").prop('disabled', true);
+      oThis.resetError(jForm);
+      jSubmitBtn.prop('disabled', true);
 
       $.ajax({
 
-        url: jsonpurl,
+        url: jsonpUrl,
         jsonp: "callback",
         dataType: "jsonp",
-        data: {email: email},
+        data: {email: emailVal},
         method: 'GET',
         success: function (responseJson) {
           if ((responseJson.error != undefined) && (responseJson.error != '')) {
@@ -64,21 +81,21 @@
               });
             });
 
-            oThis.showError(error_msg.join('. '));
+            oThis.showError(error_msg.join('. '), '.general_error');
 
           } else {
 
-            oThis.resetError();
-            $('#subscribe-form').hide();
+            oThis.resetError(jForm);
+            jForm.hide();
             $('#subscribe-success').show();
           }
 
         },
-        error: function (response) {
-          oThis.showError('Something Went Wrong');
+        error: function (response, selector) {
+          oThis.showError('Something Went Wrong', '.general_error');
         },
         complete: function (response) {
-          $("#subscribe-form-submit").prop('disabled', false);
+          jSubmitBtn.prop('disabled', false);
         }
 
       });
@@ -86,13 +103,13 @@
 
 
 
-    showError: function (text) {
-      $('#subscribe-form .error').html(text);
-      $('#subscribe-form-email').addClass('red');
+    showError: function (text, selector) {
+      $('#subscribe-form ' + selector).html(text);
+      $('#subscribe-form input').addClass('red');
     },
 
-    resetError: function () {
-      $('#subscribe-form .error').html('');
+    resetError: function (jForm) {
+      jForm.find('.error').html("");
       $('#subscribe-form-email').removeClass('red');
     }
 

@@ -1,0 +1,66 @@
+
+
+.label-cbx {
+
+  input[type="checkbox"]{
+    position: absolute;
+    opacity: 0;
+    display: none;
+  }
+
+  user-select: none;
+  cursor: pointer;
+  input:checked{
+    & + .checkbox{
+      border-color: #438bad;
+      svg{
+        path{
+          fill: #438bad;
+        }
+        polyline{
+          stroke-dashoffset: 0;
+        }
+      }
+    }
+  }
+  .checkbox {
+    position: relative;
+    top: 2px;
+    left:8px;
+    float: left;
+    margin-right: 8px;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #438bad;
+    svg {
+      position: absolute;
+      top: -2px;
+      left: -2px;
+
+      path {
+        fill: none;
+        stroke: #438bad;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 71px;
+        stroke-dashoffset: 71px;
+        transition: all 0.6s ease;
+      }
+      polyline {
+        fill: none;
+        stroke: #FFF;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 18px;
+        stroke-dashoffset: 18px;
+        transition: all 0.3s ease;
+      }
+    }
+  }
+  span {
+    margin-left: 26px;
+    display: block;
+  }
+}
