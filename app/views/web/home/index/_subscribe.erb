@@ -9,7 +9,7 @@
               <div class="subscribe">
                 <div class="form-group mb-0">
                   <input type="email" class="form-control mt-4" id="subscribe-form-email" name="email" placeholder="email@example.com">
-                  <div class="error">&nbsp;</div>
+                  <div class="error email-error">&nbsp;</div>
 
                   <div class="form-group mx-auto" style="width: 65%;">
                     <label for="subscribe_confirmation" class="label-cbx mb-0">
@@ -22,13 +22,14 @@
                       </div>
                       <span class="font-weight-normal info-text">I agree to OST sending me marketing communications, as described in the <a href="<%= GlobalConstant::Base.company_other_product_urls['root_url'] %>privacy" class="terms-link" title="Privacy Policy" target="_blank">Privacy Policy</a>.</span>
                     </label>
-                    <div class="confirmation_error" data-for="subscribe_confirmation">
+                    <div class="confirmation_error error" data-for="subscribe_confirmation">
                   </div>
-                  <div class="general_error"></div>
+                  <div class="general_error error"></div>
                   <button type="submit" class="btn btn-primary ml-md-3" id="subscribe-form-submit"
                           data-jsonp="<%= GlobalConstant::PepoCampaign.subscribe_url %>">Sign up</button>
                 </div>
                 
+              </div>
               </div>
             </form>
             <div id="subscribe-success" style="display: none">

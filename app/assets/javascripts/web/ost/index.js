@@ -30,45 +30,46 @@
     },
 
     onSubscribe: function () {
-      var jsonpurl = $("#subscribe-form-submit").data('jsonp');
-      var email = $("#subscribe-form-email").val();
 
-      var errorLen = 0,
+      var oThis = this,
+        jForm   = $('#subscribe-form'),
+        jSubmitBtn = $("#subscribe-form-submit"),
+        jsonpUrl = jSubmitBtn.data('jsonp'),
+        jEmail = $("#subscribe-form-email"),
+        emailVal = jEmail.val().trim();
+        isFormValid = true;
+
       pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-
-      if (email == '') {
-        oThis.showError('Email is Mandatory!', '.error' );
-        errorLen++;
-      } else if (pattern.test(email) == false) {
-        oThis.showError('Invalid email', '.error' );
-        errorLen++;
-      } else {
-        $('#subscribe-form .error').html('');
-      } 
+      oThis.resetError( jForm );
+      if (!emailVal) {
+        oThis.showError('Email is Mandatory!', '.email-error' );
+        isFormValid = false;
+      } else if (pattern.test(emailVal) == false) {
+        oThis.showError('Invalid email', '.email-error' );
+        isFormValid = false;
+      }
 
       if (! $("input#subscribe_confirmation").is(":checked")){
 
         oThis.showError('please confirm checkbox', '.confirmation_error' );
-        errorLen++;
+        isFormValid = false;
 
-      }else{
-        $('#subscribe-form .confirmation_error').html('');
       }
 
-      if (errorLen > 0) {
+      if (! isFormValid) {
         return false;
       }
 
-      oThis.resetError();
-      $("#subscribe-form-submit").prop('disabled', true);
+      oThis.resetError(jForm);
+      jSubmitBtn.prop('disabled', true);
 
       $.ajax({
 
-        url: jsonpurl,
+        url: jsonpUrl,
         jsonp: "callback",
         dataType: "jsonp",
-        data: {email: email},
+        data: {email: emailVal},
         method: 'GET',
         success: function (responseJson) {
           if ((responseJson.error != undefined) && (responseJson.error != '')) {
@@ -84,8 +85,8 @@
 
           } else {
 
-            oThis.resetError();
-            $('#subscribe-form').hide();
+            oThis.resetError(jForm);
+            jForm.hide();
             $('#subscribe-success').show();
           }
 
@@ -94,7 +95,7 @@
           oThis.showError('Something Went Wrong', '.general_error');
         },
         complete: function (response) {
-          $("#subscribe-form-submit").prop('disabled', false);
+          jSubmitBtn.prop('disabled', false);
         }
 
       });
@@ -104,13 +105,11 @@
 
     showError: function (text, selector) {
       $('#subscribe-form ' + selector).html(text);
-      $('#subscribe-form-email').addClass('red');
+      $('#subscribe-form input').addClass('red');
     },
 
-    resetError: function () {
-      $('#subscribe-form .confirmation_error, #subscribe-form .error, #subscribe-form .general_error').html('');
-      //$('#subscribe-form .error').html('');
-      //$('#subscribe-form .general_error').html('');
+    resetError: function (jForm) {
+      jForm.find('.error').html("");
       $('#subscribe-form-email').removeClass('red');
     }
 
