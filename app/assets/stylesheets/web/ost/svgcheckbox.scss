@@ -12,7 +12,7 @@
   cursor: pointer;
   input:checked{
     & + .checkbox{
-      border-color: #34445b;
+      border-color: #438bad;
       svg{
         path{
           fill: #438bad;
@@ -30,15 +30,15 @@
     margin-right: 8px;
     width: 18px;
     height: 18px;
-    border: 1px solid #FFFFFF;
+    border: 2px solid #438bad;
     svg {
       position: absolute;
-      top: -1px;
-      left: -1px;
-      border: 1px solid #438bad;
+      top: -2px;
+      left: -2px;
+
       path {
         fill: none;
-        stroke: #74989c;
+        stroke: #438bad;
         stroke-width: 2;
         stroke-linecap: round;
         stroke-linejoin: round;
