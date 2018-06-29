@@ -27,10 +27,12 @@
   <div class="w-100">
     <div class="d-flex justify-content-between">
       <h3 class="mb-0 mt-2">Simulator</h3>
-      <form id="run-transaction-form" action="<%= execute_transaction_api%>" method="POST" data-ost-formhelper >
-        <button type="submit" class="btn btn-gold run-transaction-btn" data-submiting="Running...">run a transaction</button>
-        <div class="general_error invalid-feedback" data-forid="run-transaction-form">&nbsp;</div>
-      </form>
+      <div class="text-right d-inline-block">
+        <form id="run-transaction-form" action="<%= execute_transaction_api%>" method="POST" data-ost-formhelper >
+          <button type="submit" class="btn btn-gold run-transaction-btn" data-submiting="Running...">run a transaction</button>
+          <div class="general_error invalid-feedback py-1" data-forid="run-transaction-form">&nbsp;</div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
