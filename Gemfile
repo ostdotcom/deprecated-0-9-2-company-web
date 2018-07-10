@@ -7,11 +7,11 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.4'
+gem 'rails', '5.1.6'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '5.0.7'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '4.1.9'
 # YUI compressor
 gem 'yui-compressor', '0.12.0'
 # Json formatter
@@ -24,10 +24,10 @@ gem 'exception_notification', '4.2.1'
 gem 'sidekiq', '5.0.5'
 gem 'redis-namespace', '1.6.0'
 
-gem 'listen', '>= 3.0.5', '< 3.2'
+gem 'listen', '3.1.5'
 
 # For identifying browser & device type of devices sending requests
-gem 'browser', '~> 1.1'
+gem 'browser', '1.1.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
