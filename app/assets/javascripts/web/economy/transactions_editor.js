@@ -293,7 +293,7 @@
       ;
 
       var has_commission_id, display_commission_percent;
-      display_commission_percent = commission_percent || 1;
+      display_commission_percent = commission_percent || 0;
       
       if ( arbitrary_commission === true) {
         has_commission_id = "#charge_fees_before_execution";
