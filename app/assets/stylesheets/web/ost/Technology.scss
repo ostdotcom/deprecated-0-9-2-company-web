@@ -13,24 +13,3 @@
     color: #69a2bd;
   }
 }
-.technology-elements{
-  @media(min-width: 768px){
-    background-image: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-bg-cloud-illustration.png');
-    background-size: cover;
-  }
-  .card{
-    border: none;
-    background-color: transparent;
-  }
-  .card-body{
-    padding: 0;
-  }
-  p{
-    color: #597a84;
-  }
-  .card-footer{
-    padding: 0;
-    border: none;
-    background-color: transparent;
-  }
-}
