@@ -348,6 +348,7 @@
       //Create webjs transaction object.
       transactionObject = contract.transfer(recipient, totalOstStakeForBt, {
         from: oThis.userAddress
+          ,gasPrice: "0x12A05F200"
       }, sendCallback);
       //Encode it.
       // encodedAbi        = transactionObject.encodeABI();
