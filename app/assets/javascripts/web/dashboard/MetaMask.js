@@ -37,7 +37,7 @@
       valueChainId      : 3,
       utilityChianId    : 1410,
       hasRegisteredAddress : false,
-      validateTransactionHashInterval : 5000,
+      apiCallInterval : 5000,
       validateTransactionHashMaxTry: 100
     },
     flags : {
@@ -376,7 +376,7 @@
         //Lets retry.
         setTimeout(function () {
           oThis.validateTransactionHash(transactionHash, callback, ++tryCount);
-        }, oThis.config.validateTransactionHashInterval);
+        }, oThis.config.apiCallInterval);
       });
     },
 

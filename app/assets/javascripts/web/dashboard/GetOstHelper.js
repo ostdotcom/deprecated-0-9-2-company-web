@@ -6,7 +6,9 @@
 ;
 (function (window, $) {
 
-  var metamask  = ns("ost.metamask");
+  var metamask  = ns("ost.metamask")
+    , etherScan = ns("ost.etherScan")
+  ;
   
   var NOTHING_IN_PROGRESS     = 0
     , OST_GRANT_IN_PROGRESS   = 1
@@ -72,7 +74,12 @@
           
           if ( oThis.grant_initial_eth ) {
             oThis.currentStep = READ_ETH_BALANCE;
-            oThis.getUserEthBalance.apply( oThis, arguments );  
+            //oThis.getUserEthBalance.apply( oThis, arguments );
+
+            var address = oThis.getUserAddress();
+            etherScan.getUserEthBalance( address, function (response) {
+              oThis.getUserEthBalanceCallBack(response)
+            });
           } else {
             oThis.currentStep = ETH_GRANT_CONFIRMED;
             setTimeout(function () {
@@ -105,20 +112,21 @@
           var transaction_hash = arguments[0];
           console.log("nextStep :: ETH_GRANT_IN_PROGRESS calling validateTransactionHash \n", transaction_hash);
           oThis.currentStep = ETH_GRANT_CONFIRMED;
-          // metamask.validateTransactionHash( transaction_hash, function ( response ) {
-          //   oThis.validateHashCallback(response);
+          etherScan.validateTransactionHash( transaction_hash, function ( response ) {
+            oThis.validateHashCallback(response);
+          });
+
+          // $.ajax({
+          //     url: 'https://api-ropsten.etherscan.io/api?module=transaction&action=gettxreceiptstatus&txhash=' + transaction_hash,
+          //     success: function (response) {
+          //         oThis.validateHashCallback(response);
+          //     }
           // });
-          setTimeout(function () {
-              $.ajax({
-                  url: 'https://api-ropsten.etherscan.io/api?module=transaction&action=gettxreceiptstatus&txhash=' + transaction_hash,
-                  success: function (response) {
-                      oThis.validateHashCallback(response);
-                  }
-              });
-          }, 3000);
+
         break;
 
         case ETH_GRANT_CONFIRMED:
+          //throw "I am here! Its a success!!";
 
           if ( !oThis.grant_initial_ost ) {
             console.log("nextStep :: ETH_GRANT_CONFIRMED Skipping OST⍺ grant.");
@@ -139,9 +147,24 @@
           var transaction_hash = arguments[0];
           console.log("nextStep :: OST_GRANT_IN_PROGRESS calling validateTransactionHash \n", transaction_hash);
           oThis.currentStep = OST_GRANT_CONFIRMED;
-          metamask.validateTransactionHash( transaction_hash, function ( response ) {
+          // metamask.validateTransactionHash( transaction_hash, function ( response ) {
+          //   oThis.validateHashCallback(response);
+          // });
+
+          etherScan.validateTransactionHash( transaction_hash, function ( response ) {
             oThis.validateHashCallback(response);
           });
+
+          // setInterval(function () {
+          //   $.ajax({
+          //     url: 'https://api-ropsten.etherscan.io/api?module=transaction&action=gettxreceiptstatus&txhash=' + transaction_hash,
+          //     success: function (response) {
+          //       oThis.validateHashCallback(response);
+          //     }
+          //   });
+          // }, 3000);
+
+
         break;
 
         case OST_GRANT_CONFIRMED:
@@ -232,41 +255,58 @@
     }
     , validateHashCallback: function ( response ) {
       var oThis = this;
-            console.log("**************in validateHashCallback ************ ")
       if ( response.success ) {
         oThis.nextStep( response );
       } else {
         oThis.stepFailed( response );
       }
     }
-    , getUserEthBalance: function ( callback) {
+    , getUserEthBalanceCallBack( response ) {
       var oThis = this;
 
 
-      var ethScanEndPoint = "https://api-ropsten.etherscan.io/api";
-      var payload =  {
-          "module" 	: "account"
-          , "action"	: "balance"
-          , "address" : "0x56e5265c09500c7b4b1205989cd08fbc8b59fc6c"
-      };
+      console.log("***** in getuserethbalancecallback *******");
+      if(response.success)
+      {
+        oThis.nextStep(response.data.balanceInEth);
+      }
+      else
+      {
+        oThis.stepFailed();
+      }
 
-      $.get(ethScanEndPoint, payload, function ( response ) {
-          console.log("Got API Response. reponse:");
-          console.log( JSON.stringify( response.result ) +".............");
+    }
+    //, getUserEthBalance: function ( callback) {
+    //   var oThis = this;
 
-          if(response) {
-               console.log("getBalance  \n", response.result);
-               var amtInWie = BigNumber(response.result);
-               console.log("check amtinwie :" + amtInWie.toString());
-               var ethToWie = BigNumber( 10 ).exponentiatedBy( 18 );
+      //etherScan.getUserEthereumBal();
 
-               var amtInEth = amtInWie.dividedBy(ethToWie);
-               console.log("check amtInEth : " + amtInEth);
-               oThis.nextStep( amtInEth );
-          }
 
-      });
-      return;
+
+      // var ethScanEndPoint = "https://api-ropsten.etherscan.io/api";
+      // var payload =  {
+      //     "module" 	: "account"
+      //     , "action"	: "balance"
+      //     , "address" : "0x56e5265c09500c7b4b1205989cd08fbc8b59fc6c"
+      // };
+      //
+      // $.get(ethScanEndPoint, payload, function ( response ) {
+      //     console.log("Got API Response. reponse:");
+      //     console.log( JSON.stringify( response.result ) +".............");
+      //
+      //     if(response) {
+      //          console.log("getBalance  \n", response.result);
+      //          var amtInWie = BigNumber(response.result);
+      //          console.log("check amtinwie :" + amtInWie.toString());
+      //          var ethToWie = BigNumber( 10 ).exponentiatedBy( 18 );
+      //
+      //          var amtInEth = amtInWie.dividedBy(ethToWie);
+      //          console.log("check amtInEth : " + amtInEth);
+      //          oThis.nextStep( amtInEth );
+      //     }
+      //
+      // });
+      // return;
       // web3.eth.getBalance( "0x56e5265c09500c7b4b1205989cd08fbc8b59fc6c", function ( error, response ) {
       //   if ( !error && response ) {
       //     console.log("web3.eth.getBalance callback \n", response);
@@ -292,7 +332,7 @@
       //   }
       //
       // });
-    }
+    //}
 
     , ethFocetCallback: function ( response ) {
       var oThis = this;
@@ -306,8 +346,6 @@
 
     ,bindMetaMaskEvents: function () {
       var oThis = this;
-
-          console.log("********in bind metamask************")
       var metamask = ost.metamask
         , jMetaMask = $( metamask )
       ;
@@ -318,9 +356,6 @@
 
     , unbindMetaMaskEvents: function () {
       var oThis = this;
-          console.log("********in unbind metamask************")
-
-
       var metamask = ost.metamask
         , jMetaMask = $( metamask )
       ;
