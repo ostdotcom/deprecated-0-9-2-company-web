@@ -14,18 +14,18 @@ Fusce vehicula dolor arcu, sit amet blandit dolor mollis nec. Donec viverra elei
 <div class="row ost__planner">
   <div class="col-12 col-md-6 ml-auto mr-auto">
     <div class="text-center">
-      <div id="ost__planner__address" class="ost__planner__address font-weight-light mt-3 mb-3 d-inline-block"></div>
+      <div id="ost__planner__address__register__only" class="ost__planner__address font-weight-light mt-3 mb-3 d-inline-block"></div>
       <div class="mb-5">
-        <form id="get_initial_ost" class="form-container-sm st-form" 
+        <form id="get_address_to_register" class="form-container-sm st-form"
           action="/api/client/get-ost" method="POST"
           data-ost-formhelper>
           <div class="general_error invalid-feedback" data-forid="get_initial_ost">&nbsp;</div>
           <div id="emailFormGrp">
-            <input id="eth_address" type="hidden" name="eth_address"/>
+            <input id="eth_address_register_only" type="hidden" name="eth_address"/>
             <div class="invalid-feedback" data-forid="eth_address">&nbsp;</div>
           </div>
           <div class="form-group text-center" >
-            <button id="get-initial-ost-button" 
+            <button id="register_eth_address"
               class="btn btn-gold" data-submiting="Requesting..."
               type="submit" >PROCEED</button>
           </div>
@@ -63,15 +63,7 @@ Fusce vehicula dolor arcu, sit amet blandit dolor mollis nec. Donec viverra elei
 <% content_for :end_js do %>
 <script type="text/javascript">
   $(function () {
-    /*
-    ost.metamask.getOstHelper.init({
-      has_registered_address: <%= has_registered_address %>,
-      should_use_metamask_focet_for_eth: <%= should_use_metamask_focet_for_eth %>,
-      should_use_ost_focet_for_eth: <%= should_use_ost_focet_for_eth %>,
-      grant_initial_ost: <%= grant_initial_ost %>,
-      grant_initial_eth: <%= grant_initial_eth %>
-    });   
-    */ 
+
   });
 </script>
 <% end %>
