@@ -1,9 +1,5 @@
 <%
-
-  eth_mainnet_chain_id = 3;
-
-  is_mainnet = @presenter_obj.chain_interaction_params.present? && @presenter_obj.chain_interaction_params.value_chain_id.to_i == eth_mainnet_chain_id;
-
+  
   client_token = @presenter_obj.client_token
   #Place for backend to do stuff.
   token_name = client_token.name;
@@ -112,7 +108,7 @@
     </div>
   </div>
 
-  <% if is_mainnet %>
+  <% if @presenter_obj.is_main_net_value? %>
     <div id="registerAddressForMainnet" class="cover-element">
       <div class="container">
         <%= render :partial => "shared/web/economy/metamask/register_address_for_mainnet", :locals => partial_locals %>

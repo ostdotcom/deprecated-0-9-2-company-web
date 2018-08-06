@@ -1,11 +1,4 @@
 <%
-  eth_mainnet_chain_id = 1;
-
-  is_mainnet = @presenter_obj.chain_interaction_params.present? && @presenter_obj.chain_interaction_params.value_chain_id.to_i == eth_mainnet_chain_id;
-
-  #To-Do: Remove below line.
-  is_mainnet = 1;
-
    bt_name   = @presenter_obj.client_token.name;
    bt_symbol = @presenter_obj.client_token.symbol;
 
@@ -39,7 +32,7 @@
   only_validate_balances = false
 
   if @presenter_obj.client_balances.blank?
-    if is_mainnet
+    if @presenter_obj.is_main_net_value?
       only_validate_balances = true
     else
       grant_initial_ost = true

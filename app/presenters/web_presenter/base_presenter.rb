@@ -40,6 +40,14 @@ module WebPresenter
       @c_ip ||= formatter_obj.chain_interaction_params
     end
 
+    def is_main_net_value?
+      return chain_interaction_params.value_chain_id == GlobalConstant::ChainInteractionConstants.value_main_net_id
+    end
+
+    def is_ropsten_net_value?
+      return chain_interaction_params.value_chain_id == GlobalConstant::ChainInteractionConstants.value_ropsten_net_id
+    end
+
     def client_token_planner
       @c_t_p ||= begin
         formatter_obj.present? ? formatter_obj.client_token_planner : nil

@@ -1,10 +1,5 @@
 <%
-
-  eth_mainnet_chain_id = 1;
-
-  is_mainnet = @presenter_obj.chain_interaction_params.present? && @presenter_obj.chain_interaction_params.value_chain_id.to_i == eth_mainnet_chain_id;
-
-  if is_mainnet
+  if @presenter_obj.is_main_net_value?
     #Mainnet
     network_diaplay_name = "Main Ethereum Network";;
     # @Shradha: Change this image path. Get image from Jhuhi.

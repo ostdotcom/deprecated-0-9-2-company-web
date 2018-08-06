@@ -31,3 +31,7 @@ constants:
   pepo_campaign:
     encrypted_client_id: <%= ENV['STW_CAMPAIGN_ENCRYPTED_CLIENT_ID'] %>
     encrypted_list_id: <%= ENV['STW_CAMPAIGN_ENCRYPTED_LIST_ID'] %>
+
+  chain_interaction_constants:
+    value_main_net_id: <%= ENV['VALUE_MAIN_NET_ID'] %>
+    value_ropsten_net_id: <%= ENV['VALUE_ROPSTEN_NET_ID'] %>
