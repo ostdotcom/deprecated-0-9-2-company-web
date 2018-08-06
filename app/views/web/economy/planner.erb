@@ -1,4 +1,11 @@
 <%
+  eth_mainnet_chain_id = 1;
+
+  is_mainnet = @presenter_obj.chain_interaction_params.present? && @presenter_obj.chain_interaction_params.value_chain_id.to_i == eth_mainnet_chain_id;
+
+  #To-Do: Remove below line.
+  is_mainnet = 1;
+
    bt_name   = @presenter_obj.client_token.name;
    bt_symbol = @presenter_obj.client_token.symbol;
 
@@ -25,12 +32,22 @@
   value_in_fiat_sym = value_in_fiat_key.to_sym;
 
   has_verified_email = @presenter_obj.user.is_verified?
+
+  #Defaults
+  grant_initial_ost = false
+  grant_initial_eth = false
+  only_validate_balances = false
+
   if @presenter_obj.client_balances.blank?
-  grant_initial_ost = true
-  grant_initial_eth = true
+    if is_mainnet
+      only_validate_balances = true
+    else
+      grant_initial_ost = true
+      grant_initial_eth = true
+    end
   else
-  grant_initial_ost = @presenter_obj.client_balances.is_eligible_for_ost_grant?
-  grant_initial_eth = @presenter_obj.client_balances.is_eligible_for_eth_grant?
+    grant_initial_ost = @presenter_obj.client_balances.is_eligible_for_ost_grant?
+    grant_initial_eth = @presenter_obj.client_balances.is_eligible_for_eth_grant?
   end
 
   bt_to_fiat_id = "bt_to_fiat";
@@ -188,6 +205,7 @@
       has_verified_email: <%= has_verified_email %>,
       grant_initial_ost: <%= grant_initial_ost %>,
       grant_initial_eth: <%= grant_initial_eth %>,
+      only_validate_balances: <%= only_validate_balances %>,
       min_st_prime_to_mint: "<%= min_st_prime_to_mint %>",
       ost_grant_value: "<%= ost_grant_value %>",
       idBtToFiat: "<%= bt_to_fiat_id %>",
@@ -196,6 +214,7 @@
       idOstToBtText: "ost_to_bt_text"
     });
   });
+  console.log("@presenter_obj", <%= raw @presenter_obj.to_json %> );
 </script>
 <% end %>
 <%#= render :partial => "/web/economy/planner/metamask_installed" %>

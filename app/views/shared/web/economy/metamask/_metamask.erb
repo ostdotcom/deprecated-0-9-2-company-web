@@ -1,4 +1,9 @@
 <%
+
+  eth_mainnet_chain_id = 3;
+
+  is_mainnet = @presenter_obj.chain_interaction_params.present? && @presenter_obj.chain_interaction_params.value_chain_id.to_i == eth_mainnet_chain_id;
+
   client_token = @presenter_obj.client_token
   #Place for backend to do stuff.
   token_name = client_token.name;
@@ -107,11 +112,21 @@
     </div>
   </div>
 
-  <div id="getInitialOstCover" class="cover-element">
-    <div class="container">
-      <%= render :partial => "/web/economy/planner/get_initial_ost", :locals => partial_locals %>
+  <% if is_mainnet %>
+    <div id="registerAddressForMainnet" class="cover-element">
+      <div class="container">
+        <%= render :partial => "shared/web/economy/metamask/register_address_for_mainnet", :locals => partial_locals %>
+      </div>
     </div>
-  </div>
+  <% else %>
+    <div id="getInitialOstCover" class="cover-element">
+      <div class="container">
+        <%= render :partial => "/web/economy/planner/get_initial_ost", :locals => partial_locals %>
+      </div>
+    </div>
+  <% end %>
+
+
 
   <div id="process_failure_error_cover" class="cover-element">
     <div class="container">

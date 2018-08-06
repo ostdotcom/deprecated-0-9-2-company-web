@@ -1,20 +1,18 @@
 <%
-  is_mainnet = true;
-  
 
-  #Ropsten
-  network_diaplay_name = rposten_network_diaplay = "Ropsten Test Network";
-  banner_img_path = ropsten_img_path = "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/wrong-network-modal-image.png";
+  eth_mainnet_chain_id = 1;
 
-
-  #Mainnet
-  mainnet_network_diaplay = "Main Ethereum Network";
-  # @Shradha: Change this image path. Get image from Jhuhi.
-  mainnet_img_path = "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/wrong-network-modal-image.png";
+  is_mainnet = @presenter_obj.chain_interaction_params.present? && @presenter_obj.chain_interaction_params.value_chain_id.to_i == eth_mainnet_chain_id;
 
   if is_mainnet
-    network_diaplay_name = mainnet_network_diaplay;
-    banner_img_path = mainnet_img_path;
+    #Mainnet
+    network_diaplay_name = "Main Ethereum Network";;
+    # @Shradha: Change this image path. Get image from Jhuhi.
+    banner_img_path = "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/wrong-network-modal-image.png";
+  else
+    #Ropsten
+    network_diaplay_name = "Ropsten Test Network";
+    banner_img_path = "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/wrong-network-modal-image.png";
   end
 
 
