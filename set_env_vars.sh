@@ -10,7 +10,7 @@ export CW_CLOUDFRONT_DOMAIN=''
 
 # Company API details
 export CW_ROOT_URL='http://developmentost.com:8080/'
-export CW_CA_ROOT_URL='http://developmentost.com:8080/'
+export CW_CA_ROOT_URL='http://kit.developmentost.com:8080/'
 
 # Basic Auth credentials
 export CW_BASIC_AUTH_USERNAME='ost'
@@ -24,7 +24,7 @@ export VALUE_MAIN_NET_ID=1
 export VALUE_ROPSTEN_NET_ID=3
 
 # OST Other Product Urls
-export COMPANY_KIT_ROOT_URL='http://developmentost.com:8080/'
+export COMPANY_KIT_ROOT_URL='http://kit.developmentost.com:8080/'
 export COMPANY_KYC_ROOT_URL='http://kyc.developmentost.com:8080/'
 export COMPANY_VIEW_ROOT_URL='http://view.developmentost.com:8080/'
 export COMPANY_SIMPLE_TOKEN_URL='http://developmentsimpletoken.org:8080/'
