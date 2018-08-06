@@ -48,6 +48,14 @@ module WebPresenter
       return chain_interaction_params.value_chain_id.to_i == GlobalConstant::ChainInteractionConstants.value_ropsten_net_id
     end
 
+    def is_eligible_for_ost_grant?
+      return is_ropsten_net_value? ? false : client_balances.is_eligible_for_ost_grant?
+    end
+
+    def is_eligible_for_eth_grant?
+      return is_main_net_value? ? false : client_balances.is_eligible_for_eth_grant?
+    end
+
     def client_token_planner
       @c_t_p ||= begin
         formatter_obj.present? ? formatter_obj.client_token_planner : nil

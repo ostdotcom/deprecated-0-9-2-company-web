@@ -39,8 +39,8 @@
       grant_initial_eth = true
     end
   else
-    grant_initial_ost = @presenter_obj.client_balances.is_eligible_for_ost_grant?
-    grant_initial_eth = @presenter_obj.client_balances.is_eligible_for_eth_grant?
+    grant_initial_ost = @presenter_obj.is_eligible_for_ost_grant?
+    grant_initial_eth = @presenter_obj.is_eligible_for_eth_grant?
   end
 
   bt_to_fiat_id = "bt_to_fiat";

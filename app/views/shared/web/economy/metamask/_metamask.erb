@@ -1,5 +1,5 @@
 <%
-  
+
   client_token = @presenter_obj.client_token
   #Place for backend to do stuff.
   token_name = client_token.name;
@@ -22,8 +22,8 @@
     grant_initial_ost = true
     grant_initial_eth = true
    else
-    grant_initial_ost = @presenter_obj.client_balances.is_eligible_for_ost_grant?
-    grant_initial_eth = @presenter_obj.client_balances.is_eligible_for_eth_grant?
+    grant_initial_ost = @presenter_obj.is_eligible_for_ost_grant?
+    grant_initial_eth = @presenter_obj.is_eligible_for_eth_grant?
   end
 
 
