@@ -41,11 +41,11 @@ module WebPresenter
     end
 
     def is_main_net_value?
-      return chain_interaction_params.value_chain_id == GlobalConstant::ChainInteractionConstants.value_main_net_id
+      return chain_interaction_params.value_chain_id.to_i == GlobalConstant::ChainInteractionConstants.value_main_net_id
     end
 
     def is_ropsten_net_value?
-      return chain_interaction_params.value_chain_id == GlobalConstant::ChainInteractionConstants.value_ropsten_net_id
+      return chain_interaction_params.value_chain_id.to_i == GlobalConstant::ChainInteractionConstants.value_ropsten_net_id
     end
 
     def client_token_planner
