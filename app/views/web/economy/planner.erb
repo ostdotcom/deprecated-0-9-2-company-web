@@ -32,7 +32,7 @@
   only_validate_balances = false
 
   if @presenter_obj.client_balances.blank?
-    if @presenter_obj.is_main_net_value?
+    if GlobalConstant::Base.main_sub_environment?
       only_validate_balances = true
     else
       grant_initial_ost = true

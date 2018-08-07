@@ -110,7 +110,7 @@
     </div>
   </div>
 
-  <% if @presenter_obj.is_main_net_value? %>
+  <% if GlobalConstant::Base.main_sub_environment? %>
     <div id="registerAddressForMainnet" class="cover-element">
       <div class="container">
         <%= render :partial => "shared/web/economy/metamask/register_address_for_mainnet", :locals => partial_locals %>
