@@ -60,55 +60,118 @@
     , onAddressChanged: function ( event, eventData, newAddress ) { 
       //DO NOT Assign oThis HERE. Required for bindMetaMaskEvents/unbindMetaMaskEvents
 
-      console.log("metamask.events.onAddressChanged");
+      
       //I have received a valid address.
       $("#ost__planner__address__register__only").text( newAddress );
       $("#eth_address_register_only").val( newAddress );
       $("#register_eth_address").prop("disabled", true);
-      oThis.validateEthBalance();
+      oThis.startBalanceValidation();
     }
     , getUserAddress: function () {
       return $("#eth_address_register_only").val();
     }
 
+    , queuedIcon: '<img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/pending-loader-1.svg" width="30" height="30" />'
+    , pendingIcon: '<img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader-1.gif" width="30" height="30" />'
+    , processedIcon: '<img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/select-token-checkmark.svg" width="30" height="30" />'
+    , failedIcon: ''
+      + '<svg class="icon-banner align-middle">'
+        + '<switch> ' 
+          + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use> ' 
+        + '</switch> ' 
+      + '</svg>'
+    , startBalanceValidation : function () {
+
+      var oThis = this
+        , jEth  = $("#register_address_validate_eth_amount")
+        , jOst  = $("#register_address_validate_ost_amount")
+      ;
+
+      jEth.find(".j_validate_message").html("Validate address for ETH");
+      jOst.find(".j_validate_message").html("Validate address for OST");
+
+      jEth.find(".j_validate_icon").html( oThis.queuedIcon );
+      jOst.find(".j_validate_icon").html( oThis.queuedIcon );
+
+
+      oThis.validateEthBalance();
+    }
+
     , minRequiredETHBalance: "0.05"
     , validateEthBalance: function () {
+      var oThis = this
+        , jEth  = $("#register_address_validate_eth_amount")
+      ;
+
+      jEth.find(".j_validate_icon").html( oThis.pendingIcon );
+
       //Call etherscan API to ensure user has minimum of 0.05 ETH.
       var newAddress = oThis.getUserAddress();
-      console.log("validateEthBalance newAddress", newAddress);
+      
       etherScan.getUserEthBalance( newAddress, function (response) {
         oThis.getUserEthBalanceCallBack(response)
       });
-        //If balance is not sufficient, show error on UI.
-
-        //If balance is sufficient, call validateOstBalance
-        //oThis.validateOstBalance( newAddress );
     }
     ,getUserEthBalanceCallBack( response ) {
-      var oThis = this;
+      var oThis = this
+        , jEth  = $("#register_address_validate_eth_amount")
+      ;
+
       if(response.success ) {
         var currentEthBalance = BigNumber( response.data.balanceInEth || "0" );
         if( currentEthBalance.isGreaterThan( oThis.minRequiredETHBalance ) ) {
-          console.log("----- Done for the day!");
-          //@Shradha: Move this.
-          $("#register_eth_address").prop("disabled", false);
           // User has sufficient ETH, lets validate OST.
-          // oThis.validateOstBalance(address);
+          jEth.find(".j_validate_icon").html( oThis.processedIcon );
         } else {
           //User does not have ETH. Stop them here.
-
+          jEth.find(".j_validate_icon").html( oThis.failedIcon );
         }
       } else {
-        console.log("******in getuserethbalancecallback :: failure ********")
+        jEth.find(".j_validate_icon").html( oThis.failedIcon );
       }
+
+      // Never mind the ETH balance, just check the OST Balance.
+      oThis.validateOstBalance();
 
     }
 
     , minRequiredOSTBalance: null
     , validateOstBalance: function ( newAddress ) {
-      console.log("** in validateOstBalance **")
+      var oThis = this
+        , jOst  = $("#register_address_validate_ost_amount")
+      ;
+      var newAddress = oThis.getUserAddress();
+      jOst.find(".j_validate_icon").html( oThis.pendingIcon );
+      
+      etherScan.getUserOstBalance( newAddress, function (response) {
+        oThis.getOstBalanceCallback(response)
+      });
 
 
+    }
+    , getOstBalanceCallback: function ( response ) {
+      var oThis = this;
+      var oThis = this
+        , jOst  = $("#register_address_validate_ost_amount")
+      ;
+
+      if(response.success ) {
+        var currentEthBalance = BigNumber( response.data.balanceInEth || "0" );
+        if( currentEthBalance.isGreaterThan( oThis.minRequiredETHBalance ) ) {
+          // User has sufficient ETH, lets validate OST.
+          jOst.find(".j_validate_icon").html( oThis.processedIcon );
+        } else {
+          //User does not have ETH. Stop them here.
+          jOst.find(".j_validate_icon").html( oThis.failedIcon );
+        }
+      } else {
+        jOst.find(".j_validate_icon").html( oThis.failedIcon );
+      }
+
+      $("#register_eth_address").prop("disabled", false);
+      
+
+      
     }
 
   };

@@ -24,9 +24,27 @@ Fusce vehicula dolor arcu, sit amet blandit dolor mollis nec. Donec viverra elei
             <input id="eth_address_register_only" type="hidden" name="eth_address"/>
             <div class="invalid-feedback" data-forid="eth_address">&nbsp;</div>
           </div>
+
+          <div class="row" id="register_address_validate_eth_amount">
+            <div class="col-10 mx-auto text-left rounded border-0 font-weight-lighter">
+              <div class="alert alert-secondary" role="alert">
+                <span class="j_validate_icon"></span>
+                <span class="ml-3 align-middle j_validate_message"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row" id="register_address_validate_ost_amount">
+            <div class="col-10 mx-auto text-left rounded border-0 font-weight-lighter">
+              <div class="alert alert-secondary" role="alert">
+                <span class="j_validate_icon"></span>
+                <span class="ml-3 align-middle j_validate_message">{{display_text}}</span>
+              </div>
+            </div>
+          </div>
+
           <div class="form-group text-center" >
             <button id="register_eth_address"
-              class="btn btn-gold" data-submiting="Requesting..."
+              class="btn btn-gold hide" data-submiting="PPROCEEDING..."
               type="submit" >PROCEED</button>
           </div>
         </form>
