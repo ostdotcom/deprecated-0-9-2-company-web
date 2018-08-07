@@ -76,10 +76,12 @@
       should_use_ost_focet_for_eth: <%= should_use_ost_focet_for_eth %>,
       validateTransactionHashInterval: <%= validate_transaction_hash_interval %>,
       validateTransactionHashMaxTry: <%= validate_transaction_hash_max_try %>,
-      simpleTokenContractAddress: "<%= simple_token_contract_address %>"
+      simpleTokenContractAddress: "<%= simple_token_contract_address %>",
+      minRequiredOSTBalance: 100,
+      minRequiredETHBalance: 0.05
     };
     ost.metamask.init( config );
-    ost.etherScan.init( config )
+    ost.ostScan.init( config )
   });
 </script>
 <% end %>

@@ -5,8 +5,21 @@
 
    etherScan = ns("ost.etherScan");
   var oThis = metamask.registerMainnetAddressHelper = { 
-    init: function ( config ) {
-      $.extend( oThis, config);
+    init: function () {
+      var oThis = this
+        , jValidateBtn = $("#validate_eth_address_btn")
+        , jForm = $("#register_eth_address_form")
+      ;
+      jValidateBtn.click( function () {
+        oThis.startBalanceValidation();
+      });
+
+      var formHelper = jForm.formHelper();
+      formHelper.success = function( response ) {
+        if ( response && response.success && oThis.onValidatedCallback ) {
+          oThis.onValidatedCallback.apply(oThis, arguments);
+        }
+      };
     }
     , onValidatedCallback: null
     , validateAddress : function ( callback ) {
@@ -86,6 +99,8 @@
       var oThis = this
         , jEth  = $("#register_address_validate_eth_amount")
         , jOst  = $("#register_address_validate_ost_amount")
+        , jValidateBtn = $("#validate_eth_address_btn")
+        , jProceedBtn = $("#register_eth_address_btn")
       ;
 
       jEth.find(".j_validate_message").html("Validate address for ETH");
@@ -96,20 +111,19 @@
 
 
       //1. Hide register_eth_address_btn
-      $("#register_eth_address_btn").prop("disabled", true).hide();
+      jProceedBtn.prop("disabled", true).hide();
 
       //2. Show validate_eth_address_btn, but disbale it.
-      var jValidateBtn = $("#validate_eth_address_btn");
       jValidateBtn.prop("disabled", true).show();
 
       //3. Change the display text of the validate_eth_address_btn
       jValidateBtn.val( "VALIDATING..." );
 
       //oThis.validateEthBalance();
-      oThis.validateEthOstBalance();
+      oThis.validateOstEthBalance();
     }
     , minRequiredOSTBalance: 1000
-    ,validateEthOstBalance(){
+    , validateOstEthBalance: function() {
       var oThis = this
         , jEth  = $("#register_address_validate_eth_amount")
         , jOst  = $("#register_address_validate_ost_amount")
@@ -123,131 +137,91 @@
       var newAddress = oThis.getUserAddress();
 
       ostScan.getUserOstEthBalance( newAddress, function (response) {
-        oThis.getUserOstEthBalanceCallBack(response)
+        oThis.getUserOstEthBalanceCallBack(response, newAddress);
       });
-    },getUserOstEthBalanceCallBack(response){
+    },getUserOstEthBalanceCallBack: function (response, validatedAddress) {
       var oThis = this
         , jEth  = $("#register_address_validate_eth_amount")
         , jOst  = $("#register_address_validate_ost_amount")
-
+        , isAddressValid = true
       ;
 
-      if(response.success ) {
-        var currentEthBalance = BigNumber( response.data.balanceInEth || "0" );
-        if( currentEthBalance.isGreaterThan( oThis.minRequiredETHBalance ) ) {
+      var currentSelectedAddress = oThis.getUserAddress();
+
+      if ( validatedAddress != currentSelectedAddress ) {
+        //Ignore the response, this is an old response.
+        console.log("Ignore the response, this is an old response.");
+        return;
+      }
+
+      if(response && response.success ) {
+
+        var oThis = this
+          , balances = response.data.balances
+          , currentEthBalance = BigNumber( balances.eth || 0 )
+          , currentOstBalance = BigNumber( balances.OST || 0 )
+        ;
+
+        console.log("** currentEthBalance **" + currentEthBalance)
+        if( currentEthBalance.isGreaterThan( ostScan.config.minRequiredETHBalance ) ) {
           // User has sufficient ETH, lets validate OST.
           jEth.find(".j_validate_icon").html( oThis.processedIcon );
+          isAddressValid = isAddressValid && true;
         } else {
           //User does not have ETH. Stop them here.
           jEth.find(".j_validate_icon").html( oThis.failedIcon );
+          isAddressValid = isAddressValid && false;
         }
 
-
-        var currentOstBalance = BigNumber( response.data.ostTokenBalance || "0" );
-        if( currentOstBalance.isGreaterThan( oThis.minRequiredOSTBalance ) ) {
+        console.log("** currentOstBalance **" + currentOstBalance)
+        if( currentOstBalance.isGreaterThan( ostScan.config.minRequiredOSTBalance ) ) {
           // User has sufficient ETH, lets validate OST.
           jOst.find(".j_validate_icon").html( oThis.processedIcon );
+          isAddressValid = isAddressValid && true;
         } else {
           //User does not have ETH. Stop them here.
           jOst.find(".j_validate_icon").html( oThis.failedIcon );
-        }
-
-
-
-
-
-      } else {
-        jEth.find(".j_validate_icon").html( oThis.failedIcon );
-      }
-
-      oThis.validationComplete();
-
-
-
-    }
-
-    , validationComplete: function () {
-
-    }
-
-
-    , minRequiredETHBalance: "0.05"
-    , validateEthBalance: function () {
-      var oThis = this
-        , jEth  = $("#register_address_validate_eth_amount")
-      ;
-
-      jEth.find(".j_validate_icon").html( oThis.pendingIcon );
-
-      //Call etherscan API to ensure user has minimum of 0.05 ETH.
-      var newAddress = oThis.getUserAddress();
-      
-      etherScan.getUserEthBalance( newAddress, function (response) {
-        oThis.getUserEthBalanceCallBack(response)
-      });
-    }
-    ,getUserEthBalanceCallBack( response ) {
-      var oThis = this
-        , jEth  = $("#register_address_validate_eth_amount")
-      ;
-
-      if(response.success ) {
-        var currentEthBalance = BigNumber( response.data.balanceInEth || "0" );
-        if( currentEthBalance.isGreaterThan( oThis.minRequiredETHBalance ) ) {
-          // User has sufficient ETH, lets validate OST.
-          jEth.find(".j_validate_icon").html( oThis.processedIcon );
-        } else {
-          //User does not have ETH. Stop them here.
-          jEth.find(".j_validate_icon").html( oThis.failedIcon );
+          isAddressValid = isAddressValid && false;
         }
       } else {
         jEth.find(".j_validate_icon").html( oThis.failedIcon );
-      }
-
-      // Never mind the ETH balance, just check the OST Balance.
-      oThis.validateOstBalance();
-
-    }
-
-
-    , validateOstBalance: function ( newAddress ) {
-      var oThis = this
-        , jOst  = $("#register_address_validate_ost_amount")
-      ;
-      var newAddress = oThis.getUserAddress();
-      jOst.find(".j_validate_icon").html( oThis.pendingIcon );
-      
-      etherScan.getUserOstBalance( newAddress, function (response) {
-        oThis.getOstBalanceCallback(response)
-      });
-
-
-    }
-    , getOstBalanceCallback: function ( response ) {
-      var oThis = this;
-      var oThis = this
-        , jOst  = $("#register_address_validate_ost_amount")
-      ;
-
-      if(response.success ) {
-        var currentEthBalance = BigNumber( response.data.balanceInEth || "0" );
-        if( currentEthBalance.isGreaterThan( oThis.minRequiredETHBalance ) ) {
-          // User has sufficient ETH, lets validate OST.
-          jOst.find(".j_validate_icon").html( oThis.processedIcon );
-        } else {
-          //User does not have ETH. Stop them here.
-          jOst.find(".j_validate_icon").html( oThis.failedIcon );
-        }
-      } else {
         jOst.find(".j_validate_icon").html( oThis.failedIcon );
       }
 
-      $("#register_eth_address_btn").prop("disabled", false);
-      
-
-      
+      oThis.validationComplete( isAddressValid );
     }
 
+    , validationComplete: function ( isAddressValid ) {
+      var oThis = this
+        , jEth  = $("#register_address_validate_eth_amount")
+        , jOst  = $("#register_address_validate_ost_amount")
+        , jValidateBtn = $("#validate_eth_address_btn")
+        , jProceedBtn = $("#register_eth_address_btn")
+      ;
+
+      if ( isAddressValid ) {
+        //1. Hide validate_eth_address_btn
+        jValidateBtn.prop("disabled", true).hide();
+
+        //2. Show register_eth_address_btn and enable it.
+        jProceedBtn.prop("disabled", false).show();
+
+        //3. Change the display text of the validate_eth_address_btn
+        jValidateBtn.val( "Validate" );
+
+      } else {
+        //1. Hide register_eth_address_btn
+        jProceedBtn.prop("disabled", true).hide();
+
+        //2. Show validate_eth_address_btn, but enable it.
+        jValidateBtn.prop("disabled", false).show();
+
+        //3. Change the display text of the validate_eth_address_btn
+        jValidateBtn.val( "Validate" );
+      }
+    }
   };
+
+  metamask.registerMainnetAddressHelper.init();
 
 })(window, jQuery);
