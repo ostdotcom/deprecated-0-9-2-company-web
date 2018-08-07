@@ -29,11 +29,12 @@
 
 
   eligible_grant_value = 10000;
-  eligible_grant_unit = "OST⍺"
+  eligible_grant_unit = ost_currency_symbol
   has_registered_address = false;
   # Should use MetaMask for granting ETH
-  should_use_metamask_focet_for_eth = Rails.env.development? ? false : true
-  should_use_ost_focet_for_eth = true;
+  should_use_metamask_focet_for_eth = false #Rails.env.development? ? false : true
+  should_use_ost_focet_for_eth = false
+  should_call_for_grant_of_ost = false
   validate_transaction_hash_interval = 5000; #Miliseconds.
   validate_transaction_hash_max_try = 100;
 

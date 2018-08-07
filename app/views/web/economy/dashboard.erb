@@ -10,7 +10,9 @@
 <% content_for :end_js do %>
   <script type="text/javascript">
     $( function () {
-      ost.dashboard.init();
+      ost.dashboard.init({
+        ost_currency_symbol: "<%= ost_currency_symbol %>"
+      });
     })
   </script>
 <% end %>

@@ -10,6 +10,8 @@
     simpleDataTable: null
     ,init: function ( config ) {
       var oThis = this;
+
+      oThis.ost_currency_symbol = config.ost_currency_symbol;
       oThis.simpleDataTable = new ost.SimpleDataTable({
         jParent: $("#top-holders")
       });
@@ -120,7 +122,7 @@
           },
           {
             type: 'number',
-            opt_label: 'Volume of Transactions in OST⍺',
+            opt_label: 'Volume of Transactions in '+oThis.ost_currency_symbol,
             opt_id: 'token_ost_volume'
           }
         ],
@@ -135,7 +137,7 @@
             },
             1: {
               targetAxisIndex: 1,
-              labelInLegend: 'Volume of Transactions in OST⍺ (right axis)',
+              labelInLegend: 'Volume of Transactions in '+oThis.ost_currency_symbol+' (right axis)',
               color: 'b2dde6'
             }
           },

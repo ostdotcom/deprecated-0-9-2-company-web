@@ -1,13 +1,13 @@
 <%
+
+  network_diaplay_name = ost_valuechain_text
   if @presenter_obj.is_main_net_value?
     #Mainnet
-    network_diaplay_name = "Main Ethereum Network";;
     # @Shradha: Change this image path. Get image from Jhuhi.
-    banner_img_path = "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/wrong-network-modal-image.png";
+    banner_img_path = "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/wrong-network-modal-image.png"
   else
     #Ropsten
-    network_diaplay_name = "Ropsten Test Network";
-    banner_img_path = "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/wrong-network-modal-image.png";
+    banner_img_path = "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/wrong-network-modal-image.png"
   end
 
 

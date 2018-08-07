@@ -105,11 +105,11 @@
                 <span class="font-weight-bold"><%= number_with_delimiter(min_bt_to_mint, :delimiter => ',') %> <%#= bt_symbol %></span>.
               </p>
               <p class="font-weight-light font-size-p">
-                An equivalent value of OST⍺ will be staked automatically at
-                  <span class="font-weight-bold d-none"><%= ost_to_bt %> <%= bt_symbol %> = 1 OST⍺</span> 
-                  <span class="font-weight-bold">1 <%= bt_symbol %> = <%= bt_to_ost %> OST⍺</span>
+                An equivalent value of <%= ost_currency_symbol %> will be staked automatically at
+                  <span class="font-weight-bold d-none"><%= ost_to_bt %> <%= bt_symbol %> = 1 <%= ost_currency_symbol %></span>
+                  <span class="font-weight-bold">1 <%= bt_symbol %> = <%= bt_to_ost %> <%= ost_currency_symbol %></span>
               </p>
-              <p class="font-weight-light font-size-p">You will need to reserve a minimum of <%= min_st_prime_to_mint %> OST⍺ to pay "gas" for <%= bt_symbol %> transaction by your users. <%= min_st_prime_to_mint %> OST⍺ is enough gas reserve for approximately <span class="font-weight-bold">150,000 transfers</span>.</p>
+              <p class="font-weight-light font-size-p">You will need to reserve a minimum of <%= min_st_prime_to_mint %> <%= ost_currency_symbol %> to pay "gas" for <%= bt_symbol %> transaction by your users. <%= min_st_prime_to_mint %> OST⍺ is enough gas reserve for approximately <span class="font-weight-bold">150,000 transfers</span>.</p>
             </div>
           </div>
         </div>
@@ -139,10 +139,10 @@
               <li class="list-group-item font-weight-light font-size-p">
                 <div class="d-flex align-items-center">
                   <div class="mr-2">
-                    Based on the current value of OST⍺ you will set a conversion rate of
+                    Based on the current value of <%= ost_currency_symbol %> you will set a conversion rate of
                     <strong class="font-weight-bold">
-                      <span class="d-none"><%= ost_to_bt %> <%= bt_symbol %> = 1 OST⍺</span>
-                      <span>1 <%= bt_symbol %> = <%= bt_to_ost %> OST⍺</span>
+                      <span class="d-none"><%= ost_to_bt %> <%= bt_symbol %> = 1 <%= ost_currency_symbol %></span>
+                      <span>1 <%= bt_symbol %> = <%= bt_to_ost %> <%= ost_currency_symbol %></span>
                     </strong>
                   </div>
                   <div class="mr-auto text-uppercase">

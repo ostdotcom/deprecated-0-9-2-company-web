@@ -39,7 +39,7 @@
           <div class="card-header">
             <div class="d-flex align-items-center">
               <div class="mr-auto">
-                <h3 class="mb-0">Mint Tokens | Reserve OST⍺ for Gas</h3>
+                <h3 class="mb-0">Mint Tokens | Reserve <%= ost_currency_symbol %> for Gas</h3>
               </div>
             </div>
           </div>
@@ -79,7 +79,7 @@
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use> 
                     </switch> 
                 </svg>
-                Insufficient amount of OST⍺. These can only be used to reserve gas.
+                Insufficient amount of <%= ost_currency_symbol %>. These can only be used to reserve gas.
               </div>
             <% end %>
             <div class="general_error invalid-feedback" data-forid="token_supply_mint_form">&nbsp;</div>
@@ -89,7 +89,7 @@
   </div>
   <div class="col-12" id="token_supply_widget_overlay">
     <div class="card text-center p-5">
-      <h3 class="mb-0">Mint  Tokens | Reserve OST⍺ for Gas</h3>
+      <h3 class="mb-0">Mint  Tokens | Reserve <%= ost_currency_symbol %> for Gas</h3>
       <div class="simulator-image-wrapper my-4">
         <svg style="width: 150px">
           <switch>

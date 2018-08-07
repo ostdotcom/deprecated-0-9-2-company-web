@@ -5,8 +5,8 @@
         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fund-wallet"></use>
       </switch>
     </svg>
-    <h3 class="text-center font-weight-bold letter-space-1 mt-5">We will fund <%= eligible_grant_value %> OST⍺ into your Metamask wallet shown below.</h3>
-    <p class="font-weight-light mb-5 text-muted"> You can request additional OST⍺ every 24 hours.</p>
+    <h3 class="text-center font-weight-bold letter-space-1 mt-5">We will fund <%= eligible_grant_value %> <%= ost_currency_symbol %> into your Metamask wallet shown below.</h3>
+    <p class="font-weight-light mb-5 text-muted"> You can request additional <%= ost_currency_symbol %> every 24 hours.</p>
   </div>
 </div>
 <div class="row ost__planner">
@@ -25,7 +25,7 @@
           <div class="form-group text-center" >
             <button id="get-initial-ost-button" 
               class="btn btn-gold" data-submiting="Requesting..."
-              type="submit" >GET OST⍺</button>
+              type="submit" >GET <%= ost_currency_symbol %></button>
           </div>
         </form>
       </div>
@@ -46,7 +46,8 @@
       should_use_metamask_focet_for_eth: <%= should_use_metamask_focet_for_eth %>,
       should_use_ost_focet_for_eth: <%= should_use_ost_focet_for_eth %>,
       grant_initial_ost: <%= grant_initial_ost %>,
-      grant_initial_eth: <%= grant_initial_eth %>
+      grant_initial_eth: <%= grant_initial_eth %>,
+      ost_currency_symbol: "<%= ost_currency_symbol %>"
     });    
   });
 </script>

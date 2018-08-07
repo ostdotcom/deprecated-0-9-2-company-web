@@ -81,7 +81,7 @@
       ostVal = btToOst;
 
 
-      finalText = PriceOracle.toDisplayBt( btVal ) + " = " + PriceOracle.toOst( ostVal ) + " OST";
+      finalText = PriceOracle.toDisplayBt( btVal ) + " = " + PriceOracle.toOst( ostVal ) + " " + oThis.ost_currency_symbol;
 
       oThis.jOstToBtText.html( finalText );
     },
