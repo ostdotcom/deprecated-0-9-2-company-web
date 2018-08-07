@@ -50,7 +50,7 @@
           data: {
             "module"  : "account"
             , "action"  : "tokenbalance"
-            , "contractaddress": oThis.simpleTokenContractAddress
+            , "contractaddress": oThis.config.simpleTokenContractAddress
             , "address" : address
           },
           type:"GET",
