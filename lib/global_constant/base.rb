@@ -46,10 +46,6 @@ module GlobalConstant
         @stw_campaign_details ||= fetch_config.fetch('pepo_campaign', {}).with_indifferent_access
       end
 
-      def chain_interaction_constants
-        @chain_interaction_constants ||= fetch_config.fetch('chain_interaction_constants', {}).with_indifferent_access
-      end
-
       def is_public_launch_done?
         # Change this to true when we launch Kit to general public
         true

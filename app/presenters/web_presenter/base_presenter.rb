@@ -40,16 +40,8 @@ module WebPresenter
       @c_ip ||= formatter_obj.chain_interaction_params
     end
 
-    def is_main_net_value?
-      return chain_interaction_params.value_chain_id.to_i == GlobalConstant::ChainInteractionConstants.value_main_net_id
-    end
-
-    def is_ropsten_net_value?
-      return chain_interaction_params.value_chain_id.to_i == GlobalConstant::ChainInteractionConstants.value_ropsten_net_id
-    end
-
     def is_eligible_for_ost_grant?
-      return is_ropsten_net_value? ? false : client_balances.is_eligible_for_ost_grant?
+      return GlobalConstant::Base.main_sub_environment? ? false : client_balances.is_eligible_for_ost_grant?
     end
 
     def is_eligible_for_eth_grant?
