@@ -76,7 +76,7 @@
               console.log("Failed to get User OST Balance ..... this means api returned 0");
               //Failed to get balance.
               setTimeout(function () {
-                oThis.getUserEthBalance(address, callback, trycount_bal);
+                oThis.getUserOstBalance(address, callback, trycount_bal);
               }, oThis.config.apiCallInterval);
             }
 
@@ -88,7 +88,7 @@
             console.log("Failed to get User OST balance trying again ...... this means api call failed")
             //Failed to get balance.
             setTimeout(function () {
-              oThis.getUserEthBalance(address, callback, trycount_bal);
+              oThis.getUserOstBalance(address, callback, trycount_bal);
             }, oThis.config.apiCallInterval);
           }
         }
