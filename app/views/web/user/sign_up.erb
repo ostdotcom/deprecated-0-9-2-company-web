@@ -5,7 +5,7 @@
 
 <div class="container-fluid" style="min-height: 100vh">
   <div class="row" style="min-height: 100vh">
-  <% if is_mainnet %>
+  <% if GlobalConstant::Base.main_sub_environment? %>
     <%= render :partial => "/web/user/sign_up_left_mainnet"%>
   <% else %>
     <%= render :partial => "/web/user/sign_up_left_testnet" %>

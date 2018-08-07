@@ -65,7 +65,7 @@
       //I have received a valid address.
       $("#ost__planner__address__register__only").text( newAddress );
       $("#eth_address_register_only").val( newAddress );
-      $("#register_eth_address").prop("disabled", true);
+
       oThis.startBalanceValidation();
     }
     , getUserAddress: function () {
@@ -95,8 +95,20 @@
       jOst.find(".j_validate_icon").html( oThis.queuedIcon );
 
 
-      oThis.validateEthBalance();
+      //1. Hide register_eth_address_btn
+      $("#register_eth_address_btn").prop("disabled", true).hide();
+
+      //2. Show validate_eth_address_btn, but disbale it.
+      var jValidateBtn = $("#validate_eth_address_btn");
+      jValidateBtn.prop("disabled", true).show();
+
+      //3. Change the display text of the validate_eth_address_btn
+      jValidateBtn.val( "VALIDATING..." );
+
+      //oThis.validateEthBalance();
+      oThis.validateEthOstBalance();
     }
+    , minRequiredOSTBalance: 1000
     ,validateEthOstBalance(){
       var oThis = this
         , jEth  = $("#register_address_validate_eth_amount")
@@ -113,7 +125,7 @@
       ostScan.getUserOstEthBalance( newAddress, function (response) {
         oThis.getUserOstEthBalanceCallBack(response)
       });
-    },getUserOstEthBalanceCallBack(){
+    },getUserOstEthBalanceCallBack(response){
       var oThis = this
         , jEth  = $("#register_address_validate_eth_amount")
         , jOst  = $("#register_address_validate_ost_amount")
@@ -148,11 +160,13 @@
         jEth.find(".j_validate_icon").html( oThis.failedIcon );
       }
 
-      // Never mind the ETH balance, just check the OST Balance.
-      //oThis.validateOstBalance();
+      oThis.validationComplete();
 
-      $("#register_eth_address").prop("disabled", false);
 
+
+    }
+
+    , validationComplete: function () {
 
     }
 
@@ -195,7 +209,7 @@
 
     }
 
-    , minRequiredOSTBalance: null
+
     , validateOstBalance: function ( newAddress ) {
       var oThis = this
         , jOst  = $("#register_address_validate_ost_amount")
@@ -228,7 +242,7 @@
         jOst.find(".j_validate_icon").html( oThis.failedIcon );
       }
 
-      $("#register_eth_address").prop("disabled", false);
+      $("#register_eth_address_btn").prop("disabled", false);
       
 
       

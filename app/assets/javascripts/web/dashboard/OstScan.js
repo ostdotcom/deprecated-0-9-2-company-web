@@ -4,8 +4,7 @@
 
   var oThis = parentNS.ostScan = {
     config: {
-      apiEndPoint: "https://api-ropsten.etherscan.io/api/"
-      , apiCallInterval : 1000
+        apiCallInterval : 1000
       , validateTransactionHashMaxTry: 100
       , getBalanceMaxTry: 10
       , simpleTokenContractAddress: "0x2C4e8f2D746113d0696cE89B35F0d8bF88E0AEcA"
@@ -18,40 +17,37 @@
         $.extend( oThis.config, config );
       }
     }
-    , getUserOstEthBalance : function (address, callback, trycount_bal) {
+    , getUserOstEthBalance : function (address, callback) {
 
-      var oThis = this;
-
-      if ( typeof trycount_bal === "number") {
-        trycount_bal++;
-      } else {
-        trycount_bal = 0;
-      }
-
-      if ( trycount_bal >= oThis.config.getBalanceMaxTry ) {
-        //Failed.
-        //Respond with failuer
-        setTimeout(function () {
-          callback && callback( {
-            success: false,
-            data: {
-              "address": address
-            },
-            err: {
-              display_text: "Api Timed-out. Failed to get balance."
-            }
-          })
-        }, 0);
-        return;
-      }
+      // var oThis = this;
+      //
+      // if ( typeof trycount_bal === "number") {
+      //   trycount_bal++;
+      // } else {
+      //   trycount_bal = 0;
+      // }
+      //
+      // if ( trycount_bal >= oThis.config.getBalanceMaxTry ) {
+      //   //Failed.
+      //   //Respond with failuer
+      //   setTimeout(function () {
+      //     callback && callback( {
+      //       success: false,
+      //       data: {
+      //         "address": address
+      //       },
+      //       err: {
+      //         display_text: "Api Timed-out. Failed to get balance."
+      //       }
+      //     })
+      //   }, 0);
+      //   return;
+      // }
 
       $.ajax( {
-          url:oThis.config.apiEndPoint,
+          url:"/api/economy/users/fetch-balances",
           data: {
-            "module"  : "account"
-            , "action"  : "tokenbalance"
-            , "contractaddress": oThis.config.simpleTokenContractAddress
-            , "address" : address
+           "address" :address
           },
           type:"GET",
           success:function(response){
@@ -59,7 +55,7 @@
               //var amtInWie = BigNumber(response.data.balances.eth);
               //var ethToWie = BigNumber( 10 ).exponentiatedBy( 18 );
               var amtInEth = BigNumber(response.data.balances.eth);
-              var ostTokenBalance = response.data.balances.OST
+              var ostTokenBalance = BigNumber(response.data.balances.OST)
               if (callback) {
                 setTimeout(function () {
                   callback({
@@ -73,11 +69,12 @@
               }
 
             } else {
-              console.log("Failed to get User OST Balance ..... this means api returned 0");
+              console.log("Failed to get User OST and eth balance ..... this means api returned 0");
               //Failed to get balance.
-              setTimeout(function () {
-                oThis.getUserOstEthBalance(address, callback, trycount_bal);
-              }, oThis.config.apiCallInterval);
+
+              // setTimeout(function () {
+              //   oThis.getUserOstEthBalance(address, callback, trycount_bal);
+              // }, oThis.config.apiCallInterval);
             }
 
 
@@ -85,11 +82,11 @@
           },
           error : function (response ) {
 
-            console.log("Failed to get User OST balance trying again ...... this means api call failed")
+            console.log("Failed to get User OST and eth balance ...... this means api call failed")
             //Failed to get balance.
-            setTimeout(function () {
-              oThis.getUserOstEthBalance(address, callback, trycount_bal);
-            }, oThis.config.apiCallInterval);
+            // setTimeout(function () {
+            //   oThis.getUserOstEthBalance(address, callback, trycount_bal);
+            // }, oThis.config.apiCallInterval);
           }
         }
 
