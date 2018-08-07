@@ -1,6 +1,7 @@
 ;
 (function (window, $) {
   var metamask  = ns("ost.metamask"),
+      ostScan   = ns("ost.ostScan"),
 
    etherScan = ns("ost.etherScan");
   var oThis = metamask.registerMainnetAddressHelper = { 
@@ -96,6 +97,65 @@
 
       oThis.validateEthBalance();
     }
+    ,validateEthOstBalance(){
+      var oThis = this
+        , jEth  = $("#register_address_validate_eth_amount")
+        , jOst  = $("#register_address_validate_ost_amount")
+      ;
+
+      jEth.find(".j_validate_icon").html( oThis.pendingIcon );
+      jOst.find(".j_validate_icon").html( oThis.pendingIcon );
+
+
+      //Call OST backend API to ensure user has minimum of 0.05 ETH. and some OSTs
+      var newAddress = oThis.getUserAddress();
+
+      ostScan.getUserOstEthBalance( newAddress, function (response) {
+        oThis.getUserOstEthBalanceCallBack(response)
+      });
+    },getUserOstEthBalanceCallBack(){
+      var oThis = this
+        , jEth  = $("#register_address_validate_eth_amount")
+        , jOst  = $("#register_address_validate_ost_amount")
+
+      ;
+
+      if(response.success ) {
+        var currentEthBalance = BigNumber( response.data.balanceInEth || "0" );
+        if( currentEthBalance.isGreaterThan( oThis.minRequiredETHBalance ) ) {
+          // User has sufficient ETH, lets validate OST.
+          jEth.find(".j_validate_icon").html( oThis.processedIcon );
+        } else {
+          //User does not have ETH. Stop them here.
+          jEth.find(".j_validate_icon").html( oThis.failedIcon );
+        }
+
+
+        var currentOstBalance = BigNumber( response.data.ostTokenBalance || "0" );
+        if( currentOstBalance.isGreaterThan( oThis.minRequiredOSTBalance ) ) {
+          // User has sufficient ETH, lets validate OST.
+          jOst.find(".j_validate_icon").html( oThis.processedIcon );
+        } else {
+          //User does not have ETH. Stop them here.
+          jOst.find(".j_validate_icon").html( oThis.failedIcon );
+        }
+
+
+
+
+
+      } else {
+        jEth.find(".j_validate_icon").html( oThis.failedIcon );
+      }
+
+      // Never mind the ETH balance, just check the OST Balance.
+      //oThis.validateOstBalance();
+
+      $("#register_eth_address").prop("disabled", false);
+
+
+    }
+
 
     , minRequiredETHBalance: "0.05"
     , validateEthBalance: function () {
