@@ -42,7 +42,7 @@
 
   bt_to_mint = number_of_users * airdrop_amount * buffer_mint_factor_over_airdrop;
 
-  min_st_prime_to_mint = 100;
+  min_st_prime_to_mint = 1;
   st_prime_to_mint = 300;
   max_st_prime_to_mint = 500;
 
@@ -109,7 +109,7 @@
                   <span class="font-weight-bold d-none"><%= ost_to_bt %> <%= bt_symbol %> = 1 <%= ost_currency_symbol %></span>
                   <span class="font-weight-bold">1 <%= bt_symbol %> = <%= bt_to_ost %> <%= ost_currency_symbol %></span>
               </p>
-              <p class="font-weight-light font-size-p">You will need to reserve a minimum of <%= min_st_prime_to_mint %> <%= ost_currency_symbol %> to pay "gas" for <%= bt_symbol %> transaction by your users. <%= min_st_prime_to_mint %> OST⍺ is enough gas reserve for approximately <span class="font-weight-bold">150,000 transfers</span>.</p>
+              <p class="font-weight-light font-size-p">You will need to reserve a minimum of <%= min_st_prime_to_mint %> <%= ost_currency_symbol %> to pay "gas" for <%= bt_symbol %> transaction by your users. <%= min_st_prime_to_mint %> <%= ost_currency_symbol %> is enough gas reserve for approximately <span class="font-weight-bold">150,000 transfers</span>.</p>
             </div>
           </div>
         </div>
@@ -150,7 +150,7 @@
                   </div>
                 </div>
               </li>
-              <li class="list-group-item font-weight-light font-size-p">
+              <li class="list-group-item font-weight-light font-size-p <% if GlobalConstant::Base.main_sub_environment? %>border-bottom-0<% end %>">
                 <div class="d-flex align-items-center">
                   <div class="mr-2"><strong class="font-weight-bold"><%= tx_kind_count %></strong> Actions set up.</div>
                   <div class="mr-auto text-uppercase">
@@ -158,10 +158,14 @@
                   </div>
                 </div>
               </li>
+
+            <% if !GlobalConstant::Base.main_sub_environment? %>
               <li class="list-group-item font-weight-light font-size-p">
                 <strong class="font-weight-bold"><%= number_of_users %> users</strong> will be automatically created. More can be added later.
                 <input type="hidden" name="number_of_users" id="number_of_users" value="<%= number_of_users %>" />
               </li>
+            <% end %>
+            <% if !GlobalConstant::Base.main_sub_environment? %>
               <li class="list-group-item font-weight-light font-size-p border-bottom-0">
                 In order to enable the transactions simulation
                 <strong>
@@ -170,6 +174,7 @@
                 will be initially distributed to each user.
                 <input type="hidden" name="amount" id="airdrop_amount" value="<%= airdrop_amount %>" />
               </li>
+            <% end %>
               <input type="hidden" name="airdrop_user_list_type" id="airdrop_user_list_type" value="all" />
             </ul>
           </div>
