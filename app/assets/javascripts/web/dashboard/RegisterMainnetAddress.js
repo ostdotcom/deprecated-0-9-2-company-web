@@ -89,8 +89,9 @@
     , pendingIcon: '<img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader-1.gif" width="30" height="30" />'
     , processedIcon: '<img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/select-token-checkmark.svg" width="30" height="30" />'
     , failedIcon: ''
-      + '<svg class="icon-banner align-middle" style="height: 30px;width: 30px">'
-        + '<switch> ' 
+
+      + '<svg class="icon-banner align-middle" style="margin: 5px;">'
+        + '<switch> '
           + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use> ' 
         + '</switch> ' 
       + '</svg>'

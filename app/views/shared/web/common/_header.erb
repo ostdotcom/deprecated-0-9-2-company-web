@@ -14,7 +14,6 @@
 
         elsif @presenter_obj.can_show_low_balance_notification? && @presenter_obj.client_balances.present? &&
             @presenter_obj.client_balances.is_eligible_for_ost_grant?
-
           show_notification = 2
 
         elsif @presenter_obj.can_show_low_balance_notification? && @presenter_obj.client_balances.present? &&
@@ -35,9 +34,15 @@
           <% when 1 %>
               <%= render :partial => "/shared/web/common/email_validation_alert" %>
           <% when 2 %>
+            <% if GlobalConstant::Base.main_sub_environment? %>
+              <%= render :partial => "/shared/web/common/buy_now_ost_alert" %>
+            <% else %>
               <%= render :partial => "/shared/web/common/top_up_ost_alert" %>
+            <% end %>
           <% when 3 %>
               <%= render :partial => "/shared/web/common/top_up_transaction_alert" %>
+          <% when 4 %>
+
           <% end %>
       <% end %>
     </div>

@@ -1,0 +1,37 @@
+<div class="col-12" id="token_supply_widget_overlay">
+  <div class="card text-center p-5">
+    <h3 class="mb-0">Insufficient Balance</h3>
+    <div class="simulator-image-wrapper my-4">
+      <svg style="width: 150px">
+        <switch>
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-mint-tokens"></use>
+        </switch>
+      </svg>
+    </div>
+    <span style="color: #438cad; font-size: 15px;" class="text-center mb-2">Make sure your account has a minimum balance
+of <%= min_ost_required %> <%= ost_currency_symbol %> and <%= min_eth_required %> ETH to proceed.</span>
+
+    <% if GlobalConstant::Base.main_sub_environment? %>
+      <div class="run-transaction-btn-wrapper">
+        <a href="/#token" target="_blank" class="btn btn-gold run-first-transaction-btn">BUY NOW</a>
+      </div>
+    <% else %>
+      <div class="run-transaction-btn-wrapper">
+        <button id="top-up-ost-mini-cover-btn" class="btn btn-gold run-first-transaction-btn">TOP UP OST</button>
+      </div>
+    <% end %>
+
+    <% content_for :end_js do %>
+      <script type="text/javascript">
+        (function () {
+          $('#top-up-ost-mini-cover-btn').off('click').on('click' , function () {
+            ost.metamask.getOstHelper.getOst( function () {
+              window.location.reload(true);
+            });
+          });
+        })();
+      </script>
+    <% end %>
+
+  </div>
+</div>
