@@ -42,9 +42,10 @@
 
   bt_to_mint = number_of_users * airdrop_amount * buffer_mint_factor_over_airdrop;
 
-  min_st_prime_to_mint = 1;
-  st_prime_to_mint = 300;
+  min_st_prime_to_mint = GlobalConstant::Base.main_sub_environment? ? 1 : 100;
+  st_prime_to_mint = GlobalConstant::Base.main_sub_environment? ? 1 : 300;
   max_st_prime_to_mint = 500;
+  min_transfers_possible = 1500 * min_st_prime_to_mint;
 
   # Note: I would avoid reducing max limit as the slider value changes.
   # Instead discuss with frankie how he would like to compute max_bt_to_mint.
@@ -109,7 +110,7 @@
                   <span class="font-weight-bold d-none"><%= ost_to_bt %> <%= bt_symbol %> = 1 <%= ost_currency_symbol %></span>
                   <span class="font-weight-bold">1 <%= bt_symbol %> = <%= bt_to_ost %> <%= ost_currency_symbol %></span>
               </p>
-              <p class="font-weight-light font-size-p">You will need to reserve a minimum of <%= min_st_prime_to_mint %> <%= ost_currency_symbol %> to pay "gas" for <%= bt_symbol %> transaction by your users. <%= min_st_prime_to_mint %> <%= ost_currency_symbol %> is enough gas reserve for approximately <span class="font-weight-bold">150,000 transfers</span>.</p>
+              <p class="font-weight-light font-size-p">You will need to reserve a minimum of <%= min_st_prime_to_mint %> <%= ost_currency_symbol %> to pay "gas" for <%= bt_symbol %> transaction by your users. <%= min_st_prime_to_mint %> <%= ost_currency_symbol %> is enough gas reserve for approximately <span class="font-weight-bold"><%= number_with_delimiter(min_transfers_possible, :delimiter => ',') %> transfers</span>.</p>
             </div>
           </div>
         </div>
