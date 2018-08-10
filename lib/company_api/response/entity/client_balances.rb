@@ -153,6 +153,14 @@ module CompanyApi
           ost_prime_balance.blank? || ost_prime_balance < 20
         end
 
+        def below_min_eth_balance_required
+          true
+        end
+
+        def below_min_ost_balance_required
+          true
+        end
+
         private
 
         def convert_ost_to_fiat(value, currency_symbol)
