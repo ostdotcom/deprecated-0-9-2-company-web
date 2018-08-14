@@ -30,28 +30,35 @@
     user_ost_balance = 0
   end
 
-  number_of_users = client_token_planner.default_initial_users;
-  airdrop_amount = client_token_planner.airdrop_bt_per_user;
-  buffer_mint_factor_over_airdrop = client_token_planner.buffer_mint_factor_over_airdrop;
+ number_of_users = client_token_planner.default_initial_users
+  airdrop_amount = client_token_planner.airdrop_bt_per_user
+  buffer_mint_factor_over_airdrop = client_token_planner.buffer_mint_factor_over_airdrop
 
-  min_bt_to_mint = number_of_users * airdrop_amount * 2;
+  if GlobalConstant::Base.main_sub_environment?
+    min_bt_to_mint = 50
+    min_st_prime_to_mint = 1
+    st_prime_to_mint = 1
+    bt_to_mint = 50
+  else
+    min_bt_to_mint = number_of_users * airdrop_amount * 2
+    min_st_prime_to_mint = 100
+    st_prime_to_mint = 300
+    bt_to_mint = number_of_users * airdrop_amount * buffer_mint_factor_over_airdrop
+  end
 
   min_ost_needed_to_mint_bt = min_bt_to_mint / ost_to_bt
 
   show_error_modal = min_ost_needed_to_mint_bt > user_ost_balance
 
-  bt_to_mint = number_of_users * airdrop_amount * buffer_mint_factor_over_airdrop;
-
-  min_st_prime_to_mint = GlobalConstant::Base.main_sub_environment? ? 1 : 100;
-  st_prime_to_mint = GlobalConstant::Base.main_sub_environment? ? 1 : 300;
-  max_st_prime_to_mint = 500;
-  min_transfers_possible = 1500 * min_st_prime_to_mint;
+  max_st_prime_to_mint = 500
+  min_transfers_possible = 1500 * min_st_prime_to_mint
 
   # Note: I would avoid reducing max limit as the slider value changes.
   # Instead discuss with frankie how he would like to compute max_bt_to_mint.
   # The problem needs to be solved by reserving part of OST for bt minting & and some other part for st prime minting.
-  max_ost_required_for_bt_minting = user_ost_balance - max_st_prime_to_mint;
-  max_bt_to_mint = (max_ost_required_for_bt_minting * ost_to_bt).to_i;
+  max_ost_required_for_bt_minting = user_ost_balance - min_st_prime_to_mint
+  max_ost_required_for_bt_minting = 1 if max_ost_required_for_bt_minting <= 0
+  max_bt_to_mint = (max_ost_required_for_bt_minting * ost_to_bt).to_i
   min_bt_to_mint = max_bt_to_mint if min_bt_to_mint > max_bt_to_mint
 
   value_in_fiat_key = "value_in_" + fiat_type;
