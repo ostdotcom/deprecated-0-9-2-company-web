@@ -11,13 +11,16 @@
     should_show_api_call_button = false
   end
 %>
+<div id="show_empty_user" style="display: none;">
+  <%= render :partial => "/web/economy/users/empty_users_cover"%>
+</div>
 
-<div class="container-fluid users-list-container ost-simple-table"  data-airdrop-processing="false">
+<div id="show_user_list" class="container-fluid users-list-container ost-simple-table"  data-airdrop-processing="false">
   <div class="row">
     <div class="col-12 p-0">
       <div class="d-flex justify-content-between align-items-center mt-6 mb-5">
         <h3 class="mb-0">Users</h3>
-        <div class="text-right">
+        <div class="text-right" id="user_right_button_wrap">
           <button id="airdrop_btn" class="btn btn-gold mr-3">AIRDROP TOKENS</button>
           <button id="add_users" class="btn ost-btn-secondary">ADD USER</button>
         </div>
