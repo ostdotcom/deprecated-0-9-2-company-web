@@ -41,6 +41,13 @@
 <script id="<%= processing_footer_tempate_id %>" type="text/x-handlebars-template">
 </script>
 <script id="<%= success_footer_tempate_id %>" type="text/x-handlebars-template">
+  <% if GlobalConstant::Base.main_sub_environment? %>
+    <a href="/developer-api-console" class="btn btn-gold mr-2">START API INTEGRATION</a>
+    <a href="/token-supply" class="text-uppercase card-link hover-link">BACK TO TOKEN SUPPLY</a>
+  <% else %>
+    <a href="/simulator" class="btn btn-gold mr-2">SIMULATE TRANSACTIONS</a>
+    <a href="/dashboard" class="text-uppercase card-link hover-link">GO TO DASHBOARD</a>
+  <% end %>
   <a href="/simulator" class="btn btn-gold mr-2">SIMULATE TRANSACTIONS</a>
   <a href="/dashboard" class="text-uppercase card-link hover-link">GO TO DASHBOARD</a>
 </script>

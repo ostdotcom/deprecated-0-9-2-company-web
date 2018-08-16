@@ -42,6 +42,7 @@
     , events: {
       "responseProcessed": "responseProcessed"
     }
+    , resultFetcherCallback: null
     
     , getRowTemplate: function () {
       var oThis = this;
@@ -100,6 +101,8 @@
         logMe && console.log("hideLoading called after processResponse");
         //Hide Loading
         oThis.hideLoading();
+
+        oThis.resultFetcherCallback && oThis.resultFetcherCallback(oThis.results);
       });
     }
     , fetchResultsUrl : null

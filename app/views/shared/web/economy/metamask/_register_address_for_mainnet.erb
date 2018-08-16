@@ -5,10 +5,16 @@
         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fund-wallet"></use>
       </switch>
     </svg>
-    <h3 class="text-center font-weight-bold letter-space-1 mt-5">New text change regarding
-maintaining minimum balance.</h3>
-    <p class="font-weight-light mb-5 text-muted"> Body copy elaborating the same. Placeholder text below.
-Fusce vehicula dolor arcu, sit amet blandit dolor mollis nec. Donec viverra eleifend lacus, vitae ullamcorpe.</p>
+    <h3 class="text-center font-weight-bold letter-space-1 mt-5">Make sure to have at least 100 OST in your MetaMask account shown below.</h3>
+    <p class="font-weight-light mb-5 text-muted">
+      <% if GlobalConstant::Base.main_sub_environment? %>
+        These transactions are on Ethereum Mainnet. Make sure you have enough ETH in your Metamask to pay gas
+        for the transactions. We recommend at least 0.0015 ETH.
+      <% else %>
+        These transactions are on Ethereum Mainnet. Hence ensure you have enough gas
+        for the transactions to complete. We recommend at least 100 OST and 0.0015 ETH.
+      <% end %>
+      </p>
   </div>
 </div>
 
@@ -52,24 +58,48 @@ Fusce vehicula dolor arcu, sit amet blandit dolor mollis nec. Donec viverra elei
           </div>
         </form>
       </div>
+      <%
+        faqs_data = [
+            {
+                title: 'Why do I need to use Chrome and install MetaMask?',
+                url: 'https://help.ost.com/support/solutions/articles/35000059263-why-do-i-need-to-install-metamask-'
+            },
+            {
+                title: 'How do I unlock MetaMask?',
+                url: 'https://help.ost.com/support/solutions/articles/35000059264-how-do-i-unlock-metamask-'
+            },
+            {
+                title: 'Why can I use only one MetaMask account with OST KIT⍺?',
+                url: 'https://help.ost.com/support/solutions/articles/35000059265-why-can-i-use-only-one-metamask-account-with-ost-kit%E2%8D%BA-'
+            }
+        ];
+        if GlobalConstant::Base.main_sub_environment?
+          faqs_data = [
+              {
+                  title: 'Why I am not able to proceed ?',
+                  url: 'javascript:alert("Please ask Junisha! (junisha@ost.com). ")'
+              },
+              {
+                  title: 'Why do I need to use Chrome and install MetaMask?',
+                  url: 'https://help.ost.com/support/solutions/articles/35000059263-why-do-i-need-to-install-metamask-'
+              },
+              {
+                  title: 'How do I unlock MetaMask?',
+                  url: 'https://help.ost.com/support/solutions/articles/35000059264-how-do-i-unlock-metamask-'
+              },
+              {
+                  title: 'Why can I use only one MetaMask account with OST KIT⍺?',
+                  url: 'https://help.ost.com/support/solutions/articles/35000059265-why-can-i-use-only-one-metamask-account-with-ost-kit%E2%8D%BA-'
+              }
+          ];
+        end
+
+      %>
       <%=
           render :partial => "shared/web/common/faqs",
                  locals: {
             header: "FAQ for installing MetaMask",
-            faqs: [
-            {
-              title: 'Why do I need to use Chrome and install MetaMask?',
-          url: 'https://help.ost.com/support/solutions/articles/35000059263-why-do-i-need-to-install-metamask-'
-          },
-          {
-            title: 'How do I unlock MetaMask?',
-          url: 'https://help.ost.com/support/solutions/articles/35000059264-how-do-i-unlock-metamask-'
-          },
-          {
-            title: 'Why can I use only one MetaMask account with OST KIT⍺?',
-          url: 'https://help.ost.com/support/solutions/articles/35000059265-why-can-i-use-only-one-metamask-account-with-ost-kit%E2%8D%BA-'
-          }
-          ]
+            faqs: faqs_data
           }
       %>
     </div>

@@ -8,8 +8,9 @@
         </switch>
       </svg>
     </div>
-    <span style="color: #438cad; font-size: 15px;" class="text-center mb-2">Make sure your account has a minimum balance
-of <%= min_ost_required %> <%= ost_currency_symbol %> and <%= min_eth_required %> ETH to proceed.</span>
+    <span  class="text-center mb-2 token-supply-infotext ">To be able to mint more tokens please make sure the MetaMask address associated with this account has minimum
+      <%= min_ost_required %> <%= ost_currency_symbol %> and <%= min_eth_required %> ETH</span>
+
 
     <% if GlobalConstant::Base.main_sub_environment? %>
       <div class="run-transaction-btn-wrapper">

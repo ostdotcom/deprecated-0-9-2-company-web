@@ -157,6 +157,8 @@
         //Some falsey value
         oThis.jCommissionWrap.slideDown( 300 );
       }
+      oThis.updateHelpTextForComissionPercent(jCommissionVal)
+
     }
     , createNewTransaction: function ( transactionData ) {
       var oThis = this;
@@ -531,7 +533,7 @@
 
     , toggleActionAmountInput: function () {
       var oThis = this;
-      
+
       var jAmountSetting  = oThis.jForm.find('.j-action-amount-setting:checked')
         , amountSetting   = jAmountSetting.val()
         , jCurrency       = oThis.jForm.find('.j-currency:checked')
@@ -540,6 +542,8 @@
         , jDisable
         , jShow
         , jHide
+        , jAmountHelpShow
+        , jAmountHelpHide
       ;
 
       if ( amountSetting === "true" ) {
@@ -547,6 +551,10 @@
         oThis.jMockerContentWrap.addClass('d-none');
         jEnable = $(); // Nothing to enable
         jDisable  = oThis.jValueInFiat.add( oThis.jValueInBt );
+
+        jAmountHelpShow = $("#amount_type_off_help_text");
+        jAmountHelpHide = $("#amount_type_on_help_text");
+
       }else {
         oThis.jActionAmountWrap.slideDown(300);
         oThis.jMockerContentWrap.removeClass('d-none');
@@ -557,6 +565,9 @@
           jEnable   = oThis.jValueInFiat;
           jDisable  = oThis.jValueInBt;
         }
+
+        jAmountHelpShow = $("#amount_type_on_help_text");
+        jAmountHelpHide = $("#amount_type_off_help_text");
 
       }
 
@@ -574,6 +585,9 @@
       jEnable.attr('max' , oThis.maxTransactionVal );
       jShow.show();
       jHide.hide();
+      jAmountHelpShow.show();
+      jAmountHelpHide.hide();
+
 
       oThis.updateDisplayActionAmount();
     }
@@ -612,8 +626,27 @@
 
       }else{
         jEl.addClass('has-action-amount');
-
       }
+
+      oThis.updateHelpTextForComissionPercent(jActionAmountVal)
+
+    }
+
+    , updateHelpTextForComissionPercent: function(jCommissionPercentValue){
+
+      var jCommissionHelpTextShow
+        , jCommissionHelpTextHide
+      ;
+
+      if (jCommissionPercentValue === 'true'){
+        jCommissionHelpTextShow = $("#commission_percent_off_help_text");
+        jCommissionHelpTextHide = $("#commission_percent_on_help_text");
+      }else{
+        jCommissionHelpTextShow = $("#commission_percent_on_help_text");
+        jCommissionHelpTextHide = $("#commission_percent_off_help_text");
+      }
+      jCommissionHelpTextShow.show();
+      jCommissionHelpTextHide.hide();
     }
 
 

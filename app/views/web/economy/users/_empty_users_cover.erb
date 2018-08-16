@@ -1,0 +1,29 @@
+<div class="col-12 mt-5" >
+  <div class="card text-center p-5">
+    <h3 class="mb-0">Users</h3>
+    <div class="simulator-image-wrapper my-4">
+      <svg style="width: 150px">
+        <switch>
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user_empty_logo"></use>
+        </switch>
+      </svg>
+    </div>
+    <span  class="users-infotext text-center mb-2  ">
+      <% if GlobalConstant::Base.main_sub_environment? %>
+        Users can own Branded Tokens within your economy. Start your economy by creating users here.
+      <% else %>
+        A user can own Branded Tokens within your economy.
+Start your economy by creating users here.
+      <% end %>
+    </span>
+
+
+    <div class="run-transaction-btn-wrapper">
+      <button id="add_new_user" class="btn btn-gold run-first-transaction-btn">ADD USER</button>
+    </div>
+
+
+
+
+  </div>
+</div>

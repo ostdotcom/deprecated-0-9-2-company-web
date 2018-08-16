@@ -104,8 +104,8 @@
         , jProceedBtn = $("#register_eth_address_btn")
       ;
 
-      jEth.find(".j_validate_message").html("Validate address for ETH");
-      jOst.find(".j_validate_message").html("Validate address for OST");
+      jEth.find(".j_validate_message").html("Fetching Eth balance in your metamask address");
+      jOst.find(".j_validate_message").html("Fetching OST balance in your metamask address");
 
       jEth.find(".j_validate_icon").html( oThis.queuedIcon );
       jOst.find(".j_validate_icon").html( oThis.queuedIcon );
@@ -167,10 +167,13 @@
         if( currentEthBalance.isGreaterThan( ostScan.config.minRequiredETHBalance ) ) {
           // User has sufficient ETH, lets validate OST.
           jEth.find(".j_validate_icon").html( oThis.processedIcon );
+          jEth.find(".j_validate_message").html("Sufficient Eth balance to proceed");
+
           isAddressValid = isAddressValid && true;
         } else {
           //User does not have ETH. Stop them here.
           jEth.find(".j_validate_icon").html( oThis.failedIcon );
+          jEth.find(".j_validate_message").html("Insufficient Eth balance for required gas. ");
           isAddressValid = isAddressValid && false;
         }
 
@@ -178,15 +181,22 @@
         if( currentOstBalance.isGreaterThan( ostScan.config.minRequiredOSTBalance ) ) {
           // User has sufficient ETH, lets validate OST.
           jOst.find(".j_validate_icon").html( oThis.processedIcon );
+          jOst.find(".j_validate_message").html("Sufficient OST balance to proceed");
+
           isAddressValid = isAddressValid && true;
         } else {
           //User does not have ETH. Stop them here.
           jOst.find(".j_validate_icon").html( oThis.failedIcon );
+          jOst.find(".j_validate_message").html("Insufficient OST balance. Minimum 100 OST required.");
           isAddressValid = isAddressValid && false;
         }
       } else {
         jEth.find(".j_validate_icon").html( oThis.failedIcon );
+        jEth.find(".j_validate_message").html("Insufficient Eth balance for required gas. ");
+
         jOst.find(".j_validate_icon").html( oThis.failedIcon );
+        jOst.find(".j_validate_message").html("Insufficient OST balance. Minimum 100 OST required.");
+
       }
 
       oThis.validationComplete( isAddressValid );

@@ -9,6 +9,10 @@
     var oThis = users.list = {
         simpleDataTable : null,
         init : function ( config ) {
+
+          $('#show_user_list').hide()
+          $('#show_empty_user').hide()
+
             var oThis =  this,
                 isAirDropInProcess
             ;
@@ -16,14 +20,34 @@
             oThis.simpleDataTable =   new ost.SimpleDataTable({
                 jParent : $("#user_list"),
                 params  : {order_by: "created"}
+                //, resultFetcherCallback : show_user_list
+              //resultFetcherCallback : function(results){console.log(results)}
             });
+
+            var result = oThis.simpleDataTable.getResults();
+            console.log(result)
+            if(result.length > 0) {
+              $('#show_user_list').show()
+              $('#show_empty_user').hide()
+            } else {
+              $('#show_user_list').hide()
+              $('#show_empty_user').show()
+            }
+
+
             oThis.bindEvents();
             isAirDropInProcess = $('.users-list-container').data('airdrop-processing');
             if(!!isAirDropInProcess){
               $('#airdrop_token_modal').modal('show');
             }
-        },
 
+
+            // $('#show_user_list').hide()
+            // $('#show_empty_user').hide()
+        }
+
+
+      ,
         bindEvents : function () {
             var oThis =  this ,
                 config =  { success :  function () {
@@ -35,11 +59,23 @@
                 ;
 
             $('#add_users').on('click' , function () {
+              //console.log("in btn click")
                 var jResult = oThis.simpleDataTable.prependResult(createNewUser()),
                     jForm = jResult.find("form");
                 jForm.formHelper( config );
                 oThis.autoFocus();
             });
+
+            $('#add_new_user').on('click' , function () {
+              console.log("in btn click");
+              $('#show_empty_user').hide();
+              $('#show_user_list').show();
+              var jResult = oThis.simpleDataTable.prependResult(createNewUser()),
+                jForm = jResult.find("form");
+              jForm.formHelper( config );
+              oThis.autoFocus();
+            });
+
 
             $('#user_list').on('click' , '.cancel-user-btn' ,  function () {
                 var jForm =  $(this).closest('.add-user-form'),
