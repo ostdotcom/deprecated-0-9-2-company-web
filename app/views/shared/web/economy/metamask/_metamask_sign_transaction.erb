@@ -7,12 +7,11 @@
   <div class="col-12 col-md-8 ml-auto mr-auto">
     <div class="text-center">
       <p class="font-weight-light mb-5 text-muted">
+          Please open MetaMask extention and submit the transaction.
         <% if GlobalConstant::Base.main_sub_environment? %>
-          Please open MetaMask extention and submit the transaction.
-          We’ve set the gas price to 5 WEI. You can also change the gas price manually if required.
+          We’ve set the gas price to 5 GWEI. You can also change the gas price manually if required.
         <% else %>
-          Please open MetaMask extention and submit the transaction.
-          We’ve set the Gas Price to 5 WEI. You can change the price based on the current network conditions.
+          We’ve set the Gas Price to 5 GWEI. You can change the price based on the current network conditions.
         <% end %>
       </p>
       <div class="mb-4">
