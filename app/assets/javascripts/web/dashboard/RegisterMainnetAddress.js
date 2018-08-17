@@ -164,7 +164,7 @@
         ;
 
         console.log("** currentEthBalance **" + currentEthBalance)
-        if( currentEthBalance.isGreaterThan( ostScan.config.minRequiredETHBalance ) ) {
+        if( currentEthBalance.isGreaterThanOrEqualTo( ostScan.config.minRequiredETHBalance ) ) {
           // User has sufficient ETH, lets validate OST.
           jEth.find(".j_validate_icon").html( oThis.processedIcon );
           jEth.find(".j_validate_message").html("Sufficient Eth balance to proceed");
@@ -178,7 +178,7 @@
         }
 
         console.log("** currentOstBalance **" + currentOstBalance)
-        if( currentOstBalance.isGreaterThan( ostScan.config.minRequiredOSTBalance ) ) {
+        if( currentOstBalance.isGreaterThanOrEqualTo( ostScan.config.minRequiredOSTBalance ) ) {
           // User has sufficient ETH, lets validate OST.
           jOst.find(".j_validate_icon").html( oThis.processedIcon );
           jOst.find(".j_validate_message").html("Sufficient OST balance to proceed");

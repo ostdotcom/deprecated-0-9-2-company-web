@@ -197,6 +197,25 @@
 <% content_for :end_js do %> 
 <script type="text/javascript">
   $(function () {
+
+    console.log({
+      is_eligible_for_grant : <%= is_eligible_for_grant %>
+      , staker_address      : "<%= staker_address %>"
+      , user_ost_balance    : "<%= user_ost_balance %>"
+      , idOstBalance        : "<%= user_ost_balance_id %>"
+      , idBtToMint          : "<%= bt_to_mint_input_id %>"
+      , idStPrimeToMint     : "<%= st_prime_to_mint_input_id %>"
+      , idOstToTransfer     : "<%= ost_to_transfer_id %>"
+      , idOstStakeForBt     : "<%= ost_stake_for_bt_id %>"
+      , idOstAfter          : "<%= ost_balance_after_transfer_id %>"
+      , idOstToBt           : "<%= ost_to_bt_input_id %>"
+      , idBtToOst           : "<%= bt_to_ost_input_id %>"
+      , idBtToFiat          : "<%= bt_to_fiat_input_id %>"
+      , idForm              : "<%= stake_and_mint_form_id %>"
+      , idTransferHash      : "<%= ost_transfered_transaction_hash_id %>"
+    });
+
+
     ost.mintBtWidget.init({
       is_eligible_for_grant : <%= is_eligible_for_grant %>
       , staker_address      : "<%= staker_address %>"

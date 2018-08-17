@@ -48,6 +48,12 @@
 
 %>
 
+<script>
+  <% if !@presenter_obj.client_balances.blank? %>
+  console.log(<%= raw @presenter_obj.client_balances.to_json %>);
+  <% end %>
+</script>
+
 <%= render :partial => "/shared/web/common/planner_alert" %>
 
 <div class="container">
@@ -83,7 +89,7 @@
               <%= fiat_symbol %><span data-ost-mock-element="#<%= ost_to_fiat_id %>"><%= ost_to_fiat %></span>
               <input id="<%= ost_to_fiat_id %>" type="hidden" name="ost_to_fiat" value="<%= ost_to_fiat %>" />
             </span>
-            (<%= ost_currency_symbol %> tracks the value of OST on public exchanges).
+
           </p>
           <p class="font-weight-light mt-2 mb-2 font-size-p">
             The simple way to set the conversion rate is by deciding
@@ -120,25 +126,32 @@
               <li class="list-group-item font-weight-light font-size-p">
                 You have chosen to set
                 <span class="font-weight-bold">
-                  1 <%= bt_symbol %> =
-                  $<span data-type="fiat" data-ost-mock-element="#<%= bt_to_fiat_id %>">0.1</span>
+                  <span id="ost_to_bt_text">154 <%= bt_symbol %> = 1 <%= ost_currency_symbol %></span>
                 </span>
               </li>
               <li class="list-group-item font-weight-light font-size-p">
                 Based on the current value of <%= ost_currency_symbol %> your conversion rate will be set to
                 <span class="font-weight-bold">
-                  <span id="ost_to_bt_text">154 <%= bt_symbol %> = 1 <%= ost_currency_symbol %></span>
+                  1 <%= bt_symbol %> =
+                  $<span data-type="fiat" data-ost-mock-element="#<%= bt_to_fiat_id %>">0.1</span>
                 </span>
+
               </li>
-              <li class="list-group-item font-weight-light font-size-p pb-0 border-bottom-0">
-                You currently have <%= number_with_delimiter(ost_grant_value, :delimiter => ',') %> <%= ost_currency_symbol %> to test with. You can
-                <span class="font-weight-bold">
+
+
+              <% if GlobalConstant::Base.main_sub_environment? %>
+              <% else %>
+                <li class="list-group-item font-weight-light font-size-p pb-0 border-bottom-0">
+                  You currently have <%= number_with_delimiter(ost_grant_value, :delimiter => ',') %> <%= ost_currency_symbol %> to test with. You can
+                  <span class="font-weight-bold">
                   mint a maximum of
                   <span id="maximum_mintbale_bt_text" data-type="number" data-ost-mock-element="#maximum_mintbale_bt">2,970</span>
                   <input type="hidden" name="maximum_mintbale_bt" id="maximum_mintbale_bt" />
-                  <%= bt_symbol %> before requiring more <%= ost_currency_symbol %>.
+                    <%= bt_symbol %> before requiring more <%= ost_currency_symbol %>.
                 </span>
-              </li>
+                </li>
+              <% end %>
+
             </ul>
           </div>
         </div>
