@@ -35,9 +35,9 @@
   buffer_mint_factor_over_airdrop = client_token_planner.buffer_mint_factor_over_airdrop
 
   if GlobalConstant::Base.main_sub_environment?
-    min_bt_to_mint = 1
+    min_bt_to_mint = 50
     min_st_prime_to_mint = 5
-    st_prime_to_mint = 1
+    st_prime_to_mint = 5
     bt_to_mint = 50
     max_st_prime_to_mint = 10
 
@@ -52,15 +52,15 @@
 
   min_ost_needed_to_mint_bt = min_bt_to_mint / ost_to_bt
 
-  show_error_modal = min_ost_needed_to_mint_bt > user_ost_balance
+  show_error_modal = (min_ost_needed_to_mint_bt + min_st_prime_to_mint) > user_ost_balance
 
   min_transfers_possible = 1500 * min_st_prime_to_mint
 
   # Note: I would avoid reducing max limit as the slider value changes.
   # Instead discuss with frankie how he would like to compute max_bt_to_mint.
   # The problem needs to be solved by reserving part of OST for bt minting & and some other part for st prime minting.
-  max_ost_required_for_bt_minting = user_ost_balance - min_st_prime_to_mint
-  max_ost_required_for_bt_minting = 1 if max_ost_required_for_bt_minting <= 0
+  max_ost_required_for_bt_minting = user_ost_balance - max_st_prime_to_mint
+  
   max_bt_to_mint = (max_ost_required_for_bt_minting * ost_to_bt).to_i
   min_bt_to_mint = max_bt_to_mint if min_bt_to_mint > max_bt_to_mint
 
@@ -233,11 +233,13 @@
         });
       });
       console.log("@presenter_obj.client_token", <%= raw @presenter_obj.client_token.to_json %>);
+      console.log("min_ost_needed_to_mint_bt > user_ost_balance", <%= min_ost_needed_to_mint_bt %>, <%= user_ost_balance %> )
     </script>
 
     <% if show_error_modal %>
       <script type="text/javascript">
         $( function () {
+          //@Akshay/Alpesh/Shradha: You are looking for this thing.
           ost.mintBtWidget.showProcessFailureErrorCover();
         });
       </script>
