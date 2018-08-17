@@ -173,7 +173,7 @@
         } else {
           //User does not have ETH. Stop them here.
           jEth.find(".j_validate_icon").html( oThis.failedIcon );
-          jEth.find(".j_validate_message").html("Insufficient Eth balance for required gas. ");
+          jEth.find(".j_validate_message").html("Insufficient Eth balance required for gas. ");
           isAddressValid = isAddressValid && false;
         }
 
@@ -192,7 +192,7 @@
         }
       } else {
         jEth.find(".j_validate_icon").html( oThis.failedIcon );
-        jEth.find(".j_validate_message").html("Insufficient Eth balance for required gas. ");
+        jEth.find(".j_validate_message").html("Insufficient Eth balance required for gas. ");
 
         jOst.find(".j_validate_icon").html( oThis.failedIcon );
         jOst.find(".j_validate_message").html("Insufficient OST balance. Minimum 100 OST required.");
