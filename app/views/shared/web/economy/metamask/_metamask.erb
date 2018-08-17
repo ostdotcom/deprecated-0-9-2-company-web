@@ -77,8 +77,8 @@
       validateTransactionHashInterval: <%= validate_transaction_hash_interval %>,
       validateTransactionHashMaxTry: <%= validate_transaction_hash_max_try %>,
       simpleTokenContractAddress: "<%= simple_token_contract_address %>",
-      minRequiredOSTBalance: 100,
-      minRequiredETHBalance: 0.05
+      minRequiredOSTBalance: <%= min_ost_to_proceed_onboard %>,
+      minRequiredETHBalance: <%= min_eth_to_proceed_onboard %>
     };
     ost.metamask.init( config );
     ost.ostScan.init( config )

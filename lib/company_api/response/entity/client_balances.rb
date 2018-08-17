@@ -154,11 +154,11 @@ module CompanyApi
         end
 
         def below_min_eth_balance_required
-          eth_balance.blank? || eth_balance < 0.0015
+          eth_balance.blank? || eth_balance <= 0.0015
         end
 
         def below_min_ost_balance_required
-          ost_balance.blank? || ost_balance < 100
+          ost_balance.blank? || ost_balance <= 100
         end
 
         private

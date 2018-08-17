@@ -50,4 +50,20 @@ module ApplicationHelper
     end
   end
 
+  def min_ost_to_proceed_onboard
+    if(GlobalConstant::Base.main_sub_environment?)
+      100
+    else
+      1000
+    end
+  end
+
+  def min_eth_to_proceed_onboard
+    if(GlobalConstant::Base.main_sub_environment?)
+      0.0015
+    else
+      0.05
+    end
+  end
+
 end
