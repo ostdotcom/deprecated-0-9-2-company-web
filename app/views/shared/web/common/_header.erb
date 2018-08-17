@@ -12,7 +12,8 @@
 
           show_notification = 1
 
-        elsif @presenter_obj.client_balances.present? && @presenter_obj.client_balances.below_min_eth_balance_required && @presenter_obj.client_balances.below_min_ost_balance_required
+        elsif @presenter_obj.client_balances.present? &&
+            (@presenter_obj.client_balances.below_min_eth_balance_required || @presenter_obj.client_balances.below_min_ost_balance_required)
 
           show_notification = 4
 
@@ -44,11 +45,8 @@
           <% when 3 %>
               <%= render :partial => "/shared/web/common/top_up_transaction_alert" %>
           <% when 4 %>
-            <% if GlobalConstant::Base.main_sub_environment? %>
               <%= render :partial => "/shared/web/common/buy_now_ost_alert" %>
-            <% else %>
-              <%= render :partial => "/shared/web/common/top_up_ost_alert" %>
-            <% end %>
+
 
 
           <% end %>

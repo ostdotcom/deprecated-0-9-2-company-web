@@ -27,12 +27,13 @@
   has_verified_email = @presenter_obj.user.is_verified?
 
   #Defaults
-  grant_initial_ost = false
-  grant_initial_eth = false
-  only_validate_balances = false
+
+   only_validate_balances = (GlobalConstant::Base.main_sub_environment?)
 
   if @presenter_obj.client_balances.blank?
     if GlobalConstant::Base.main_sub_environment?
+      grant_initial_ost = false
+      grant_initial_eth = false
       only_validate_balances = true
     else
       grant_initial_ost = true

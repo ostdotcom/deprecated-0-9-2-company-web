@@ -157,11 +157,13 @@
 
       if(response && response.success ) {
 
+        console.log("check balance ost,",response.data.balances);
         var oThis = this
           , balances = response.data.balances
           , currentEthBalance = BigNumber( balances.eth || 0 )
           , currentOstBalance = BigNumber( balances.OST || 0 )
         ;
+
 
         console.log("** currentEthBalance **" + currentEthBalance)
         if( currentEthBalance.isGreaterThanOrEqualTo( ostScan.config.minRequiredETHBalance ) ) {
