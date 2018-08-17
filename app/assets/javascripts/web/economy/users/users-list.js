@@ -21,7 +21,7 @@
             jParent : $("#user_list")
             , params  : {order_by: "created"}
             , resultFetcherCallback : function ( results ) {
-              if ( results && results.length < 0 ) {
+              if ( results && results.length > 0 ) {
                 $('#show_user_list').show();
                 $('#show_empty_user').hide();
               } else {
