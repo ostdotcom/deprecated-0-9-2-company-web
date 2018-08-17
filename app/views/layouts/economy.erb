@@ -205,5 +205,20 @@
 </script>
 <% end %>
 <%= yield(:end_js) %>
+<script type="text/javascript">
+  $(function () {
+    $( window ).load( function () {
+      setTimeout(function () {
+        //Load typekit fonts.
+        $('head').append('<link rel="stylesheet" href="https://use.typekit.net/lde7yjs.css" />');
+
+        // Force Load All other Images.
+        var responsivelyLazy = window.responsivelyLazy;
+        responsivelyLazy && responsivelyLazy.forceLoadAll && responsivelyLazy.forceLoadAll();
+      }, 100);
+    })
+  });
+</script>
+
 </body>
 </html>
