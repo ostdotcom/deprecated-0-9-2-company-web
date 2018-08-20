@@ -83,7 +83,7 @@
 
 
     <div class="col-12 form-group mb-0">
-      <label class="form-label">SET THE AMOUNT HERE
+      <label class="form-label">ARBITRARY AMOUNT AT EXECUTION
         <a href="https://help.ost.com/support/solutions/articles/35000059260-how-do-you-set-transaction-values"
            target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
       </label>
@@ -92,32 +92,25 @@
     <div class="col-12">
       <div class="form-group" id="value_action_amount">
         <div class="form-check form-check-inline mr-4">
-          <input class="form-check-input radio-button j-action-amount-setting" type="radio"
-                 name="arbitrary_amount" id="amount_set_here" value="false" />
-          <label class="radio-button-label" for="amount_set_here">
-            <span class="radio-button-circle text-capitalize"></span>On</label>
-        </div>
-        <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button  j-action-amount-setting" type="radio"
                  name="arbitrary_amount" id="amount_set_before_execution" value="true" />
           <label class="radio-button-label" for="amount_set_before_execution">
+            <span class="radio-button-circle text-capitalize"></span>On</label>
+        </div>
+        <div class="form-check form-check-inline mr-4">
+          <input class="form-check-input radio-button j-action-amount-setting" type="radio"
+                 name="arbitrary_amount" id="amount_set_here" value="false" />
+          <label class="radio-button-label" for="amount_set_here">
             <span class="radio-button-circle text-capitalize"></span>Off</label>
         </div>
-        <label class="radio-button-label p-0 font-weight-light" id="amount_type_on_help_text" style="pointer-events: none;" >
-          (When this field is on, you can set the amount of the action here.)
-        </label>
-        <label class="radio-button-label p-0 font-weight-light" id="amount_type_off_help_text" style="pointer-events: none;">
-          (When this field is off, the amount of the action is set at the time of the execution of transaction.)
-        </label>
         <div class="invalid-feedback" data-forname="arbitrary_amount">&nbps;</div>
       </div>
-
     </div>
   </div>
 
   <div id="currency_wrap" class="row">
       <div class="col-12 form-group mb-0">
-        <label class="form-label">OST PRICER
+        <label class="form-label">Price Oracle
           <a href="//help.ost.com/support/solutions/articles/35000059258-what-is-a-price-oracle"
              target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
         </label>
@@ -137,10 +130,10 @@
               <span class="radio-button-circle"></span>Off</label>
           </div>
           <label class="radio-button-label p-0 font-weight-light" id="currency_type_bt_help_text" style="pointer-events: none;" >
-            (When this field is off, the <%= bt_symbol %> value remains constant and the <%= fiat_display_text %> value will auto adjust.)
+            (When the price oracle is Off the <%= bt_symbol %> value remains constant and the <%= fiat_display_text %> value will auto adjust)
           </label>
           <label class="radio-button-label p-0 font-weight-light" id="currency_type_fiat_help_text" style="pointer-events: none;">
-            (When the price oracle is On, the <%= fiat_display_text %> value remains constant and the <%= bt_symbol %> value will auto adjust)
+            (When the price oracle is On the <%= fiat_display_text %> value remains constant and the <%= bt_symbol %> value will auto adjust)
           </label>
           <div class="invalid-feedback" data-forname="currency">&nbps;</div>
         </div>
@@ -187,7 +180,8 @@
 
   <div class="row" id="commission-options-row">
     <div class="col-12 form-group mb-0">
-      <label class="form-label">ARBITRARY COMMISSION AT EXECUTION
+      <label class="form-label">
+        ARBITRARY COMMISSION AT EXECUTION
         <a href="//help.ost.com/support/solutions/articles/35000059259-what-are-fees-on-transactions"
            target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
       </label>
@@ -199,23 +193,16 @@
       <div class="form-group" id="has_commission_group">
         <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button j-has-commission" type="radio"
-                 name="arbitrary_commission" id="charge_fees_here" value="false" />
-          <label class="radio-button-label" for="charge_fees_here">
+                 name="arbitrary_commission" id="charge_fees_before_execution" value="true" />
+          <label class="radio-button-label" for="charge_fees_before_execution">
             <span class="radio-button-circle text-capitalize"></span>On</label>
         </div>
         <div class="form-check form-check-inline mr-4">
           <input class="form-check-input radio-button j-has-commission" type="radio"
-                 name="arbitrary_commission" id="charge_fees_before_execution" value="true" />
-          <label class="radio-button-label" for="charge_fees_before_execution">
+            name="arbitrary_commission" id="charge_fees_here" value="false" />
+          <label class="radio-button-label" for="charge_fees_here">
             <span class="radio-button-circle text-capitalize"></span>Off</label>
         </div>
-        <label class="radio-button-label p-0 font-weight-light" id="commission_percent_on_help_text" style="pointer-events: none;" >
-          (When this field is on, the commission for the action is set here.)
-        </label>
-        <label class="radio-button-label p-0 font-weight-light" id="commission_percent_off_help_text" style="pointer-events: none;">
-          (When this field is off, the commission for the action is set at the time of execution of the transaction.)
-        </label>
-
 
         <!--<div class="form-check form-check-inline mr-4">-->
           <!--<input class="form-check-input radio-button j-has-commission" type="radio"-->
