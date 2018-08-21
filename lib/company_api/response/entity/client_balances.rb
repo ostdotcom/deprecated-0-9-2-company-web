@@ -60,26 +60,6 @@ module CompanyApi
           ost_balance.present? ? format_fiat_balance_to_s(convert_ost_to_fiat(ost_balance, currency_pref)) : nil
         end
 
-        def eth_balance
-          @e_b ||= begin
-            balances['eth'].present? ? BigDecimal.new(balances['eth']) : nil
-          end
-        end
-
-        def eth_balance_s
-          @e_b_s ||= begin
-            eth_balance.present? ? format_balance_to_s(eth_balance) : nil
-          end
-        end
-
-        def eth_fiat_balance(currency_pref)
-          eth_balance.present? ? convert_ost_to_fiat(eth_balance, currency_pref) : nil
-        end
-
-        def eth_fiat_balance_s(currency_pref)
-          eth_balance.present? ? format_fiat_balance_to_s(convert_ost_to_fiat(eth_balance, currency_pref)) : nil
-        end
-
         def ost_prime_balance
           @o_p_b ||= begin
             balances['ostPrime'].present? ? BigDecimal.new(balances['ostPrime']) : nil
@@ -143,18 +123,6 @@ module CompanyApi
 
         def is_eligible_for_ost_grant?
           ost_balance.blank? || ost_balance < 2000
-        end
-
-        def is_eligible_for_eth_grant?
-          eth_balance.blank? || eth_balance < 0.05
-        end
-
-        def below_min_ost_balance_required
-          GlobalConstant::Base.main_sub_environment? && (ost_balance.blank? || ost_balance < 100)
-        end
-
-        def below_min_eth_balance_required
-          GlobalConstant::Base.main_sub_environment? && (eth_balance.blank? || eth_balance < 0.0015)
         end
 
         def show_mint_st_prime_popup?

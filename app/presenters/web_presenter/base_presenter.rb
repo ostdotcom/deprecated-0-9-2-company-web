@@ -45,7 +45,7 @@ module WebPresenter
     end
 
     def is_eligible_for_eth_grant?
-      return GlobalConstant::Base.main_sub_environment? ? false : client_balances.is_eligible_for_eth_grant?
+      return GlobalConstant::Base.main_sub_environment? ? false : true
     end
 
     def client_token_planner
