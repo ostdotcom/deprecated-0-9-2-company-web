@@ -127,7 +127,7 @@ module CompanyApi
 
         def show_mint_st_prime_popup?
           if GlobalConstant::Base.main_sub_environment?
-            ost_prime_balance.blank? || ost_prime_balance < 0.1
+            ost_prime_balance.blank? || ost_prime_balance < 2
           else
             ost_prime_balance.blank? || ost_prime_balance < 20
           end
