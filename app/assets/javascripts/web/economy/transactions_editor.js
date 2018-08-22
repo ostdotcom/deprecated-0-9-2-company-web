@@ -280,14 +280,13 @@
           currency_type_id ="#currency_type_fiat";
           console.log("currency_value", currency_value);
           oThis.jValueInFiat.safeSetVal(PriceOracle.toFiat(currency_value));
+          oThis.jValueInFiat.trigger("change");
       }
 
       oThis.jForm.find( currency_type_id )
         .prop("checked", true)
         .trigger("change")
       ;
-
-      oThis.jValueInFiat.trigger("change");
 
       //commission_percent
       var arbitrary_commission = currentData.arbitrary_commission
