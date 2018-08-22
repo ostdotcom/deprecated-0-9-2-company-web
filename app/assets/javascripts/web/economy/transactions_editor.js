@@ -287,6 +287,8 @@
         .trigger("change")
       ;
 
+      oThis.jValueInFiat.trigger("change");
+
       //commission_percent
       var arbitrary_commission = currentData.arbitrary_commission
         , commission_percent = Number(currentData.commission_percent)
