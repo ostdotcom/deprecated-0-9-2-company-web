@@ -101,11 +101,11 @@ module CompanyApi
         end
 
         def format_fiat_balance_to_s(balance)
-          balance.round(2)
+          balance.truncate(2).to_s
         end
 
         def format_balance_to_s(balance)
-          balance.round(5)
+          balance.truncate(5).to_s
         end
 
         def convert_bt_to_fiat(bt_value, currency_symbol)
