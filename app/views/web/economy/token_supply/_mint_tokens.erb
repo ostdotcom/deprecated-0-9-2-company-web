@@ -10,11 +10,22 @@
   min_bt_to_mint = 0
   min_st_prime_to_mint = 0
 
-  if ost_balance > 10
+  # if ost_balance > 10
+  #   indicative_fraction = 0.25
+  #   bt_st_prime_ratio = 0.9
+  #   max_bt_to_mint = bt_st_prime_ratio * (ost_balance - min_st_prime_to_mint) * ost_to_bt
+  #   max_st_prime_to_mint = (1-bt_st_prime_ratio) * ost_balance
+  # else
+  #   indicative_fraction = 1
+  #   max_bt_to_mint = 0
+  #   max_st_prime_to_mint = ost_balance
+  # end
+
+  if ost_balance > 1
     indicative_fraction = 0.25
     bt_st_prime_ratio = 0.9
-    max_bt_to_mint = bt_st_prime_ratio * (ost_balance - min_st_prime_to_mint) * ost_to_bt
-    max_st_prime_to_mint = (1-bt_st_prime_ratio) * ost_balance
+    max_bt_to_mint = (bt_st_prime_ratio * (ost_balance - min_st_prime_to_mint) * ost_to_bt).to_i
+    max_st_prime_to_mint = (ost_balance - (max_bt_to_mint/ost_to_bt)).to_i
   else
     indicative_fraction = 1
     max_bt_to_mint = 0
