@@ -463,7 +463,7 @@
 
 
       console.log( "remainingOst", remainingOst.toString( 10 ) );
-      oThis.jOstAfter.html( remainingOst.toString( 10 ) );
+      oThis.jOstAfter.html( remainingOst.toFixed( 5 ) );
     }
 
     ,showProcessFailureErrorCover : function () {

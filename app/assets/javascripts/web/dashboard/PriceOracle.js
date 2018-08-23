@@ -428,7 +428,7 @@
         //Executions
         //Note: Update only OST, let ost update fiat. Done to reduce the no. of events being fired.
         if ( jOst.length ) {
-          jOst.safeSetVal(PriceOracle.btToOst( btVal ), orgEvent );
+          jOst.safeSetVal(PriceOracle.btToOst(btVal, true), orgEvent );
         } else {
           jFiat.safeSetVal(PriceOracle.btToFiat( btVal ), orgEvent );
         }
