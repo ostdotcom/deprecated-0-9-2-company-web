@@ -26,7 +26,7 @@
     , idOstToTransfer : null
     , idConfirmModal  : "stake-mint-confirm"
     , idConfirmBtn    : "confirm_mint_button"
-    , gasPriceWei     : "1000000000"
+    , gasPrice     : "0x3B9ACA00"
 
     /* jQuery Dom Refrences */
     , jOstStakeForBt  : null
@@ -349,7 +349,7 @@
       //Create webjs transaction object.
       transactionObject = contract.transfer(recipient, totalOstStakeForBt, {
           from: oThis.userAddress,
-          gasPrice: web3.toHex(oThis.gasPriceWei)
+          gasPrice: oThis.gasPrice
       }, sendCallback);
       //Encode it.
       // encodedAbi        = transactionObject.encodeABI();

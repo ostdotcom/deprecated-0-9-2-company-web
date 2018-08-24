@@ -88,6 +88,7 @@
 
 
   #All Other things.
+  value_chain_gas_price = @presenter_obj.chain_interaction_params.value_chain_gas_price
 
 %>
 
@@ -229,7 +230,7 @@
       , idBtToFiat          : "<%= bt_to_fiat_input_id %>"
       , idForm              : "<%= stake_and_mint_form_id %>"
       , idTransferHash      : "<%= ost_transfered_transaction_hash_id %>"
-      , gasPriceWei         : "5000000000"
+      , gasPrice            : "<%= value_chain_gas_price %>"
     });
 
   });

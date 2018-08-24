@@ -44,6 +44,10 @@ module CompanyApi
           @data['staker_addr']
         end
 
+        def value_chain_gas_price
+          @data['value_chain_gas_price']
+        end
+
       end
 
     end
