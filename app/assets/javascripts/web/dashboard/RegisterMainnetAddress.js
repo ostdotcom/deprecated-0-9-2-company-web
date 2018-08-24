@@ -235,6 +235,6 @@
     }
   };
 
-  metamask.registerMainnetAddressHelper.init();
+  // Invoked externally as the dependent erb is loaded conditionally
 
 })(window, jQuery);
