@@ -5,23 +5,40 @@
 
 <div class="container">
   <%=
+    faqs_data =  [
+        {
+            title: 'What does Staking and Minting mean?',
+            url: 'https://help.ost.com/support/solutions/articles/35000059261-what-does-staking-and-minting-mean-'
+        },
+        {
+            title: 'What is Gas? And who pays for it?',
+            url: 'https://help.ost.com/support/solutions/articles/35000059262-what-is-gas-and-who-pays-for-it-'
+        },
+        {
+            title: 'How do I unstake?',
+            url: 'https://help.ost.com/support/solutions/articles/35000059273-how-do-i-unstake-'
+        }
+    ]
+    if GlobalConstant::Base.main_sub_environment?
+      faqs_data =  [
+          {
+              title: 'What does Staking and Minting mean?',
+              url: 'https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=id.rb9kszc0atnu'
+          },
+          {
+              title: 'What is Gas? And who pays for it?',
+              url: 'https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=id.oqmqtfp8aruf'
+          },
+          {
+              title: 'How do I unstake?',
+              url: 'https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=id.g2ye19u7hczr'
+          }
+      ]
+    end
       render :partial => "shared/web/common/faqs",
       locals: {
         header: "FAQ",
-        faqs: [
-          {
-            title: 'What does Staking and Minting mean?',
-            url: 'https://help.ost.com/support/solutions/articles/35000059261-what-does-staking-and-minting-mean-'
-          },
-          {
-            title: 'What is Gas? And who pays for it?',
-            url: 'https://help.ost.com/support/solutions/articles/35000059262-what-is-gas-and-who-pays-for-it-'
-          },
-          {
-            title: 'How do I unstake?',
-            url: 'https://help.ost.com/support/solutions/articles/35000059273-how-do-i-unstake-'
-          }
-        ]
+        faqs: faqs_data
       }
   %>
 </div>

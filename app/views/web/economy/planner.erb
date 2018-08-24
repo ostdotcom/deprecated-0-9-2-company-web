@@ -167,29 +167,47 @@
     %>
   </form>
   <%=
+    faqs_data = [
+        {
+            title: 'How do I decide the conversion rate for my economy?',
+            url: 'https://help.ost.com/support/solutions/articles/35000059252-how-do-i-decide-the-conversion-rate-for-my-economy-'
+        },
+        {
+            title: "How are Branded Tokens and #{ost_currency_symbol} related?",
+            url: 'https://help.ost.com/support/solutions/articles/35000059253-how-are-branded-tokens-and-ost-related-'
+        },
+        {
+            title: "What is the value of #{ost_currency_symbol} and does it change?",
+            url: 'https://help.ost.com/support/solutions/articles/35000059254-what-is-the-value-of-ost%CE%B1-and-does-it-change-'
+        },
+        {
+            title: 'Can I change my conversion rate?',
+            url: 'https://help.ost.com/support/solutions/articles/35000059255-can-i-change-my-conversion-rate-'
+        }
+    ];
+    if GlobalConstant::Base.main_sub_environment?
+      faqs_data = [
+          {
+              title: 'How do I decide the conversion rate for my economy?',
+              url: 'https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=id.3tfgo4wscpxa'
+          },
+          {
+              title: "How are Branded Tokens and #{ost_currency_symbol} related?",
+              url: 'https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=id.qh1jbv9ahsn'
+          },
+          {
+              title: 'Can I change my conversion rate?',
+              url: 'https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=kix.mcx2wojw0d0t'
+          }
+      ];
+    end
       render :partial => "shared/web/common/faqs",
              locals: {
                      header: "FAQ",
-                     faqs: [
-                             {
-                                     title: 'How do I decide the conversion rate for my economy?',
-                                     url: 'https://help.ost.com/support/solutions/articles/35000059252-how-do-i-decide-the-conversion-rate-for-my-economy-'
-                             },
-                             {
-                                     title: "How are Branded Tokens and #{ost_currency_symbol} related?",
-                                     url: 'https://help.ost.com/support/solutions/articles/35000059253-how-are-branded-tokens-and-ost-related-'
-                             },
-                             {
-                                     title: "What is the value of #{ost_currency_symbol} and does it change?",
-                                     url: 'https://help.ost.com/support/solutions/articles/35000059254-what-is-the-value-of-ost%CE%B1-and-does-it-change-'
-                             },
-                             {
-                                     title: 'Can I change my conversion rate?',
-                                     url: 'https://help.ost.com/support/solutions/articles/35000059255-can-i-change-my-conversion-rate-'
-                             }
-                     ]
+                     faqs: faqs_data
              }
   %>
+
 </div>
 
 <footer>
