@@ -4,9 +4,13 @@
   var logMe = true;
   //For ROUNDING_MODE, See https://mikemcl.github.io/bignumber.js/#rounding-mode 
 
-  // All Constents.
+  // All Constants.
   var P_OST = 5
     , P_OST_ROUND_ROUNDING_MODE   = BigNumber.ROUND_HALF_UP
+  ;
+
+  var P_OST_BT_CONTRACT_DECIMAL = 18
+    , P_OST_BT_CONTRACT_DECIMAL_ROUND_ROUNDING_MODE = BigNumber.ROUND_UP
   ;
 
   var P_BT = 5
@@ -105,7 +109,7 @@
 
       bt = BigNumber( bt );
       var ostToBt = BigNumber( OST_TO_BT )
-        , result  = bt.div( ostToBt )
+        , result  = bt.div( ostToBt ).toFixed(P_OST_BT_CONTRACT_DECIMAL, P_OST_BT_CONTRACT_DECIMAL_ROUND_ROUNDING_MODE)
       ;
       console.log("btToOst :: ostToBt ", ostToBt.toString( 10 ));
       console.log("btToOst :: result ", result.toString( 10 ));
@@ -428,7 +432,7 @@
         //Executions
         //Note: Update only OST, let ost update fiat. Done to reduce the no. of events being fired.
         if ( jOst.length ) {
-          jOst.safeSetVal(PriceOracle.btToOst( btVal ), orgEvent );
+          jOst.safeSetVal(PriceOracle.btToOst(btVal, true), orgEvent );
         } else {
           jFiat.safeSetVal(PriceOracle.btToFiat( btVal ), orgEvent );
         }
