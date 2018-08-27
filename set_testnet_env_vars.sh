@@ -1,6 +1,6 @@
 # Note this secret has to be same for company-web & company-api in order to make CSRF work
 # As FE uses staging ENV for local testing, this should be in sync with Staging API Secret
-export COMPANY_SECRET_KEY_BASE='d7fc903814520a0d60bae026cbf7fb18272f4deff1a74f1125074177676b4d44cbfcf454ea48cc7ae95630c554caa4e481b8e394d0f00b5a93fae249e0980c25'
+export COMPANY_SECRET_KEY_BASE='2fc2e8b316ceeb04e8675900f3176668d2a836494417e0164a966aefd701430390d3db685f87c224cbb48b332f8a5cf490fa7f034e063ff13a94fc06a409bf0a'
 
 # Core ENV Details
 export CW_SUB_ENV='sandbox'
