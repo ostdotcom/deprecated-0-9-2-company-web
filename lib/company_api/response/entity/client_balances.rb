@@ -40,6 +40,12 @@ module CompanyApi
           end
         end
 
+        def eth_balance
+          @e_b ||= begin
+            balances['eth'].present? ? BigDecimal.new(balances['eth']) : nil
+          end
+        end
+
         def ost_balance
           @o_b ||= begin
             balances['OST'].present? ? BigDecimal.new(balances['OST']) : nil
@@ -123,6 +129,10 @@ module CompanyApi
 
         def is_eligible_for_ost_grant?
           ost_balance.blank? || ost_balance < 2000
+        end
+
+        def is_eligible_for_eth_grant?
+          eth_balance.blank? || eth_balance < 0.05
         end
 
         def show_mint_st_prime_popup?
