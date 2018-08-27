@@ -10,7 +10,7 @@
     max_allowed_token_worth_in_usd = @presenter_obj.client_token_planner.max_allowed_token_worth_in_usd
   else
     bt_to_fiat = 0.01
-    max_allowed_token_worth_in_usd = 1
+    max_allowed_token_worth_in_usd = GlobalConstant::Base.main_sub_environment? ? 1 : 10
   end
   
 
