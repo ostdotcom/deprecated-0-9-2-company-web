@@ -97,5 +97,16 @@
 
 <%= yield(:end_js) %>
 
+<script type="text/javascript">
+  $(function () {
+    $( window ).load( function () {
+      setTimeout(function () {
+        var responsivelyLazy = window.responsivelyLazy;
+        responsivelyLazy && responsivelyLazy.forceLoadAll && responsivelyLazy.forceLoadAll();
+      }, 100);
+    })
+  });
+</script>
+
 </body>
 </html>

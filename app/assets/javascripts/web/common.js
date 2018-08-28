@@ -3,7 +3,6 @@
 //= require plugins/bignumber.js/bignumber
 //= require plugins/jquery-number/jquery.number
 //= require plugins/jquery-validate/jquery.validate
-//= require plugins/responsively_lazy/responsivelyLazy
 //= require plugins/jquery-validate/ost-jquery-validate-modifications
 //= require plugins/jquery-validate/additional-methods
 //= require plugins/helpers/formHelper
