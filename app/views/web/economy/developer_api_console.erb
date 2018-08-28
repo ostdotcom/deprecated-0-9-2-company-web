@@ -10,12 +10,26 @@
       <h4 class="mr-auto mb-2">Get API Keys</h4>
     </div>
     <div class="col-12">
-      <p class="desc font-weight-light">
-        To be able to use the OST KIT alpha API you will have to authenticate your account by including an API signature with each API request. Signatures validate the authenticity of the person who interacts with OST KIT alpha and ensures that the message sent has not been tampered with. Signature is a hash that needs the API Key and API Secret Key as two of the various parameters.  You can find the API KEY and API SECRET KEY for your account below. 
-      </p>
-      <p class="desc font-weight-light">
-        Please be sure your API Secret Key is always kept secure and never shared. Be careful when adding it to your codebase. Do not share your secret API keys in publicly accessible areas such as GitHub, Google docs etc.
-      </p>
+      <% if GlobalConstant::Base.main_sub_environment? %>
+        <p class="desc font-weight-light">
+          To be able to use the OST KIT Mainnet alpha1 API you will have to authenticate your account by including an API signature with each API request. You can find the API KEY and API SECRET KEY for your account below.
+        </p>
+        <p class="desc font-weight-light">
+          Please be sure your API Secret Key is always kept secure and never shared. Be careful when adding it to your codebase. Do not share your secret API keys in publicly accessible areas such as GitHub, Google docs etc.
+        </p>
+        <p class="desc font-weight-light">
+          API integration allows you to execute transactions among users, please be informed, if you intend to unstake the OST in future you will have to make sure all your branded tokens exchanged during different transactions should be collected back in one address before unstaking.
+        </p>
+
+    <% else %>
+        <p class="desc font-weight-light">
+          To be able to use the OST KIT alpha API you will have to authenticate your account by including an API signature with each API request. Signatures validate the authenticity of the person who interacts with OST KIT alpha and ensures that the message sent has not been tampered with. Signature is a hash that needs the API Key and API Secret Key as two of the various parameters.  You can find the API KEY and API SECRET KEY for your account below.
+        </p>
+        <p class="desc font-weight-light">
+          Please be sure your API Secret Key is always kept secure and never shared. Be careful when adding it to your codebase. Do not share your secret API keys in publicly accessible areas such as GitHub, Google docs etc.
+        </p>
+      <% end %>
+
     </div>
     
     <div class="col-12 mb-3" id="fetch-api-details-form-wrap">
