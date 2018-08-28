@@ -13,6 +13,10 @@ module GlobalConstant
         @root_url ||= fetch_config.fetch('root_url', '')
       end
 
+      def placeholder_image_src
+        @placeholder_image_src ||= fetch_config.fetch('placeholder_image_src', '')
+      end
+
       def cloudfront_config
         @cloudfront ||= fetch_config.fetch('cloudfront', {}).with_indifferent_access
       end
