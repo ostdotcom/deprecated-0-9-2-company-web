@@ -4,13 +4,13 @@
     label_classes = label_classes.present? ? label_classes : ""
 
     if ( defined? max && defined? min )
-        is_enabled  = max > min 
+        is_enabled  = max > min
     end
     is_disbaled = !is_enabled
     
     if is_disbaled 
         classes += "  disabled "
-        label_classes += "  disabled "
+        label_classes += "  disabled " if min <= 0
     end
 
 
@@ -20,9 +20,8 @@
   <label class="form-label <%= label_classes %>" for="<%=id%>"><%= raw label%></label>
   <div class="input-group slider-with-input top <%= (defined? classes) ? classes : '' %>">
     <span class="slider-input-top">
-        <input type="<%=type%>" class="form-control mt-1 mb-2" id="<%=id%>" name="<%=name%>" 
-          min="<%=min%>" max="<%=max%>" step="<%=step%>" value="<%=value%>" 
-          <% if is_disbaled %> disabled <% end %>
+        <input type="<%=type%>" class="form-control mt-1 mb-2 <%= label_classes %>" id="<%=id%>" name="<%=name%>"
+          min="<%=min%>" max="<%=max%>" step="<%=step%>" value="<%=value%>"
         />
     </span>
     <input

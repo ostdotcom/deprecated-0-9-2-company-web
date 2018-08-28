@@ -38,10 +38,6 @@ module ApplicationHelper
     end
   end
 
-  def ost_release_text
-    "OST Alpha"
-  end
-
   def ost_valuechain_text
     if(Rails.env.production? && GlobalConstant::Base.main_sub_environment?)
       'Main Ethereum Network'
