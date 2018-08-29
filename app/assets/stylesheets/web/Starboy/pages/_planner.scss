@@ -61,12 +61,20 @@ svg > g:last-child > g:last-child { pointer-events: none }
   }
 }
 
-.planner-conversion-rate-banner{
-  position: fixed;
-  right: 0;
-  z-index: 1030;
-  width: calc(100% - 250px);
-  right: 0;
-  background-color: #f9f8e6;
-  height: 40px;
+.planner-banner{
+
+  > .col{
+    position: fixed;
+    right: 0;
+    z-index: 1030;
+    width: calc(100% - 250px);
+    right: 0;
+    background-color: #f9f8e6;
+    min-height: 40px;
+  }
+
+  .shadow{
+    min-height: 40px;
+  }
+
 }

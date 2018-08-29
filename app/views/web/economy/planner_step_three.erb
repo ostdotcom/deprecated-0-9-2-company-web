@@ -87,9 +87,9 @@
   </script>
 <% end %>
 
-<% if disable_mint_tokens_btn %>
+<% #if disable_mint_tokens_btn %>
   <%= render :partial => "/shared/web/common/planner_conversion_rate_alert" %>
-<% end %>
+<% #end %>
 
 <form id="step3_stake_and_mint_form" 
   action="/api/economy/token/stake-and-mint"  method="POST"
