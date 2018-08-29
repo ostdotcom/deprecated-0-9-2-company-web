@@ -169,13 +169,13 @@
         if( currentEthBalance.isGreaterThanOrEqualTo( ostScan.config.minRequiredETHBalance ) ) {
           // User has sufficient ETH, lets validate OST.
           jEth.find(".j_validate_icon").html( oThis.processedIcon );
-          jEth.find(".j_validate_message").html("Sufficient Eth balance to proceed");
+          jEth.find(".j_validate_message").html("Sufficient ETH balance to proceed");
 
           isAddressValid = isAddressValid && true;
         } else {
           //User does not have ETH. Stop them here.
           jEth.find(".j_validate_icon").html( oThis.failedIcon );
-          jEth.find(".j_validate_message").html("Insufficient Eth balance required for gas. ");
+          jEth.find(".j_validate_message").html("Insufficient ETH balance required for gas. ");
           isAddressValid = isAddressValid && false;
         }
 
@@ -194,7 +194,7 @@
         }
       } else {
         jEth.find(".j_validate_icon").html( oThis.failedIcon );
-        jEth.find(".j_validate_message").html("Insufficient Eth balance required for gas. ");
+        jEth.find(".j_validate_message").html("Insufficient ETH balance required for gas. ");
 
         jOst.find(".j_validate_icon").html( oThis.failedIcon );
         jOst.find(".j_validate_message").html("Insufficient OST balance. Minimum 100 OST required.");

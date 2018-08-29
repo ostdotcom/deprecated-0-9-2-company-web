@@ -112,9 +112,18 @@
             <div class="alert alert-info pt-4 mb-5" role="alert">
               <h5>
                 The third step is minting <%= bt_symbol %>
-                <a href="//help.ost.com/support/solutions/articles/35000059261-what-does-staking-and-minting-mean"
-                   target="_blank" class="card-link float-right text-uppercase hover-link">Learn More
-                </a>
+
+                <% if GlobalConstant::Base.main_sub_environment? %>
+                  <a href="https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=kix.klh8i5xlguky"
+                     target="_blank" class="card-link float-right text-uppercase hover-link">Learn More
+                  </a>
+                <% else %>
+                  <a href="//help.ost.com/support/solutions/articles/35000059261-what-does-staking-and-minting-mean"
+                     target="_blank" class="card-link float-right text-uppercase hover-link">Learn More
+                  </a>
+                <% end %>
+
+
               </h5>
               <hr class="mt-3 mb-4"/>
               <p class="font-weight-light font-size-p">Here you will select the number of <%= bt_symbol %> to mint.
