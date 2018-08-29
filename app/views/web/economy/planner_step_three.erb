@@ -87,6 +87,10 @@
   </script>
 <% end %>
 
+<% if disable_mint_tokens_btn %>
+  <%= render :partial => "/shared/web/common/planner_conversion_rate_alert" %>
+<% end %>
+
 <form id="step3_stake_and_mint_form" 
   action="/api/economy/token/stake-and-mint"  method="POST"
   class="form-container user-form" data-ost-formhelper>
@@ -222,9 +226,6 @@
       <div class="container">
         <a href="/planner/step-2" class="btn btn-steps-nav pt-3 pb-3 float-left text-left">&lt; SET UP ACTIONS</a>
         <button type="submit" id="mint_tokens_btn" href="javascript:void(0)" class="btn btn-steps-nav bg-yellow pt-3 pb-3 float-right" <% if disable_mint_tokens_btn %> disabled <% end %> >Mint Tokens &gt;</button>
-        <% if disable_mint_tokens_btn %>
-          <span class="pt-1 pb-1 float-right text-right" style="max-width: 550px;color:#fff;"> The conversion rate set for your economy is high. Either change the conversion rate or transfer more OST to be able to proceed for Minting.</span>
-        <% end %>
       </div>
     </div>
     <div class="pseudo-footer"></div>
