@@ -62,4 +62,8 @@ module ApplicationHelper
     end
   end
 
+  def assets_domain
+    GlobalConstant::Base.main_sub_environment? ? 'mainnetdev.ost.com' : 'dev.ost.com'
+  end
+
 end
