@@ -47,8 +47,7 @@ module GlobalConstant
       end
 
       def is_public_launch_done?
-        # Change this to true when we launch Kit to general public
-        true
+        sandbox_sub_environment?
       end
 
       private

@@ -5,7 +5,9 @@ class Web::HomeController < Web::BaseController
   before_action :set_page_meta_info
 
   def index
-
+    if Rails.env.production? && GlobalConstant::Base.main_sub_environment?
+      redirect_to :sign_up, status: GlobalConstant::ErrorCode.temporary_redirect and return
+    end
   end
 
   def unsupported_client
