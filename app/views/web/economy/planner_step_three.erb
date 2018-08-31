@@ -87,9 +87,9 @@
   </script>
 <% end %>
 
-<% #if disable_mint_tokens_btn %>
+<% if disable_mint_tokens_btn %>
   <%= render :partial => "/shared/web/common/planner_conversion_rate_alert" %>
-<% #end %>
+<% end %>
 
 <form id="step3_stake_and_mint_form" 
   action="/api/economy/token/stake-and-mint"  method="POST"
@@ -217,7 +217,7 @@
                 url: 'https://help.ost.com/support/solutions/articles/35000059261-what-does-staking-and-minting-mean-'
               },
               {
-                title: 'What is Gas? and Who paysbt_to_mint_input for it?',
+                title: 'What is Gas? and Who pays for it?',
                 url: 'https://help.ost.com/support/solutions/articles/35000059262-what-is-gas-and-who-pays-for-it-'
               },
               {
