@@ -116,31 +116,56 @@
     </div>
   </div>
   <%=
+    faqs_data =  [
+        {
+            title: 'What are Actions and Action Amounts?',
+            url: 'https://help.ost.com/support/solutions/articles/35000059256-what-are-transactions-and-transaction-values-'
+        },
+        {
+            title: 'What are the different types of Actions?',
+            url: 'https://help.ost.com/support/solutions/articles/35000059257-what-are-the-different-types-of-transactions-'
+        },
+        {
+            title: 'What is a Price Oracle?',
+            url: 'https://help.ost.com/support/solutions/articles/35000059258-what-is-a-price-oracle-'
+        },
+        {
+            title: 'What are fees on Transactions?',
+            url: 'https://help.ost.com/support/solutions/articles/35000059259-what-are-fees-on-transactions-'
+        },
+        {
+            title: 'How do you set Action Amount?',
+            url: 'https://help.ost.com/support/solutions/articles/35000059260-how-do-you-set-transaction-values-'
+        }
+    ]
+    if GlobalConstant::Base.main_sub_environment?
+      faqs_data =  [
+          {
+              title: 'What are Actions and Action Amounts?',
+              url: 'https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=id.il3evhpo3isk'
+          },
+          {
+              title: 'What are the different types of Actions?',
+              url: 'https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=id.q60bwfbgiwxn'
+          },
+          {
+              title: 'What is a Price Oracle?',
+              url: 'https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=id.xg87gjwrfvu0'
+          },
+          {
+              title: 'What are fees on Transactions?',
+              url: 'https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=id.bzj3t5jwt0gj'
+          },
+          {
+              title: 'How do you set Action Amount?',
+              url: 'https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=id.rdonq2rk7gg8'
+          }
+      ]
+    end
       render :partial => "shared/web/common/faqs",
              locals: {
              header: "FAQ",
-        faqs: [
-        {
-          title: 'What are Actions and Action Amounts?',
-      url: 'https://help.ost.com/support/solutions/articles/35000059256-what-are-transactions-and-transaction-values-'
-      },
-      {
-        title: 'What are the different types of Actions?',
-      url: 'https://help.ost.com/support/solutions/articles/35000059257-what-are-the-different-types-of-transactions-'
-      },
-      {
-        title: 'What is a Price Oracle?',
-      url: 'https://help.ost.com/support/solutions/articles/35000059258-what-is-a-price-oracle-'
-      },
-      {
-        title: 'What are fees on Transactions?',
-      url: 'https://help.ost.com/support/solutions/articles/35000059259-what-are-fees-on-transactions-'
-      },
-      {
-        title: 'How do you set Action Amount?',
-      url: 'https://help.ost.com/support/solutions/articles/35000059260-how-do-you-set-transaction-values-'
-      }
-      ]
+        faqs:faqs_data
       }
   %>
 </div>

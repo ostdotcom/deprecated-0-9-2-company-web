@@ -113,7 +113,7 @@
         case ETH_GRANT_CONFIRMED:
 
           if ( !oThis.grant_initial_ost ) {
-            console.log("nextStep :: ETH_GRANT_CONFIRMED Skipping OST⍺ grant.");
+            console.log("nextStep :: ETH_GRANT_CONFIRMED Skipping "+oThis.ost_currency_symbol+" grant.");
             //Dont need to grant OST.
             oThis.currentStep = OST_GRANT_CONFIRMED;
             setTimeout(function () {
@@ -139,7 +139,7 @@
         case OST_GRANT_CONFIRMED:
           setTimeout(function(){
             oThis.jFormSubmitBtn.attr("disabled", false);
-            oThis.jFormSubmitBtn.text("Get Ost⍺");
+            oThis.jFormSubmitBtn.text("Get "+oThis.ost_currency_symbol);
           }, 100);
           oThis.allStepsCompleted.apply( oThis, arguments);
         break;
@@ -155,7 +155,7 @@
 
       setTimeout(function(){
         oThis.jFormSubmitBtn.attr("disabled", false);
-        oThis.jFormSubmitBtn.text("Get Ost⍺");
+        oThis.jFormSubmitBtn.text("Get "+oThis.ost_currency_symbol);
       }, 100);
 
       if ( response && response.err ) {
@@ -465,7 +465,9 @@
     },
 
     getEthFromOstFocet: function ( address, callback ) {
-      console.log("getEthFromOstFocet :: Get Eth from OST⍺ Focet!");
+      var oThis = this;
+
+      console.log("getEthFromOstFocet :: Get Eth from "+oThis.ost_currency_symbol+" Focet!");
       //To-Do: Write an Api call to backend. Below is a dummy code.
 
       var ajaxConfig = {

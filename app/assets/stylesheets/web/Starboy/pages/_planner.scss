@@ -60,3 +60,26 @@ svg > g:last-child > g:last-child { pointer-events: none }
     color: #6c9ba9;
   }
 }
+
+.planner-banner{
+
+  > .col{
+    position: fixed;
+    right: 0;
+    z-index: 1030;
+    width: calc(100% - 250px);
+    right: 0;
+    background-color: #f18543;
+    min-height: 40px;
+  }
+
+  .badge{
+    color: #f18543;
+    font-size: 1rem;
+  }
+
+  .shadow{
+    min-height: 40px;
+  }
+
+}

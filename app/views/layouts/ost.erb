@@ -62,13 +62,8 @@
 </script>
 
   <%= csrf_meta_tags %>
-  <script src="https://use.typekit.net/lde7yjs.js"></script>
   <script>
     window.name = "<%= [*('A'..'Z')].sample(8).join %>";
-    try{Typekit.load({
-      async: true
-    });}catch(e){
-    }
   </script>
 
   <% if Rails.env.production? %>
@@ -95,6 +90,21 @@
 <%= javascript_include_tag "#{specific_manifest_file_path}" if has_specific_js_manifest_file? %>
 
 <%= yield(:end_js) %>
+
+<script type="text/javascript">
+  $(function () {
+    $( window ).load( function () {
+      setTimeout(function () {
+        //Load typekit fonts.
+        $('head').append('<link rel="stylesheet" href="https://use.typekit.net/lde7yjs.css" />');
+
+        // Force Load All other Images.
+        var responsivelyLazy = window.responsivelyLazy;
+        responsivelyLazy && responsivelyLazy.forceLoadAll && responsivelyLazy.forceLoadAll();
+      }, 100);
+    })
+  });
+</script>
 
 </body>
 </html>

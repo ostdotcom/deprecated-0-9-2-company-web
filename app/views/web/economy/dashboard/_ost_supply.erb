@@ -2,14 +2,14 @@
   <div class="col-12">
     <div class="row">
       <div class="col-sm-8">
-        <h4 class="mt-4">OST⍺ Supply</h4>
+        <h4 class="mt-4"><%= ost_currency_symbol %> Supply</h4>
         <div class="d-flex align-items-center _ost_supply mt-3">
           <div id="ostSupplyPie" class="pr-3" style="width:200px; height: 200px"></div>
           <ul class="p-0">
             <li class="d-flex align-items-center mb-3">
               <span class="ost-supply available"></span>
               <p class="m-0 ml-2">
-                <small class="d-block" data-ost_available_key>OST⍺ Available</small>
+                <small class="d-block" data-ost_available_key><%= ost_currency_symbol %> Available</small>
                 <small class="d-block" data-ost_available_val>350</small>
               </p>
             </li>
@@ -23,7 +23,7 @@
             <li class="d-flex align-items-center mb-3">
               <span class="ost-supply staked-minting"></span>
               <p class="m-0 ml-2">
-                <small class="d-block" data-ost_staked_key>OST⍺ to be staked for minting tokens</small>
+                <small class="d-block" data-ost_staked_key><%= ost_currency_symbol %> to be staked for minting tokens</small>
                 <small class="d-block" data-ost_staked_val>310</small>
               </p>
             </li>

@@ -31,7 +31,7 @@
 </script>
 <script id="<%= failed_header_tempate_id %>" type="text/x-handlebars-template">
   <h3 class="alert alert-danger text-center" role="alert">
-    Something Went Wrong!
+    Insufficient OST as gas
   </h3>
 </script>
 
@@ -76,8 +76,8 @@
     AirdropTxStatusModal.prototype.onTxFailed = function () {
       var oThis = this;
       _onTxFailed.apply(oThis, arguments);
-      oThis.hide();
-      ost.coverElements.show('#process_failure_error_cover');
+      //oThis.hide();
+      //ost.coverElements.show('#process_failure_error_cover');
     }
 
   });

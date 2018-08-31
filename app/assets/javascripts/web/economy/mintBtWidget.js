@@ -26,6 +26,7 @@
     , idOstToTransfer : null
     , idConfirmModal  : "stake-mint-confirm"
     , idConfirmBtn    : "confirm_mint_button"
+    , gasPrice     : "0x3B9ACA00"
 
     /* jQuery Dom Refrences */
     , jOstStakeForBt  : null
@@ -304,7 +305,7 @@
       totalOstStakeForBt     = web3.toWei(totalOstStakeForBt, "ether");
 
 
-      sendCallback =function (error, result) { 
+      sendCallback =function (error, result) {
         var forwardResponse = {
           success: true
           , data: {}
@@ -347,7 +348,8 @@
       console.log("totalOstStakeForBt", totalOstStakeForBt);
       //Create webjs transaction object.
       transactionObject = contract.transfer(recipient, totalOstStakeForBt, {
-        from: oThis.userAddress
+          from: oThis.userAddress,
+          gasPrice: oThis.gasPrice
       }, sendCallback);
       //Encode it.
       // encodedAbi        = transactionObject.encodeABI();
@@ -461,7 +463,7 @@
 
 
       console.log( "remainingOst", remainingOst.toString( 10 ) );
-      oThis.jOstAfter.html( remainingOst.toString( 10 ) );
+      oThis.jOstAfter.html( remainingOst.toFixed( 5 ) );
     }
 
     ,showProcessFailureErrorCover : function () {

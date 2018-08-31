@@ -11,8 +11,17 @@
       <p class="mb-4">
         Graphs populate every 5 minutes.
       </p>
+      <!-- @Shradha: Confirm with Junisha what needs to be done here. -->
       <div class="run-transaction-btn-wrapper mb-4">
-        <a class="btn btn-gold run-first-transaction-btn" href="/simulator">Simulate Transactions</a>
+        <% if GlobalConstant::Base.main_sub_environment? %>
+
+            <a class="btn btn-gold run-first-transaction-btn" href="/developer-api-console">RUN TRANSACTIONS VIA API</a>
+
+        <%else%>
+
+            <a class="btn btn-gold run-first-transaction-btn" href="/simulator">Simulate Transactions</a>
+
+        <%end%>
       </div>
     </div>
   </div>
@@ -32,8 +41,17 @@
       <p class="mb-4">
         Graphs populate every 5 minutes.
       </p>
+      <!-- @Shradha: Confirm with Junisha what needs to be done here. -->
       <div class="run-transaction-btn-wrapper mb-4">
-        <a class="btn btn-gold run-first-transaction-btn" href="/simulator">Simulate Transactions</a>
+        <% if GlobalConstant::Base.main_sub_environment? %>
+
+          <a class="btn btn-gold run-first-transaction-btn" href="/developer-api-console">RUN TRANSACTIONS VIA API</a>
+
+        <%else%>
+
+          <a class="btn btn-gold run-first-transaction-btn" href="/simulator">Simulate Transactions</a>
+
+        <%end%>
       </div>
     </div>
   </div>

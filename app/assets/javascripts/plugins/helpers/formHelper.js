@@ -321,6 +321,7 @@
       var oThis = this;
       var errorHash = {};
       var serverErrors = response.err.error_data || {};
+      var showGeneralError = true;
       if ( serverErrors instanceof Array && serverErrors.length) {
 
         var errObj = serverErrors[0];
@@ -328,6 +329,7 @@
           $(serverErrors).each(function(index, currErrObj) {
             var parameter = currErrObj.parameter;
             errorHash[ parameter ] = currErrObj.msg;
+            showGeneralError = false;
           });
         }
       }
@@ -335,7 +337,7 @@
 
       var generalErrorMessage = response.err.display_text;
 
-      if ( generalErrorMessage ) {
+      if ( generalErrorMessage && showGeneralError) {
         oThis.jForm.find(".general_error")
           .addClass("is-invalid")
           .html( generalErrorMessage );

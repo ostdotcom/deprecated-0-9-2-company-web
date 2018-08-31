@@ -199,6 +199,10 @@ class Web::EconomyController < Web::BaseController
   #
   def simulator
 
+    if GlobalConstant::Base.main_sub_environment?
+      redirect_to :dashboard, status: GlobalConstant::ErrorCode.permanent_redirect
+    end
+
     @response = CompanyApi::Request::Economy.new(
         CompanyApi::Response::Formatter::Economy,
         request.cookies,

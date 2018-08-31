@@ -72,6 +72,7 @@
         <span class="label">Actions</span>
       </a>
     </li>
+    <% if !GlobalConstant::Base.main_sub_environment? %>
     <li class="nav-item">
       <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %> <%= action == 'simulator' ? 'active' : ''%>" href="/simulator">
         <svg class="icon">
@@ -82,6 +83,7 @@
         <span class="label">Simulator</span>
       </a>
     </li>
+    <% end %>
     <li class="nav-item">
       <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %> <%= action == 'developer_api_console' ? 'active' : ''%>" href="/developer-api-console">
         <svg class="icon">

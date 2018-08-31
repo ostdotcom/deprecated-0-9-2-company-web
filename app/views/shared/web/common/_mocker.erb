@@ -1,9 +1,10 @@
-<% # This component obeserves an input for change and updates its own display value. 
-   # The width of component needs to be controled from out side.
-%>
-<% # Supported Local Variables %>
 <%
+  # This component obeserves an input for change and updates its own display value.
+  # The width of component needs to be controled from out side.
+  # Supported Local Variables
+
   mock_selector = mock_selector.present? ? mock_selector : "";
+  mock_type = mock_type.present? ? mock_type : "";
   header = header.present? ? header : "";
   value_prefix = value_prefix.present? ? value_prefix : "";
   value_postfix = value_postfix.present? ? value_postfix : "";
@@ -18,7 +19,7 @@
     <div class="ost-mocker-header"><%= raw header %></div>
     <div class="ost-mocker-value-wrap">
       <div class="ost-mocker-value-pre"><%= raw value_prefix %></div>
-      <div class="ost-mocker-value" data-ost-mock-element="<%= raw mock_selector %>"><%= value %></div>
+      <div class="ost-mocker-value" data-type="<%= raw mock_type %>" data-ost-mock-element="<%= raw mock_selector %>"><%= value %></div>
       <div class="ost-mocker-value-post"><%= raw value_postfix %></div>
     </div>
     <div class="ost-mocker-footer"><%= raw footer %></div>

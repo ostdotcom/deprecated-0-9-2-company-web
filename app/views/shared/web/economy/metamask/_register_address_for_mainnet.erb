@@ -1,0 +1,118 @@
+<div class="row ost__planner">
+  <div class="col-12 col-md-8 pt-6 mx-auto text-center">
+    <svg class="icon-fund-wallet">
+      <switch>
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fund-wallet"></use>
+      </switch>
+    </svg>
+    <h3 class="text-center font-weight-bold letter-space-1 mt-5">Make sure to have at least <%= min_ost_to_proceed_onboard %> <%= ost_currency_symbol %> in your MetaMask account shown below.</h3>
+    <p class="font-weight-light mb-5 text-muted">
+        These transactions are on Ethereum Mainnet. Make sure you have enough ETH in your Metamask to pay gas
+        for the transactions. We recommend at least <%= min_eth_to_proceed_onboard %> ETH.
+      </p>
+  </div>
+</div>
+
+<div class="row ost__planner">
+  <div class="col-12 col-md-6 ml-auto mr-auto">
+    <div class="text-center">
+      <div class="row">
+        <div id="ost__planner__address__register__only" class="col-10 mx-auto ost__planner__address font-weight-light mt-3 mb-3 d-inline-block"></div>
+      </div>
+
+          <div class="row" id="register_address_validate_eth_amount">
+            <div class="col-10 mx-auto text-left rounded border-0 font-weight-lighter">
+              <div class="row alert alert-secondary" role="alert">
+                <span class="col-2 j_validate_icon"></span>
+                <span class="col-10  align-middle j_validate_message"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row" id="register_address_validate_ost_amount">
+            <div class="col-10 mx-auto text-left rounded border-0 font-weight-lighter">
+              <div class="row alert alert-secondary" role="alert">
+                <span class="col-2 j_validate_icon"></span>
+                <span class="col-10 align-middle j_validate_message"></span>
+              </div>
+            </div>
+          </div>
+      <div class="mb-5">
+        <form id="register_eth_address_form" class="form-container-sm st-form"
+          action="/api/client/setup-eth-address" method="POST"
+          data-ost-formhelper>
+          <div class="general_error invalid-feedback" data-forid="get_initial_ost">&nbsp;</div>
+          <div id="emailFormGrp">
+            <input id="eth_address_register_only" type="hidden" name="eth_address"/>
+            <div class="invalid-feedback" data-forid="eth_address">&nbsp;</div>
+          </div>
+
+          <div class="form-group text-center" style="overflow: hidden;" >
+            <button id="validate_eth_address_btn" class="btn btn-gold float-left"
+                    type="button" >VALIDATE</button>
+            <button id="register_eth_address_btn" class="btn btn-gold float-left" 
+              data-submiting="PPROCEEDING..."
+              type="submit" >PROCEED</button>
+            <a href="/#token" target="_blank" class="btn btn-secondary float-right">BUY OST</a>
+          </div>
+        </form>
+      </div>
+      <%
+        faqs_data = [
+            {
+                title: 'Why do I need to use Chrome and install MetaMask?',
+                url: 'https://help.ost.com/support/solutions/articles/35000059263-why-do-i-need-to-install-metamask-'
+            },
+            {
+                title: 'How do I unlock MetaMask?',
+                url: 'https://help.ost.com/support/solutions/articles/35000059264-how-do-i-unlock-metamask-'
+            },
+            {
+                title: 'Why can I use only one MetaMask account with OST KIT⍺?',
+                url: 'https://help.ost.com/support/solutions/articles/35000059265-why-can-i-use-only-one-metamask-account-with-ost-kit%E2%8D%BA-'
+            }
+        ];
+        if GlobalConstant::Base.main_sub_environment?
+          faqs_data = [
+              {
+                  title: 'Why am I not able to proceed ?',
+                  url: 'https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=kix.o6sofpl0l2ga'
+              },
+              {
+                  title: 'Why do I need to use Chrome and install MetaMask?',
+                  url: 'https://help.ost.com/support/solutions/articles/35000059263-why-do-i-need-to-install-metamask-'
+              },
+              {
+                  title: 'How do I unlock MetaMask?',
+                  url: 'https://help.ost.com/support/solutions/articles/35000059264-how-do-i-unlock-metamask-'
+              },
+              {
+                  title: 'Why can I use only one MetaMask account with OST KIT?',
+                  url: 'https://help.ost.com/support/solutions/articles/35000059265-why-can-i-use-only-one-metamask-account-with-ost-kit%E2%8D%BA-'
+              }
+          ];
+        end
+
+      %>
+      <%=
+          render :partial => "shared/web/common/faqs",
+                 locals: {
+            header: "FAQ for installing MetaMask",
+            faqs: faqs_data
+          }
+      %>
+    </div>
+  </div>
+</div>
+
+
+<% content_for :popups do %>
+  <%= render :partial => "/shared/web/modals/sending_ost_grant_modal" %>
+<%end%>
+
+<% content_for :end_js do %>
+<script type="text/javascript">
+  $(function () {
+      ost.metamask.registerMainnetAddressHelper.init();
+  });
+</script>
+<% end %>

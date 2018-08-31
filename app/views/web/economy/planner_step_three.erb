@@ -1,27 +1,27 @@
 <%
 
- bt_name   = @presenter_obj.client_token.name;
- bt_symbol = @presenter_obj.client_token.symbol;
+ bt_name   = @presenter_obj.client_token.name
+ bt_symbol = @presenter_obj.client_token.symbol
 
- fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
- fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
- fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
+ fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol
+ fiat_type   = @presenter_obj.client_fiat_curreny_symbol
+ fiat_display_text = @presenter_obj.client_fiat_curreny_display_text
 
- client_token_planner = @presenter_obj.client_token_planner;
+ client_token_planner = @presenter_obj.client_token_planner
 
 
   ost_to_bt_input_name = "ost_to_bt"
   bt_to_mint_input_name = "bt_to_mint"
 
-  ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type);
+  ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type)
   if @presenter_obj.client_token.conversion_factor
     ost_to_bt = @presenter_obj.client_token.conversion_factor
-    bt_to_ost = (1 / ost_to_bt).round(5)
+    bt_to_ost = (1 / ost_to_bt).truncate(5)
     bt_to_fiat = ""
   elsif @presenter_obj.client_token_planner.present?
     bt_to_fiat = @presenter_obj.client_token_planner.token_worth_in_usd
-    ost_to_bt = (ost_to_fiat / bt_to_fiat).round(5)
-    bt_to_ost = (bt_to_fiat / ost_to_fiat).round(5)
+    ost_to_bt = (ost_to_fiat / bt_to_fiat).truncate(5)
+    bt_to_ost = (bt_to_fiat / ost_to_fiat).truncate(5)
   end
 
   if @presenter_obj.client_balances.present? && @presenter_obj.client_balances.ost_balance.present?
@@ -30,28 +30,45 @@
     user_ost_balance = 0
   end
 
-  number_of_users = client_token_planner.default_initial_users;
-  airdrop_amount = client_token_planner.airdrop_bt_per_user;
-  buffer_mint_factor_over_airdrop = client_token_planner.buffer_mint_factor_over_airdrop;
+  number_of_users = client_token_planner.default_initial_users
+  airdrop_amount = client_token_planner.airdrop_bt_per_user
+  buffer_mint_factor_over_airdrop = client_token_planner.buffer_mint_factor_over_airdrop
+  min_required_st_prime = [user_ost_balance, 5].min
+  max_initital_airdrop_bt = 10
 
-  min_bt_to_mint = number_of_users * airdrop_amount * 2;
+  # assuming 100 OST for main and 10000 OST for sandbox environment
+  min_st_prime_to_mint_percent = GlobalConstant::Base.main_sub_environment? ? 0.05 : 0.01
+  max_st_prime_to_mint_percent = GlobalConstant::Base.main_sub_environment? ? 0.10 : 0.05
+  st_prime_to_mint_percent = GlobalConstant::Base.main_sub_environment? ? 0.05 : 0.03
 
-  min_ost_needed_to_mint_bt = min_bt_to_mint / ost_to_bt
+  # Calculate ST Prime to mint
+  min_st_prime_to_mint = (user_ost_balance * min_st_prime_to_mint_percent).to_i
+  min_st_prime_to_mint = min_required_st_prime if min_st_prime_to_mint < min_required_st_prime
+  max_st_prime_to_mint = (user_ost_balance * max_st_prime_to_mint_percent).to_i
+  max_st_prime_to_mint = min_st_prime_to_mint if max_st_prime_to_mint < min_st_prime_to_mint
+  st_prime_to_mint = (user_ost_balance * st_prime_to_mint_percent).to_i
+  st_prime_to_mint = min_st_prime_to_mint if st_prime_to_mint < min_st_prime_to_mint
 
-  show_error_modal = min_ost_needed_to_mint_bt > user_ost_balance
-
-  bt_to_mint = number_of_users * airdrop_amount * buffer_mint_factor_over_airdrop;
-
-  min_st_prime_to_mint = 100;
-  st_prime_to_mint = 300;
-  max_st_prime_to_mint = 500;
-
-  # Note: I would avoid reducing max limit as the slider value changes.
-  # Instead discuss with frankie how he would like to compute max_bt_to_mint.
-  # The problem needs to be solved by reserving part of OST for bt minting & and some other part for st prime minting.
-  max_ost_required_for_bt_minting = user_ost_balance - max_st_prime_to_mint;
-  max_bt_to_mint = (max_ost_required_for_bt_minting * ost_to_bt).to_i;
+  # Calculate BT to mint and airdrop amount
+  max_bt_to_mint = ((user_ost_balance - max_st_prime_to_mint) * ost_to_bt).to_i
+  if GlobalConstant::Base.main_sub_environment?
+    airdrop_amount = 0
+    min_bt_to_mint = 1
+    bt_to_mint = 1
+  else
+    airdrop_amount = (max_bt_to_mint.to_f / (buffer_mint_factor_over_airdrop * number_of_users))
+    airdrop_amount = airdrop_amount.to_i if airdrop_amount > 1
+    airdrop_amount = max_initital_airdrop_bt if airdrop_amount > max_initital_airdrop_bt
+    min_bt_to_mint = (number_of_users * airdrop_amount * 2).ceil
+    bt_to_mint = (min_bt_to_mint + (max_bt_to_mint-min_bt_to_mint)/3).to_i
+  end
   min_bt_to_mint = max_bt_to_mint if min_bt_to_mint > max_bt_to_mint
+  bt_to_mint = max_bt_to_mint if bt_to_mint > max_bt_to_mint
+
+  # Show error if OST not enough
+  disable_mint_tokens_btn = min_st_prime_to_mint < 1 || min_bt_to_mint < 1
+
+  min_transfers_possible = 1500 * min_st_prime_to_mint
 
   value_in_fiat_key = "value_in_" + fiat_type;
   value_in_fiat_sym = value_in_fiat_key.to_sym;
@@ -68,6 +85,10 @@
     });
     console.log("@presenter_obj.client_token", <%= raw @presenter_obj.client_token.to_json %>);
   </script>
+<% end %>
+
+<% if disable_mint_tokens_btn %>
+  <%= render :partial => "/shared/web/common/planner_conversion_rate_alert" %>
 <% end %>
 
 <form id="step3_stake_and_mint_form" 
@@ -90,26 +111,30 @@
           <div class="col-12">
             <div class="alert alert-info pt-4 mb-5" role="alert">
               <h5>
-                <svg class="icon-card-transactions align-middle">
-                  <switch>
-                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-card-transactions-3"></use>
-                  </switch>
-                </svg>
                 The third step is minting <%= bt_symbol %>
-                <a href="//help.ost.com/support/solutions/articles/35000059261-what-does-staking-and-minting-mean"
-                   target="_blank" class="card-link float-right text-uppercase hover-link">Learn More
-                </a>
+
+                <% if GlobalConstant::Base.main_sub_environment? %>
+                  <a href="https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=kix.klh8i5xlguky"
+                     target="_blank" class="card-link float-right text-uppercase hover-link">Learn More
+                  </a>
+                <% else %>
+                  <a href="//help.ost.com/support/solutions/articles/35000059261-what-does-staking-and-minting-mean"
+                     target="_blank" class="card-link float-right text-uppercase hover-link">Learn More
+                  </a>
+                <% end %>
+
+
               </h5>
               <hr class="mt-3 mb-4"/>
-              <p class="font-weight-light font-size-p">Here you will select the number of <%= bt_symbol %> to mint. Based on your settings, the minimum amount of <%= bt_symbol %> required to mint is
-                <span class="font-weight-bold"><%= number_with_delimiter(min_bt_to_mint, :delimiter => ',') %> <%#= bt_symbol %></span>.
+              <p class="font-weight-light font-size-p">Here you will select the number of <%= bt_symbol %> to mint.
+
               </p>
               <p class="font-weight-light font-size-p">
-                An equivalent value of OST⍺ will be staked automatically at
-                  <span class="font-weight-bold d-none"><%= ost_to_bt %> <%= bt_symbol %> = 1 OST⍺</span> 
-                  <span class="font-weight-bold">1 <%= bt_symbol %> = <%= bt_to_ost %> OST⍺</span>
+                An equivalent value of <%= ost_currency_symbol %> will be staked automatically at
+                  <span class="font-weight-bold d-none"><%= ost_to_bt %> <%= bt_symbol %> = 1 <%= ost_currency_symbol %></span>
+                  <span class="font-weight-bold">1 <%= bt_symbol %> = <%= bt_to_ost %> <%= ost_currency_symbol %></span>
               </p>
-              <p class="font-weight-light font-size-p">You will need to reserve a minimum of <%= min_st_prime_to_mint %> OST⍺ to pay "gas" for <%= bt_symbol %> transaction by your users. <%= min_st_prime_to_mint %> OST⍺ is enough gas reserve for approximately <span class="font-weight-bold">150,000 transfers</span>.</p>
+              <p class="font-weight-light font-size-p">You will need to reserve a minimum of <%= min_st_prime_to_mint %> <%= ost_currency_symbol %> to pay "gas" for <%= bt_symbol %> transaction by your users. <%= min_st_prime_to_mint %> <%= ost_currency_symbol %> is enough gas reserve for approximately <span class="font-weight-bold"><%= number_with_delimiter(min_transfers_possible, :delimiter => ',') %> transfers</span>.</p>
             </div>
           </div>
         </div>
@@ -139,10 +164,10 @@
               <li class="list-group-item font-weight-light font-size-p">
                 <div class="d-flex align-items-center">
                   <div class="mr-2">
-                    Based on the current value of OST⍺ you will set a conversion rate of
+                    Based on the current value of <%= ost_currency_symbol %> you will set a conversion rate of
                     <strong class="font-weight-bold">
-                      <span class="d-none"><%= ost_to_bt %> <%= bt_symbol %> = 1 OST⍺</span>
-                      <span>1 <%= bt_symbol %> = <%= bt_to_ost %> OST⍺</span>
+                      <span class="d-none"><%= ost_to_bt %> <%= bt_symbol %> = 1 <%= ost_currency_symbol %></span>
+                      <span>1 <%= bt_symbol %> = <%= bt_to_ost %> <%= ost_currency_symbol %></span>
                     </strong>
                   </div>
                   <div class="mr-auto text-uppercase">
@@ -150,7 +175,7 @@
                   </div>
                 </div>
               </li>
-              <li class="list-group-item font-weight-light font-size-p">
+              <li class="list-group-item font-weight-light font-size-p <% if GlobalConstant::Base.main_sub_environment? %>border-bottom-0<% end %>">
                 <div class="d-flex align-items-center">
                   <div class="mr-2"><strong class="font-weight-bold"><%= tx_kind_count %></strong> Actions set up.</div>
                   <div class="mr-auto text-uppercase">
@@ -158,10 +183,14 @@
                   </div>
                 </div>
               </li>
+
+            <% if !GlobalConstant::Base.main_sub_environment? %>
               <li class="list-group-item font-weight-light font-size-p">
                 <strong class="font-weight-bold"><%= number_of_users %> users</strong> will be automatically created. More can be added later.
                 <input type="hidden" name="number_of_users" id="number_of_users" value="<%= number_of_users %>" />
               </li>
+            <% end %>
+            <% if !GlobalConstant::Base.main_sub_environment? %>
               <li class="list-group-item font-weight-light font-size-p border-bottom-0">
                 In order to enable the transactions simulation
                 <strong>
@@ -169,8 +198,9 @@
                 </strong>
                 will be initially distributed to each user.
                 <input type="hidden" name="amount" id="airdrop_amount" value="<%= airdrop_amount %>" />
+                <input type="hidden" name="airdrop_user_list_type" id="airdrop_user_list_type" value="all" />
               </li>
-              <input type="hidden" name="airdrop_user_list_type" id="airdrop_user_list_type" value="all" />
+            <% end %>
             </ul>
           </div>
         </div>
@@ -204,7 +234,7 @@
     <div class="row sticky-footer">
       <div class="container">
         <a href="/planner/step-2" class="btn btn-steps-nav pt-3 pb-3 float-left text-left">&lt; SET UP ACTIONS</a>
-        <button type="submit" id="mint_tokens_btn" href="javascript:void(0)" class="btn btn-steps-nav bg-yellow pt-3 pb-3 float-right">Mint Tokens &gt;</button>
+        <button type="submit" id="mint_tokens_btn" href="javascript:void(0)" class="btn btn-steps-nav bg-yellow pt-3 pb-3 float-right" <% if disable_mint_tokens_btn %> disabled <% end %> >Mint Tokens &gt;</button>
       </div>
     </div>
     <div class="pseudo-footer"></div>
@@ -224,9 +254,10 @@
       console.log("@presenter_obj.client_token", <%= raw @presenter_obj.client_token.to_json %>);
     </script>
 
-    <% if show_error_modal %>
+    <% if false %>
       <script type="text/javascript">
         $( function () {
+          //@Akshay/Alpesh/Shradha: You are looking for this thing.
           ost.mintBtWidget.showProcessFailureErrorCover();
         });
       </script>

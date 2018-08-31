@@ -84,8 +84,14 @@
 
     <div class="col-12 form-group mb-0">
       <label class="form-label">ARBITRARY AMOUNT AT EXECUTION
-        <a href="https://help.ost.com/support/solutions/articles/35000059260-how-do-you-set-transaction-values"
-           target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
+        <% if GlobalConstant::Base.main_sub_environment? %>
+          <a href="https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=id.rdonq2rk7gg8"
+             target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
+        <% else %>
+          <a href="https://help.ost.com/support/solutions/articles/35000059260-how-do-you-set-transaction-values"
+             target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
+        <% end %>
+
       </label>
     </div>
 
@@ -111,8 +117,14 @@
   <div id="currency_wrap" class="row">
       <div class="col-12 form-group mb-0">
         <label class="form-label">Price Oracle
-          <a href="//help.ost.com/support/solutions/articles/35000059258-what-is-a-price-oracle"
-             target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
+          <% if GlobalConstant::Base.main_sub_environment? %>
+            <a href="https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=id.xg87gjwrfvu0"
+               target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
+          <% else %>
+            <a href="//help.ost.com/support/solutions/articles/35000059258-what-is-a-price-oracle"
+               target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
+          <% end %>
+
         </label>
       </div>
       <div class="col-12">
@@ -168,8 +180,9 @@
         <div style="margin-top: 2px;">
           <%= render :partial => "/shared/web/common/mocker",
             :locals => {
-              :header => "AMOUNT IN OST⍺",
+              :header => "AMOUNT IN #{ost_currency_symbol}",
               :mock_selector => "#value_in_ost",
+              :mock_type => "ost",
               :value => "15.898"
             }
           %>
@@ -182,8 +195,14 @@
     <div class="col-12 form-group mb-0">
       <label class="form-label">
         ARBITRARY COMMISSION AT EXECUTION
-        <a href="//help.ost.com/support/solutions/articles/35000059259-what-are-fees-on-transactions"
-           target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
+        <% if GlobalConstant::Base.main_sub_environment? %>
+          <a href="https://docs.google.com/document/d/1_ouDS2NlcGx1bCsCLfM6EOL47mWMxk07VlkYKlqJTf4/edit#bookmark=id.bzj3t5jwt0gj"
+             target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
+        <% else %>
+          <a href="//help.ost.com/support/solutions/articles/35000059259-what-are-fees-on-transactions"
+             target="_blank" class="text-uppercase card-link hover-link">Learn More</a>
+        <% end %>
+
       </label>
     </div>
 

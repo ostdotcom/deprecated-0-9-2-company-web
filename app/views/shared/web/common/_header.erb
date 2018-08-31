@@ -12,8 +12,7 @@
 
           show_notification = 1
 
-        elsif @presenter_obj.can_show_low_balance_notification? && @presenter_obj.client_balances.present? &&
-            @presenter_obj.client_balances.is_eligible_for_ost_grant?
+        elsif @presenter_obj.can_show_low_balance_notification? && @presenter_obj.is_eligible_for_ost_grant?
 
           show_notification = 2
 
@@ -29,24 +28,24 @@
     %>
 
     <!-- Header alerts, if any alert is rendered than below phantom element with class name alert-height should also be rendered-->
-    <div  class="header-alerts">
+    <div class="header-alerts">
       <% if show_notification > 0 %>
-          <% case show_notification %>
-          <% when 1 %>
-              <%= render :partial => "/shared/web/common/email_validation_alert" %>
-          <% when 2 %>
-              <%= render :partial => "/shared/web/common/top_up_ost_alert" %>
-          <% when 3 %>
-              <%= render :partial => "/shared/web/common/top_up_transaction_alert" %>
-          <% end %>
+        <% case show_notification %>
+      <% when 1 %>
+          <%= render :partial => "/shared/web/common/email_validation_alert" %>
+        <% when 2 %>
+          <%= render :partial => "/shared/web/common/top_up_ost_alert" %>
+        <% when 3 %>
+          <%= render :partial => "/shared/web/common/top_up_transaction_alert" %>
+        <% end %>
       <% end %>
     </div>
 
     <div class="header-height">
       <% if @presenter_obj.is_client_logged_in? %>
-          <%= render :partial => "/shared/web/common/header_logged_in" %>
+        <%= render :partial => "/shared/web/common/header_logged_in" %>
       <% else %>
-          <%= render :partial => "/shared/web/common/header_logged_out" %>
+        <%= render :partial => "/shared/web/common/header_logged_out" %>
       <% end %>
     </div>
   </div>

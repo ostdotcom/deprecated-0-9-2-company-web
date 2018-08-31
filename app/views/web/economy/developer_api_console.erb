@@ -10,12 +10,26 @@
       <h4 class="mr-auto mb-2">Get API Keys</h4>
     </div>
     <div class="col-12">
-      <p class="desc font-weight-light">
-        To be able to use the OST KIT alpha API you will have to authenticate your account by including an API signature with each API request. Signatures validate the authenticity of the person who interacts with OST KIT alpha and ensures that the message sent has not been tampered with. Signature is a hash that needs the API Key and API Secret Key as two of the various parameters.  You can find the API KEY and API SECRET KEY for your account below. 
-      </p>
-      <p class="desc font-weight-light">
-        Please be sure your API Secret Key is always kept secure and never shared. Be careful when adding it to your codebase. Do not share your secret API keys in publicly accessible areas such as GitHub, Google docs etc.
-      </p>
+      <% if GlobalConstant::Base.main_sub_environment? %>
+        <p class="desc font-weight-light">
+          To be able to use the OST KIT Mainnet alpha1 API you will have to authenticate your account by including an API signature with each API request. You can find the API KEY and API SECRET KEY for your account below.
+        </p>
+        <p class="desc font-weight-light">
+          Please be sure your API Secret Key is always kept secure and never shared. Be careful when adding it to your codebase. Do not share your secret API keys in publicly accessible areas such as GitHub, Google docs etc.
+        </p>
+        <p class="desc font-weight-light">
+          API integration allows you to execute transactions among users, please be informed, if you intend to unstake the OST in future you will have to make sure all your branded tokens exchanged during different transactions should be collected back in one address before unstaking.
+        </p>
+
+    <% else %>
+        <p class="desc font-weight-light">
+          To be able to use the OST KIT alpha API you will have to authenticate your account by including an API signature with each API request. Signatures validate the authenticity of the person who interacts with OST KIT alpha and ensures that the message sent has not been tampered with. Signature is a hash that needs the API Key and API Secret Key as two of the various parameters.  You can find the API KEY and API SECRET KEY for your account below.
+        </p>
+        <p class="desc font-weight-light">
+          Please be sure your API Secret Key is always kept secure and never shared. Be careful when adding it to your codebase. Do not share your secret API keys in publicly accessible areas such as GitHub, Google docs etc.
+        </p>
+      <% end %>
+
     </div>
     
     <div class="col-12 mb-3" id="fetch-api-details-form-wrap">
@@ -55,9 +69,62 @@
     </div>
     
     <div class="col-12 mb-5">      
-      <a target="_blank" href="//dev.ost.com/" class="btn btn-primary">Explore Api Docs</a>
+      <a target="_blank" href="//<%= assets_domain %>/" class="btn btn-primary">Explore Api Docs</a>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h4 class="mr-auto mb-2">SDKs</h4>
+    </div>
+    <div class="col-12">
+      <p class="desc font-weight-light">
+        The OST SDK makes it easy to build an excellent tokenization experience in your application. It provides powerful services to use out-of-the-box to create and run your token economy.
+      </p>
+      <p class="desc font-weight-light">
+        The Quick start guide links below will take you all the way from integrating our SDK to creating users, airdropping and transferring tokens among these users. If you're looking for more detailed information about any class in the SDKs, feel free to explore our SDK Github Repository. Links to the github repository of respective SDK are provided in the quick start guides.
+      </p>
+
+    </div>
+    <div class="col-12 mb-5">
+      <a href="https://<%= assets_domain %>/docs/sdk_java.html" target="_blank">
+         <svg style="width: 150px;height: 60px;">
+           <switch>
+             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#developer_java_logo"></use>
+           </switch>
+         </svg>
+      </a>
+      <a href="https://<%= assets_domain %>/docs/sdk_ruby.html" target="_blank">
+        <svg style="width: 150px;height: 60px;">
+          <switch>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#developer_ruby_logo"></use>
+          </switch>
+        </svg>
+      </a>
+      <a href="https://<%= assets_domain %>/docs/sdk_javascript.html" target="_blank">
+        <svg style="width: 150px;height: 60px;">
+          <switch>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#developer_javascript_logo"></use>
+          </switch>
+        </svg>
+      </a>
+      <a href="https://<%= assets_domain %>/docs/sdk_php.html" target="_blank">
+        <svg style="width: 150px;height: 60px;">
+          <switch>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#developer_php_logo"></use>
+          </switch>
+        </svg>
+      </a>
+
+
+    </div>
+
+
+
+
+  </div>
+
+
 
 
   <%
@@ -120,7 +187,7 @@
     </div>
     <div class="col-12">
       <p class="desc font-weight-light">
-        Below you will find OST⍺ ERC20 contract address on the Ropsten Test Network and your company's Universally Unique Identifier (UUID).
+        Below you will find <%= ost_currency_symbol %> ERC20 contract address on the <%= ost_valuechain_text %> and your company's Universally Unique Identifier (UUID).
       </p>
       <p class="desc font-weight-light">
         Company UUID is required as a parameter in order to execute transactions between the company and users using APIs.
@@ -131,7 +198,7 @@
       <div class="alert alert-info pt-4 mb-5" role="alert">
         <div class="row">
           <div class="col-6">
-            <h5 class="mr-auto mb-2">OST⍺ ERC20 contract address</h5>
+            <h5 class="mr-auto mb-2"><%= ost_currency_symbol %> ERC20 contract address</h5>
             <p class="font-weight-light font-size-p"><%= ost_alpha_contract_address%></p>
           </div>
           <div class="col-6">

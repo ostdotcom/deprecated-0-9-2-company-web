@@ -280,6 +280,7 @@
           currency_type_id ="#currency_type_fiat";
           console.log("currency_value", currency_value);
           oThis.jValueInFiat.safeSetVal(PriceOracle.toFiat(currency_value));
+          oThis.jValueInFiat.trigger("change");
       }
 
       oThis.jForm.find( currency_type_id )
@@ -531,7 +532,7 @@
 
     , toggleActionAmountInput: function () {
       var oThis = this;
-      
+
       var jAmountSetting  = oThis.jForm.find('.j-action-amount-setting:checked')
         , amountSetting   = jAmountSetting.val()
         , jCurrency       = oThis.jForm.find('.j-currency:checked')

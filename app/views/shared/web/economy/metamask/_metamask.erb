@@ -1,4 +1,5 @@
 <%
+
   client_token = @presenter_obj.client_token
   #Place for backend to do stuff.
   token_name = client_token.name;
@@ -21,18 +22,19 @@
     grant_initial_ost = true
     grant_initial_eth = true
    else
-    grant_initial_ost = @presenter_obj.client_balances.is_eligible_for_ost_grant?
-    grant_initial_eth = @presenter_obj.client_balances.is_eligible_for_eth_grant?
+    grant_initial_ost = @presenter_obj.is_eligible_for_ost_grant?
+    grant_initial_eth = @presenter_obj.is_eligible_for_eth_grant?
   end
 
 
 
   eligible_grant_value = 10000;
-  eligible_grant_unit = "OST⍺"
+  eligible_grant_unit = ost_currency_symbol
   has_registered_address = false;
   # Should use MetaMask for granting ETH
-  should_use_metamask_focet_for_eth = Rails.env.development? ? false : true
-  should_use_ost_focet_for_eth = true;
+  should_use_metamask_focet_for_eth = false #Rails.env.development? ? false : true
+  should_use_ost_focet_for_eth = GlobalConstant::Base.main_sub_environment? ? false : true
+  should_call_for_grant_of_ost = false
   validate_transaction_hash_interval = 5000; #Miliseconds.
   validate_transaction_hash_max_try = 100;
 
@@ -74,9 +76,12 @@
       should_use_ost_focet_for_eth: <%= should_use_ost_focet_for_eth %>,
       validateTransactionHashInterval: <%= validate_transaction_hash_interval %>,
       validateTransactionHashMaxTry: <%= validate_transaction_hash_max_try %>,
-      simpleTokenContractAddress: "<%= simple_token_contract_address %>"
+      simpleTokenContractAddress: "<%= simple_token_contract_address %>",
+      minRequiredOSTBalance: <%= min_ost_to_proceed_onboard %>,
+      minRequiredETHBalance: <%= min_eth_to_proceed_onboard %>
     };
     ost.metamask.init( config );
+    ost.ostScan.init( config )
   });
 </script>
 <% end %>
@@ -107,11 +112,21 @@
     </div>
   </div>
 
-  <div id="getInitialOstCover" class="cover-element">
-    <div class="container">
-      <%= render :partial => "/web/economy/planner/get_initial_ost", :locals => partial_locals %>
+  <% if GlobalConstant::Base.main_sub_environment? %>
+    <div id="registerAddressForMainnet" class="cover-element">
+      <div class="container">
+        <%= render :partial => "shared/web/economy/metamask/register_address_for_mainnet", :locals => partial_locals %>
+      </div>
     </div>
-  </div>
+  <% else %>
+    <div id="getInitialOstCover" class="cover-element">
+      <div class="container">
+        <%= render :partial => "/web/economy/planner/get_initial_ost", :locals => partial_locals %>
+      </div>
+    </div>
+  <% end %>
+
+
 
   <div id="process_failure_error_cover" class="cover-element">
     <div class="container">

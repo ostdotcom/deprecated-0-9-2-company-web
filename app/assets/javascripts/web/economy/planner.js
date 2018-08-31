@@ -7,6 +7,8 @@
   var oThis   = ost.planner.step1 = {
     has_verified_email      : false
     , grant_initial_ost     : false
+    , grant_initial_eth     : false
+    , only_validate_balances: false
     , min_st_prime_to_mint  : "0"
     , ost_grant_value       : "10000"
 
@@ -79,7 +81,7 @@
       ostVal = btToOst;
 
 
-      finalText = PriceOracle.toDisplayBt( btVal ) + " = " + PriceOracle.toOst( ostVal ) + " OST";
+      finalText = PriceOracle.toDisplayBt( btVal ) + " = " + PriceOracle.toOst( ostVal ) + " " + oThis.ost_currency_symbol;
 
       oThis.jOstToBtText.html( finalText );
     },
@@ -106,6 +108,8 @@
       if ( !oThis.has_verified_email ) {
         console.log("oThis.has_varified_email", oThis.has_verified_email);
         oThis.showValidateEmailLightBox();
+      } else if ( oThis.only_validate_balances ) {
+        oThis.registerMainnetAddress();
       } else if ( oThis.grant_initial_ost || oThis.grant_initial_eth ) {
         //Get Ost Next.
         oThis.getInitialOst();
@@ -118,6 +122,14 @@
       var oThis = this;
       ost.metamask.getOstHelper.getOst( function () {
         console.log("getInitialOst flow complete");
+        oThis.plannerSetUpDone.apply(oThis, arguments);
+      });
+    },
+
+    registerMainnetAddress: function () {
+      var oThis = this;
+      ost.metamask.registerMainnetAddressHelper.validateAddress( function () {
+        console.log("registerMainnetAddressHelper.validateAddress flow complete");
         oThis.plannerSetUpDone.apply(oThis, arguments);
       });
     },

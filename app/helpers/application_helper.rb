@@ -30,4 +30,40 @@ module ApplicationHelper
     params[:action].gsub('_','-')
   end
 
+  def ost_currency_symbol
+    if(GlobalConstant::Base.main_sub_environment?)
+      "OST"
+    else
+      "OST⍺"
+    end
+  end
+
+  def ost_valuechain_text
+    if(Rails.env.production? && GlobalConstant::Base.main_sub_environment?)
+      'Main Ethereum Network'
+    else
+      'Ropsten Test Network'
+    end
+  end
+
+  def min_ost_to_proceed_onboard
+    if(GlobalConstant::Base.main_sub_environment?)
+      100
+    else
+      1000
+    end
+  end
+
+  def min_eth_to_proceed_onboard
+    if(GlobalConstant::Base.main_sub_environment?)
+      0.0015
+    else
+      0.05
+    end
+  end
+
+  def assets_domain
+    GlobalConstant::Base.main_sub_environment? ? 'mainnetdev.ost.com' : 'dev.ost.com'
+  end
+
 end

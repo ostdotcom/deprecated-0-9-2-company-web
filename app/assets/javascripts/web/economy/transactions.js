@@ -92,8 +92,8 @@
         , createdTransactions = [ {
             name: "Upvote",
             kind: "user_to_user",
-            currency: "USD",
-            amount: 0.05,
+            currency: "BT",
+            amount: 5,
             commission_percent: 1,
             arbitrary_amount: false,
             arbitrary_commission: false
@@ -106,8 +106,8 @@
           }, {
             name: "Purchase",
             kind: "user_to_user",
-            currency: "USD",
-            amount: 1,
+            currency: "BT",
+            amount: 8,
             commission_percent: 1,
             arbitrary_amount: false,
             arbitrary_commission: false

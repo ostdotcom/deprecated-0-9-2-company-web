@@ -9,6 +9,14 @@ module GlobalConstant
         @sub_environment ||= fetch_config.fetch('sub_env', '')
       end
 
+      def main_sub_environment?
+        sub_environment == 'main'
+      end
+
+      def sandbox_sub_environment?
+        sub_environment == 'sandbox'
+      end
+
       def root_url
         @root_url ||= fetch_config.fetch('root_url', '')
       end
@@ -39,8 +47,7 @@ module GlobalConstant
       end
 
       def is_public_launch_done?
-        # Change this to true when we launch Kit to general public
-        true
+        sandbox_sub_environment?
       end
 
       private
