@@ -9,8 +9,13 @@
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-empty-tank"></use>
         </switch>
       </svg>
-      <span class="ost__alert__text ml-1">You are running low on transaction fees. Please topup to continue.</span>
-      <a href="/token-supply" class="btn ost__alert__button font-weight-normal ml-2">topup transaction fees</a>
+      <% if GlobalConstant::Base.main_sub_environment? %>
+        <span class="ost__alert__text ml-1">You are running low on transaction fees. Please transfer some OST or Buy now.</span>
+        <a href="https://kit.ost.com/#token" target="_blank" class="btn ost__alert__button font-weight-normal ml-2">BUY NOW</a>
+      <% else %>
+        <span class="ost__alert__text ml-1">You are running low on transaction fees. Please topup to continue.</span>
+        <a href="/token-supply" class="btn ost__alert__button font-weight-normal ml-2">Topup transaction fees</a>
+      <% end %>
     </div>
   </div>
 </div>
