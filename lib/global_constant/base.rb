@@ -47,7 +47,7 @@ module GlobalConstant
       end
 
       def is_public_launch_done?
-        sandbox_sub_environment?
+        true
       end
 
       private
