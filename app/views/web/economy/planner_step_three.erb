@@ -33,7 +33,7 @@
   number_of_users = client_token_planner.default_initial_users
   airdrop_amount = client_token_planner.airdrop_bt_per_user
   buffer_mint_factor_over_airdrop = client_token_planner.buffer_mint_factor_over_airdrop
-  min_required_st_prime = [user_ost_balance, 5].min
+  min_required_st_prime = [user_ost_balance, GlobalConstant::StakeAndMint.max_value_of_min_stp_to_mint].min
   max_initital_airdrop_bt = 10
 
   # assuming 100 OST for main and 10000 OST for sandbox environment
@@ -43,6 +43,9 @@
 
   # Calculate ST Prime to mint
   min_st_prime_to_mint = (user_ost_balance * min_st_prime_to_mint_percent).to_i
+  if min_st_prime_to_mint > GlobalConstant::StakeAndMint.max_value_of_min_stp_to_mint
+    min_st_prime_to_mint = GlobalConstant::StakeAndMint.max_value_of_min_stp_to_mint
+  end
   min_st_prime_to_mint = min_required_st_prime if min_st_prime_to_mint < min_required_st_prime
   max_st_prime_to_mint = (user_ost_balance * max_st_prime_to_mint_percent).to_i
   max_st_prime_to_mint = min_st_prime_to_mint if max_st_prime_to_mint < min_st_prime_to_mint
