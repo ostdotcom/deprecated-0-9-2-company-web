@@ -6,7 +6,7 @@ module GlobalConstant
     class << self
 
       def max_value_of_min_stp_to_mint
-        GlobalConstant::StakeAndMint.main_sub_environment? ? 5 : 100
+        GlobalConstant::Base.main_sub_environment? ? 5 : 100
       end
 
     end
