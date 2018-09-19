@@ -1,5 +1,5 @@
-$sprite-retina-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v3-@2x.png";
-$sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v3-@1x.png";
+$sprite-retina-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v4-@2x.png";
+$sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v4-@1x.png";
 
 @mixin icon-generator($width,$height,$posX,$posY,$offsetHover,$offsetActive,$scale:100) {
   background-image: url($sprite-location);
@@ -38,6 +38,15 @@ $sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprit
 }
 .buy-ost-huobi-icon{
   @include icon-generator(200px, 52px, 1px, -164px, -262px, 1px, 70);
+}
+.buy-ost-upbit-icon{
+  @include icon-generator(200px, 52px, 1px, -246px, -262.5px, 1px, 70);
+}
+.buy-ost-coin-super-icon{
+  @include icon-generator(222px, 52px, 1px, -326px, -262px, 1px, 74);
+}
+.buy-ost-idcm-icon{
+  @include icon-generator(170px, 52px, 1px, -389px, -255px, 1px, 74);
 }
 
 // Header social icons CSS
