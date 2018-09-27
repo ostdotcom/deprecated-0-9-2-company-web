@@ -1,3 +1,4 @@
+//= require plugins/jquery/jquery-2.2.4
 //= require plugins/popper/popper
 //= require plugins/bootstrap/bootstrap
 //= require plugins/bignumber.js/bignumber
