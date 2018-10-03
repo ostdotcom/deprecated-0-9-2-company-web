@@ -8,7 +8,6 @@
       padding: .6rem 0rem !important;
     }
   }
-
   &.navbar{
     padding: 0 0;
     .nav-item{
@@ -18,11 +17,9 @@
       }
     }
   }
-
   .ost-brand{
     margin-right: 1rem;
   }
-
   .navbar-toggler {
     background-color: #f4f8f9;
     margin: 0;
@@ -41,13 +38,11 @@
       background-color: #34445b;
     }
   }
-
   .navbar-collapse{
     @media(max-width: 767px){
       background-color: #f4f8f9;
     }
   }
-
   .navbar-nav{
     .dropdown{
       a.nav-link{
@@ -65,7 +60,6 @@
           background-color: #fff;
         }
       }
-
       .dropdown-menu{
         padding: 12px 5px 0;
         @media(min-width: 768px){

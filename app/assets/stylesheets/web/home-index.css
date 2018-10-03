@@ -4,7 +4,8 @@
  *= require web/ost/Footer
  *= require web/ost/Subscribe
  *= require web/ost/Icons
- *= require web/ost/NavBar
+ *#= require web/ost/NavBar
+ *= require web/ost/NavBarSubMenu
  *= require web/ost/Powered
  *= require web/ost/OstSvgs
  *= require web/ost/Technology
