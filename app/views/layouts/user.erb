@@ -72,7 +72,7 @@
   <%= yield %>
 </main>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>-->
 <%= javascript_include_tag "web/common" %>
 <%= javascript_include_tag "#{specific_manifest_file_path}" if has_specific_js_manifest_file? %>
 <%= yield(:end_js) %>
