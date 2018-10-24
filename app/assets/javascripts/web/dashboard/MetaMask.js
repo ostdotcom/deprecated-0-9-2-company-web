@@ -16,6 +16,7 @@
       oThis.config = config;
       oThis.idInstall = "#installMetamaskCover";
       oThis.idLocked = "#metamaskLockedCover";
+      oThis.idDisabled = "#metamaskDisabledCover";
       oThis.idChain = "#metamaskWrongNetworkCover";
       oThis.idAccount = "#metamaskWrongAccountCover";
       oThis.lastValidAddress = null;
@@ -42,6 +43,7 @@
     },
     flags : {
       is_locked: false,
+      is_disabled: false,
       has_metamask: true,
       account: "",
       chain_id: null
@@ -53,6 +55,9 @@
     web3Obj: null,
     metaMaskWeb3: function () {
       return window.web3;
+    },
+    metaMaskEthereum: function () {
+      return window.ethereum;
     },
     web3: function () {
       var oThis = this;
@@ -149,6 +154,8 @@
         }
       }
 
+      // enableCallback needs to be implemented like this: ethereum.enable().then(console.log).catch(console.error)
+
       var unlockedCallback = function (success, response) {
         flags.is_locked = success;
 
@@ -181,9 +188,10 @@
     validateInstallation: function ( callback ) {
       var oThis = this;
 
-      var metaMaskWeb3 = oThis.metaMaskWeb3()
+      var metaMaskEthereum = oThis.metaMaskEthereum()
+        , metaMaskWeb3 = oThis.metaMaskWeb3()
         , response = {
-          success : metaMaskWeb3 ? true : false
+          success : metaMaskEthereum ? true : false
           , data  : {
 
           }
