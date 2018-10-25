@@ -43,7 +43,7 @@
     },
     flags : {
       is_locked: false,
-      is_disabled: false,
+      is_enabled: false,
       has_metamask: true,
       account: "",
       chain_id: null
@@ -140,7 +140,7 @@
           observationComplete.apply(oThis, arguments);
         }
         
-      }
+      };
 
 
       var accountCallback = function (success, response) {
@@ -152,22 +152,39 @@
           ost.coverElements.show( oThis.idAccount );
           observationComplete.apply(oThis, arguments);
         }
-      }
+      };
 
-      // enableCallback needs to be implemented like this: ethereum.enable().then(console.log).catch(console.error)
+      var enableCallback = function (success, response) {
+          ost.coverElements.show( oThis.idDisabled );
+          oThis.metaMaskEthereum().enable().then(function(){
+              flags.is_enabled = true;
+              ost.coverElements.hide( oThis.idDisabled );
+              oThis.validateMetaMaskUnlocked( unlockedCallback );
+          }).catch(function(){
+              flags.is_enabled = false;
+              ost.coverElements.show( oThis.idDisabled );
+              // Done know why observationComplete.apply(oThis, arguments) does not work.
+              oThis.stopObserver();
+          });
+      };
 
       var unlockedCallback = function (success, response) {
         flags.is_locked = success;
 
-        var account = "";
-        if ( success ) {
-          account = response.data.accounts[ 0 ];
-          ost.coverElements.hide( oThis.idLocked );
-          oThis.validateAccountAddress( account, accountCallback );
+        if(!flags.is_enabled){
+            enableCallback(success, response);
         } else {
-          oThis.updateAccount( account );
-          ost.coverElements.show( oThis.idLocked );
-          observationComplete.apply(oThis, arguments);
+            var account = "";
+            ost.coverElements.hide( oThis.idDisabled );
+            if ( success ) {
+                account = response.data.accounts[ 0 ];
+                ost.coverElements.hide( oThis.idLocked );
+                oThis.validateAccountAddress( account, accountCallback );
+            } else {
+                oThis.updateAccount( account );
+                ost.coverElements.show( oThis.idLocked );
+                observationComplete.apply(oThis, arguments);
+            }
         }
       };
 
