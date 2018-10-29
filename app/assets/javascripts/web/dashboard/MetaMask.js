@@ -78,7 +78,6 @@
     isObserving: false,
     startObserver: function () {
       var oThis = this;
-      console.log("startObserver");
       oThis.shouldObserve = true;
       oThis.observeMetamask();
       
@@ -89,7 +88,6 @@
       //Reset the required flags.
       //Account needs to be reset so that it may trigger address changed next time?
       oThis.flags.accounts = "";
-      console.log("stopObserver");
     },
 
     reObserve : function () {
@@ -164,6 +162,7 @@
               flags.is_enabled = false;
               ost.coverElements.show( oThis.idDisabled );
               // Done know why observationComplete.apply(oThis, arguments) does not work.
+              oThis.isObserving = false;
               oThis.stopObserver();
           });
       };
@@ -208,7 +207,7 @@
       var metaMaskEthereum = oThis.metaMaskEthereum()
         , metaMaskWeb3 = oThis.metaMaskWeb3()
         , response = {
-          success : metaMaskEthereum ? true : false
+          success : (metaMaskEthereum || metaMaskWeb3) ? true : false
           , data  : {
 
           }
