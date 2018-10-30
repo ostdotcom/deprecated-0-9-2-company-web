@@ -152,26 +152,11 @@
         }
       };
 
-      var enableCallback = function (success, response) {
-          ost.coverElements.show( oThis.idDisabled );
-          oThis.metaMaskEthereum().enable().then(function(){
-              flags.is_enabled = true;
-              ost.coverElements.hide( oThis.idDisabled );
-              oThis.validateMetaMaskUnlocked( unlockedCallback );
-          }).catch(function(){
-              flags.is_enabled = false;
-              ost.coverElements.show( oThis.idDisabled );
-              // Done know why observationComplete.apply(oThis, arguments) does not work.
-              oThis.isObserving = false;
-              oThis.stopObserver();
-          });
-      };
-
       var unlockedCallback = function (success, response) {
         flags.is_locked = success;
 
-        if(!flags.is_enabled){
-            enableCallback(success, response);
+        if( !response.data.enabled ){
+          oThis.validateEnabledMetamask( unlockedCallback );
         } else {
             var account = "";
             ost.coverElements.hide( oThis.idDisabled );
@@ -222,6 +207,21 @@
       
     },
 
+    validateEnabledMetamask : function ( callback ) {
+      ost.coverElements.show( oThis.idDisabled );
+      oThis.metaMaskEthereum().enable().then(function(){
+        oThis.flags.is_enabled = true;
+        ost.coverElements.hide( oThis.idDisabled );
+        oThis.validateMetaMaskUnlocked( callback );
+      }).catch(function(){
+        oThis.flags.is_enabled = false;
+        ost.coverElements.show( oThis.idDisabled );
+        //Done know why observationComplete.apply(oThis, arguments) does not work.
+        oThis.isObserving = false;
+        oThis.stopObserver();
+      });
+    },
+
     validateMetaMaskUnlocked: function ( callback ) {
       var oThis = this;
 
@@ -232,7 +232,8 @@
         var response = {
               success : true,
               data    : {
-                account: accounts
+                account: accounts ,
+                enabled : oThis.flags.is_enabled
               }
           }
         ;
