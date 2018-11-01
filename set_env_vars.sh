@@ -3,7 +3,7 @@
 export COMPANY_SECRET_KEY_BASE='2fc2e8b316ceeb04e8675900f3176668d2a836494417e0164a966aefd701430390d3db685f87c224cbb48b332f8a5cf490fa7f034e063ff13a94fc06a409bf0a'
 
 # Core ENV Details
-export CW_SUB_ENV='main'
+export CW_SUB_ENV='sandbox'
 
 # Cloudfront details
 export CW_CLOUDFRONT_DOMAIN=''

@@ -16,6 +16,7 @@
       oThis.config = config;
       oThis.idInstall = "#installMetamaskCover";
       oThis.idLocked = "#metamaskLockedCover";
+      oThis.idDisabled = "#metamaskDisabledCover";
       oThis.idChain = "#metamaskWrongNetworkCover";
       oThis.idAccount = "#metamaskWrongAccountCover";
       oThis.lastValidAddress = null;
@@ -42,6 +43,7 @@
     },
     flags : {
       is_locked: false,
+      is_enabled: false,
       has_metamask: true,
       account: "",
       chain_id: null
@@ -53,6 +55,9 @@
     web3Obj: null,
     metaMaskWeb3: function () {
       return window.web3;
+    },
+    metaMaskEthereum: function () {
+      return window.ethereum;
     },
     web3: function () {
       var oThis = this;
@@ -73,7 +78,6 @@
     isObserving: false,
     startObserver: function () {
       var oThis = this;
-      console.log("startObserver");
       oThis.shouldObserve = true;
       oThis.observeMetamask();
       
@@ -84,7 +88,6 @@
       //Reset the required flags.
       //Account needs to be reset so that it may trigger address changed next time?
       oThis.flags.accounts = "";
-      console.log("stopObserver");
     },
 
     reObserve : function () {
@@ -135,7 +138,7 @@
           observationComplete.apply(oThis, arguments);
         }
         
-      }
+      };
 
 
       var accountCallback = function (success, response) {
@@ -147,20 +150,25 @@
           ost.coverElements.show( oThis.idAccount );
           observationComplete.apply(oThis, arguments);
         }
-      }
+      };
 
       var unlockedCallback = function (success, response) {
         flags.is_locked = success;
 
-        var account = "";
-        if ( success ) {
-          account = response.data.accounts[ 0 ];
-          ost.coverElements.hide( oThis.idLocked );
-          oThis.validateAccountAddress( account, accountCallback );
+        if( !response.data.enabled ){
+          oThis.validateEnabledMetamask( unlockedCallback );
         } else {
-          oThis.updateAccount( account );
-          ost.coverElements.show( oThis.idLocked );
-          observationComplete.apply(oThis, arguments);
+            var account = "";
+            ost.coverElements.hide( oThis.idDisabled );
+            if ( success ) {
+                account = response.data.accounts[ 0 ];
+                ost.coverElements.hide( oThis.idLocked );
+                oThis.validateAccountAddress( account, accountCallback );
+            } else {
+                oThis.updateAccount( account );
+                ost.coverElements.show( oThis.idLocked );
+                observationComplete.apply(oThis, arguments);
+            }
         }
       };
 
@@ -181,9 +189,10 @@
     validateInstallation: function ( callback ) {
       var oThis = this;
 
-      var metaMaskWeb3 = oThis.metaMaskWeb3()
+      var metaMaskEthereum = oThis.metaMaskEthereum()
+        , metaMaskWeb3 = oThis.metaMaskWeb3()
         , response = {
-          success : metaMaskWeb3 ? true : false
+          success : (metaMaskEthereum || metaMaskWeb3) ? true : false
           , data  : {
 
           }
@@ -198,6 +207,21 @@
       
     },
 
+    validateEnabledMetamask : function ( callback ) {
+      ost.coverElements.show( oThis.idDisabled );
+      oThis.metaMaskEthereum().enable().then(function(){
+        oThis.flags.is_enabled = true;
+        ost.coverElements.hide( oThis.idDisabled );
+        oThis.validateMetaMaskUnlocked( callback );
+      }).catch(function(){
+        oThis.flags.is_enabled = false;
+        ost.coverElements.show( oThis.idDisabled );
+        //Done know why observationComplete.apply(oThis, arguments) does not work.
+        oThis.isObserving = false;
+        oThis.stopObserver();
+      });
+    },
+
     validateMetaMaskUnlocked: function ( callback ) {
       var oThis = this;
 
@@ -208,7 +232,8 @@
         var response = {
               success : true,
               data    : {
-                account: accounts
+                account: accounts ,
+                enabled : oThis.flags.is_enabled
               }
           }
         ;
