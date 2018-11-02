@@ -92,7 +92,7 @@
       </ul>
     </li>
     <li>
-      <a href="https://medium.com/ostdotcom/ost-project-roadmap-2017-2021-scaling-blockchain-economies-to-billions-of-users-7754f58112a6" target="_blank" class="nav-svg-link d-flex align-items-center" title="Roadmap">
+      <a href="<%= GlobalConstant::Base.root_url %>roadmap" class="nav-svg-link d-flex align-items-center" title="Roadmap">
         <svg class="nav-svg">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#dropdown-roadmap-icon"></use>
@@ -101,15 +101,29 @@
         <span class="pl-2">Roadmap</span>
       </a>
     </li>
-    <li>
-      <a href="https://drive.google.com/file/d/0Bwgf8QuAEOb7Z2xIeUlLd21DSjQ/view" target="_blank" class="nav-svg-link d-flex align-items-center" title="White Paper">
-        <svg class="nav-svg">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#dropdown-white-paper-icon"></use>
-          </switch>
-        </svg>
-        <span class="pl-2">White Paper</span>
-      </a>
+    <li><a href="javascript:void(0)" class="nav-svg-link d-flex align-items-center">
+      <svg class="nav-svg">
+        <switch>
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#dropdown-white-paper-icon"></use>
+        </switch>
+      </svg>
+      <span class="pl-2">White Paper</span>
+      <span class="drop-icon drop-icon-right"></span>
+      <label title="Toggle Drop-down" class="drop-icon drop-icon-right navbar-toggler" for="devChallenges" data-toggle="collapse" data-target="#navbarToggler6" aria-controls="navbarToggler6" aria-expanded="false" aria-label="Toggle navigation"></label>
+    </a>
+      <input type="checkbox" id="devChallenges">
+      <ul class="sub-menu list-unstyled pt-2 px-3 px-md-1 m-0 collapse" id="navbarToggler6">
+        <li>
+          <a href="https://drive.google.com/file/d/0Bwgf8QuAEOb7Z2xIeUlLd21DSjQ/view" target="_blank" class="nav-svg-link d-flex align-items-center" title="OpenSt Protocol">
+            <span class="pl-2">OpenSt Protocol</span>
+          </a>
+        </li>
+        <li class="mb-0 mb-md-2">
+          <a href="https://github.com/OpenSTFoundation/mosaic-contracts/blob/develop/docs/mosaicv0.pdf" target="_blank" class="nav-svg-link d-flex align-items-center" title="Mosaic Protocol">
+            <span class="pl-2">Mosaic Protocol</span>
+          </a>
+        </li>
+      </ul>
     </li>
     <li>
       <a href="https://github.com/OpenSTFoundation" target="_blank" class="nav-svg-link d-flex align-items-center" title="Github">
@@ -218,6 +232,11 @@
 <div class="d-none d-md-inline ml-auto" style="font-size: 0">
   <ul class="p-0 m-0">
     <li>
+      <a href="https://itunes.apple.com/us/podcast/ost-live-blockchain-branded-tokens-and-token-economies/id1432951800?mt=2" target="_blank" title="OST - Podcast">
+        <span class="header-social-podcast-icon"></span>
+      </a>
+    </li>
+    <li class="ml-2">
       <a href="https://t.me/ostdotcom" target="_blank" title="OST - Telegram">
         <span class="header-social-telegram-icon"></span>
       </a>
@@ -232,11 +251,11 @@
         <span class="header-social-medium-icon"></span>
       </a>
     </li>
-    <li class="ml-2">
-      <a href="https://www.linkedin.com/company/18209852" target="_blank" title="OST - Linkedin">
-        <span class="header-social-linkedIn-icon"></span>
-      </a>
-    </li>
+<!--    <li class="ml-2">-->
+<!--      <a href="https://www.linkedin.com/company/18209852" target="_blank" title="OST - Linkedin">-->
+<!--        <span class="header-social-linkedIn-icon"></span>-->
+<!--      </a>-->
+<!--    </li>-->
     <li class="ml-2">
       <a href="https://www.facebook.com/OST" target="_blank" title="OST - Facebook">
         <span class="header-social-facebook-icon"></span>

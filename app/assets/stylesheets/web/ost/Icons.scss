@@ -1,5 +1,5 @@
-$sprite-retina-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v4-@2x.png";
-$sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v4-@1x.png";
+$sprite-retina-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v5-@2x.png";
+$sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v5-@1x.png";
 
 @mixin icon-generator($width,$height,$posX,$posY,$offsetHover,$offsetActive,$scale:100) {
   background-image: url($sprite-location);
@@ -82,6 +82,10 @@ $sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprit
   @include icon-generator(98px, 98px, -520px, -232px, -637px, -637px, 30);
 }
 
+.header-social-podcast-icon{
+  @include icon-generator(98px, 98px, -520px, -444px, -637px, -637px, 30);
+}
+
 
 
 // Footer social icons CSS
@@ -119,4 +123,8 @@ $sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprit
 
 .footer-social-gitter-icon{
   @include icon-generator(98px, 98px, -520px, -338px, -637px, -637px, 40);
+}
+
+.footer-social-podcast-icon{
+  @include icon-generator(98px, 98px, -520px, -444px, -637px, -637px, 40);
 }
