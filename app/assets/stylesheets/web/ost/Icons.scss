@@ -1,5 +1,5 @@
-$sprite-retina-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v5-@2x.png";
-$sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprite-v5-@1x.png";
+$sprite-retina-location: "https://dxwfxs8b4lg24.cloudfront.net/ost/images/ost-sprite-v8-@2x.png";
+$sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost/images/ost-sprite-v8-@1x.png";
 
 @mixin icon-generator($width,$height,$posX,$posY,$offsetHover,$offsetActive,$scale:100) {
   background-image: url($sprite-location);
@@ -40,13 +40,19 @@ $sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprit
   @include icon-generator(200px, 52px, 1px, -164px, -262px, 1px, 70);
 }
 .buy-ost-upbit-icon{
-  @include icon-generator(200px, 52px, 1px, -246px, -262.5px, 1px, 70);
+  @include icon-generator(189px, 52px, 1px, -256px, -262px, 1px, 70);
 }
 .buy-ost-coin-super-icon{
-  @include icon-generator(222px, 52px, 1px, -326px, -262px, 1px, 74);
+  @include icon-generator(210px, 52px, 1px, -340px, -261px, 1px, 71);
 }
 .buy-ost-idcm-icon{
-  @include icon-generator(170px, 52px, 1px, -389px, -255px, 1px, 74);
+  @include icon-generator(156px, 52px, 1px, -424px, -261px, 1px, 70);
+}
+.buy-ost-kyber-icon{
+  @include icon-generator(114px, 60px, 1px, -499px, -261px, 1px);
+}
+.buy-ost-bittrex-icon{
+  @include icon-generator(190px, 50px, 1px, -592px, -261px, 1px, 80);
 }
 
 // Header social icons CSS
@@ -84,6 +90,10 @@ $sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprit
 
 .header-social-podcast-icon{
   @include icon-generator(98px, 98px, -520px, -444px, -637px, -637px, 30);
+}
+
+.header-social-podcast-icon{
+  @include icon-generator(98px, 98px, -520px, -450px, -637px, -637px, 30);
 }
 
 
@@ -126,5 +136,5 @@ $sprite-location: "https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-sprit
 }
 
 .footer-social-podcast-icon{
-  @include icon-generator(98px, 98px, -520px, -444px, -637px, -637px, 40);
+  @include icon-generator(98px, 98px, -520px, -450px, -637px, -637px, 40);
 }
