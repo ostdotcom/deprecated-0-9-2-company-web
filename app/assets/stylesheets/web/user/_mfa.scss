@@ -1,0 +1,50 @@
+// These two imports needed where you want to use theme variables
+@import "../../plugins/bootstrap/scss/functions";
+@import "../Starboy/variables";
+
+.mfa-wrapper{
+  background: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/tech-bg.png') bottom;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  h3{
+    color:$blue-700;
+  }
+  .qr-code-container{
+    border: 1px solid #d3e3e5;
+    border-radius: 5px;
+    width: 380px;
+    .qr-code-desc{
+      background-color: #f8fcfc;
+      color: $blue-700;
+      font-size: 13px;
+      text-align: left;
+      .qr-code-desc-header{
+        font-weight: $font-weight-bold;
+      }
+      .qr-code-desc-content{
+        font-weight: $font-weight-light;
+        a{
+          color: $blue-700;
+          text-decoration: underline;
+          font-style: italic;
+        }
+      }
+    }
+  }
+  .desc{
+    color: $blue-700;
+    font-size: 20px;
+    font-weight:$font-weight-light;
+  }
+  .form-group{
+    text-align: center;
+    vertical-align: center;
+    width: 380px;
+    .form-label{
+      color: $cyanish-gray;
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: $font-weight-bold;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+<%
+  qr_url = true;
+%>
+<div class="mfa-wrapper h-100">
+  <div class="container">
+      <div class="text-center mt-5 ">
+        <h3>Secure your account</h3>
+        <% if qr_url%>
+          <p class="desc">Set up your Multi-Factor Authentication</p>
+          <div class="qr-code-container row mx-auto ">
+            <div class="col-4">
+
+            </div>
+            <div class="col-8 p-2 qr-code-desc">
+              <span class="qr-code-desc-header">Download Google Authenticator</span>
+              <span class="qr-code-desc-content">from the
+                    <a target="_blank" href='https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_IN'>Play Store</a>
+                    or
+                    <a target="_blank"  href='https://itunes.apple.com/in/app/google-authenticator/id388497605?mt=8'>App Store</a>.
+                    Open the app on your phone
+                    and scan the Qr code. Enter the 6 digit code associated with OST KYC in the text box below.
+                    This level of authentication ensures that your account remains secure at all times.
+            </span>
+            </div>
+          </div>
+        <% else %>
+          <p class="desc">Please open google authenticator and enter the
+            MFA code to complete sign-in.</p>
+        <% end %>
+        <div class="form-group row mx-auto my-5">
+          <label class="form-label" >mfa code</label>
+          <input type="text"  value="" class="form-control"  required>
+        </div>
+        <button class="ml-3 btn btn-primary">submit</button>
+      </div>
+  </div>
+</div>

@@ -9,6 +9,10 @@ class Web::UserController < Web::BaseController
 
   after_action :remove_browser_caching
 
+  def mfa
+
+  end
+
   def login
 
     @response = CompanyApi::Request::Client.new(
