@@ -54,6 +54,14 @@ module GlobalConstant
         true
       end
 
+      def recaptcha
+        env_config.fetch('recaptcha', {})
+      end
+
+      def env_config
+        @env_config ||= fetch_config
+      end
+
       private
 
       def fetch_config

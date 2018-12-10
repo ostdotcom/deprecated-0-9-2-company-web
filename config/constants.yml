@@ -2,6 +2,9 @@ constants:
   sub_env: <%= ENV['CW_SUB_ENV']%>
   root_url: <%= ENV['CW_ROOT_URL']%>
 
+  recaptcha:
+    site_key: <%= ENV['STW_RECAPTCHA_SITE_KEY']%>
+
   cloudfront:
     domain: <%= ENV['CW_CLOUDFRONT_DOMAIN'] %>
 

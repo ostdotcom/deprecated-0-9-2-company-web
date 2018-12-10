@@ -1,18 +1,34 @@
 ;
 (function (window) {
 
-  var parentNS = ns("simpletoken.home")
-      , utilsNs = ns("simpletoken.utils")
-      , oThis
+  var parentNS = ns("ost.user")
+    , ost = ns("ost")
+    , oThis
   ;
 
   parentNS.resetPassword = oThis = {
-    jForm: $('#rest_password_form')
+    jForm: null
     , init: function (config) {
+      oThis.jForm = $('#rest_password_form');
       oThis.bindEventListeners();
       oThis.formHandler();
     }
     , bindEventListeners: function () {
+      var oThis = this;
+
+      oThis.jForm.on('beforeSubmit',function (event) {
+        if(!oThis.isCaptchaValid){
+          event.preventDefault();
+        }
+      })
+
+      $('#recover-email-btn').on('click',function () {
+        oThis.isCaptchaValid = ost.utilities.validateCaptcha(
+          oThis.jForm,
+          $('.recaptcha-login-error'),
+          "Please select the captcha"
+        );
+      })
 
     }
     , formHandler: function( response ) {

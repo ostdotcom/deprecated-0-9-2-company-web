@@ -3,14 +3,19 @@
   var ost = ns('ost');
 
   var oThis = ost.utilities = {
-    captchaFailureMsg : "please select the captcha"
 
-    ,validateCaptcha : function (jForm) {
+    /*
+     * Validate Re-Captcha within form
+     *
+     * jForm: Parent form's jQuery object
+     * jError: jQuery object of error element
+     * errorText: Error message to be displayed
+     */
+    validateCaptcha : function (jForm, jError, errorText) {
       if( jForm.find('.g-recaptcha')[0] != undefined && grecaptcha != undefined){
 
         if(  grecaptcha.getResponse() == '' ||  grecaptcha == undefined){
-          console.log("from utilities",grecaptcha.getResponse());
-          $('.recaptcha-login-error').text(oThis.captchaFailureMsg);
+          $(jError).text(errorText);
           return false;
         }
         else{
