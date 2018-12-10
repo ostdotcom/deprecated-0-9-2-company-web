@@ -94,7 +94,7 @@ en:
           :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image-1.jpg'
       :assets:
         :specific_css_required: 1
-        :specific_js_required: 0
+        :specific_js_required: 1
 
     logout:
       :meta:

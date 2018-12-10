@@ -16,5 +16,6 @@
 //= require plugins/helpers/ostMocker
 //= require plugins/helpers/rowContentSlider
 //= require web/common/SimpleTokenNamespace
+//= require web/common/Utilities
 //= require plugins/helpers/eventNameSpacing
 //= require plugins/helpers/responsiveBreakPoint
