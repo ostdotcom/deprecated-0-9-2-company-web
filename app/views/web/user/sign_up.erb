@@ -148,9 +148,13 @@
         </div>
 
       </div>
+      <div class=" recaptcha-wrapper form-group">
+        <div class="g-recaptcha mx-auto  form-recapcha-wrap d-inline-block" id="myid" data-sitekey="<%= GlobalConstant::Base.recaptcha['site_key'] %>"></div>
+      </div>
 
       <div class="form-group text-center" >
-        <button type="submit" class="btn btn-gold" data-submiting="Registering">Register</button>
+        <button type="submit" id="register-btn"  class="btn btn-gold" data-submiting="Registering">Register</button>
+        <div class="recaptcha-submit-error mt-1  error" ></div>
         <small class="form-text text-muted" style="line-height: 40px">Have an account already?</small>
         <a href="/login" class="btn ost-btn-secondary" title="Login">Login</a>
       </div>
