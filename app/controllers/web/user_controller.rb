@@ -13,6 +13,10 @@ class Web::UserController < Web::BaseController
 
   end
 
+  def admin_invite
+
+  end
+
   def login
 
     @response = CompanyApi::Request::Client.new(
