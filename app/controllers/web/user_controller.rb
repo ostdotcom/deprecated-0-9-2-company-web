@@ -5,22 +5,48 @@ class Web::UserController < Web::BaseController
   before_action :check_if_client_is_supported
   before_action :set_page_meta_info
 
-  before_action :verify_existing_login, only: [:reset_password, :update_password]
-
   after_action :remove_browser_caching
+
+  def sign_up
+
+    @response = CompanyApi::Request::Manager.new(
+        CompanyApi::Response::Formatter::Manager,
+        request.cookies,
+        {"User-Agent" => http_user_agent}
+    ).get_sign_up_page_details({})
+
+    unless @response.success?
+      render_error_response(@response) and return
+    end
+
+    @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
+
+  end
+
+  def setup_mfa
+
+    @response = CompanyApi::Request::Manager.new(
+        CompanyApi::Response::Formatter::Manager,
+        request.cookies,
+        {"User-Agent" => http_user_agent}
+    ).get_sign_up_page_details({})
+
+    unless @response.success?
+      render_error_response(@response) and return
+    end
+
+    @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
+
+  end
 
   def mfa
 
   end
 
-  def admin_invite
-
-  end
-
   def login
 
-    @response = CompanyApi::Request::Client.new(
-        CompanyApi::Response::Formatter::Client,
+    @response = CompanyApi::Request::Manager.new(
+        CompanyApi::Response::Formatter::Manager,
         request.cookies,
         {"User-Agent" => http_user_agent}
     ).logout({})
@@ -33,8 +59,8 @@ class Web::UserController < Web::BaseController
 
   def logout
 
-    @response = CompanyApi::Request::Client.new(
-        CompanyApi::Response::Formatter::Client,
+    @response = CompanyApi::Request::Manager.new(
+        CompanyApi::Response::Formatter::Manager,
         request.cookies,
         {"User-Agent" => http_user_agent}
     ).logout({})
@@ -42,20 +68,6 @@ class Web::UserController < Web::BaseController
     if @response.success?
       redirect_to :login and return
     else
-      render_error_response(@response) and return
-    end
-
-  end
-
-  def sign_up
-
-    @response = CompanyApi::Request::Client.new(
-        CompanyApi::Response::Formatter::Client,
-        request.cookies,
-        {"User-Agent" => http_user_agent}
-    ).logout({})
-
-    unless @response.success?
       render_error_response(@response) and return
     end
 
@@ -71,14 +83,14 @@ class Web::UserController < Web::BaseController
 
   def verify_email
 
-    @response = CompanyApi::Request::Client.new(
-        CompanyApi::Response::Formatter::Client,
+    @response = CompanyApi::Request::Manager.new(
+        CompanyApi::Response::Formatter::Manager,
         request.cookies,
         {"User-Agent" => http_user_agent}
     ).verify_email(r_t: params[:r_t])
 
     if @response.success?
-      @presenter_obj = ::WebPresenter::UserPresenter.new(@response, params)
+      @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
       redirect_to :planner and return
     elsif @response.http_code == GlobalConstant::ErrorCode.unauthorized_access
       redirect_to :login and return
@@ -95,35 +107,5 @@ class Web::UserController < Web::BaseController
   end
 
   private
-
-  # Verify existing login
-  # Redirect to dashboard / planner if yes
-  #
-  # * Author: Puneet
-  # * Date: 02/02/2018
-  # * Reviewed By:
-  #
-  def verify_existing_login
-    return if cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].blank?
-
-    @response = CompanyApi::Request::Client.new(
-        CompanyApi::Response::Formatter::Client,
-        request.cookies,
-        {"User-Agent" => http_user_agent}
-    ).fetch_verify_cookie_details
-
-    # success means user is already logged in, we would redirect to dashboard / planner
-    # Error means user ain't logged in yet.
-    return unless @response.success?
-
-    @presenter_obj = ::WebPresenter::UserPresenter.new(@response, params)
-
-    if @presenter_obj.client_token.step_three_done?
-      redirect_to :dashboard, status: GlobalConstant::ErrorCode.temporary_redirect and return
-    else
-      redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect and return
-    end
-
-  end
 
 end
