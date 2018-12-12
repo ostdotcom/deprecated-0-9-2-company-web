@@ -23,6 +23,10 @@ Rails.application.routes.draw do
     get '/admin-invite' => :admin_invite
   end
 
+  scope 'settings', controller: 'web/user_setting' do
+    get 'team' => :team
+  end
+
   scope '', controller: 'web/economy' do
     get '/dashboard' => :dashboard, as: 'dashboard'
     get '/planner' => :planner
