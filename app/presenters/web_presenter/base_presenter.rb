@@ -2,7 +2,7 @@ module WebPresenter
 
   class BasePresenter
 
-    attr_reader :params, :formatter_obj
+    attr_reader :params, :raw_data, :formatter_obj
 
     # Init
     #
@@ -15,12 +15,19 @@ module WebPresenter
     # @return [Web::BasePresenter] returns an object of Web::Base class
     def initialize(data_obj, params = {})
       @formatter_obj = data_obj.data['formatted_response']
+      @raw_data = data_obj.data['raw_data']
       @params = params
     end
 
-    def user
-      @c_usr ||= begin
-        formatter_obj.present? ? formatter_obj.user : nil
+    def manager
+      @c_manager ||= begin
+        formatter_obj.present? ? formatter_obj.manager : nil
+      end
+    end
+
+    def client
+      @client ||= begin
+        formatter_obj.present? ? formatter_obj.client : nil
       end
     end
 

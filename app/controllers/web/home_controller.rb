@@ -6,7 +6,7 @@ class Web::HomeController < Web::BaseController
 
   def index
     if Rails.env.production? && GlobalConstant::Base.main_sub_environment?
-      redirect_to :sign_up, status: GlobalConstant::ErrorCode.temporary_redirect and return
+      redirect_to :sign_up_without_invite, status: GlobalConstant::ErrorCode.temporary_redirect and return
     end
   end
 

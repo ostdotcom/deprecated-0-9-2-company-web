@@ -304,7 +304,7 @@ module CompanyApi
         if data.present? && @api_response_formatter_class.present?
           format_obj = @api_response_formatter_class.new(data)
           format_obj.perform
-          {'formatted_response' => format_obj}
+          {'formatted_response' => format_obj, 'raw_data' => data}
         else
           data
         end

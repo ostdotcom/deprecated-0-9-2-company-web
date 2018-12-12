@@ -2,6 +2,8 @@ class Web::BaseController < ApplicationController
 
   before_action :basic_auth
 
+  include Util::ResultHelper
+
   private
 
   # Render error response pages

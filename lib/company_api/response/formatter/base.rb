@@ -6,7 +6,7 @@ module CompanyApi
 
       class Base
 
-        attr_reader :user, :client_token, :oracle_price_points, :chain_interaction_params,
+        attr_reader :manager, :client, :client_token, :oracle_price_points, :chain_interaction_params,
                     :client_token_planner, :client_balances, :token_supply_details, :pending_critical_interactions
 
         # Initialize
@@ -31,12 +31,26 @@ module CompanyApi
         # * Date: 02/02/2018
         # * Reviewed By: Sunil
         #
-        # @param [Hash] user_data (mandatory) - user data hash
+        # @param [Hash] manager_data (mandatory) - user data hash
         #
-        # Sets @user
+        # Sets @manager
         #
-        def set_user(user_data)
-          @user = CompanyApi::Response::Entity::User.new(user_data)
+        def set_manager(manager_data)
+          @manager = CompanyApi::Response::Entity::Manager.new(manager_data)
+        end
+
+        # Set client
+        #
+        # * Author: Puneet
+        # * Date: 02/02/2018
+        # * Reviewed By: Sunil
+        #
+        # @param [Hash] client_data (mandatory) - client token hash
+        #
+        # Sets @client_token
+        #
+        def set_client(client_data)
+          @client = CompanyApi::Response::Entity::Client.new(client_data)
         end
 
         # Set client token

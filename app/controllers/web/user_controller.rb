@@ -9,17 +9,32 @@ class Web::UserController < Web::BaseController
 
   def sign_up
 
-    @response = CompanyApi::Request::Manager.new(
-        CompanyApi::Response::Formatter::Manager,
-        request.cookies,
-        {"User-Agent" => http_user_agent}
-    ).get_sign_up_page_details({})
+    if params[:i_t].present?
 
-    unless @response.success?
-      render_error_response(@response) and return
+      if Util::CommonValidator.is_valid_token?(params[:i_t])
+        #TODO: Render Error response
+        return
+      end
+
+      @response = CompanyApi::Request::Manager.new(
+          CompanyApi::Response::Formatter::Manager,
+          request.cookies,
+          {"User-Agent" => http_user_agent}
+      ).get_sign_up_page_details({})
+
+      unless @response.success?
+        render_error_response(@response) and return
+      end
+
+      @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
+
+      render "sign_via_invite"
+
+    else
+
+      render "sign_up_without_invite"
+
     end
-
-    @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
 
   end
 

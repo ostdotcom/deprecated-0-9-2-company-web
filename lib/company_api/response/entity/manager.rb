@@ -4,7 +4,7 @@ module CompanyApi
 
     module Entity
 
-      class User
+      class Manager
 
         # Initialize
         #
@@ -14,7 +14,7 @@ module CompanyApi
         #
         # @param [Hash] data (mandatory) - entity data
         #
-        # @return [CompanyApi::Response::Entity::User] returns an object of CompanyApi::Response::Entity::User class
+        # @return [CompanyApi::Response::Entity::Manager] returns an object of CompanyApi::Response::Entity::User class
         #
         def initialize(data)
           @data = data
@@ -37,7 +37,11 @@ module CompanyApi
         end
 
         def is_verified?
-          properties.include?('user_verified')
+          properties.include?('has_verified_email')
+        end
+
+        def has_setup_mfa?
+          properties.include?('has_setup_mfa')
         end
 
       end

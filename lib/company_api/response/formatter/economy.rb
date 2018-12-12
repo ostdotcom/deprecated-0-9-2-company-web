@@ -30,7 +30,7 @@ module CompanyApi
         #
         def perform
 
-          set_user(@data['user'])
+          set_manager(@data['user'])
 
           set_client_token(@data['client_token'])
 

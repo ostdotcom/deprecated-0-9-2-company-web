@@ -55,6 +55,18 @@ module Util
       obj.is_a?(Hash) || obj.is_a?(ActionController::Parameters)
     end
 
+    # Is the Invite / Reset Password / Double Opt in token valid
+    #
+    # * Author: Shlok
+    # * Date: 12/12/2018
+    # * Reviewed By:
+    #
+    # @return [Boolean] returns a boolean
+    #
+    def self.is_valid_token?(token)
+      token =~  /^[ \w\/=+-]{152}$/mi
+    end
+
   end
 
 end
