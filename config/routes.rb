@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   end
 
   scope 'settings', controller: 'web/user_setting' do
-    get 'team' => :team
+    get '/team' => :team
   end
 
   scope '', controller: 'web/economy' do
