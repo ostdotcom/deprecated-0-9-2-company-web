@@ -1,0 +1,54 @@
+<div class="container-fluid py-6 cloud-bg h-100">
+  <div class="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5 mx-auto">
+          <form id="admin_invite_form" class="form-container-sm user-form"
+                action="/api/client/reset-password" method="POST"
+                data-ost-formhelper data-redirect="/planner"
+          >
+            <!-- C***d@ost.com should be replaced by appropriate variable -->
+            <h3 class="text-center mb-5">Hi, C***d@ost.com</h3>
+            <!-- Fran**@ost.com should be replaced by appropriate variable -->
+            <small class="form-text text-muted text-center mb-3">Fran**@ost.com has invited you to join App Token  Please select a password to activate your account</small>
+            <div class="form-group mb-2">
+              <div class="clearfix">
+                <label class="form-label float-left" for="password">Password</label>
+                <span class="form-label float-right text-capitalize font-weight-light">Minimum 8 characters</span>
+              </div>
+              <div class="input-group">
+                <input type="password" class="form-control form-control-input-group" placeholder="Password"
+                       id="password" name="password" required minlength="8" />
+                <div class="input-group-append">
+                  <span class="input-group-text input-group-inline input-group-eye">
+                    <svg class="icon">
+                      <switch>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-eye"></use>
+                      </switch>
+                    </svg>
+                  </span>
+                </div>
+                <div class="invalid-feedback" data-forid="password">&nbps;</div>
+              </div>
+              <div class="zxcvbn-group"></div>
+            </div>
+
+            <div class="form-group mb-2">
+              <label class="form-label" for="confirm_password">Confirm Password</label>
+              <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required minlength="8" />
+              <div class="invalid-feedback" data-forid="password">&nbps;</div>
+            </div>
+
+            <div class="form-group text-center mt-3">
+              <button type="submit" class="btn btn-gold">Set Password</button>
+            </div>
+
+            <div class="general_error invalid-feedback" data-forid="update_password_form">&nbsp;</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
