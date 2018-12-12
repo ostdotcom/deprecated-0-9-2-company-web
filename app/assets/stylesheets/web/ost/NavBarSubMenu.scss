@@ -2,7 +2,7 @@
 
   background-color: #ffffff;
   .ost-brand {
-    padding: .65rem 1rem;
+    padding: 0.8rem 1rem;
   }
 
   li{
@@ -141,9 +141,9 @@
       background-color: transparent;
     }
 
-    //.ost-brand {
-    //  padding: 1rem 0.8rem;
-    //}
+    .ost-brand {
+      padding: .65rem 1rem;
+    }
 
     #toggle-menu,
     label.drop-icon {
