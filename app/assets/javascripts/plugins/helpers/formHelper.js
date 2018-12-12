@@ -38,6 +38,13 @@
     , complete: null
     , autoDisableSubmitBtn: true
     , autoEnableSubmitBtn: true
+    ,screen_to_url_map :{
+      "economy_planner_step_one" :"/planner/step-1",
+      "setup_mfa" : "/setup-mfa",
+      "authenticate_mfa" : "/mfa",
+      "service_unavailable" : "/service_unavailable",
+      "verify_email" : "/verify-email"
+    }
 
     , init: function() {
       var oThis = this;
@@ -208,7 +215,10 @@
         , success: function (response) {
           if ( oThis.success ) {
             oThis.success.apply( oThis, arguments);
-          } else if ( response.success && oThis.jForm.data("redirect") ) {
+          }else if (response && response.go_to && response.go_to.by_screen_name){
+            window.location = oThis.screen_to_url_map[response.go_to.by_screen_name]
+          }
+          else if ( response.success && oThis.jForm.data("redirect") ) {
             window.location = oThis.jForm.data("redirect");
           }
         }

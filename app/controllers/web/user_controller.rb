@@ -98,26 +98,33 @@ class Web::UserController < Web::BaseController
 
   def verify_email
 
-    @response = CompanyApi::Request::Manager.new(
+    if params[:r_t].present?
+
+      if Util::CommonValidator.is_valid_token?(params[:r_t])
+        #TODO: Render Error response
+        return
+      end
+
+      @response = CompanyApi::Request::Manager.new(
         CompanyApi::Response::Formatter::Manager,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).verify_email(r_t: params[:r_t])
+      ).verify_email(r_t: params[:r_t])
 
-    if @response.success?
-      @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
-      redirect_to :planner and return
-    elsif @response.http_code == GlobalConstant::ErrorCode.unauthorized_access
-      redirect_to :login and return
-    else
-      #TODO: FIx this
-      @error_data = {
-        display_text: 'Invalid Link',
-        display_heading: 'Invalid Link'
-      }
+      if @response.success?
+        @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
+        redirect_to :planner and return
+      elsif @response.http_code == GlobalConstant::ErrorCode.unauthorized_access
+        redirect_to :login and return
+      else
+        #TODO: FIx this
+        @error_data = {
+          display_text: 'Invalid Link',
+          display_heading: 'Invalid Link'
+        }
+      end
+
     end
-
-    # render page displaying error messages
 
   end
 

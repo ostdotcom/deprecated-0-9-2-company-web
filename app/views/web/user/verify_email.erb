@@ -1,5 +1,10 @@
-<h2 class="form-title"><%= @error_data[:display_heading] %></h2>
-<div class="general_error invalid-feedback"><%= @error_data[:display_text] %></div>
+<% if @error_data.present? %>
 
+  <h2 class="form-title"><%= @error_data[:display_heading] %></h2>
+  <div class="general_error invalid-feedback"><%= @error_data[:display_text] %></div>
 
-<%= render :partial => "/web/common/_email_validation" %>
+<% else %>
+
+  <%= render :partial => "/shared/web/common/email_validation" %>
+
+<% end %>
