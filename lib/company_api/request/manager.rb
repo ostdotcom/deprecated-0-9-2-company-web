@@ -56,7 +56,7 @@ module CompanyApi
       # @param [Hash] params
       #
       def get_manager_details(params)
-        get('mfa', params)
+        get('', params)
       end
 
       # Verify Email

@@ -21,9 +21,13 @@ class Web::UserController < Web::BaseController
 
     if params[:i_t].present?
 
-      if Util::CommonValidator.is_valid_token?(params[:i_t])
+      unless Util::CommonValidator.is_valid_token?(params[:i_t])
         #TODO: Render Error response
-        return
+        @error_data = {
+            display_text: 'Invalid Link',
+            display_heading: 'Invalid Link'
+        }
+        render "sign_via_invite" and return
       end
 
       @response = CompanyApi::Request::Manager.new(
@@ -106,13 +110,21 @@ class Web::UserController < Web::BaseController
 
   def update_password
 
+    unless Util::CommonValidator.is_valid_token?(params[:r_t])
+      #TODO: Render Error response
+      @error_data = {
+          display_text: 'Invalid Link',
+          display_heading: 'Invalid Link'
+      }
+    end
+
   end
 
   def verify_email
 
     if params[:r_t].present?
 
-      if Util::CommonValidator.is_valid_token?(params[:r_t])
+      unless Util::CommonValidator.is_valid_token?(params[:r_t])
         @error_data = {
             display_text: 'Invalid Link',
             display_heading: 'Invalid Link'
