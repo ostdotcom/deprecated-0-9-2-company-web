@@ -6,7 +6,7 @@ module CompanyApi
 
       class Manager < CompanyApi::Response::Formatter::Base
 
-        attr_reader :managers, :setup_mfa
+        attr_reader :managers, :setup_mfa, :inviter_manager, :invitee_manager
 
         # Initialize
         #
@@ -33,6 +33,10 @@ module CompanyApi
           set_managers(@data['managers']) if @data['managers'].present?
 
           set_manager(@data['manager']) if @data['manager'].present?
+
+          set_inviter_manager(@data['invitee_manager']) if @data['invitee_manager'].present?
+
+          set_invitee_manager(@data['inviter_manager']) if @data['inviter_manager'].present?
 
           set_client(@data['client']) if @data['client'].present?
 
@@ -71,6 +75,34 @@ module CompanyApi
         #
         def set_setup_mfa(data)
           @setup_mfa = CompanyApi::Response::Entity::SetupMfa.new(data)
+        end
+
+        # Set setup mfa
+        #
+        # * Author: Puneet
+        # * Date: 12/12/2018
+        # * Reviewed By:
+        #
+        # @param [Hash] data (mandatory)
+        #
+        # Sets @inviter_manager
+        #
+        def set_inviter_manager(data)
+          @inviter_manager = CompanyApi::Response::Entity::InviteManager.new(data)
+        end
+
+        # Set setup mfa
+        #
+        # * Author: Puneet
+        # * Date: 12/12/2018
+        # * Reviewed By:
+        #
+        # @param [Hash] data (mandatory)
+        #
+        # Sets @invitee_manager
+        #
+        def set_invitee_manager(data)
+          @invitee_manager = CompanyApi::Response::Entity::InviteManager.new(data)
         end
 
       end

@@ -34,7 +34,7 @@ class Web::UserController < Web::BaseController
           CompanyApi::Response::Formatter::Manager,
           request.cookies,
           {"User-Agent" => http_user_agent}
-      ).get_sign_up_page_details({})
+      ).get_sign_up_page_details({i_t: params[:i_t]})
 
       unless @response.success?
         render_error_response(@response) and return
@@ -42,7 +42,7 @@ class Web::UserController < Web::BaseController
 
       @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
 
-      render "sign_via_invite"
+      render "sign_up_via_invite", :locals => {:invite_token => params[:i_t]}
 
     else
 

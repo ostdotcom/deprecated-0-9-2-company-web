@@ -1,8 +1,3 @@
-<%
-  #TODO var from backend
- email_address = "email from which invitation is sent"
-%>
-
 <div class="container-fluid py-6 cloud-bg h-100">
   <div class="row">
     <div class="container">
@@ -12,10 +7,10 @@
                 action="/api/manager/sign-up" method="POST"
                 data-ost-formhelper data-redirect="/planner"
           >
-
-            <h3 class="text-center mb-5">Hi, C***d@ost.com <%= email_address%></h3>
-
-            <small class="form-text text-muted text-center mb-3"><%= email_address%> has invited you to join App Token  Please select a password to activate your account</small>
+            <!-- C***d@ost.com should be replaced by appropriate variable -->
+            <h3 class="text-center mb-5">Hi, <%= @presenter_obj.invitee_manager.email %> </h3>
+            <!-- Fran**@ost.com should be replaced by appropriate variable -->
+            <small class="form-text text-muted text-center mb-3"> <%= @presenter_obj.inviter_manager.email %> has invited you to join App Token  Please select a password to activate your account</small>
             <div class="form-group mb-2">
               <div class="clearfix">
                 <label class="form-label float-left" for="password">Password</label>
@@ -38,13 +33,7 @@
               <div class="zxcvbn-group"></div>
             </div>
 
-            <div class="form-group mb-2">
-              <label class="form-label" for="confirm_password">Confirm Password</label>
-              <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required minlength="8" />
-              <div class="invalid-feedback" data-forid="password">&nbps;</div>
-            </div>
-            <input type="text" class="form-control" id="i_t" value = "" hidden />
-
+            <input type="text" class="form-control" id="i_t" name="i_t" value = <%= invite_token %> hidden />
 
             <div class="form-group text-center mt-3">
               <button type="submit" class="btn btn-gold">Set Password</button>

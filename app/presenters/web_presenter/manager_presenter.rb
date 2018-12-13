@@ -19,6 +19,18 @@ module WebPresenter
       end
     end
 
+    def inviter_manager
+      @m_inviter_manager ||= begin
+        formatter_obj.present? ? formatter_obj.inviter_manager : nil
+      end
+    end
+
+    def invitee_manager
+      @m_invitee_manager ||= begin
+        formatter_obj.present? ? formatter_obj.invitee_manager : nil
+      end
+    end
+
   end
 
 end
