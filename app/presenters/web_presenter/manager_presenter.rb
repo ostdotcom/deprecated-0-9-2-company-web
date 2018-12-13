@@ -13,6 +13,12 @@ module WebPresenter
       super
     end
 
+    def setup_mfa
+      @m_setup_mfa ||= begin
+        formatter_obj.present? ? formatter_obj.setup_mfa : nil
+      end
+    end
+
   end
 
 end

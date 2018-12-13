@@ -32,7 +32,19 @@ module CompanyApi
       # @param [Hash] params
       #
       def get_sign_up_page_details(params)
-        get('verify-email', params)
+        get('sign-up', params)
+      end
+
+      # Get details to load QR code for setting up MFA
+      #
+      # * Author: Puneet
+      # * Date: 08/12/2018
+      # * Reviewed By:
+      #
+      # @param [Hash] params
+      #
+      def get_setup_mfa_details(params)
+        get('mfa', params)
       end
 
       # Verify Email

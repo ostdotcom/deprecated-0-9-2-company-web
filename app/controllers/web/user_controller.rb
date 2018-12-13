@@ -11,7 +11,7 @@ class Web::UserController < Web::BaseController
 
   before_action :dont_render_if_logged_out, only: [
     :verify_email,
-    :authenticate_mfa,
+    :authenticate_via_mfa,
     :setup_mfa
   ]
 
@@ -54,7 +54,7 @@ class Web::UserController < Web::BaseController
         CompanyApi::Response::Formatter::Manager,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).get_sign_up_page_details({})
+    ).get_setup_mfa_details({})
 
     unless @response.success?
       render_error_response(@response) and return
@@ -62,10 +62,12 @@ class Web::UserController < Web::BaseController
 
     @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
 
+    render 'mfa'
+
   end
 
-  def authenticate_mfa
-
+  def authenticate_via_mfa
+    render 'mfa'
   end
 
   def login

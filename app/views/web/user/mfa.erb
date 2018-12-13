@@ -1,6 +1,11 @@
 <%
-  qr_url = true;
+  if @presenter_obj.present? && @presenter_obj.setup_mfa.present? && @presenter_obj.setup_mfa.qr_code_url.present?
+    qr_url = @presenter_obj.setup_mfa.qr_code_url
+  else
+    qr_url = nil
+  end
 %>
+
 <div class="mfa-wrapper h-100">
   <div class="container">
       <div class="text-center mt-5 ">
