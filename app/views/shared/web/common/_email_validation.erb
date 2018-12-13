@@ -8,10 +8,13 @@
       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#email-icon"></use>
     </switch>
   </svg>
-  <h3>Confirm your email address</h3>
-  <p class="text-muted">We have sent an email to <%= email_address %> please check and confirm your email address to proceed</p>
-  <p class="small text-muted">Did not receive an email yet?</p>
-  <a href="#" class="btn btn-secondary mt-3">re-send email</a>
-  <div class="success" id="successMessage"></div>
-  <div class="general_error invalid-feedback">&nbsp;</div>
+  <form id="send-verify-email-link" class="user-form"
+    action="/api/manager/send-verify-email-link" method="POST" data-ost-formhelper >
+      <h3>Confirm your email address</h3>
+      <p class="text-muted">We have sent an email to <%= email_address %> please check and confirm your email address to proceed</p>
+      <p class="small text-muted">Did not receive an email yet?</p>
+      <button type="submit" class="btn btn-secondary" id="re-send-email"  data-submiting="Re-Sending">re-send email</button>
+      <div class="success" id="successMessage"></div>
+      <div class="general_error invalid-feedback">&nbsp;</div>
+  </form>
 </div>

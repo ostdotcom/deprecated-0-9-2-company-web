@@ -1,223 +1,226 @@
-<%
+<%#
 
-  page_needs_conversion_rates = true;
+<!--  page_needs_conversion_rates = true;-->
 
-  if ( page_needs_conversion_rates )
+<!--  if ( page_needs_conversion_rates )-->
 
-    fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
-    fiat_type = @presenter_obj.client_fiat_curreny_symbol;
-    fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
+<!--    fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;-->
+<!--    fiat_type = @presenter_obj.client_fiat_curreny_symbol;-->
+<!--    fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;-->
 
-    bt_symbol = @presenter_obj.client_token.symbol;
+<!--    bt_symbol = @presenter_obj.client_token.symbol;-->
 
-    if @presenter_obj.client_token && @presenter_obj.client_token.conversion_factor.present?
-      ost_to_bt = @presenter_obj.client_token.conversion_factor.to_s;
-    end
+<!--    if @presenter_obj.client_token && @presenter_obj.client_token.conversion_factor.present?-->
+<!--      ost_to_bt = @presenter_obj.client_token.conversion_factor.to_s;-->
+<!--    end-->
 
-    if @presenter_obj.oracle_price_points && @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type) > 0
-      ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type).to_s;
-    else
-      ost_to_fiat = (0.1).to_s;
-    end
+<!--    if @presenter_obj.oracle_price_points && @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type) > 0-->
+<!--      ost_to_fiat = @presenter_obj.oracle_price_points.to_fiat_conversion_factor(fiat_type).to_s;-->
+<!--    else-->
+<!--      ost_to_fiat = (0.1).to_s;-->
+<!--    end-->
 
-  end
+<!--  end-->
 
-  propose_bt_status_modal_type = 1;
-  mint_bt_status_modal_type = 2;
-  airdrop_bt_status_modal_type = 3;
-  pending_critical_interactions = @presenter_obj.pending_critical_interactions
+<!--  propose_bt_status_modal_type = 1;-->
+<!--  mint_bt_status_modal_type = 2;-->
+<!--  airdrop_bt_status_modal_type = 3;-->
+<!--  pending_critical_interactions = @presenter_obj.pending_critical_interactions-->
 
-  if pending_critical_interactions.present?
-    if pending_critical_interactions.for_register_bt_id.present?
-      pending_tx_id = pending_critical_interactions.for_register_bt_id
-      pending_critical_interaction_modal_type = propose_bt_status_modal_type
-    elsif pending_critical_interactions.for_stake_and_mint_id.present?
-      pending_tx_id = pending_critical_interactions.for_stake_and_mint_id
-      pending_critical_interaction_modal_type = mint_bt_status_modal_type
-    elsif pending_critical_interactions.for_airdrop_users_id.present?
-      pending_tx_id = pending_critical_interactions.for_airdrop_users_id
-      pending_critical_interaction_modal_type = airdrop_bt_status_modal_type
-    end
+<!--  if pending_critical_interactions.present?-->
+<!--    if pending_critical_interactions.for_register_bt_id.present?-->
+<!--      pending_tx_id = pending_critical_interactions.for_register_bt_id-->
+<!--      pending_critical_interaction_modal_type = propose_bt_status_modal_type-->
+<!--    elsif pending_critical_interactions.for_stake_and_mint_id.present?-->
+<!--      pending_tx_id = pending_critical_interactions.for_stake_and_mint_id-->
+<!--      pending_critical_interaction_modal_type = mint_bt_status_modal_type-->
+<!--    elsif pending_critical_interactions.for_airdrop_users_id.present?-->
+<!--      pending_tx_id = pending_critical_interactions.for_airdrop_users_id-->
+<!--      pending_critical_interaction_modal_type = airdrop_bt_status_modal_type-->
+<!--    end-->
   end 
 
 %>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title><%= @page_meta_data[:title] %></title>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="<%= @page_meta_data[:description] %>">
-  <meta name="keywords" content="<%= @page_meta_data[:keywords] %>">
-  <meta name="robots" content="<%= @page_meta_data[:robots] %>">
-  <% if @page_meta_data[:canonical].present? %>
-      <link rel="canonical" href="<%= @page_meta_data[:canonical] %>" />
-  <% end %>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <title><%#= @page_meta_data[:title] %></title>-->
+<!--  <meta charset="utf-8">-->
+<!--  <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+<!--  <meta name="description" content="<%#= @page_meta_data[:description] %>">-->
+<!--  <meta name="keywords" content="<%#= @page_meta_data[:keywords] %>">-->
+<!--  <meta name="robots" content="<%#= @page_meta_data[:robots] %>">-->
+  <%# if @page_meta_data[:canonical].present? %>
+<!--      <link rel="canonical" href="<%#= @page_meta_data[:canonical] %>" />-->
+  <%# end %>
 
-  <%
-     og_meta = @page_meta_data[:og]
-     if og_meta.present?
+  <%#
+<!--     og_meta = @page_meta_data[:og]-->
+<!--     if og_meta.present?-->
   %>
-      <% if og_meta[:title].present? %>
-          <meta property="og:title" content="<%= og_meta[:title] %>"/>
-          <meta property="og:description" content="<%= og_meta[:description] %>"/>
-          <meta property="og:type" content="<%= og_meta[:type] %>"/>
-          <meta property="og:url" content="<%= og_meta[:url] %>"/>
-          <meta property="og:site_name" content="kit.ost.com"/>
-          <meta property="og:image" content="<%= og_meta[:image] %>"/>
-      <% end %>
-  <% end %>
+      <%# if og_meta[:title].present? %>
+<!--          <meta property="og:title" content="<%#= og_meta[:title] %>"/>-->
+<!--          <meta property="og:description" content="<%#= og_meta[:description] %>"/>-->
+<!--          <meta property="og:type" content="<%#= og_meta[:type] %>"/>-->
+<!--          <meta property="og:url" content="<%#= og_meta[:url] %>"/>-->
+<!--          <meta property="og:site_name" content="kit.ost.com"/>-->
+<!--          <meta property="og:image" content="<%#= og_meta[:image] %>"/>-->
+      <%# end %>
+  <%# end %>
 
-  <%
-     tw_meta = @page_meta_data[:twitter]
-     if tw_meta.present?
+  <%#
+<!--     tw_meta = @page_meta_data[:twitter]-->
+<!--     if tw_meta.present?-->
   %>
-      <meta name="twitter:card" content="<%= tw_meta[:card] %>" />
-      <% if tw_meta[:site].present? %>
-          <meta name="twitter:site" content="<%= tw_meta[:site] %>" />
-      <% end %>
-      <% if tw_meta[:title].present? %>
-          <meta name="twitter:title" content="<%= tw_meta[:title] %>" />
-      <% end %>
-      <% if tw_meta[:description].present? %>
-          <meta name="twitter:description" content="<%= tw_meta[:description] %>" />
-      <% end %>
-      <% if tw_meta[:creator].present? %>
-          <meta name="twitter:creator" content="<%= tw_meta[:creator] %>" />
-      <% end %>
-      <% if tw_meta[:image].present? %>
-          <meta name="twitter:image" content="<%= tw_meta[:image] %>" />
-      <% end %>
-      <% if tw_meta[:image_alt].present? %>
-          <meta name="twitter:image:alt" content="<%= tw_meta[:image_alt] %>" />
-      <% end %>
-  <% end %>
+<!--      <meta name="twitter:card" content="<%#= tw_meta[:card] %>" />-->
+      <%# if tw_meta[:site].present? %>
+<!--          <meta name="twitter:site" content="<%#= tw_meta[:site] %>" />-->
+      <%# end %>
+      <%# if tw_meta[:title].present? %>
+<!--          <meta name="twitter:title" content="<%#= tw_meta[:title] %>" />-->
+      <%# end %>
+      <%# if tw_meta[:description].present? %>
+<!--          <meta name="twitter:description" content="<%#= tw_meta[:description] %>" />-->
+      <%# end %>
+      <%# if tw_meta[:creator].present? %>
+<!--          <meta name="twitter:creator" content="<%#= tw_meta[:creator] %>" />-->
+      <%# end %>
+      <%# if tw_meta[:image].present? %>
+<!--          <meta name="twitter:image" content="<%#= tw_meta[:image] %>" />-->
+      <%# end %>
+      <%# if tw_meta[:image_alt].present? %>
+<!--          <meta name="twitter:image:alt" content="<%#= tw_meta[:image_alt] %>" />-->
+      <%# end %>
+  <%# end %>
 
-  <%= csrf_meta_tags %>
+  <%#= csrf_meta_tags %>
 
-  <% if Rails.env.production? %>
-    <%= render :partial => 'shared/web/common/ga_config_economy' %>
-  <% end %>
+  <%# if Rails.env.production? %>
+    <%#= render :partial => 'shared/web/common/ga_config_economy' %>
+  <%# end %>
 
-  <%= render :partial => "/shared/web/common/fav_icons" %>
+  <%#= render :partial => "/shared/web/common/fav_icons" %>
 
-  <%= stylesheet_link_tag "web/bootstrap-theme" %>
-  <%= stylesheet_link_tag "#{specific_manifest_file_path}", media: 'all' if has_specific_css_manifest_file? %>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <!--<script type="text/javascript">google.charts.load('current', {packages: ['corechart']});</script>-->
-</head>
+  <%#= stylesheet_link_tag "web/bootstrap-theme" %>
+  <%#= stylesheet_link_tag "#{specific_manifest_file_path}", media: 'all' if has_specific_css_manifest_file? %>
+<!--  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>-->
+<!--  <!--<script type="text/javascript">google.charts.load('current', {packages: ['corechart']});</script>-->-->
+<!--</head>-->
 
-<body contenteditable="false">
+<!--<body contenteditable="false">-->
 
-<%= render :partial => "/shared/web/common/header" %>
-<%= render :partial => "/shared/web/common/other-icons.svg" %>
-<main id="app-content" class="wrapper <%= yield (:app_content_classes) %>">
+<%#= render :partial => "/shared/web/common/header" %>
+<%#= render :partial => "/shared/web/common/other-icons.svg" %>
+<!--<main id="app-content" class="wrapper <%#= yield (:app_content_classes) %>">-->
 
-  <%
-     content_style = ""
-     if @fe_no_nav.present? && @fe_no_nav
-       content_style = "style=width:100%;"
-     else
+  <%#
+<!--     content_style = ""-->
+<!--     if @fe_no_nav.present? && @fe_no_nav-->
+<!--       content_style = "style=width:100%;"-->
+<!--     else-->
   %>
-    <%= render :partial => "/shared/web/common/sidebar" %>
-  <% end %>
+    <%#= render :partial => "/shared/web/common/sidebar" %>
+  <%# end %>
 
 
-  <%= render :partial => "/shared/web/economy/metamask/metamask" %>
+  <%#= render :partial => "/shared/web/economy/metamask/metamask" %>
 
 
-  <section id="content" <%= content_style %>>
-    <div class="container-fluid">
-      <%= yield %>
-      <div class="row">
-          <% # meta-mask-workflow Needs to be the first element %>
-          <div class="col-12" id="cover-container">
-            <%= yield(:cover_elements) %>
-          </div>
-      </div>
-    </div>
-  </section>
+<!--  <section id="content" <%#= content_style %>>-->
+<!--    <div class="container-fluid">-->
+      <%#= yield %>
+<!--      <div class="row">-->
+          <%# # meta-mask-workflow Needs to be the first element %>
+<!--          <div class="col-12" id="cover-container">-->
+            <%#= yield(:cover_elements) %>
+<!--          </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </section>-->
 
-  <% content_for :popups do %>
-    <%= render :partial => "shared/web/modals/help_video" %>
-  <%end%>
+  <%# content_for :popups do %>
+    <%#= render :partial => "shared/web/modals/help_video" %>
+  <%#end%>
 
-</main>
-  <% # Always render the partials of status modals. And do it before yield %>
-  <%= render :partial => "/shared/web/economy/tx_status_modal" %>
-  <% if @presenter_obj.is_planner_route? %>
-    <%= render :partial => "/shared/web/economy/propose_tx_status_modal" %>
-  <% else %>
-    <%= render :partial => "/shared/web/economy/mint_tx_status_modal" %>
-  <% end %>
-  <%= render :partial => "/shared/web/economy/airdrop_tx_status_modal" %>
+<!--</main>-->
+  <%# # Always render the partials of status modals. And do it before yield %>
+  <%#= render :partial => "/shared/web/economy/tx_status_modal" %>
+  <%# if @presenter_obj.is_planner_route? %>
+    <%#= render :partial => "/shared/web/economy/propose_tx_status_modal" %>
+  <%# else %>
+    <%#= render :partial => "/shared/web/economy/mint_tx_status_modal" %>
+  <%# end %>
+  <%#= render :partial => "/shared/web/economy/airdrop_tx_status_modal" %>
 
-<%= yield(:popups) %>
-<%= javascript_include_tag "web/common" %>
-<%= javascript_include_tag "#{specific_manifest_file_path}" if has_specific_js_manifest_file? %>
-<% if page_needs_conversion_rates %>
-<script type="text/javascript">
-  $( function () {
-    var oracleConfig = {
-      ost_to_fiat         : "<%= ost_to_fiat %>"
-      , fiat_symbol       : "<%= fiat_symbol %>"
-      , fiat_type         : "<%= fiat_type %>"
-      , fiat_display_text : "<%= fiat_display_text %>"
-      , fiat_precision    : "<%= 2 %>"
-      , ost_precision     : "<%= 5 %>"
-      , bt_precision      : "<%= 5 %>"
-      , bt_symbol         : "<%= bt_symbol %>"
-    };
-    <% if ost_to_bt.present? %>
-      oracleConfig.ost_to_bt = "<%= ost_to_bt %>";
-    <% end %>
-    PriceOracle.init( oracleConfig );
-  });
-</script>
-<% end %>
-<% content_for :end_js do %>
-<script type="text/javascript">
-  $( function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar, #content').toggleClass('active');
-            $('.collapse.in').toggleClass('in');
-            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-        });
+<%#= yield(:popups) %>
+<%#= javascript_include_tag "web/common" %>
+<%#= javascript_include_tag "#{specific_manifest_file_path}" if has_specific_js_manifest_file? %>
+<%# if page_needs_conversion_rates %>
+<!--<script type="text/javascript">-->
+<!--  $( function () {-->
+<!--    var oracleConfig = {-->
+<!--      ost_to_fiat         : "<%#= ost_to_fiat %>"-->
+<!--      , fiat_symbol       : "<%#= fiat_symbol %>"-->
+<!--      , fiat_type         : "<%#= fiat_type %>"-->
+<!--      , fiat_display_text : "<%#= fiat_display_text %>"-->
+<!--      , fiat_precision    : "<%#= 2 %>"-->
+<!--      , ost_precision     : "<%#= 5 %>"-->
+<!--      , bt_precision      : "<%#= 5 %>"-->
+<!--      , bt_symbol         : "<%#= bt_symbol %>"-->
+<!--    };-->
+    <%# if ost_to_bt.present? %>
+<!--      oracleConfig.ost_to_bt = "<%# ost_to_bt %>";-->
+    <%# end %>
+<!--    PriceOracle.init( oracleConfig );-->
+<!--  });-->
+<!--</script>-->
+<%# end %>
+<%# content_for :end_js do %>
+<!--<script type="text/javascript">-->
+<!--  $( function () {-->
+<!--        $('#sidebarCollapse').on('click', function () {-->
+<!--            $('#sidebar, #content').toggleClass('active');-->
+<!--            $('.collapse.in').toggleClass('in');-->
+<!--            $('a[aria-expanded=true]').attr('aria-expanded', 'false');-->
+<!--        });-->
 
-    <% if pending_tx_id.present? %>
-      var txStatusModal = null;
-      <% if pending_critical_interaction_modal_type == propose_bt_status_modal_type %>
-        txStatusModal = new ost.TSM.MintTxStatusModal("<%= pending_tx_id %>");
-      <% elsif pending_critical_interaction_modal_type == mint_bt_status_modal_type %>
-        txStatusModal = new ost.TSM.MintTxStatusModal("<%= pending_tx_id %>");
-      <% elsif pending_critical_interaction_modal_type == airdrop_bt_status_modal_type %>
-        txStatusModal = new ost.TSM.AirdropTxStatusModal("<%= pending_tx_id %>");
-        if ( ost.users && ost.users.airDropEditor ) {
-          ost.users.airDropEditor.setTxStatusModal( txStatusModal );
-        }
-      <% end %>
-        txStatusModal && txStatusModal.show();
-    <% end %>
-    });
-</script>
-<% end %>
-<%= yield(:end_js) %>
-<script type="text/javascript">
-  $(function () {
-    $( window ).on('load', function () {
-      setTimeout(function () {
-        //Load typekit fonts.
-        $('head').append('<link rel="stylesheet" href="https://use.typekit.net/lde7yjs.css" />');
+    <%# if pending_tx_id.present? %>
+<!--      var txStatusModal = null;-->
+      <%# if pending_critical_interaction_modal_type == propose_bt_status_modal_type %>
+<!--        txStatusModal = new ost.TSM.MintTxStatusModal("<%# pending_tx_id %>");-->
+      <%# elsif pending_critical_interaction_modal_type == mint_bt_status_modal_type %>
+<!--        txStatusModal = new ost.TSM.MintTxStatusModal("<%# pending_tx_id %>");-->
+      <%# elsif pending_critical_interaction_modal_type == airdrop_bt_status_modal_type %>
+<!--        txStatusModal = new ost.TSM.AirdropTxStatusModal("<%# pending_tx_id %>");-->
+<!--        if ( ost.users && ost.users.airDropEditor ) {-->
+<!--          ost.users.airDropEditor.setTxStatusModal( txStatusModal );-->
+<!--        }-->
+      <%# end %>
+<!--        txStatusModal && txStatusModal.show();-->
+    <%# end %>
+<!--    });-->
+<!--</script>-->
+<%# end %>
+<%#= yield(:end_js) %>
+<!--<script type="text/javascript">-->
+<!--  $(function () {-->
+<!--    $( window ).on('load', function () {-->
+<!--      setTimeout(function () {-->
+<!--        //Load typekit fonts.-->
+<!--        $('head').append('<link rel="stylesheet" href="https://use.typekit.net/lde7yjs.css" />');-->
 
-        // Force Load All other Images.
-        var responsivelyLazy = window.responsivelyLazy;
-        responsivelyLazy && responsivelyLazy.forceLoadAll && responsivelyLazy.forceLoadAll();
-      }, 100);
-    })
-  });
-</script>
+<!--        // Force Load All other Images.-->
+<!--        var responsivelyLazy = window.responsivelyLazy;-->
+<!--        responsivelyLazy && responsivelyLazy.forceLoadAll && responsivelyLazy.forceLoadAll();-->
+<!--      }, 100);-->
+<!--    })-->
+<!--  });-->
+<!--</script>-->
 
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->
+
+
+Hello New Economy Laypit

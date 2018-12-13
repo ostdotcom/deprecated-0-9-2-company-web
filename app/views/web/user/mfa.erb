@@ -14,7 +14,7 @@
           <p class="desc">Set up your Multi-Factor Authentication</p>
           <div class="qr-code-container row mx-auto ">
             <div class="col-4">
-
+              <img src="<%= qr_url %>" style="width: 100px;height: 100px"/>
             </div>
             <div class="col-8 p-2 qr-code-desc">
               <span class="qr-code-desc-header">Download Google Authenticator</span>
@@ -32,11 +32,14 @@
           <p class="desc">Please open google authenticator and enter the
             MFA code to complete sign-in.</p>
         <% end %>
-        <div class="form-group row mx-auto my-5">
-          <label class="form-label" >mfa code</label>
-          <input type="text"  value="" class="form-control"  required>
-        </div>
-        <button class="ml-3 btn btn-primary">submit</button>
+        <form id="mfa-form" class="user-form" action="/api/manager/mfa" method="POST" data-ost-formhelper>
+          <div class="form-group row mx-auto my-5">
+            <label class="form-label" >mfa code</label>
+            <input type="text" name="otp"  class="form-control"  required>
+          </div>
+          <button type="submit" id="mfa-submit-btn"  class="ml-3 btn btn-primary" data-submiting="Submitting">submit</button>
+        </form>
+
       </div>
   </div>
 </div>

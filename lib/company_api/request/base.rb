@@ -187,15 +187,13 @@ module CompanyApi
       # @return [Result::Base] returns an object of Result::Base class
       #
       def parse_api_response(http_response)
-        
         response_data = Oj.load(http_response.body, mode: :strict) rescue {} #, {symbol_keys: true}
-
         case http_response.class.name
           when 'Net::HTTPOK'
             if response_data['success']
               # Success
               formatted_data = format_success_response_data(response_data['data'])
-              success_with_data(formatted_data)
+              success_with_data(formatted_data, response_data['go_to'])
             elsif response_data['err']['go_to'].present?
               # API Error
               Rails.logger.info("=*=COMPANY-API-ERROR-WITH-GOTO=*= #{response_data.inspect}")

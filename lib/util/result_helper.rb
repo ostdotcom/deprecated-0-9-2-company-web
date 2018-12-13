@@ -16,12 +16,13 @@ module Util
     #
     # @return [Result::Base]
     #
-    def success_with_data(data)
+    def success_with_data(data, go_to = {})
       # Allow only Hash data to pass ahead
       data = {} unless Util::CommonValidator.is_a_hash?(data)
 
       Result::Base.success({
-                               data: data
+                               data: data,
+                               go_to: go_to
                            })
     end
 

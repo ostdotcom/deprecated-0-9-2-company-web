@@ -6,7 +6,7 @@ class Web::UserController < Web::BaseController
   before_action :set_page_meta_info
 
   before_action :dont_render_if_logged_in, only: [
-    :sign_up, :login, :logout, :reset_password, :update_password
+    :sign_up, :login, :reset_password, :update_password
   ]
 
   before_action :dont_render_if_logged_out, only: [
@@ -76,15 +76,14 @@ class Web::UserController < Web::BaseController
 
   def login
 
-    @response = CompanyApi::Request::Manager.new(
+    return if cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].blank?
+
+    # call logout with bothering about response
+    CompanyApi::Request::Manager.new(
         CompanyApi::Response::Formatter::Manager,
         request.cookies,
         {"User-Agent" => http_user_agent}
     ).logout({})
-
-    unless @response.success?
-      render_error_response(@response) and return
-    end
 
   end
 
