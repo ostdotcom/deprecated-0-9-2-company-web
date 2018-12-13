@@ -113,7 +113,10 @@ class Web::UserController < Web::BaseController
     if params[:r_t].present?
 
       if Util::CommonValidator.is_valid_token?(params[:r_t])
-        #TODO: Render Error response
+        @error_data = {
+            display_text: 'Invalid Link',
+            display_heading: 'Invalid Link'
+        }
         return
       end
 
@@ -124,17 +127,29 @@ class Web::UserController < Web::BaseController
       ).verify_email(r_t: params[:r_t])
 
       if @response.success?
-        @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
-        redirect_to :planner and return
+        redirect_to :setup_mfa and return
       elsif @response.http_code == GlobalConstant::ErrorCode.unauthorized_access
         redirect_to :login and return
       else
-        #TODO: FIx this
         @error_data = {
           display_text: 'Invalid Link',
           display_heading: 'Invalid Link'
         }
       end
+
+    else
+
+      @response = CompanyApi::Request::Manager.new(
+          CompanyApi::Response::Formatter::Manager,
+          request.cookies,
+          {"User-Agent" => http_user_agent}
+      ).get_manager_details({})
+
+      unless @response.success?
+        render_error_response(@response) and return
+      end
+
+      @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
 
     end
 

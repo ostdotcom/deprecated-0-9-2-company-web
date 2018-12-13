@@ -47,6 +47,18 @@ module CompanyApi
         get('mfa', params)
       end
 
+      # Get details to load QR code for setting up MFA
+      #
+      # * Author: Puneet
+      # * Date: 08/12/2018
+      # * Reviewed By:
+      #
+      # @param [Hash] params
+      #
+      def get_manager_details(params)
+        get('mfa', params)
+      end
+
       # Verify Email
       #
       # * Author: Puneet

@@ -32,6 +32,8 @@ module CompanyApi
 
           set_managers(@data['managers']) if @data['managers'].present?
 
+          set_manager(@data['manager']) if @data['manager'].present?
+
           set_client(@data['client']) if @data['client'].present?
 
           set_setup_mfa(@data['setup_mfa']) if @data['setup_mfa'].present?
