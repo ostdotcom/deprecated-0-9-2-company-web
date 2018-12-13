@@ -64,7 +64,7 @@ module Util
     # @return [Boolean] returns a boolean
     #
     def self.is_valid_token?(token)
-      token =~  /^[ \w\/=+-]{152}$/mi
+      token =~  /^[ \w\/=+%-].*$/mi
     end
 
   end
