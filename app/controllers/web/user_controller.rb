@@ -6,7 +6,7 @@ class Web::UserController < Web::BaseController
   before_action :set_page_meta_info
 
   before_action :dont_render_if_logged_in, only: [
-    :sign_up, :login, :reset_password, :update_password
+    :reset_password, :update_password
   ]
 
   before_action :dont_render_if_logged_out, only: [
@@ -19,6 +19,17 @@ class Web::UserController < Web::BaseController
 
   def sign_up
 
+    # If cookie is present, log out without bothering about the response.
+    if cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].present?
+
+      CompanyApi::Request::Manager.new(
+        CompanyApi::Response::Formatter::Manager,
+        request.cookies,
+        {"User-Agent" => http_user_agent}
+      ).logout({})
+
+    end
+
     if params[:i_t].present?
 
       unless Util::CommonValidator.is_valid_token?(params[:i_t])
@@ -27,7 +38,7 @@ class Web::UserController < Web::BaseController
             display_text: 'Invalid Link',
             display_heading: 'Invalid Link'
         }
-        render "sign_via_invite" and return
+        render "sign_up_via_invite" and return
       end
 
       @response = CompanyApi::Request::Manager.new(
@@ -78,7 +89,7 @@ class Web::UserController < Web::BaseController
 
     return if cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].blank?
 
-    # call logout with bothering about response
+    # Call logout with bothering about response
     CompanyApi::Request::Manager.new(
         CompanyApi::Response::Formatter::Manager,
         request.cookies,
@@ -89,17 +100,19 @@ class Web::UserController < Web::BaseController
 
   def logout
 
-    @response = CompanyApi::Request::Manager.new(
+    # If user was already logged out, redirect to login
+    if cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].blank?
+      redirect_to :login and return
+    end
+
+    # Else trigger log out without bothering about response
+    CompanyApi::Request::Manager.new(
         CompanyApi::Response::Formatter::Manager,
         request.cookies,
         {"User-Agent" => http_user_agent}
     ).logout({})
 
-    if @response.success?
-      redirect_to :login and return
-    else
-      render_error_response(@response) and return
-    end
+    redirect_to :login
 
   end
 
