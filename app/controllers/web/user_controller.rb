@@ -5,6 +5,16 @@ class Web::UserController < Web::BaseController
   before_action :check_if_client_is_supported
   before_action :set_page_meta_info
 
+  before_action :dont_render_if_logged_in, only: [
+    :sign_up, :login, :logout, :reset_password, :update_password
+  ]
+
+  before_action :dont_render_if_logged_out, only: [
+    :verify_email,
+    :authenticate_mfa,
+    :setup_mfa
+  ]
+
   after_action :remove_browser_caching
 
   def sign_up
@@ -54,7 +64,7 @@ class Web::UserController < Web::BaseController
 
   end
 
-  def mfa
+  def authenticate_mfa
 
   end
 
@@ -127,7 +137,5 @@ class Web::UserController < Web::BaseController
     end
 
   end
-
-  private
 
 end

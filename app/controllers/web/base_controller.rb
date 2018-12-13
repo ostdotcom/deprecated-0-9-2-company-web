@@ -67,4 +67,33 @@ class Web::BaseController < ApplicationController
     response.headers['Last-Modified'] = "#{Time.now.gmtime.strftime("%a, %d %b %Y %T GMT")}"
   end
 
+  # Verify existing login
+  #
+  # * Author: Puneet
+  # * Date: 02/02/2018
+  # * Reviewed By:
+  #
+  def dont_render_if_logged_in
+
+    return if cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].blank?
+
+    #TODO: Check status of client and be smart in redirecting to planner or dashboard ?
+    redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect and return
+
+  end
+
+  # Verify existing login
+  #
+  # * Author: Puneet
+  # * Date: 02/02/2018
+  # * Reviewed By:
+  #
+  def dont_render_if_logged_out
+
+    return if cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].present?
+
+    redirect_to :login, status: GlobalConstant::ErrorCode.temporary_redirect and return
+
+  end
+
 end
