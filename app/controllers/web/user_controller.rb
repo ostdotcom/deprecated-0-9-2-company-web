@@ -139,7 +139,7 @@ class Web::UserController < Web::BaseController
       ).verify_email(r_t: params[:r_t])
 
       if @response.success?
-        redirect_to :setup_mfa and return
+        handle_temporary_redirects(@response)
       elsif @response.http_code == GlobalConstant::ErrorCode.unauthorized_access
         redirect_to :login and return
       else

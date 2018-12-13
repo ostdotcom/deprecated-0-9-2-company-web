@@ -125,6 +125,12 @@ class ApplicationController < ActionController::Base
   def handle_temporary_redirects(service_response)
 
     case service_response.go_to['by_screen_name']
+      when 'verify_email'
+        redirect_to :verify_email and return
+      when 'setup_mfa'
+        redirect_to :setup_mfa and return
+      when 'authenticate_mfa'
+        redirect_to :authenticate_mfa and return
       when 'economy_dashboard'
         redirect_to :dashboard and return
       when 'economy_planner_step_one'
