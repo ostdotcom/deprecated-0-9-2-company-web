@@ -1,6 +1,6 @@
 <%
   email_address = @presenter_obj.manager.email
-%>>
+%>
 
 <div class="email-validation text-center mt-3">
   <svg style="width: 100px">
@@ -9,7 +9,7 @@
     </switch>
   </svg>
   <h3>Confirm your email address</h3>
-  <p class="text-muted">We have sent an email to <%= email_address %>> please check and confirm your email address to proceed</p>
+  <p class="text-muted">We have sent an email to <%= email_address %> please check and confirm your email address to proceed</p>
   <p class="small text-muted">Did not receive an email yet?</p>
   <a href="#" class="btn btn-secondary mt-3">re-send email</a>
   <div class="success" id="successMessage"></div>
