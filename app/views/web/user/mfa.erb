@@ -13,10 +13,14 @@
         <% if qr_url%>
           <p class="desc">Set up your Multi-Factor Authentication</p>
           <div class="qr-code-container row mx-auto ">
-            <div class="col-4">
-              <img src="<%= qr_url %>" style="width: 100px;height: 100px"/>
+            <div class="col-12 col-md-5 align-self-center text-center">
+              <div class="img-container">
+                <div class="qr-image my-3">
+                  <img src="<%= qr_url %>" alt="QR CODE">
+                </div>
+              </div>
             </div>
-            <div class="col-8 p-2 qr-code-desc">
+            <div class="col-12 col-md-7 p-2 qr-code-desc">
               <span class="qr-code-desc-header">Download Google Authenticator</span>
               <span class="qr-code-desc-content">from the
                     <a target="_blank" href='https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_IN'>Play Store</a>

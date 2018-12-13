@@ -12,7 +12,16 @@
   .qr-code-container{
     border: 1px solid #d3e3e5;
     border-radius: 5px;
-    width: 380px;
+    width: 450px;
+    .img-container{
+      .qr-image{
+        img{
+          width: 150px;
+          height: 150px;
+        }
+
+      }
+    }
     .qr-code-desc{
       background-color: #f8fcfc;
       color: $blue-700;
