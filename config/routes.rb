@@ -19,8 +19,7 @@ Rails.application.routes.draw do
     get '/reset-password' => :reset_password
     get '/update-password' => :update_password
     get '/verify-email' => :verify_email
-    get '/setup-mfa' => :setup_mfa
-    get '/mfa' => :authenticate_via_mfa
+    get '/mfa' => :mfa
   end
 
   scope 'settings', controller: 'web/user_setting' do

@@ -40,7 +40,7 @@
     , autoEnableSubmitBtn: true
     , screen_to_url_map : {
       "economy_planner_step_one" :"/planner/step-1",
-      "setup_mfa" : "/setup-mfa",
+      "setup_mfa" : "/mfa",
       "authenticate_mfa" : "/mfa",
       "service_unavailable" : "/service_unavailable",
       "verify_email" : "/verify-email"

@@ -206,7 +206,7 @@ module CompanyApi
           when 'Net::HTTPUnauthorized', 'Net::HTTPPreconditionFailed'
             # Login required
             Rails.logger.info("=*=COMPANY-API-ERROR=*= Net::HTTPUnauthorized")
-            error_with_internal_code('company_api_login_required', 'company api login required', GlobalConstant::ErrorCode.unauthorized_access, {}, {}, 'HTTPUnauthorized')
+            error_with_go_to('company_api_login_required', 'company api login required', '', {'by_screen_name' => 'login'})
           when 'Net::HTTPNotFound'
             # Page not found - 404
             Rails.logger.info("=*=COMPANY-API-ERROR=*= '404 Not Found'")

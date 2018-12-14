@@ -128,9 +128,9 @@ class ApplicationController < ActionController::Base
       when 'verify_email'
         redirect_to :verify_email and return
       when 'setup_mfa'
-        redirect_to :setup_mfa and return
+        redirect_to :mfa and return
       when 'authenticate_mfa'
-        redirect_to :authenticate_mfa and return
+        redirect_to :mfa and return
       when 'economy_dashboard'
         redirect_to :dashboard and return
       when 'economy_planner_step_one'
@@ -141,6 +141,8 @@ class ApplicationController < ActionController::Base
         redirect_to :planner_step_three and return
       when 'service_unavailable'
         redirect_to :service_unavailable and return
+      when 'login'
+        redirect_to :login and return
       else
         fail "unhandled internal redirect: #{service_response.go_to}"
     end
