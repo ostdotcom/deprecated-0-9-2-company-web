@@ -64,25 +64,11 @@ class Web::UserController < Web::BaseController
   end
 
   def setup_mfa
-
-    @response = CompanyApi::Request::Manager.new(
-        CompanyApi::Response::Formatter::Manager,
-        request.cookies,
-        {"User-Agent" => http_user_agent}
-    ).get_setup_mfa_details({})
-
-    unless @response.success?
-      render_error_response(@response) and return
-    end
-
-    @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
-
-    render 'mfa'
-
+    mfa
   end
 
   def authenticate_via_mfa
-    render 'mfa'
+    mfa
   end
 
   def login
@@ -175,6 +161,26 @@ class Web::UserController < Web::BaseController
       @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
 
     end
+
+  end
+
+  private
+
+  def mfa
+
+    @response = CompanyApi::Request::Manager.new(
+        CompanyApi::Response::Formatter::Manager,
+        request.cookies,
+        {"User-Agent" => http_user_agent}
+    ).get_setup_mfa_details({})
+
+    unless @response.success?
+      return handle_temporary_redirects(@response)
+    end
+
+    @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
+
+    render 'mfa'
 
   end
 
