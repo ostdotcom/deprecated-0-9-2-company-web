@@ -12,15 +12,6 @@
       oThis.bindEventListeners();
     }
     , bindEventListeners: function () {
-      // user token to be removed start
-      $("#user-token-symbol").keyup( function () {
-        clearTimeout( oldTimeOut );
-        var newSymbol = this.value;
-        oldTimeOut = setTimeout( function () {
-          oThis.updateSymbols( newSymbol );
-        }, 200);
-      });
-      //user token to be removed end
 
       oThis.jForm.on('beforeSubmit',function (event) {
         if(!oThis.isCaptchaValid){
@@ -36,10 +27,7 @@
         );
       });
     }
-    , updateSymbols: function ( text ) {
-      text = String( text ).toUpperCase();
-      $(".token_icon").text( text );
-    }
+
   };
 
   $(document).ready(function () {

@@ -43,14 +43,14 @@
                 <div class="invalid-feedback" data-forid="password">&nbps;</div>
               </div>
             </div>
-            <div class=" recaptcha-wrapper form-group">
+            <div class="form-group text-center">
               <div class="g-recaptcha mx-auto  form-recapcha-wrap d-inline-block" id="myid" data-sitekey="<%= GlobalConstant::Base.recaptcha['site_key'] %>"></div>
+              <div class="recaptcha-submit-error invalid-feedback">&nbps;</div>
             </div>
 
 
             <div class="form-group text-center">
               <button id="login-btn" type="submit" class="btn btn-gold" data-submiting="Logging" tabindex="3">Login</button>
-              <div class="recaptcha-login-error mt-1 small error" ></div>
               <small class="form-text text-muted " style="line-height: 40px">Don't have an account yet?</small>
               <a href="/sign-up" class="btn ost-btn-secondary" title="Register">Register</a>
             </div>

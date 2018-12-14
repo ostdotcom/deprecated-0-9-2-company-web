@@ -46,13 +46,10 @@
     font-weight:$font-weight-light;
   }
   .form-group{
-    text-align: center;
-    vertical-align: center;
     width: 380px;
     .form-label{
       color: $cyanish-gray;
       font-size: 11px;
-      text-transform: uppercase;
       font-weight: $font-weight-bold;
     }
   }

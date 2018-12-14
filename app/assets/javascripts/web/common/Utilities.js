@@ -15,10 +15,15 @@
       if( jForm.find('.g-recaptcha')[0] != undefined && grecaptcha != undefined){
 
         if(  grecaptcha.getResponse() == '' ||  grecaptcha == undefined){
-          $(jError).text(errorText);
+          $(jError)
+            .text(errorText)
+            .addClass("is-invalid");
           return false;
         }
-        else{
+        else {
+          $(jError)
+            .text('&nbsp;')
+            .removeClass("is-invalid");
           return true;
         }
       }
