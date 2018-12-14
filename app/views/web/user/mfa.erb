@@ -11,7 +11,7 @@
       <div class="text-center mt-5 ">
         <h3>Secure your account</h3>
         <% if qr_url%>
-          <div class="general_error invalid-feedback" data-forid="sign_up_form">&nbsp;session errror </div>
+          <div class="general_error invalid-feedback" data-forid="sign_up_form"></div>
           <p class="desc">Set up your Multi-Factor Authentication</p>
           <div class="qr-code-container row mx-auto ">
             <div class="col-12 col-md-5 align-self-center text-center">
@@ -32,9 +32,10 @@
                     This level of authentication ensures that your account remains secure at all times.
             </span>
             </div>
+
           </div>
         <% else %>
-          <p class="desc">Please open google authenticator and enter the
+          <p class="desc">Please open Google Authenticator and enter the
             MFA code to complete sign-in.</p>
         <% end %>
         <form id="mfa-form" class="user-form" action="/api/manager/mfa" method="POST" data-ost-formhelper>
