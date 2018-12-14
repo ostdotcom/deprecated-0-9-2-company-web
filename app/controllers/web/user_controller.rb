@@ -123,7 +123,6 @@ class Web::UserController < Web::BaseController
   def update_password
 
     unless Util::CommonValidator.is_valid_token?(params[:r_t])
-      #TODO: Render Error response
       @error_data = {
           display_text: 'Invalid Link',
           display_heading: 'Invalid Link'
