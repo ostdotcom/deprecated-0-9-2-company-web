@@ -8,6 +8,7 @@
 
   parentNS.resetPassword = oThis = {
     jForm: null
+    , formHelper : null
     , init: function (config) {
       oThis.jForm = $('#rest_password_form');
       oThis.bindEventListeners();
@@ -15,6 +16,15 @@
     }
     , bindEventListeners: function () {
       var oThis = this;
+
+      oThis.jForm.formHelper({
+        complete: function ( response ) {
+          if (typeof grecaptcha != 'undefined') {
+            grecaptcha.reset();
+          }
+        }
+      });
+
 
       oThis.jForm.on('beforeSubmit',function (event) {
         if(!oThis.isCaptchaValid){

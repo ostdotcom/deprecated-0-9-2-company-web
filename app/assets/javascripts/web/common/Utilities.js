@@ -12,9 +12,9 @@
      * errorText: Error message to be displayed
      */
     validateCaptcha : function (jForm, jError, errorText) {
-      if( jForm.find('.g-recaptcha')[0] != undefined && grecaptcha != undefined){
+      if( jForm.find('.g-recaptcha')[0] !== undefined && typeof grecaptcha !== 'undefined'){
 
-        if(  grecaptcha.getResponse() == '' ||  grecaptcha == undefined){
+        if(  grecaptcha.getResponse() === '' ){
           $(jError)
             .text(errorText)
             .addClass("is-invalid");

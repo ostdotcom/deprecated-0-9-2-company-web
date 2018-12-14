@@ -7,11 +7,20 @@
 
   parentNS.signup = oThis = {
     jForm: null
+    , formHelper : null
     , init: function (config) {
       oThis.jForm = $('#sign_up_form');
       oThis.bindEventListeners();
     }
     , bindEventListeners: function () {
+
+      oThis.jForm.formHelper({
+        complete: function ( response ) {
+          if (typeof grecaptcha != 'undefined') {
+            grecaptcha.reset();
+          }
+        }
+      });
 
       oThis.jForm.on('beforeSubmit',function (event) {
         if(!oThis.isCaptchaValid){
