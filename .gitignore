@@ -35,3 +35,6 @@ Gemfile.lock
 /public/js-css
 
 .DS_store
+
+# Ignore env var.sh
+set_*.sh
