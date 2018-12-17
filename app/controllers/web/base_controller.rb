@@ -77,8 +77,15 @@ class Web::BaseController < ApplicationController
 
     return if cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].blank?
 
-    #TODO: Check status of client and be smart in redirecting to planner or dashboard ?
-    redirect_to :planner, status: GlobalConstant::ErrorCode.temporary_redirect and return
+    @response = CompanyApi::Request::Manager.new(
+        CompanyApi::Response::Formatter::Manager,
+        request.cookies,
+        {"User-Agent" => http_user_agent}
+    ).get_manager_details({})
+
+    if @response.go_to.present? || !@response.success?
+      handle_temporary_redirects(@response) and return
+    end
 
   end
 
