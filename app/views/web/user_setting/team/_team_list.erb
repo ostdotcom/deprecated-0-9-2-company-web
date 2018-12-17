@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 p-0">
+      <div class="d-flex justify-content-between align-items-center mt-6 mb-5">
+        <h3 class="mb-0">Your Team</h3>
+        <button id="invite_new_member_btn" class="btn btn-gold float-right">Invite Team Member </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="transactions mb-1">
+    <div class="row header">
+      <div class="col-3">EMAIL ADDRESS</div>
+      <div class="col-3">STATUS </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 slider-parent-container" data-slider-content-wrapper=".ost-table-row">
+      <div id="team_list" class="transactions" data-simple-table data-url="/api/manager/list-admins">
+        <script type="text/x-handlebars-template" data-row-template>
+          <div class="row align-items-center mt-1 mb-3 rounded ost-table-row cell">
+            <div class="col-3">{{client_id}}<br/><small class="font-weight-light">{{privilages}}</small></div>
+            <div class="col-3">{{privilages}}</div>
+            <div class="col-3 offset-3">
+              <button class="btn-secondary btn" > action</button>
+            </div>
+          </div>
+        </script>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<% content_for :end_js do %>
+  <script type="text/javascript">
+    ost.team.init();
+  </script>
+<% end %>

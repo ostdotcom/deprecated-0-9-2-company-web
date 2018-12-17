@@ -1,0 +1,32 @@
+<div class="invite-new-member-wrapper">
+  <div class="container">
+    <div class="row">
+      <h3 class="mt-4  col-12 pl-0">Invite Team Member</h3>
+      <hr class="mb-3 col-12"/>
+    </div>
+    <div class="row">
+      <form id="invite_new_member_form" class="user-form" action="/api/manager/super_admin/invite-manager" method="POST"
+            data-ost-formhelper>
+        <div class="row">
+          <div class="col-8">
+            <div class="form-group" >
+              <label class="form-label text-uppercase" data-forid="transaction_name">email address</label>
+              <input id="invitee_email" type="text" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Example@example.com" required/>
+              <div class="invalid-feedback" data-forid="invitee_email_address">&nbps;</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <button id="invite_new_member_submit" type="submit" data-submiting="Adding..."
+                    class="mt-4 btn btn-gold d-inline-block float-left">SEND INVITE</button>
+            <a id="invite_new_member_cancel_btn" href="javascript:void(0)"
+               class="mt-4 ml-4 btn ost-btn-secondary d-inline-block float-left">CANCEL</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
