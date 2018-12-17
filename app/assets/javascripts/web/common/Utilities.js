@@ -15,9 +15,9 @@
       if( jForm.find('.g-recaptcha')[0] !== undefined && typeof grecaptcha !== 'undefined'){
 
         if(  grecaptcha.getResponse() === '' ){
-          $(jError)
-            .text(errorText)
-            .addClass("is-invalid");
+          $(jError).text(errorText);
+          $(jError).addClass("is-invalid");
+
           return false;
         }
         else {

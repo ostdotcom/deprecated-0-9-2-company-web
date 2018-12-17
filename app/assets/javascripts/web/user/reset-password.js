@@ -17,6 +17,18 @@
     , bindEventListeners: function () {
       var oThis = this;
 
+      $('#recover-email-btn').on('click',function () {
+        oThis.isCaptchaValid = ost.utilities.validateCaptcha(
+          oThis.jForm,
+          $('.recaptcha-submit-error'),
+          "Please select the captcha"
+        );
+        if(!oThis.isCaptchaValid){
+          event.preventDefault();
+        }
+      })
+
+
       oThis.jForm.formHelper({
         complete: function ( response ) {
           if (typeof grecaptcha != 'undefined') {
@@ -26,19 +38,8 @@
       });
 
 
-      oThis.jForm.on('beforeSubmit',function (event) {
-        if(!oThis.isCaptchaValid){
-          event.preventDefault();
-        }
-      })
 
-      $('#recover-email-btn').on('click',function () {
-        oThis.isCaptchaValid = ost.utilities.validateCaptcha(
-          oThis.jForm,
-          $('.recaptcha-login-error'),
-          "Please select the captcha"
-        );
-      })
+
 
     }
     , formHandler: function( response ) {

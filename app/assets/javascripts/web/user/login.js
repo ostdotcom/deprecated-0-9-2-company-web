@@ -16,6 +16,17 @@
     }
     , bindEventListeners: function () {
 
+      $('#login-btn').on('click',function () {
+        oThis.isCaptchaValid = ost.utilities.validateCaptcha(
+          oThis.jForm,
+          $('.recaptcha-submit-error'),
+          "Please select the captcha"
+        );
+        if(!oThis.isCaptchaValid){
+          event.preventDefault();
+        }
+      });
+
       oThis.jForm.formHelper({
             complete: function ( response ) {
               if (typeof grecaptcha !== 'undefined') {
@@ -24,19 +35,6 @@
             }
       });
 
-      $('#login_form').on('beforeSubmit',function (event) {
-        if(!oThis.isCaptchaValid){
-          event.preventDefault();
-        }
-      });
-
-      $('#login-btn').on('click',function () {
-          oThis.isCaptchaValid = ost.utilities.validateCaptcha(
-            oThis.jForm,
-            $('.recaptcha-login-error'),
-            "Please select the captcha"
-          );
-      });
     }
   };
   $(document).ready(function () {

@@ -244,6 +244,7 @@ module CompanyApi
           api_cookie_elements = api_cookie.split("; ")
           cookie_name = ''
           api_cookie_elements.each_with_index do |c_element, i|
+            Rails.logger.debug("new_api_cookies :: #{c_element.inspect}")
             c_sub_element = c_element.split('=', 2)
             c_sub_element_key = CGI::unescape(c_sub_element[0])
             c_sub_element_value = CGI::unescape(c_sub_element[1]) if c_sub_element[1].present?
@@ -254,7 +255,7 @@ module CompanyApi
             elsif c_sub_element_key == "expires"
               new_api_cookies[cookie_name][c_sub_element_key.to_sym] = Time.zone.parse(c_sub_element_value)
             elsif c_sub_element_key == "domain"
-              new_api_cookies[cookie_name][c_sub_element_key.to_sym] = Rails.env.development? ? :all : c_sub_element_value
+              new_api_cookies[cookie_name][c_sub_element_key.to_sym] = c_sub_element_value
             elsif c_sub_element_key == "secure"
               new_api_cookies[cookie_name][c_sub_element_key.to_sym] = Rails.env.production?
             elsif c_sub_element_key == "HttpOnly"
@@ -268,6 +269,7 @@ module CompanyApi
           end
         end
 
+        Rails.logger.debug("new_api_cookies :: #{new_api_cookies.inspect}")
         @cookies[GlobalConstant::Cookie.new_api_cookie_key.to_sym] = new_api_cookies
       end
 

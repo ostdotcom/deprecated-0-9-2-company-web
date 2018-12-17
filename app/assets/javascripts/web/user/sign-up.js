@@ -13,6 +13,17 @@
       oThis.bindEventListeners();
     }
     , bindEventListeners: function () {
+      $('#register-btn').on('click',function () {
+        oThis.isCaptchaValid = ost.utilities.validateCaptcha(
+          oThis.jForm,
+          $('.recaptcha-submit-error'),
+          "Please select the captcha"
+        );
+
+        if(!oThis.isCaptchaValid){
+          event.preventDefault();
+        }
+      });
 
       oThis.jForm.formHelper({
         complete: function ( response ) {
@@ -22,19 +33,7 @@
         }
       });
 
-      oThis.jForm.on('beforeSubmit',function (event) {
-        if(!oThis.isCaptchaValid){
-          event.preventDefault();
-        }
-      });
 
-      $('#register-btn').on('click',function () {
-        oThis.isCaptchaValid = ost.utilities.validateCaptcha(
-          oThis.jForm,
-          $('.recaptcha-submit-error'),
-          "Please select the captcha"
-        );
-      });
     }
 
   };

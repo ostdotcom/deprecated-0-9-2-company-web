@@ -10,6 +10,7 @@
   <div class="container">
       <div class="text-center mt-5 ">
         <h3>Secure your account</h3>
+        <div class="general_error invalid-feedback" data-forid="sign_up_form"></div>
         <% if qr_url %>
           <div class="general_error invalid-feedback" data-forid="sign_up_form"></div>
           <p class="desc">Set up your Multi-Factor Authentication</p>
@@ -41,7 +42,7 @@
         <form id="mfa-form" class="user-form" action="/api/manager/mfa" method="POST" data-ost-formhelper>
           <div class="form-group row mx-auto my-5">
             <label class="form-label" >mfa code</label>
-            <input type="text" name="otp"  class="form-control"  required>
+            <input type="number" name="otp" min="0" max="999999" class="form-control"  required>
             <div class="invalid-feedback" data-forid="email">&nbps;</div>
           </div>
           <button type="submit" id="mfa-submit-btn"  class="ml-3 btn btn-primary" data-submiting="Submitting">submit</button>
