@@ -37,4 +37,4 @@ Gemfile.lock
 .DS_store
 
 # Ignore env var.sh
-set_*.sh
+*.sh
