@@ -10,11 +10,11 @@ module GlobalConstant
       end
 
       def main_sub_environment?
-        sub_environment == 'main'
+        sub_environment == GlobalConstant::Environment.main_sub_env_name
       end
 
       def sandbox_sub_environment?
-        sub_environment == 'sandbox'
+        sub_environment == GlobalConstant::Environment.sandbox_sub_env_name
       end
 
       def root_url

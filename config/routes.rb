@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     get '/team' => :team
   end
 
-  scope '', controller: 'web/economy' do
+  scope "#{GlobalConstant::Environment.url_prefix}", controller: 'web/economy' do
     get '/dashboard' => :dashboard, as: 'dashboard'
     get '/planner' => :planner
     get '/planner/step-1' => :planner, as: 'planner_step_one'
@@ -38,7 +38,6 @@ Rails.application.routes.draw do
     get '/simulator' => :simulator
     get '/developer-api-console' => :developer_api_console
   end
-
 
   namespace 'devadmin' do
     # ST Api sidekiq web interface endpoint
