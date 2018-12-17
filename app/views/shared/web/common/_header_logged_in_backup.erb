@@ -27,10 +27,10 @@
 <nav class="navbar navbar-expand-md navbar-light ">
   <a href="/dashboard" class="navbar-brand font-weight-normal">
     <span class="token-symbol <%= client_token.symbol_icon %>">
-      <%= client_token.symbol %>
+      <%= client_token.symbol %>  
     </span>
     <span class="token-name">
-      <%= client_token.name %>
+      <%= client_token.name %>  
     </span>
   </a>
   <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -48,30 +48,30 @@
 
     <ul class="navbar-nav navbar-right ml-md-auto d-md-flex text-uppercase font-weight-normal">
       <% if client_balances.present? && client_balances.balances.present? %>
-        <% if tokens_minted_s.present? %>
-          <li class="nav-item">
+          <% if tokens_minted_s.present? %>
+            <li class="nav-item">
                   <span class="nav-link" href="#">
                     <span class="d-block">Total <%= client_token.symbol %> Supply</span>
                     <span class="d-block gold text-sm-left text-md-center"><%= "#{tokens_minted_s} (#{client_fiat_curreny_pref_symbol}#{tokens_minted_fiat_s})" %></span>
                   </span>
-          </li>
-        <% end %>
-        <% if show_bt_balance && bt_balance_s.present? %>
-          <li class="nav-item">
+            </li>
+          <% end %>
+          <% if show_bt_balance && bt_balance_s.present? %>
+                <li class="nav-item">
                   <span class="nav-link active">
                     <span class="d-block">Total <%= client_token.symbol %></span>
                     <span class="d-block gold text-sm-left text-md-center"><%= "#{bt_balance_s} (#{client_fiat_curreny_pref_symbol}#{bt_fiat_balance_s})" %></span>
                   </span>
-          </li>
-        <% end %>
-        <% if ost_balance_s.present? %>
-          <li class="nav-item">
+                </li>
+          <% end %>
+          <% if ost_balance_s.present? %>
+              <li class="nav-item">
                 <span class="nav-link" href="#">
                   <span class="d-block">Available <%= ost_currency_symbol %></span>
                   <span class="d-block gold text-sm-left text-md-center"><%= "#{ost_balance_s} (#{client_fiat_curreny_pref_symbol}#{ost_fiat_balance_s})" %></span>
                 </span>
-          </li>
-        <% end %>
+              </li>
+          <% end %>
       <% end %>
       <%= render :partial => "shared/web/common/header_network" %>
       <li class="nav-item">
