@@ -56,6 +56,16 @@ class Web::EconomyController < Web::BaseController
     # end
     #
     # @presenter_obj = ::WebPresenter::Economy::Planner.new(@response, params)
+    @response = CompanyApi::Request::Manager.new(
+        CompanyApi::Response::Formatter::Manager,
+        request.cookies,
+        {"User-Agent" => http_user_agent}
+    ).get_manager_details({})
+
+    unless @response.success?
+      return handle_temporary_redirects(@response)
+    end
+
 #TODO: Change this temp code
     render 'planner_new'
 
