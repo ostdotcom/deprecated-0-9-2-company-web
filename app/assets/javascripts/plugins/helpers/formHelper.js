@@ -39,7 +39,8 @@
     , autoDisableSubmitBtn: true
     , autoEnableSubmitBtn: true
     , screen_to_url_map : {
-      "economy_planner_step_one" :"/planner/step-1",
+      // temp commit. TODO: have testnet come from erb
+      "economy_planner_step_one" :"/testnet/planner/step-1",
       "setup_mfa" : "/mfa",
       "authenticate_mfa" : "/mfa",
       "service_unavailable" : "/service_unavailable",
