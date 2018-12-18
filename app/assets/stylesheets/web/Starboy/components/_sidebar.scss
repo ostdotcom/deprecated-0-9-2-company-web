@@ -8,6 +8,7 @@
   height: 100vh;
   z-index: $zindex-dropdown;
   transition: $transition-base;
+  margin-top: 56px;
 
   &.active{
     margin-left: -$side-bar-nav-width;
