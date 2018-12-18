@@ -5,8 +5,9 @@
       <hr class="mb-3 col-12"/>
     </div>
     <div class="row">
-      <form id="invite_new_member_form" class="user-form" action="/api/manager/super_admin/invite-manager" method="POST"
+      <form id="invite_new_member_form" class="user-form" action="/api/manager/super_admin/invite-admin" method="POST"
             data-ost-formhelper>
+        <div class="general_error invalid-feedback">&nbsp;</div>
         <div class="row">
           <div class="col-8">
             <div class="form-group" >
@@ -19,10 +20,10 @@
 
         <div class="row">
           <div class="col-12">
-            <button id="invite_new_member_submit" type="submit" data-submiting="Adding..."
-                    class="mt-4 btn btn-gold d-inline-block float-left">SEND INVITE</button>
+            <button id="invite_new_member_submit" type="submit" data-submiting="Sending..."
+                    class="mt-1 btn btn-gold d-inline-block float-left">SEND INVITE</button>
             <a id="invite_new_member_cancel_btn" href="javascript:void(0)"
-               class="mt-4 ml-4 btn ost-btn-secondary d-inline-block float-left">CANCEL</a>
+               class="mt-1 ml-4 btn ost-btn-secondary d-inline-block float-left">CANCEL</a>
           </div>
         </div>
       </form>
