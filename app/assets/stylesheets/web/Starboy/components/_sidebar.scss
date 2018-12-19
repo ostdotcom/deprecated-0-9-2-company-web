@@ -9,6 +9,7 @@
   z-index: $zindex-dropdown;
   transition: $transition-base;
   margin-top: 56px;
+  overflow:auto;
 
   &.active{
     margin-left: -$side-bar-nav-width;

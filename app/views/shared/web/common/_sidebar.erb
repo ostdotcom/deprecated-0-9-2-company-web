@@ -5,7 +5,7 @@
 %>
 <%= render :partial => "/shared/web/common/sidebar-icons.svg" %>
 
-<aside id="sidebar" class="sidebar-nav">
+<aside id="sidebar" class="sidebar-nav mb-5">
 
   <div class="header-phantom-el-wrapper">
     <%= yield(:phantom_header_el) %>
@@ -103,6 +103,29 @@
         </svg>
         <span class="label">Block Explorer</span>
       </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %>" data-toggle="collapse" href="#settings">
+        <svg class="icon">
+          <switch>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-settings"></use>
+          </switch>
+        </svg>
+        <span class="label">Settings</span>
+      </a>
+      <div class="collapse ml-5" id="settings">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="/settings/team">Team</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/settings/roles">Roles</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/settings/account">Account</a>
+            </li>
+          </ul>
+      </div>
     </li>
     <li class="nav-item position-relative">
       <a class="nav-link d-flex align-items-center disabled" href="#">
