@@ -36,10 +36,14 @@
     initForm:function(){
       oThis.jForm.formHelper({
         success: function( response ){
-          ost.coverElements.hide( $('#invite_new_member') );
           console.log( response );
+          oThis.onInviteUserSuccess( response );
         }
       });
+    },
+
+    onInviteUserSuccess: function (  ) {
+      ost.coverElements.hide( $('#invite_new_member') );
     }
   }
 

@@ -14,3 +14,17 @@
   color: #438bad;
 
 }
+
+.arrow-icon-top{
+  &:after{
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #FFFFFF;
+    transform: rotate(45deg);
+    top: -8px;
+    left: 20px;
+    box-shadow: -1px -1px 5px -2px rgba(0, 0, 0, 0.1);
+  }
+}
