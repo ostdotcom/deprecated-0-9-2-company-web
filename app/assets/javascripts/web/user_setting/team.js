@@ -20,6 +20,10 @@
       $("#invite_new_member_btn").on("click", function () {
         ost.coverElements.show( $('#invite_new_member') );
       });
+      $("#invite_new_member_cancel_btn").on("click", function () {
+        ost.coverElements.hide( $('#invite_new_member') );
+      });
+
     }
   }
 
