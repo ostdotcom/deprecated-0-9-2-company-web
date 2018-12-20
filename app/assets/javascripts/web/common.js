@@ -19,3 +19,4 @@
 //= require web/common/Utilities
 //= require plugins/helpers/eventNameSpacing
 //= require plugins/helpers/responsiveBreakPoint
+//= require web/common/Metamask

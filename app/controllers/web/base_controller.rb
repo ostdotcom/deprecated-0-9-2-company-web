@@ -20,7 +20,7 @@ class Web::BaseController < ApplicationController
   # 2. DO NOT SUPPORT ANY MOBILE OR TABLET DEVICE
   def check_if_client_is_supported
 
-    if browser.tablet? || browser.mobile? || !browser.chrome?
+    if browser.tablet? || browser.mobile? || !(browser.chrome? || browser.firefox?)
       redirect_to :unsupported_client, status: GlobalConstant::ErrorCode.temporary_redirect and return
     end
 
