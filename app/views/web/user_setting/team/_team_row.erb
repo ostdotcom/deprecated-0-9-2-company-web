@@ -1,0 +1,14 @@
+<script type="text/x-handlebars-template" data-row-template>
+  <div class="row align-items-center mt-1 mb-3 rounded ost-table-row cell">
+    <div class="col-3">{{client_id}}<br/><small class="font-weight-light">{{privilages}}</small></div>
+    <div class="col-3">{{privilages}}</div>
+    <div class="col-3 offset-3">
+      <select class="form-control selectpicker">
+        <option value="" selected disabled>ACTIONS</option>
+        <option value="delete">DELETE USER</option>
+        <option value="un-assign">UN-ASSIGN SUPER ADMIN</option>
+        <option value="assign">ASSIGN SUPER ADMIN</option>
+      </select>
+    </div>
+  </div>
+</script>
