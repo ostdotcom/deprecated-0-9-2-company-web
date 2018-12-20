@@ -1,0 +1,58 @@
+// Import functions as variables depend on functions
+@import "../../plugins/bootstrap/scss/functions";
+
+// Import theme variables
+@import "../Starboy/variables";
+
+
+.bootstrap-select{
+
+  .dropdown-menu.inner li.disabled {
+    display: none;
+  }
+
+  &.btn-group{
+    .dropdown-toggle{
+      border-radius: 2px;
+      background-color: $white;
+      border: solid 0.8px #d3e3e5;
+      color: $blue-800;
+      padding-left: .875rem;
+      &:focus{
+        outline: none !important;
+        outline-offset: 0 !important;
+      }
+      .caret{
+        display: inline-block;
+        background: url(https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/drop-down-arrow.svg) no-repeat center;
+        height: 12px;
+        width: 12px;
+        right: .5rem;
+        margin-top: -5px !important;
+        position: relative;
+      }
+      &:after{
+        display: none;
+      }
+      .pull-left{
+        float: left!important;
+      }
+    }
+  }
+  .dropdown-menu{
+    border: solid 0.8px #d3e3e5;
+  }
+  .dropdown-menu > .dropdown-menu{
+    li{
+      a{
+        outline: none;
+        color: $blue-800 !important;
+        padding: .5rem .875rem !important;
+        font-size: $display3-size;
+        &:hover{
+          background-color: $teal !important;
+        }
+      }
+    }
+  }
+}

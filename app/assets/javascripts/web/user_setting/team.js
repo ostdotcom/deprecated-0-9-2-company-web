@@ -10,11 +10,12 @@
 
     init : function () {
       var datatableConfig={
-        jParent:oThis.jParent
+        jParent:oThis.jParent,
+        resultFetcherCallback : function ( results ) {
+          oThis.initSelectPicker();
+        }
       };
       oThis.simpleDataTable = new ost.SimpleDataTable( datatableConfig );
-      console.log("simpleDataTable",oThis.simpleDataTable);
-      oThis.simpleDataTable.createResultMarkup(oThis.simpleDataTable);
       oThis.bindEvents();
       oThis.initForm();
     },
@@ -26,6 +27,10 @@
         ost.coverElements.hide( $('#invite_new_member') );
       });
 
+    },
+  
+    initSelectPicker : function () {
+      $('select.selectpicker').selectpicker();
     },
 
     initForm:function(){

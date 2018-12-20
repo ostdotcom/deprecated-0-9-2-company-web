@@ -93,7 +93,7 @@ en:
           :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
           :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image-1.jpg'
       :assets:
-        :specific_css_required: 0
+        :specific_css_required: 1
         :specific_js_required: 1
 
   web/user:
