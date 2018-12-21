@@ -1,6 +1,6 @@
 <script type="text/x-handlebars-template" data-row-template>
   <div class="row align-items-center mt-1 mb-3 rounded ost-table-row cell" data-user-id="{{id}}">
-    <div class="col-3">
+    <div class="col-5">
       {{manager.email}}<br/>
       <small class="font-weight-light">
         {{#isSuperAdmin privilages }}
@@ -11,7 +11,7 @@
       </small>
     </div>
     <div class="col-3 text-uppercase">{{manager.status}}</div>
-    <div class="col-3 offset-3">
+    <div class="col-4 ">
       <select class="form-control selectpicker">
         <option value="" selected disabled>ACTIONS</option>
         <option value="delete">DELETE USER</option>
