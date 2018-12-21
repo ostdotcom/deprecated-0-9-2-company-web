@@ -23,6 +23,11 @@
     jAssignRoleModal : $('#assignAdminModal'),
     jUnAssignRoleModal: $('#unassignAdminModal'),
     jResetMfaModal: $('#resetMfa'),
+    
+    jDeleteUserBtn :  $(".delete-user-btn"),
+    jAssignRoleBtn :  $(".assign-admin-btn"),
+    jUnAssignRoleBtn: $(".unassign-admin-btn"),
+    jResetMfaBtn: $(".reset-mfa-btn"),
 
     init : function () {
       
@@ -66,19 +71,19 @@
         .on( oThis.eventNameSpace.nameSpacedEvents('click') , function () {
         ost.coverElements.hide( oThis.jInviteUserCover );
       });
-      $(".delete-user-btn").off( oThis.eventNameSpace.nameSpacedEvents('click') )
+      oThis.jDeleteUserBtn.off( oThis.eventNameSpace.nameSpacedEvents('click') )
         .on( oThis.eventNameSpace.nameSpacedEvents('click') , function () {
         oThis.deleteUser();
       });
-      $(".unassign-admin-btn").off( oThis.eventNameSpace.nameSpacedEvents('click') )
-        .on( oThis.eventNameSpace.nameSpacedEvents('click') , function () {
-        oThis.unassignAdmin();
-      });
-      $(".assign-admin-btn").off( oThis.eventNameSpace.nameSpacedEvents('click') )
+      oThis.jAssignRoleBtn.off( oThis.eventNameSpace.nameSpacedEvents('click') )
         .on( oThis.eventNameSpace.nameSpacedEvents('click') , function () {
         oThis.assignAdmin();
       });
-      $(".reset-mfa-btn").off( oThis.eventNameSpace.nameSpacedEvents('click') )
+      oThis.jUnAssignRoleBtn.off( oThis.eventNameSpace.nameSpacedEvents('click') )
+        .on( oThis.eventNameSpace.nameSpacedEvents('click') , function () {
+          oThis.unassignAdmin();
+        });
+      oThis.jResetMfaBtn.off( oThis.eventNameSpace.nameSpacedEvents('click') )
         .on( oThis.eventNameSpace.nameSpacedEvents('click') , function () {
         oThis.resetMfa();
       });
@@ -146,12 +151,17 @@
       $(oThis.sSelectPicker).selectpicker("refresh");
     },
 
+    
     deleteUser: function() {
-      var data = oThis.getData() ;
+      var data = oThis.getData();
       $.ajax({
         url: oThis.deleteUserEndpoint,
         data: data,
         method: 'POST',
+        beforeSend : function () {
+         oThis.jDeleteUserBtn.data('pre-text',   oThis.jDeleteUserBtn.text());
+         oThis.jDeleteUserBtn.text("Deleting...");
+        },
         success: function ( res ) {
           if( res.success ){
             oThis.onDeleteUserSuccess( res );
@@ -161,6 +171,9 @@
         },
         error: function ( error ) {
           oThis.onActionError( error );
+        },
+        complete: function () {
+          oThis.jDeleteUserBtn.text(oThis.jDeleteUserBtn.data('pre-text'));
         }
       })
     },
@@ -171,6 +184,10 @@
         url: oThis.updateRoleEndPoint,
         data: data,
         method: 'POST',
+        beforeSend : function () {
+          oThis.jAssignRoleBtn.data('pre-text',   oThis.jAssignRoleBtn.text());
+          oThis.jAssignRoleBtn.text("Updating...");
+        },
         success: function ( res ) {
           if( res.success ){
             oThis.onUserUpdateSuccess( res );
@@ -180,6 +197,9 @@
         },
         error: function ( error ) {
           oThis.onActionError( error );
+        },
+        complete: function () {
+          oThis.jAssignRoleBtn.text(oThis.jAssignRoleBtn.data('pre-text'));
         }
       })
     },
@@ -190,6 +210,10 @@
         url: oThis.updateRoleEndPoint,
         data: data,
         method: 'POST',
+        beforeSend : function () {
+          oThis.jUnAssignRoleBtn.data('pre-text',   oThis.jUnAssignRoleBtn.text());
+          oThis.jUnAssignRoleBtn.text("Updating...");
+        },
         success: function ( res ) {
           if( res.success ){
             oThis.onUserUpdateSuccess( res );
@@ -199,6 +223,9 @@
         },
         error: function ( error ) {
           oThis.onActionError( error );
+        },
+        complete: function () {
+          oThis.jUnAssignRoleBtn.text(oThis.jUnAssignRoleBtn.data('pre-text'));
         }
       })
     },
@@ -209,6 +236,10 @@
         url: oThis.resetMfaEndpoint,
         data: data,
         method: 'POST',
+        beforeSend : function () {
+          oThis.jResetMfaBtn.data('pre-text',   oThis.jResetMfaBtn.text());
+          oThis.jResetMfaBtn.text("Resetting...");
+        },
         success: function ( res ) {
           if( res.success ){
             oThis.onUserUpdateSuccess( res );
@@ -218,6 +249,9 @@
         },
         error: function ( error ) {
           oThis.onActionError( error );
+        },
+        complete: function () {
+          oThis.jResetMfaBtn.text(oThis.jResetMfaBtn.data('pre-text'));
         }
       })
     },
@@ -252,6 +286,8 @@
         ;
         oThis.simpleDataTable.deleteResult( resultToDelete );
       });
+      oThis.hideModal(  );
+      oThis.showModal( oThis.jSuccessModal );
     },
   
     onUserUpdateSuccess : function ( response ) {
@@ -259,6 +295,8 @@
       oThis.onActionSuccess( response ,  function ( result ) {
         oThis.simpleDataTable.updateResult(result);
       });
+      oThis.hideModal(  );
+      oThis.showModal( oThis.jSuccessModal );
     },
     
     jSuccessMsgEl : null ,
@@ -308,7 +346,7 @@
       return results ;
     },
   
-    onActionSuccess : function ( response ,  callback  , hideModal , showModal ) {
+    onActionSuccess : function ( response ,  callback  ) {
       response = oThis.dataFormator(response);
       var results   = oThis.getResults( response ),
         len         = results && results.length, cnt,
@@ -322,9 +360,6 @@
           callback( currentResult );
         }
       }
-      oThis.hideModal( hideModal );
-      showModal = showModal || oThis.jSuccessModal ;
-      oThis.showModal( showModal );
     },
   
     onActionError : function (  response  ) {

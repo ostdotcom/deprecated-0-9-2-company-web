@@ -12,7 +12,6 @@
     </div>
     <div class="col-3 text-uppercase">{{manager.status}}</div>
     <div class="col-3 offset-3">
-      {{#hasVerifiedEmail manager.properties }}
       <select class="form-control selectpicker">
         <option value="" selected disabled>ACTIONS</option>
         <option value="delete">DELETE USER</option>
@@ -26,7 +25,6 @@
         <option value="reset-mfa">RESET MFA</option>
         {{/hasSetupMfa}}
       </select>
-      {{/hasVerifiedEmail}}
     </div>
   </div>
 </script>
