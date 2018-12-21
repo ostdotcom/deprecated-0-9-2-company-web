@@ -14,6 +14,15 @@
     deleteUserEndpoint : "/api/manager/super_admin/delete-admin",
     resetMfaEndpoint : "/api/manager/super_admin/reset-mfa",
     updateRoleEndPoint : "/api/manager/super_admin/update-super-admin-role",
+    
+    jInviteUserCover  : $('#invite_new_member'),
+    
+    jSuccessModal : $('#successModal'),
+    jErrorModal : $('#errorModal'),
+    jDeleteUserModal : $('#deleteUserModal'),
+    jAssignRoleModal : $('#assignAdminModal'),
+    jUnAssignRoleModal: $('#unassignAdminModal'),
+    jResetMfaModal: $('#resetMfa'),
 
     init : function () {
       
@@ -51,11 +60,11 @@
       
       $("#invite_new_member_btn").off( oThis.eventNameSpace.nameSpacedEvents('click') )
         .on(  oThis.eventNameSpace.nameSpacedEvents('click') , function () {
-        ost.coverElements.show($('#invite_new_member'));
+        ost.coverElements.show( oThis.jInviteUserCover );
       });
       $("#invite_new_member_cancel_btn").off( oThis.eventNameSpace.nameSpacedEvents('click') )
         .on( oThis.eventNameSpace.nameSpacedEvents('click') , function () {
-        ost.coverElements.hide($('#invite_new_member'));
+        ost.coverElements.hide( oThis.jInviteUserCover );
       });
       $(".delete-user-btn").off( oThis.eventNameSpace.nameSpacedEvents('click') )
         .on( oThis.eventNameSpace.nameSpacedEvents('click') , function () {
@@ -105,16 +114,16 @@
         oThis.actionID = userID ;
         switch(  val ) {
           case "delete":
-            oThis.showModal( $('#deleteUserModal') );
+            oThis.showModal( oThis.jDeleteUserModal );
             break;
           case "assign":
-            oThis.showModal( $('#assignAdminModal') );
+            oThis.showModal( oThis.jAssignRoleModal );
             break;
           case "un-assign":
-            oThis.showModal( $('#unassignAdminModal') );
+            oThis.showModal( oThis.jUnAssignRoleModal );
             break;
           case "reset-mfa":
-            oThis.showModal( $('#resetMfa') );
+            oThis.showModal( oThis.jResetMfaModal );
             break;
         }
         oThis.resetSelectPicker();
@@ -144,7 +153,11 @@
         data: data,
         method: 'POST',
         success: function ( res ) {
-          oThis.onDeleteUserSuccess( res );
+          if( res.success ){
+            oThis.onDeleteUserSuccess( res );
+          }else {
+            oThis.onActionError( res );
+          }
         },
         error: function ( error ) {
           oThis.onActionError( error );
@@ -159,7 +172,11 @@
         data: data,
         method: 'POST',
         success: function ( res ) {
-          oThis.onUserUpdateSuccess( res );
+          if( res.success ){
+            oThis.onUserUpdateSuccess( res );
+          }else {
+            oThis.onActionError( res );
+          }
         },
         error: function ( error ) {
           oThis.onActionError( error );
@@ -174,7 +191,11 @@
         data: data,
         method: 'POST',
         success: function ( res ) {
-          oThis.onUserUpdateSuccess( res );
+          if( res.success ){
+            oThis.onUserUpdateSuccess( res );
+          }else {
+            oThis.onActionError( res );
+          }
         },
         error: function ( error ) {
           oThis.onActionError( error );
@@ -189,7 +210,11 @@
         data: data,
         method: 'POST',
         success: function ( res ) {
-          oThis.onUserUpdateSuccess( res );
+          if( res.success ){
+            oThis.onUserUpdateSuccess( res );
+          }else {
+            oThis.onActionError( res );
+          }
         },
         error: function ( error ) {
           oThis.onActionError( error );
@@ -211,7 +236,7 @@
     },
   
     onInviteUserSuccess: function ( response ) {
-      ost.coverElements.hide($('#invite_new_member'));
+      ost.coverElements.hide( oThis.jInviteUserCover );
       oThis.onActionSuccess( response ,  function ( result ) {
         oThis.simpleDataTable.prependResult(result);
         oThis.initSelectPicker();
@@ -220,6 +245,7 @@
     },
   
     onDeleteUserSuccess : function ( response ) {
+      oThis.setModalSuccessMsg("User deleted successfully!") ;
       oThis.onActionSuccess( response ,  function ( result ) {
         var userID = result && result.id ,
           resultToDelete =oThis.simpleDataTable.getResultById( userID )
@@ -229,9 +255,28 @@
     },
   
     onUserUpdateSuccess : function ( response ) {
+      oThis.setModalSuccessMsg("User updated successfully!") ;
       oThis.onActionSuccess( response ,  function ( result ) {
         oThis.simpleDataTable.updateResult(result);
       });
+    },
+    
+    jSuccessMsgEl : null ,
+    setModalSuccessMsg: function ( msg ) {
+      msg = msg || "Success";
+      if( !oThis.jSuccessMsgEl ){
+        oThis.jSuccessMsgEl = oThis.jSuccessModal.find('.success-msg') ;
+      }
+      oThis.jSuccessMsgEl.text( msg ) ;
+    },
+    
+    jErrorMsgEl : null ,
+    setModalErrorMsg : function ( msg ) {
+      msg = msg || "Something went wrong.";
+      if( !oThis.jErrorMsgEl ){
+        oThis.jErrorMsgEl = oThis.jErrorModal.find('.error-msg') ;
+      }
+      oThis.jErrorMsgEl.text( msg ) ;
     },
   
     dataFormator: function (res) {
@@ -252,7 +297,6 @@
           currentResult['manager'] = currentManager;
         }
       }
-      console.log("formated data ===", res);
       return res;
     },
   
@@ -264,7 +308,7 @@
       return results ;
     },
   
-    onActionSuccess : function ( response ,  callback ) {
+    onActionSuccess : function ( response ,  callback  , hideModal , showModal ) {
       response = oThis.dataFormator(response);
       var results   = oThis.getResults( response ),
         len         = results && results.length, cnt,
@@ -278,17 +322,17 @@
           callback( currentResult );
         }
       }
+      oThis.hideModal( hideModal );
+      showModal = showModal || oThis.jSuccessModal ;
+      oThis.showModal( showModal );
     },
   
     onActionError : function (  response  ) {
+      var errorText =  response && response.err &&  response.err.display_text;
+      errorText = errorText || "Something went wrong";
+      oThis.setModalErrorMsg( errorText );
       oThis.hideModal();
-      var jModal = $('#errorModal') ,
-          errorText =  response && response.err &&  response.err.display_text
-      ;
-      if( errorText ){
-        jModal.find('error-msg').text( errorText );
-      }
-      oThis.showModal( jModal );
+      oThis.showModal( oThis.jErrorModal );
     }
     
 
