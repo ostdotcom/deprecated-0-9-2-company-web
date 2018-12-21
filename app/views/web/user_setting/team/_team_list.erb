@@ -23,7 +23,6 @@
       </div>
     </div>
   </div>
-
 </div>
 
 <% content_for :popups do %>
@@ -33,5 +32,27 @@
 <% content_for :end_js do %>
   <script type="text/javascript">
     ost.team.init();
+
+    Handlebars.registerHelper('hasVerifiedEmail', function(properties ,  options ) {
+      if( properties && properties.indexOf("has_verified_email") > -1  ){
+        return options.fn(this);
+      }
+      return options.inverse(this);
+    });
+
+    Handlebars.registerHelper("hasSetupMfa", function(properties ,  options ) {
+      if( properties && properties.indexOf("has_setup_mfa") > -1  ){
+        return options.fn(this);
+      }
+      return options.inverse(this);
+    });
+
+    Handlebars.registerHelper("isSuperAdmin", function(privilages ,  options ) {
+      if( privilages && privilages.indexOf("is_super_admin") > -1  ){
+        return options.fn(this);
+      }
+      return options.inverse(this);
+    });
+
   </script>
 <% end %>

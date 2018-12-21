@@ -1,14 +1,32 @@
 <script type="text/x-handlebars-template" data-row-template>
-  <div class="row align-items-center mt-1 mb-3 rounded ost-table-row cell">
-    <div class="col-3">{{client_id}}<br/><small class="font-weight-light">{{privilages}}</small></div>
-    <div class="col-3">{{privilages}}</div>
+  <div class="row align-items-center mt-1 mb-3 rounded ost-table-row cell" data-user-id="{{id}}">
+    <div class="col-3">
+      {{manager.email}}<br/>
+      <small class="font-weight-light">
+        {{#isSuperAdmin privilages }}
+        Super Admin
+        {{else}}
+        Admin
+        {{/isSuperAdmin}}
+      </small>
+    </div>
+    <div class="col-3 text-uppercase">{{manager.status}}</div>
     <div class="col-3 offset-3">
+      {{#hasVerifiedEmail manager.properties }}
       <select class="form-control selectpicker">
         <option value="" selected disabled>ACTIONS</option>
         <option value="delete">DELETE USER</option>
+        {{#isSuperAdmin privilages }}
         <option value="un-assign">UN-ASSIGN SUPER ADMIN</option>
+        {{else}}
         <option value="assign">ASSIGN SUPER ADMIN</option>
+        {{/isSuperAdmin}}
+
+        {{#hasSetupMfa manager.properties}}
+        <option value="reset-mfa">RESET MFA</option>
+        {{/hasSetupMfa}}
       </select>
+      {{/hasVerifiedEmail}}
     </div>
   </div>
 </script>
