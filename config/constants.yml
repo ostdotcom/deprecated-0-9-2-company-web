@@ -10,6 +10,7 @@ constants:
 
   company_api:
     root_url: <%= ENV['CW_CA_ROOT_URL'] %>
+    cookie_domain: <%= ENV['CW_CA_COOKIE_DOMAIN'] %>
     basic_auth_user: <%= ENV['CW_CA_BASIC_AUTH_USER'].to_s %>
     basic_auth_pass: <%= ENV['CW_CA_BASIC_AUTH_PASS'].to_s %>
     open_timeout: 5

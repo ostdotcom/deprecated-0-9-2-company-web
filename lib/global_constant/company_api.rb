@@ -25,6 +25,10 @@ module GlobalConstant
         config['read_timeout']
       end
 
+      def cookie_domain
+        config['cookie_domain']
+      end
+
       private
 
       def config

@@ -251,7 +251,7 @@ module CompanyApi
             # Zeroth element is cookie name and value
             if i == 0
               cookie_name = c_sub_element_key
-              new_api_cookies[cookie_name] = {value: c_sub_element_value, domain: :all}
+              new_api_cookies[cookie_name] = {value: c_sub_element_value, domain: GlobalConstant::CompanyApi.cookie_domain}
             elsif c_sub_element_key == "expires"
               new_api_cookies[cookie_name][c_sub_element_key.to_sym] = Time.zone.parse(c_sub_element_value)
             elsif c_sub_element_key == "domain"
