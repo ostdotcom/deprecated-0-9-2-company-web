@@ -15,12 +15,13 @@
         isDapp: false,
         isMetamask: false,
         desiredNetwork: '3',
+        desiredAccount: null,
 
         init: function() {
             var oThis = this;
 
-            // Modern Metamask...
-            if (window.ethereum) {
+            // Modern Dapp browser / Metamask...
+            if (typeof window.ethereum !== 'undefined') {
                 oThis.isDapp = true;
                 oThis.ethereum = ethereum;
                 oThis.web3 = new Web3(ethereum);
@@ -30,16 +31,16 @@
                     ethereum.on('networkChanged', oThis.onNetworkChanged);
                 }
             }
-            // Legacy Metamask...
-            else if (window.web3) {
+            // Legacy Dapp browser / Metamask...
+            else if (typeof window.web3 !== 'undefined') {
                 oThis.isDapp = true;
                 oThis.web3 = new Web3(web3.currentProvider);
                 oThis.setMetamask();
             }
-            // No Metamask...
+            // No Dapp browser / Metamask...
             else {
                 oThis.isDapp = false;
-                oThis.onNotInstalled();
+                oThis.onNotDapp();
             }
         },
 
@@ -48,20 +49,31 @@
             oThis.isMetamask = (oThis.web3.currentProvider.isMetaMask && oThis.web3.currentProvider._metamask) ? true : false;
             if(oThis.isMetamask){
                 oThis.metamask = oThis.web3.currentProvider._metamask;
-                oThis.onIsInstalled();
+                oThis.onMetamask();
             } else {
-                oThis.onNotInstalled();
+                oThis.onNotMetamask();
             }
         },
 
         enable: function() {
             var oThis = this;
 
-            if(!oThis.isMetamask) return oThis.onNotInstalled();
+            if(!oThis.isDapp) return oThis.onNotDapp();
+            if(!oThis.isMetamask) return oThis.onNotMetamask();
 
-            oThis.ethereum.enable()
-                .then(function(){
+            oThis.ethereum && oThis.ethereum.enable()
+                .then(function(accounts){
                     oThis.onEnabled();
+                    if (ethereum.networkVersion !== oThis.desiredNetwork) {
+                        oThis.onNotDesiredNetwork();
+                    } else {
+                        oThis.onDesiredNetwork();
+                        if(oThis.desiredAccount && accounts[0] !== oThis.desiredAccount){
+                            oThis.onNotDesiredAccount();
+                        } else {
+                            oThis.onDesiredAccount();
+                        }
+                    }
                 })
                 .catch(function(reason){
                     if (reason === 'User rejected provider access') {
@@ -71,6 +83,39 @@
                     }
                 });
         },
+
+        watchAsset: function(params) {
+            var oThis = this;
+
+            if(!oThis.isDapp) return oThis.onNotDapp();
+            if(!oThis.isMetamask) return oThis.onNotMetamask();
+
+            oThis.ethereum && oThis.ethereum.sendAsync({
+                method: 'metamask_watchAsset',
+                params: params,
+                id: Math.round(Math.random() * 100000),
+            }, console.log)
+        },
+
+        sendTransaction: function(params, callback) {
+
+            var oThis = this;
+
+            if(!oThis.isDapp) return oThis.onNotDapp();
+            if(!oThis.isMetamask) return oThis.onNotMetamask();
+
+            oThis.ethereum && oThis.ethereum.sendAsync({
+                method: 'eth_sendTransaction',
+                params: params,
+                from: oThis.ethereum.selectedAddress,
+            }, callback)
+        },
+
+        /**
+         * List of flags specific to Metamask, implemented as Promises or functions
+         * Avoid usage unless UI needs such granular checks
+         *
+         */
 
         isApproved: function() {
             var oThis = this;
@@ -94,22 +139,55 @@
         /**
          * List of callback methods that can be set on initiation:
          *
-         * onIsInstalled
-         * onNotInstalled
+         * Positive flows:
+         * ---------------
+         * onMetamask
+         * onEnabled
+         * onDesiredNetwork
+         * onDesiredAccount
+         *
+         * Negative flows:
+         * ---------------
+         * onNotDapp
+         * onNotMetamask
+         * onUserRejectedProviderAccess
+         * onNotDesiredNetwork
+         * onNotDesiredAccount
+         *
          */
 
-        onIsInstalled: function(callback){
+        onNotDapp: function(callback){
+            console.error('dApp browser or MetaMask not detected');
+            callback && callback();
+        },
+
+        onMetamask: function(callback){
             console.log('MetaMask detected');
             callback && callback();
         },
 
-        onNotInstalled: function(callback){
-            console.error('MetaMask not detected');
+        onNotMetamask: function(callback){
+            console.error('dApp browser but not MetaMask detected');
             callback && callback();
         },
 
-        onNotUnlocked: function(callback){
-            console.error('MetaMask not unlocked. Please sign in.');
+        onNotDesiredNetwork: function(callback){
+            console.error('Wrong network selected, please switch it in your MetaMask UI.');
+            callback && callback();
+        },
+
+        onDesiredNetwork: function(callback){
+            console.log('Desired network selected');
+            callback && callback();
+        },
+
+        onNotDesiredAccount: function(callback){
+            console.error('Wrong account selected, please switch it in your MetaMask UI.');
+            callback && callback();
+        },
+
+        onDesiredAccount: function(callback){
+            console.log('Desired account selected');
             callback && callback();
         },
 
@@ -122,6 +200,14 @@
             console.error('User rejected provider access');
             callback && callback();
         },
+
+        /**
+         * List of trigger callback methods that can be set on initiation:
+         *
+         * onAccountsChanged
+         * onNetworkChanged
+         *
+         */
 
         onAccountsChanged: function(accounts) {
             console.log('Accounts:', accounts);
