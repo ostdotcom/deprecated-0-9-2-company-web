@@ -3,7 +3,7 @@
     <div class="col-5">
       {{manager.email}}<br/>
       <small class="font-weight-light">
-        {{#isSuperAdmin privilages }}
+        {{#isSuperAdmin privileges }}
         Super Admin
         {{else}}
         Admin
@@ -15,12 +15,11 @@
       <select class="form-control selectpicker">
         <option value="" selected disabled>ACTIONS</option>
         <option value="delete">DELETE USER</option>
-        {{#isSuperAdmin privilages }}
-        <option value="un-assign">UN-ASSIGN SUPER ADMIN</option>
-        {{else}}
-        <option value="assign">ASSIGN SUPER ADMIN</option>
+        {{#isSuperAdmin privileges }}
+          <option value="un-assign">UN-ASSIGN SUPER ADMIN</option>
+          {{else}}
+          <option value="assign">ASSIGN SUPER ADMIN</option>
         {{/isSuperAdmin}}
-
         {{#hasSetupMfa manager.properties}}
         <option value="reset-mfa">RESET MFA</option>
         {{/hasSetupMfa}}
@@ -28,3 +27,30 @@
     </div>
   </div>
 </script>
+
+<% content_for :end_js do %>
+  <script type="text/javascript">
+
+    Handlebars.registerHelper('hasVerifiedEmail', function(properties ,  options ) {
+      if( properties && properties.indexOf("has_verified_email") > -1  ){
+        return options.fn(this);
+      }
+      return options.inverse(this);
+    });
+
+    Handlebars.registerHelper("hasSetupMfa", function(properties ,  options ) {
+      if( properties && properties.indexOf("has_setup_mfa") > -1  ){
+        return options.fn(this);
+      }
+      return options.inverse(this);
+    });
+
+    Handlebars.registerHelper("isSuperAdmin", function(privilages ,  options ) {
+      if( privilages && privilages.indexOf("is_super_admin") > -1  ){
+        return options.fn(this);
+      }
+      return options.inverse(this);
+    });
+
+  </script>
+<% end %>
