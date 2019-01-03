@@ -7,27 +7,39 @@
   var oThis = ost.team = {
     simpleDataTable: null,
     jParent: $('#team_list'),
-    jForm: $('#invite_new_member_form'),
+    jInviteMemberForm: $('#invite_new_member_form'),
+    inviteMemberFormHelper: null,
     sSelectPicker: 'select.selectpicker',
-    actionID : null ,
-    
-    deleteUserEndpoint : "/api/manager/super_admin/delete-admin",
-    resetMfaEndpoint : "/api/manager/super_admin/reset-mfa",
-    updateRoleEndPoint : "/api/manager/super_admin/update-super-admin-role",
+    userID : null ,
     
     jInviteUserCover  : $('#invite_new_member'),
     
-    jSuccessModal : $('#successModal'),
-    jErrorModal : $('#errorModal'),
-    jDeleteUserModal : $('#deleteUserModal'),
-    jAssignRoleModal : $('#assignAdminModal'),
+    jSuccessModal     : $('#successModal'),
+    jErrorModal       : $('#errorModal'),
+    jDeleteUserModal  : $('#deleteUserModal'),
+    jAssignRoleModal  : $('#assignAdminModal'),
     jUnAssignRoleModal: $('#unassignAdminModal'),
-    jResetMfaModal: $('#resetMfa'),
+    jResetMfaModal    : $('#resetMfa'),
     
-    jDeleteUserBtn :  $(".delete-user-btn"),
-    jAssignRoleBtn :  $(".assign-admin-btn"),
+    jDeleteUserBtn  :  $(".delete-user-btn"),
+    jAssignRoleBtn  :  $(".assign-admin-btn"),
     jUnAssignRoleBtn: $(".unassign-admin-btn"),
-    jResetMfaBtn: $(".reset-mfa-btn"),
+    jResetMfaBtn    : $(".reset-mfa-btn"),
+
+    jDeleteUserForm  :  $("#delete_user_form"),
+    jAssignRoleForm  :  $("#assign_user_form"),
+    jUnAssignRoleForm: $("#unassign_user_form"),
+    jResetMfaForm    : $("#reset_mfa_form"),
+
+    deleteUserFormHelper  :  null,
+    assignRoleFormHelper  :  null,
+    unAssignRoleFormHelper: null,
+    resetMfaFormHelper   : null,
+
+    jUserID: $('.user-id'),
+    jIsSuperAdmin: $('.isSuperAdmin'),
+
+    jCurrentModal: null,
 
     init : function () {
       
@@ -58,7 +70,7 @@
       oThis.eventNameSpace  = new EventNameSpacing("userManagement");
       oThis.simpleDataTable = new ost.SimpleDataTable(datatableConfig);
       oThis.bindEvents();
-      oThis.initForm();
+      oThis.initForms();
     },
   
     bindEvents: function () {
@@ -71,25 +83,9 @@
         .on( oThis.eventNameSpace.nameSpacedEvents('click') , function () {
         ost.coverElements.hide( oThis.jInviteUserCover );
       });
-      oThis.jDeleteUserBtn.off( oThis.eventNameSpace.nameSpacedEvents('click') )
-        .on( oThis.eventNameSpace.nameSpacedEvents('click') , function () {
-        oThis.deleteUser();
-      });
-      oThis.jAssignRoleBtn.off( oThis.eventNameSpace.nameSpacedEvents('click') )
-        .on( oThis.eventNameSpace.nameSpacedEvents('click') , function () {
-        oThis.assignAdmin();
-      });
-      oThis.jUnAssignRoleBtn.off( oThis.eventNameSpace.nameSpacedEvents('click') )
-        .on( oThis.eventNameSpace.nameSpacedEvents('click') , function () {
-          oThis.unassignAdmin();
-        });
-      oThis.jResetMfaBtn.off( oThis.eventNameSpace.nameSpacedEvents('click') )
-        .on( oThis.eventNameSpace.nameSpacedEvents('click') , function () {
-        oThis.resetMfa();
-      });
       $('.modal').off(  oThis.eventNameSpace.nameSpacedEvents( 'hidden.bs.modal' )  )
         .on( oThis.eventNameSpace.nameSpacedEvents( 'hidden.bs.modal' )  , function () {
-        oThis.actionID = null ;
+        oThis.userID = null ;
       });
       
     },
@@ -98,14 +94,45 @@
       $(oThis.sSelectPicker).selectpicker();
     },
   
-    initForm: function () {
-      oThis.jForm.formHelper({
+    initForms: function () {
+      oThis.inviteMemberFormHelper = oThis.jInviteMemberForm.formHelper({
         success: function (response) {
           if( response.success ){
             oThis.onInviteUserSuccess(response);
           }
         }
       });
+
+      oThis.resetMfaFormHelper = oThis.jResetMfaForm.formHelper({
+        success: function (response) {
+          if( response.success ){
+            oThis.onUserUpdateSuccess(response);
+          }
+        }
+      });
+
+      oThis.assignRoleFormHelper = oThis.jAssignRoleForm.formHelper({
+        success: function (response) {
+          if( response.success ){
+            oThis.onUserUpdateSuccess(response);
+          }
+        }
+      });
+      oThis.unAssignRoleFormHelper = oThis.jUnAssignRoleForm.formHelper({
+        success: function (response) {
+          if( response.success ){
+            oThis.onUserUpdateSuccess(response);
+          }
+        }
+      });
+      oThis.deleteUserFormHelper = oThis.jDeleteUserForm.formHelper({
+        success: function (response) {
+          if( response.success ){
+            oThis.onDeleteUserSuccess(response);
+          }
+        }
+      });
+
     },
     
     bindSelectPickerEvents:function() {
@@ -116,23 +143,36 @@
             userID = parent.data('user-id')
         ;
         oThis.hideModal();
-        oThis.actionID = userID ;
+        oThis.userID = userID ;
         switch(  val ) {
           case "delete":
-            oThis.showModal( oThis.jDeleteUserModal );
+            oThis.jCurrentModal = oThis.jDeleteUserModal;
             break;
           case "assign":
-            oThis.showModal( oThis.jAssignRoleModal );
+            oThis.jCurrentModal = oThis.jAssignRoleModal;
+            oThis.setUserIDAdminRole(1);
             break;
           case "un-assign":
-            oThis.showModal( oThis.jUnAssignRoleModal );
+            oThis.jCurrentModal = oThis.jUnAssignRoleModal;
+            oThis.setUserIDAdminRole( );
             break;
           case "reset-mfa":
-            oThis.showModal( oThis.jResetMfaModal );
+            oThis.jCurrentModal = oThis.jResetMfaModal;
             break;
         }
+        oThis.setUserID();
         oThis.resetSelectPicker();
+        oThis.showModal( oThis.jCurrentModal );
       });
+    },
+
+    setUserID: function(){
+      oThis.jCurrentModal.find(oThis.jUserID).val( oThis.userID );
+    },
+
+    setUserIDAdminRole: function( val ) {
+      val = val || 0 ;
+      oThis.jCurrentModal.find(oThis.jIsSuperAdmin).val( val );
     },
   
     hideModal : function ( jEl ) {
@@ -151,124 +191,6 @@
       $(oThis.sSelectPicker).selectpicker("refresh");
     },
 
-    
-    deleteUser: function() {
-      var data = oThis.getData();
-      $.ajax({
-        url: oThis.deleteUserEndpoint,
-        data: data,
-        method: 'POST',
-        beforeSend : function () {
-         oThis.jDeleteUserBtn.data('pre-text',   oThis.jDeleteUserBtn.text());
-         oThis.jDeleteUserBtn.text("Deleting...");
-        },
-        success: function ( res ) {
-          if( res.success ){
-            oThis.onDeleteUserSuccess( res );
-          }else {
-            oThis.onActionError( res );
-          }
-        },
-        error: function ( error ) {
-          oThis.onActionError( error );
-        },
-        complete: function () {
-          oThis.jDeleteUserBtn.text(oThis.jDeleteUserBtn.data('pre-text'));
-        }
-      })
-    },
-
-    assignAdmin: function() {
-      var data = oThis.getRoleBaseData( 1 ) ;
-      $.ajax({
-        url: oThis.updateRoleEndPoint,
-        data: data,
-        method: 'POST',
-        beforeSend : function () {
-          oThis.jAssignRoleBtn.data('pre-text',   oThis.jAssignRoleBtn.text());
-          oThis.jAssignRoleBtn.text("Updating...");
-        },
-        success: function ( res ) {
-          if( res.success ){
-            oThis.onUserUpdateSuccess( res );
-          }else {
-            oThis.onActionError( res );
-          }
-        },
-        error: function ( error ) {
-          oThis.onActionError( error );
-        },
-        complete: function () {
-          oThis.jAssignRoleBtn.text(oThis.jAssignRoleBtn.data('pre-text'));
-        }
-      })
-    },
-  
-    unassignAdmin: function() {
-      var data = oThis.getRoleBaseData(  ) ;
-      $.ajax({
-        url: oThis.updateRoleEndPoint,
-        data: data,
-        method: 'POST',
-        beforeSend : function () {
-          oThis.jUnAssignRoleBtn.data('pre-text',   oThis.jUnAssignRoleBtn.text());
-          oThis.jUnAssignRoleBtn.text("Updating...");
-        },
-        success: function ( res ) {
-          if( res.success ){
-            oThis.onUserUpdateSuccess( res );
-          }else {
-            oThis.onActionError( res );
-          }
-        },
-        error: function ( error ) {
-          oThis.onActionError( error );
-        },
-        complete: function () {
-          oThis.jUnAssignRoleBtn.text(oThis.jUnAssignRoleBtn.data('pre-text'));
-        }
-      })
-    },
-  
-    resetMfa : function () {
-      var data = oThis.getData() ;
-      $.ajax({
-        url: oThis.resetMfaEndpoint,
-        data: data,
-        method: 'POST',
-        beforeSend : function () {
-          oThis.jResetMfaBtn.data('pre-text',   oThis.jResetMfaBtn.text());
-          oThis.jResetMfaBtn.text("Resetting...");
-        },
-        success: function ( res ) {
-          if( res.success ){
-            oThis.onUserUpdateSuccess( res );
-          }else {
-            oThis.onActionError( res );
-          }
-        },
-        error: function ( error ) {
-          oThis.onActionError( error );
-        },
-        complete: function () {
-          oThis.jResetMfaBtn.text(oThis.jResetMfaBtn.data('pre-text'));
-        }
-      })
-    },
-    
-    getData : function () {
-      return {
-        "to_update_client_manager_id" : oThis.actionID
-      }
-    },
-    
-    getRoleBaseData : function ( val ) {
-      val = val || 0;
-      var data = oThis.getData();
-      data['is_super_admin'] = val ;
-      return data ;
-    },
-  
     onInviteUserSuccess: function ( response ) {
       ost.coverElements.hide( oThis.jInviteUserCover );
       oThis.onActionSuccess( response ,  function ( result ) {
@@ -306,15 +228,6 @@
         oThis.jSuccessMsgEl = oThis.jSuccessModal.find('.success-msg') ;
       }
       oThis.jSuccessMsgEl.text( msg ) ;
-    },
-    
-    jErrorMsgEl : null ,
-    setModalErrorMsg : function ( msg ) {
-      msg = msg || "Something went wrong.";
-      if( !oThis.jErrorMsgEl ){
-        oThis.jErrorMsgEl = oThis.jErrorModal.find('.error-msg') ;
-      }
-      oThis.jErrorMsgEl.text( msg ) ;
     },
   
     dataFormator: function (res) {
@@ -360,14 +273,6 @@
           callback( currentResult );
         }
       }
-    },
-  
-    onActionError : function (  response  ) {
-      var errorText =  response && response.err &&  response.err.display_text;
-      errorText = errorText || "Something went wrong";
-      oThis.setModalErrorMsg( errorText );
-      oThis.hideModal();
-      oThis.showModal( oThis.jErrorModal );
     }
     
 
