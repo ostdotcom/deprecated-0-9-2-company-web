@@ -11,7 +11,7 @@ export CW_CLOUDFRONT_DOMAIN=''
 # Company API details
 export CW_ROOT_URL='http://developmentost.com:8080/'
 export CW_CA_ROOT_URL='http://kit.developmentost.com:8080/'
-export CW_CA_COOKIE_DOMAIN='kit-stag3.stagingost.com'
+export CW_CA_COOKIE_DOMAIN='kit.developmentost.com'
 
 # Basic Auth credentials
 export CW_BASIC_AUTH_USERNAME='ost'
