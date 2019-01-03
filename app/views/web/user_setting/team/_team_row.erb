@@ -11,20 +11,22 @@
       </small>
     </div>
     <div class="col-3 text-uppercase">{{manager.status}}</div>
-    <div class="col-4 ">
-      <select class="form-control selectpicker">
-        <option value="" selected disabled>ACTIONS</option>
-        <option value="delete">DELETE USER</option>
-        {{#isSuperAdmin privileges }}
-          <option value="un-assign">UN-ASSIGN SUPER ADMIN</option>
-          {{else}}
-          <option value="assign">ASSIGN SUPER ADMIN</option>
-        {{/isSuperAdmin}}
-        {{#hasSetupMfa manager.properties}}
-        <option value="reset-mfa">RESET MFA</option>
-        {{/hasSetupMfa}}
-      </select>
-    </div>
+    <%# if @presenter_obj.manager.is_super_admin?() %>
+      <div class="col-4 ">
+        <select class="form-control selectpicker">
+          <option value="" selected disabled>ACTIONS</option>
+          <option value="delete">DELETE USER</option>
+          {{#isSuperAdmin privileges }}
+            <option value="un-assign">UN-ASSIGN SUPER ADMIN</option>
+            {{else}}
+            <option value="assign">ASSIGN SUPER ADMIN</option>
+          {{/isSuperAdmin}}
+          {{#hasSetupMfa manager.properties}}
+          <option value="reset-mfa">RESET MFA</option>
+          {{/hasSetupMfa}}
+        </select>
+      </div>
+    <%#end%>
   </div>
 </script>
 
