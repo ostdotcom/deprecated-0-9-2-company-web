@@ -13,7 +13,7 @@ module CompanyApi
         # * Reviewed By:
         #
         # @param [Hash] data (mandatory) - entity data
-        # @param [CompanyApi::Response::Entity::ClientToken] client_token (mandatory) - client_token entity data
+        # @param [CompanyApi::Response::Entity::Token] client_token (mandatory) - client_token entity data
         #
         # @return [CompanyApi::Response::Entity::ClientBalances] returns an object of CompanyApi::Response::Entity::ClientBalances class
         #

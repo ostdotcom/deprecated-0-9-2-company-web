@@ -4,7 +4,7 @@ module CompanyApi
 
     module Entity
 
-      class OraclePricePoints
+      class PricePoints
 
         # Initialize
         #
@@ -13,13 +13,13 @@ module CompanyApi
         # * Reviewed By:
         #
         # @param [Hash] data (mandatory) - entity data
-        # @param [CompanyApi::Response::Entity::ClientToken] client_token (mandatory) - client_token entity data
+        # @param [CompanyApi::Response::Entity::Token] token (mandatory) - token entity data
         #
-        # @return [CompanyApi::Response::Entity::OraclePricePoints] returns an object of CompanyApi::Response::Entity::OraclePricePoints class
+        # @return [CompanyApi::Response::Entity::PricePoints] returns an object of CompanyApi::Response::Entity::OraclePricePoints class
         #
-        def initialize(data, client_token)
+        def initialize(data, token)
           @data = data
-          @client_token = client_token
+          @client_token = token
         end
 
         def to_fiat_conversion_factor(curreny_pref)

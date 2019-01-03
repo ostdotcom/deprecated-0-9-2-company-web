@@ -85,14 +85,14 @@ module CompanyApi
 
       # Base COMPANY API URL
       #
-      # * Author: Puneet
-      # * Date: 02/02/2018
-      # * Reviewed By: Sunil
+      # * Author: Ankit
+      # * Date: 03/01/2019
+      # * Reviewed By: Kedar
       #
-      # @return [String] returns BASE API URL Example: "https://stagingost.com/"
+      # @return [String] returns BASE API URL Example: "https://stagingost.com/testnet/api/"
       #
       def base_url
-        "#{GlobalConstant::CompanyApi.root_url}api/"
+        "#{GlobalConstant::CompanyApi.root_url}#{GlobalConstant::Environment.url_prefix}/api/"
       end
 
       # Generate API parameters

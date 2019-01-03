@@ -63,8 +63,8 @@ module CompanyApi
         #
         # Sets @client_token
         #
-        def set_client_token(client_token_data)
-          @client_token = CompanyApi::Response::Entity::ClientToken.new(client_token_data)
+        def set_token(client_token_data)
+          @client_token = CompanyApi::Response::Entity::Token.new(client_token_data)
         end
 
         # Set client token planner
@@ -125,16 +125,16 @@ module CompanyApi
 
         # Set orace_price_points_data
         #
-        # * Author: Puneet
-        # * Date: 02/02/2018
+        # * Author: Ankit
+        # * Date: 03/01/2019
         # * Reviewed By:
         #
-        # @param [Hash] orace_price_points_data (mandatory) - price oracle data hash
+        # @param [Hash] price_points_data (mandatory) - price oracle data hash
         #
         # Sets @oracle_price_points
         #
-        def set_oracle_price_points(orace_price_points_data)
-          @oracle_price_points = CompanyApi::Response::Entity::OraclePricePoints.new(orace_price_points_data, @client_token)
+        def set_price_points(price_points_data)
+          @oracle_price_points = CompanyApi::Response::Entity::PricePoints.new(price_points_data, @client_token)
         end
 
         # Set Pending Critical Interactions Data

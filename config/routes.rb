@@ -27,22 +27,13 @@ Rails.application.routes.draw do
   end
 
   scope "#{GlobalConstant::Environment.url_prefix}", controller: 'web/economy' do
-    get '/dashboard' => :dashboard, as: 'dashboard'
-    get '/planner' => :planner
     get '/planner/step-1' => :planner, as: 'planner_step_one'
-    get '/planner/step-2' => :planner_step_two, as: 'planner_step_two'
-    get '/planner/step-3' => :planner_step_three, as: 'planner_step_three'
-    get '/token-supply' => :token_supply
-    get '/users' => :users
-    get '/actions' => :transactions
-    get '/simulator' => :simulator
-    get '/developer-api-console' => :developer_api_console
   end
 
-  namespace 'devadmin' do
-    # ST Api sidekiq web interface endpoint
-    mount ApiSidekiqServer => '/api-sidekiq'
-  end
+  # namespace 'devadmin' do
+  #   # ST Api sidekiq web interface endpoint
+  #   mount ApiSidekiqServer => '/api-sidekiq'
+  # end
 
   # Route not found handler. Should be the last entry here
   match '*permalink', to: 'application#not_found', via: :all
