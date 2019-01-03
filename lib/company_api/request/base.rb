@@ -17,14 +17,16 @@ module CompanyApi
       #
       # @param [Klass] api_response_formatter_class (mandatory) - Api response formatter_class for api Response
       # @param [Hash] cookies (mandatory) - cookies that need to be sent to API
+      # @param [Hash] is_sub_env_specific (mandatory) - whether the API is sub_env specific or not
       # @param [Hash] headers (optional) - headers that need to be sent to API
       #
       # @return [CompanyApi::Request::Base] returns an object of CompanyApi::Request::Base class
       #
-      def initialize(api_response_formatter_class, cookies, headers = {})
+      def initialize(api_response_formatter_class, cookies, is_sub_env_specific, headers = {})
 
         @api_response_formatter_class = api_response_formatter_class
         @cookies = cookies
+        @is_sub_env_specific = is_sub_env_specific
         @headers = headers
 
         @request_class = nil
@@ -92,7 +94,8 @@ module CompanyApi
       # @return [String] returns BASE API URL Example: "https://stagingost.com/testnet/api/"
       #
       def base_url
-        "#{GlobalConstant::CompanyApi.root_url}#{GlobalConstant::Environment.url_prefix}/api/"
+        @is_sub_env_specific ? "#{GlobalConstant::CompanyApi.root_url}#{GlobalConstant::Environment.url_prefix}/api/"
+          : "#{GlobalConstant::CompanyApi.root_url}api/"
       end
 
       # Generate API parameters

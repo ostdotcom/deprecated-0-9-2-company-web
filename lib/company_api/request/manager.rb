@@ -18,7 +18,7 @@ module CompanyApi
       #
       def initialize(api_response_formatter_class, cookies, headers = {})
 
-        super
+        super(api_response_formatter_class, cookies, false, headers)
         @service_base_route = 'manager/'
 
       end
