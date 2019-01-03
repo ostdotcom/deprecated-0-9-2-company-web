@@ -1,1 +1,80 @@
-New Planner code to go here
+
+<form data-ost-formhelper id="token-setup" action="/<%=GlobalConstant::Base.sub_environment %>/api/token" method="POST">
+<div class="token-setup-container  text-center">
+  <h3 class="mt-5">
+    Welcome to OST KIT, lets set up your token!
+  </h3>
+
+  <div class="container">
+      <div class="row ">
+        <div class="card card-planner my-5">
+          <div class="card-header text-left">
+            <h4 class="mb-2 ">Token Details</h4>
+            <p class="font-weight-light mb-0">
+              Here you will set a unique identy for your token. People will relate your brand to your token name and the Token Symbol your act like an identifier
+            </p>
+          </div>
+          <div class="card-body ">
+            <form>
+              <div class="user-form text-left">
+                <div class="form-group mb-2 d-inline-block mr-4">
+                  <label class="form-label" for="token_name">Token Name</label>
+                  <input type="text" class="form-control" id="token_name" name="token_name"
+                         placeholder="Token Name" name="token_name" minlength="3" maxlength="20" pattern="^[a-zA-Z][a-zA-Z0-9\s]+[a-zA-Z0-9\s]+[a-zA-Z0-9]"  required tabindex="1" />
+                  <div class="invalid-feedback" data-forid="token_name">&nbps;</div>
+                </div>
+                <div class="form-group mb-2 d-inline-block">
+                  <label class="form-label" for="token_symbol">Token Symbol</label>
+                  <input type="text" class="form-control" id="token_symbol" name="token_symbol"
+                         placeholder="Token Symbol" name="token_symbol" minlength="3" maxlength="4" pattern="^[a-zA-Z][a-zA-Z0-9]+" required tabindex="1" />
+                  <div class="invalid-feedback" data-forid="token_symbol">&nbps;</div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="card card-planner w-100 mb-5">
+          <div class="card-header text-left">
+            <h4 class="mb-0 ">Set Conversion Rate</h4>
+            <p class="font-weight-light mb-0">
+              The simple way to set the conversion rate is by deciding how much you want 1 Token to initially be worth.<b>Once you set the conversion rate it cannot be changed</b>
+            </p>
+          </div>
+          <div class="card-body">
+            <div class="row ">
+              <div class="col-12">
+                <input name="conversion_factor" type="text" class="form-control" required >
+
+              </div>
+            </div>
+            <div class="conversion-section row">
+              <div class="col-4 right-border p-4">
+                <span class="text-different-color">1</span> Token
+                <span class="equal-to-sign">=</span>
+              </div>
+              <div class="col-4 right-border p-4">
+                <span class="text-different-color">5  </span>OST
+                <span class="equal-to-sign">=</span>
+              </div>
+              <div class="col-4 p-4">
+                <span class="text-different-color">$0.10</span> USD
+              </div>
+            </div>
+            <p class="pt-2"> Conversion rate will be set in OST, above visualization shows the Value of you token against OST and USD. OST is Market linked so the inherent value of your token may fluctuate based on the value of OST </p>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <footer>
+    <div class="row sticky-footer">
+      <div class="container">
+        <button  type="submit" class="btn btn-steps-nav bg-yellow pt-3 pb-3 float-right" data-submiting="Setting Up..." id="setup-token-btn">Set up your Token &gt;</button>
+      </div>
+    </div>
+    <div class="pseudo-footer"></div>
+  </footer>
+</div>
+</form>

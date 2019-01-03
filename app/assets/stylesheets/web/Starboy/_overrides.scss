@@ -7,6 +7,10 @@ hr{
   border-top: 2px solid color('blue-100');
 }
 
+p{
+  color: color('blue-700');
+}
+
 .invalid-feedback.is-invalid {
   visibility: visible;
   letter-spacing: 1px;
