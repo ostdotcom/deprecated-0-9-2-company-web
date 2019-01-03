@@ -1,3 +1,9 @@
+<%
+  delete_admin_endpoint = "/api/manager/super_admin/delete-admin"
+  update_role_endpoint = "/api/manager/super_admin/update-super-admin-role"
+  reset_mfa_endpoint = "/api/manager/super_admin/reset-mfa"
+%>
+
 <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered h-100 mx-auto my-0" role="document">
     <div class="modal-content">
@@ -6,7 +12,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="delete_user_form" class="user-form" action="/api/manager/super_admin/delete-admin" method="POST">
+      <form id="delete_user_form" class="user-form" action="<%= delete_admin_endpoint %>" method="POST">
         <div class="modal-body">
           <span>Are you sure you want to delete user?</span>
         </div>
@@ -15,7 +21,7 @@
           <div class="invalid-feedback" data-for="to_update_client_manager_id"></div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Yes</button>
+          <button type="submit" class="btn btn-primary" data-submiting="Processing...">Yes</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
         <div class="general_error invalid-feedback mt-2"></div>
@@ -32,18 +38,18 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="unassign_user_form" class="user-form" action="/api/manager/super_admin/update-super-admin-role" method="POST">
+      <form id="unassign_user_form" class="user-form" action="<%= update_role_endpoint %>" method="POST">
         <div class="modal-body">
           <span>Are you sure you want to unassign super admin role form the user?</span>
         </div>
         <div class="form-group">
           <input  type="hidden" required class="user-id form-control" name="to_update_client_manager_id"/>
           <div class="invalid-feedback" data-for="to_update_client_manager_id"></div>
-          <input type="hidden" required class="isSuperAdmin form-control" name="is_super_admin"/>
+          <input type="number" required class="is-super-admin form-control d-none" name="is_super_admin"/>
           <div class="invalid-feedback" data-for="is_super_admin"></div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Yes</button>
+          <button type="submit" class="btn btn-primary" data-submiting="Processing...">Yes</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
         <div class="general_error invalid-feedback mt-2">&nbsp;</div>
@@ -61,18 +67,18 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="assign_user_form" class="user-form" action="/api/manager/super_admin/update-super-admin-role" method="POST">
+      <form id="assign_user_form" class="user-form" action="<%= update_role_endpoint %>" method="POST">
         <div class="modal-body">
           <span>Are you sure you want to assign super admin role to the user?</span>
         </div>
         <div class="form-group">
           <input  type="hidden" required class="user-id form-control" name="to_update_client_manager_id"/>
           <div class="invalid-feedback" data-for="to_update_client_manager_id"></div>
-          <input type="hidden" required class="isSuperAdmin form-control" name="is_super_admin"/>
+          <input type="number" required class="is-super-admin form-control d-none" name="is_super_admin"/>
           <div class="invalid-feedback" data-for="is_super_admin"></div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Yes</button>
+          <button type="submit" class="btn btn-primary" data-submiting="Processing...">Yes</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
         <div class="general_error invalid-feedback mt-2">&nbsp;</div>
@@ -89,7 +95,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="reset_mfa_form" class="user-form" action="/api/manager/super_admin/reset-mfa" method="POST">
+      <form id="reset_mfa_form" class="user-form" action="<%= reset_mfa_endpoint %>" method="POST">
         <div class="modal-body">
           <span>Are you sure you want to reset MFA?</span>
         </div>
@@ -100,7 +106,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Yes</button>
+          <button type="submit" class="btn btn-primary" data-submiting="Processing...">Yes</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
         <div class="general_error invalid-feedback mt-2">&nbsp;</div>
@@ -128,20 +134,3 @@
   </div>
 </div>
 
-<div class="modal fade" id="errorModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered h-100 mx-auto my-0" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <span class="error-msg">Something went wrong, Please try again later.</span>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary assign-admin" data-dismiss="modal">OK</button>
-      </div>
-    </div>
-  </div>
-</div>

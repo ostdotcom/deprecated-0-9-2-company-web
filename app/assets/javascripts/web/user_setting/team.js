@@ -15,7 +15,6 @@
     jInviteUserCover  : $('#invite_new_member'),
     
     jSuccessModal     : $('#successModal'),
-    jErrorModal       : $('#errorModal'),
     jDeleteUserModal  : $('#deleteUserModal'),
     jAssignRoleModal  : $('#assignAdminModal'),
     jUnAssignRoleModal: $('#unassignAdminModal'),
@@ -37,7 +36,7 @@
     resetMfaFormHelper   : null,
 
     jUserID: $('.user-id'),
-    jIsSuperAdmin: $('.isSuperAdmin'),
+    jIsSuperAdmin: $('.is-super-admin'),
 
     jCurrentModal: null,
 
@@ -79,13 +78,16 @@
         .on(  oThis.eventNameSpace.nameSpacedEvents('click') , function () {
         ost.coverElements.show( oThis.jInviteUserCover );
       });
+
       $("#invite_new_member_cancel_btn").off( oThis.eventNameSpace.nameSpacedEvents('click') )
         .on( oThis.eventNameSpace.nameSpacedEvents('click') , function () {
         ost.coverElements.hide( oThis.jInviteUserCover );
       });
+
       $('.modal').off(  oThis.eventNameSpace.nameSpacedEvents( 'hidden.bs.modal' )  )
         .on( oThis.eventNameSpace.nameSpacedEvents( 'hidden.bs.modal' )  , function () {
         oThis.userID = null ;
+        $(this).find('.invalid-feedback').text('');
       });
       
     },
@@ -95,6 +97,7 @@
     },
   
     initForms: function () {
+
       oThis.inviteMemberFormHelper = oThis.jInviteMemberForm.formHelper({
         success: function (response) {
           if( response.success ){
@@ -118,6 +121,7 @@
           }
         }
       });
+
       oThis.unAssignRoleFormHelper = oThis.jUnAssignRoleForm.formHelper({
         success: function (response) {
           if( response.success ){
