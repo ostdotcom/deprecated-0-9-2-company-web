@@ -11,7 +11,7 @@
       </small>
     </div>
     <div class="col-3 text-uppercase">{{manager.status}}</div>
-    <%# if @presenter_obj.manager.is_super_admin?() %>
+    <% if @presenter_obj.is_super_admin?() %>
       <div class="col-4 ">
         <select class="form-control selectpicker">
           <option value="" selected disabled>ACTIONS</option>
@@ -26,7 +26,7 @@
           {{/hasSetupMfa}}
         </select>
       </div>
-    <%#end%>
+    <%end%>
   </div>
 </script>
 

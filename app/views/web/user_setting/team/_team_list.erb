@@ -3,9 +3,9 @@
     <div class="col-12 p-0">
       <div class="d-flex justify-content-between align-items-center mt-6 mb-5">
         <h3 class="mb-0">Your Team</h3>
-        <%# if @presenter_obj.manager.is_super_admin?() %>
+        <% if @presenter_obj.is_super_admin?() %>
           <button id="invite_new_member_btn" class="btn btn-gold float-right">Invite Team Member </button>
-        <%#end%>
+        <%end%>
       </div>
     </div>
   </div>

@@ -32,6 +32,12 @@
               </div>
               <div class="zxcvbn-group"></div>
             </div>
+            <div class="form-group mb-2">
+              <label class="form-label" for="confirm_password">Confirm Password</label>
+              <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required minlength="8" />
+              <div class="invalid-feedback" data-forid="password">&nbps;</div>
+            </div>
+
 
             <input type="text" class="form-control" id="r_t" name="r_t" value = <%= invite_token %> hidden />
 

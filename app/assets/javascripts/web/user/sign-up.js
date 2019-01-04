@@ -25,7 +25,7 @@
         }
       });
 
-      oThis.jForm.formHelper({
+      oThis.jForm.length > 0 && oThis.jForm.formHelper({
         complete: function ( response ) {
           if (typeof grecaptcha != 'undefined') {
             grecaptcha.reset();
