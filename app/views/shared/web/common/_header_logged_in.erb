@@ -1,39 +1,16 @@
 <%
-
-  client_token = ""
-  client_balances = ""
-  token_supply_details = ""
-  client_fiat_curreny_pref_symbol = ""
-  client_fiat_curreny_symbol = ""
-
-  if client_balances.present? && client_balances.balances.present? && client_token.conversion_factor.present?
-    bt_balance_s = client_balances.bt_balance_s
-    bt_fiat_balance_s = client_balances.bt_fiat_balance_s(client_fiat_curreny_symbol)
-    ost_balance_s = client_balances.ost_balance_s
-    ost_fiat_balance_s = client_balances.ost_fiat_balance_s(client_fiat_curreny_symbol)
-  end
-
-  if client_balances.present? && token_supply_details.present?
-    tokens_minted = token_supply_details.tokens_minted
-    tokens_minted_s = client_balances.format_balance_to_s(tokens_minted)
-    tokens_minted_fiat = client_balances.convert_bt_to_fiat(tokens_minted, client_fiat_curreny_symbol)
-    tokens_minted_fiat_s = client_balances.format_fiat_balance_to_s(tokens_minted_fiat)
-  end
-
-  show_bt_balance = false;
-
+  client_token = @presenter_obj.client_token
 %>
 
 <nav class="navbar navbar-expand-md navbar-light ">
   <a href="/dashboard" class="navbar-brand font-weight-normal">
-    <span class="token-symbol token_icon_6">
-      PS39
-    </span>
+    <svg width="22px" height="22px">
+      <switch>
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ost-icon"></use>
+      </switch>
+    </svg>
     <span class="token-name">
-      Presh
-    </span>
-    <span>
-
+      <%= client_token.name %>
     </span>
   </a>
   <div class="collapse navbar-collapse" id="navbarCollapse">

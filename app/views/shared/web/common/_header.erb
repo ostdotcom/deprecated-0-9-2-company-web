@@ -2,14 +2,14 @@
 
   <div class="header-wrapper fixed-top">
 
-
+<!-- <%= @presenter_obj.is_client_logged_in? %> -->
     <div class="header-height">
-      <%= render :partial => "/shared/web/common/header_logged_in" %>
-      <%# TODO: ONCE PRESENTER OBJ IS AVAILABLE REVERT COMMENTING
-      <%# if @presenter_obj.is_client_logged_in? %>
-      <%# else %>
-        <%#= render :partial => "/shared/web/common/header_logged_out" %>
-      <%# end %>
+      <%# TODO: ONCE PRESENTER OBJ IS AVAILABLE REVERT COMMENTING %>
+      <% if @presenter_obj.is_client_logged_in? %>
+        <%= render :partial => "/shared/web/common/header_logged_in" %>
+    <% else %>
+        <%= render :partial => "/shared/web/common/header_logged_out" %>
+      <% end %>
     </div>
   </div>
 
@@ -19,5 +19,4 @@
     <div class="header-height"></div>
   <% end %>
   <%= yield(:phantom_header_el) %>
-
 </header>
