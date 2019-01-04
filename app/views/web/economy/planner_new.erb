@@ -1,5 +1,5 @@
 
-<form data-ost-formhelper id="token-setup" action="/<%=GlobalConstant::Base.sub_environment %>/api/token" method="POST">
+<form data-ost-formhelper id="token-setup" action="/<%=GlobalConstant::Environment.sandbox_sub_url_prefix %>/api/token" method="POST">
 <div class="token-setup-container  text-center">
   <h3 class="mt-5">
     Welcome to OST KIT, lets set up your token!
@@ -19,15 +19,15 @@
               <div class="user-form text-left">
                 <div class="form-group mb-2 d-inline-block mr-4">
                   <label class="form-label" for="token_name">Token Name</label>
-                  <input type="text" class="form-control" id="token_name" name="token_name"
-                         placeholder="Token Name" name="token_name" minlength="3" maxlength="20" pattern="^[a-zA-Z][a-zA-Z0-9\s]+[a-zA-Z0-9\s]+[a-zA-Z0-9]"  required tabindex="1" />
-                  <div class="invalid-feedback" data-forid="token_name">&nbps;</div>
+                  <input type="text" class="form-control" id="name"
+                         value ="<%= @presenter_obj.client_token.name%>" placeholder="Token Name" name="name" minlength="3" maxlength="20" pattern="^[a-zA-Z][a-zA-Z0-9\s]+[a-zA-Z0-9\s]+[a-zA-Z0-9]"  required tabindex="1" />
+                  <div class="invalid-feedback" data-forid="name">&nbps;</div>
                 </div>
                 <div class="form-group mb-2 d-inline-block">
                   <label class="form-label" for="token_symbol">Token Symbol</label>
-                  <input type="text" class="form-control" id="token_symbol" name="token_symbol"
-                         placeholder="Token Symbol" name="token_symbol" minlength="3" maxlength="4" pattern="^[a-zA-Z][a-zA-Z0-9]+" required tabindex="1" />
-                  <div class="invalid-feedback" data-forid="token_symbol">&nbps;</div>
+                  <input type="text" class="form-control" id="symbol"
+                         value ="<%= @presenter_obj.client_token.symbol%>" placeholder="Token Symbol" name="symbol" minlength="3" maxlength="4" pattern="^[a-zA-Z][a-zA-Z0-9]+" required tabindex="1" />
+                  <div class="invalid-feedback" data-forid="symbol">&nbps;</div>
                 </div>
               </div>
             </form>
@@ -45,7 +45,7 @@
           <div class="card-body">
             <div class="row ">
               <div class="col-12">
-                <input name="conversion_factor" type="text" class="form-control" required >
+                <input name="conversion_factor" type="text" value = "<%= @presenter_obj.client_token.conversion_factor%>" class="form-control" required >
 
               </div>
             </div>
