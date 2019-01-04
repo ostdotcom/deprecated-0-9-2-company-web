@@ -31,4 +31,8 @@ class Web::EconomyController < Web::BaseController
 
   end
 
+  def token_setup
+
+  end
+
 end

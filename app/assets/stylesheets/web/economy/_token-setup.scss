@@ -1,36 +1,36 @@
-// Import functions as variables depend on functions
-@import "../../plugins/bootstrap/scss/functions";
-
-// Import theme variables
-@import "../Starboy/variables";
-
 .token-setup-container{
+.token-setup-content{
+  width: 700px;
+
+  .shadow-box{
+    box-shadow:0 0 12px 1.5px rgba(0, 0, 0, 0.08) ;
+    border-radius: 10px;
+  }
+  .progress-bar-container{
+    border-right:1px solid #f1f5f8 ;
+    .progress{
+      border-radius: 50px;
+    }
+  }
+  .content-wrapper{
+    background-color: #f1f5f8;
+    border-radius: 10px;
+  }
+
+}
   p{
-    font-weight: $font-weight-light;
-    font-size: 0.875rem;
+    color: #61818a;
   }
-  .conversion-section{
-    border-bottom: 1px solid #dbf2f2;
-    border-top: 1px solid #dbf2f2;
-    .col-4{
-      font-size: 24px;
-      font-weight: normal;
-      color: $cyan;
-      .text-different-color{
-        color: #e4b030;
-      }
-      .equal-to-sign{
-        position: absolute;
-        right: -7px;
-        background-color: white;
-
-      }
-    }
-
-    .right-border{
-      position: relative;
-      border-right: 1px solid #dbf2f2;
-    }
-
+}
+.tooltip{
+  .arrow::before{
+    border-top-color: #E4B030;
   }
+  .tooltip-inner {
+    color: #E4B030;
+    background-color: #fff;
+    border: 1px solid #E4B030;
+    border-radius: 3px;
+  }
+
 }

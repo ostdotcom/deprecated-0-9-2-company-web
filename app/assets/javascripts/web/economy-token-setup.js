@@ -1,0 +1,1 @@
+//= require web/economy/token-setup.js

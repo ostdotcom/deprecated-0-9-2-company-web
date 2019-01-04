@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   scope "#{GlobalConstant::Environment.url_prefix}", controller: 'web/economy' do
     get '/planner/step-1' => :planner, as: 'planner_step_one'
+    get '/planner/token-setup' => :token_setup
   end
 
   # namespace 'devadmin' do
