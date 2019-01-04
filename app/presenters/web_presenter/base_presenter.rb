@@ -83,7 +83,7 @@ module WebPresenter
 
     def is_super_admin?
       @i_s_adm  ||= begin
-        if formatter_obj.present && formatter_obj.client_manager.present?
+        if formatter_obj.present? && formatter_obj.client_manager.present?
           formatter_obj.client_manager.privileges.include?(GlobalConstant::ClientManager.is_super_admin_privilege)
         end
       end

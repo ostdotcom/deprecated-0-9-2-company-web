@@ -36,6 +36,10 @@ module CompanyApi
           @data['properties']
         end
 
+        def privileges
+          @data['privileges']
+        end
+
         def is_verified?
           properties.include?('has_verified_email')
         end
