@@ -81,6 +81,14 @@ module WebPresenter
       client_token.present?
     end
 
+    def is_super_admin?
+      @i_s_adm  ||= begin
+        if formatter_obj.present && formatter_obj.client_manager.present?
+          formatter_obj.client_manager.privileges.include?(GlobalConstant::ClientManager.is_super_admin_privilege)
+        end
+      end
+    end
+
     def client_token_symbol
       @c_t_sym ||= begin
         client_token.present? ? client_token.symbol : nil

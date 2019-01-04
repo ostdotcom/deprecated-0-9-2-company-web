@@ -19,9 +19,6 @@ class Web::UserSettingController < Web::BaseController
     end
 
     @presenter_obj = ::WebPresenter::TokenPresenter.new(@response, params)
-
-    #TODO: Change this temp code
-    render 'team'
   end
 
 
