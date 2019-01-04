@@ -29,6 +29,7 @@ module CompanyApi
         def perform
           set_token(@data['token'])
           set_price_points(@data['price_points'])
+          set_client_manager(@data['client_manager'])
         end
 
         private

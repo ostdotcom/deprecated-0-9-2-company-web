@@ -7,7 +7,7 @@ module CompanyApi
       class Base
 
         attr_reader :manager, :client, :client_token, :oracle_price_points, :chain_interaction_params,
-                    :client_token_planner, :client_balances, :token_supply_details, :pending_critical_interactions
+                    :client_token_planner, :client_balances, :token_supply_details, :pending_critical_interactions, :client_manager
 
         # Initialize
         #
@@ -135,6 +135,19 @@ module CompanyApi
         #
         def set_price_points(price_points_data)
           @oracle_price_points = CompanyApi::Response::Entity::PricePoints.new(price_points_data, @client_token)
+        end
+
+        # Set client manager data
+        #
+        # * Author: Santhosh
+        # * Date: 03/01/2019
+        # * Reviewed By: Kedar
+        #
+        # @param [Hash] client_manager_data (mandatory) - client manager data hash
+        #
+        # Sets @client_manager
+        def set_client_manager(client_manager_data)
+          @client_manager = CompanyApi::Response::Entity::Manager.new(client_manager_data)
         end
 
         # Set Pending Critical Interactions Data
