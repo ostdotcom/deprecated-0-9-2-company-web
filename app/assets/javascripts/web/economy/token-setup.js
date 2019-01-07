@@ -6,28 +6,16 @@
 
   var oThis   = token_setup = {
   init : function () {
-    // $(function () {
-    //   $('[data-toggle="tooltip"]').tooltip()
-    // })
-
-    $(".progress-bar").tooltip({placement: 'top',trigger: 'manual'}).tooltip('show');
-
-    setTimeout(function () {
-
+    oThis.setTooltipPosition();
+    setInterval(function () {
+      oThis.setTooltipPosition();
+    },10);
+    }
+  ,setTooltipPosition(){
       var width = document.getElementsByClassName("progress-bar")[0].offsetWidth;
-
-      width = width-(width/2);
-      console.log("width",width);
-      $("div.tooltip").css({left:width+"px"});
-    },0);
-
-
-  }
-
-
-
-
-};
+      $("div.tooltip").css({left:width-20+"px" });
+  },
+  };
 
   $(document).ready(function () {
     oThis.init();

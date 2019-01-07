@@ -23,14 +23,16 @@
   }
 }
 .tooltip{
-  .arrow::before{
-    border-top-color: #E4B030;
-  }
-  .tooltip-inner {
-    color: #E4B030;
+  opacity: 1;
+  top: 3px;
+  color: #E4B030;
     background-color: #fff;
     border: 1px solid #E4B030;
     border-radius: 3px;
+  .arrow::before {
+    top: 0;
+    border-width: 0.4rem 0.4rem 0;
+    border-top-color: #E4B030;
   }
 
 }
