@@ -123,7 +123,7 @@
   <% end %>
 
 
-  <%#= render :partial => "/shared/web/economy/metamask/metamask" %>
+  <%= render :partial => "/shared/web/economy/metamask/metamask" %>
 
 
   <section id="content" <%= content_style %>>
@@ -143,62 +143,18 @@
   <%end%>
 
 </main>
-  <% # Always render the partials of status modals. And do it before yield %>
-  <%#= render :partial => "/shared/web/economy/tx_status_modal" %>
-  <%# if @presenter_obj.is_planner_route? %>
-    <%#= render :partial => "/shared/web/economy/propose_tx_status_modal" %>
-  <%# else %>
-    <%#= render :partial => "/shared/web/economy/mint_tx_status_modal" %>
-  <%# end %>
-  <%#= render :partial => "/shared/web/economy/airdrop_tx_status_modal" %>
 
 <%= yield(:popups) %>
 <%= javascript_include_tag "web/common" %>
 <%= javascript_include_tag "#{specific_manifest_file_path}" if has_specific_js_manifest_file? %>
-<%# if page_needs_conversion_rates %>
-<!--<script type="text/javascript">-->
-<!--  $( function () {-->
-<!--    var oracleConfig = {-->
-<!--      ost_to_fiat         : "<%#= ost_to_fiat %>"-->
-<!--      , fiat_symbol       : "<%#= fiat_symbol %>"-->
-<!--      , fiat_type         : "<%#= fiat_type %>"-->
-<!--      , fiat_display_text : "<%#= fiat_display_text %>"-->
-<!--      , fiat_precision    : "<%#= 2 %>"-->
-<!--      , ost_precision     : "<%#= 5 %>"-->
-<!--      , bt_precision      : "<%#= 5 %>"-->
-<!--      , bt_symbol         : "<%#= bt_symbol %>"-->
-<!--    };-->
-    <%# if ost_to_bt.present? %>
-<!--      oracleConfig.ost_to_bt = "<%# ost_to_bt %>";-->
-    <%# end %>
-<!--    PriceOracle.init( oracleConfig );-->
-<!--  });-->
-<!--</script>-->
-<%# end %>
+
 <% content_for :end_js do %>
 <script type="text/javascript">
   $( function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar, #content').toggleClass('active');
-            $('.collapse.in').toggleClass('in');
-            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-        });
+      ost.planner.step1.init({
 
-    <%# if pending_tx_id.present? %>
-<!--      var txStatusModal = null;-->
-      <%# if pending_critical_interaction_modal_type == propose_bt_status_modal_type %>
-<!--        txStatusModal = new ost.TSM.MintTxStatusModal("<%# pending_tx_id %>");-->
-      <%# elsif pending_critical_interaction_modal_type == mint_bt_status_modal_type %>
-<!--        txStatusModal = new ost.TSM.MintTxStatusModal("<%# pending_tx_id %>");-->
-      <%# elsif pending_critical_interaction_modal_type == airdrop_bt_status_modal_type %>
-<!--        txStatusModal = new ost.TSM.AirdropTxStatusModal("<%# pending_tx_id %>");-->
-<!--        if ( ost.users && ost.users.airDropEditor ) {-->
-<!--          ost.users.airDropEditor.setTxStatusModal( txStatusModal );-->
-<!--        }-->
-      <%# end %>
-<!--        txStatusModal && txStatusModal.show();-->
-    <%# end %>
-    });
+      });
+  });
 </script>
 <% end %>
 <%= yield(:end_js) %>

@@ -27,8 +27,14 @@
                 oThis.web3 = new Web3(ethereum);
                 oThis.setMetamask();
                 if(oThis.isMetamask) {
-                    ethereum.on('accountsChanged', oThis.onAccountsChanged);
-                    ethereum.on('networkChanged', oThis.onNetworkChanged);
+                    ethereum.on('accountsChanged', function(accounts){
+                        oThis.onAccountsChanged(accounts);
+                        oThis.enable();
+                    });
+                    ethereum.on('networkChanged', function(network){
+                        oThis.onNetworkChanged(network);
+                        oThis.enable();
+                    });
                 }
             }
             // Legacy Dapp browser / Metamask...
@@ -61,6 +67,7 @@
             if(!oThis.isDapp) return oThis.onNotDapp();
             if(!oThis.isMetamask) return oThis.onNotMetamask();
 
+            oThis.onWaitingEnable();
             oThis.ethereum && oThis.ethereum.enable()
                 .then(function(accounts){
                     oThis.onEnabled();
@@ -68,10 +75,14 @@
                         oThis.onNotDesiredNetwork();
                     } else {
                         oThis.onDesiredNetwork();
-                        if(oThis.desiredAccount && accounts[0] !== oThis.desiredAccount){
-                            oThis.onNotDesiredAccount();
+                        if(oThis.desiredAccount){
+                            if(accounts[0] !== oThis.desiredAccount){
+                                oThis.onNotDesiredAccount();
+                            } else {
+                                oThis.onDesiredAccount();
+                            }
                         } else {
-                            oThis.onDesiredAccount();
+                            oThis.onNewAccount();
                         }
                     }
                 })
@@ -145,11 +156,13 @@
          * onEnabled
          * onDesiredNetwork
          * onDesiredAccount
+         * onNewAccount
          *
          * Negative flows:
          * ---------------
          * onNotDapp
          * onNotMetamask
+         * onWaitingEnable
          * onUserRejectedProviderAccess
          * onNotDesiredNetwork
          * onNotDesiredAccount
@@ -191,6 +204,16 @@
             callback && callback();
         },
 
+        onNewAccount: function(callback){
+            console.log('Desired account selected');
+            callback && callback();
+        },
+
+        onWaitingEnable: function(callback){
+            console.log('Waiting to be enabled...');
+            callback && callback();
+        },
+
         onEnabled: function(callback){
             console.log('User enabled provider access');
             callback && callback();
@@ -222,5 +245,3 @@
     window.Metamask = Metamask;
 
 })(window, jQuery);
-
-var mm = new Metamask();

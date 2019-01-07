@@ -24,9 +24,7 @@
   <script type="text/javascript">
     (function () {
       $('#top-up-ost-btn').off('click').on('click' , function () {
-        ost.metamask.getOstHelper.getOst( function () {
-          window.location.reload(true);
-        });
+        console.log('call get ost');
       });
     })();
   </script>

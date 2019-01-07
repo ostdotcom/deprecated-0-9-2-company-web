@@ -1,90 +1,26 @@
 <%
 
-  client_token = @presenter_obj.client_token
-  #Place for backend to do stuff.
-  token_name = client_token.name;
-  token_symbol = client_token.symbol;
-  token_icon = client_token.symbol_icon;
-
-  if @presenter_obj.chain_interaction_params.present?
-    value_chain_id = @presenter_obj.chain_interaction_params.value_chain_id;
-    utility_chain_id = @presenter_obj.chain_interaction_params.utility_chain_id;
-    simple_token_contract_address = @presenter_obj.chain_interaction_params.simple_token_contract_addr;
-    staker_addr = @presenter_obj.chain_interaction_params.staker_addr;
-  else
-    value_chain_id = ''
-    utility_chain_id = ''
-    simple_token_contract_address = ''
-    staker_addr = ''
-  end
-
-   if @presenter_obj.client_balances.blank?
-    grant_initial_ost = true
-    grant_initial_eth = true
-   else
-    grant_initial_ost = @presenter_obj.is_eligible_for_ost_grant?
-    grant_initial_eth = @presenter_obj.is_eligible_for_eth_grant?
-  end
-
-
-
-  eligible_grant_value = 10000;
-  eligible_grant_unit = ost_currency_symbol
-  has_registered_address = false;
-  # Should use MetaMask for granting ETH
-  should_use_metamask_focet_for_eth = false #Rails.env.development? ? false : true
-  should_use_ost_focet_for_eth = GlobalConstant::Base.main_sub_environment? ? false : true
-  should_call_for_grant_of_ost = false
-  validate_transaction_hash_interval = 5000; #Miliseconds.
-  validate_transaction_hash_max_try = 100;
-
   partial_locals = {
-    :token_name => token_name,
-    :token_symbol => token_symbol,
-    :token_icon => token_icon,
-    :value_chain_id => value_chain_id,
-    :utility_chain_id => utility_chain_id,
-    :eligible_grant_value => eligible_grant_value,
-    :eligible_grant_unit => eligible_grant_unit,
-    :has_registered_address => has_registered_address,
+    :token_name => '',
+    :token_symbol => '',
+    :token_icon => '',
+    :value_chain_id => '',
+    :utility_chain_id => '',
+    :eligible_grant_value => '',
+    :eligible_grant_unit => '',
+    :has_registered_address => '',
 
-    :grant_initial_eth => grant_initial_eth,
-    :should_use_metamask_focet_for_eth => should_use_metamask_focet_for_eth,
-    :should_use_ost_focet_for_eth => should_use_ost_focet_for_eth,
+    :grant_initial_eth => '',
+    :should_use_metamask_focet_for_eth => '',
+    :should_use_ost_focet_for_eth => '',
 
-    :grant_initial_ost => grant_initial_ost,
+    :grant_initial_ost => '',
 
-    :validate_transaction_hash_interval => validate_transaction_hash_interval,
-    :validate_transaction_hash_max_try  => validate_transaction_hash_max_try,
-    :simple_token_contract_address => simple_token_contract_address
+    :validate_transaction_hash_interval => '',
+    :validate_transaction_hash_max_try  => '',
+    :simple_token_contract_address => ''
   }
 %>
-
-<% content_for :end_js do %>
-<script type="text/javascript">
-  $(document).ready(function () {
-    var config = {
-      tokenName         : "<%= token_name %>",
-      tokenSymbol       : "<%= token_symbol %>",
-      tokenIcon         : "<%= token_icon %>",
-      eligibleGrantVal  : <%= eligible_grant_value %>,
-      eligibleGrantUnit : "<%= eligible_grant_unit %>",
-      valueChainId      : <%= value_chain_id %>,
-      utilityChianId    : <%= utility_chain_id %>,
-      hasRegisteredAddress : <%= has_registered_address %>,
-      should_use_metamask_focet_for_eth: <%= should_use_metamask_focet_for_eth %>,
-      should_use_ost_focet_for_eth: <%= should_use_ost_focet_for_eth %>,
-      validateTransactionHashInterval: <%= validate_transaction_hash_interval %>,
-      validateTransactionHashMaxTry: <%= validate_transaction_hash_max_try %>,
-      simpleTokenContractAddress: "<%= simple_token_contract_address %>",
-      minRequiredOSTBalance: <%= min_ost_to_proceed_onboard %>,
-      minRequiredETHBalance: <%= min_eth_to_proceed_onboard %>
-    };
-    ost.metamask.init( config );
-    ost.ostScan.init( config )
-  });
-</script>
-<% end %>
 
 <% content_for :cover_elements do %>
   <div id="installMetamaskCover" class="cover-element metamask-flow">
@@ -143,6 +79,12 @@
   <div id="metamaskSignTransaction" class="cover-element">
     <div class="container">
       <%= render :partial => "shared/web/economy/metamask/metamask_sign_transaction" %>
+    </div>
+  </div>
+
+  <div id="metamaskConfirmAccount" class="cover-element">
+    <div class="container">
+      metamaskConfirmAccount!!!!!
     </div>
   </div>
 

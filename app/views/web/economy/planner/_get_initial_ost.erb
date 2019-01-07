@@ -41,14 +41,7 @@
 <% content_for :end_js do %>
 <script type="text/javascript">
   $(function () {
-    ost.metamask.getOstHelper.init({
-      has_registered_address: <%= has_registered_address %>,
-      should_use_metamask_focet_for_eth: <%= should_use_metamask_focet_for_eth %>,
-      should_use_ost_focet_for_eth: <%= should_use_ost_focet_for_eth %>,
-      grant_initial_ost: <%= grant_initial_ost %>,
-      grant_initial_eth: <%= grant_initial_eth %>,
-      ost_currency_symbol: "<%= ost_currency_symbol %>"
-    });    
+    console.log('call ost.metamask.getOstHelper.init');
   });
 </script>
 <% end %>
