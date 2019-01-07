@@ -6,7 +6,7 @@
 
     var oThis   = ost.planner.step1 = {
 
-        jTokenForm: $('#token-setup'),
+        jTokenForm: $('#economy-planner'),
         metamask: null,
 
         init: function( config ){
