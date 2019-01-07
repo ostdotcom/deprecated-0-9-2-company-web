@@ -205,7 +205,7 @@
         },
 
         onNewAccount: function(callback){
-            console.log('Desired account selected');
+            console.log('Confirm account selection...');
             callback && callback();
         },
 

@@ -48,6 +48,7 @@
                 },
 
                 onNewAccount: function(){
+                    $("#metamaskConfirmAccount .confirm-address").text(oThis.metamask.ethereum.selectedAddress);
                     ost.coverElements.show("#metamaskConfirmAccount");
                 }
 

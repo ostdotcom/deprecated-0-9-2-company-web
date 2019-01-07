@@ -78,3 +78,11 @@
   </footer>
 </div>
 </form>
+
+<% content_for :end_js do %>
+  <script type="text/javascript">
+      $( function () {
+          ost.planner.step1.init();
+      });
+  </script>
+<% end %>

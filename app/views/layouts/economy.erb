@@ -148,15 +148,6 @@
 <%= javascript_include_tag "web/common" %>
 <%= javascript_include_tag "#{specific_manifest_file_path}" if has_specific_js_manifest_file? %>
 
-<% content_for :end_js do %>
-<script type="text/javascript">
-  $( function () {
-      ost.planner.step1.init({
-
-      });
-  });
-</script>
-<% end %>
 <%= yield(:end_js) %>
 <script type="text/javascript">
   $(function () {
