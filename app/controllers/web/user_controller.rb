@@ -37,7 +37,8 @@ class Web::UserController < Web::BaseController
             display_text: 'Invalid Link',
             display_heading: 'Invalid Link'
         }
-        render "sign_up_via_invite" and return
+        render "sign_up_via_invite"
+        return
       end
 
       @response = CompanyApi::Request::Manager.new(
@@ -47,7 +48,8 @@ class Web::UserController < Web::BaseController
       ).get_sign_up_page_details({r_t: params[:r_t]})
 
       unless @response.success?
-        render_error_response(@response) and return
+        render_error_response(@response)
+        return
       end
 
       @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
