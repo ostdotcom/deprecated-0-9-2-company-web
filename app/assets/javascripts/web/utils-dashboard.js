@@ -1,6 +1,5 @@
 //= require web/dashboard/CoverElements
 //= require web/dashboard/PriceOracle
-//= require web/dashboard/MetaMask
 //= require web/dashboard/EtherScan
 //= require web/dashboard/OstScan
 //= require web/dashboard/RegisterMainnetAddress
@@ -9,3 +8,4 @@
 //= require web/dashboard/TxStatusModal
 //= require web/common/verifyAccount
 //= require web/common/contentBlurOnModalShow
+//= require web/common/Metamask

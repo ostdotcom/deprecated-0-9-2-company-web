@@ -82,7 +82,10 @@
 <% content_for :end_js do %>
   <script type="text/javascript">
       $( function () {
-          ost.planner.step1.init();
+          ost.planner.step1.init({
+              signMessagesEndPoint: '/<%=GlobalConstant::Environment.sandbox_sub_url_prefix %>/api/token/addresses/sign-messages',
+              addressesEndPoint: '/<%=GlobalConstant::Environment.sandbox_sub_url_prefix %>/api/token/addresses'
+          });
       });
   </script>
 <% end %>

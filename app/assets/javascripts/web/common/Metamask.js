@@ -108,18 +108,16 @@
             }, console.log)
         },
 
-        sendTransaction: function(params, callback) {
+        sendAsync: function(options, callback) {
 
             var oThis = this;
 
             if(!oThis.isDapp) return oThis.onNotDapp();
             if(!oThis.isMetamask) return oThis.onNotMetamask();
 
-            oThis.ethereum && oThis.ethereum.sendAsync({
-                method: 'eth_sendTransaction',
-                params: params,
-                from: oThis.ethereum.selectedAddress,
-            }, callback)
+            oThis.ethereum && oThis.ethereum.sendAsync(options, function(err, result){
+                oThis.onSendAsync(err, result, callback);
+            })
         },
 
         /**
@@ -157,6 +155,7 @@
          * onDesiredNetwork
          * onDesiredAccount
          * onNewAccount
+         * onSendAsync
          *
          * Negative flows:
          * ---------------
@@ -222,6 +221,13 @@
         onUserRejectedProviderAccess: function(callback) {
             console.error('User rejected provider access');
             callback && callback();
+        },
+
+        onSendAsync: function(err, result, callback) {
+            if (err) return console.error('onSendAsync err', err);
+            if (result.error) return console.error('onSendAsync result.error', result.error);
+            console.log('onSendAsync result', result);
+            callback && callback(err, result);
         },
 
         /**
