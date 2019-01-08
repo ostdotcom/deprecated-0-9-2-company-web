@@ -11,7 +11,7 @@
       oThis.setTooltipPosition();
     },10);
     }
-  ,setTooltipPosition(){
+  ,setTooltipPosition: function() {
       var width = document.getElementsByClassName("progress-bar")[0].offsetWidth;
       $("div.tooltip").css({left:width-20+"px" });
   },
