@@ -50,16 +50,17 @@
         },
         resultFetcher: function (currentData, lastMeta, callback) {
         
-          var wrapperCallBack = function (response) {
-            response = oThis.dataFormator(response);
-            callback && callback.apply(null, arguments);
+          var wrapperCallBack = function (  ) {
+            var args = Array.prototype.slice.call(arguments);
+            oThis.dataFormator( args[0] );
+            callback && callback.apply(null, args);
           };
         
           var fetcherScope = this,
             fetcher = ost.SimpleDataTable.prototype.resultFetcher,
             args = Array.prototype.slice.call(arguments)
           ;
-        
+
           args.pop();
           args.push(wrapperCallBack);
           fetcher.apply(fetcherScope, args);
@@ -76,6 +77,7 @@
       
       $("#invite_new_member_btn").off( oThis.eventNameSpace.nameSpacedEvents('click') )
         .on(  oThis.eventNameSpace.nameSpacedEvents('click') , function () {
+        oThis.jInviteMemberForm.trigger("reset");
         ost.coverElements.show( oThis.jInviteUserCover );
       });
 
