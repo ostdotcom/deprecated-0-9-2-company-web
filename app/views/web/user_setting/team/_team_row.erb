@@ -16,11 +16,13 @@
         <select class="form-control selectpicker">
           <option value="" selected disabled>ACTIONS</option>
           <option value="delete">DELETE USER</option>
-          {{#isSuperAdmin privileges }}
-            <option value="un-assign">UN-ASSIGN SUPER ADMIN</option>
-            {{else}}
-            <option value="assign">ASSIGN SUPER ADMIN</option>
-          {{/isSuperAdmin}}
+          {{#hasVerifiedEmail manager.properties}}
+            {{#isSuperAdmin privileges }}
+              <option value="un-assign">UN-ASSIGN SUPER ADMIN</option>
+              {{else}}
+              <option value="assign">ASSIGN SUPER ADMIN</option>
+            {{/isSuperAdmin}}
+          {{/hasVerifiedEmail}}
           {{#hasSetupMfa manager.properties}}
           <option value="reset-mfa">RESET MFA</option>
           {{/hasSetupMfa}}
