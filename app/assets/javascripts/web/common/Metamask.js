@@ -224,9 +224,9 @@
         },
 
         onSendAsync: function(err, result, callback) {
-            if (err) return console.error('onSendAsync err', err);
-            if (result.error) return console.error('onSendAsync result.error', result.error);
-            console.log('onSendAsync result', result);
+            if (err) console.error('onSendAsync err', err);
+            if (result && result.error) console.error('onSendAsync result.error', result.error);
+            if (result) console.log('onSendAsync result', result);
             callback && callback(err, result);
         },
 

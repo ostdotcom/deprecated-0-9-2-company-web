@@ -15,7 +15,6 @@
             </p>
           </div>
           <div class="card-body ">
-            <form>
               <div class="user-form text-left">
                 <div class="form-group mb-2 d-inline-block mr-4">
                   <label class="form-label" for="token_name">Token Name</label>
@@ -30,7 +29,6 @@
                   <div class="invalid-feedback" data-forid="symbol">&nbps;</div>
                 </div>
               </div>
-            </form>
           </div>
         </div>
       </div>
@@ -46,7 +44,7 @@
             <div class="row ">
               <div class="col-12">
                 <input name="conversion_factor" type="text" value = "<%= @presenter_obj.client_token.conversion_factor%>" class="form-control" required >
-
+                <div class="invalid-feedback" data-forid="symbol">&nbps;</div>
               </div>
             </div>
             <div class="conversion-section row">
@@ -63,6 +61,7 @@
               </div>
             </div>
             <p class="pt-2"> Conversion rate will be set in OST, above visualization shows the Value of you token against OST and USD. OST is Market linked so the inherent value of your token may fluctuate based on the value of OST </p>
+            <div class="invalid-feedback" data-for="general_error">&nbps;</div>
           </div>
         </div>
       </div>

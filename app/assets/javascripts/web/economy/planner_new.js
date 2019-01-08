@@ -8,11 +8,12 @@
 
         jTokenForm: $('#economy-planner'),
         jConfirmAccountCover: $('#metamaskConfirmAccount'),
+        genericErrorMessage: 'Something went wrong!',
         metamask: null,
 
         init: function( config ){
             $.extend(oThis, config);
-            oThis.jTokenForm.formHelper().success = oThis.tokenSuccess;
+            oThis.jTokenForm.formHelper().success = oThis.tokenSuccess.bind( oThis );
         },
 
         setupMetamask: function(){
@@ -57,9 +58,11 @@
 
         },
 
-        tokenSuccess: function(){
-            oThis.setupMetamask();
-            oThis.metamask.enable();
+        tokenSuccess: function( res ){
+           if( res.success ){
+             oThis.setupMetamask();
+             oThis.metamask.enable();
+           }
         },
 
         initConfirmFlow: function(){
@@ -72,9 +75,13 @@
                     if(response.success){
                         oThis.personalSign(response.data.wallet_association);
                     } else {
-                        // error handler
+                        oThis.showError();
                     }
+                },
+                error: function(response){
+                  oThis.showError();
                 }
+
             });
         },
 
@@ -82,6 +89,7 @@
 
             if(!message) return;
 
+            oThis.showError('&nbsp;');
             var from = oThis.metamask.ethereum.selectedAddress;
 
             oThis.jConfirmAccountCover.find(".btn-confirm").off('click').on('click', function(e){
@@ -90,10 +98,15 @@
                     params: [message, from],
                     from: from
                 }, function(err, result){
-                    if (err) return console.error('onSendAsync err', err);
-                    if (result.error) return console.error('onSendAsync result.error', result.error);
-                    // error handler
-                    oThis.associateAddress(result);
+                    if(err){
+                      return oThis.showError(err);
+                    }
+                    if(result && result.error){
+                      var errMessage = result.error.message.split('\n');
+                      return oThis.showError(errMessage[0]);
+                    } else {
+                      oThis.associateAddress(result);
+                    }
                 });
             });
 
@@ -103,6 +116,7 @@
 
             if(!result) return;
 
+            oThis.showError('&nbsp;');
             var from = oThis.metamask.ethereum.selectedAddress;
 
             $.ajax({
@@ -117,14 +131,20 @@
                         console.log(response);
                         // sign transaction logic
                     } else {
-                        // error handler
+                        oThis.showError(response.err.display_text);
                     }
+                },
+                error: function (response) {
+                    oThis.showError()
                 }
             });
         },
 
         showError: function(message){
-
+            if(typeof message === 'undefined') {
+              message = oThis.genericErrorMessage;
+            }
+            $(".general_error").html(message);
         }
     };
 
