@@ -13,7 +13,7 @@
 
         init: function( config ){
             $.extend(oThis, config);
-            oThis.jTokenForm.formHelper().success = oThis.tokenSuccess.bind( oThis );
+            oThis.jTokenForm.formHelper().success = oThis.tokenSuccess;
         },
 
         setupMetamask: function(){
