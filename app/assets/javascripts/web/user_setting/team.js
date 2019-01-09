@@ -5,6 +5,9 @@
   ;
 
   var oThis = ost.team = {
+  
+    loginedUserConfig :  null,
+    
     simpleDataTable: null,
     jParent: $('#team_list'),
     jInviteMemberForm: $('#invite_new_member_form'),
@@ -40,7 +43,9 @@
 
     jCurrentModal: null,
 
-    init : function () {
+    init : function ( loginedUserConfig ) {
+      
+      oThis.loginedUserConfig = loginedUserConfig && loginedUserConfig.data || {};
       
       var datatableConfig={
         jParent:oThis.jParent,
@@ -78,6 +83,7 @@
       $("#invite_new_member_btn").off( oThis.eventNameSpace.nameSpacedEvents('click') )
         .on(  oThis.eventNameSpace.nameSpacedEvents('click') , function () {
         oThis.jInviteMemberForm.trigger("reset");
+        oThis.inviteMemberFormHelper.clearErrors();
         ost.coverElements.show( oThis.jInviteUserCover );
       });
 

@@ -27,12 +27,16 @@
   </div>
 </div>
 
+
+
 <% content_for :popups do %>
   <%= render :partial => "/web/user_setting/team/confirm_modals" %>
 <%end%>
 
 <% content_for :end_js do %>
   <script type="text/javascript">
-    ost.team.init();
+     ost.team.init(
+       <%= raw @presenter_obj.formatter_obj.client_manager.to_json %>
+     );
   </script>
 <% end %>

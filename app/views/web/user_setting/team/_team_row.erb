@@ -12,22 +12,26 @@
     </div>
     <div class="col-3 text-uppercase">{{manager.status}}</div>
     <% if @presenter_obj.is_super_admin?() %>
-      <div class="col-4 ">
-        <select class="form-control selectpicker">
-          <option value="" selected disabled>ACTIONS</option>
-          <option value="delete">DELETE USER</option>
-          {{#hasVerifiedEmail manager.properties}}
-            {{#isSuperAdmin privileges }}
-              <option value="un-assign">UN-ASSIGN SUPER ADMIN</option>
-              {{else}}
-              <option value="assign">ASSIGN SUPER ADMIN</option>
-            {{/isSuperAdmin}}
-          {{/hasVerifiedEmail}}
-          {{#hasSetupMfa manager.properties}}
-          <option value="reset-mfa">RESET MFA</option>
-          {{/hasSetupMfa}}
-        </select>
-      </div>
+
+      {{#notLoginedUser id}}
+        <div class="col-4 ">
+          <select class="form-control selectpicker">
+            <option value="" selected disabled>ACTIONS</option>
+            <option value="delete">DELETE USER</option>
+            {{#hasVerifiedEmail manager.properties}}
+              {{#isSuperAdmin privileges }}
+                <option value="un-assign">UN-ASSIGN SUPER ADMIN</option>
+                {{else}}
+                <option value="assign">ASSIGN SUPER ADMIN</option>
+              {{/isSuperAdmin}}
+            {{/hasVerifiedEmail}}
+            {{#hasSetupMfa manager.properties}}
+            <option value="reset-mfa">RESET MFA</option>
+            {{/hasSetupMfa}}
+          </select>
+        </div>
+      {{/notLoginedUser}}
+
     <%end%>
   </div>
 </script>
@@ -55,6 +59,15 @@
       }
       return options.inverse(this);
     });
+
+    Handlebars.registerHelper("notLoginedUser", function( id  ,  options ) {
+      var loginedUserID = ost.team.loginedUserConfig.id ;
+      if( id != loginedUserID  ){
+        return options.fn(this);
+      }
+      return  options.inverse(this);
+    });
+
 
   </script>
 <% end %>
