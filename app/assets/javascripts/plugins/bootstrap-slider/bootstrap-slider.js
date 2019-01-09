@@ -1297,7 +1297,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
           this._setText(this.tooltipInner, formattedTooltipVal);
 
           this.tooltipArrow.style[this.stylePos] = (this.tooltip.clientWidth/2)-5+'px';
-          this.tooltip.style[this.stylePos] = 'calc('+positionPercentages[0] + "% - "+this.tooltip.clientWidth/2+'px)'; // Here!!!
+          this.tooltip.style[this.stylePos] = 'calc('+positionPercentages[0] + "% - "+this.tooltip.clientWidth/2+'px)'; // Modified by Akshay
         }
 
         if (this.options.orientation === 'vertical') {

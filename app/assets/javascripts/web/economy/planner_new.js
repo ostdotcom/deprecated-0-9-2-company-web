@@ -13,9 +13,16 @@
 
         init: function( config ){
             $.extend(oThis, config);
+            oThis.bindActions();
             oThis.jTokenForm.formHelper().success = oThis.tokenSuccess;
         },
 
+        bindActions : function(){
+          $("#advance-options-accordion").on('show.bs.collapse',function () {
+              $(".slider-recommendation").hide();
+              $(".header-recommendation").show();
+          })
+        },
         setupMetamask: function(){
 
             oThis.metamask = new Metamask({

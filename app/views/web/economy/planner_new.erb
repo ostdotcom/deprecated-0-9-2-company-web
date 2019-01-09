@@ -1,4 +1,4 @@
-
+<% bt_symbol = @presenter_obj.client_token.symbol; %>
 <form data-ost-formhelper id="economy-planner" action="/<%=GlobalConstant::Environment.sandbox_sub_url_prefix %>/api/token" method="POST">
 <div class="planner-container  text-center">
   <h3 class="mt-5">
@@ -32,36 +32,90 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="card card-planner w-100 mb-5">
-          <div class="card-header text-left">
-            <h4 class="mb-0 ">Set Conversion Rate</h4>
-            <p class="font-weight-light mb-0">
-              The simple way to set the conversion rate is by deciding how much you want 1 Token to initially be worth.<b>Once you set the conversion rate it cannot be changed</b>
+      <div class="row card card-planner mb-5">
+        <div class="text-left">
+          <div class="card-header">
+            <h4 class="mb-0 ">Advance Options</h4>
+            <p class="font-weight-light mb-0 mt-2">
+              You would be setting Conversion Rate for your token here, simple way to set the conversion rate is by deciding how much you want 1 Token to initially be worth.
+              <span class="header-recommendation font-weight-bold">Our Recommendation is to set 1 TOKEN = 1 OST = $0.023 USD</span>
             </p>
           </div>
-          <div class="card-body">
-            <div class="row ">
-              <div class="col-12">
-                <input name="conversion_factor" type="text" value = "<%= @presenter_obj.client_token.conversion_factor%>" class="form-control" required >
-                <div class="invalid-feedback" data-forid="symbol">&nbps;</div>
+        </div>
+          <div class="accordion" id="advance-options-accordion">
+            <div class="text-left">
+              <div class="" id="advance-options-header">
+                <p class="text-left slider-recommendation m-3 ">
+                  Our Recommended conversion rate is set to
+                    <span class="text-different-color">1</span>
+                       <b> TOKEN  =</b>
+                    <span class="text-different-color">1</span>
+                       <b> OST =</b>
+                    <span class="text-different-color">$0.10</span>
+                       <b>USD</b>
+                    <span class="edit-collapse" data-toggle="collapse" data-target="#collapsable-element" aria-expanded="true" aria-controls="collapsable-element">
+                     <u><b>EDIT</b></u>
+                    </span>
+                </p>
+              </div>
+              <div id="collapsable-element" class="collapse " aria-labelledby="advance-options-header" data-parent="#advance-options-accordion">
+                <div class="card-body ">
+                  <div class="row card-planner">
+                    <div class="user-form col-10">
+                      <%= render partial: 'shared/web/common/slider_right',
+                                 locals: {
+                                     label: 'How much do you want 1 '+ bt_symbol  +' to be worth?',
+                                     id: "bt_to_ost",
+                                     name: 'conversion_factor',
+                                     type: 'number',
+                                     min: 0.01,
+                                     max: 500,
+                                     step: 0.01,
+                                     value: 0.01,
+                                     postfix: "OST",
+                                     tooltip: 'show',
+                                     classes: 'slider-yellow'
+                                 }
+                      %>
+                    </div>
+                    <div class="col-2 my-auto">
+                      <%= render :partial => "/shared/web/common/mocker",
+                                 :locals => {
+                                     :mock_selector => "#bt_to_ost",
+                                     :mock_type => "ost",
+                                     :value => "15.898"
+                                 }
+                      %>
+                    </div>
+                  </div>
+                  <div class="conversion-section row">
+                    <div class="col-4 right-border text-center p-4">
+                      <span class="text-different-color">1</span> Token
+                      <span class="equal-to-sign">=</span>
+                    </div>
+                    <div class="col-4 right-border text-center p-4">
+                      <span class="text-different-color">5  </span>OST
+                      <span class="equal-to-sign">=</span>
+                    </div>
+                    <div class="col-4 p-4 text-center">
+                      <span class="text-different-color">$0.10</span> USD
+                    </div>
+                  </div>
+                  <p class="pt-2"> Conversion rate will be set in OST, above visualization shows the Value of you token against OST and USD. OST is Market linked so the inherent value of your token may fluctuate based on the value of OST </p>
+                  <div class="invalid-feedback" data-for="general_error">&nbps;</div>
+                </div>
+
+                </div>
               </div>
             </div>
-            <div class="conversion-section row">
-              <div class="col-4 right-border p-4">
-                <span class="text-different-color">1</span> Token
-                <span class="equal-to-sign">=</span>
-              </div>
-              <div class="col-4 right-border p-4">
-                <span class="text-different-color">5  </span>OST
-                <span class="equal-to-sign">=</span>
-              </div>
-              <div class="col-4 p-4">
-                <span class="text-different-color">$0.10</span> USD
-              </div>
-            </div>
-            <p class="pt-2"> Conversion rate will be set in OST, above visualization shows the Value of you token against OST and USD. OST is Market linked so the inherent value of your token may fluctuate based on the value of OST </p>
-            <div class="invalid-feedback" data-for="general_error">&nbps;</div>
+
+
+
+
+
+
+
+
           </div>
         </div>
       </div>
