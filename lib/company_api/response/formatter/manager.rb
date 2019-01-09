@@ -34,9 +34,9 @@ module CompanyApi
 
           set_manager(@data['manager']) if @data['manager'].present?
 
-          set_inviter_manager(@data['invitee_manager']) if @data['invitee_manager'].present?
+          set_inviter_manager(@data['inviter_manager']) if @data['inviter_manager'].present?
 
-          set_invitee_manager(@data['inviter_manager']) if @data['inviter_manager'].present?
+          set_invitee_manager(@data['invitee_manager']) if @data['invitee_manager'].present?
 
           set_client(@data['client']) if @data['client'].present?
 
