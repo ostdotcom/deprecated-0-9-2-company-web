@@ -131,6 +131,7 @@
           }
         }
       });
+      
       oThis.deleteUserFormHelper = oThis.jDeleteUserForm.formHelper({
         success: function (response) {
           if( response.success ){
@@ -201,9 +202,9 @@
       ost.coverElements.hide( oThis.jInviteUserCover );
       oThis.onActionSuccess( response ,  function ( result ) {
         oThis.simpleDataTable.prependResult(result);
-        oThis.initSelectPicker();
-        oThis.bindSelectPickerEvents();
       });
+      oThis.initSelectPicker();
+      oThis.bindSelectPickerEvents();
     },
   
     onDeleteUserSuccess : function ( response ) {
@@ -223,6 +224,8 @@
       oThis.onActionSuccess( response ,  function ( result ) {
         oThis.simpleDataTable.updateResult(result);
       });
+      oThis.initSelectPicker();
+      oThis.bindSelectPickerEvents();
       oThis.hideModal(  );
       oThis.showModal( oThis.jSuccessModal );
     },
@@ -269,15 +272,20 @@
       response = oThis.dataFormator(response);
       var results   = oThis.getResults( response ),
         len         = results && results.length, cnt,
-        currentResult , id
+        currentResult , id , oldResult
       ;
       if (!len) return response;
       for (cnt = 0; cnt < len; cnt++) {
         currentResult = results[cnt];
-        id = currentResult && currentResult['id'] ;
-        if( id ){
-          callback( id );
+        id = currentResult && currentResult['id'];
+        oldResult =  oThis.simpleDataTable.getResultById( id );
+        if( oldResult ){ //If existing user update
+          $.extend( oldResult ,  currentResult );
+          callback( oldResult );
+        }else { //Create new existing user update
+          callback( currentResult );
         }
+       
       }
     }
     
