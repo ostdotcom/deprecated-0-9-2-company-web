@@ -274,9 +274,9 @@
       if (!len) return response;
       for (cnt = 0; cnt < len; cnt++) {
         currentResult = results[cnt];
-        id = currentResult && currentResult[id] ;
-        if (currentResult) {
-          callback( currentResult );
+        id = currentResult && currentResult['id'] ;
+        if( id ){
+          callback( id );
         }
       }
     }
