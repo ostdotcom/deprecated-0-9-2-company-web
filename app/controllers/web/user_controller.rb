@@ -29,9 +29,9 @@ class Web::UserController < Web::BaseController
 
     end
 
-    if params[:r_t].present?
+    if params[:i_t].present?
 
-      unless Util::CommonValidator.is_valid_token?(params[:r_t])
+      unless Util::CommonValidator.is_valid_token?(params[:i_t])
         #TODO: Render Error response
         @error_data = {
             display_text: 'Invalid Link',
@@ -45,7 +45,7 @@ class Web::UserController < Web::BaseController
           CompanyApi::Response::Formatter::Manager,
           request.cookies,
           {"User-Agent" => http_user_agent}
-      ).get_sign_up_page_details({r_t: params[:r_t]})
+      ).get_sign_up_page_details({i_t: params[:i_t]})
 
       unless @response.success?
         render_error_response(@response)
@@ -54,7 +54,7 @@ class Web::UserController < Web::BaseController
 
       @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
 
-      render "sign_up_via_invite", :locals => {:invite_token => params[:r_t]}
+      render "sign_up_via_invite", :locals => {:invite_token => params[:i_t]}
 
     else
 
