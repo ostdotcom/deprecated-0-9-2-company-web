@@ -4,7 +4,7 @@
  * Common CSS 
  *= require web/common/_common.scss
  * Component bootstrap-slider
- *= require ../plugins/bootstrap-slider/bootstrap-slider
+ *= require ../plugins/bootstrap-slider/bootstrap-slider.css
  * Component bootstrap-slider-text-input
  *= require ../plugins/bootstrap-slider-text-input/bootstrap-slider-text-input
  */

@@ -1,6 +1,6 @@
 /*! =======================================================
- VERSION  10.0.0
- ========================================================= */
+                      VERSION  10.6.0
+========================================================= */
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -19,7 +19,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
  * =========================================================
  *
  * bootstrap-slider is released under the MIT License
- * Copyright (c) 2017 Kyle Kemp, Rohit Kalkur, and contributors
+ * Copyright (c) 2019 Kyle Kemp, Rohit Kalkur, and contributors
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -217,6 +217,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
    **************************************************/
 
   (function ($) {
+    var autoRegisterNamespace = void 0;
 
     var ErrorMsgs = {
       formatInvalidInputErrorMsg: function formatInvalidInputErrorMsg(input) {
@@ -227,6 +228,15 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
     var SliderScale = {
       linear: {
+        getValue: function getValue(value, options) {
+          if (value < options.min) {
+            return options.min;
+          } else if (value > options.max) {
+            return options.max;
+          } else {
+            return value;
+          }
+        },
         toValue: function toValue(percentage) {
           var rawValue = percentage / 100 * (this.options.max - this.options.min);
           var shouldAdjustWithBase = true;
@@ -252,13 +262,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
           var adjustment = shouldAdjustWithBase ? this.options.min : 0;
           var value = adjustment + Math.round(rawValue / this.options.step) * this.options.step;
-          if (value < this.options.min) {
-            return this.options.min;
-          } else if (value > this.options.max) {
-            return this.options.max;
-          } else {
-            return value;
-          }
+          return SliderScale.linear.getValue(value, this.options);
         },
         toPercentage: function toPercentage(value) {
           if (this.options.max === this.options.min) {
@@ -293,30 +297,26 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
       logarithmic: {
         /* Based on http://stackoverflow.com/questions/846221/logarithmic-slider */
         toValue: function toValue(percentage) {
-          var min = this.options.min === 0 ? 0 : Math.log(this.options.min);
-          var max = Math.log(this.options.max);
-          var value = Math.exp(min + (max - min) * percentage / 100);
-          if (Math.round(value) === this.options.max) {
-            return this.options.max;
+          var offset = 1 - this.options.min;
+          var min = Math.log(this.options.min + offset);
+          var max = Math.log(this.options.max + offset);
+          var value = Math.exp(min + (max - min) * percentage / 100) - offset;
+          if (Math.round(value) === max) {
+            return max;
           }
           value = this.options.min + Math.round((value - this.options.min) / this.options.step) * this.options.step;
           /* Rounding to the nearest step could exceed the min or
-           * max, so clip to those values. */
-          if (value < this.options.min) {
-            return this.options.min;
-          } else if (value > this.options.max) {
-            return this.options.max;
-          } else {
-            return value;
-          }
+      * max, so clip to those values. */
+          return SliderScale.linear.getValue(value, this.options);
         },
         toPercentage: function toPercentage(value) {
           if (this.options.max === this.options.min) {
             return 0;
           } else {
-            var max = Math.log(this.options.max);
-            var min = this.options.min === 0 ? 0 : Math.log(this.options.min);
-            var v = value === 0 ? 0 : Math.log(value);
+            var offset = 1 - this.options.min;
+            var max = Math.log(this.options.max + offset);
+            var min = Math.log(this.options.min + offset);
+            var v = Math.log(value + offset);
             return 100 * (v - min) / (max - min);
           }
         }
@@ -334,9 +334,9 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
     function createNewSlider(element, options) {
 
       /*
-       The internal state object is used to store data about the current 'state' of slider.
-       This includes values such as the `value`, `enabled`, etc...
-       */
+     The internal state object is used to store data about the current 'state' of slider.
+     This includes values such as the `value`, `enabled`, etc...
+   */
       this._state = {
         value: null,
         enabled: null,
@@ -344,7 +344,8 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
         size: null,
         percentage: null,
         inDrag: false,
-        over: false
+        over: false,
+        tickIndex: null
       };
 
       // The objects used to store the reference to the tick methods if ticks_tooltip is on
@@ -363,6 +364,9 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
       options = options ? options : {};
       var optionTypes = Object.keys(this.defaultOptions);
 
+      var isMinSet = options.hasOwnProperty('min');
+      var isMaxSet = options.hasOwnProperty('max');
+
       for (var i = 0; i < optionTypes.length; i++) {
         var optName = optionTypes[i];
 
@@ -380,17 +384,32 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
         this.options[optName] = val;
       }
 
+      this.ticksAreValid = Array.isArray(this.options.ticks) && this.options.ticks.length > 0;
+
+      // Lock to ticks only when ticks[] is defined and set
+      if (!this.ticksAreValid) {
+        this.options.lock_to_ticks = false;
+      }
+
       // Check options.rtl
       if (this.options.rtl === 'auto') {
-        this.options.rtl = window.getComputedStyle(this.element).direction === 'rtl';
+        var computedStyle = window.getComputedStyle(this.element);
+        if (computedStyle != null) {
+          this.options.rtl = computedStyle.direction === 'rtl';
+        } else {
+          // Fix for Firefox bug in versions less than 62:
+          // https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+          // https://bugzilla.mozilla.org/show_bug.cgi?id=1467722
+          this.options.rtl = this.element.style.direction === 'rtl';
+        }
       }
 
       /*
-       Validate `tooltip_position` against 'orientation`
-       - if `tooltip_position` is incompatible with orientation, swith it to a default compatible with specified `orientation`
+     Validate `tooltip_position` against 'orientation`
+     - if `tooltip_position` is incompatible with orientation, swith it to a default compatible with specified `orientation`
        -- default for "vertical" -> "right", "left" if rtl
        -- default for "horizontal" -> "top"
-       */
+   */
       if (this.options.orientation === "vertical" && (this.options.tooltip_position === "top" || this.options.tooltip_position === "bottom")) {
         if (this.options.rtl) {
           this.options.tooltip_position = "left";
@@ -543,17 +562,17 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
         /* Create tooltip elements */
         var sliderTooltip = document.createElement("div");
-        sliderTooltip.className = "tooltip tooltip-main bs-tooltip-top";
+        sliderTooltip.className = "tooltip tooltip-main";
         sliderTooltip.setAttribute('role', 'presentation');
         createAndAppendTooltipSubElements(sliderTooltip);
 
         var sliderTooltipMin = document.createElement("div");
-        sliderTooltipMin.className = "tooltip tooltip-min bs-tooltip-top";
+        sliderTooltipMin.className = "tooltip tooltip-min";
         sliderTooltipMin.setAttribute('role', 'presentation');
         createAndAppendTooltipSubElements(sliderTooltipMin);
 
         var sliderTooltipMax = document.createElement("div");
-        sliderTooltipMax.className = "tooltip tooltip-max bs-tooltip-top";
+        sliderTooltipMax.className = "tooltip tooltip-max";
         sliderTooltipMax.setAttribute('role', 'presentation');
         createAndAppendTooltipSubElements(sliderTooltipMax);
 
@@ -659,7 +678,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
         } else {
           this.stylePos = 'left';
         }
-        this.mousePos = 'pageX';
+        this.mousePos = 'clientX';
         this.sizePos = 'offsetWidth';
       }
       // specific rtl class
@@ -669,8 +688,12 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
       this._setTooltipPosition();
       /* In case ticks are specified, overwrite the min and max bounds */
       if (Array.isArray(this.options.ticks) && this.options.ticks.length > 0) {
-        this.options.max = Math.max.apply(Math, this.options.ticks);
-        this.options.min = Math.min.apply(Math, this.options.ticks);
+        if (!isMaxSet) {
+          this.options.max = Math.max.apply(Math, this.options.ticks);
+        }
+        if (!isMinSet) {
+          this.options.min = Math.min.apply(Math, this.options.ticks);
+        }
       }
 
       if (Array.isArray(this.options.value)) {
@@ -729,7 +752,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
        Bind Event Listeners
        ******************************************/
 
-        // Bind keyboard handlers
+      // Bind keyboard handlers
       this.handle1Keydown = this._keydown.bind(this, 0);
       this.handle1.addEventListener("keydown", this.handle1Keydown, false);
 
@@ -832,6 +855,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
         selection: 'before',
         tooltip: 'show',
         tooltip_split: false,
+        lock_to_ticks: false,
         handle: 'round',
         reversed: false,
         rtl: 'auto',
@@ -880,10 +904,20 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
           this._state.value[0] = applyPrecision(this._state.value[0]);
           this._state.value[1] = applyPrecision(this._state.value[1]);
 
+          if (this.ticksAreValid && this.options.lock_to_ticks) {
+            this._state.value[0] = this.options.ticks[this._getClosestTickIndex(this._state.value[0])];
+            this._state.value[1] = this.options.ticks[this._getClosestTickIndex(this._state.value[1])];
+          }
+
           this._state.value[0] = Math.max(this.options.min, Math.min(this.options.max, this._state.value[0]));
           this._state.value[1] = Math.max(this.options.min, Math.min(this.options.max, this._state.value[1]));
         } else {
           this._state.value = applyPrecision(this._state.value);
+
+          if (this.ticksAreValid && this.options.lock_to_ticks) {
+            this._state.value = this.options.ticks[this._getClosestTickIndex(this._state.value)];
+          }
+
           this._state.value = [Math.max(this.options.min, Math.min(this.options.max, this._state.value))];
           this._addClass(this.handle2, 'hide');
           if (this.options.selection === 'after') {
@@ -892,6 +926,9 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
             this._state.value[1] = this.options.min;
           }
         }
+
+        // Determine which ticks the handle(s) are set at (if applicable)
+        this._setTickIndex();
 
         if (this.options.max > this.options.min) {
           this._state.percentage = [this._toPercentage(this._state.value[0]), this._toPercentage(this._state.value[1]), this.options.step * 100 / (this.options.max - this.options.min)];
@@ -906,7 +943,15 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
         if (triggerSlideEvent === true) {
           this._trigger('slide', newValue);
         }
-        if (oldValue !== newValue && triggerChangeEvent === true) {
+
+        var hasChanged = false;
+        if (Array.isArray(newValue)) {
+          hasChanged = oldValue[0] !== newValue[0] || oldValue[1] !== newValue[1];
+        } else {
+          hasChanged = oldValue !== newValue;
+        }
+
+        if (hasChanged && triggerChangeEvent === true) {
           this._trigger('change', {
             oldValue: oldValue,
             newValue: newValue
@@ -934,7 +979,10 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
         // Remove JQuery handlers/data
         if ($) {
           this._unbindJQueryEventHandlers();
-          this.$element.removeData('slider');
+          if (autoRegisterNamespace === NAMESPACE_MAIN) {
+            this.$element.removeData(autoRegisterNamespace);
+          }
+          this.$element.removeData(NAMESPACE_ALTERNATE);
         }
       },
 
@@ -998,19 +1046,28 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
         return this;
       },
 
-      refresh: function refresh() {
+      refresh: function refresh(options) {
+        var currentValue = this.getValue();
         this._removeSliderEventHandlers();
         createNewSlider.call(this, this.element, this.options);
+        // Don't reset slider's value on refresh if `useCurrentValue` is true
+        if (options && options.useCurrentValue === true) {
+          this.setValue(currentValue);
+        }
         if ($) {
           // Bind new instance of slider to the element
-          $.data(this.element, 'slider', this);
+          if (autoRegisterNamespace === NAMESPACE_MAIN) {
+            $.data(this.element, NAMESPACE_MAIN, this);
+            $.data(this.element, NAMESPACE_ALTERNATE, this);
+          } else {
+            $.data(this.element, NAMESPACE_ALTERNATE, this);
+          }
         }
         return this;
       },
 
       relayout: function relayout() {
         this._resize();
-        this._layout();
         return this;
       },
 
@@ -1020,6 +1077,10 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
        - Place it underneath this comment block and write its signature like so:
        _fnName : function() {...}
        ********************************/
+      _removeTooltipListener: function _removeTooltipListener(event) {
+        this.handle1.removeEventListener(event, this.showTooltip, false);
+        this.handle2.removeEventListener(event, this.showTooltip, false);
+      },
       _removeSliderEventHandlers: function _removeSliderEventHandlers() {
         // Remove keydown event listeners
         this.handle1.removeEventListener("keydown", this.handle1Keydown, false);
@@ -1032,22 +1093,22 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
             ticks[i].removeEventListener('mouseenter', this.ticksCallbackMap[i].mouseEnter, false);
             ticks[i].removeEventListener('mouseleave', this.ticksCallbackMap[i].mouseLeave, false);
           }
-          this.handle1.removeEventListener('mouseenter', this.handleCallbackMap.handle1.mouseEnter, false);
-          this.handle2.removeEventListener('mouseenter', this.handleCallbackMap.handle2.mouseEnter, false);
-          this.handle1.removeEventListener('mouseleave', this.handleCallbackMap.handle1.mouseLeave, false);
-          this.handle2.removeEventListener('mouseleave', this.handleCallbackMap.handle2.mouseLeave, false);
+          if (this.handleCallbackMap.handle1 && this.handleCallbackMap.handle2) {
+            this.handle1.removeEventListener('mouseenter', this.handleCallbackMap.handle1.mouseEnter, false);
+            this.handle2.removeEventListener('mouseenter', this.handleCallbackMap.handle2.mouseEnter, false);
+            this.handle1.removeEventListener('mouseleave', this.handleCallbackMap.handle1.mouseLeave, false);
+            this.handle2.removeEventListener('mouseleave', this.handleCallbackMap.handle2.mouseLeave, false);
+          }
         }
 
         this.handleCallbackMap = null;
         this.ticksCallbackMap = null;
 
         if (this.showTooltip) {
-          this.handle1.removeEventListener("focus", this.showTooltip, false);
-          this.handle2.removeEventListener("focus", this.showTooltip, false);
+          this._removeTooltipListener("focus");
         }
         if (this.hideTooltip) {
-          this.handle1.removeEventListener("blur", this.hideTooltip, false);
-          this.handle2.removeEventListener("blur", this.hideTooltip, false);
+          this._removeTooltipListener("blur");
         }
 
         // Remove event listeners from sliderElem
@@ -1098,10 +1159,11 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
           this._addClass(this.tooltip_max, 'show');
           this.tooltip.style.display = 'none';
         }
+        this.tooltipArrow.style[this.stylePos] = (this.tooltip.clientWidth/2)-5+'px';
         this._state.over = true;
       },
       _hideTooltip: function _hideTooltip() {
-        if (this._state.inDrag === false && this.alwaysShowTooltip !== true) {
+        if (this._state.inDrag === false && this._alwaysShowTooltip !== true) {
           this._removeClass(this.tooltip, 'show');
           this._removeClass(this.tooltip_min, 'show');
           this._removeClass(this.tooltip_max, 'show');
@@ -1109,6 +1171,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
         this._state.over = false;
       },
       _setToolTipOnMouseOver: function _setToolTipOnMouseOver(tempState) {
+        var self = this;
         var formattedTooltipVal = this.options.formatter(!tempState ? this._state.value[0] : tempState.value[0]);
         var positionPercentages = !tempState ? getPositionPercentages(this._state, this.options.reversed) : getPositionPercentages(tempState, this.options.reversed);
         this._setText(this.tooltipInner, formattedTooltipVal);
@@ -1117,37 +1180,62 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
         function getPositionPercentages(state, reversed) {
           if (reversed) {
-            return [100 - state.percentage[0], this.options.range ? 100 - state.percentage[1] : state.percentage[1]];
+            return [100 - state.percentage[0], self.options.range ? 100 - state.percentage[1] : state.percentage[1]];
           }
           return [state.percentage[0], state.percentage[1]];
         }
       },
+      _copyState: function _copyState() {
+        return {
+          value: [this._state.value[0], this._state.value[1]],
+          enabled: this._state.enabled,
+          offset: this._state.offset,
+          size: this._state.size,
+          percentage: [this._state.percentage[0], this._state.percentage[1], this._state.percentage[2]],
+          inDrag: this._state.inDrag,
+          over: this._state.over,
+          // deleted or null'd keys
+          dragged: this._state.dragged,
+          keyCtrl: this._state.keyCtrl
+        };
+      },
       _addTickListener: function _addTickListener() {
         return {
-          addMouseEnter: function addMouseEnter(reference, tick, index) {
+          addMouseEnter: function addMouseEnter(reference, element, index) {
             var enter = function enter() {
-              var tempState = reference._state;
-              var idString = index >= 0 ? index : this.attributes['aria-valuenow'].value;
-              var hoverIndex = parseInt(idString, 10);
-              tempState.value[0] = hoverIndex;
-              tempState.percentage[0] = reference.options.ticks_positions[hoverIndex];
+              var tempState = reference._copyState();
+              // Which handle is being hovered over?
+              var val = element === reference.handle1 ? tempState.value[0] : tempState.value[1];
+              var per = void 0;
+
+              // Setup value and percentage for tick's 'mouseenter'
+              if (index !== undefined) {
+                val = reference.options.ticks[index];
+                per = reference.options.ticks_positions.length > 0 && reference.options.ticks_positions[index] || reference._toPercentage(reference.options.ticks[index]);
+              } else {
+                per = reference._toPercentage(val);
+              }
+
+              tempState.value[0] = val;
+              tempState.percentage[0] = per;
               reference._setToolTipOnMouseOver(tempState);
               reference._showTooltip();
             };
-            tick.addEventListener("mouseenter", enter, false);
+            element.addEventListener("mouseenter", enter, false);
             return enter;
           },
-          addMouseLeave: function addMouseLeave(reference, tick) {
+          addMouseLeave: function addMouseLeave(reference, element) {
             var leave = function leave() {
               reference._hideTooltip();
             };
-            tick.addEventListener("mouseleave", leave, false);
+            element.addEventListener("mouseleave", leave, false);
             return leave;
           }
         };
       },
       _layout: function _layout() {
         var positionPercentages;
+        var formattedValue;
 
         if (this.options.reversed) {
           positionPercentages = [100 - this._state.percentage[0], this.options.range ? 100 - this._state.percentage[1] : this._state.percentage[1]];
@@ -1157,14 +1245,20 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
         this.handle1.style[this.stylePos] = positionPercentages[0] + "%";
         this.handle1.setAttribute('aria-valuenow', this._state.value[0]);
-        if (isNaN(this.options.formatter(this._state.value[0]))) {
-          this.handle1.setAttribute('aria-valuetext', this.options.formatter(this._state.value[0]));
+        formattedValue = this.options.formatter(this._state.value[0]);
+        if (isNaN(formattedValue)) {
+          this.handle1.setAttribute('aria-valuetext', formattedValue);
+        } else {
+          this.handle1.removeAttribute('aria-valuetext');
         }
 
         this.handle2.style[this.stylePos] = positionPercentages[1] + "%";
         this.handle2.setAttribute('aria-valuenow', this._state.value[1]);
-        if (isNaN(this.options.formatter(this._state.value[1]))) {
-          this.handle2.setAttribute('aria-valuetext', this.options.formatter(this._state.value[1]));
+        formattedValue = this.options.formatter(this._state.value[1]);
+        if (isNaN(formattedValue)) {
+          this.handle2.setAttribute('aria-valuetext', formattedValue);
+        } else {
+          this.handle2.removeAttribute('aria-valuetext');
         }
 
         /* Position highlight range elements */
@@ -1272,6 +1366,24 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
                 }
                 this.tickLabelContainer.style[styleMargin] = this.sliderElem.offsetWidth / 2 * -1 + 'px';
               }
+
+              /* Set class labels to indicate tick labels are in the selection or selected */
+              this._removeClass(this.tickLabels[i], 'label-in-selection label-is-selection');
+              if (!this.options.range) {
+                if (this.options.selection === 'after' && percentage >= positionPercentages[0]) {
+                  this._addClass(this.tickLabels[i], 'label-in-selection');
+                } else if (this.options.selection === 'before' && percentage <= positionPercentages[0]) {
+                  this._addClass(this.tickLabels[i], 'label-in-selection');
+                }
+                if (percentage === positionPercentages[0]) {
+                  this._addClass(this.tickLabels[i], 'label-is-selection');
+                }
+              } else if (percentage >= positionPercentages[0] && percentage <= positionPercentages[1]) {
+                this._addClass(this.tickLabels[i], 'label-in-selection');
+                if (percentage === positionPercentages[0] || positionPercentages[1]) {
+                  this._addClass(this.tickLabels[i], 'label-is-selection');
+                }
+              }
             }
           }
         }
@@ -1297,7 +1409,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
           this._setText(this.tooltipInner, formattedTooltipVal);
 
           this.tooltipArrow.style[this.stylePos] = (this.tooltip.clientWidth/2)-5+'px';
-          this.tooltip.style[this.stylePos] = 'calc('+positionPercentages[0] + "% - "+this.tooltip.clientWidth/2+'px)'; // Modified by Akshay
+          this.tooltip.style[this.stylePos] = positionPercentages[0] + "%";
         }
 
         if (this.options.orientation === 'vertical') {
@@ -1337,23 +1449,23 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
           if (this.options.tooltip_position === 'bottom') {
             if (offset_min.right > offset_max.left) {
               this._removeClass(this.tooltip_max, 'bottom');
-              this._addClass(this.tooltip_max, 'top');
+              this._addClass(this.tooltip_max, 'tooltip-top');
               this.tooltip_max.style.top = '';
               this.tooltip_max.style.bottom = 22 + 'px';
             } else {
-              this._removeClass(this.tooltip_max, 'top');
+              this._removeClass(this.tooltip_max, 'tooltip-top');
               this._addClass(this.tooltip_max, 'bottom');
               this.tooltip_max.style.top = this.tooltip_min.style.top;
               this.tooltip_max.style.bottom = '';
             }
           } else {
             if (offset_min.right > offset_max.left) {
-              this._removeClass(this.tooltip_max, 'top');
+              this._removeClass(this.tooltip_max, 'tooltip-top');
               this._addClass(this.tooltip_max, 'bottom');
               this.tooltip_max.style.top = 18 + 'px';
             } else {
               this._removeClass(this.tooltip_max, 'bottom');
-              this._addClass(this.tooltip_max, 'top');
+              this._addClass(this.tooltip_max, 'tooltip-top');
               this.tooltip_max.style.top = this.tooltip_min.style.top;
             }
           }
@@ -1393,6 +1505,10 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
           return false;
         }
 
+        if (ev.preventDefault) {
+          ev.preventDefault();
+        }
+
         this._state.offset = this._offset(this.sliderElem);
         this._state.size = this.sliderElem[this.sizePos];
 
@@ -1408,7 +1524,6 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
         }
 
         this._state.percentage[this._state.dragged] = percentage;
-        this._layout();
 
         if (this.touchCapable) {
           document.removeEventListener("touchmove", this.mousemove, false);
@@ -1439,7 +1554,6 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
         this._trigger('slideStart', newValue);
 
-        this._setDataVal(newValue);
         this.setValue(newValue, false, true);
 
         ev.returnValue = false;
@@ -1492,31 +1606,61 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
         // use natural arrow keys instead of from min to max
         if (this.options.natural_arrow_keys) {
-          var ifVerticalAndNotReversed = this.options.orientation === 'vertical' && !this.options.reversed;
-          var ifHorizontalAndReversed = this.options.orientation === 'horizontal' && this.options.reversed; // @todo control with rtl
+          var isHorizontal = this.options.orientation === 'horizontal';
+          var isVertical = this.options.orientation === 'vertical';
+          var isRTL = this.options.rtl;
+          var isReversed = this.options.reversed;
 
-          if (ifVerticalAndNotReversed || ifHorizontalAndReversed) {
-            dir = -dir;
+          if (isHorizontal) {
+            if (isRTL) {
+              if (!isReversed) {
+                dir = -dir;
+              }
+            } else {
+              if (isReversed) {
+                dir = -dir;
+              }
+            }
+          } else if (isVertical) {
+            if (!isReversed) {
+              dir = -dir;
+            }
           }
         }
 
-        var val = this._state.value[handleIdx] + dir * this.options.step;
-        var percentage = val / this.options.max * 100;
+        var val;
+        if (this.ticksAreValid && this.options.lock_to_ticks) {
+          var index = void 0;
+          // Find tick index that handle 1/2 is currently on
+          index = this.options.ticks.indexOf(this._state.value[handleIdx]);
+          if (index === -1) {
+            // Set default to first tick
+            index = 0;
+            window.console.warn('(lock_to_ticks) _keydown: index should not be -1');
+          }
+          index += dir;
+          index = Math.max(0, Math.min(this.options.ticks.length - 1, index));
+          val = this.options.ticks[index];
+        } else {
+          val = this._state.value[handleIdx] + dir * this.options.step;
+        }
+        var percentage = this._toPercentage(val);
         this._state.keyCtrl = handleIdx;
         if (this.options.range) {
           this._adjustPercentageForRangeSliders(percentage);
           var val1 = !this._state.keyCtrl ? val : this._state.value[0];
           var val2 = this._state.keyCtrl ? val : this._state.value[1];
-          val = [val1, val2];
+          // Restrict values within limits
+          val = [Math.max(this.options.min, Math.min(this.options.max, val1)), Math.max(this.options.min, Math.min(this.options.max, val2))];
+        } else {
+          val = Math.max(this.options.min, Math.min(this.options.max, val));
         }
 
         this._trigger('slideStart', val);
-        this._setDataVal(val);
+
         this.setValue(val, true, true);
 
-        this._setDataVal(val);
         this._trigger('slideStop', val);
-        this._layout();
 
         this._pauseEvent(ev);
         delete this._state.keyCtrl;
@@ -1541,7 +1685,6 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
         var percentage = this._getPercentage(ev);
         this._adjustPercentageForRangeSliders(percentage);
         this._state.percentage[this._state.dragged] = percentage;
-        this._layout();
 
         var val = this._calculateValue(true);
         this.setValue(val, true, true);
@@ -1580,21 +1723,26 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
           } else if (this._state.dragged === 1 && this._applyToFixedAndParseFloat(this._state.percentage[0], precision) > percentageWithAdjustedPrecision) {
             this._state.percentage[1] = this._state.percentage[0];
             this._state.dragged = 0;
-          } else if (this._state.keyCtrl === 0 && this._state.value[1] / this.options.max * 100 < percentage) {
+          } else if (this._state.keyCtrl === 0 && this._toPercentage(this._state.value[1]) < percentage) {
             this._state.percentage[0] = this._state.percentage[1];
             this._state.keyCtrl = 1;
             this.handle2.focus();
-          } else if (this._state.keyCtrl === 1 && this._state.value[0] / this.options.max * 100 > percentage) {
+          } else if (this._state.keyCtrl === 1 && this._toPercentage(this._state.value[0]) > percentage) {
             this._state.percentage[1] = this._state.percentage[0];
             this._state.keyCtrl = 0;
             this.handle1.focus();
           }
         }
       },
-      _mouseup: function _mouseup() {
+      _mouseup: function _mouseup(ev) {
         if (!this._state.enabled) {
           return false;
         }
+
+        var percentage = this._getPercentage(ev);
+        this._adjustPercentageForRangeSliders(percentage);
+        this._state.percentage[this._state.dragged] = percentage;
+
         if (this.touchCapable) {
           // Touch: Unbind touch event handlers:
           document.removeEventListener("touchmove", this.mousemove, false);
@@ -1610,45 +1758,56 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
         }
         var val = this._calculateValue(true);
 
-        this._layout();
-        this._setDataVal(val);
+        this.setValue(val, false, true);
         this._trigger('slideStop', val);
+
+        // No longer need 'dragged' after mouse up
+        this._state.dragged = null;
 
         return false;
       },
+      _setValues: function _setValues(index, val) {
+        var comp = 0 === index ? 0 : 100;
+        if (this._state.percentage[index] !== comp) {
+          val.data[index] = this._toValue(this._state.percentage[index]);
+          val.data[index] = this._applyPrecision(val.data[index]);
+        }
+      },
       _calculateValue: function _calculateValue(snapToClosestTick) {
-        var val;
+        var val = {};
         if (this.options.range) {
-          val = [this.options.min, this.options.max];
-          if (this._state.percentage[0] !== 0) {
-            val[0] = this._toValue(this._state.percentage[0]);
-            val[0] = this._applyPrecision(val[0]);
-          }
-          if (this._state.percentage[1] !== 100) {
-            val[1] = this._toValue(this._state.percentage[1]);
-            val[1] = this._applyPrecision(val[1]);
+          val.data = [this.options.min, this.options.max];
+          this._setValues(0, val);
+          this._setValues(1, val);
+          if (snapToClosestTick) {
+            val.data[0] = this._snapToClosestTick(val.data[0]);
+            val.data[1] = this._snapToClosestTick(val.data[1]);
           }
         } else {
-          val = this._toValue(this._state.percentage[0]);
-          val = parseFloat(val);
-          val = this._applyPrecision(val);
-        }
-
-        if (snapToClosestTick) {
-          var min = [val, Infinity];
-          for (var i = 0; i < this.options.ticks.length; i++) {
-            var diff = Math.abs(this.options.ticks[i] - val);
-            if (diff <= min[1]) {
-              min = [this.options.ticks[i], diff];
-            }
-          }
-          if (min[1] <= this.options.ticks_snap_bounds) {
-            return min[0];
+          val.data = this._toValue(this._state.percentage[0]);
+          val.data = parseFloat(val.data);
+          val.data = this._applyPrecision(val.data);
+          if (snapToClosestTick) {
+            val.data = this._snapToClosestTick(val.data);
           }
         }
 
+        return val.data;
+      },
+      _snapToClosestTick: function _snapToClosestTick(val) {
+        var min = [val, Infinity];
+        for (var i = 0; i < this.options.ticks.length; i++) {
+          var diff = Math.abs(this.options.ticks[i] - val);
+          if (diff <= min[1]) {
+            min = [this.options.ticks[i], diff];
+          }
+        }
+        if (min[1] <= this.options.ticks_snap_bounds) {
+          return min[0];
+        }
         return val;
       },
+
       _applyPrecision: function _applyPrecision(val) {
         var precision = this.options.precision || this._getNumDigitsAfterDecimalPlace(this.options.step);
         return this._applyToFixedAndParseFloat(val, precision);
@@ -1665,9 +1824,9 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
         return parseFloat(truncatedNum);
       },
       /*
-       Credits to Mike Samuel for the following method!
-       Source: http://stackoverflow.com/questions/10454518/javascript-how-to-retrieve-the-number-of-decimals-of-a-string-number
-       */
+     Credits to Mike Samuel for the following method!
+     Source: http://stackoverflow.com/questions/10454518/javascript-how-to-retrieve-the-number-of-decimals-of-a-string-number
+   */
       _getPercentage: function _getPercentage(ev) {
         if (this.touchCapable && (ev.type === 'touchstart' || ev.type === 'touchmove')) {
           ev = ev.touches[0];
@@ -1841,9 +2000,30 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
           }.bind(this));
         } else {
           tooltips.forEach(function (tooltip) {
-            this._addClass(tooltip, 'top');
+            this._addClass(tooltip, 'tooltip-top');
             tooltip.style.top = -this.tooltip.outerHeight - 14 + 'px';
           }.bind(this));
+        }
+      },
+      _getClosestTickIndex: function _getClosestTickIndex(val) {
+        var difference = Math.abs(val - this.options.ticks[0]);
+        var index = 0;
+        for (var i = 0; i < this.options.ticks.length; ++i) {
+          var d = Math.abs(val - this.options.ticks[i]);
+          if (d < difference) {
+            difference = d;
+            index = i;
+          }
+        }
+        return index;
+      },
+      /**
+       * Attempts to find the index in `ticks[]` the slider values are set at.
+       * The indexes can be -1 to indicate the slider value is not set at a value in `ticks[]`.
+       */
+      _setTickIndex: function _setTickIndex() {
+        if (this.ticksAreValid) {
+          this._state.tickIndex = [this.options.ticks.indexOf(this._state.value[0]), this.options.ticks.indexOf(this._state.value[1])];
         }
       }
     };
@@ -1852,8 +2032,6 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
      Attach to global namespace
      *********************************/
     if ($ && $.fn) {
-      var autoRegisterNamespace = void 0;
-
       if (!$.fn.slider) {
         $.bridget(NAMESPACE_MAIN, Slider);
         autoRegisterNamespace = NAMESPACE_MAIN;
