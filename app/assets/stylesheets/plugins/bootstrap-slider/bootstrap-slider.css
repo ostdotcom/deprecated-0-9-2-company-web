@@ -1,6 +1,3 @@
-/*! =======================================================
-                      VERSION  10.6.0
-========================================================= */
 /*! =========================================================
  * bootstrap-slider.js
  *
@@ -13,7 +10,7 @@
  *			- Github:  rovolution
  *
  * =========================================================
-  *
+ *
  * bootstrap-slider is released under the MIT License
  * Copyright (c) 2019 Kyle Kemp, Rohit Kalkur, and contributors
  *
@@ -326,9 +323,9 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff8ac1ef', endColorstr='#ff82b3de', GradientType=0);
     opacity: 1;
 }
-.tooltip.tooltip-main {
+.slider.slider-horizontal .tooltip {
     margin-top: -30px;
 }
-.tooltip.tooltip-main .arrow{
+.slider.slider-horizontal .tooltip .arrow{
     margin-top: 23px;
 }
