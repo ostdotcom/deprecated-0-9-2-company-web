@@ -68,9 +68,9 @@
 
     Handlebars.registerHelper("getUserRoleText", function( privileges  ,  options ) {
       if( !privileges ) return "";
-      if( privileges.indexOf("is_super_admin_invited") > -1 || privileges.indexOf("super_admin") > -1 ){
+      if( privileges.indexOf("is_super_admin_invited") > -1 || privileges.indexOf("is_super_admin") > -1 ){
         return "Super Admin"
-      } else if( privileges.indexOf("admin") > -1 || privileges.indexOf("is_admin_invited") > -1 ){
+      } else if( privileges.indexOf("is_admin") > -1 || privileges.indexOf("is_admin_invited") > -1 ){
         return "Admin";
       }
     });
