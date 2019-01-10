@@ -5,6 +5,17 @@
 @import "../Starboy/variables";
 
 .planner-container{
+  .text-different-color{
+    color: #e4b030;
+    font-weight: bold;
+  }
+  .header-recommendation{
+    display: none;
+  }
+  .edit-collapse{
+    cursor: pointer;
+  }
+
   p{
     font-weight: $font-weight-light;
     font-size: 0.875rem;
@@ -33,4 +44,7 @@
     }
 
   }
+}
+.error-state-content{
+  display: none;
 }

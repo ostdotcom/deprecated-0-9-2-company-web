@@ -14,6 +14,24 @@
                      name="email" class="form-control" aria-describedby="emailHelp" placeholder="Example@example.com" required/>
               <div class="invalid-feedback" data-forid="invitee_email_address">&nbps;</div>
             </div>
+            <div class="form-group" >
+              <label class="form-label text-uppercase" data-forid="transaction_name">SELECT ADMIN TYPE</label>
+              <div class="col-12 form-check form-check-inline">
+                <input class="form-check-input radio-button"
+                       id="user-type-admin" type="radio" name="is_super_admin" value="0" checked/>
+                <label class="form-check-label radio-button-label" for="user-type-admin">
+                  <span class="radio-button-circle"></span>Admin (Read only access)</label>
+              </div>
+              <div class="col-12 form-check form-check-inline">
+                <input class="form-check-input radio-button"
+                       id="user-type-super-admin" type="radio" name="is_super_admin" value="1"/>
+                <label class="form-check-label radio-button-label" for="user-type-super-admin">
+                  <span class="radio-button-circle"></span>
+                  Super Admin (Read and Write access, will be able to access developer portal, Stake and Mint Tokens, Invite Admins)
+                </label>
+              </div>
+              <div class="invalid-feedback" data-forid="is_super_admin">&nbps;</div>
+            </div>
           </div>
         </div>
 
