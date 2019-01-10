@@ -95,8 +95,8 @@
         personalSign: function(message){
 
             if(!message) return;
-
-            oThis.showError('&nbsp;');
+          oThis.jConfirmAccountCover.find(".error-state-wrapper").hide();
+          oThis.jConfirmAccountCover.find('.default-state-wrapper').show();
             var from = oThis.metamask.ethereum.selectedAddress;
 
             oThis.jConfirmAccountCover.find(".btn-confirm").off('click').on('click', function(e){
@@ -121,9 +121,11 @@
 
         associateAddress: function(result){
 
-            if(!result) return;
+          $('.btn-confirm').text("confirming...").prop("disabled",true);
 
-            oThis.showError('&nbsp;');
+            if(!result) return;
+          oThis.jConfirmAccountCover.find(".error-state-wrapper").hide();
+          oThis.jConfirmAccountCover.find('.default-state-wrapper').show();
             var from = oThis.metamask.ethereum.selectedAddress;
 
             $.ajax({
@@ -136,9 +138,16 @@
                 success: function(response){
                     if(response.success){
                         console.log(response);
+                      oThis.jConfirmAccountCover.find(".btn-confirm").text("confirm Address").prop('disabled', false);;
                         // sign transaction logic
                     } else {
-                        oThis.showError(response.err.display_text);
+                        //oThis.showError(response.err.error_data[0].msg);
+                        if(response.err.error_data[0]){
+                          oThis.showError(response.err.error_data[0].msg);
+                        }
+                        else {
+                          oThis.showError(response.err.display_text);
+                        }
                     }
                 },
                 error: function (response) {
@@ -151,7 +160,10 @@
             if(typeof message === 'undefined') {
               message = oThis.genericErrorMessage;
             }
-            $(".general_error").html(message);
+          oThis.jConfirmAccountCover.find(".btn-confirm").text("confirm Address").prop('disabled', false);
+            oThis.jConfirmAccountCover.find('.default-state-wrapper').hide();
+            oThis.jConfirmAccountCover.find(".error-state-wrapper").show();
+          $(".error-state-wrapper").find(".display-header").text(message);
         }
     };
 

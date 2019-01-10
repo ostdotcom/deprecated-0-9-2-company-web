@@ -1,4 +1,4 @@
-<% bt_symbol = @presenter_obj.client_token.symbol; %>
+<% bt_symbol = @presenter_obj.client_token.symbol || 'Token' %>
 <form data-ost-formhelper id="economy-planner" action="/<%=GlobalConstant::Environment.sandbox_sub_url_prefix %>/api/token" method="POST">
 <div class="planner-container  text-center">
   <h3 class="mt-5">
