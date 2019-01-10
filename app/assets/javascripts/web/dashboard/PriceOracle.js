@@ -18,7 +18,7 @@
   ;
 
 
-  var P_FIAT = 3
+  var P_FIAT = 2
     , P_FIAT_ROUND_ROUNDING_MODE  = BigNumber.ROUND_HALF_UP
   ;
 
