@@ -6,10 +6,11 @@
 
     var oThis   = ost.planner.step1 = {
 
-        jTokenForm: $('#economy-planner'),
-        jConfirmAccountCover: $('#metamaskConfirmAccount'),
-        genericErrorMessage: 'Something went wrong!',
-        metamask: null,
+        jTokenForm:                       $('#economy-planner'),
+        jConfirmAccountCover:             $('#metamaskConfirmAccount'),
+        genericErrorMessage:              'Something went wrong!',
+        personalSignCancelErrorMessage:   'Could not proceed as you denied message signature in MetaMask.',
+        metamask:                         null,
 
         init: function( config ){
             $.extend(oThis, config);
@@ -95,8 +96,8 @@
         personalSign: function(message){
 
             if(!message) return;
-          oThis.jConfirmAccountCover.find(".error-state-wrapper").hide();
-          oThis.jConfirmAccountCover.find('.default-state-wrapper').show();
+            oThis.jConfirmAccountCover.find(".error-state-wrapper").hide();
+            oThis.jConfirmAccountCover.find('.default-state-wrapper').show();
             var from = oThis.metamask.ethereum.selectedAddress;
 
             oThis.jConfirmAccountCover.find(".btn-confirm").off('click').on('click', function(e){
@@ -109,8 +110,7 @@
                       return oThis.showError(err);
                     }
                     if(result && result.error){
-                      var errMessage = result.error.message.split('\n');
-                      return oThis.showError(errMessage[0]);
+                      return oThis.showError(oThis.personalSignCancelErrorMessage);
                     } else {
                       oThis.associateAddress(result);
                     }
@@ -124,8 +124,8 @@
           $('.btn-confirm').text("confirming...").prop("disabled",true);
 
             if(!result) return;
-          oThis.jConfirmAccountCover.find(".error-state-wrapper").hide();
-          oThis.jConfirmAccountCover.find('.default-state-wrapper').show();
+            oThis.jConfirmAccountCover.find(".error-state-wrapper").hide();
+            oThis.jConfirmAccountCover.find('.default-state-wrapper').show();
             var from = oThis.metamask.ethereum.selectedAddress;
 
             $.ajax({
@@ -138,11 +138,10 @@
                 success: function(response){
                     if(response.success){
                         console.log(response);
-                      oThis.jConfirmAccountCover.find(".btn-confirm").text("confirm Address").prop('disabled', false);;
+                        oThis.jConfirmAccountCover.find(".btn-confirm").text("confirm Address").prop('disabled', false);;
                         // sign transaction logic
                     } else {
-                        //oThis.showError(response.err.error_data[0].msg);
-                        if(response.err.error_data[0]){
+                        if(response.err && response.err.error_data && response.err.error_data.length > 0){
                           oThis.showError(response.err.error_data[0].msg);
                         }
                         else {
