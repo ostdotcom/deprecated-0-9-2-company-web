@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     get '/update-password' => :update_password
     get '/verify-email' => :verify_email
     get '/mfa' => :mfa
+    get '/invalid-token' => :invalid_token
   end
 
   scope 'settings', controller: 'web/user_setting' do
