@@ -3,11 +3,7 @@
     <div class="col-5">
       {{manager.email}}<br/>
       <small class="font-weight-light">
-        {{#isSuperAdmin privileges }}
-        Super Admin
-        {{else}}
-        Admin
-        {{/isSuperAdmin}}
+        {{ getUserRoleText privileges }}
       </small>
     </div>
     <div class="col-3 text-uppercase">{{manager.status}}</div>
@@ -24,6 +20,8 @@
                 {{else}}
                 <option value="assign">ASSIGN SUPER ADMIN</option>
               {{/isSuperAdmin}}
+            {{else}}
+              <option value="resend-invite">RESEND INVITE</option>
             {{/hasVerifiedEmail}}
             {{#hasSetupMfa manager.properties}}
             <option value="reset-mfa">RESET MFA</option>
@@ -66,6 +64,15 @@
         return options.fn(this);
       }
       return  options.inverse(this);
+    });
+
+    Handlebars.registerHelper("getUserRoleText", function( privileges  ,  options ) {
+      if( !privileges ) return "";
+      if( privileges.indexOf("is_super_admin_invited") > -1 || privileges.indexOf("super_admin") > -1 ){
+        return "Super Admin"
+      } else if( privileges.indexOf("admin") > -1 || privileges.indexOf("is_admin_invited") > -1 ){
+        return "Admin";
+      }
     });
 
 

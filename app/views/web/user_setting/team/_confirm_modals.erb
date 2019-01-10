@@ -2,6 +2,7 @@
   delete_admin_endpoint = "/api/manager/super_admin/delete-admin"
   update_role_endpoint = "/api/manager/super_admin/update-super-admin-role"
   reset_mfa_endpoint = "/api/manager/super_admin/reset-mfa"
+  resend_admin_invite = "/api/manager/super_admin/resend-admin-invite"
 %>
 
 <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog">
@@ -21,7 +22,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" data-submiting="Processing...">Yes</button>
+          <button type="submit" class="btn btn-primary" data-submiting="Deleting...">Yes</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
         <div class="general_error invalid-feedback mt-2"></div>
@@ -29,6 +30,33 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="resendInviteModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered h-100 mx-auto my-0" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="resend_invite_form" class="user-form" action="<%= resend_admin_invite %>" method="POST">
+        <div class="modal-body text-center">
+          <h4>Are you sure you want to resend user invite?</h4>
+          <div class="form-group">
+            <input  type="hidden" required class="user-id form-control" name="to_update_client_manager_id"/>
+            <div class="invalid-feedback" data-for="to_update_client_manager_id"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" data-submiting="Sending...">Yes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+        <div class="general_error invalid-feedback mt-2"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
 <div class="modal fade" id="unassignAdminModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered h-100 mx-auto my-0" role="document">
@@ -51,7 +79,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" data-submiting="Processing...">Yes</button>
+          <button type="submit" class="btn btn-primary" data-submiting="Updating...">Yes</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
         <div class="general_error invalid-feedback mt-2">&nbsp;</div>
@@ -82,7 +110,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" data-submiting="Processing...">Yes</button>
+          <button type="submit" class="btn btn-primary" data-submiting="Updating...">Yes</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
         <div class="general_error invalid-feedback mt-2">&nbsp;</div>
@@ -109,7 +137,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" data-submiting="Processing...">Yes</button>
+          <button type="submit" class="btn btn-primary" data-submiting="Resetting...">Yes</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
         <div class="general_error invalid-feedback mt-2">&nbsp;</div>

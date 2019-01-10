@@ -22,6 +22,7 @@
     jAssignRoleModal  : $('#assignAdminModal'),
     jUnAssignRoleModal: $('#unassignAdminModal'),
     jResetMfaModal    : $('#resetMfa'),
+    jResendInviteModal : $('#resendInviteModal'),
     
     jDeleteUserBtn  :  $(".delete-user-btn"),
     jAssignRoleBtn  :  $(".assign-admin-btn"),
@@ -32,11 +33,13 @@
     jAssignRoleForm  :  $("#assign_user_form"),
     jUnAssignRoleForm: $("#unassign_user_form"),
     jResetMfaForm    : $("#reset_mfa_form"),
+    resendInviteForm : $('#resend_invite_form'),
 
-    deleteUserFormHelper  :  null,
-    assignRoleFormHelper  :  null,
-    unAssignRoleFormHelper: null,
-    resetMfaFormHelper   : null,
+    deleteUserFormHelper    :  null,
+    assignRoleFormHelper    :  null,
+    unAssignRoleFormHelper  : null,
+    resetMfaFormHelper      : null,
+    resendInviteFormHelper  : null,
 
     jUserID: $('.user-id'),
     jIsSuperAdmin: $('.is-super-admin'),
@@ -145,6 +148,15 @@
           }
         }
       });
+  
+      oThis.resendInviteFormHelper = oThis.resendInviteForm.formHelper({
+        success: function (response) {
+          if( response.success ){
+            oThis.hideModal( );
+            oThis.showModal( oThis.jSuccessModal );
+          }
+        }
+      });
 
     },
     
@@ -171,6 +183,9 @@
             break;
           case "reset-mfa":
             oThis.jCurrentModal = oThis.jResetMfaModal;
+            break;
+          case "resend-invite":
+            oThis.jCurrentModal = oThis.jResendInviteModal;
             break;
         }
         oThis.setUserID();
