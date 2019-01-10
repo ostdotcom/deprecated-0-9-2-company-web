@@ -152,6 +152,7 @@
       oThis.resendInviteFormHelper = oThis.resendInviteForm.formHelper({
         success: function (response) {
           if( response.success ){
+            oThis.setModalSuccessMsg("User invite has been send successfully!"); 
             oThis.hideModal( );
             oThis.showModal( oThis.jSuccessModal );
           }
