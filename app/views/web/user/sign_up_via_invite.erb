@@ -5,6 +5,6 @@
 
 <% else %>
 
-  <%= render :partial => "sign_up_via_invite" %>
+  <%= render :partial => "sign_up_via_invite", :locals => {:invite_token => params[:i_t]} %>
 
 <% end %>
