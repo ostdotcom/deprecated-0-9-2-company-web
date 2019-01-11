@@ -133,12 +133,10 @@ class ApplicationController < ActionController::Base
         redirect_to :mfa and return
       when 'economy_dashboard'
         redirect_to :dashboard and return
-      when 'economy_planner_step_one'
-        redirect_to :planner_step_one and return
-      when 'economy_planner_step_two'
-        redirect_to :planner_step_two and return
-      when 'economy_planner_step_three'
-        redirect_to :planner_step_three and return
+      when 'token_setup'
+        redirect_to :token_setup and return
+      when 'token_deploy'
+        redirect_to :token_deploy and return
       when 'service_unavailable'
         redirect_to :service_unavailable and return
       when 'login'

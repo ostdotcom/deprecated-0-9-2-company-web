@@ -40,7 +40,8 @@
     , autoEnableSubmitBtn: true
     , screen_to_url_map : {
       // temp commit. TODO: have testnet come from erb
-      "economy_planner_step_one" :"/testnet/planner/setup",
+      "token_setup" :"/testnet/token/setup",
+      "token_deploy" :"/testnet/token/deploy",
       "setup_mfa" : "/mfa",
       "authenticate_mfa" : "/mfa",
       "service_unavailable" : "/service_unavailable",

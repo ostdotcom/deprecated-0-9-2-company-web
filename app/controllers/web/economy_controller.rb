@@ -31,7 +31,19 @@ class Web::EconomyController < Web::BaseController
 
   end
 
-  def planner_deploy
+  def token_deploy
+
+    @response = CompanyApi::Request::Token.new(
+      CompanyApi::Response::Formatter::Token,
+      request.cookies,
+      {"User-Agent" => http_user_agent}
+    ).deploy()
+
+    unless @response.success?
+      return handle_temporary_redirects(@response)
+    end
+
+    @presenter_obj = ::WebPresenter::TokenPresenter.new(@response, params)
 
   end
 

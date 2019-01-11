@@ -27,6 +27,10 @@ module CompanyApi
         get('')
       end
 
+      def deploy
+        post('deploy', {})
+      end
+
       private
 
     end
