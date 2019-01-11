@@ -1,3 +1,15 @@
+<%
+
+  verified_email_property = "has_verified_email" ;
+  setup_mfa_property = "has_setup_mfa" ;
+  super_admin_invite_privilege = "is_super_admin_invited";
+  super_admin_privilege = "is_super_admin";
+  admin_invite_privilege = "is_admin_invited";
+  admin_privilege = "is_admin";
+
+%>
+
+
 <script type="text/x-handlebars-template" data-row-template>
   <div class="row align-items-center mt-1 mb-3 rounded ost-table-row cell" data-user-id="{{id}}">
     <div class="col-5">
@@ -38,21 +50,21 @@
   <script type="text/javascript">
 
     Handlebars.registerHelper('hasVerifiedEmail', function(properties ,  options ) {
-      if( properties && properties.indexOf("has_verified_email") > -1  ){
+      if( properties && properties.indexOf( "<%= verified_email_property %>" ) > -1  ){
         return options.fn(this);
       }
       return options.inverse(this);
     });
 
     Handlebars.registerHelper("hasSetupMfa", function(properties ,  options ) {
-      if( properties && properties.indexOf("has_setup_mfa") > -1  ){
+      if( properties && properties.indexOf( "<%= setup_mfa_property %>" ) > -1  ){
         return options.fn(this);
       }
       return options.inverse(this);
     });
 
     Handlebars.registerHelper("isSuperAdmin", function(privilages ,  options ) {
-      if( privilages && privilages.indexOf("is_super_admin") > -1  ){
+      if( privilages && privilages.indexOf( "<%= super_admin_privilege %>" ) > -1  ){
         return options.fn(this);
       }
       return options.inverse(this);
@@ -68,9 +80,9 @@
 
     Handlebars.registerHelper("getUserRoleText", function( privileges  ,  options ) {
       if( !privileges ) return "";
-      if( privileges.indexOf("is_super_admin_invited") > -1 || privileges.indexOf("is_super_admin") > -1 ){
+      if( privileges.indexOf( "<%= super_admin_invite_privilege %>" ) > -1 || privileges.indexOf( "<%= super_admin_privilege %>" ) > -1 ){
         return "Super Admin"
-      } else if( privileges.indexOf("is_admin") > -1 || privileges.indexOf("is_admin_invited") > -1 ){
+      } else if( privileges.indexOf( "<%= admin_invite_privilege %>" ) > -1 || privileges.indexOf( "<%= admin_privilege %>" ) > -1 ){
         return "Admin";
       }
     });

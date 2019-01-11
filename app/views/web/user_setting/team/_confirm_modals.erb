@@ -3,6 +3,9 @@
   update_role_endpoint = "/api/manager/super_admin/update-super-admin-role"
   reset_mfa_endpoint = "/api/manager/super_admin/reset-mfa"
   resend_admin_invite = "/api/manager/super_admin/resend-admin-invite"
+
+  user_id_name = "to_update_client_manager_id";
+  is_super_admin_name = "is_super_admin";
 %>
 
 <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog">
@@ -17,8 +20,8 @@
         <div class="modal-body text-center">
           <h4>Are you sure you want to delete user?</h4>
           <div class="form-group">
-            <input  type="hidden" required class="user-id form-control" name="to_update_client_manager_id"/>
-            <div class="invalid-feedback" data-for="to_update_client_manager_id"></div>
+            <input  type="hidden" required class="user-id form-control" name="<%= user_id_name%>"/>
+            <div class="invalid-feedback" data-for="<%= user_id_name%>"></div>
           </div>
         </div>
         <div class="modal-footer">
@@ -43,8 +46,8 @@
         <div class="modal-body text-center">
           <h4>Are you sure you want to resend user invite?</h4>
           <div class="form-group">
-            <input  type="hidden" required class="user-id form-control" name="to_update_client_manager_id"/>
-            <div class="invalid-feedback" data-for="to_update_client_manager_id"></div>
+            <input  type="hidden" required class="user-id form-control" name="<%= user_id_name%>"/>
+            <div class="invalid-feedback" data-for="<%= user_id_name%>"></div>
           </div>
         </div>
         <div class="modal-footer">
@@ -70,12 +73,12 @@
         <div class="modal-body text-center">
           <h4>Are you sure you want to unassign super admin role form the user?</h4>
           <div class="form-group">
-            <input  type="hidden" required class="user-id form-control" name="to_update_client_manager_id"/>
-            <div class="invalid-feedback" data-for="to_update_client_manager_id"></div>
+            <input  type="hidden" required class="user-id form-control" name="<%= user_id_name%>"/>
+            <div class="invalid-feedback" data-for="<%= user_id_name%>"></div>
           </div>
           <div class="form-group">
-            <input type="number" required class="is-super-admin form-control d-none" name="is_super_admin"/>
-            <div class="invalid-feedback" data-for="is_super_admin"></div>
+            <input type="number" required class="is-super-admin form-control d-none" name="<%= is_super_admin_name%>"/>
+            <div class="invalid-feedback" data-for="<%= is_super_admin_name%>"></div>
           </div>
         </div>
         <div class="modal-footer">
@@ -101,12 +104,12 @@
         <div class="modal-body text-center">
           <h4>Are you sure you want to assign super admin role to the user?</h4>
           <div class="form-group">
-            <input  type="hidden" required class="user-id form-control" name="to_update_client_manager_id"/>
-            <div class="invalid-feedback" data-for="to_update_client_manager_id"></div>
+            <input  type="hidden" required class="user-id form-control" name="<%= user_id_name%>"/>
+            <div class="invalid-feedback" data-for="<%= user_id_name%>"></div>
           </div>
           <div class="form-group">
-            <input type="number" required class="is-super-admin form-control d-none" name="is_super_admin"/>
-            <div class="invalid-feedback" data-for="is_super_admin"></div>
+            <input type="number" required class="is-super-admin form-control d-none" name="<%= is_super_admin_name%>"/>
+            <div class="invalid-feedback" data-for="<%= is_super_admin_name%>"></div>
           </div>
         </div>
         <div class="modal-footer">
@@ -132,8 +135,8 @@
           <h4>Are you sure you want to reset MFA?</h4>
 
           <div class="form-group">
-            <input  type="hidden" required class="user-id form-control" name="to_update_client_manager_id"/>
-            <div class="invalid-feedback" data-for="to_update_client_manager_id"></div>
+            <input  type="hidden" required class="user-id form-control" name="<%= user_id_name%>"/>
+            <div class="invalid-feedback" data-for="<%= user_id_name%>"></div>
           </div>
         </div>
         <div class="modal-footer">
