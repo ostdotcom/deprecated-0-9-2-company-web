@@ -27,11 +27,11 @@ class Web::EconomyController < Web::BaseController
     @presenter_obj = ::WebPresenter::TokenPresenter.new(@response, params)
 
     #TODO: Change this temp code
-    render 'planner_new'
+    render 'planner_deploy'
 
   end
 
-  def token_setup
+  def planner_deploy
 
   end
 
