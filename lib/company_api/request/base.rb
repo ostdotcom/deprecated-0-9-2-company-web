@@ -204,7 +204,14 @@ module CompanyApi
             else
               # API Error
               Rails.logger.info("=*=COMPANY-API-ERROR=*= #{response_data.inspect}")
-              error_with_internal_code('company_api_error', 'company api error', GlobalConstant::ErrorCode.internal_server_error, {}, {}, response_data['err']['display_text'])
+              error_with_internal_code(
+                "company_api_error",
+                response_data['err']['display_text'],
+                GlobalConstant::ErrorCode.internal_server_error,
+                {},
+                response_data['err']['error_data'],
+                response_data['err']['display_text']
+               )
             end
           when 'Net::HTTPUnauthorized', 'Net::HTTPPreconditionFailed'
             # Login required

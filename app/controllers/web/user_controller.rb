@@ -32,12 +32,7 @@ class Web::UserController < Web::BaseController
     if params[:i_t].present?
 
       unless Util::CommonValidator.is_valid_token?(params[:i_t])
-        #TODO: Render Error response
-        @error_data = {
-            display_text: 'Invalid Link',
-            display_heading: 'Invalid Link'
-        }
-        render "sign_up_via_invite"
+        render 'web/user/invalid_token'
         return
       end
 
@@ -48,7 +43,11 @@ class Web::UserController < Web::BaseController
       ).get_sign_up_page_details({i_t: params[:i_t]})
 
       unless @response.success?
-        render_error_response(@response)
+        if @response.error_data.present?
+          render 'web/user/invalid_token'
+        else
+          render_error_response(@response)
+        end
         return
       end
 
@@ -120,10 +119,8 @@ class Web::UserController < Web::BaseController
   def update_password
 
     unless Util::CommonValidator.is_valid_token?(params[:r_t])
-      @error_data = {
-          display_text: 'Invalid Link',
-          display_heading: 'Invalid Link'
-      }
+      render 'web/user/invalid_token'
+      return
     end
 
   end
@@ -133,10 +130,7 @@ class Web::UserController < Web::BaseController
     if params[:r_t].present?
 
       unless Util::CommonValidator.is_valid_token?(params[:r_t])
-        @error_data = {
-            display_text: 'Invalid Link',
-            display_heading: 'Invalid Link'
-        }
+        render 'web/user/invalid_token'
         return
       end
 
@@ -151,10 +145,12 @@ class Web::UserController < Web::BaseController
       elsif @response.http_code == GlobalConstant::ErrorCode.unauthorized_access
         redirect_to :login and return
       else
-        @error_data = {
-          display_text: 'Invalid Link',
-          display_heading: 'Invalid Link'
-        }
+        if @response.error_data.present?
+          render 'web/user/invalid_token'
+        else
+          render_error_response(@response)
+        end
+        return
       end
 
     else
