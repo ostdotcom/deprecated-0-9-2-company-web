@@ -26,7 +26,7 @@ module GlobalConstant
       end
 
       def cookie_domain
-        config['cookie_domain'] || 'kit-stag3.stagingost.com'
+        config['cookie_domain']
       end
 
       private
