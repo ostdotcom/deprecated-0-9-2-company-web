@@ -26,8 +26,7 @@ class Web::EconomyController < Web::BaseController
 
     @presenter_obj = ::WebPresenter::TokenPresenter.new(@response, params)
 
-    #TODO: Change this temp code
-    render 'planner_deploy'
+    render 'planner_new'
 
   end
 
@@ -44,6 +43,8 @@ class Web::EconomyController < Web::BaseController
     end
 
     @presenter_obj = ::WebPresenter::TokenPresenter.new(@response, params)
+
+    render 'planner_deploy'
 
   end
 
