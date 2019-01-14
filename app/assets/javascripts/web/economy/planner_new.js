@@ -138,7 +138,8 @@
                 success: function(response){
                     if(response.success){
                         console.log(response);
-                        oThis.jConfirmAccountCover.find(".btn-confirm").text("confirm Address").prop('disabled', false);;
+                        oThis.jConfirmAccountCover.find(".btn-confirm").text("confirm Address").prop('disabled', false);
+                        window.location = "/testnet/token/deploy";
                         // sign transaction logic
                     } else {
                         if(response.err && response.err.error_data && response.err.error_data.length > 0){
