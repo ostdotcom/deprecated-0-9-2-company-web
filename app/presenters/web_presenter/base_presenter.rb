@@ -112,7 +112,7 @@ module WebPresenter
     end
 
     def is_planner_route?
-      ['planner' , 'planner_step_two' , 'planner_step_three'].include?(action)
+      ['planner' , 'token_deploy'].include?(action)
     end
 
     def action
