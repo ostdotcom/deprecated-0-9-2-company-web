@@ -31,13 +31,17 @@
     <div class="header-alerts">
       <% if show_notification > 0 %>
         <% case show_notification %>
-      <% when 1 %>
-          <%= render :partial => "/shared/web/common/email_validation_alert" %>
-        <% when 2 %>
-          <%= render :partial => "/shared/web/common/top_up_ost_alert" %>
-        <% when 3 %>
-          <%= render :partial => "/shared/web/common/top_up_transaction_alert" %>
+          <% when 1 %>
+            <%= render :partial => "/shared/web/common/email_validation_alert" %>
+          <% when 2 %>
+            <%= render :partial => "/shared/web/common/top_up_ost_alert" %>
+          <% when 3 %>
+            <%= render :partial => "/shared/web/common/top_up_transaction_alert" %>
         <% end %>
+      <% end %>
+      <% if GlobalConstant::Base.main_sub_environment? %>
+      <!-- Constantinople related -->
+      <%= render :partial => "/shared/web/common/constantinople_alert" %>
       <% end %>
     </div>
 

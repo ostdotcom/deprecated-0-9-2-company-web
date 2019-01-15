@@ -76,10 +76,18 @@
             </div>
           </div>
         </div>
+        <% if GlobalConstant::Base.main_sub_environment? %>
+          <!-- Constantinople related -->
+          <p class="desc-2 font-weight-normal mt-5 mb-5 confirm-warning-msg">
+            Ethereum's network upgrade 'Constantinople' is in progress.
+            Access to KIT interface is temporarily restricted during this period to prevent Stake and Mint Operations from failing.
+          </p>
+        <% else %>
         <p class="desc-2 font-weight-normal mt-5 mb-5 confirm-warning-msg">
           Please review all the information carefully before confirming.
         </p>
         <button type="button" id="confirm_mint_button" class="btn btn-gold font-weight-light" title="Confirm">confirm</button>
+        <% end %>
       </div>
     </div>
   </div>
