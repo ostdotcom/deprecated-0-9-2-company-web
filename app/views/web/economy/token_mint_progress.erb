@@ -1,0 +1,90 @@
+<form data-ost-formhelper id="economy-planner" action="/<%=GlobalConstant::Environment.sandbox_sub_url_prefix %>/api/token" method="POST" class="user-form">
+<!--  <div class="planner-container text-center">-->
+    <div class="container">
+      <div class="row">
+        <div class="col-10 mx-auto">
+          <div class="card card-planner my-5">
+            <div class="card-header text-left">
+              <h4 class="mb-0">Mint Tokens</h4>
+            </div>
+            <div class="card-body">
+              <div class="row mb-4">
+                <div class="col-12 text-left form-group mb-0">
+                  <label class="form-label">SELECTED ADDRESS IN METAMASK</label>
+                </div>
+                <div class="col-6">
+                  <%=
+                    render partial: 'shared/web/common/mocker',
+                       locals: {
+                         :value => "0x58b7056DeB51eD292614F0DA1E94E7e9c589828d"
+                       }
+                  %>
+                </div>
+                <div class="col-6 text-left pl-0">
+                  <span class="text-muted font-weight-light">To select another address please open the metamask plugin and select your prefered address</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <%=
+                    render partial: 'shared/web/common/slider_top',
+                           locals: {
+                               label: "TOKENS TO MINT",
+                               id: "bt_to_mint_input_id",
+                               name: "bt_to_mint_input_name",
+                               type: 'number',
+                               min: 1,
+                               max: 2,
+                               step: 1,
+                               value: 1,
+                               tooltip: 'hide',
+                               classes: 'slider-primary'
+                           }
+                  %>
+                  <div class="mt-4 mb-2">
+                    <%=
+                      render partial: 'shared/web/common/mocker',
+                             locals: {
+                                 :header => "CURRENT TOKEN VALUE IN USD",
+                                 :value => "15.898"
+                             }
+                    %>
+                  </div>
+
+                </div>
+                <div class="col-8 user-form form-group m-0">
+                  <div class="d-flex align-items-center">
+                    <div class="p-0 form-group m-0">
+                      <label class="form-label">OST SUPPLY IN ACCOUNT</label>
+                      <div id="ostSupplyPie" class="pie-chat" style="width:100%; height: 200px"></div>
+                    </div>
+                    <ul class="p-0 m-0">
+                      <li class="d-flex align-items-center mb-3">
+                        <span class="ost-supply available"></span>
+                        <p class="m-0 ml-2">
+                          <small class="d-block" data-ost_available_key>OST Available</small>
+                          <small class="d-block" data-ost_available_val>350</small>
+                        </p>
+                      </li>
+                      <li class="d-flex align-items-center mb-3">
+                        <span class="ost-supply staked-minting"></span>
+                        <p class="m-0 ml-2">
+                          <small class="d-block" data-ost_staked_key>OST to be staked for minting tokens</small>
+                          <small class="d-block" data-ost_staked_val>310</small>
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <button class="btn btn-primary d-inline-block">Continue</button>
+        </div>
+      </div>
+    </div>
+<!--  </div>-->
+</form>
+
+

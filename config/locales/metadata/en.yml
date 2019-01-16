@@ -399,6 +399,52 @@ en:
         :specific_css_required: 1
         :specific_js_required: 1
 
+    token_mint:
+      :meta:
+        :title: 'OST KIT | Economy Planner - Step One'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
+        :canonical: '%{canonical}'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, nofollow'
+        :og:
+          :title: 'OST KIT | Economy Planner - Step One'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
+          :type: 'website'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image-1.jpg'
+          :url: '%{og_url}'
+        :twitter:
+          :card: 'summary_large_image'
+          :title: 'OST KIT | Economy Planner - Step One'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image-1.jpg'
+      :assets:
+        :specific_css_required: 1
+        :specific_js_required: 0
+
+    token_mint_progress:
+      :meta:
+        :title: 'OST KIT | Stake and Mint OST Alpha'
+        :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
+        :canonical: '%{canonical}'
+        :keywords: 'OST, Simple Token, Utility Chain, Blockchain'
+        :name: 'OST'
+        :robots: 'noindex, nofollow'
+        :og:
+          :title: 'OST KIT | Stake and Mint OST Alpha'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
+          :type: 'website'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image-1.jpg'
+          :url: '%{og_url}'
+        :twitter:
+          :card: 'summary_large_image'
+          :title: 'OST KIT | Stake and Mint OST Alpha'
+          :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
+          :image: 'https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-og-image-1.jpg'
+      :assets:
+        :specific_css_required: 0
+        :specific_js_required: 0
+
     users:
       :meta:
         :title: 'OST KIT | Users'
