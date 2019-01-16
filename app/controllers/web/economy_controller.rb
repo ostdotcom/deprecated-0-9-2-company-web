@@ -83,4 +83,22 @@ class Web::EconomyController < Web::BaseController
 
   end
 
+  def token_mint_signs
+
+    # TODO: TEMP CODE  CHANGE LATER
+    #
+    @response = CompanyApi::Request::Token.new(
+        CompanyApi::Response::Formatter::Token,
+        request.cookies,
+        {"User-Agent" => http_user_agent}
+    ).fetch_token_details()
+
+    unless @response.success?
+      return handle_temporary_redirects(@response)
+    end
+
+    @presenter_obj = ::WebPresenter::TokenPresenter.new(@response, params)
+
+  end
+
 end
