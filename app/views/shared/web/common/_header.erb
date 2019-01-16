@@ -38,10 +38,11 @@
           <% when 3 %>
             <%= render :partial => "/shared/web/common/top_up_transaction_alert" %>
         <% end %>
-      <% end %>
-      <% if GlobalConstant::Base.main_sub_environment? %>
-      <!-- Constantinople related -->
-      <%= render :partial => "/shared/web/common/constantinople_alert" %>
+      <% else %>
+        <% if GlobalConstant::Base.main_sub_environment? %>
+        <!-- Constantinople related -->
+        <%= render :partial => "/shared/web/common/constantinople_alert" %>
+        <% end %>
       <% end %>
     </div>
 
