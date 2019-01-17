@@ -90,7 +90,7 @@
                     if (reason === 'User rejected provider access') {
                         oThis.onUserRejectedProviderAccess();
                     } else {
-                        console.error('There was an issue signing you in Metamask.');
+                        console.error('There was an issue signing you in Metamask.', reason);
                     }
                 });
         },

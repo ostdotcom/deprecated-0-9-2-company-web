@@ -75,7 +75,7 @@
         ,"bt"   : 5
         ,"fiat" : 2
       };
-      if ( PriceOracle ) {
+      if ( typeof PriceOracle !== 'undefined' ) {
         numPrecisionMapping["ost"]  = PriceOracle.getOstPrecession();
         numPrecisionMapping["bt"]   = PriceOracle.getBtPrecession();
         numPrecisionMapping["fiat"] = PriceOracle.getFiatPrecession();

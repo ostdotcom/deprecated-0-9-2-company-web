@@ -111,6 +111,18 @@
         complete: onAnimationComplete
       });
     },
+    hideAll: function() {
+      var oThis = this;
+      var activeCEs = $(".active-cover");
+
+      if(activeCEs.length < 1){
+        return;
+      }
+
+      activeCEs.each(function(index){
+        oThis.hide($(this));
+      });
+    },
     getContentTop: function () {
       var oThis = this;
       return oThis.jContent.offset().top;
