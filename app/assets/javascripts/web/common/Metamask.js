@@ -67,7 +67,9 @@
             if(!oThis.isDapp) return oThis.onNotDapp();
             if(!oThis.isMetamask) return oThis.onNotMetamask();
 
-            oThis.onWaitingEnable();
+            oThis.isApproved().then(function(r){
+              if(!r) oThis.onWaitingEnable();
+            });
             oThis.ethereum && oThis.ethereum.enable()
                 .then(function(accounts){
                     oThis.onEnabled();

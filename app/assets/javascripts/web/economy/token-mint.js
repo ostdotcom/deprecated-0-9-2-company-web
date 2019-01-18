@@ -5,12 +5,16 @@
 
   var oThis = ost.token_mint = {
 
-    jMintTokensBtn    :  $("#mint-tokens"),
-    jStakeMintScreen1 :  $(".stake-mint-1"),
-    jStakeMintScreen2 :  $(".stake-mint-2"),
-    jConfirmAccountCover :  $('#metamaskConfirmAccount'),
-    whitelisted :null,
-
+    jMintTokensBtn                  :  $("#mint-tokens"),
+    jStakeMintScreen1               :  $("#stake-mint-1"),
+    jStakeMintScreen2               :  $("#stake-mint-2"),
+    jConfirmAccountCover            :  $('#metamaskConfirmAccount'),
+    genericErrorMessage             :  'Something went wrong!',
+    personalSignCancelErrorMessage  :  'Could not proceed as you denied message signature in MetaMask.',
+    metamask                        :  null,
+    whitelisted                     :  null,
+    contracts                       :  null,
+    signMessage                     :  null,
 
     init : function (config) {
       $.extend(oThis,config);
@@ -32,7 +36,8 @@
             console.log("successs of getAddressesEndpoint",response);
             oThis.jMintTokensBtn.text("mint tokens").prop("disabled",false);
             oThis.setupMetamask();
-            oThis.whitelisted = response.data.origin_addresses.whitelisted;
+            oThis.whitelisted = response.data && response.data.origin_addresses && response.data.origin_addresses.whitelisted;
+            oThis.signMessage = response.data && response.data.sign_messages && response.data.sign_messages.wallet_association;
             oThis.metamask.enable();
 
           }
@@ -66,6 +71,12 @@
           ost.coverElements.show("#metamaskLockedCover");
         },
 
+        onEnabled: function(){
+          setTimeout(function(){
+            ost.coverElements.hideAll();
+          }, 500);
+        },
+
         onUserRejectedProviderAccess: function(){
           ost.coverElements.show("#metamaskDisabledCover");
         },
@@ -83,13 +94,14 @@
         },
 
         onNewAccount: function(){
-          if( oThis.whitelisted.indexOf(oThis.metamask.ethereum.selectedAddress) > -1 ){
+          if( !oThis.whitelisted.indexOf(oThis.metamask.ethereum.selectedAddress) > -1 ){
+
             // this needs to be fixed...
-            setTimeout(function(){
-              ost.coverElements.hideAll();
+            //setTimeout(function(){
+              //ost.coverElements.hideAll();
               oThis.jStakeMintScreen1.hide();
               oThis.jStakeMintScreen2.show();
-            }, 500);
+            //}, 500);
           }
           else{
             oThis.initConfirmFlow();
@@ -103,21 +115,7 @@
 
     initConfirmFlow: function(){
       oThis.jConfirmAccountCover.find(".confirm-address").text(oThis.metamask.ethereum.selectedAddress);
-
-      $.ajax({
-        url: oThis.signMessagesEndPoint,
-        success: function(response){
-          if(response.success){
-            oThis.personalSign(response.data.wallet_association);
-          } else {
-            oThis.showError();
-          }
-        },
-        error: function(response){
-          oThis.showError();
-        }
-
-      });
+      oThis.personalSign(oThis.signMessage);
     },
 
     personalSign: function(message){

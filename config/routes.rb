@@ -32,7 +32,6 @@ Rails.application.routes.draw do
     get '/token/deploy' => :token_deploy, as: 'token_deploy'
     get '/token/mint' => :token_mint, as: 'token_mint'
     get '/token/mint-progress' => :token_mint_progress, as: 'token_mint_progress'
-    get '/token/mint-signs' => :token_mint_signs, as: 'token_mint_signs'
   end
 
   # namespace 'devadmin' do

@@ -1,4 +1,4 @@
-<div class="col-9 mx-auto mt-6 stake-mint-1">
+<div id="stake-mint-1" class="col-9 mx-auto mt-6">
   <div class="card text-center p-6">
     <h3 class="mb-0">Start Minting</h3>
     <div class="simulator-image-wrapper my-4">
@@ -14,7 +14,7 @@
     </div>
   </div>
 </div>
-<div class="stake-mint-2">
+<div id="stake-mint-2" style="display: none;">
   <form data-ost-formhelper id="economy-planner" action="/<%=GlobalConstant::Environment.sandbox_sub_url_prefix %>/api/token" method="POST" class="user-form">
     <!--  <div class="planner-container text-center">-->
     <div class="container">
