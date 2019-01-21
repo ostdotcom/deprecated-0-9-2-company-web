@@ -22,6 +22,8 @@
       $.extend(oThis,config);
       oThis.setupMetamask();
       oThis.bindActions();
+      oThis.googleCharts_1 = new GoogleCharts();
+      oThis.printSupplyChart();
     },
 
     bindActions : function () {
@@ -176,7 +178,41 @@
       oThis.jConfirmAccountCover.find('.default-state-wrapper').hide();
       oThis.jConfirmAccountCover.find(".error-state-wrapper").show();
       $(".error-state-wrapper").find(".display-header").text(message);
+    },
+
+    printSupplyChart: function(){
+      oThis.googleCharts_1.draw({
+        data: [
+          ['Type', 'Tokens'],
+          ['OST Available', 100],
+          ['OST to be staked for minting tokens', 100]
+        ],
+        selector: '#ostSupplyInAccountPie',
+        type: 'PieChart',
+        options: {
+          title: 'OST SUPPLY IN ACCOUNT',
+          pieHole: 0.7,
+          pieSliceText: 'none',
+          pieSliceBorderColor: 'none',
+          colors: ['34445b','88c7ca'],
+          backgroundColor: 'transparent',
+          enableInteractivity: false,
+          legend: 'none',
+          chartArea: {
+            width  : 180,
+            height : 180,
+            top    : 10,
+            left   : 10
+          },
+          animation  : {
+            startup  : true,
+            easing   : "out",
+            duration : 300
+          }
+        }
+      })
     }
+
   }
 
 })(window,jQuery);
