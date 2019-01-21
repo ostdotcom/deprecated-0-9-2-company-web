@@ -330,7 +330,7 @@ en:
         :specific_css_required: 1
         :specific_js_required: 1
 
-    planner:
+    token_setup:
       :meta:
         :title: 'OST KIT | Economy Planner - Step One'
         :description: 'OST KIT gives you all the tools you need to run your blockchain-powered economy on scalable OpenST sidechains, without requiring in-house blockchain developers.'
