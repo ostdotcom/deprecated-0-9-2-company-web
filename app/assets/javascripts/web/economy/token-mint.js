@@ -1,8 +1,10 @@
 ;
 (function (window,$) {
-  var ost = ns("ost");
-  var token_mint = ns("ost.token_mint");
-
+  var ost = ns("ost") ,
+     token_mint = ns("ost.token_mint") ,
+     utilities =  ns("ost.utilities")
+;
+  
   var oThis = ost.token_mint = {
 
     jMintTokensBtn                  :  $("#mint-tokens"),
@@ -18,6 +20,7 @@
 
     init : function (config) {
       $.extend(oThis,config);
+      oThis.setupMetamask();
       oThis.bindActions();
     },
 
@@ -28,36 +31,15 @@
     },
 
     onMintToken: function () {
-      oThis.jMintTokensBtn.text("processing").prop("disabled",true);
-      $.ajax({
-        url : oThis.getAddressesEndpoint,
-        success: function (response) {
-          if(response && response.success){
-            console.log("successs of getAddressesEndpoint",response);
-            oThis.jMintTokensBtn.text("mint tokens").prop("disabled",false);
-            oThis.setupMetamask();
-            oThis.whitelisted = response.data && response.data.origin_addresses && response.data.origin_addresses.whitelisted;
-            oThis.signMessage = response.data && response.data.sign_messages && response.data.sign_messages.wallet_association;
-            oThis.metamask.enable();
-
-          }
-          else {
-            console.log("api call successful but returned false");
-            oThis.jMintTokensBtn.text("mint tokens").prop("disabled",false);
-          }
-
-        },
-        error : function (reponse) {
-          console.log("api call was not successful");
-
-        }
-
-      });
+      oThis.jStakeMintScreen1.hide();
+      oThis.jStakeMintScreen2.show();
+      oThis.metamask.enable();
     },
+    
     setupMetamask: function(){
 
       oThis.metamask = new Metamask({
-        desiredNetwork: '3',
+        desiredNetwork: oThis.chainId,
 
         onNotDapp: function(){
           ost.coverElements.show("#installMetamaskCover");
@@ -94,9 +76,11 @@
         },
 
         onNewAccount: function(){
-          if( !oThis.whitelisted.indexOf(oThis.metamask.ethereum.selectedAddress) > -1 ){
+          var whitelisted = utilities.deepGet( oThis.data , "origin_addresses.whitelisted"),
+              selectedAddress = oThis.metamask.ethereum.selectedAddress ;
+          if( !whitelisted || !whitelisted.indexOf( selectedAddress ) > -1 ){
 
-            // this needs to be fixed...
+            //TODO this needs to be fixed...
             //setTimeout(function(){
               //ost.coverElements.hideAll();
               oThis.jStakeMintScreen1.hide();
@@ -114,8 +98,9 @@
     },
 
     initConfirmFlow: function(){
+      var signMessage = utilities.deepGet( oThis.data ,  "sign_messages.wallet_association" ) ;
       oThis.jConfirmAccountCover.find(".confirm-address").text(oThis.metamask.ethereum.selectedAddress);
-      oThis.personalSign(oThis.signMessage);
+      oThis.personalSign( signMessage );
     },
 
     personalSign: function(message){
@@ -165,10 +150,10 @@
           if(response.success){
             console.log(response);
             oThis.jConfirmAccountCover.find(".btn-confirm").text("confirm Address").prop('disabled', false);
-            window.location = "/testnet/token/mint";
+            window.location = oThis.redirectRoute;
 
             // sign transaction logic
-          } else {
+          } else { //TODO revisit
             if(response.err && response.err.error_data && response.err.error_data.length > 0){
               oThis.showError(response.err.error_data[0].msg);
             }

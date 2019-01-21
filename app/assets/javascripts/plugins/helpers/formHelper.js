@@ -38,15 +38,6 @@
     , complete: null
     , autoDisableSubmitBtn: true
     , autoEnableSubmitBtn: true
-    , screen_to_url_map : {
-      // temp commit. TODO: have testnet come from erb
-      "token_setup" :"/testnet/token/setup",
-      "token_deploy" :"/testnet/token/deploy",
-      "setup_mfa" : "/mfa",
-      "authenticate_mfa" : "/mfa",
-      "service_unavailable" : "/service_unavailable",
-      "verify_email" : "/verify-email"
-    }
 
     , init: function() {
       var oThis = this;
@@ -217,8 +208,8 @@
         , success: function (response) {
           if ( oThis.success ) {
             oThis.success.apply( oThis, arguments);
-          }else if (response && response.go_to && response.go_to.by_screen_name){
-            window.location = oThis.screen_to_url_map[response.go_to.by_screen_name]
+          }else if ( response && response.go_to && response.go_to.by_screen_name ){
+            window.location = window.redirectMap && window.redirectMap[response.go_to.by_screen_name]
           }
           else if ( response.success && oThis.jForm.data("redirect") ) {
             window.location = oThis.jForm.data("redirect");

@@ -1,3 +1,12 @@
+<%
+  prefix = GlobalConstant::Environment.sandbox_sub_url_prefix ;
+  token_api = "/"+prefix+"/api/token" ;
+  sign_messages_api = "/"+prefix+"/api/token/addresses/sign-messages";
+  addresses_api = "/"+prefix+ "/api/token/addresses";
+  redirect_route = "/"+prefix+ "/token/mint" ;
+  chain_id = '3' #Send from Presenter object
+%>
+
 <div id="stake-mint-1" class="col-9 mx-auto mt-6">
   <div class="card text-center p-6">
     <h3 class="mb-0">Start Minting</h3>
@@ -14,8 +23,9 @@
     </div>
   </div>
 </div>
+
 <div id="stake-mint-2" style="display: none;">
-  <form data-ost-formhelper id="economy-planner" action="/<%=GlobalConstant::Environment.sandbox_sub_url_prefix %>/api/token" method="POST" class="user-form">
+  <form data-ost-formhelper id="economy-planner" action="<%= token_api %>" method="POST" class="user-form">
     <!--  <div class="planner-container text-center">-->
     <div class="container">
       <div class="row">
@@ -112,9 +122,10 @@
   <script>
     $(function () {
       ost.token_mint.init({
-        getAddressesEndpoint :'/<%=GlobalConstant::Environment.sandbox_sub_url_prefix %>/api/token/addresses',
-        signMessagesEndPoint: '/<%=GlobalConstant::Environment.sandbox_sub_url_prefix %>/api/token/addresses/sign-messages',
-        addressesEndPoint: '/<%=GlobalConstant::Environment.sandbox_sub_url_prefix %>/api/token/addresses'
+        signMessagesEndPoint: '<%= sign_messages_api %>',
+        addressesEndPoint: '<%= addresses_api%>',
+        chainId : '<%= chain_id %>',
+        redirectRoute : '<%= redirect_route %>'
       });
     });
   </script>
