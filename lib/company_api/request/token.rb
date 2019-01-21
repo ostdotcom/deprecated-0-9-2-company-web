@@ -28,7 +28,11 @@ module CompanyApi
       end
 
       def deploy
-        post('deploy', {})
+        get('deploy', {})
+      end
+
+      def mint
+        get('mint', {})
       end
 
       private

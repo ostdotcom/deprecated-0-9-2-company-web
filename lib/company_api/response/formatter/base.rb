@@ -7,7 +7,8 @@ module CompanyApi
       class Base
 
         attr_reader :manager, :client, :client_token, :oracle_price_points, :chain_interaction_params,
-                    :client_token_planner, :client_balances, :token_supply_details, :pending_critical_interactions, :client_manager
+                    :client_token_planner, :client_balances, :token_supply_details, :pending_critical_interactions,
+                    :client_manager, :contract_details, :gas_price, :auxiliary_addresses, :origin_addresses
 
         # Initialize
         #
@@ -148,6 +149,58 @@ module CompanyApi
         # Sets @client_manager
         def set_client_manager(client_manager_data)
           @client_manager = CompanyApi::Response::Entity::Manager.new(client_manager_data)
+        end
+
+        # Set contract details data
+        #
+        # * Author: Alpesh
+        # * Date: 18/01/2019
+        # * Reviewed By:
+        #
+        # @param [Hash] contract_details_data (mandatory) - contract_details data hash
+        #
+        # Sets @client_manager
+        def set_contract_details(contract_details_data)
+          @contract_details = CompanyApi::Response::Entity::ContractDetails.new(contract_details_data)
+        end
+
+        # Set gas price data
+        #
+        # * Author: Alpesh
+        # * Date: 18/01/2019
+        # * Reviewed By:
+        #
+        # @param [Hash] gas_price_data (mandatory) - gas_price data hash
+        #
+        # Sets @client_manager
+        def set_gas_price(gas_price_data)
+          @gas_price = CompanyApi::Response::Entity::GasPrice.new(gas_price_data)
+        end
+
+        # Set auxiliary_addresses data
+        #
+        # * Author: Alpesh
+        # * Date: 18/01/2019
+        # * Reviewed By:
+        #
+        # @param [Hash] auxiliary_addresses_data (mandatory) - auxiliary_addresses data hash
+        #
+        # Sets @auxiliary_addresses
+        def set_auxiliary_addresses(auxiliary_addresses_data)
+          @auxiliary_addresses = CompanyApi::Response::Entity::AuxiliaryAddresses.new(auxiliary_addresses_data)
+        end
+
+        # Set origin_addresses data
+        #
+        # * Author: Alpesh
+        # * Date: 18/01/2019
+        # * Reviewed By:
+        #
+        # @param [Hash] origin_addresses_data (mandatory) - origin_addresses data hash
+        #
+        # Sets @origin_addresses
+        def set_origin_addresses(origin_addresses_data)
+          @origin_addresses = CompanyApi::Response::Entity::OriginAddresses.new(origin_addresses_data)
         end
 
         # Set Pending Critical Interactions Data

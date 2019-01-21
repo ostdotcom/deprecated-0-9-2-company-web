@@ -30,6 +30,10 @@ module CompanyApi
           set_token(@data['token'])
           set_price_points(@data['price_points'])
           set_client_manager(@data['client_manager'])
+          set_contract_details(@data['contract_details'])
+          set_gas_price(@data['gas_price'])
+          set_auxiliary_addresses(@data['auxiliary_addresses'])
+          set_origin_addresses(@data['origin_addresses'])
         end
 
         private

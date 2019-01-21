@@ -37,6 +37,54 @@ module WebPresenter
       end
     end
 
+    # contract details in presenter object
+    #
+    # * Author: Alpesh
+    # * Date: 18/01/2019
+    # * Reviewed By:
+    #
+    def contract_details
+      @t_contract_details ||= begin
+        formatter_obj.present? ? formatter_obj.contract_details : nil
+      end
+    end
+
+    # gas_price details in presenter object
+    #
+    # * Author: Alpesh
+    # * Date: 18/01/2019
+    # * Reviewed By:
+    #
+    def gas_price
+      @t_gas_price ||= begin
+        formatter_obj.present? ? formatter_obj.gas_price : nil
+      end
+    end
+
+    # auxiliary_addresses details in presenter object
+    #
+    # * Author: Alpesh
+    # * Date: 18/01/2019
+    # * Reviewed By:
+    #
+    def auxiliary_addresses
+      @t_auxiliary_addresses ||= begin
+        formatter_obj.present? ? formatter_obj.auxiliary_addresses : nil
+      end
+    end
+
+    # origin_addresses details in presenter object
+    #
+    # * Author: Alpesh
+    # * Date: 18/01/2019
+    # * Reviewed By:
+    #
+    def origin_addresses
+      @t_origin_addresses ||= begin
+        formatter_obj.present? ? formatter_obj.origin_addresses : nil
+      end
+    end
+
   end
 
 end
