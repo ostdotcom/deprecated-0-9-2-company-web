@@ -1,0 +1,47 @@
+<div class="row ost__planner">
+  <div class="col-12 col-md-8 pt-6 mx-auto text-center">
+    <svg class="icon-fund-wallet">
+      <switch>
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fund-wallet"></use>
+      </switch>
+    </svg>
+    <h3 class="text-center font-weight-bold letter-space-1 mt-5">We will fund <%= eligible_grant_value %> <%= ost_currency_symbol %> into your Metamask wallet shown below.</h3>
+    <p class="font-weight-light mb-5 text-muted"> You can request additional <%= ost_currency_symbol %> every 24 hours.</p>
+  </div>
+</div>
+<div class="row ost__planner">
+  <div class="col-12 col-md-6 ml-auto mr-auto">
+    <div class="text-center">
+      <div id="ost__planner__address" class="ost__planner__address font-weight-light mt-3 mb-3 d-inline-block"></div>
+      <div class="mb-5">
+        <form id="get_initial_ost" class="form-container-sm st-form" 
+          action="/api/client/get-ost" method="POST"
+          data-ost-formhelper>
+          <div class="general_error invalid-feedback" data-forid="get_initial_ost">&nbsp;</div>
+          <div id="emailFormGrp">
+            <input id="eth_address" type="hidden" name="eth_address"/>
+            <div class="invalid-feedback" data-forid="eth_address">&nbps;</div>
+          </div>
+          <div class="form-group text-center" >
+            <button id="get-initial-ost-button" 
+              class="btn btn-gold" data-submiting="Requesting..."
+              type="submit" >GET <%= ost_currency_symbol %></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% content_for :popups do %>
+  <%= render :partial => "/shared/web/modals/sending_ost_grant_modal" %>
+<%end%>
+
+<% content_for :end_js do %>
+<script type="text/javascript">
+  $(function () {
+    console.log('call ost.metamask.getOstHelper.init');
+  });
+</script>
+<% end %>
