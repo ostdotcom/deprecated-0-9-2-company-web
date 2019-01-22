@@ -123,6 +123,57 @@
         },
 
         /**
+         * Higher order helper methods:
+         *
+         * getBalance(walletAddress, callback)
+         * balanceOf(walletAddress, contractAddress, callback)
+         *
+         */
+        getBalance: function(walletAddress, callback) {
+
+            var oThis = this;
+
+            if(!oThis.isDapp) return oThis.onNotDapp();
+            if(!oThis.isMetamask) return oThis.onNotMetamask();
+            if(typeof walletAddress === 'undefined') return;
+
+            var options = {
+                method: 'eth_getBalance',
+                params: [walletAddress, "latest"]
+            };
+
+            oThis.ethereum && oThis.ethereum.sendAsync(options, function(err, result){
+                oThis.onSendAsync(err, result, callback);
+            });
+
+        },
+
+        balanceOf: function(walletAddress, contractAddress, callback) {
+
+            var oThis = this;
+
+            if(!oThis.isDapp) return oThis.onNotDapp();
+            if(!oThis.isMetamask) return oThis.onNotMetamask();
+            if(typeof walletAddress === 'undefined' || typeof contractAddress === 'undefined') return;
+
+            var options = {
+                method: 'eth_call',
+                params: [
+                    {
+                        to: contractAddress,
+                        data: web3.sha3('balanceOf(address)').slice(0,10) + "000000000000000000000000" + walletAddress.substring(2),
+                    },
+                    "latest"
+                ]
+            };
+
+            oThis.ethereum && oThis.ethereum.sendAsync(options, function(err, result){
+                oThis.onSendAsync(err, result, callback);
+            });
+
+        },
+
+        /**
          * List of flags specific to Metamask, implemented as Promises or functions
          * Avoid usage unless UI needs such granular checks
          *
