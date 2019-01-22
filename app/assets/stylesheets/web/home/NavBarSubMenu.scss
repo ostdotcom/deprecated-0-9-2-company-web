@@ -1,11 +1,18 @@
 .ost-nav{
-
+  background-color: #ffffff;
   .ost-brand {
     padding: 0.8rem 1rem;
   }
 
   li{
     position: relative;
+  }
+
+  @media (min-width: 768px){
+    &.nav-box-shadow{
+      box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.5s cubic-bezier(0,1,.5,1);
+    }
   }
 
   .main-nav-item{
