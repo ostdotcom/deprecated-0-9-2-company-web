@@ -1,18 +1,16 @@
 /*
  *= require plugins/responsively_lazy/responsivelyLazy
- *= require web/ost/Jumbotron
- *= require web/ost/Buttons
- *= require web/ost/Footer
- *= require web/ost/Subscribe
- *= require web/ost/Icons
- *#= require web/ost/NavBar
- *= require web/ost/NavBarSubMenu
- *= require web/ost/Powered
- *= require web/ost/OstSvgs
- *= require web/ost/Technology
- *= require web/ost/LaunchBt
- *= require web/ost/SidebySide
- *= require web/ost/Text
- *= require web/ost/OstBuy
- *= require web/ost/svgcheckbox
+ *= require web/home/Jumbotron
+ *= require web/home/Buttons
+ *= require web/home/Footer
+ *= require web/home/Subscribe
+ *= require web/home/Icons
+ *= require web/home/NavBarSubMenu
+ *= require web/home/Powered
+ *= require web/home/OstSvgs
+ *= require web/home/Technology
+ *= require web/home/LaunchBt
+ *= require web/home/SidebySide
+ *= require web/home/Text
+ *= require web/home/svgcheckbox
  */

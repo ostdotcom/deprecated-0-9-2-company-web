@@ -13,7 +13,7 @@ class Web::EconomyController < Web::BaseController
   # * Date: 03/01/2019
   # * Reviewed By: Kedar
   #
-  def planner
+  def token_setup
     @response = CompanyApi::Request::Token.new(
       CompanyApi::Response::Formatter::Token,
       request.cookies,
@@ -25,8 +25,6 @@ class Web::EconomyController < Web::BaseController
     end
 
     @presenter_obj = ::WebPresenter::TokenPresenter.new(@response, params)
-
-    render 'planner_new'
 
   end
 
@@ -43,8 +41,6 @@ class Web::EconomyController < Web::BaseController
     end
 
     @presenter_obj = ::WebPresenter::TokenPresenter.new(@response, params)
-
-    render 'planner_deploy'
 
   end
 
