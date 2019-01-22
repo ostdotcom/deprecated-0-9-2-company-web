@@ -1,1 +1,2 @@
-//= require web/economy/token-deploy.js
+//= require web/utils/PollingHelper
+//= require web/economy/token-deploy

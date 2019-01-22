@@ -1,58 +1,71 @@
 ;
 (function (window, $) {
 
-  var ost  = ns("ost");
+  var ost  = ns("ost") ,
+      Polling = ns("ost.Polling") ,
+      utilities = ns("ost.utilities")
+  ;
   var oThis = ost.tokenDeploy = {
-
-    intervalId: null,
+    deploymentPercentTooltip : null,
+    deploymentPercentTooltipText : null,
+    deploymentPercentTooltipArrow : null,
+    progressBar : null,
+    progressStep : null,
+  
+    polling : 0 ,
+    
 
     init : function (config) {
       $.extend(oThis, config);
+      oThis.deploymentPercentTooltip = $(".deploymentPercentTooltip");
+      oThis.deploymentPercentTooltipText = $(".deploymentPercentTooltip.tooltip-text");
+      oThis.deploymentPercentTooltipArrow = $(".arrow");
+      oThis.progressBar = $(".progress-bar")[0];
+      oThis.progressStep = $("#progressStep");
       oThis.setTooltipPosition();
       oThis.getDeployStatus();
     },
 
     getDeployStatus : function() {
-       $.ajax({
-         url: oThis.getDeployStatusEndPoint,
-         success:function (response) {
-           if(response && response.success){
-             oThis.updateProgessBar(response.data.workflow_current_step);
-           }
-           else{
-             console.log("api call was successful but returned false");
-           }
-         },
-         error: function () {
-           console.log("the api call was not successful");
-         }
-       })
+
+      oThis.polling = new Polling({
+        pollingApi : oThis.getDeployStatusEndPoint ,
+        success : function ( response ) {
+          if(response && response.success){
+            var currentWorkflow = utilities.deepGet( response , "data.workflow_current_step" );
+            oThis.updateProgessBar( currentWorkflow );
+          }
+        }
+      });
+
     },
 
     setTooltipPosition: function(percent_completion) {
 
         var tooltipOffsetLeft = 5;
         var arrowHalfLength = 6;
-        var tooltipWidth = $(".tooltip").width();
+        var tooltipWidth = oThis.deploymentPercentTooltip.width();
 
         if(typeof percent_completion === 'undefined') percent_completion = 0;
 
-        $(".tooltip-text").text(percent_completion +"%");
+        oThis.deploymentPercentTooltipText.text(percent_completion +"%");
 
-        $("div.tooltip").css({
+        oThis.deploymentPercentTooltip.css({
           left: Math.max(0, percent_completion-tooltipOffsetLeft)+'%'
         });
-        $(".arrow").css({
+        oThis.deploymentPercentTooltipArrow.css({
           left: tooltipWidth / 2 - arrowHalfLength
         });
-        if(percent_completion === 100){
-          oThis.intervalId.clearInterval();
-        }
     },
+
     updateProgessBar: function (currentStatus) {
-        $(".progress-bar")[0].style.width = currentStatus.percent_completion+'%';
-        $("#progressStep").html(currentStatus.display_text);
-        oThis.setTooltipPosition(currentStatus.percent_completion);
+        var percentCompletion = currentStatus && currentStatus.percent_completion || 0 ;
+        oThis.progressBar.style.width = percentCompletion+'%';
+        oThis.progressStep.html(currentStatus.display_text);
+        oThis.setTooltipPosition( percentCompletion  );
+        if( percentCompletion  >= 100){
+          oThis.polling && oThis.polling.stopPolling();
+        }
     }
   };
 

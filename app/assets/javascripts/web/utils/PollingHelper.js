@@ -14,12 +14,13 @@
     pollingApi:null ,
     pollXhr : null ,
     pollingInterval : 2000 ,
+    data : null ,
     
     maxRetry: 5,
     currentRetry: 0,
     
-    isPolling: false ,
-    shouldPoll: false ,
+    isPolling: false , // To check if already polling
+    shouldPoll: false , // To check for next polling
     
     startPolling : function () {
       var oThis = this;
@@ -41,20 +42,11 @@
       console.log("Polling has been stopped");
     },
   
-    isPollingRequired : function ( response  ) {
-      return false ; //Overwrite from outside
-    },
-  
     poll: function () {
       var oThis = this;
     
       if ( oThis.pollXhr ) {
         console.log("Polling request already in progress.");
-        return false;
-      }
-  
-      if ( !oThis.isPollingRequired() ) {
-        oThis.stopPolling();
         return false;
       }
       
@@ -67,6 +59,7 @@
           oThis.onPollSuccess.apply(oThis, arguments);
         },
         error     : function () {
+          oThis.currentRetry++;
           oThis.onPollError.apply(oThis, arguments);
         },
         complete  : function () {
@@ -91,7 +84,6 @@
     onPollComplete: function () {
       var oThis = this;
       oThis.pollXhr = null;
-      oThis.currentRetry++;
       if( !oThis.isMaxRetries() ){
         oThis.scheduleNextPoll();
       }
