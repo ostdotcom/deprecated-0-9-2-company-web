@@ -306,7 +306,6 @@ en:
         :specific_js_required: 0
 
   web/economy:
-
     token_setup:
       :meta:
         :title: 'OST KIT | Economy Planner - Step One'

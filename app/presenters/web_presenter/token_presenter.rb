@@ -13,18 +13,6 @@ module WebPresenter
       super
     end
 
-    # Client token details in presenter object
-    #
-    # * Author: Ankit
-    # * Date: 03/01/2019
-    # * Reviewed By: Kedar
-    #
-    def client_token
-      @t_client_token ||= begin
-        formatter_obj.present? ? formatter_obj.client_token : nil
-      end
-    end
-
     # Client manager details in presenter object
     #
     # * Author: Santhosh

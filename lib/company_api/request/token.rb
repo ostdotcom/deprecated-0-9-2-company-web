@@ -27,7 +27,7 @@ module CompanyApi
         get('')
       end
 
-      def deploy
+      def token_deploy
         get('deploy', {})
       end
 
