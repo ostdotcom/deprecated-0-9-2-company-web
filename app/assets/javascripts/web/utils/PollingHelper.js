@@ -61,15 +61,15 @@
       var data = oThis.getData( );
       
       oThis.pollXhr = $.ajax({
-        url         : oThis.pollingApi
-        , data      : data
-        , success   : function () {
+        url       : oThis.pollingApi,
+        data      : data,
+        success   : function () {
           oThis.onPollSuccess.apply(oThis, arguments);
-        }
-        , error     : function () {
+        },
+        error     : function () {
           oThis.onPollError.apply(oThis, arguments);
-        }
-        , complete  : function () {
+        },
+        complete  : function () {
           oThis.onPollComplete.apply(oThis, arguments);
         }
       });
@@ -77,18 +77,18 @@
     },
   
     getData : function () {
-      return oThis.data || {} //Owerrite from outside
-    }
+      return oThis.data || {} //Overwrite from outside
+    },
     
-    , onPollSuccess: function ( response ) {
+    onPollSuccess: function ( response ) {
       //Overwrite from outside
-    }
+    },
   
-    , onPollError: function () {
+    onPollError: function () {
       //Overwrite from outside
-    }
+    },
   
-    , onPollComplete: function () {
+    onPollComplete: function () {
       var oThis = this;
       oThis.pollXhr = null;
       oThis.currentRetry++;
@@ -100,9 +100,9 @@
     isMaxRetries: function () {
       var oThis = this;
       return oThis.currentRetry < oThis.maxRetry ;
-    }
+    },
   
-    , scheduleNextPoll: function () {
+    scheduleNextPoll: function () {
       var oThis = this;
     
       if ( !oThis.shouldPoll ) {
