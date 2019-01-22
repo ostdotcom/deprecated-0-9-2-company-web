@@ -1,5 +1,13 @@
-<% bt_symbol = @presenter_obj.client_token.symbol || 'Token' %>
-<form data-ost-formhelper id="economy-planner" action="/<%=GlobalConstant::Environment.sandbox_sub_url_prefix %>/api/token" method="POST">
+<%  bt_symbol = @presenter_obj.client_token.symbol || 'Token'
+    prefix = GlobalConstant::Environment.sandbox_sub_url_prefix
+    token_api = "/#{prefix}/api/token"
+    sign_messages_api = "/#{prefix}/api/token/addresses/sign-messages"
+    addresses_api = "/"+prefix+ "/api/token/addresses"
+    deployment_api = "/"+prefix+ "/api/token/deploy"
+    deploy_route = "/"+prefix+ "/token/deploy"
+    chain_id = '3' #Set from Presenter object
+%>
+<form data-ost-formhelper id="economy-planner" action="/<%=prefix%>/api/token" method="POST">
 <div class="planner-container  text-center">
   <h3 class="mt-5">
     Welcome to OST KIT, lets set up your token!
@@ -108,14 +116,6 @@
                 </div>
               </div>
             </div>
-
-
-
-
-
-
-
-
           </div>
         </div>
       </div>
@@ -135,9 +135,12 @@
 <% content_for :end_js do %>
   <script type="text/javascript">
       $( function () {
-          ost.planner.step1.init({
-              signMessagesEndPoint: '/<%=GlobalConstant::Environment.sandbox_sub_url_prefix %>/api/token/addresses/sign-messages',
-              addressesEndPoint: '/<%=GlobalConstant::Environment.sandbox_sub_url_prefix %>/api/token/addresses'
+          ost.tokenSetup.init({
+              signMessagesEndPoint: '<%= sign_messages_api %>',
+              addressesEndPoint: '<%= addresses_api%>',
+              deploymentEndpoint : '<%=deployment_api %>' ,
+              deployRoute : '<%= deploy_route %>',
+              chainId : '<%= chain_id %>',
           });
       });
   </script>

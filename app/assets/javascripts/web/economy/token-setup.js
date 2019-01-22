@@ -1,10 +1,13 @@
 ;
 (function (window, $) {
 
-    var ost  = ns("ost");
-    var planner = ns("ost.planner");
+    var ost         = ns("ost"),
+        formHelper  = window.FormHelper.prototype,
+        redirectMap = window.redirectMap ,
+        utilities   = ns('ost.utilities')
+    ;
 
-    var oThis   = ost.planner.step1 = {
+    var oThis = ost.tokenSetup = {
 
         jTokenForm:                       $('#economy-planner'),
         jConfirmAccountCover:             $('#metamaskConfirmAccount'),
@@ -24,10 +27,11 @@
               $(".header-recommendation").show();
           })
         },
+
         setupMetamask: function(){
 
             oThis.metamask = new Metamask({
-                desiredNetwork: '3',
+                desiredNetwork: oThis.chainId,
 
                 onNotDapp: function(){
                     ost.coverElements.show("#installMetamaskCover");
@@ -81,7 +85,8 @@
                 url: oThis.signMessagesEndPoint,
                 success: function(response){
                     if(response.success){
-                        oThis.personalSign(response.data.wallet_association);
+                       var walletAssociation = utilities.deepGet( response , "data.wallet_association" );
+                       oThis.personalSign( walletAssociation );
                     } else {
                         oThis.showError();
                     }
@@ -94,10 +99,11 @@
         },
 
         personalSign: function(message){
-
             if(!message) return;
+
             oThis.jConfirmAccountCover.find(".error-state-wrapper").hide();
             oThis.jConfirmAccountCover.find('.default-state-wrapper').show();
+
             var from = oThis.metamask.ethereum.selectedAddress;
 
             oThis.jConfirmAccountCover.find(".btn-confirm").off('click').on('click', function(e){
@@ -137,33 +143,66 @@
                 },
                 success: function(response){
                     if(response.success){
-                        console.log(response);
-                        oThis.jConfirmAccountCover.find(".btn-confirm").text("confirm Address").prop('disabled', false);
-                        window.location = "/testnet/token/deploy";
-                        // sign transaction logic
+                        oThis.startTokenDeployment();
                     } else {
-                        if(response.err && response.err.error_data && response.err.error_data.length > 0){
-                          oThis.showError(response.err.error_data[0].msg);
-                        }
-                        else {
-                          oThis.showError(response.err.display_text);
+                        var errorData = utilities.deepGet( response ,  "err.error_data") || [];
+                        var errorMsg ;
+                      if(errorData.length > 0 ){
+                          errorMsg =  errorData[0].msg ;
+                          oThis.showError( errorMsg );
+                        } else {
+                          errorMsg = utilities.deepGet( response ,  "err.display_text") ;
+                          oThis.showError( errorMsg );
                         }
                     }
                 },
                 error: function (response) {
-                    oThis.showError()
+                    oThis.showError( )
                 }
             });
         },
+        startTokenDeployment : function(){
+          $.ajax({
+            url : oThis.deploymentEndpoint,
+            method : 'POST',
+            success: function (response) {
+              oThis.jConfirmAccountCover.find(".btn-confirm").text("confirm Address").prop('disabled', false);
+              if(response && response.success){
+                var byScreenName = utilities.deepGet( response ,  "go_to.by_screen_name" );
+                if(byScreenName){
+                  window.location = redirectMap && redirectMap[byScreenName]
+                }
+                else{
+                  window.location = oThis.deployRoute;
+                }
+
+              }
+              else {
+                //TODO deepGet
+                if(response.err && response.err.error_data && response.err.error_data.length > 0){
+                  oThis.showError(response.err.error_data[0].msg);
+                }
+                else {
+                  //TODO deepGet
+                  oThis.showError(response.err.display_text);
+                }
+              }
+            },
+            error: function (response) {
+              oThis.showError()
+
+            }
+          })
+        },
 
         showError: function(message){
-            if(typeof message === 'undefined') {
+            if( !message ) {
               message = oThis.genericErrorMessage;
             }
-          oThis.jConfirmAccountCover.find(".btn-confirm").text("confirm Address").prop('disabled', false);
+            oThis.jConfirmAccountCover.find(".btn-confirm").text("Confirm Address").prop('disabled', false);
             oThis.jConfirmAccountCover.find('.default-state-wrapper').hide();
             oThis.jConfirmAccountCover.find(".error-state-wrapper").show();
-          $(".error-state-wrapper").find(".display-header").text(message);
+            oThis.jConfirmAccountCover.find(".error-state-wrapper .display-header").text(message);
         }
     };
 

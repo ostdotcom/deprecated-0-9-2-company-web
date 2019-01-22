@@ -1,11 +1,10 @@
 ;
 (function (window,$) {
   var ost = ns("ost") ,
-     token_mint = ns("ost.token_mint") ,
      utilities =  ns("ost.utilities")
 ;
   
-  var oThis = ost.token_mint = {
+  var oThis = ost.tokenMint = {
 
     jMintTokensBtn                  :  $("#mint-tokens"),
     jStakeMintScreen1               :  $("#stake-mint-1"),

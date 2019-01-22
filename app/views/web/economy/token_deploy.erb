@@ -102,7 +102,7 @@
 <% content_for :end_js do %>
   <script type="text/javascript">
     $( function () {
-      ost.token_setup.init({
+      ost.tokenDeploy.init({
         getDeployStatusEndPoint:"/<%=GlobalConstant::Environment.sandbox_sub_url_prefix%>/api/workflow/199"
       });
     });
