@@ -6,11 +6,21 @@
       utilities = ns("ost.utilities")
   ;
   var oThis = ost.tokenDeploy = {
+    deploymentPercentTooltip : null,
+    deploymentPercentTooltipText : null,
+    deploymentPercentTooltipArrow : null,
+    progressBar : null,
+    progressStep : null,
 
     percentCompletion : 0 ,
 
     init : function (config) {
       $.extend(oThis, config);
+      oThis.deploymentPercentTooltip = $(".deploymentPercentTooltip");
+      oThis.deploymentPercentTooltipText = $(".deploymentPercentTooltip.tooltip-text");
+      oThis.deploymentPercentTooltipArrow = $(".arrow");
+      oThis.progressBar = $(".progress-bar")[0];
+      othis.progressStep = $("#progressStep");
       oThis.setTooltipPosition();
       oThis.getDeployStatus();
     },
@@ -36,24 +46,24 @@
 
         var tooltipOffsetLeft = 5;
         var arrowHalfLength = 6;
-        var tooltipWidth = $(".tooltip").width(); //TODO specific name and cache
+        var tooltipWidth = oThis.deploymentPercentTooltip.width(); //TODO specific name and cache
 
         if(typeof percent_completion === 'undefined') percent_completion = 0;
 
-        $(".tooltip-text").text(percent_completion +"%"); //TODO specific name and cache
+        oThis.deploymentPercentTooltipText.text(percent_completion +"%"); //TODO specific name and cache
 
-        $("div.tooltip").css({  //TODO specific name and cache
+        oThis.deploymentPercentTooltip.css({  //TODO specific name and cache
           left: Math.max(0, percent_completion-tooltipOffsetLeft)+'%'
         });
-        $(".arrow").css({ //TODO specific name and cache
+        oThis.deploymentPercentTooltipArrow.css({ //TODO specific name and cache
           left: tooltipWidth / 2 - arrowHalfLength
         });
     },
 
     updateProgessBar: function (currentStatus) {
         oThis.percentCompletion = currentStatus && currentStatus.percent_completion || 0 ;
-        $(".progress-bar")[0].style.width = oThis.percentCompletion+'%'; //TODO specific name and cache
-        $("#progressStep").html(currentStatus.display_text); //TODO specific name and cache
+        oThis.progressBar.style.width = oThis.percentCompletion+'%'; //TODO specific name and cache
+        oThis.progressStep.html(currentStatus.display_text); //TODO specific name and cache
         oThis.setTooltipPosition( oThis.percentCompletion  );
     }
   };
