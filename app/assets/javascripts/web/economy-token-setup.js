@@ -1,2 +1,4 @@
-//= require web/utils-dashboard
+//= require web/utils/CoverElements
+//= require web/utils-simple-data-table
+//= require web/utils/Metamask
 //= require web/economy/token-setup

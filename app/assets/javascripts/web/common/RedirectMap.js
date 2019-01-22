@@ -1,5 +1,5 @@
 ;
-(function(window, $){
+(function(){
   
   window.redirectMap = {
     "token_setup" :"/testnet/token/setup",
@@ -10,4 +10,4 @@
     "verify_email" : "/verify-email"
   } ;
   
-})(window, jQuery);
+})();
