@@ -2,9 +2,7 @@
 (function (window, $) {
 
   var ost  = ns("ost");
-  var token_setup = ns("ost.token_setup");
-
-  var oThis   = ost.token_setup = {
+  var oThis = ost.tokenDeploy = {
 
     intervalId: null,
 
@@ -12,9 +10,6 @@
       $.extend(oThis, config);
       oThis.setTooltipPosition();
       oThis.getDeployStatus();
-      oThis.intervalId = setInterval(function () {
-        oThis.getDeployStatus();
-      }, 2000);
     },
 
     getDeployStatus : function() {

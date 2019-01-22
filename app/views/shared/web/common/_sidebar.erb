@@ -1,7 +1,8 @@
 <%
-  action = 'planner'
-
-  setup_not_complete_class = ''
+  prefix = GlobalConstant::Environment.sandbox_sub_url_prefix ;
+  planner_url = "/"+prefix+ "/token/setup" ;
+  mint_token_url = "/"+prefix+ "/token/mint" ;
+  team_url = "/settings/team";
 %>
 <%= render :partial => "/shared/web/common/sidebar-icons.svg" %>
 
@@ -12,110 +13,28 @@
   </div>
 
   <ul class="nav nav-pills flex-column py-6">
-    <% if ['planner', 'planner_step_two', 'planner_step_three'].include?(action) %>
-        <% planner_url =  nil; %>
-        <li class="nav-item">
-          <% if action == 'planner' %>
-            <% planner_url =  '/planner' %>
-          <% elsif action == 'planner_step_two' %>
-            <% planner_url =  '/planner/step-2' %>
-          <% elsif action == 'planner_step_three' %>
-            <% planner_url =  '/planner/step-3' %>
-          <% end %>
-          <a class="nav-link d-flex align-items-center active" href="<%= planner_url %>">
-            <svg class="icon">
-              <switch>
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-planner"></use>
-              </switch>
-            </svg>
-            <span class="label">Economy Planner</span>
-          </a>
-        </li>
-    <% end %>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %> <%= action == 'dashboard' ? 'active' : ''%>" href="/dashboard">
+      <a class="nav-link d-flex align-items-center active" href="<%= planner_url %>">
+        <svg class="icon">
+          <switch>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-planner"></use>
+          </switch>
+        </svg>
+        <span class="label">Economy Planner</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center" href="<%= mint_token_url %>">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-dashboard"></use>
           </switch>
         </svg>
-        <span class="label">Dashboard</span>
+        <span class="label">Mint Token</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %> <%= action == 'mint_tokens' ? 'active' : ''%>" href="/mint-tokens">
-        <svg class="icon">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-dashboard"></use>
-          </switch>
-        </svg>
-        <span class="label">Mint Tokens</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %> <%= action == 'token_supply' ? 'active' : ''%>" href="/token-supply">
-        <svg class="icon">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-token-supply"></use>
-          </switch>
-        </svg>
-        <span class="label">Token Supply</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %> <%= action == 'users' ? 'active' : ''%>" href="/users">
-        <svg class="icon">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-users"></use>
-          </switch>
-        </svg>
-        <span class="label">Users</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %> <%= action == 'transactions' ? 'active' : ''%>" href="/actions">
-        <svg class="icon">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-transactions"></use>
-          </switch>
-        </svg>
-        <span class="label">Actions</span>
-      </a>
-    </li>
-    <% if !GlobalConstant::Base.main_sub_environment? %>
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %> <%= action == 'simulator' ? 'active' : ''%>" href="/simulator">
-        <svg class="icon">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-simulator"></use>
-          </switch>
-        </svg>
-        <span class="label">Simulator</span>
-      </a>
-    </li>
-    <% end %>
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %> <%= action == 'developer_api_console' ? 'active' : ''%>" href="/developer-api-console">
-        <svg class="icon">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-dev-api"></use>
-          </switch>
-        </svg>
-        <span class="label">Developers</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %>" href="<%= GlobalConstant::CompanyOtherProductUrls::view_root_url %>" target="_blank">
-        <svg class="icon">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-bt-explorer"></use>
-          </switch>
-        </svg>
-        <span class="label">Block Explorer</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= setup_not_complete_class %>" data-toggle="collapse" href="#settings">
+      <a class="nav-link d-flex align-items-center" data-toggle="collapse" href="#settings">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-settings"></use>
@@ -123,63 +42,15 @@
         </svg>
         <span class="label">Settings</span>
       </a>
-      <div class="collapse ml-5" id="settings">
+      <div class="collapse ml-5 active" id="settings">
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="/settings/team">Team</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/settings/roles">Roles</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/settings/account">Account</a>
+              <a class="nav-link" href="<%= team_url %>">Team</a>
             </li>
           </ul>
       </div>
     </li>
-    <li class="nav-item position-relative">
-      <a class="nav-link d-flex align-items-center disabled" href="#">
-        <svg class="icon">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-campaigns"></use>
-          </switch>
-        </svg>
-        <span class="label">Campaigns<span class="badge">Coming soon</span></span>
-      </a>
-    </li>
-    <li class="nav-item position-relative">
-      <a class="nav-link d-flex align-items-center disabled" href="#">
-        <svg class="icon">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-analytics"></use>
-          </switch>
-        </svg>
-        <span class="label">Analytics<span class="badge">Coming soon</span></span>
-      </a>
-    </li>
-    <li class="nav-item position-relative">
-      <a class="nav-link d-flex align-items-center disabled" href="#">
-        <svg class="icon">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-kyc"></use>
-          </switch>
-        </svg>
-        <span class="label">KYC<span class="badge">Coming soon</span></span>
-      </a>
-    </li>
-    <!--<li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#collapseExample">Collapse</a>
-      <div class="collapse" id="collapseExample">
-          <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Sub 1</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Sub 2</a>
-            </li>
-          </ul>
-      </div>
-    </li>-->
   </ul>
 
 </aside>
+

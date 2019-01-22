@@ -1,5 +1,5 @@
 var ns = window.ns || function ns(ns_string) {
-    var parts = ns_string.split('.'),
+    var parts = ns_string && ns_string.split('.'),
       parent = this,
       pl, i;
 

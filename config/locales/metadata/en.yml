@@ -1,7 +1,6 @@
 # Page Meta
 en:
   web/home:
-
     index:
       :meta:
         :title: 'OST KIT | The Complete Blockchain Toolkit for Business'
@@ -72,7 +71,6 @@ en:
         :specific_js_required: 0
 
   web/user_setting:
-
     team:
       :meta:
         :title: 'OST KIT | Team'
@@ -97,7 +95,6 @@ en:
         :specific_js_required: 1
 
   web/user:
-
     login:
       :meta:
         :title: 'OST KIT | Login'
@@ -306,7 +303,6 @@ en:
         :specific_js_required: 0
 
   web/economy:
-
     token_setup:
       :meta:
         :title: 'OST KIT | Economy Planner - Step One'

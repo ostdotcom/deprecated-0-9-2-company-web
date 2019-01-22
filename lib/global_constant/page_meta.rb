@@ -6,14 +6,10 @@ module GlobalConstant
     class << self
 
       def get(controller, action)
-        config[controller][action]
+        fetch_config[controller][action]
       end
 
       private
-
-      def config
-        @config ||= fetch_config
-      end
 
       def fetch_config
         YAML.load_file("#{Rails.root}/config/locales/metadata/en.yml").fetch('en')
