@@ -34,6 +34,7 @@ module CompanyApi
           set_gas_price(@data['gas_price'])
           set_auxiliary_addresses(@data['auxiliary_addresses'])
           set_origin_addresses(@data['origin_addresses'])
+          set_workflow(@data['workflow'])
         end
 
         private

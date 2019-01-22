@@ -8,7 +8,7 @@ module CompanyApi
 
         attr_reader :manager, :client, :client_token, :oracle_price_points, :chain_interaction_params,
                     :client_token_planner, :client_balances, :token_supply_details, :pending_critical_interactions,
-                    :client_manager, :contract_details, :gas_price, :auxiliary_addresses, :origin_addresses
+                    :client_manager, :contract_details, :gas_price, :auxiliary_addresses, :origin_addresses, :workflow
 
         # Initialize
         #
@@ -201,6 +201,19 @@ module CompanyApi
         # Sets @origin_addresses
         def set_origin_addresses(origin_addresses_data)
           @origin_addresses = CompanyApi::Response::Entity::OriginAddresses.new(origin_addresses_data)
+        end
+
+        # Set origin_addresses data
+        #
+        # * Author: Alpesh
+        # * Date: 18/01/2019
+        # * Reviewed By:
+        #
+        # @param [Hash] origin_addresses_data (mandatory) - origin_addresses data hash
+        #
+        # Sets @origin_addresses
+        def set_workflow(workflow_data)
+          @workflow = CompanyApi::Response::Entity::Workflow.new(workflow_data)
         end
 
         # Set Pending Critical Interactions Data

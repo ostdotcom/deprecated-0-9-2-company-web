@@ -73,6 +73,18 @@ module WebPresenter
       end
     end
 
+    # origin_addresses details in presenter object
+    #
+    # * Author: Alpesh
+    # * Date: 18/01/2019
+    # * Reviewed By:
+    #
+    def workflow
+      @t_origin_addresses ||= begin
+        formatter_obj.present? ? formatter_obj.workflow : nil
+      end
+    end
+
   end
 
 end
