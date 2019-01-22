@@ -1,3 +1,7 @@
+<%
+  prefix = GlobalConstant::Environment.sandbox_sub_url_prefix
+  deployment_status_api = "/#{prefix}/api/workflow/199" # workflow_is should come from presentor object
+%>
 <div class="token-setup-container text-center">
   <h3 class="mt-5"> Setting up your Token</h3>
   <p class="font-weight-light my-5"> The <%= @presenter_obj.client_token.name%> token economy is being initialized. This process takes several minutes.</p>
@@ -103,7 +107,7 @@
   <script type="text/javascript">
     $( function () {
       ost.tokenDeploy.init({
-        getDeployStatusEndPoint:"/<%=GlobalConstant::Environment.sandbox_sub_url_prefix%>/api/workflow/199"
+        getDeployStatusEndPoint:<%=deployment_status_api%>
       });
     });
   </script>

@@ -12,7 +12,6 @@
         jTokenForm:                       $('#economy-planner'),
         jConfirmAccountCover:             $('#metamaskConfirmAccount'),
         genericErrorMessage:              'Something went wrong!',
-        personalSignCancelErrorMessage:   'Could not proceed as you denied message signature in MetaMask.',
         metamask:                         null,
 
         init: function( config ){
@@ -178,14 +177,16 @@
 
               }
               else {
-                //TODO deepGet
-                if(response.err && response.err.error_data && response.err.error_data.length > 0){
-                  oThis.showError(response.err.error_data[0].msg);
+
+                var errorData = utilities.deepGet(response , "err.error_data");
+                if(errorData.length > 0){
+                  oThis.showError(errorData[0].msg);
                 }
-                else {
-                  //TODO deepGet
-                  oThis.showError(response.err.display_text);
+                else{
+                  errorMsg = utilities.deepGet(response, ".err.display_text")
+                  oThis.showError(errorMsg);
                 }
+
               }
             },
             error: function (response) {

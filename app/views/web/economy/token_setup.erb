@@ -2,9 +2,9 @@
     prefix = GlobalConstant::Environment.sandbox_sub_url_prefix
     token_api = "/#{prefix}/api/token"
     sign_messages_api = "/#{prefix}/api/token/addresses/sign-messages"
-    addresses_api = "/"+prefix+ "/api/token/addresses"
-    deployment_api = "/"+prefix+ "/api/token/deploy"
-    deploy_route = "/"+prefix+ "/token/deploy"
+    addresses_api = "/#{prefix}/api/token/addresses"
+    deployment_api = "/#{prefix}/api/token/deploy"
+    deploy_route = "/#{prefix}/token/deploy"
     chain_id = '3' #Set from Presenter object
 %>
 <form data-ost-formhelper id="economy-planner" action="/<%=prefix%>/api/token" method="POST">
@@ -141,6 +141,7 @@
               deploymentEndpoint : '<%=deployment_api %>' ,
               deployRoute : '<%= deploy_route %>',
               chainId : '<%= chain_id %>',
+              personalSignCancelErrorMessage : 'Could not proceed as you denied message signature in MetaMask.'
           });
       });
   </script>
