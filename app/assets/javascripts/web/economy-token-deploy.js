@@ -1,1 +1,1 @@
-//= require web/economy/token-setup.js
+//= require web/economy/token-deploy.js
