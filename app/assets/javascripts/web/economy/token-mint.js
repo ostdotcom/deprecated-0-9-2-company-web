@@ -11,7 +11,6 @@
     jStakeMintScreen2               :  $("#stake-mint-2"),
     jConfirmAccountCover            :  $('#metamaskConfirmAccount'),
     genericErrorMessage             :  'Something went wrong!',
-    personalSignCancelErrorMessage  :  'Could not proceed as you denied message signature in MetaMask.',
     metamask                        :  null,
     whitelisted                     :  null,
     contracts                       :  null,
@@ -155,11 +154,14 @@
 
             // sign transaction logic
           } else { //TODO revisit
-            if(response.err && response.err.error_data && response.err.error_data.length > 0){
-              oThis.showError(response.err.error_data[0].msg);
+            var errorData = utilities.deepGet(response , "err.error_data");
+            if(errorData.length > 0)
+            {
+              oThis.showError(errorData[0].msg);
             }
-            else {
-              oThis.showError(response.err.display_text);
+            else{
+              errorMsg = utilities.deepGet(response,"err.display_text");
+              oThis.showError(errorMsg);
             }
           }
         },
@@ -170,7 +172,7 @@
     },
 
     showError: function(message){
-      if(typeof message === 'undefined') {
+      if(!message) {
         message = oThis.genericErrorMessage;
       }
       oThis.jConfirmAccountCover.find(".btn-confirm").text("confirm Address").prop('disabled', false);
