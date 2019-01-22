@@ -1,8 +1,8 @@
 // Import functions as variables depend on functions
-@import "../../../plugins/bootstrap/scss/functions";
+@import "plugins/bootstrap/scss/functions";
 
 // Import theme variables
-@import "../../Starboy/variables";
+@import "web/Starboy/variables";
 
 .first-transaction-wrapper ,  .transaction-history-wrapper {
   display: none;
