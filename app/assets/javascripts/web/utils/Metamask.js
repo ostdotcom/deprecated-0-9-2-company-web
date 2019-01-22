@@ -97,19 +97,6 @@
                 });
         },
 
-        watchAsset: function(params) {
-            var oThis = this;
-
-            if(!oThis.isDapp) return oThis.onNotDapp();
-            if(!oThis.isMetamask) return oThis.onNotMetamask();
-
-            oThis.ethereum && oThis.ethereum.sendAsync({
-                method: 'metamask_watchAsset',
-                params: params,
-                id: Math.round(Math.random() * 100000),
-            }, console.log)
-        },
-
         sendAsync: function(options, callback) {
 
             var oThis = this;
@@ -133,8 +120,6 @@
 
             var oThis = this;
 
-            if(!oThis.isDapp) return oThis.onNotDapp();
-            if(!oThis.isMetamask) return oThis.onNotMetamask();
             if(typeof walletAddress === 'undefined') return;
 
             var options = {
@@ -142,9 +127,7 @@
                 params: [walletAddress, "latest"]
             };
 
-            oThis.ethereum && oThis.ethereum.sendAsync(options, function(err, result){
-                oThis.onSendAsync(err, result, callback);
-            });
+            oThis.sendAsync(options, callback);
 
         },
 
@@ -152,24 +135,24 @@
 
             var oThis = this;
 
-            if(!oThis.isDapp) return oThis.onNotDapp();
-            if(!oThis.isMetamask) return oThis.onNotMetamask();
             if(typeof walletAddress === 'undefined' || typeof contractAddress === 'undefined') return;
+
+            if(walletAddress.substring(0,2) === '0x') {
+                walletAddress = walletAddress.substring(2);
+            }
 
             var options = {
                 method: 'eth_call',
                 params: [
                     {
                         to: contractAddress,
-                        data: web3.sha3('balanceOf(address)').slice(0,10) + "000000000000000000000000" + walletAddress.substring(2),
+                        data: web3.sha3('balanceOf(address)').slice(0,10) + "000000000000000000000000" + walletAddress,
                     },
                     "latest"
                 ]
             };
 
-            oThis.ethereum && oThis.ethereum.sendAsync(options, function(err, result){
-                oThis.onSendAsync(err, result, callback);
-            });
+            oThis.sendAsync(options, callback);
 
         },
 
