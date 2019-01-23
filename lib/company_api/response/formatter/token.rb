@@ -36,6 +36,7 @@ module CompanyApi
           set_origin_addresses(@data['origin_addresses'])
           set_workflow(@data['workflow'])
           set_workflow_current_step(@data['workflow_current_step'])
+          set_sign_messages(@data['sign_messages'])
         end
 
         private
