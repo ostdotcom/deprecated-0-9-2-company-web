@@ -23,7 +23,7 @@
   ;
 
   //All Private Stuff.
-  var OST_TO_FIAT = 1;
+  var OST_TO_FIAT = 10.000000000;
   var OST_TO_BT = 1;
   var eventNSHelpler = new ost.EventNameSpacing( "poEvent" ); 
 
@@ -332,6 +332,7 @@
       }
       return oThis.fiat_symbol + fiat.toString( 10 );
     }
+    
     , toDisplayBt : function ( bt ) {
       var oThis = this;
 

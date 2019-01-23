@@ -26,6 +26,10 @@
               $(".header-recommendation").show();
           })
         },
+  
+        ostToFiat  : function ( value ) {
+          return PriceOracle.ostToFiat(  value );
+        },
 
         setupMetamask: function(){
 

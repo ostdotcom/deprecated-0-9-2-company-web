@@ -12,6 +12,7 @@
   var eventNameSpace      = "";
   var delegateAttr        = "data-ost-mock-delegate-element";
   var autoBinderAttr      = "data-ost-mock-element";
+  var mockCallback        = "ost-mock-callback" ;
 
   var Mocker = function ( jElement, targetSelector, filter ) {
     var oThis = this;
@@ -52,6 +53,13 @@
         targertVal = jTarget.val();
       } else {
         targertVal = jTarget.html();
+      }
+    
+      var callbackName = oThis.jElement.data( mockCallback ) ,
+        callback  = callbackName && ns( callbackName )
+      ;
+      if( callback && typeof callback== "function") {
+        targertVal = callback( targertVal ) ;
       }
 
       if ( oThis.jElement.is(":input") ) {

@@ -5,7 +5,7 @@
     addresses_api = "/#{prefix}/api/token/addresses"
     deployment_api = "/#{prefix}/api/token/deploy"
     deploy_route = "/#{prefix}/token/deploy"
-    chain_id = '3' #Set from Presenter object
+    chain_id = GlobalConstant::Environment.chain_id
     bt_to_ost_input_name = "conversion_factor"
     bt_to_ost_min = 0.00001
     bt_to_ost_max = 500
@@ -105,11 +105,22 @@
                       <span class="equal-to-sign">=</span>
                     </div>
                     <div class="col-4 right-border text-center p-4">
-                      <span class="text-different-color"><span class="ost-mocker-value" data-type="fiat" data-ost-mock-element="#bt_to_ost">1</span></span> OST
+                      <span class="text-different-color">
+                        <span class="ost-mocker-value"
+                              data-type="fiat"
+                              data-ost-mock-element="#bt_to_ost"> 1
+                        </span>
+                      </span> OST
                       <span class="equal-to-sign">=</span>
                     </div>
                     <div class="col-4 p-4 text-center">
-                      <span class="text-different-color">$<span class="ost-mocker-value" data-type="fiat" data-ost-mock-element="#bt_to_ost">1</span></span> USD
+                      <span class="text-different-color">
+                        $<span class="ost-mocker-value"
+                               data-type="fiat"
+                               data-ost-mock-element="#bt_to_ost"
+                               data-ost-mock-callback="ost.tokenSetup.ostToFiat">1
+                          </span>
+                      </span> USD
                     </div>
                   </div>
                   <p class="pt-2"> Conversion rate will be set in OST, above visualization shows the Value of you token against OST and USD. OST is Market linked so the inherent value of your token may fluctuate based on the value of OST </p>

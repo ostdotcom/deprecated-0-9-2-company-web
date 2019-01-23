@@ -1,18 +1,41 @@
 ;
-(function ( scope, $ ) {
+(function ( window, $ ) {
   
+  var P_OST = 5
+  ;
   
-  var oThis = scope.PriceOracle = {
+  var P_BT = 5
+  ;
   
-    ostToFiat: function ( ost ,  conversionFactor  ) {
+  var P_FIAT = 2
+  ;
+  
+  var OST_TO_FIAT = 1 ;
+  
+  var oThis = window.PriceOracle = {
+  
+    init: function ( config ) {
+    var oThis = this;
+    
+    config = config || {};
+    
+    if ( config.ost_to_fiat ) {
+      OST_TO_FIAT = String( config.ost_to_fiat );
+    }
+    
+    $.extend( PriceOracle, config );
+    
+    oThis.ost_to_fiat && (delete oThis.ost_to_fiat);
+    
+  },
+  
+    ostToFiat: function ( ost ) {
       if( !ost ) return "";
-      conversionFactor = conversionFactor || 1 ;
       
       var oThis = this;
       ost = BigNumber( ost );
-      conversionFactor = BigNumber( conversionFactor );
       
-      var result = ost.multipliedBy( conversionFactor );
+      var result = ost.multipliedBy( OST_TO_FIAT );
       
       return oThis.toFiat( result );
     },
@@ -30,6 +53,18 @@
   
     isNaN : function ( val ) {
       return typeof val === "undefined" || val === "" || val === null || isNaN( val );
+    },
+  
+    getOstPrecession : function () {
+      return P_OST ;
+    },
+  
+    getFiatPrecession : function () {
+      return P_FIAT ;
+    },
+  
+    getBtPrecession : function () {
+      return P_BT ;
     }
     
   }
