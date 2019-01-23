@@ -13,6 +13,7 @@
         jConfirmAccountCover:             $('#metamaskConfirmAccount'),
         genericErrorMessage:              'Something went wrong!',
         metamask:                         null,
+        walletAssociation: null ,
 
         init: function( config ){
             $.extend(oThis, config);
@@ -92,27 +93,11 @@
         },
 
         initConfirmFlow: function(){
-
             oThis.jConfirmAccountCover.find(".confirm-address").text(oThis.metamask.ethereum.selectedAddress);
-
-            $.ajax({
-                url: oThis.signMessagesEndPoint,
-                success: function(response){
-                    if(response.success){
-                       var walletAssociation = utilities.deepGet( response , "data.wallet_association" );
-                       oThis.personalSign( walletAssociation );
-                    } else {
-                        oThis.showError();
-                    }
-                },
-                error: function(response){
-                  oThis.showError();
-                }
-
-            });
+            oThis.personalSign( oThis.walletAssociation );
         },
 
-        personalSign: function(message){
+        personalSign: function( message ){
             if(!message) return;
 
             oThis.jConfirmAccountCover.find(".error-state-wrapper").hide();

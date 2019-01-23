@@ -11,6 +11,7 @@
     bt_to_ost_input_name = "conversion_factor"
     bt_to_ost_min = 0.00001
     bt_to_ost_max = 500
+    wallet_association =  @presenter_obj.sign_messages.wallet_association
 %>
 <form data-ost-formhelper id="economy-planner" action="/<%=prefix%>/api/token" method="POST">
   <div class="planner-container  text-center">
@@ -135,12 +136,12 @@
           </div>
         </div>
       </div>
-  </div>
 
     <footer>
       <div class="row sticky-footer">
         <div class="container">
-          <button  type="submit" class="btn btn-steps-nav bg-yellow pt-3 pb-3 float-right" data-submiting="Setting Up..." id="setup-token-btn">Set up your Token &gt;</button>
+          <button  type="submit" class="btn btn-steps-nav bg-yellow pt-3 pb-3 float-right"
+                   data-submiting="Setting Up..." id="setup-token-btn">Set up your Token &gt;</button>
         </div>
       </div>
       <div class="pseudo-footer"></div>
@@ -159,7 +160,8 @@
               chainId : '<%= chain_id %>',
               personalSignCancelErrorMessage : 'Could not proceed as you denied message signature in MetaMask.',
               ost_to_fiat : '<%= ost_to_fiat %>' ,
-              btToOstId :  '<%=bt_to_ost_id%>'
+              btToOstId :  '<%=bt_to_ost_id%>',
+              walletAssociation : "<%= wallet_association%>"
           });
       });
   </script>
