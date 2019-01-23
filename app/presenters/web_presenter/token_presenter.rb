@@ -80,8 +80,20 @@ module WebPresenter
     # * Reviewed By:
     #
     def workflow
-      @t_origin_addresses ||= begin
+      @t_workflow ||= begin
         formatter_obj.present? ? formatter_obj.workflow : nil
+      end
+    end
+
+    # origin_addresses details in presenter object
+    #
+    # * Author: Alpesh
+    # * Date: 18/01/2019
+    # * Reviewed By:
+    #
+    def workflow_current_step
+      @t_workflow_csp ||= begin
+        formatter_obj.present? ? formatter_obj.workflow_current_step : nil
       end
     end
 

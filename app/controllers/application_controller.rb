@@ -137,6 +137,8 @@ class ApplicationController < ActionController::Base
         redirect_to :token_setup and return
       when 'token_deploy'
         redirect_to :token_deploy and return
+      when 'token_mint'
+        redirect_to :token_mint and return
       when 'service_unavailable'
         redirect_to :service_unavailable and return
       when 'login'
