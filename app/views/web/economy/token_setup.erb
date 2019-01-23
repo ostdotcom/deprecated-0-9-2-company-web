@@ -6,7 +6,7 @@
     deployment_api = "/#{prefix}/api/token/deploy"
     deploy_route = "/#{prefix}/token/deploy"
     chain_id = GlobalConstant::Environment.chain_id
-    ost_to_fiat =  "7.2141224122142214"
+    ost_to_fiat =  @presenter_obj.oracle_price_points.to_fiat_conversion_factor("USD")
     bt_to_ost_id = "bt_to_ost"
     bt_to_ost_input_name = "conversion_factor"
     bt_to_ost_min = 0.00001
