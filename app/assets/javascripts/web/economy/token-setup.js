@@ -9,11 +9,11 @@
 
     var oThis = ost.tokenSetup = {
 
-        jTokenForm:                       $('#economy-planner'),
-        jConfirmAccountCover:             $('#metamaskConfirmAccount'),
-        genericErrorMessage:              'Something went wrong!',
-        metamask:                         null,
-        walletAssociation: null ,
+        jTokenForm            :  $('#economy-planner'),
+        jConfirmAccountCover  :  $('#metamaskConfirmAccount'),
+        genericErrorMessage   :  'Something went wrong!',
+        metamask              :  null,
+        walletAssociation     :  null ,
 
         init: function( config ){
             $.extend(oThis, config);
@@ -115,7 +115,7 @@
                       return oThis.showError(err);
                     }
                     if(result && result.error){
-                      return oThis.showError(oThis.personalSignCancelErrorMessage);
+                      return oThis.showError( "Could not proceed as you denied message signature in MetaMask." );
                     } else {
                       oThis.associateAddress(result);
                     }
@@ -183,7 +183,7 @@
                   oThis.showError(errorData[0].msg);
                 }
                 else{
-                  errorMsg = utilities.deepGet(response, ".err.display_text")
+                  var errorMsg = utilities.deepGet(response, ".err.display_text") ;
                   oThis.showError(errorMsg);
                 }
 

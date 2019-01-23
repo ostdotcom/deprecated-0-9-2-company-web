@@ -1,17 +1,19 @@
-<%  bt_symbol = @presenter_obj.client_token.symbol || 'Token'
+<%
+
     prefix = GlobalConstant::Environment.sandbox_sub_url_prefix
-    token_api = "/#{prefix}/api/token"
-    sign_messages_api = "/#{prefix}/api/token/addresses/sign-messages"
+    wallet_association =  @presenter_obj.sign_messages.wallet_association
+    ost_to_fiat =  @presenter_obj.oracle_price_points.to_fiat_conversion_factor("USD")
+    bt_symbol = @presenter_obj.client_token.symbol || 'Token'
+    chain_id = GlobalConstant::Environment.chain_id
+
     addresses_api = "/#{prefix}/api/token/addresses"
     deployment_api = "/#{prefix}/api/token/deploy"
     deploy_route = "/#{prefix}/token/deploy"
-    chain_id = GlobalConstant::Environment.chain_id
-    ost_to_fiat =  @presenter_obj.oracle_price_points.to_fiat_conversion_factor("USD")
     bt_to_ost_id = "bt_to_ost"
     bt_to_ost_input_name = "conversion_factor"
     bt_to_ost_min = 0.00001
     bt_to_ost_max = 500
-    wallet_association =  @presenter_obj.sign_messages.wallet_association
+
 %>
 <form data-ost-formhelper id="economy-planner" action="/<%=prefix%>/api/token" method="POST">
   <div class="planner-container  text-center">
@@ -153,15 +155,17 @@
   <script type="text/javascript">
       $( function () {
           ost.tokenSetup.init({
-              signMessagesEndPoint: '<%= sign_messages_api %>',
+
+              walletAssociation : "<%= wallet_association%>",
+              chainId : '<%= chain_id %>',
+
               addressesEndPoint: '<%= addresses_api%>',
               deploymentEndpoint : '<%=deployment_api %>' ,
               deployRoute : '<%= deploy_route %>',
-              chainId : '<%= chain_id %>',
-              personalSignCancelErrorMessage : 'Could not proceed as you denied message signature in MetaMask.',
+
               ost_to_fiat : '<%= ost_to_fiat %>' ,
-              btToOstId :  '<%=bt_to_ost_id%>',
-              walletAssociation : "<%= wallet_association%>"
+              btToOstId :  '<%=bt_to_ost_id%>'
+
           });
       });
   </script>
