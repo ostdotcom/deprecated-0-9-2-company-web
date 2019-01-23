@@ -36,6 +36,10 @@ module CompanyApi
           true
         end
 
+        def status
+          @data['status']
+        end
+
       end
 
     end
