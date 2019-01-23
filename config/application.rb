@@ -34,6 +34,8 @@ module CompanyWeb
     # Local machine timezone
     # config.active_record.default_timezone = :local
 
+    config.assets.prefix = "/js-css/common"
+
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths << "#{config.root}/lib/"
     config.eager_load_paths << "#{config.root}/lib/"

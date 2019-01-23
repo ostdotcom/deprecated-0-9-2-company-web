@@ -16,7 +16,7 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   # Incase we want to test asset precompile in development
-  config.assets.prefix = "/js-css/dev"
+  # config.assets.prefix = "/js-css/dev"
 
   #react configuration.
   config.react.variant = :production
