@@ -7,6 +7,7 @@
     deploy_route = "/#{prefix}/token/deploy"
     chain_id = GlobalConstant::Environment.chain_id #Set from Presenter object
 %>
+<%= render :partial => "shared/web/economy/metamask/token_mint_signs-3" %>
 <form data-ost-formhelper id="economy-planner" action="/<%=prefix%>/api/token" method="POST">
 <div class="planner-container  text-center">
   <h3 class="mt-5">
