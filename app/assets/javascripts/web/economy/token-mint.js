@@ -10,9 +10,12 @@
 
     jMintTokensBtn                  :  $("#mint-tokens"),
     jMintTokenContinueBtn           :  $("#token-mint-continue-btn"),
-    jStakeMintScreen1               :  $("#stake-mint-1"),
-    jStakeMintScreen2               :  $("#stake-mint-2"),
+    jStakeMintStart                 :  $("#stake-mint-start"),
+    jStakeMintProcess               :  $("#stake-mint-process"),
     jConfirmAccountCover            :  $('#metamaskConfirmAccount'),
+    jMintSections                   :  $('.jMintSections'),
+    jAddressNotWhitelistedSection   :  $('#jAddressNotWhitelistedSection') ,
+    jInsufficientBalSection         :  $('#jInsufficientBalSection') ,
     genericErrorMessage             :  'Something went wrong!',
     metamask                        :  null,
     whitelisted                     :  null,
@@ -24,51 +27,24 @@
 
     init : function (config) {
       $.extend(oThis,config);
-      oThis.setupMetamask();
       oThis.bindActions();
-      oThis.googleCharts_1 = new GoogleCharts();
-      oThis.printSupplyChart();
-      oThis.progressBar = new Progressbar();
-      oThis.getMintingStatus();
-    },
-
-    getMintingStatus : function() {
-      oThis.polling = new Polling({
-        pollingApi : oThis.mintingStatusEndPoint ,
-        onPollSuccess :  oThis.onPollingSuccess.bind( oThis )
-      });
-      oThis.polling.startPolling();
-
-    },
-
-    onPollingSuccess : function( response ){
-      if(response && response.success){
-        var currentWorkflow = utilities.deepGet( response , "data.workflow_current_step" );
-        if( currentWorkflow.status = "failed"){
-         //do something
-        }
-        else{
-          oThis.progressBar.updateProgressBar( currentWorkflow );
-          if( currentWorkflow && currentWorkflow.percent_completion  >= 100){
-            oThis.polling && oThis.polling.stopPolling();
-          }
-        }
-      }
     },
 
     bindActions : function () {
       oThis.jMintTokensBtn.on("click",function () {
         oThis.onMintToken();
       });
-      //added temporarily to test modal
+
       oThis.jMintTokenContinueBtn.on("click",function () {
         $("#stake-mint-confirm-modal").modal('show');
       });
     },
 
     onMintToken: function () {
-      oThis.jStakeMintScreen1.hide();
-      oThis.jStakeMintScreen2.show();
+      oThis.showSection(  oThis.jStakeMintProcess ) ;
+      oThis.googleCharts_1 = new GoogleCharts();
+      oThis.printSupplyChart();
+      oThis.setupMetamask();
       oThis.metamask.enable();
     },
     
@@ -113,19 +89,15 @@
 
         onNewAccount: function(){
           var whitelisted = utilities.deepGet( oThis.data , "origin_addresses.whitelisted"),
-              selectedAddress = oThis.metamask.ethereum.selectedAddress ;
+              selectedAddress = oThis.metamask.ethereum.selectedAddress
+          ;
+          $('#metamask_selected_address').setVal( selectedAddress );
           if( !whitelisted || !whitelisted.indexOf( selectedAddress ) > -1 ){
-
-            //TODO this needs to be fixed...
-            //setTimeout(function(){
-              //ost.coverElements.hideAll();
-              oThis.jStakeMintScreen1.hide();
-              oThis.jStakeMintScreen2.show();
-            //}, 500);
+            //TODO uncomment  show once section is created
+            // oThis.showSection( oThis.jAddressNotWhitelistedSection ) ;
           }
           else{
-            oThis.initConfirmFlow();
-            ost.coverElements.show("#metamaskConfirmAccount");
+            oThis.checkForOstBal();
           }
         }
 
@@ -133,88 +105,15 @@
 
     },
 
-    initConfirmFlow: function(){
-      var signMessage = utilities.deepGet( oThis.data ,  "sign_messages.wallet_association" ) ;
-      oThis.jConfirmAccountCover.find(".confirm-address").text(oThis.metamask.ethereum.selectedAddress);
-      oThis.personalSign( signMessage );
+
+    checkForOstBal : function(){
+      //TODO uncomment  show once section is created
+      //oThis.showSection(  oThis.jInsufficientBalSection ) ;
     },
 
-    personalSign: function(message){
-
-      if(!message) return;
-      oThis.jConfirmAccountCover.find(".error-state-wrapper").hide();
-      oThis.jConfirmAccountCover.find('.default-state-wrapper').show();
-      var from = oThis.metamask.ethereum.selectedAddress;
-
-      oThis.jConfirmAccountCover.find(".btn-confirm").off('click').on('click', function(e){
-        oThis.metamask.sendAsync({
-          method: 'personal_sign',
-          params: [message, from],
-          from: from
-        }, function(err, result){
-          if(err){
-            return oThis.showError(err);
-          }
-          if(result && result.error){
-            return oThis.showError(oThis.personalSignCancelErrorMessage);
-          } else {
-            oThis.associateAddress(result);
-
-          }
-        });
-      });
-
-    },
-
-    associateAddress: function(result){
-
-      $('.btn-confirm').text("confirming...").prop("disabled",true);
-
-      if(!result) return;
-      oThis.jConfirmAccountCover.find(".error-state-wrapper").hide();
-      oThis.jConfirmAccountCover.find('.default-state-wrapper').show();
-      var from = oThis.metamask.ethereum.selectedAddress;
-
-      $.ajax({
-        url: oThis.addressesEndPoint,
-        method: 'POST',
-        data: {
-          owner: from,
-          personal_sign: result.result
-        },
-        success: function(response){
-          if(response.success){
-            console.log(response);
-            oThis.jConfirmAccountCover.find(".btn-confirm").text("confirm Address").prop('disabled', false);
-            window.location = oThis.redirectRoute;
-
-            // sign transaction logic
-          } else { //TODO revisit
-            var errorData = utilities.deepGet(response , "err.error_data");
-            if(errorData.length > 0)
-            {
-              oThis.showError(errorData[0].msg);
-            }
-            else{
-              errorMsg = utilities.deepGet(response,"err.display_text");
-              oThis.showError(errorMsg);
-            }
-          }
-        },
-        error: function (response) {
-          oThis.showError()
-        }
-      });
-    },
-
-    showError: function(message){
-      if(!message) {
-        message = oThis.genericErrorMessage;
-      }
-      oThis.jConfirmAccountCover.find(".btn-confirm").text("confirm Address").prop('disabled', false);
-      oThis.jConfirmAccountCover.find('.default-state-wrapper').hide();
-      oThis.jConfirmAccountCover.find(".error-state-wrapper").show();
-      $(".error-state-wrapper").find(".display-header").text(message);
+    showSection : function( jSection ){
+      oThis.jMintSections.hide();
+      jSection.show();
     },
 
     printSupplyChart: function(){
@@ -248,7 +147,7 @@
           }
         }
       })
-    }
+    },
 
   }
 

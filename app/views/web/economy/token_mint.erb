@@ -8,11 +8,8 @@
   minting_status_api = "/#{prefix}/api/workflow/26" # temp route for testing
 %>
 
-<!--kept for testing purpose temporarily-->
-<%#= render :partial => "shared/web/economy/metamask/token_mint_signs-3" %>
 
-
-<div id="stake-mint-1" class="col-9 mx-auto mt-6">
+<div id="stake-mint-start" class="col-9 mx-auto mt-6 jMintSections">
   <div class="card text-center p-6">
     <h3 class="mb-0">Start Minting</h3>
     <div class="simulator-image-wrapper my-4">
@@ -29,7 +26,7 @@
   </div>
 </div>
 
-<div id="stake-mint-2" style="display: none;">
+<div id="stake-mint-process" class="jMintSections" style="display: none;">
   <form data-ost-formhelper action="<%= token_api %>" method="POST" class="user-form">
     <!--  <div class="planner-container text-center">-->
     <div class="container">
@@ -45,11 +42,12 @@
                   <label class="form-label">SELECTED ADDRESS IN METAMASK</label>
                 </div>
                 <div class="col-6">
-                  <%=
-                    render partial: 'shared/web/common/mocker',
-                           locals: {
-                               :value => ""
-                           }
+                  <input name="metamask_selected_address"  id="metamask_selected_address" type="hidden" />
+                  <%= render :partial => "/shared/web/common/mocker",
+                             :locals => {
+                                 :mock_selector => "#metamask_selected_address",
+                                 :mock_type => "address"
+                             }
                   %>
                 </div>
                 <div class="col-6 text-left pl-0">
@@ -85,10 +83,10 @@
 
                 </div>
                 <div class="col-8 user-form form-group m-0">
+                  <label class="form-label">OST SUPPLY IN ACCOUNT</label>
                   <div class="d-flex align-items-center">
                     <div class="p-0 form-group m-0">
-                      <label class="form-label">OST SUPPLY IN ACCOUNT</label>
-                      <div id="ostSupplyInAccountPie" class="pie-chat" style="width:100px; height: 200px"></div>
+                      <div id="ostSupplyInAccountPie" class="pie-chat" style="width:200px; height: 200px"></div>
                     </div>
                     <ul class="p-0 m-0">
                       <li class="d-flex align-items-center mb-3">
