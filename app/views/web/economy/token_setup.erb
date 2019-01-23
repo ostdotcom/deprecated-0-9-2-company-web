@@ -5,7 +5,7 @@
     addresses_api = "/#{prefix}/api/token/addresses"
     deployment_api = "/#{prefix}/api/token/deploy"
     deploy_route = "/#{prefix}/token/deploy"
-    chain_id = '3' #Set from Presenter object
+    chain_id = GlobalConstant::Environment.chain_id #Set from Presenter object
 %>
 <form data-ost-formhelper id="economy-planner" action="/<%=prefix%>/api/token" method="POST">
 <div class="planner-container  text-center">

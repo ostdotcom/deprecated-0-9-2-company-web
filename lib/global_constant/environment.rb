@@ -20,6 +20,22 @@ module GlobalConstant
         'testnet'
       end
 
+      def mainnet_chain_id
+        '1'
+      end
+
+      def ropsten_chain_id
+        '3'
+      end
+
+      def chain_id
+        if GlobalConstant::Base.main_sub_environment?
+          mainnet_chain_id
+        else
+          ropsten_chain_id
+        end
+      end
+
       def url_prefix
         if GlobalConstant::Base.main_sub_environment?
           main_sub_env_url_prefix

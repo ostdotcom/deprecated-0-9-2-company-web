@@ -4,7 +4,7 @@
   sign_messages_api = "/#{prefix}/api/token/addresses/sign-messages";
   addresses_api = "/#{prefix}/api/token/addresses";
   redirect_route = "/#{prefix}/token/mint" ;
-  chain_id = '3' #Send from Presenter object
+  chain_id = GlobalConstant::Environment.chain_id #Send from Presenter object
 %>
 
 <div id="stake-mint-1" class="col-9 mx-auto mt-6">
