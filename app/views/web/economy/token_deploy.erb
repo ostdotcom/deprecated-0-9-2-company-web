@@ -1,13 +1,15 @@
 <%
   prefix = GlobalConstant::Environment.sandbox_sub_url_prefix
   workflow_id = @presenter_obj.workflow.id
-  deployment_status_api = "/#{prefix}/api/workflow/#{workflow_id}" # workflow_is should come from presentor object
+  deployment_status_api = "/#{prefix}/api/workflow/#{workflow_id}"
   resetdeploy_api = "/#{prefix}/api/token/reset-deployment"
   redirect_url = "/testnet/token/setup"
   is_poll_failed = false
-  if @presenter_obj.workflow_current_step.status == 'failed'
-    is_poll_failed = true
+  if @presenter_obj.client_token.status == GlobalConstant::ClientToken.deployment_failed
+          is_poll_failed = true
   end
+
+  current_step_failed_status = "failed" #From Presenter Object
 %>
 <%if !is_poll_failed %>
   <div class="token-deploy-container text-center">
@@ -123,16 +125,19 @@
     Please try again to proceed.
   </p>
   <button class="reset-deployment btn btn-primary" >SET UP  YOUR TOKEN</button>
-
+  <div class="invalid-feedback general_error"></div>
 </div>
 
 <% content_for :end_js do %>
   <script type="text/javascript">
     $( function () {
+      var isPollFailed = <%= is_poll_failed %> ;
       ost.tokenDeploy.init({
         getDeployStatusEndPoint:"<%=deployment_status_api%>",
         resetdeployEndPoint : "<%=resetdeploy_api %>",
-        redirectUrl : "<%=redirect_url %>"
+        redirectUrl : "<%=redirect_url %>" ,
+        isPollFailed : isPollFailed,
+        currentStepFailedStatus : "<%= current_step_failed_status %>"
       });
     });
   </script>

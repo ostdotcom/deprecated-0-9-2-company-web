@@ -11,9 +11,10 @@
     deploymentPercentTooltipArrow : null,
     progressBar : null,
     progressStep : null,
-    redeploy : null,
+    resetDeploy : null,
     polling : 0 ,
     tokenDeployContainer : null,
+    jResetDeployError: null ,
     
 
     init : function (config) {
@@ -26,10 +27,14 @@
       oThis.progressStep = $("#progressStep");
       oThis.resetDeploy = $(".reset-deployment");
       oThis.tokenDeployContainer = $(".token-deploy-container");
-
+      oThis.jResetDeployError =  $('.deploy-error-state .general_error');
       oThis.bindActions();
-      oThis.setTooltipPosition();
-      oThis.getDeployStatus();
+
+      if( !oThis.isPollFailed  ){
+        oThis.setTooltipPosition();
+        oThis.getDeployStatus();
+      }
+
     },
 
     bindActions : function(){
@@ -39,6 +44,7 @@
     },
 
     onResetDeploy : function(){
+      oThis.jResetDeployError.removeClass('is-invalid').text("");
       $.ajax({
         url: oThis.resetdeployEndPoint,
         method: "POST",
@@ -56,33 +62,49 @@
     },
 
     onResetFailure : function( res ){
-      //TODO show error whereever UX says
+      $('.deploy-error-state .general_error')
+        .addClass("is-invalid")
+        .text("Something went wrong, please try again!");
     } ,
 
     getDeployStatus : function() {
-
       oThis.polling = new Polling({
-        pollingApi : oThis.getDeployStatusEndPoint ,
-        onPollSuccess :  oThis.onPollingSuccess.bind( oThis )
+        pollingApi      : oThis.getDeployStatusEndPoint ,
+        pollingInterval : 4000,
+        onPollSuccess   : oThis.onPollingSuccess.bind( oThis ),
+        onPollError     : oThis.onPollingError.bind( oThis )
       });
       oThis.polling.startPolling();
-
     },
 
     onPollingSuccess : function( response ){
       if(response && response.success){
         var currentWorkflow = utilities.deepGet( response , "data.workflow_current_step" );
-        if( currentWorkflow.status = "failed"){
-          oThis.tokenDeployContainer.hide();
-          oThis.resetDeploy.show();
+        if( currentWorkflow.status == oThis.currentStepFailedStatus ){
+          oThis.onCurrentStepFailed()
         }
         else{
+          oThis.shouldStopPolling( currentWorkflow );
           oThis.updateProgressBar( currentWorkflow );
-          if( currentWorkflow && currentWorkflow.percent_completion  >= 100){
-            oThis.polling && oThis.polling.stopPolling();
-          }
         }
       }
+    },
+
+    onPollingError : function( jqXhr , error  ){
+      if( oThis.polling.isMaxRetries() ){
+        oThis.onCurrentStepFailed();
+      }
+    },
+
+    shouldStopPolling : function( currentWorkflow ){
+      if( currentWorkflow && currentWorkflow.percent_completion  >= 100){
+        oThis.polling && oThis.polling.stopPolling();
+      }
+    },
+
+    onCurrentStepFailed : function(){
+      oThis.tokenDeployContainer.hide();
+      oThis.resetDeploy.show();
     },
 
     updateProgressBar: function (currentWorkflow) {

@@ -78,7 +78,7 @@
       //Overwrite from outside
     },
   
-    onPollError: function () {
+    onPollError: function ( jqXhr , error ) {
       //Overwrite from outside
     },
   
