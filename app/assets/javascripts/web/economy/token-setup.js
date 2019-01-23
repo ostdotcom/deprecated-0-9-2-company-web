@@ -22,7 +22,6 @@
               'ost_to_fiat' : config['ost_to_fiat']
             });
             oThis.initDisplayFiatValue() ;
-            $()
         },
 
         bindActions : function(){
@@ -37,7 +36,10 @@
         },
   
         initDisplayFiatValue : function () {
-          $('.j-fiat-value').text( "$" + PriceOracle.toPrecessionFiat( ) );
+          var jEL = $('.j-ost-to-fiat-val') ;
+          jEL.data("ost-mock-element" , "#"+ oThis.btToOstId );
+          jEL.ostMocker();
+          $('.j-fiat-value').text( "$" + PriceOracle.toPrecessionFiat( oThis['ost_to_fiat'] ) );
         },
 
         setupMetamask: function(){

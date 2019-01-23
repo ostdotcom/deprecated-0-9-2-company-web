@@ -6,7 +6,8 @@
     deployment_api = "/#{prefix}/api/token/deploy"
     deploy_route = "/#{prefix}/token/deploy"
     chain_id = GlobalConstant::Environment.chain_id
-    ost_to_fiat =  @presenter_obj.oracle_price_points.to_fiat_conversion_factor("USD") 
+    ost_to_fiat =  "7.2141224122142214"
+    bt_to_ost_id = "bt_to_ost"
     bt_to_ost_input_name = "conversion_factor"
     bt_to_ost_min = 0.00001
     bt_to_ost_max = 500
@@ -87,7 +88,7 @@
                       <%= render partial: 'shared/web/common/slider_right',
                                  locals: {
                                      label: 'How much do you want 1 '+ bt_symbol  +' to be worth?',
-                                     id: "bt_to_ost",
+                                     id: bt_to_ost_id,
                                      name: bt_to_ost_input_name,
                                      type: 'number',
                                      min: "%0.5f" %bt_to_ost_min,
@@ -111,16 +112,15 @@
                       <span class="text-different-color">
                         <span class="ost-mocker-value"
                               data-type="fiat"
-                              data-ost-mock-element="#bt_to_ost"> 1
+                              data-ost-mock-element="#<%=bt_to_ost_id%>"> 1
                         </span>
                       </span> OST
                       <span class="equal-to-sign">=</span>
                     </div>
                     <div class="col-4 p-4 text-center">
                       <span class="text-different-color">
-                        $<span class="ost-mocker-value"
+                        $<span class="ost-mocker-value j-ost-to-fiat-val"
                                data-type="fiat"
-                               data-ost-mock-element="#bt_to_ost"
                                data-ost-mock-callback="ost.tokenSetup.ostToFiat">1
                           </span>
                       </span> USD
@@ -159,7 +159,8 @@
               deployRoute : '<%= deploy_route %>',
               chainId : '<%= chain_id %>',
               personalSignCancelErrorMessage : 'Could not proceed as you denied message signature in MetaMask.',
-              ost_to_fiat : '<%= ost_to_fiat %>'
+              ost_to_fiat : '<%= ost_to_fiat %>' ,
+              btToOstId :  '<%=bt_to_ost_id%>'
           });
       });
   </script>

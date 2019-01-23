@@ -45,11 +45,10 @@
     },
   
     toPrecessionFiat : function ( fiat ) {
-      fiat = fiat || OST_TO_FIAT ;
       var oThis = this;
     
       fiat = oThis.toFiat( fiat );
-      if ( !fiat || oThis.isNaN( fiat ) ) {
+      if ( !fiat ) {
         return "";
       }
     
