@@ -37,7 +37,7 @@ Rails.application.configure do
   config.action_controller.asset_host = "https://#{ENV['CW_CLOUDFRONT_DOMAIN']}/"
 
   # Incase we want to test asset precompile in development
-  config.assets.prefix = "/js-css/prod"
+  # config.assets.prefix = "/js-css/prod"
 
   config.log_level = :info
 
