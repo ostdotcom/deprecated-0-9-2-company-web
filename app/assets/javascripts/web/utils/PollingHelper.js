@@ -70,6 +70,7 @@
     },
   
     getData : function () {
+      var oThis = this;
       return oThis.data || {} //Overwrite from outside
     },
     
@@ -91,7 +92,7 @@
     
     isMaxRetries: function () {
       var oThis = this;
-      return oThis.currentRetry < oThis.maxRetry ;
+      return oThis.currentRetry > oThis.maxRetry ;
     },
   
     scheduleNextPoll: function () {
