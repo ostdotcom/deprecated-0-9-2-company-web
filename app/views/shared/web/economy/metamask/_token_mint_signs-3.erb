@@ -13,17 +13,8 @@
             <img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/pending-loader-1.svg" width="30" height="30">
             <span class="ml-3 align-middle text-muted font-weight-light">Autorize Contract to Start the Staking Process</span>
           </div>
-          <div class="col-9 pt-5 mt-3 pb-3 progress-bar-container">
-            <div class="tooltip deploymentPercentTooltip">
-              <span class="tooltip-text p-1">0%</span>
-              <div class="arrow" style="left:27px;">
-
-              </div>
-            </div>
-            <div class="progress " >
-
-              <div class="progress-bar"  role="progressbar" aria-valuenow="20" style="width: 0%" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
+          <div class="mt-5 pt-3">
+            <%= render :partial => "shared/web/common/progress_bar" %>
           </div>
         </div>
       </div>

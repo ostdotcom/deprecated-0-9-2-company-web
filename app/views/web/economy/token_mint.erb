@@ -5,7 +5,12 @@
   addresses_api = "/#{prefix}/api/token/addresses";
   redirect_route = "/#{prefix}/token/mint" ;
   chain_id = GlobalConstant::Environment.chain_id
+  minting_status_api = "/#{prefix}/api/workflow/26" # temp route for testing
 %>
+
+<!--kept for testing purpose temporarily-->
+<%#= render :partial => "shared/web/economy/metamask/token_mint_signs-3" %>
+
 
 <div id="stake-mint-1" class="col-9 mx-auto mt-6">
   <div class="card text-center p-6">
@@ -129,6 +134,7 @@
         chainId : '<%= chain_id %>',
         redirectRoute : '<%= redirect_route %>',
         personalSignCancelErrorMessage  :  'Could not proceed as you denied message signature in MetaMask.',
+        mintingStatusEndPoint:"<%=minting_status_api%>"
       });
     });
   </script>
