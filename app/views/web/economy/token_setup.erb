@@ -6,6 +6,7 @@
     deployment_api = "/#{prefix}/api/token/deploy"
     deploy_route = "/#{prefix}/token/deploy"
     chain_id = GlobalConstant::Environment.chain_id
+    ost_to_fiat =  @presenter_obj.oracle_price_points.to_fiat_conversion_factor("USD") 
     bt_to_ost_input_name = "conversion_factor"
     bt_to_ost_min = 0.00001
     bt_to_ost_max = 500
@@ -55,7 +56,8 @@
             <h4 class="mb-0 ">Advance Options</h4>
             <p class="font-weight-light mb-0 mt-2">
               You would be setting Conversion Rate for your token here, simple way to set the conversion rate is by deciding how much you want 1 Token to initially be worth.
-              <span class="header-recommendation font-weight-bold">Our Recommendation is to set 1 TOKEN = 1 OST = $0.10 USD</span>
+              <span class="header-recommendation font-weight-bold">
+                Our Recommendation is to set 1 TOKEN = 1 OST = <span class="j-fiat-value"> $<%= ost_to_fiat %> </span>USD</span>
             </p>
           </div>
         </div>
@@ -68,7 +70,7 @@
                        <b> TOKEN  =</b>
                     <span class="text-different-color">1</span>
                        <b> OST =</b>
-                    <span class="text-different-color">$0.10</span>
+                    <span class="text-different-color j-fiat-value">$<%= ost_to_fiat %></span>
                        <b>USD</b>
                     <span class="edit-collapse" data-toggle="collapse"
                           data-target="#collapsable-element"
@@ -90,7 +92,7 @@
                                      type: 'number',
                                      min: "%0.5f" %bt_to_ost_min,
                                      max: bt_to_ost_max,
-                                     step: 0.00001,
+                                     step: bt_to_ost_min,
                                      value:  @presenter_obj.client_token.conversion_factor,
                                      postfix: "OST",
                                      tooltip: 'show',
@@ -156,7 +158,8 @@
               deploymentEndpoint : '<%=deployment_api %>' ,
               deployRoute : '<%= deploy_route %>',
               chainId : '<%= chain_id %>',
-              personalSignCancelErrorMessage : 'Could not proceed as you denied message signature in MetaMask.'
+              personalSignCancelErrorMessage : 'Could not proceed as you denied message signature in MetaMask.',
+              ost_to_fiat : '<%= ost_to_fiat %>'
           });
       });
   </script>

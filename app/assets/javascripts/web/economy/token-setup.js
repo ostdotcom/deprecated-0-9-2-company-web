@@ -18,6 +18,11 @@
             $.extend(oThis, config);
             oThis.bindActions();
             oThis.jTokenForm.formHelper().success = oThis.tokenSuccess;
+            PriceOracle.init({
+              'ost_to_fiat' : config['ost_to_fiat']
+            });
+            oThis.initDisplayFiatValue() ;
+            $()
         },
 
         bindActions : function(){
@@ -28,7 +33,11 @@
         },
   
         ostToFiat  : function ( value ) {
-          return PriceOracle.ostToFiat(  value );
+          return PriceOracle.ostToFiat( value );
+        },
+  
+        initDisplayFiatValue : function () {
+          $('.j-fiat-value').text( "$" + PriceOracle.toPrecessionFiat( ) );
         },
 
         setupMetamask: function(){
