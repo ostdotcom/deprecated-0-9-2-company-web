@@ -7,6 +7,7 @@
   var oThis = ost.tokenMint = {
 
     jMintTokensBtn                  :  $("#mint-tokens"),
+    jMintTokenContinueBtn           :  $("#token-mint-continue-btn"),
     jStakeMintScreen1               :  $("#stake-mint-1"),
     jStakeMintScreen2               :  $("#stake-mint-2"),
     jConfirmAccountCover            :  $('#metamaskConfirmAccount'),
@@ -27,6 +28,10 @@
     bindActions : function () {
       oThis.jMintTokensBtn.on("click",function () {
         oThis.onMintToken();
+      });
+      //added temporarily to test modal
+      oThis.jMintTokenContinueBtn.on("click",function () {
+        $("#stake-mint-confirm-modal").modal('show');
       });
     },
 

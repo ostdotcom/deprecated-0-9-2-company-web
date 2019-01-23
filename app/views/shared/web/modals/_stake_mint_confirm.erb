@@ -1,21 +1,14 @@
 <%
-  bt_to_mint_input_id = bt_to_mint_input_id
-  st_prime_to_mint_input_id  = st_prime_to_mint_input_id
-  ost_to_transfer_id = ost_to_transfer_id
-  token_usd_value_id = token_usd_value_id
-  bt_to_ost_input_id = bt_to_ost_input_id
-  bt_to_fiat_input_id = bt_to_fiat_input_id
-  ost_stake_for_bt_id = ost_stake_for_bt_id
+  bt_to_mint_input_id = 350 #actual value to be fetched and remove hardcoding
+  ost_to_transfer_id = 350 #actual value to be fetched and remove hardcoding
+  bt_to_ost_input_id = 1 #actual value to be fetched and remove hardcoding
+  ost_stake_for_bt_id = 350 #actual value to be fetched and remove hardcoding
 
-  bt_name   = @presenter_obj.client_token.name;
   bt_symbol = @presenter_obj.client_token.symbol;
-  fiat_symbol = @presenter_obj.client_fiat_curreny_pref_symbol;
-  fiat_type   = @presenter_obj.client_fiat_curreny_symbol;
-  fiat_display_text = @presenter_obj.client_fiat_curreny_display_text;
 
 %>
 
-<div class="modal fade" id="stake-mint-confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="stake-mint-confirm-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg h-100 mx-auto my-0" role="document">
     <div class="modal-content text-center">
       <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close">
@@ -25,7 +18,7 @@
         <h1 class="heading font-weight-normal mb-4">Please Review and Confirm</h1>
         <div class="user-form">
           <div class="form-group">
-            <div class="row no-gutters">
+            <div class="row ">
               <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
                 <div class="card rounded font-weight-normal border-0">
                   <div class="item-1 form-label m-0"><%= bt_symbol %> TO MINT</div>
@@ -39,7 +32,7 @@
                 </div>
               </div>
             </div>
-            <div class="row no-gutters">
+            <div class="row ">
               <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
                 <div class="card rounded font-weight-normal border-0">
                   <div class="item-1 form-label m-0">CONVERSION RATE TO <%= ost_currency_symbol %></div>
@@ -52,23 +45,6 @@
               </div>
               <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
                 <div class="card rounded font-weight-normal border-0">
-                  <div class="item-1 form-label m-0"><%= ost_currency_symbol %> ALLOCATED FOR GAS</div>
-                  <div class="item-2" data-ost-mock-element="#<%= st_prime_to_mint_input_id %>"></div>
-                </div>
-              </div>
-            </div>
-            <div class="row no-gutters">
-              <div class="col-xs-12 col-md-4 col-lg-6 mr-auto text-left">
-                <div class="card rounded font-weight-normal border-0">
-                  <div class="item-1 form-label m-0">CONVERSION RATE TO <%= fiat_display_text %> </div>
-                  <div class="item-2">
-                    <span>1 <%= bt_symbol %> = <%= fiat_symbol %></span>
-                    <span data-ost-mock-element="#<%= bt_to_fiat_input_id %>"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6 col-lg-6 mr-auto text-left">
-                <div class="card rounded font-weight-normal border-0">
                   <div class="item-1 form-label m-0"><%= ost_currency_symbol %> Staked For Minting</div>
                   <div class="item-2" data-type="ost" data-ost-mock-element="#<%= ost_stake_for_bt_id %>"></div>
                 </div>
@@ -79,7 +55,13 @@
         <p class="desc-2 font-weight-normal mt-5 mb-5 confirm-warning-msg">
           Please review all the information carefully before confirming.
         </p>
-        <button type="button" id="confirm_mint_button" class="btn btn-gold font-weight-light" title="Confirm">confirm</button>
+<!--        THE CONFIRM BUTTON DISMISSES MODAL TEMPORARILY.-->
+        <button type="button" id="confirm_mint_button" data-dismiss="modal" class="btn btn-gold font-weight-light" title="Confirm">confirm</button>
+
+<!--       UNCOMMENT THIS CODE.
+    <button type="button" id="confirm_mint_button" class="btn btn-gold font-weight-light" title="Confirm">confirm</button>
+
+    -->
       </div>
     </div>
   </div>
