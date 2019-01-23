@@ -227,7 +227,7 @@ module CompanyApi
         #
         # Sets @origin_addresses
         def set_workflow_current_step(workflow_step_data)
-          @workflow_current_step = CompanyApi::Response::Entity::Workflow.new(workflow_step_data)
+          @workflow_current_step = CompanyApi::Response::Entity::WorkflowCurrentStep.new(workflow_step_data)
         end
 
         # Set Pending Critical Interactions Data

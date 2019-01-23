@@ -35,7 +35,7 @@ module CompanyApi
           set_auxiliary_addresses(@data['auxiliary_addresses'])
           set_origin_addresses(@data['origin_addresses'])
           set_workflow(@data['workflow'])
-          set_workflow_current_step(@data['workflow'])
+          set_workflow_current_step(@data['workflow_current_step'])
         end
 
         private
