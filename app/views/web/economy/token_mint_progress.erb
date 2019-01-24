@@ -1,3 +1,8 @@
+<%
+  prefix = GlobalConstant::Environment.sandbox_sub_url_prefix ;
+  minting_status_api = "/#{prefix}/api/workflow/26" # temp route for testing
+%>
+
 <div class="container">
   <div class="row">
     <div class="col-10 mx-auto text-center">
@@ -13,7 +18,7 @@
             <img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/pending-loader-1.svg" width="30" height="30">
             <span class="ml-3 align-middle text-muted font-weight-light">Autorize Contract to Start the Staking Process</span>
           </div>
-          <div class="mt-5 pt-3">
+          <div class="mt-5 pt-3" id="mint-progress">
             <%= render :partial => "shared/web/common/progress_bar" %>
           </div>
         </div>
@@ -21,3 +26,14 @@
     </div>
   </div>
 </div>
+
+<% content_for :end_js do%>
+  <script>
+    $(function () {
+      ost.tokenMintProgress.init({
+
+        mintingStatusEndPoint:"<%=minting_status_api%>"
+      });
+    });
+  </script>
+<% end %>

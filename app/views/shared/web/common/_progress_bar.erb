@@ -1,34 +1,18 @@
-<%#
-
-ProgressBar
-
-Displays the percent completion for a GET/POST request and the current step in progress.
-
-%>
-
-<%
-  tooltip_percent = 0
-  progress_now_value = 0
-  progress_min_value = 0
-  progress_max_value = 100
-  progress_width = 0
-%>
-
 <div class="shadow-box p-2 row">
   <div class="col-9 py-5 progress-bar-container">
     <div class="tooltip progressBarTooltip">
-      <span class="tooltip-text p-1"><%= tooltip_percent %>%</span>
+      <span class="tooltip-text p-1">0%</span>
       <div class="arrow" style="left:27px;"></div>
     </div>
     <div class="progress">
       <div class="progress-bar" role="progressbar"
-           style="width: <%=progress_width %>%"
-           aria-valuenow="<%=progress_now_value %>"
-           aria-valuemin="<%=progress_min_value %>"
-           aria-valuemax="<%=progress_max_value %>"></div>
+           style="width: 0"
+           aria-valuenow="0"
+           aria-valuemin="0"
+           aria-valuemax="100"></div>
     </div>
   </div>
   <div class="col-3 pt-2 pb-3 my-auto">
-    <p class="text-left font-weight-light font-size-p my-auto" id="progressStep"></p>
+    <p class="text-left font-weight-light font-size-p my-auto progressStep"></p>
   </div>
 </div>

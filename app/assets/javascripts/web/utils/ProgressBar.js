@@ -5,16 +5,37 @@
   ost.ProgressBar = function (config) {
     var oThis = this;
     $.extend(oThis, config);
+
+    if( oThis.sParentEl ){
+        oThis.jParentEL = $( oThis.sParentEl ) ;
+    }
+
+    if( !oThis.jParentEL || oThis.jParentEL.length == 0 ){
+      console.log("jParent is mandetory config for ProgressBar");
+      throw "jParent is mandetory config for ProgressBar";
+    }
+
+    oThis.progressBarTooltip = oThis.jParentEL.find( '.progressBarTooltip' );
+    oThis.progressBarTooltipText =  oThis.jParentEL.find( '.progressBarTooltip .tooltip-text' );
+    oThis.progressBarTooltipArrow = oThis.jParentEL.find( '.arrow' );
+    oThis.progressBar = oThis.jParentEL.find( '.progress-bar-container .progress-bar' );
+    oThis.progressBarFull = oThis.jParentEL.find( '.progress-bar-container .progress' );
+    oThis.progressStep = oThis.jParentEL.find( '.progressStep' );
+
   };
 
   ost.ProgressBar.prototype = {
 
-    progressBarTooltip      : $(".progressBarTooltip"),
-    progressBarTooltipText  : $(".progressBarTooltip .tooltip-text"),
-    progressBarTooltipArrow : $(".arrow"),
-    progressBar             : $(".progress-bar-container .progress-bar"),
-    progressBarFull         : $(".progress-bar-container .progress"),
-    progressStep            : $("#progressStep"),
+    sParentEl : null,
+    jParentEL : null ,
+
+    progressBarTooltip      : null,
+    progressBarTooltipText  : null,
+    progressBarTooltipArrow : null,
+    progressBar             : null,
+    progressBarFull         : null,
+    progressStep            : null,
+
     tooltipOffsetLeft       : 5,
     arrowHalfLength         : 6,
     percentCompletion       : 0,

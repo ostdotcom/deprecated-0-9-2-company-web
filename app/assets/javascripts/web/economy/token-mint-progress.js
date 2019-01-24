@@ -6,16 +6,19 @@
     utilities =  ns("ost.utilities")
   ;
 
-  var oThis = ost.tokenMint = {
+  var oThis = ost.tokenMintProgress = {
 
     genericErrorMessage             :  'Something went wrong!',
     progressBar                     :  null,
     polling                         :  null,
     mintingStatusEndPoint           :  null,
+    sProgressBarEl                  :  '#mint-progress',
 
     init : function ( config ) {
       $.extend( oThis , config );
-      oThis.progressBar = new Progressbar();
+      oThis.progressBar = new Progressbar({
+        sParentEl : oThis.sProgressBarEl
+      });
       oThis.getMintingStatus();
     },
 
