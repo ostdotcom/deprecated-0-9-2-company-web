@@ -11,7 +11,7 @@
     deploymentPercentTooltipArrow : null,
     progressBar : null,
     progressStep : null,
-    resetDeploy : null,
+    jResetDeployBtn : null,
     polling : 0 ,
     tokenDeployContainer : null,
     jResetDeployError: null ,
@@ -25,7 +25,7 @@
       oThis.progressBar = $(".progress-bar-container .progress-bar");
       oThis.progressBarFull = $(".progress-bar-container .progress");
       oThis.progressStep = $("#progressStep");
-      oThis.resetDeploy = $(".reset-deployment");
+      oThis.jResetDeployBtn = $(".j-reset-deployment-btn");
       oThis.tokenDeployContainer = $(".token-deploy-container");
       oThis.jResetDeployError =  $('.deploy-error-state .general_error');
       oThis.bindActions();
@@ -38,7 +38,7 @@
     },
 
     bindActions : function(){
-      oThis.resetDeploy.on("click",function () {
+      oThis.jResetDeployBtn.on("click",function () {
         oThis.onResetDeploy();
       });
     },
@@ -48,6 +48,9 @@
       $.ajax({
         url: oThis.resetdeployEndPoint,
         method: "POST",
+        beforeSend: function(){
+          utilities.btnSubmittingState( oThis.jResetDeployBtn );
+        },
         success : function (response) {
           if( response.success ){
             window.location = oThis.redirectUrl;
@@ -57,6 +60,9 @@
         },
         error : function (response) {
           oThis.onResetFailure( response );
+        },
+        complete: function () {
+          utilities.btnSubmitCompleteState( oThis.jResetDeployBtn );
         }
       })
     },
@@ -104,7 +110,7 @@
 
     onCurrentStepFailed : function(){
       oThis.tokenDeployContainer.hide();
-      oThis.resetDeploy.show();
+      oThis.jResetDeployError.show();
     },
 
     updateProgressBar: function (currentWorkflow) {

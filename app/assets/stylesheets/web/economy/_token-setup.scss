@@ -6,7 +6,7 @@
 
 .planner-container{
   .text-different-color{
-    color: #e4b030;
+    color: $yellow-300;
     font-weight: bold;
   }
   .header-recommendation{
@@ -18,7 +18,7 @@
 
   p{
     font-weight: $font-weight-light;
-    font-size: 0.875rem;
+    font-size: $display3-size;
   }
   .conversion-section{
     border-bottom: 1px solid #dbf2f2;
@@ -33,7 +33,7 @@
       .equal-to-sign{
         position: absolute;
         right: -7px;
-        background-color: white;
+        background-color: $white;
 
       }
     }

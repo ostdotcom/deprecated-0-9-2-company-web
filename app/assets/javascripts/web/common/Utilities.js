@@ -48,6 +48,21 @@
         }
       }
       return current;
+    },
+
+    btnSubmittingState : function ( jEl ) {
+      var preText = jEl.text(),
+          submittingText = jEl.data('submitting')
+      ;
+      jEl.data("pre-text", preText );
+      jEl.text( submittingText );
+      jEl.prop("disabled" ,  true );
+    },
+
+    btnSubmitCompleteState : function ( jEl ) {
+      var preText =  jEl.data('pre-text');
+      jEl.text( preText );
+      jEl.prop("disabled" ,  false );
     }
   }
 

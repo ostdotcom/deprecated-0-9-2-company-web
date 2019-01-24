@@ -9,10 +9,15 @@
     addresses_api = "/#{prefix}/api/token/addresses"
     deployment_api = "/#{prefix}/api/token/deploy"
     deploy_route = "/#{prefix}/token/deploy"
-    bt_to_ost_id = "bt_to_ost"
+
+    #TODO Start :check if the above stuff should come from presenter
     bt_to_ost_input_name = "conversion_factor"
     bt_to_ost_min = 0.00001
+    bt_to_ost_step = 0.00001
     bt_to_ost_max = 500
+    #TODO END :check if the above stuff should come from presenter
+
+    bt_to_ost_id = "bt_to_ost"
 
 %>
 <form data-ost-formhelper id="economy-planner" action="/<%=prefix%>/api/token" method="POST">
@@ -95,7 +100,7 @@
                                      type: 'number',
                                      min: "%0.5f" %bt_to_ost_min,
                                      max: bt_to_ost_max,
-                                     step: bt_to_ost_min,
+                                     step: bt_to_ost_step,
                                      value:  @presenter_obj.client_token.conversion_factor,
                                      postfix: "OST",
                                      tooltip: 'show',

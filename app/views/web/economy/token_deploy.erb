@@ -9,7 +9,7 @@
           is_poll_failed = true
   end
 
-  current_step_failed_status = "failed" #From Presenter Object
+  current_step_failed_status = "failed" #TODO:From Presenter Object
 %>
 <%if !is_poll_failed %>
   <div class="token-deploy-container text-center">
@@ -20,7 +20,7 @@
       <div class="col-9 pt-5 mt-3 pb-3 progress-bar-container">
         <div class="tooltip deploymentPercentTooltip">
           <span class="tooltip-text p-1">0%</span>
-          <div class="arrow" style="left:27px;">
+          <div class="arrow">
 
           </div>
         </div>
@@ -115,7 +115,7 @@
 <%end%>
 
 <div class="deploy-error-state text-center mt-5" style="display: <%= is_poll_failed ? "block" : "none" %>">
-  <svg class="error-icon align-middle" style="width:63px; height:63px">
+  <svg class="error-icon align-middle">
     <switch>
       <use class="error-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#error-icon"></use>
     </switch>
@@ -124,7 +124,7 @@
   <p class="font-weight-light  mb-5 text-muted">
     Please try again to proceed.
   </p>
-  <button class="reset-deployment btn btn-primary" >SET UP  YOUR TOKEN</button>
+  <button class="j-reset-deployment-btn btn btn-primary" data-submitting="Resetting..." >SET UP  YOUR TOKEN</button>
   <div class="invalid-feedback general_error"></div>
 </div>
 
