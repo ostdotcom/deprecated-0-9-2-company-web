@@ -3,35 +3,32 @@
 
   var ost  = ns("ost") ,
       Polling = ns("ost.Polling") ,
+    Progressbar = ns("ost.ProgressBar") ,
       utilities = ns("ost.utilities")
   ;
   var oThis = ost.tokenDeploy = {
-    deploymentPercentTooltip : null,
-    deploymentPercentTooltipText : null,
-    deploymentPercentTooltipArrow : null,
-    progressBar : null,
-    progressStep : null,
     jResetDeployBtn : null,
     polling : 0 ,
     tokenDeployContainer : null,
     jResetDeployError: null ,
+    sProgressBarEl :null,
     
 
     init : function (config) {
       $.extend(oThis, config);
-      oThis.deploymentPercentTooltip = $(".deploymentPercentTooltip");
-      oThis.deploymentPercentTooltipText = $(".deploymentPercentTooltip .tooltip-text");
-      oThis.deploymentPercentTooltipArrow = $(".arrow");
-      oThis.progressBar = $(".progress-bar-container .progress-bar");
-      oThis.progressBarFull = $(".progress-bar-container .progress");
-      oThis.progressStep = $("#progressStep");
+
       oThis.jResetDeployBtn = $(".j-reset-deployment-btn");
       oThis.tokenDeployContainer = $(".token-deploy-container");
       oThis.jResetDeployError =  $('.deploy-error-state .general_error');
+      oThis.sProgressBarEl = ".token-deploy-content";
       oThis.bindActions();
 
       if( !oThis.isPollFailed  ){
-        oThis.setTooltipPosition();
+
+        oThis.progressBar = new Progressbar({
+          sParentEl : oThis.sProgressBarEl
+        });
+        oThis.progressBar.setTooltipPosition(0);
         oThis.getDeployStatus();
       }
 
@@ -91,7 +88,8 @@
         }
         else{
           oThis.shouldStopPolling( currentWorkflow );
-          oThis.updateProgressBar( currentWorkflow );
+          oThis.progressBar.updateProgressBar( currentWorkflow );
+
         }
       }
     },
@@ -113,30 +111,6 @@
       oThis.jResetDeployError.show();
     },
 
-    updateProgressBar: function (currentWorkflow) {
-      var percentCompletion = currentWorkflow && currentWorkflow.percent_completion || 0 ;
-      oThis.progressBar.width(percentCompletion+'%');
-      oThis.progressStep.html(currentWorkflow.display_text);
-      oThis.setTooltipPosition( percentCompletion  );
-    },
-
-    setTooltipPosition: function(percent_completion) {
-        var tooltipOffsetLeft = 5;
-        var arrowHalfLength = 6;
-        var tooltipWidth = oThis.deploymentPercentTooltip.width();
-        var progressBarFullWidth = oThis.progressBarFull.width();
-
-        if(typeof percent_completion === 'undefined') percent_completion = 0;
-
-        oThis.deploymentPercentTooltipText.text(percent_completion +"%");
-
-        oThis.deploymentPercentTooltip.css({
-          left: (percent_completion/100)*progressBarFullWidth+'px'
-        });
-        oThis.deploymentPercentTooltipArrow.css({
-          left: tooltipWidth / 2 - arrowHalfLength
-        });
-    }
 
   };
 

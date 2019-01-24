@@ -16,25 +16,7 @@
   <h3 class="mt-5"> Setting up your Token</h3>
   <p class="font-weight-light my-5"> The <%= @presenter_obj.client_token.name%> token economy is being initialized. This process takes several minutes.</p>
   <div class="token-deploy-content mx-auto">
-    <div class="shadow-box row ">
-      <div class="col-9 pt-5 mt-3 pb-3 progress-bar-container">
-        <div class="tooltip deploymentPercentTooltip">
-          <span class="tooltip-text p-1">0%</span>
-          <div class="arrow">
-
-          </div>
-        </div>
-        <div class="progress " >
-          <div class="progress-bar"  role="progressbar" aria-valuenow="20" style="width: 0%" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-      </div>
-      <div class="col-3 pt-2 pb-3 my-auto">
-        <p class="text-left font-weight-light font-size-p my-auto" id="progressStep">Deploying Budget holder contract</p>
-
-      </div>
-
-    </div>
-
+    <%= render :partial => "shared/web/common/progress_bar" %>
     <h3 class="my-5">
       In the mean time you can…
     </h3>
