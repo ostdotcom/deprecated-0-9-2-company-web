@@ -19,6 +19,7 @@
       oThis.progressBar = new Progressbar({
         sParentEl : oThis.sProgressBarEl
       });
+      oThis.progressBar.setTooltipPosition(0);
       oThis.getMintingStatus();
     },
 
