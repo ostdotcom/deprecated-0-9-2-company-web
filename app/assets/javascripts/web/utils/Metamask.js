@@ -16,6 +16,7 @@
         isMetamask: false,
         desiredNetwork: '3',
         desiredAccount: null,
+        defaultUnit: 'wei',
 
         init: function() {
             var oThis = this;
@@ -113,17 +114,20 @@
         /**
          * Higher order helper methods:
          *
-         * getBalance(walletAddress, callback)
-         * balanceOf(walletAddress, contractAddress, callback)
+         * getBalance(walletAddress, callback, unit)
+         * balanceOf(walletAddress, contractAddress, callback, unit)
+         * getContractEncodedABI(contractAddress, method, values, abi)
+         *
+         * For unit, refer: https://github.com/ethereum/wiki/wiki/JavaScript-API#web3fromwei
          *
          */
 
-        getBalance: function(walletAddress, unit, callback) {
+        getBalance: function(walletAddress, callback, unit) {
 
             var oThis = this;
 
             if(!walletAddress) return;
-            if(!unit) unit = 'wei';
+            if(!unit) unit = oThis.defaultUnit;
 
             var options = {
                 method: 'eth_getBalance',
@@ -131,17 +135,17 @@
             };
 
             oThis.sendAsync(options, function(err, result){
-                result && callback && callback(oThis.web3.fromWei(result.result, unit));
+                result && result.result && callback(oThis.web3.fromWei(result.result, unit));
             });
 
         },
 
-        balanceOf: function(walletAddress, contractAddress, unit, callback) {
+        balanceOf: function(walletAddress, contractAddress, callback, unit) {
 
             var oThis = this;
 
             if(!walletAddress || !contractAddress) return;
-            if(!unit) unit = 'wei';
+            if(!unit) unit = oThis.defaultUnit;
 
             var options = {
                 method: 'eth_call',
@@ -155,7 +159,7 @@
             };
 
             oThis.sendAsync(options, function(err, result){
-                result && callback && callback(oThis.web3.fromWei(result.result, unit));
+                result && result.result && callback && callback(oThis.web3.fromWei(result.result, unit));
             });
 
         },
