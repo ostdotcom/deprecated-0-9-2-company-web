@@ -20,6 +20,10 @@ module CompanyApi
           @data = data
         end
 
+        def data
+          @data
+        end
+
         def display_text
           @data["display_text"]
         end

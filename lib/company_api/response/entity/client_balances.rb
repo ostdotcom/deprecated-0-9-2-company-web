@@ -22,6 +22,10 @@ module CompanyApi
           @client_token = client_token
         end
 
+        def data
+          @data
+        end
+
         def balances
           @data.present? ? @data['balances'] : {}
         end

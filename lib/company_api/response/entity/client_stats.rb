@@ -20,6 +20,10 @@ module CompanyApi
           @data = data
         end
 
+        def data
+          @data
+        end
+
         def transaction_kind_count
           @data['transaction_kind_count'].to_i
         end

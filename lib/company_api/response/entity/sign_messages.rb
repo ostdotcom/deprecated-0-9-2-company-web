@@ -20,6 +20,10 @@ module CompanyApi
           @data = data
         end
 
+        def data
+          @data
+        end
+
         def wallet_association
           @data['wallet_association']
         end

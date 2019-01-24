@@ -20,6 +20,10 @@ module CompanyApi
           @data = data
         end
 
+        def data
+          @data
+        end
+
         def for_register_bt_id
           summary_data['propose_bt']
         end

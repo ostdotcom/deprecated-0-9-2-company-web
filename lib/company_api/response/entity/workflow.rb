@@ -20,6 +20,10 @@ module CompanyApi
           @data = data
         end
 
+        def data
+          @data
+        end
+
         def id
           @data["id"]
         end

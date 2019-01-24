@@ -22,6 +22,10 @@ module CompanyApi
           @client_token = token
         end
 
+        def data
+          @data
+        end
+
         def to_fiat_conversion_factor(curreny_pref)
           conversion_factors[curreny_pref]
         end

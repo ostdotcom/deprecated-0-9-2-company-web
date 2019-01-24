@@ -20,6 +20,10 @@ module CompanyApi
           @data = data
         end
 
+        def data
+          @data
+        end
+
         def simple_token
           @stc ||= @data["simple_token"]
         end

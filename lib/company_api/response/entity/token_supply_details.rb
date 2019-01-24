@@ -20,6 +20,10 @@ module CompanyApi
           @data = data
         end
 
+        def data
+          @data
+        end
+
         def tokens_minted
           @t_m ||= begin
             @data['tokens_minted'].present? ? BigDecimal.new(@data['tokens_minted']) : @data['tokens_minted']

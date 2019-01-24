@@ -20,6 +20,10 @@ module CompanyApi
           @data = data
         end
 
+        def data
+          @data
+        end
+
         def utility_chain_id
           @data['utility_chain_id']
         end
