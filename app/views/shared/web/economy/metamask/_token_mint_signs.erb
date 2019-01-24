@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-10 mx-auto text-center">
-      <h3 class="col-8 mx-auto mt-6">We would need your 2 Metamask confirmations to proceed</h3>
-      <div class="text-muted font-weight-light mb-5">Please open the metamask and confirm</div>
+      <h3 class="col-8 mx-auto mt-6 metamask-confirmation-header">We would need your 2 Metamask confirmations to proceed</h3>
+      <div class="text-muted font-weight-light  metamask-confirmation-desc mb-5">Please open the metamask and confirm</div>
       <div class="row">
         <div class="col-10 mx-auto text-left rounded border-0">
           <div class="alert alert-secondary" role="alert">
@@ -19,6 +19,13 @@
             <span class="ml-3 align-middle text-muted font-weight-light">Autorize Contract to Start the Staking Process</span>
           </div>
         </div>
+      </div>
+      <div class="row metamask-confirmation-btns  mt-5 " style="display: none">
+        <span class="mx-auto">
+          <button class="btn btn-secondary mr-3"> Go back</button>
+          <button class="btn btn-primary"> Retry</button>
+        </span>
+
       </div>
     </div>
   </div>
