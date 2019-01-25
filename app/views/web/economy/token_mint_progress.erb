@@ -1,9 +1,12 @@
 <%
   prefix = GlobalConstant::Environment.sandbox_sub_url_prefix ;
-  minting_status_api = "/#{prefix}/api/workflow/26" # temp route for testing
+  workflow_id = @presenter_obj.workflow.id
+  minting_status_api = "/#{prefix}/api/workflow/#{workflow_id}"
+  current_step_failed_status = "failed" #TODO:From Presenter Object
+  redirect_url = "/testnet/token/mint"
 %>
 
-<div class="container">
+<div class="container token-mint-progress-container">
   <section id="minting-inprogress">
     <div class="row">
       <div class="col-10 mx-auto text-center">
@@ -49,13 +52,26 @@
     </div>
   </section>
 </div>
+<div class="minting-error-state text-center mt-5" style="display: none">
+  <svg class="error-icon align-middle">
+    <switch>
+      <use class="error-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#error-icon"></use>
+    </switch>
+  </svg>
+  <h3 class="text-center mt-5 display-header">Looks like there was an issue in the minting process </h3>
+  <p class="font-weight-light  mb-5 text-muted">
+    Please try again to proceed.
+  </p>
+  <a class="j-mint-progress-btn btn btn-primary" href="<%=redirect_url %>" data-submitting="retrying..." >retry</a>
+  <div class="invalid-feedback general_error"></div>
+</div>
 
 <% content_for :end_js do%>
   <script>
     $(function () {
       ost.tokenMintProgress.init({
-
-        mintingStatusEndPoint:"<%=minting_status_api%>"
+        mintingStatusEndPoint:"<%=minting_status_api%>",
+        currentStepFailedStatus : "<%= current_step_failed_status %>"
       });
     });
   </script>
