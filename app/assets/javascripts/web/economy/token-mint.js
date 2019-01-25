@@ -31,6 +31,7 @@
         "ost_to_fiat" : oThis.getPricePoint()
       });
       oThis.bindActions();
+      console.log(oThis.workFlowId);
     },
 
     bindActions : function () {
@@ -45,6 +46,13 @@
       $('#bt_to_mint').on( 'change' , function () {
       
       });
+
+      $('#get-ost-btn').on('click', function () {
+        $('.get-ost').text("GETTING OST ⍺...").prop("disabled",true);
+        $('.status-message').hide();
+        $('.loader-message').show();
+        // oThis.getOst();
+      })
     },
 
     onMintToken: function () {
@@ -205,11 +213,23 @@
           }
         }
       })
-    }
-    
-    
-    
+    },
+
     //Start polling code
+
+    getOst: function () {
+      oThis.polling = new Polling({
+        pollingApi      : oThis.getOstEndPoint,
+        pollingInterval : 4000,
+        onPollSuccess   : oThis.onPollingSuccess.bind( oThis ),
+        onPollError     : oThis.onPollingError.bind( oThis )
+      });
+      oThis.polling.startPolling();
+    },
+
+    onPollingSuccess: function( res ){
+
+    }
 
     //END polling code
   }
