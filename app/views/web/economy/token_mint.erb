@@ -5,6 +5,16 @@
   addresses_api = "/#{prefix}/api/token/addresses";
   redirect_route = "/#{prefix}/token/mint" ;
   chain_id = GlobalConstant::Environment.chain_id
+  data_config = {
+      origin_addresses: @presenter_obj.origin_addresses.data,
+      auxiliary_addresses: @presenter_obj.auxiliary_addresses.data,
+      contract_details: @presenter_obj.contract_details.data,
+      token: @presenter_obj.client_token.data,
+      price_points: @presenter_obj.oracle_price_points.data,
+      client_manager: @presenter_obj.client_manager.data,
+      gas_price: @presenter_obj.gas_price.data,
+      workflow: @presenter_obj.workflow.data
+  }
 %>
 
 <div id="stake-mint-start" class="col-9 mx-auto mt-6 jMintSections">
@@ -124,13 +134,14 @@
 <% content_for :end_js do%>
   <script>
     $(function () {
+      var dataConfig = JSON.parse( '<%= raw data_config.to_json %>' ) ;
       ost.tokenMint.init({
-        signMessagesEndPoint: '<%= sign_messages_api %>',
-        addressesEndPoint: '<%= addresses_api%>',
-        chainId : '<%= chain_id %>',
-        redirectRoute : '<%= redirect_route %>',
+        signMessagesEndPoint: "<%= sign_messages_api %>",
+        addressesEndPoint: "<%= addresses_api%>",
+        chainId : "<%= chain_id %>",
+        redirectRoute : "<%= redirect_route %>",
         personalSignCancelErrorMessage  :  'Could not proceed as you denied message signature in MetaMask.',
-        mintingStatusEndPoint:"<%=minting_status_api%>"
+        dataConfig: dataConfig
       });
     });
   </script>

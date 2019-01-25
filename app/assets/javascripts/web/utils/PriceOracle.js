@@ -43,6 +43,21 @@
       
       return oThis.toFiat( result );
     },
+    
+    btToFiat : function ( bt ) {
+      if( !bt ) return "";
+  
+      bt = BigNumber( bt );
+  
+      var oThis = this ,
+          fiat = oThis.toFiat( OST_TO_FIAT ) ,
+          fiatBN = BigNumber( fiat )
+      ;
+  
+      var result = fiatBN.dividedBy( bt );
+  
+      return oThis.toFiat( result );
+    },
   
     toPrecessionFiat : function ( fiat ) {
       var oThis = this;
