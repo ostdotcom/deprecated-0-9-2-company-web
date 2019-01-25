@@ -31,6 +31,12 @@ module WebPresenter
       end
     end
 
+    def client_manager
+      @client ||= begin
+        formatter_obj.present? ? formatter_obj.client_manager : nil
+      end
+    end
+
     def client_token
       @c_t ||= begin
         formatter_obj.present? ? formatter_obj.client_token : nil
