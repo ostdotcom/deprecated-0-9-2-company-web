@@ -127,6 +127,103 @@
 
 </div>
 
+
+<div class="jMintSections">
+  <div class="container">
+    <div class="row">
+      <div class="col-10 mx-auto">
+        <div class="card card-planner my-5">
+          <div class="card-header text-left">
+            <h4 class="mb-0">Mint Tokens</h4>
+          </div>
+          <div class="card-body">
+            <div class="row mb-4">
+              <div class="col-12 text-left form-group mb-0">
+                <label class="form-label">SELECTED ADDRESS IN METAMASK</label>
+              </div>
+              <div class="col-6 align-self-center">
+                <input name="metamask_selected_address"  id="metamask_selected_address" type="hidden" />
+                <%= render :partial => "/shared/web/common/mocker",
+                           :locals => {
+                               :mock_selector => "",
+                               :mock_type => "address",
+                               :value => 'lol'
+                           }
+                %>
+              </div>
+              <div class="col-6 align-self-center d-flex text-left pl-0">
+                <div class="float-left align-self-center">
+                  <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
+                    <switch>
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use>
+                    </switch>
+                  </svg>
+                  <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
+                    <switch>
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fund-wallet"></use>
+                    </switch>
+                  </svg>
+                </div>
+                <div style="overflow: auto" class="text-muted font-weight-light ml-2 align-self-center">Looks like the account selected in metamask does not have enough OST to Mint LGBT, You can select a different account or Buy More OST</div>
+              </div>
+            </div>
+            <button id="buy-ost-btn" class="btn btn-primary d-inline-block">Buy Ost</button>
+            <button id="get-ost-btn" class="btn btn-primary d-inline-block">Get Ost</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="jMintSections">
+  <div class="container">
+    <div class="row">
+      <div class="col-10 mx-auto">
+        <div class="card card-planner my-5">
+          <div class="card-header text-left">
+            <h4 class="mb-0">Mint Tokens</h4>
+          </div>
+          <div class="card-body">
+            <div class="row mb-4">
+              <div class="col-12 text-left form-group mb-0">
+                <label class="form-label">SELECTED ADDRESS IN METAMASK</label>
+              </div>
+              <div class="col-6 align-self-center">
+                <input name="metamask_selected_address"  id="metamask_selected_address" type="hidden" />
+                <%= render :partial => "/shared/web/common/mocker",
+                           :locals => {
+                               :mock_selector => "",
+                               :mock_type => "address",
+                               :value => 'lol'
+                           }
+                %>
+              </div>
+              <div class="col-6 align-self-center d-flex text-left pl-0">
+                <div class="float-left align-self-center">
+                  <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
+                    <switch>
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use>
+                    </switch>
+                  </svg>
+                  <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
+                    <switch>
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fund-wallet"></use>
+                    </switch>
+                  </svg>
+                </div>
+                <div style="overflow: auto" class="text-muted font-weight-light ml-2 align-self-center">Your selected address does not have OSTα. Will fund 10,000 OSTα in to your selected MetaMask wallet to get you started</div>
+              </div>
+            </div>
+            <button id="buy-ost-btn" class="btn btn-primary d-inline-block">Buy Ost</button>
+            <button id="get-ost-btn" class="btn btn-primary d-inline-block">Get Ost</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <% content_for :popups do %>
   <%= render :partial => "shared/web/modals/stake_mint_confirm" %>
 <%end%>
