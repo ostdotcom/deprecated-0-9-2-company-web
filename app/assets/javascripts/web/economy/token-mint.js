@@ -27,6 +27,9 @@
 
     init : function (config) {
       $.extend(oThis,config);
+      PriceOracle.init({
+        "ost_to_fiat" : oThis.getPricePoint()
+      });
       oThis.bindActions();
     },
 
@@ -38,12 +41,15 @@
       oThis.jMintTokenContinueBtn.on("click",function () {
         $("#stake-mint-confirm-modal").modal('show');
       });
+      
+      $('#bt_to_mint').on( 'change' , function () {
+      
+      });
     },
 
     onMintToken: function () {
-      oThis.showSection(  oThis.jStakeMintProcess ) ;
-      oThis.googleCharts_1 = new GoogleCharts();
-      oThis.printSupplyChart();
+      oThis.mintDonuteChart = new GoogleCharts();
+      oThis.initSupplyPieChart();
       oThis.setupMetamask();
       oThis.metamask.enable();
     },
@@ -88,41 +94,93 @@
         },
 
         onNewAccount: function(){
-          var whitelisted = utilities.deepGet( oThis.data , "origin_addresses.whitelisted"),
-              selectedAddress = oThis.metamask.ethereum.selectedAddress
+          var whitelisted = utilities.deepGet( oThis.dataConfig , "origin_addresses.whitelisted"),
+              selectedAddress = oThis.getWalletAddress()
           ;
           $('#metamask_selected_address').setVal( selectedAddress );
           if( !whitelisted || !whitelisted.indexOf( selectedAddress ) > -1 ){
-            //TODO uncomment  show once section is created
-            // oThis.showSection( oThis.jAddressNotWhitelistedSection ) ;
+             oThis.showSection( oThis.jAddressNotWhitelistedSection ) ;
           }
           else{
             oThis.checkForOstBal();
           }
+  
+          //TODO delete
+          oThis.showSection( oThis.jStakeMintProcess ) ;
         }
 
       });
 
     },
 
-
     checkForOstBal : function(){
-      //TODO uncomment  show once section is created
-      //oThis.showSection(  oThis.jInsufficientBalSection ) ;
+      var walletAddress = oThis.getWalletAddress() ,
+          simpleTokenContractAddress  =   oThis.getSimpleTokenContractAddress()
+      ;
+      oThis.metamask.balanceOf( walletAddress , simpleTokenContractAddress , function ( ost ) {
+        var minOstRequire = oThis.getMinOstRequired();
+        if( ost < minOstRequire ){
+          oThis.showSection(  oThis.jInsufficientBalSection ) ;
+        }else {
+          oThis.onValidationComplete( ost );
+        }
+      }) ;
+    },
+  
+    onValidationComplete : function () {
+  
+      oThis.showSection(  oThis.jStakeMintProcess ) ;
+    },
+  
+    
+    btToFiat : function (val) {
+      return val ; //TODO
+    },
+  
+    ostAvailableOnBtChange : function ( val ) {
+      return val ; //TODO
+    },
+  
+    ostToStakeOnBtChange : function ( val ) {
+      oThis.updateSupplyPieChart();
+      return val ; //TODO
+    },
+    
+    getSimpleTokenContractAddress : function () {
+      return utilities.deepGet( oThis.dataConfig , "contract_details.address" );
+    },
+    
+    getWalletAddress : function () {
+      return utilities.deepGet( oThis.metamask , "ethereum.selectedAddress" );
+    },
+    
+    getMinOstRequired : function () {
+      return utilities.deepGet( oThis.dataConfig , "contract_details.min_ost_required" );
+    },
+    
+    getPricePoint : function () {
+      return utilities.deepGet( oThis.dataConfig , "price_points.OST.USD" ) ;
     },
 
     showSection : function( jSection ){
       oThis.jMintSections.hide();
       jSection.show();
     },
-
-    printSupplyChart: function(){
-      oThis.googleCharts_1.draw({
+  
+    updateSupplyPieChart: function ( data ) {
+      oThis.mintDonuteChart && oThis.mintDonuteChart.draw({
+        data : data
+      });
+    },
+    
+    initSupplyPieChart: function( data ){
+      oThis.mintDonuteChart.draw({
         data: [
           ['Type', 'Tokens'],
-          ['OST Available', 100],
-          ['OST to be staked for minting tokens', 100]
+          ['OSTAvailable', 200],
+          ['OSTStaked', 100]
         ],
+        //data : data,
         selector: '#ostSupplyInAccountPie',
         type: 'PieChart',
         options: {
@@ -147,8 +205,13 @@
           }
         }
       })
-    },
+    }
+    
+    
+    
+    //Start polling code
 
+    //END polling code
   }
 
 })(window,jQuery);

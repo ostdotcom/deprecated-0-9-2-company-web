@@ -83,6 +83,28 @@
       return fiat.toString( );
     },
   
+    fromWei : function( val ) {
+      var oThis =  this ,
+        web3 = web3
+      ;
+      if( web3 ){
+        return web3.fromWei( val ) ;
+      }else {
+        return oThis.__fromWei__( val );
+      }
+    },
+  
+    toWei : function( val ) {
+      var oThis =  this ,
+        web3 = web3
+      ;
+      if( web3 ){
+        return web3.toWei( val ) ;
+      }else {
+        return oThis.__toWei__( val );
+      }
+    },
+  
     isNaN : function ( val ) {
       return typeof val === "undefined" || val === "" || val === null || isNaN( val );
     },
@@ -97,7 +119,38 @@
   
     getBtPrecession : function () {
       return P_BT ;
+    },
+  
+  
+    //Private method START
+    __fromWei__: function ( val ) {
+      var oThis = this,
+        exp
+      ;
+    
+      if ( oThis.isNaN( val ) ) {
+        return NaN;
+      }
+    
+      val = BigNumber( val ) ;
+      exp = BigNumber(10).exponentiatedBy(18) ;
+      return val.dividedBy(exp).toString(10);
+    },
+  
+    __toWei__: function ( val ) {
+      var oThis = this,
+        exp
+      ;
+    
+      if ( oThis.isNaN( val ) ) {
+        return NaN;
+      }
+    
+      val = BigNumber( val ) ;
+      exp = BigNumber(10).exponentiatedBy(18) ;
+      return val.multipliedBy(exp).toString(10);
     }
+    //Private method END
     
   }
   

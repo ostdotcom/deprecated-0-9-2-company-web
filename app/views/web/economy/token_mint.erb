@@ -13,122 +13,187 @@
       price_points: @presenter_obj.oracle_price_points.data,
       client_manager: @presenter_obj.client_manager.data,
       gas_price: @presenter_obj.gas_price.data,
-      workflow: @presenter_obj.workflow.data
+      workflow: @presenter_obj.workflow.data,
+      min_ost_required: "0.000000000000000001" ##TODO backend required , Value required in WEI
   }
+
+  is_buy_ost = false  #TODO backend required
+
+  bt_to_mint_name = "bt_to_mint"
+  bt_to_mint_id = "bt_to_mint"
+  bt_to_mint_min = 1
+  bt_to_mint_max = 5000
+  bt_to_mint_step = 1
+  bt_to_mint_value = 1
+
+
 %>
 
-<div id="stake-mint-start" class="col-9 mx-auto mt-6 jMintSections">
-  <div class="card text-center p-6">
-    <h3 class="mb-0">Start Minting</h3>
-    <div class="simulator-image-wrapper my-4">
-      <svg style="width: 150px">
-        <switch>
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-mint-tokens"></use>
-        </switch>
-      </svg>
-    </div>
-    <div class="token-supply-infotext mb-4 col-5 mx-auto">Mint more tokens and power your economy as you need.</div>
-    <div class="run-transaction-btn-wrapper">
-      <button id="mint-tokens" class="btn btn-gold">MINT TOKENS</button>
-    </div>
-  </div>
-</div>
+<input name="metamask_selected_address"  id="metamask_selected_address" type="hidden" />
 
-<div id="stake-mint-process" class="jMintSections" style="display: none;">
-  <form data-ost-formhelper action="<%= token_api %>" method="POST" class="user-form">
-    <!--  <div class="planner-container text-center">-->
-    <div class="container">
-      <div class="row">
-        <div class="col-10 mx-auto">
-          <div class="card card-planner my-5">
-            <div class="card-header text-left">
-              <h4 class="mb-0">Mint Tokens</h4>
-            </div>
-            <div class="card-body">
-              <div class="row mb-4">
-                <div class="col-12 text-left form-group mb-0">
-                  <label class="form-label">SELECTED ADDRESS IN METAMASK</label>
-                </div>
-                <div class="col-6">
-                  <input name="metamask_selected_address"  id="metamask_selected_address" type="hidden" />
-                  <%= render :partial => "/shared/web/common/mocker",
-                             :locals => {
-                                 :mock_selector => "#metamask_selected_address",
-                                 :mock_type => "address"
-                             }
-                  %>
-                </div>
-                <div class="col-6 text-left pl-0">
-                  <span class="text-muted font-weight-light">To select another address please open the metamask plugin and select your prefered address</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-4">
-                  <%=
-                    render partial: 'shared/web/common/slider_top',
-                           locals: {
-                               label: "TOKENS TO MINT",
-                               id: "bt_to_mint_input_id",
-                               name: "bt_to_mint_input_name",
-                               type: 'number',
-                               min: 1,
-                               max: 2,
-                               step: 1,
-                               value: 1,
-                               tooltip: 'hide',
-                               classes: 'slider-primary'
-                           }
-                  %>
-                  <div class="mt-4 mb-2">
-                    <%=
-                      render partial: 'shared/web/common/mocker',
-                             locals: {
-                                 :header => "CURRENT TOKEN VALUE IN USD",
-                                 :value => "15.898"
-                             }
-                    %>
-                  </div>
 
-                </div>
-                <div class="col-8 user-form form-group m-0">
-                  <label class="form-label">OST SUPPLY IN ACCOUNT</label>
-                  <div class="d-flex align-items-center">
-                    <div class="p-0 form-group m-0">
-                      <div id="ostSupplyInAccountPie" class="pie-chat" style="width:200px; height: 200px"></div>
-                    </div>
-                    <ul class="p-0 m-0">
-                      <li class="d-flex align-items-center mb-3">
-                        <span class="ost-supply available"></span>
-                        <p class="m-0 ml-2">
-                          <small class="d-block" data-ost_available_key>OST Available</small>
-                          <small class="d-block" data-ost_available_val>350</small>
-                        </p>
-                      </li>
-                      <li class="d-flex align-items-center mb-3">
-                        <span class="ost-supply staked-minting"></span>
-                        <p class="m-0 ml-2">
-                          <small class="d-block" data-ost_staked_key>OST to be staked for minting tokens</small>
-                          <small class="d-block" data-ost_staked_val>310</small>
-                        </p>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
 
-            </div>
-          </div>
-          <button id="token-mint-continue-btn" class="btn btn-primary d-inline-block">Continue</button>
+<div class="no-workflow-id-wrapper">
+
+  <div id="stake-mint-start" class="col-9 mx-auto mt-6 jMintSections">
+      <div class="card text-center p-6">
+        <h3 class="mb-0">Start Minting</h3>
+        <div class="simulator-image-wrapper my-4">
+          <svg style="width: 150px">
+            <switch>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-mint-tokens"></use>
+            </switch>
+          </svg>
+        </div>
+        <div class="token-supply-infotext mb-4 col-5 mx-auto">Mint more tokens and power your economy as you need.</div>
+        <div class="run-transaction-btn-wrapper">
+          <button id="mint-tokens" class="btn btn-gold">MINT TOKENS</button>
         </div>
       </div>
     </div>
-    <!--  </div>-->
-  </form>
+
+  <div id="stake-mint-process" class="jMintSections" style="display: none;">
+      <form data-ost-formhelper action="<%= token_api %>" method="POST" class="user-form">
+        <!--  <div class="planner-container text-center">-->
+        <div class="container">
+          <div class="row">
+            <div class="col-10 mx-auto">
+              <div class="card card-planner my-5">
+                <div class="card-header text-left">
+                  <h4 class="mb-0">Mint Tokens</h4>
+                </div>
+                <div class="card-body">
+                  <div class="row mb-4">
+                    <div class="col-12 text-left form-group mb-0">
+                      <label class="form-label">SELECTED ADDRESS IN METAMASK</label>
+                    </div>
+                    <div class="col-6">
+                      <%= render :partial => "/shared/web/common/mocker",
+                                 :locals => {
+                                     :mock_selector => "#metamask_selected_address",
+                                     :mock_type => "address"
+                                 }
+                      %>
+                    </div>
+                    <div class="col-6 text-left pl-0">
+                      <span class="text-muted font-weight-light">To select another address please open the metamask plugin and select your prefered address</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-4">
+                      <%=
+                        render partial: 'shared/web/common/slider_top',
+                               locals: {
+                                   label: "TOKENS TO MINT",
+                                   id: bt_to_mint_id,
+                                   name: bt_to_mint_name,
+                                   type: 'number',
+                                   min: bt_to_mint_min,
+                                   max: bt_to_mint_max,
+                                   step: bt_to_mint_step,
+                                   value: bt_to_mint_value,
+                                   tooltip: 'hide',
+                                   classes: 'slider-primary'
+                               }
+                      %>
+                      <div class="mt-4 mb-2">
+                        <%=
+                          render partial: 'shared/web/common/mocker',
+                                 locals: {
+                                     :header => "CURRENT TOKEN VALUE IN USD",
+                                     :mock_selector => "#"+bt_to_mint_id,
+                                     :mock_parser => "ost.tokenMint.btToFiat"
+                                 }
+                        %>
+                      </div>
+
+                    </div>
+                    <div class="col-8 user-form form-group m-0">
+                      <label class="form-label">OST SUPPLY IN ACCOUNT</label>
+                      <div class="d-flex align-items-center">
+                        <div class="p-0 form-group m-0">
+                          <div id="ostSupplyInAccountPie" class="pie-chat" style="width:200px; height: 200px"></div>
+                        </div>
+                        <ul class="p-0 m-0">
+                          <li class="d-flex align-items-center mb-3">
+                            <span class="ost-supply available"></span>
+                            <p class="m-0 ml-2">
+                              <small class="d-block" data-ost_available_key>OST Available</small>
+                              <small><span class="ost-mocker-value" data-type="ost" data-ost-mock-element="#<%=bt_to_mint_id%>"
+                                    data-ost-mock-parser="ost.tokenMint.ostAvailableOnBtChange">
+                              </span></small>
+                            </p>
+                          </li>
+                          <li class="d-flex align-items-center mb-3">
+                            <span class="ost-supply staked-minting"></span>
+                            <p class="m-0 ml-2">
+                              <small class="d-block" data-ost_staked_key>OST to be staked for minting tokens</small>
+                              <small class="d-block" data-ost_staked_val>
+                                <span class="ost-mocker-value" data-type="ost" data-ost-mock-element="#<%=bt_to_mint_id%>"
+                                      data-ost-mock-parser="ost.tokenMint.ostToStakeOnBtChange">
+                              </span>
+                              </small>
+                            </p>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <button id="token-mint-continue-btn" class="btn btn-primary d-inline-block">Continue</button>
+            </div>
+          </div>
+        </div>
+        <!--  </div>-->
+      </form>
+
+    </div>
+
+  <div class="jMintSections" id="jAddressNotWhitelistedSection" style="display: none;">
+      <div class="container">
+        <div class="row">
+          <div class="col-10 mx-auto">
+            <div class="card card-planner my-5">
+              <div class="card-header text-left">
+                <h4 class="mb-0">Mint Tokens</h4>
+              </div>
+              <div class="card-body">
+                <div class="row mb-4">
+                  <div class="col-12 text-left form-group mb-0">
+                    <label class="form-label">SELECTED ADDRESS IN METAMASK</label>
+                  </div>
+                  <div class="col-6 align-self-center">
+                    <%= render :partial => "/shared/web/common/mocker",
+                               :locals => {
+                                   :mock_selector => "#metamask_selected_address",
+                                   :mock_type => "address"
+                               }
+                    %>
+                  </div>
+                  <div class="col-6 align-self-center d-flex text-left pl-0">
+                    <div class="float-left align-self-center">
+                      <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
+                        <switch>
+                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use>
+                        </switch>
+                      </svg>
+                    </div>
+                    <div style="overflow: auto" class="text-muted font-weight-light ml-2 align-self-center">Your selected address does not have OSTα. Will fund 10,000 OSTα in to your selected MetaMask wallet to get you started</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 </div>
 
 
-<div class="jMintSections">
+<div class="jMintSections" id="jInsufficientBalSection" style="display: none">
   <div class="container">
     <div class="row">
       <div class="col-10 mx-auto">
@@ -142,22 +207,15 @@
                 <label class="form-label">SELECTED ADDRESS IN METAMASK</label>
               </div>
               <div class="col-6 align-self-center">
-                <input name="metamask_selected_address"  id="metamask_selected_address" type="hidden" />
                 <%= render :partial => "/shared/web/common/mocker",
                            :locals => {
-                               :mock_selector => "",
-                               :mock_type => "address",
-                               :value => 'lol'
+                               :mock_selector => "#metamask_selected_address",
+                               :mock_type => "address"
                            }
                 %>
               </div>
               <div class="col-6 align-self-center d-flex text-left pl-0">
                 <div class="float-left align-self-center">
-                  <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
-                    <switch>
-                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use>
-                    </switch>
-                  </svg>
                   <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
                     <switch>
                       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fund-wallet"></use>
@@ -167,8 +225,11 @@
                 <div style="overflow: auto" class="text-muted font-weight-light ml-2 align-self-center">Looks like the account selected in metamask does not have enough OST to Mint LGBT, You can select a different account or Buy More OST</div>
               </div>
             </div>
-            <button id="buy-ost-btn" class="btn btn-primary d-inline-block">Buy Ost</button>
-            <button id="get-ost-btn" class="btn btn-primary d-inline-block">Get Ost</button>
+            <%if is_buy_ost %>
+              <button id="buy-ost-btn" class="btn btn-primary d-inline-block">Buy Ost</button>
+            <%else%>
+              <button id="get-ost-btn" class="btn btn-primary d-inline-block">Get Ost</button>
+            <%end%>
           </div>
         </div>
       </div>
@@ -176,53 +237,6 @@
   </div>
 </div>
 
-<div class="jMintSections">
-  <div class="container">
-    <div class="row">
-      <div class="col-10 mx-auto">
-        <div class="card card-planner my-5">
-          <div class="card-header text-left">
-            <h4 class="mb-0">Mint Tokens</h4>
-          </div>
-          <div class="card-body">
-            <div class="row mb-4">
-              <div class="col-12 text-left form-group mb-0">
-                <label class="form-label">SELECTED ADDRESS IN METAMASK</label>
-              </div>
-              <div class="col-6 align-self-center">
-                <input name="metamask_selected_address"  id="metamask_selected_address" type="hidden" />
-                <%= render :partial => "/shared/web/common/mocker",
-                           :locals => {
-                               :mock_selector => "",
-                               :mock_type => "address",
-                               :value => 'lol'
-                           }
-                %>
-              </div>
-              <div class="col-6 align-self-center d-flex text-left pl-0">
-                <div class="float-left align-self-center">
-                  <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
-                    <switch>
-                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use>
-                    </switch>
-                  </svg>
-                  <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
-                    <switch>
-                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fund-wallet"></use>
-                    </switch>
-                  </svg>
-                </div>
-                <div style="overflow: auto" class="text-muted font-weight-light ml-2 align-self-center">Your selected address does not have OSTα. Will fund 10,000 OSTα in to your selected MetaMask wallet to get you started</div>
-              </div>
-            </div>
-            <button id="buy-ost-btn" class="btn btn-primary d-inline-block">Buy Ost</button>
-            <button id="get-ost-btn" class="btn btn-primary d-inline-block">Get Ost</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <% content_for :popups do %>
   <%= render :partial => "shared/web/modals/stake_mint_confirm" %>
