@@ -40,7 +40,7 @@
           var jEL = $('.j-ost-to-fiat-val') ;
           jEL.data("ost-mock-element" , "#"+ oThis.btToOstId );
           jEL.ostMocker();
-          $('.j-fiat-value').text( "$" + PriceOracle.toPrecessionFiat( oThis['ost_to_fiat'] ) );
+          $('.j-fiat-value').text( "$" + PriceOracle.toFiat( oThis['ost_to_fiat'] ) );
         },
 
         setupMetamask: function(){

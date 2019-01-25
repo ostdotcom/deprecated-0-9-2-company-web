@@ -19,7 +19,6 @@
   }
 
   is_buy_ost = false  #TODO backend required
-  work_flow_id = false; #TODO backend required
 
   bt_to_mint_name = "bt_to_mint"
   bt_to_mint_id = "bt_to_mint"
@@ -34,7 +33,6 @@
 <input name="metamask_selected_address"  id="metamask_selected_address" type="hidden" />
 
 
-<% if work_flow_id %>
 <div class="no-workflow-id-wrapper">
 
   <div id="stake-mint-start" class="col-9 mx-auto mt-6 jMintSections">
@@ -121,9 +119,7 @@
                             <span class="ost-supply available"></span>
                             <p class="m-0 ml-2">
                               <small class="d-block" data-ost_available_key>OST Available</small>
-                              <small><span class="ost-mocker-value" data-type="ost" data-ost-mock-element="#<%=bt_to_mint_id%>"
-                                    data-ost-mock-parser="ost.tokenMint.ostAvailableOnBtChange">
-                              </span></small>
+                              <small><span class="ost-mocker-value total-ost-available"></span></small>
                             </p>
                           </li>
                           <li class="d-flex align-items-center mb-3">
@@ -193,10 +189,9 @@
     </div>
 
 </div>
-<% end %>
 
 
-<div class="jMintSections" id="jInsufficientBalSection" style="display: <%= work_flow_id ? "block" : "block" %>">
+<div class="jMintSections" id="jInsufficientBalSection" style="display:none;">
   <div class="container">
     <div class="row">
       <div class="col-10 mx-auto">
@@ -248,7 +243,10 @@
 
 
 <% content_for :popups do %>
-  <%= render :partial => "shared/web/modals/stake_mint_confirm" %>
+  <%= render :partial => "shared/web/modals/stake_mint_confirm",
+             :locals => {
+                 :bt_to_mint_selector => "#"+bt_to_mint_id,
+             }%>
 <%end%>
 
 <% content_for :end_js do%>
@@ -262,8 +260,8 @@
         redirectRoute : "<%= redirect_route %>",
         personalSignCancelErrorMessage  :  'Could not proceed as you denied message signature in MetaMask.',
         dataConfig: dataConfig,
-        workFlowId: <%= work_flow_id %>,
-        getOstEndPoint : "<%= get_ost_api %>"
+        getOstEndPoint : "<%= get_ost_api %>",
+        btToMintId: "<%= bt_to_mint_id %>"
       });
     });
   </script>

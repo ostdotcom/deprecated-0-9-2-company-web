@@ -12,26 +12,33 @@
     jMintTokenContinueBtn           :  $("#token-mint-continue-btn"),
     jStakeMintStart                 :  $("#stake-mint-start"),
     jStakeMintProcess               :  $("#stake-mint-process"),
-    jConfirmAccountCover            :  $('#metamaskConfirmAccount'),
-    jMintSections                   :  $('.jMintSections'),
     jAddressNotWhitelistedSection   :  $('#jAddressNotWhitelistedSection') ,
     jInsufficientBalSection         :  $('#jInsufficientBalSection') ,
+    jSelectedAddress                :  $('#metamask_selected_address'),
+    jBtToOstConversion              :  $('.bt_to_ost_conversion'),
+    jMintSections                   :  $('.jMintSections'),
+    jBtToMint                       :  null,
+    
     genericErrorMessage             :  'Something went wrong!',
+    
     metamask                        :  null,
-    whitelisted                     :  null,
-    contracts                       :  null,
-    signMessage                     :  null,
-    progressBar                     :  null,
+    
     polling                         :  null,
-    mintingStatusEndPoint           :  null,
 
     init : function (config) {
       $.extend(oThis,config);
       PriceOracle.init({
-        "ost_to_fiat" : oThis.getPricePoint()
+        "ost_to_fiat" : oThis.getPricePoint() ,
+        "ost_to_bt" : oThis.getOstToBTConversion()
       });
+      oThis.initUIValues();
+      oThis.setupMetamask();
       oThis.bindActions();
-      console.log(oThis.workFlowId);
+    },
+    
+    initUIValues: function(){
+      oThis.jBtToMint = $("#"+oThis.btToMintId) ;
+      oThis.jBtToOstConversion.text(  oThis.getOstToBTConversion() );
     },
 
     bindActions : function () {
@@ -43,22 +50,16 @@
         $("#stake-mint-confirm-modal").modal('show');
       });
       
-      $('#bt_to_mint').on( 'change' , function () {
-      
-      });
-
       $('#get-ost-btn').on('click', function () {
         $('.get-ost').text("GETTING OST ⍺...").prop("disabled",true);
         $('.status-message').hide();
         $('.loader-message').show();
-        // oThis.getOst();
+        //oThis.getOst();
       })
+
     },
 
     onMintToken: function () {
-      oThis.mintDonuteChart = new GoogleCharts();
-      oThis.initSupplyPieChart();
-      oThis.setupMetamask();
       oThis.metamask.enable();
     },
     
@@ -102,23 +103,27 @@
         },
 
         onNewAccount: function(){
-          var whitelisted = utilities.deepGet( oThis.dataConfig , "origin_addresses.whitelisted"),
-              selectedAddress = oThis.getWalletAddress()
-          ;
-          $('#metamask_selected_address').setVal( selectedAddress );
-          if( !whitelisted || !whitelisted.indexOf( selectedAddress ) > -1 ){
-             oThis.showSection( oThis.jAddressNotWhitelistedSection ) ;
-          }
-          else{
-            oThis.checkForOstBal();
-          }
-  
-          //TODO delete
-          oThis.showSection( oThis.jStakeMintProcess ) ;
+          oThis.onAccountValidation()
         }
 
       });
 
+    },
+    
+    onAccountValidation : function () {
+      var whitelisted = utilities.deepGet( oThis.dataConfig , "origin_addresses.whitelisted"),
+          selectedAddress = oThis.getWalletAddress()
+      ;
+      oThis.jSelectedAddress.setVal( selectedAddress );
+      if( !whitelisted || !whitelisted.indexOf( selectedAddress ) > -1 ){
+        oThis.showSection( oThis.jAddressNotWhitelistedSection ) ;
+      }
+      else{
+        oThis.checkForOstBal();
+      }
+  
+      //TODO delete
+      oThis.showSection( oThis.jStakeMintProcess ) ;
     },
 
     checkForOstBal : function(){
@@ -132,26 +137,44 @@
         }else {
           oThis.onValidationComplete( ost );
         }
-      }) ;
+      } , "ether" ) ;
     },
   
-    onValidationComplete : function () {
-  
+    onValidationComplete : function ( ost ) {
+      var btToStake = oThis.jBtToMint.val();
+      oThis.OstAvailable = ost;
+      oThis.mintDonuteChart = new GoogleCharts();
+      oThis.initSupplyPieChart( ost , btToStake );
+      oThis.updateSlider( ost );
       oThis.showSection(  oThis.jStakeMintProcess ) ;
     },
+    
+    updateSlider : function ( ost ) {
+      var maxBT = oThis.getMaxBTToMint( ost ),
+          jSlider = oThis.jBtToMint.closest( '.form-group' ).find('#'+oThis.btToMintId+"_slider")
+      ;
+      jSlider.slider({"max" : maxBT }) ;
+      $('.total-ost-available').text( PriceOracle.toPrecessionOst( ost ) );  //No mocker so set via precession
+    },
   
+    getMaxBTToMint : function ( ost ) {
+      return PriceOracle.ostToBt(ost );  //Mocker will take care of precession
+    },
     
     btToFiat : function (val) {
-      return val ; //TODO
+      return PriceOracle.btToFiat( val ) ;  //Mocker will take care of precession
     },
-  
-    ostAvailableOnBtChange : function ( val ) {
-      return val ; //TODO
-    },
-  
+    
     ostToStakeOnBtChange : function ( val ) {
-      oThis.updateSupplyPieChart();
-      return val ; //TODO
+      if( PriceOracle.isNaN( oThis.OstAvailable )) {
+        return val ;
+      }
+      var btStake = PriceOracle.btToOst( val ) ,
+          ostAvailable = BigNumber( oThis.OstAvailable ) ,
+          result = ostAvailable.minus(  btStake )
+      ;
+      oThis.updateSupplyPieChart( ostAvailable.toString() ,  btStake ) ;
+      return PriceOracle.toOst( result ) ; //Mocker will take care of precession
     },
     
     getSimpleTokenContractAddress : function () {
@@ -169,26 +192,39 @@
     getPricePoint : function () {
       return utilities.deepGet( oThis.dataConfig , "price_points.OST.USD" ) ;
     },
+    
+    getOstToBTConversion : function () {
+      return utilities.deepGet( oThis.dataConfig , "token.conversion_factor" ) ;
+    },
 
     showSection : function( jSection ){
       oThis.jMintSections.hide();
       jSection.show();
     },
   
-    updateSupplyPieChart: function ( data ) {
-      oThis.mintDonuteChart && oThis.mintDonuteChart.draw({
+    updateSupplyPieChart: function ( ostAvailable , ostToStake ) {
+      if( !oThis.mintDonuteChart ) return ;
+      ostAvailable  = ostAvailable && Number( ostAvailable ) ;
+      ostToStake    = ostToStake && Number(ostToStake) ;
+      var data = [
+        ['Type', 'Tokens'],
+        ['OSTAvailable', ostAvailable],
+        ['OSTStaked', ostToStake]
+      ];
+     oThis.mintDonuteChart.draw({
         data : data
       });
     },
     
-    initSupplyPieChart: function( data ){
+    initSupplyPieChart: function( ostAvailable ,ostToStake  ){
+      ostAvailable  = ostAvailable && Number( ostAvailable ) || 100 ;
+      ostToStake    = ost && Number( ostToStake ) || 100 ;
       oThis.mintDonuteChart.draw({
         data: [
           ['Type', 'Tokens'],
-          ['OSTAvailable', 200],
-          ['OSTStaked', 100]
+          ['OSTAvailable', ostAvailable],
+          ['OSTStaked', ostToStake]
         ],
-        //data : data,
         selector: '#ostSupplyInAccountPie',
         type: 'PieChart',
         options: {
