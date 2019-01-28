@@ -1,9 +1,9 @@
 <%
-  prefix = GlobalConstant::Environment.sandbox_sub_url_prefix
+  prefix = GlobalConstant::Environment.url_prefix
   workflow_id = @presenter_obj.workflow.id
   deployment_status_api = "/#{prefix}/api/workflow/#{workflow_id}"
   resetdeploy_api = "/#{prefix}/api/token/reset-deployment"
-  redirect_url = "/testnet/token/setup"
+  redirect_url = "/#{prefix}/token/setup"
   is_poll_failed = false
   if @presenter_obj.client_token.status == GlobalConstant::ClientToken.deployment_failed
           is_poll_failed = true

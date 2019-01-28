@@ -1,6 +1,6 @@
 <%
 
-    prefix = GlobalConstant::Environment.sandbox_sub_url_prefix
+    prefix = GlobalConstant::Environment.url_prefix
     wallet_association =  @presenter_obj.sign_messages.wallet_association
     ost_to_fiat =  @presenter_obj.oracle_price_points.to_fiat_conversion_factor("USD")
     bt_symbol = @presenter_obj.client_token.symbol || 'Token'
