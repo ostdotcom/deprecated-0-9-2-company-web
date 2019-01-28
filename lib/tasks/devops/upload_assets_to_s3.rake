@@ -36,7 +36,6 @@ namespace :devops do
             end
           else
             puts "Can't upload #{file}"
-            exit!
           end
         end
       end
