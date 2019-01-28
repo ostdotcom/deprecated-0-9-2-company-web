@@ -76,6 +76,8 @@
 <%= javascript_include_tag "#{specific_manifest_file_path}" if has_specific_js_manifest_file? %>
 <%= yield(:end_js) %>
 
+<% url_prefix = GlobalConstant::Environment.url_prefix %>
+
 <script type="text/javascript">
   $(function () {
     $( window ).load( function () {
