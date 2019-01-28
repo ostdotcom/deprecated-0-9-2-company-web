@@ -204,7 +204,52 @@
             oThis.jConfirmAccountCover.find('.default-state-wrapper').hide();
             oThis.jConfirmAccountCover.find(".error-state-wrapper").show();
             oThis.jConfirmAccountCover.find(".error-state-wrapper .display-header").text(message);
+        },
+
+        inputSpinner: function () {
+          $('<div class="quantity-nav">' +
+            '<div class="conversion-currency">BT</div>' +
+            '<div class="quantity-button quantity-up">&#x25B2;</div>' +
+            '<div class="quantity-button quantity-down">&#x25BC;</div>' +
+            '</div>').insertAfter('.quantity input');
+          $('.quantity').each(function() {
+            var spinner = $(this),
+              input = spinner.find('input[type="number"]'),
+              btnUp = spinner.find('.quantity-up'),
+              btnDown = spinner.find('.quantity-down'),
+              min = input.attr('min'),
+              max = input.attr('max'),
+              step = 0.00001;
+
+            btnUp.click(function() {
+              var oldValue = parseFloat(input.val());
+              if (oldValue >= max) {
+                var newVal = oldValue;
+              } else {
+                var newVal = (oldValue + step).toFixed(5);
+              }
+              spinner.find("input").val(newVal);
+              spinner.find("input").trigger("change");
+            });
+
+            btnDown.click(function() {
+              var oldValue = parseFloat(input.val());
+              if (oldValue <= min) {
+                var newVal = oldValue;
+              } else {
+                var newVal = (oldValue - step).toFixed(5);
+              }
+              spinner.find("input").val(newVal);
+              spinner.find("input").trigger("change");
+            });
+
+          });
         }
+
     };
+
+  $(document).ready(function () {
+    oThis.inputSpinner();
+  });
 
 })(window, jQuery);

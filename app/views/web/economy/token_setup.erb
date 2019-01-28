@@ -89,10 +89,10 @@
               </div>
               <div id="collapsable-element" class="collapse"
                    aria-labelledby="advance-options-header" data-parent="#advance-options-accordion">
-                <div class="card-body ">
-                  <div class="row card-planner">
-                    <div class="user-form col-12">
-                      <%= render partial: 'shared/web/common/slider_right',
+                <div class="card-body py-2">
+<!--                  <div class="row card-planner">-->
+<!--                    <div class="user-form col-12">-->
+                      <%#= render partial: 'shared/web/common/slider_right',
                                  locals: {
                                      label: 'How much do you want 1 '+ bt_symbol  +' to be worth?',
                                      id: bt_to_ost_id,
@@ -107,33 +107,58 @@
                                      classes: 'slider-yellow'
                                  }
                       %>
-                    </div>
+<!--                    </div>-->
 
-                  </div>
-                  <div class="conversion-section row">
-                    <div class="col-4 right-border text-center p-4">
-                      <span class="text-different-color">1</span> Token
-                      <span class="equal-to-sign">=</span>
-                    </div>
-                    <div class="col-4 right-border text-center p-4">
-                      <span class="text-different-color">
-                        <span class="ost-mocker-value"
-                              data-type="fiat"
-                              data-ost-mock-element="#<%=bt_to_ost_id%>"> 1
+<!--                  </div>-->
+<!--                  <div class="conversion-section row">-->
+<!--                    <div class="col-4 right-border text-center p-4">-->
+<!--                      <span class="text-different-color">1</span> Token-->
+<!--                      <span class="equal-to-sign">=</span>-->
+<!--                    </div>-->
+<!--                    <div class="col-4 right-border text-center p-4">-->
+<!--                      <span class="text-different-color">-->
+<!--                        <span class="ost-mocker-value"-->
+<!--                              data-type="fiat"-->
+<!--                              data-ost-mock-element="#<%#=bt_to_ost_id%>"> 1-->
+<!--                        </span>-->
+<!--                      </span> OST-->
+<!--                      <span class="equal-to-sign">=</span>-->
+<!--                    </div>-->
+<!--                    <div class="col-4 p-4 text-center">-->
+<!--                      <span class="text-different-color">-->
+<!--                        $<span class="ost-mocker-value j-ost-to-fiat-val"-->
+<!--                               data-type="fiat"-->
+<!--                               data-ost-mock-parser="ost.tokenSetup.ostToFiat">1-->
+<!--                          </span>-->
+<!--                      </span> USD-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <p class="pt-2"> Conversion rate will be set in OST, above visualization shows the Value of you token against OST and USD. OST is Market linked so the inherent value of your token may fluctuate based on the value of OST </p>-->
+<!--                  <div class="invalid-feedback" data-for="general_error">&nbps;</div>-->
+
+                  <div class="conversion-section user-form">
+                    <div class="row align-items-center">
+                      <div class="col-4 right-border form-group m-0">
+                        <label class="form-label d-block mb-2">SET CONVERSION RATE</label>
+                        <div class="d-flex align-items-center">
+                          <span class="text-different-color">1</span> OST
+                          <span class="equal-to-sign mx-3">=</span>
+                          <span class="quantity">
+                          <input type="number" min="0.00001" max="500" step="0.00001" value="0.00001">
                         </span>
-                      </span> OST
-                      <span class="equal-to-sign">=</span>
-                    </div>
-                    <div class="col-4 p-4 text-center">
-                      <span class="text-different-color">
-                        $<span class="ost-mocker-value j-ost-to-fiat-val"
-                               data-type="fiat"
-                               data-ost-mock-parser="ost.tokenSetup.ostToFiat">1
-                          </span>
-                      </span> USD
+                        </div>
+                      </div>
+                      <div class="col-4 right-border form-group m-0">
+                        <label class="form-label d-block mb-2">AT CURRENT CONVERSION RATE</label>
+                        <span class="text-different-color">1</span> BT
+                        <span class="equal-to-sign">=</span> $
+                        <span class="text-different-color">0.00465</span>
+                      </div>
+                      <div class="col-4 instruction-text">
+                        Conversion rate establishes the fixed rate of exchange between your BT and OST. OST is Market linked so the inherent value of your token may fluctuate based on the value of OST
+                      </div>
                     </div>
                   </div>
-                  <p class="pt-2"> Conversion rate will be set in OST, above visualization shows the Value of you token against OST and USD. OST is Market linked so the inherent value of your token may fluctuate based on the value of OST </p>
                   <div class="invalid-feedback" data-for="general_error">&nbps;</div>
                 </div>
 
