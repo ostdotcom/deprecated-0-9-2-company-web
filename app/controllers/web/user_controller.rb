@@ -10,7 +10,6 @@ class Web::UserController < Web::BaseController
   ]
 
   before_action :dont_render_if_logged_out, only: [
-    :verify_email,
     :mfa
   ]
 
@@ -141,20 +140,21 @@ class Web::UserController < Web::BaseController
       ).verify_email(r_t: params[:r_t])
 
       if @response.success?
-        handle_temporary_redirects(@response)
+        if @response.go_to.present?
+          handle_temporary_redirects(@response)
+          return
+        else
+          render 'web/user/verify_email_success' and return
+        end
       elsif @response.http_code == GlobalConstant::ErrorCode.unauthorized_access
         redirect_to :login and return
       else
-        if @response.error_data.present?
-          render 'web/user/invalid_token'
-        else
-          render_error_response(@response)
-        end
+        render 'web/user/invalid_token'
         return
       end
-
+      
     else
-
+     
       @response = CompanyApi::Request::Manager.new(
           CompanyApi::Response::Formatter::Manager,
           request.cookies,
@@ -168,7 +168,9 @@ class Web::UserController < Web::BaseController
       @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
 
     end
-
+    
   end
 
+  
+  
 end
