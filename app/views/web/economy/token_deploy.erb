@@ -11,7 +11,7 @@
           is_poll_failed = true
   end
 
-  current_step_failed_status = "failed" #TODO:From Presenter Object
+  current_step_failed_status = GlobalConstant::Workflow.failed
 %>
 <%if !is_poll_failed%>
   <div class="token-deploy-container text-center">
