@@ -8,54 +8,112 @@
   
   var oThis = ost.tokenMint = {
 
-    jMintTokensBtn                  :  $("#mint-tokens"),
-    jMintTokenContinueBtn           :  $("#token-mint-continue-btn"),
-    jStakeMintStart                 :  $("#stake-mint-start"),
-    jStakeMintProcess               :  $("#stake-mint-process"),
-    jAddressNotWhitelistedSection   :  $('#jAddressNotWhitelistedSection') ,
-    jInsufficientBalSection         :  $('#jInsufficientBalSection') ,
-    jSelectedAddress                :  $('#metamask_selected_address'),
-    jBtToOstConversion              :  $('.bt_to_ost_conversion'),
-    jMintSections                   :  $('.jMintSections'),
-    jBtToMint                       :  null,
+    jMintTokensBtn                  :   $("#mint-tokens"),
+    jMintTokenContinueBtn           :   $("#token-mint-continue-btn"),
+    jStakeMintStart                 :   $("#stake-mint-start"),
+    jStakeMintProcess               :   $("#stake-mint-process"),
+    jAddressNotWhitelistedSection   :   $('#jAddressNotWhitelistedSection') ,
+    jInsufficientBalSection         :   $('#jInsufficientBalSection') ,
+    jSelectedAddress                :   $("[name='staker_address']"),
+    jBtToOstConversion              :   $('.bt_to_ost_conversion'),
+    jMintSections                   :   $('.jMintSections'),
+    jConfirmStakeMintForm           :   $('#stake-mint-confirm-form'),
+    jGetOstForm                     :   $('#get-ost-form'),
+    jBtToMint                       :   null,
+  
+    confirmStakeMintFormHelper      :   null ,
+    getOstFormHelper                :   null ,
+  
+    getOstPolling                   :   null,
     
     genericErrorMessage             :  'Something went wrong!',
     
-    metamask                        :  null,
+    metamask                        :   null,
     
-    polling                         :  null,
+    polling                         :   null,
 
     init : function (config) {
       $.extend(oThis,config);
+      var workflowId = oThis.getWorkflowId() ;
+      
+      if( !workflowId  ){ //Dont do needless init's
+        oThis.initPriceOracle();
+        oThis.initUIValues();
+        oThis.bindActions();
+      }else {
+        var desiredAccount = oThis.getDesiredAccount();
+      }
+  
+      oThis.setupMetamask( desiredAccount );
+      
+    },
+    
+    initPriceOracle : function ( ) {
       PriceOracle.init({
         "ost_to_fiat" : oThis.getPricePoint() ,
         "ost_to_bt" : oThis.getOstToBTConversion()
       });
-      oThis.initUIValues();
-      oThis.setupMetamask();
-      oThis.bindActions();
     },
     
-    initUIValues: function(){
+    
+    initUIValues: function() {
       oThis.jBtToMint = $("#"+oThis.btToMintId) ;
       oThis.jBtToOstConversion.text(  oThis.getOstToBTConversion() );
+      oThis.initConfirmStakeMintFormHelper();
+      oThis.initGetOstFormHelper();
+    },
+    
+    initConfirmStakeMintFormHelper : function () {
+      oThis.confrimStakeMintFormHelper = oThis.jConfirmStakeMintForm.formHelper({
+        success: function (  res ) {
+          if( res.success  ){
+            oThis.onConfirmStakeMintSuccess( res ) ;
+          }
+        }
+      });
+    },
+  
+    onConfirmStakeMintSuccess : function ( res ) {
+      //TODO
+    },
+    
+    initGetOstFormHelper: function () {
+      oThis.getOstFormHelper = oThis.jGetOstForm.formHelper({
+        beforeSend : function () {
+          $('.jStatusWrapper').hide();
+          $('.jGetOstLoaderText').show();
+        },
+        success: function ( res ) {
+          if( res.success ){
+            oThis.onGetOstInitSuccess( res );
+          }
+        },
+        complete: function () {
+          utilities.btnSubmittingState( $('#get-ost-btn') );
+        }
+      });
+    },
+  
+  
+    onGetOstInitSuccess: function ( res ) {
+      var workflowId = utilities.deepGet( res , "data.workflow.id") ;
+      oThis.getOstPolling = new Polling({
+      
+      })
+    },
+    
+    onGetOstSuccess : function ( res ) {
+    
     },
 
     bindActions : function () {
-      oThis.jMintTokensBtn.on("click",function () {
+      oThis.jMintTokensBtn.off('click').on("click",function () {
         oThis.onMintToken();
       });
 
-      oThis.jMintTokenContinueBtn.on("click",function () {
+      oThis.jMintTokenContinueBtn.off('click').on("click",function () {
         $("#stake-mint-confirm-modal").modal('show');
       });
-      
-      $('#get-ost-btn').on('click', function () {
-        $('.get-ost').text("GETTING OST ⍺...").prop("disabled",true);
-        $('.status-message').hide();
-        $('.loader-message').show();
-        //oThis.getOst();
-      })
 
     },
 
@@ -63,10 +121,11 @@
       oThis.metamask.enable();
     },
     
-    setupMetamask: function(){
+    setupMetamask: function( desiredAccount ){
 
       oThis.metamask = new Metamask({
         desiredNetwork: oThis.chainId,
+        desiredAccount : desiredAccount , //Handling of undefined is present in Metamask so not to worry.
 
         onNotDapp: function(){
           ost.coverElements.show("#installMetamaskCover");
@@ -99,7 +158,7 @@
         },
 
         onDesiredAccount: function(){
-          ost.coverElements.show("#metamaskSignTransaction");
+          oThis.onDesiredAccount();
         },
 
         onNewAccount: function(){
@@ -111,7 +170,7 @@
     },
     
     onAccountValidation : function () {
-      var whitelisted = utilities.deepGet( oThis.dataConfig , "origin_addresses.whitelisted"),
+      var whitelisted = oThis.getWhitelistedAddress(),
           selectedAddress = oThis.getWalletAddress()
       ;
       oThis.jSelectedAddress.setVal( selectedAddress );
@@ -156,14 +215,6 @@
       jSlider.slider({"max" : maxBT }) ;
       $('.total-ost-available').text( PriceOracle.toPrecessionOst( ost ) );  //No mocker so set via precession
     },
-  
-    getMaxBTToMint : function ( ost ) {
-      return PriceOracle.ostToBt(ost );  //Mocker will take care of precession
-    },
-    
-    btToFiat : function (val) {
-      return PriceOracle.btToFiat( val ) ;  //Mocker will take care of precession
-    },
     
     ostToStakeOnBtChange : function ( val ) {
       if( PriceOracle.isNaN( oThis.OstAvailable )) {
@@ -175,6 +226,19 @@
       ;
       oThis.updateSupplyPieChart( ostAvailable.toString() ,  btStake ) ;
       return PriceOracle.toOst( result ) ; //Mocker will take care of precession
+    },
+  
+    onDesiredAccount : function () {
+      var workflowId = oThis.getWorkflowId() ;
+      if( workflowId ){
+        oThis.onWorkFlow( workflowId );
+      }else {
+        //I dont know what to do
+      }
+    },
+  
+    onWorkFlow : function ( workflowId ) {
+    
     },
     
     getSimpleTokenContractAddress : function () {
@@ -195,6 +259,27 @@
     
     getOstToBTConversion : function () {
       return utilities.deepGet( oThis.dataConfig , "token.conversion_factor" ) ;
+    },
+  
+    getWhitelistedAddress : function () {
+      return utilities.deepGet( oThis.dataConfig , "origin_addresses.whitelisted") ;
+    },
+    
+    getDesiredAccount : function () {
+      var whitelistedAddresses = oThis.getWhitelistedAddress();
+      return whitelistedAddresses && whitelistedAddresses[ 0 ] ; //For now considering owner address as whitelisted address
+    },
+    
+    getWorkflowId : function () {
+      return utilities.deepGet( oThis.dataConfig , "workflow.id" ) ;
+    },
+  
+    getMaxBTToMint : function ( ost ) {
+      return PriceOracle.ostToBt(ost );  //Mocker will take care of precession
+    },
+  
+    btToFiat : function (val) {
+      return PriceOracle.btToFiat( val ) ;  //Mocker will take care of precession
     },
 
     showSection : function( jSection ){
@@ -265,6 +350,10 @@
 
     onPollingSuccess: function( res ){
 
+    },
+  
+    onPollingError : function () {
+    
     }
 
     //END polling code

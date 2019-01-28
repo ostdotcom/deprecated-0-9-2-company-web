@@ -1,0 +1,16 @@
+<div class="col-12 text-left form-group mb-0">
+  <label class="form-label">SELECTED ADDRESS IN METAMASK</label>
+</div>
+<div class="col-6">
+
+  <%= render :partial => "/shared/web/common/mocker",
+             :locals => {
+                 :mock_selector => selector,
+                 :mock_type => "address"
+             }
+  %>
+  <div class="form-group">
+    <input name="<%= name %>" type="hidden" /> <!--No id please-->
+    <div class="invalid-feedback">&nbsp;</div>
+  </div>
+</div>

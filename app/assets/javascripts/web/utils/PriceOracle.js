@@ -2,12 +2,15 @@
 (function ( window, $ ) {
   
   var P_OST = 5
+    , P_OST_ROUND_ROUNDING_MODE   = BigNumber.ROUND_HALF_UP
   ;
   
   var P_BT = 5
+    , P_BT_ROUND_ROUNDING_MODE    = BigNumber.ROUND_HALF_UP
   ;
   
   var P_FIAT = 2
+    , P_FIAT_ROUND_ROUNDING_MODE  = BigNumber.ROUND_HALF_UP
   ;
   
   var OST_TO_FIAT = 1 ;
@@ -127,7 +130,7 @@
         return "";
       }
       bt = BigNumber( bt );
-      return  bt.toFixed( P_BT  );
+      return  bt.toFixed( P_BT , P_BT_ROUND_ROUNDING_MODE );
     },
   
     toOst: function ( ost ) {
@@ -149,7 +152,7 @@
         return "";
       }
       
-      return ost.toFixed( P_OST );
+      return ost.toFixed( P_OST , P_OST_ROUND_ROUNDING_MODE);
     },
     
     toFiat : function ( fiat ) {
@@ -161,7 +164,7 @@
       
       fiat = BigNumber( fiat );
       var precession = oThis.getFiatPrecession();
-      return BigNumber( fiat.toFixed(P_FIAT ) );
+      return  fiat.toFixed( precession , P_FIAT_ROUND_ROUNDING_MODE);
     },
   
     fromWei : function( val ) {

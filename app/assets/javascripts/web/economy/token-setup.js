@@ -20,9 +20,11 @@
             oThis.bindActions();
             oThis.jTokenForm.formHelper().success = oThis.tokenSuccess;
             PriceOracle.init({
-              'ost_to_fiat' : config['ost_to_fiat']
+              'ost_to_fiat' : config['ost_to_fiat'],
+              'P_FIAT': 5
             });
             oThis.initDisplayFiatValue() ;
+            oThis.inputSpinner();
         },
 
         bindActions : function(){
@@ -32,15 +34,23 @@
           })
         },
   
-        ostToFiat  : function ( value ) {
-          return PriceOracle.ostToFiat( value );
+        btToFiat  : function ( conversionFactor ) {
+          if( !conversionFactor || !BigNumber) return conversionFactor;
+          conversionFactor = BigNumber( conversionFactor );
+          var fiatBN = BigNumber( oThis.ost_to_fiat ) ,
+            oneBTToFiat = fiatBN.dividedBy(  conversionFactor )
+          ;
+          return PriceOracle.toFiat( oneBTToFiat );
         },
   
         initDisplayFiatValue : function () {
-          var jEL = $('.j-ost-to-fiat-val') ;
-          jEL.data("ost-mock-element" , "#"+ oThis.btToOstId );
+          var jEL = $('.j-bt-to-fiat-val'),
+              jInputEl = $('#'+oThis.ostToBtId),
+              val = jInputEl.val()
+          ;
+          jEL.data("ost-mock-element" , "#"+ oThis.ostToBtId );
           jEL.ostMocker();
-          $('.j-fiat-value').text( "$" + PriceOracle.toFiat( oThis['ost_to_fiat'] ) );
+          jEL.text(  PriceOracle.btToFiat( val ) );
         },
 
         setupMetamask: function(){
@@ -77,6 +87,7 @@
                 },
 
                 onNewAccount: function(){
+                  
                     oThis.initConfirmFlow();
                     ost.coverElements.show("#metamaskConfirmAccount");
                 }
@@ -247,9 +258,6 @@
         }
 
     };
-
-  $(document).ready(function () {
-    oThis.inputSpinner();
-  });
+    
 
 })(window, jQuery);

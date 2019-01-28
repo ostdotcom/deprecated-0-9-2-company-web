@@ -24,7 +24,6 @@
       oThis.bindActions();
 
       if( !oThis.isPollFailed  ){
-
         oThis.progressBar = new Progressbar({
           sParentEl : oThis.sProgressBarEl
         });

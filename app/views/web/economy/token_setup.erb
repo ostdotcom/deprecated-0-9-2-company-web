@@ -11,6 +11,7 @@
     deploy_route = "/#{prefix}/token/deploy"
 
     #TODO Start :check if the above stuff should come from presenter
+    conversion_factor = 1
     bt_to_ost_input_name = "conversion_factor"
     bt_to_ost_min = 0.00001
     bt_to_ost_step = 0.00001
@@ -18,6 +19,7 @@
     #TODO END :check if the above stuff should come from presenter
 
     bt_to_ost_id = "bt_to_ost"
+    ost_to_bt_id = "ost_to_bt_id"
 
 %>
 <form data-ost-formhelper id="economy-planner" action="/<%=prefix%>/api/token" method="POST">
@@ -144,7 +146,7 @@
                           <span class="text-different-color">1</span> OST
                           <span class="equal-to-sign mx-3">=</span>
                           <span class="quantity">
-                          <input type="number" min="0.00001" max="500" step="0.00001" name="conversion_factor" value="1">
+                          <input type="number" min="0.00001" max="500" step="0.00001" id="<%= ost_to_bt_id %>" name="conversion_factor" value="<%= conversion_factor %>">
                         </span>
                         </div>
                       </div>
@@ -152,7 +154,9 @@
                         <label class="form-label d-block mb-2">AT CURRENT CONVERSION RATE</label>
                         <span class="text-different-color">1</span> BT
                         <span class="equal-to-sign">=</span> $
-                        <span class="text-different-color">0.00465</span>
+                        <span class="ost-mocker-value text-different-color j-bt-to-fiat-val"
+                                                      data-type="fiat"  data-ost-mock-parser="ost.tokenSetup.btToFiat"> <%= ost_to_fiat %>
+                                            </span>
                       </div>
                       <div class="col-4 instruction-text">
                         Conversion rate establishes the fixed rate of exchange between your BT and OST. OST is Market linked so the inherent value of your token may fluctuate based on the value of OST
@@ -193,9 +197,8 @@
               deploymentEndpoint : '<%=deployment_api %>' ,
               deployRoute : '<%= deploy_route %>',
 
-              ost_to_fiat : '<%= ost_to_fiat %>' ,
-              btToOstId :  '<%=bt_to_ost_id%>'
-
+              ost_to_fiat : '<%= ost_to_fiat %>',
+              ostToBtId : "<%= ost_to_bt_id %>"
           });
       });
   </script>
