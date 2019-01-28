@@ -3,7 +3,7 @@
   workflow_id = @presenter_obj.workflow.id
   minting_status_api = "/#{prefix}/api/workflow/#{workflow_id}"
   current_step_failed_status = "failed" #TODO:From Presenter Object
-  redirect_url = "/testnet/token/mint"
+  redirect_url = "/#{prefix}/token/mint"
 %>
 
 <div class="container token-mint-progress-container">
