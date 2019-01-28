@@ -76,8 +76,7 @@
 <%= javascript_include_tag "#{specific_manifest_file_path}" if has_specific_js_manifest_file? %>
 <%= yield(:end_js) %>
 
-<script src="https://www.google.com/recaptcha/api.js">
-</script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 <script type="text/javascript">
   $(function () {
     $( window ).on('load', function () {
@@ -91,6 +90,14 @@
       }, 100);
     })
   });
+  window.redirectMap = {
+      "token_setup" :"/<%=url_prefix%>/token/setup",
+      "token_deploy" :"/<%=url_prefix%>/token/deploy",
+      "setup_mfa" : "/mfa",
+      "authenticate_mfa" : "/mfa",
+      "service_unavailable" : "/service_unavailable",
+      "verify_email" : "/verify-email"
+  } ;
 </script>
 </body>
 </html>

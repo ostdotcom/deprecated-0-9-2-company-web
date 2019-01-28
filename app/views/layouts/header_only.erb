@@ -72,7 +72,6 @@
   <%= yield %>
 </main>
 
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>-->
 <%= javascript_include_tag "web/common" %>
 <%= javascript_include_tag "#{specific_manifest_file_path}" if has_specific_js_manifest_file? %>
 <%= yield(:end_js) %>
@@ -90,6 +89,14 @@
       }, 100);
     })
   });
+  window.redirectMap = {
+      "token_setup" :"/<%=url_prefix%>/token/setup",
+      "token_deploy" :"/<%=url_prefix%>/token/deploy",
+      "setup_mfa" : "/mfa",
+      "authenticate_mfa" : "/mfa",
+      "service_unavailable" : "/service_unavailable",
+      "verify_email" : "/verify-email"
+  } ;
 </script>
 
 </body>
