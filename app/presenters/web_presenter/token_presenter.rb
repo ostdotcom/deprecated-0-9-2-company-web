@@ -121,9 +121,6 @@ module WebPresenter
       end
     end
 
-    def is_worflow_prsent
-      formatter_obj.present? && formatter_obj.workflow.id.present?
-    end
 
   end
 
