@@ -121,7 +121,6 @@ module WebPresenter
       end
     end
 
-
   end
 
 end
