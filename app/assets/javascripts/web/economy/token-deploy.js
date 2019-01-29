@@ -20,6 +20,8 @@
     init : function (config) {
       $.extend(oThis, config);
 
+      console.log("======config======" , config);
+      
       oThis.jResetDeployBtn = $(".j-reset-deployment-btn");
       oThis.tokenDeployContainer = $(".token-deploy-container");
       oThis.jResetDeployError =  $('.deploy-error-state');
@@ -29,7 +31,7 @@
 
       oThis.bindActions();
 
-      if( !oThis.workflowID  ){
+      if( !oThis.workflowId  ){
         oThis.progressBar = new Progressbar({
           sParentEl : oThis.sProgressBarEl
         });

@@ -315,10 +315,12 @@
     },
   
     onValidationComplete : function ( ost ) {
-      var btToStake = oThis.jBtToMint.val();
+      var btToMint = oThis.getBTtoMint() ,
+          ostToStake = PriceOracle.btToOst( btToMint );
+      ;
       oThis.OstAvailable = PriceOracle.fromWei( ost );
       oThis.mintDonuteChart = new GoogleCharts();
-      oThis.initSupplyPieChart( ost , btToStake );
+      oThis.initSupplyPieChart( ost , ostToStake );
       oThis.updateSlider( ost );
       oThis.showSection(  oThis.jStakeMintProcess ) ;
     },
@@ -412,6 +414,10 @@
 
     getGatewayComposerDetails  : function () {
       return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails" ) ;
+    },
+    
+    getBTtoMint: function () {
+      return oThis.jBtToMint.val();
     },
     
     setDataInDataConfig : function ( key , data ) {
@@ -549,16 +555,26 @@
       oThis.resetState();
       oThis.stakeAndMintPolling = new Polling({
         pollingApi      : oThis.mintApi ,
-        data            : {
-          'approve_transaction_hash'        : oThis.approve_transaction_hash,
-          'request_stake_transaction_hash' : oThis.request_stake_transaction_hash,
-          'stake_address' : oThis.stake_address
-        },
+        data            : oThis.getConfirmStakeAndMintIntendDate(),
         pollingInterval : 4000,
         onPollSuccess   : oThis.confirmStakeAndMintIntendSuccess.bind( oThis ),
         onPollError     : oThis.confirmStakeAndMintIntendError.bind( oThis )
       });
       oThis.stakeAndMintPolling.startPolling();
+    },
+    
+    getConfirmStakeAndMintIntendDate : function () {
+      var btToMint = oThis.getBTtoMint() ,
+          ostToStake = PriceOracle.btToOstPrecession( btToMint ) //As it gose to backend and comes back as is.
+      ;
+      //TODO take these keys from ERB
+      return {
+        'approve_transaction_hash'        : oThis.approve_transaction_hash,
+        'request_stake_transaction_hash' : oThis.request_stake_transaction_hash,
+        'stake_address' : oThis.stake_address,
+        'fe_bt_to_mint' : btToMint ,
+        'fe_ost_to_stake' : ostToStake
+      }
     },
   
     confirmStakeAndMintIntendSuccess : function ( res ) {
