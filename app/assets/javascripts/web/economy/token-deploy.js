@@ -25,13 +25,13 @@
       oThis.jResetDeployBtn = $(".j-reset-deployment-btn");
       oThis.tokenDeployContainer = $(".token-deploy-container");
       oThis.jResetDeployError =  $('.deploy-error-state');
-      oThis.sProgressBarEl = ".token-deploy-content";
+      oThis.sProgressBarEl = ".token-deploy-progress-wrapper";
       oThis.jDeploySuccessState = $('.deploy-success-state');
       oThis.jTokenDeployInProgress = $('.token-deploy-in-progress');
 
       oThis.bindActions();
 
-      if( !oThis.workflowId  ){
+      if( oThis.workflowId  ){
         oThis.progressBar = new Progressbar({
           sParentEl : oThis.sProgressBarEl
         });
