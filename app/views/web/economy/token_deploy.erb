@@ -6,6 +6,7 @@
   resetdeploy_api = "/#{prefix}/api/token/reset-deployment"
   redirect_url = "/#{prefix}/token/setup"
   mint_token_url = "/#{prefix}/token/mint"
+  invite_team_url = "/settings/team"
   is_poll_failed = false
   if @presenter_obj.client_token.status == GlobalConstant::ClientToken.deployment_failed
           is_poll_failed = true
@@ -63,7 +64,11 @@
       <% if is_mainnet%>
         <div class="my-3 content-wrapper p-2  row">
           <div class="col-1 my-auto">
-            pic
+            <svg class="get-ost-icon align-middle" style="width: 34px; height: 34px">
+              <switch>
+                <use class="get-ost-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#get-ost-icon"></use>
+              </switch>
+            </svg>
           </div>
           <p class="col-7 text-left my-auto">
             Request OST to get started.
@@ -77,16 +82,20 @@
       <% end %>
       <div class="my-3 content-wrapper p-2  row">
         <div class="col-1 my-auto">
-          pic
+          <svg class="invite-team-icon align-middle" style="width: 34px; height: 34px">
+            <switch>
+              <use class="invite-team-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#invite-team-icon"></use>
+            </switch>
+          </svg>
 
         </div>
         <p class="col-7 text-left my-auto">
           Invite your team members.
         </p>
         <div class="col-4">
-          <button class="btn btn-secondary">
+          <a class="btn btn-secondary" target="_blank" href="<%=invite_team_url %>">
             invite team
-          </button>
+          </a>
 
         </div>
 
@@ -94,7 +103,11 @@
       </div>
       <div class="my-3 content-wrapper p-2  row">
         <div class="col-1 my-auto">
-          pic
+          <svg class="get-api-keys-icon align-middle" style="width: 34px; height: 34px">
+            <switch>
+              <use class="get-api-keys-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#get-api-keys-icon"></use>
+            </switch>
+          </svg>
 
         </div>
         <p class="col-7 text-left my-auto">
@@ -111,7 +124,11 @@
       </div>
       <div class="my-3 content-wrapper p-2  row">
         <div class="col-1 my-auto">
-          pic
+          <svg class="ost-guides-icon align-middle" style="width: 34px; height: 34px">
+            <switch>
+              <use class="ost-guides-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ost-guides-icon"></use>
+            </switch>
+          </svg>
 
         </div>
         <p class="col-7 text-left my-auto">
