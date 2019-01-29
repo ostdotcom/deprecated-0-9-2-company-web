@@ -3,7 +3,8 @@
   var ost = ns('ost');
 
   var oThis = ost.utilities = {
-
+  
+    generalErrorMsg : "Something went wrong, try again later." ,
     /*
      * Validate Re-Captcha within form
      *
@@ -63,6 +64,21 @@
       var preText =  jEl.data('pre-text');
       jEl.text( preText );
       jEl.prop("disabled" ,  false );
+    },
+    
+    getGeneralError : function ( res ) {
+      return oThis.deepGet( res , 'err.display_text');
+    },
+    
+    showGeneralError : function ( jWrapper , res , msg ) {
+      if(!jWrapper) return ;
+      msg = oThis.getGeneralError( res ) || msg || oThis.generalErrorMsg ;
+      jWrapper.find('.general_error').text( msg ).addClass('.is-invalid');
+    },
+    
+    clearErrors : function ( jWrapper ) {
+      if(!jWrapper) return ;
+      jWrapper.find('.is-invalid').text( "" ).removeClass('.is-invalid');
     }
   }
 

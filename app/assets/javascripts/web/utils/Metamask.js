@@ -15,7 +15,7 @@
         isDapp: false,
         isMetamask: false,
         desiredNetwork: '3',
-        desiredAccount: null,
+        desiredAccounts: null,
         defaultUnit: 'wei',
 
         init: function() {
@@ -78,12 +78,23 @@
                         oThis.onNotDesiredNetwork();
                     } else {
                         oThis.onDesiredNetwork();
-                        if(oThis.desiredAccount){
-                            if(accounts[0] !== oThis.desiredAccount){
-                                oThis.onNotDesiredAccount();
-                            } else {
-                                oThis.onDesiredAccount();
+                        var len = oThis.desiredAccounts && oThis.desiredAccounts.length ;
+                      if( len > 0 ){
+                          var metamaskAccount = accounts[0] && accounts[0].toLowerCase() ,
+                              cnt , currAccount , isDesiredAddress = false;
+                          ;
+                          for( cnt = 0 ;  cnt < len ; cnt ++ ){
+                            currAccount = oThis.desiredAccounts[ cnt ];
+                            if( metamaskAccount == currAccount ){
+                              isDesiredAddress = true ;
+                              break ;
                             }
+                          }
+                          if( isDesiredAddress ){
+                            oThis.onDesiredAccount();
+                          } else {
+                            oThis.onNotDesiredAccount();
+                          }
                         } else {
                             oThis.onNewAccount();
                         }

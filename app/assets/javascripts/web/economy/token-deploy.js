@@ -19,7 +19,7 @@
 
       oThis.jResetDeployBtn = $(".j-reset-deployment-btn");
       oThis.tokenDeployContainer = $(".token-deploy-container");
-      oThis.jResetDeployError =  $('.deploy-error-state .general_error');
+      oThis.jResetDeployError =  $('.deploy-error-state');
       oThis.sProgressBarEl = ".token-deploy-content";
       oThis.bindActions();
 
@@ -40,7 +40,7 @@
     },
 
     onResetDeploy : function(){
-      oThis.jResetDeployError.removeClass('is-invalid').text("");
+      utilities.clearErrors( oThis.jResetDeployError ) ;
       $.ajax({
         url: oThis.resetdeployEndPoint,
         method: "POST",
@@ -64,9 +64,7 @@
     },
 
     onResetFailure : function( res ){
-      $('.deploy-error-state .general_error')
-        .addClass("is-invalid")
-        .text("Something went wrong, please try again!");
+      utilities.showGeneralError(oThis.jResetDeployError , res );
     } ,
 
     getDeployStatus : function() {
@@ -83,7 +81,7 @@
       if(response && response.success){
         var currentWorkflow = utilities.deepGet( response , "data.workflow_current_step" );
         if( currentWorkflow.status == oThis.currentStepFailedStatus ){
-          oThis.onCurrentStepFailed()
+          oThis.onCurrentStepFailed( response )
         }
         else{
           oThis.shouldStopPolling( currentWorkflow );
@@ -95,7 +93,7 @@
 
     onPollingError : function( jqXhr , error  ){
       if( oThis.polling.isMaxRetries() ){
-        oThis.onCurrentStepFailed();
+        oThis.onCurrentStepFailed( error );
       }
     },
 
@@ -105,10 +103,10 @@
       }
     },
 
-    onCurrentStepFailed : function(){
+    onCurrentStepFailed : function( res ){
       oThis.tokenDeployContainer.hide();
-      oThis.jResetDeployError.show();
-    },
+      utilities.showGeneralError(oThis.jResetDeployError , res );
+    }
 
 
   };

@@ -19,32 +19,51 @@
     jMintSections                   :   $('.jMintSections'),
     jConfirmStakeMintForm           :   $('#stake-mint-confirm-form'),
     jGetOstForm                     :   $('#get-ost-form'),
+    jGetOstBtn                      :   $('#get-ost-btn'),
+  
+    jTokenStakeAndMintSignSection   :   $('#jTokenStakeAndMintSignSection'),
+    jSignHeaders                    :   $('.jSignHeader'),
+    jAllowStakeAndMintMsgWrapper    :   $('.jAllowStakeAndMintWrapper'),
+    jAutorizeStakeAndMintMsgWrapper :   $('.jAutorizeStakeAndMintWrapper'),
+    jSignClientErrorBtnWrap         :   $('.jSignClientErrorBtnWrap'),
+    jSignServerErrorBtnWrap         :   $('.jSignServerErrorBtnWrap'),
+    
+    jStakeAndMintConfirmModal       :   $("#stake-mint-confirm-modal"),
+  
+    jGoBackBtn                      :   $('.jGoBackBtn'),
+    jClientRetryBtn                 :   $('.jClientRetryBtn'),
+    jServerRetryBtn                 :   $('.jServerRetryBtn'),
     jBtToMint                       :   null,
+  
+    metamask                        :   null,
   
     confirmStakeMintFormHelper      :   null ,
     getOstFormHelper                :   null ,
   
     getOstPolling                   :   null,
+    stakeAndMintPolling             :   null,
     
-    genericErrorMessage             :  'Something went wrong!',
+    genericErrorMessage             :   'Something went wrong!',
+    getOstError                     :   "Not able to grant OST right now, try again later.",
+    stakeAndMintError               :   "Sorry your transaction did not go through, Please connect with customer support with the 2 transaction hash.",
+  
+    approve_transaction_hash        :   null,
+    request_stake_transaction_hash  :   null,
     
-    metamask                        :   null,
-    
-    polling                         :   null,
 
     init : function (config) {
       $.extend(oThis,config);
-      var workflowId = oThis.getWorkflowId() ;
+      var workflowId = oThis.getWorkflowId() ,
+          desiredAccounts = oThis.getWhitelistedAddress()
+      ;
       
       if( !workflowId  ){ //Dont do needless init's
         oThis.initPriceOracle();
         oThis.initUIValues();
         oThis.bindActions();
-      }else {
-        var desiredAccount = oThis.getDesiredAccount();
       }
-  
-      oThis.setupMetamask( desiredAccount );
+      
+      oThis.setupMetamask( desiredAccounts );
       
     },
     
@@ -72,10 +91,6 @@
         }
       });
     },
-  
-    onConfirmStakeMintSuccess : function ( res ) {
-      //TODO
-    },
     
     initGetOstFormHelper: function () {
       oThis.getOstFormHelper = oThis.jGetOstForm.formHelper({
@@ -85,25 +100,56 @@
         },
         success: function ( res ) {
           if( res.success ){
-            oThis.onGetOstInitSuccess( res );
+            var workflowId = utilities.deepGet( res , "data.workflow.id") ;
+            oThis.startGetOstPolling( workflowId );
           }
         },
         complete: function () {
-          utilities.btnSubmittingState( $('#get-ost-btn') );
+          utilities.btnSubmittingState( oThis.jGetOstBtn );
         }
       });
     },
   
   
-    onGetOstInitSuccess: function ( res ) {
-      var workflowId = utilities.deepGet( res , "data.workflow.id") ;
+    startGetOstPolling: function ( workflowId ) {
+      var workflowApi = oThis.getWorkFlowStatusApi( workflowId )
+            ;
       oThis.getOstPolling = new Polling({
+        pollingApi      : workflowApi ,
+        pollingInterval : 4000,
+        onPollSuccess   : oThis.getOstPollingSuccess.bind( oThis ),
+        onPollError     : oThis.getOstPollingError.bind( oThis )
+      });
+      oThis.getOstPolling.startPolling();
+    },
+  
+    getOstPollingSuccess : function( response ){
+      if(response && response.success){
+        var currentWorkflow = utilities.deepGet( response , "data.workflow_current_step" );
+          if( oThis.shouldStopPolling( currentWorkflow ) ){
+            oThis.getOstPolling.stopPolling();
+            window.location = "" //Self load
+          }
+      }else {
+        oThis.showGetOstPollingError( response );
+      }
       
-      })
+    },
+  
+    getOstPollingError : function( jqXhr , error  ){
+      if( oThis.getOstPolling.isMaxRetries() ){
+        oThis.showGetOstPollingError( error );
+      }
+    },
+  
+    showGetOstPollingError : function ( res ) {
+      oThis.getOstPolling.stopPolling();
+      utilities.btnSubmitCompleteState( oThis.jGetOstBtn );
+      utilities.showGeneralError( oThis.jGetOstForm ,  res ,  oThis.getOstError  );
     },
     
-    onGetOstSuccess : function ( res ) {
-    
+    shouldStopPolling : function( currentWorkflow ){
+      return currentWorkflow && currentWorkflow.percent_completion  >= 100 ;
     },
 
     bindActions : function () {
@@ -112,7 +158,19 @@
       });
 
       oThis.jMintTokenContinueBtn.off('click').on("click",function () {
-        $("#stake-mint-confirm-modal").modal('show');
+        oThis.jStakeAndMintConfirmModal.modal('show');
+      });
+      
+      oThis.jGoBackBtn.off('click').on('click' , function () {
+        oThis.showSection( oThis.jStakeMintProcess );
+      });
+      
+      oThis.jClientRetryBtn.off('click').on('click' , function () {
+        oThis.allowStakeAndMint();
+      });
+      
+      oThis.jServerRetryBtn.off('click').on('click' , function () {
+        oThis.confirmStakeAndMintIntend();
       });
 
     },
@@ -121,11 +179,11 @@
       oThis.metamask.enable();
     },
     
-    setupMetamask: function( desiredAccount ){
+    setupMetamask: function( desiredAccounts ){
 
       oThis.metamask = new Metamask({
         desiredNetwork: oThis.chainId,
-        desiredAccount : desiredAccount , //Handling of undefined is present in Metamask so not to worry.
+        desiredAccount : desiredAccounts , //Handling of undefined is present in Metamask so not to worry.
 
         onNotDapp: function(){
           ost.coverElements.show("#installMetamaskCover");
@@ -162,7 +220,7 @@
         },
 
         onNewAccount: function(){
-          oThis.onAccountValidation()
+          oThis.onAccountValidation();
         }
 
       });
@@ -178,30 +236,47 @@
         oThis.showSection( oThis.jAddressNotWhitelistedSection ) ;
       }
       else{
-        oThis.checkForOstBal();
+        oThis.checkForBal();
       }
-  
-      //TODO delete
-      oThis.showSection( oThis.jStakeMintProcess ) ;
     },
 
+    checkForBal: function () {
+      oThis.checkEthBal();
+    },
+  
+    checkEthBal : function () {
+      var walletAddress = oThis.getWalletAddress() ;
+      oThis.metamask.getBalance( walletAddress  , function ( eth ) {
+        var minOstRequire = oThis.getMinETHRequired();
+        eth = eth && BigNumber( eth ) ;
+        if( !eth ||  eth.isLessThan( minOstRequire ) ){
+          oThis.showSection(  oThis.jInsufficientBalSection ) ;
+          $('buy-eth-btn').show();
+        }else {
+          oThis.checkForOstBal();
+        }
+      }) ;
+    },
+    
     checkForOstBal : function(){
       var walletAddress = oThis.getWalletAddress() ,
           simpleTokenContractAddress  =   oThis.getSimpleTokenContractAddress()
       ;
       oThis.metamask.balanceOf( walletAddress , simpleTokenContractAddress , function ( ost ) {
         var minOstRequire = oThis.getMinOstRequired();
-        if( ost < minOstRequire ){
+        ost = ost && BigNumber( ost );
+        if( !ost || ost.isLessThan( minOstRequire ) ){
           oThis.showSection(  oThis.jInsufficientBalSection ) ;
+          $('buy-ost-btn').show();
         }else {
           oThis.onValidationComplete( ost );
         }
-      } , "ether" ) ;
+      } ) ;
     },
   
     onValidationComplete : function ( ost ) {
       var btToStake = oThis.jBtToMint.val();
-      oThis.OstAvailable = ost;
+      oThis.OstAvailable = PriceOracle.fromWei( ost );
       oThis.mintDonuteChart = new GoogleCharts();
       oThis.initSupplyPieChart( ost , btToStake );
       oThis.updateSlider( ost );
@@ -233,12 +308,12 @@
       if( workflowId ){
         oThis.onWorkFlow( workflowId );
       }else {
-        //I dont know what to do
+        oThis.checkEthBal();
       }
     },
   
     onWorkFlow : function ( workflowId ) {
-    
+      oThis.startGetOstPolling( workflowId )
     },
     
     getSimpleTokenContractAddress : function () {
@@ -247,6 +322,10 @@
     
     getWalletAddress : function () {
       return utilities.deepGet( oThis.metamask , "ethereum.selectedAddress" );
+    },
+  
+    getMinETHRequired : function () {
+      return utilities.deepGet( oThis.dataConfig , "contract_details.min_eth_required" );
     },
     
     getMinOstRequired : function () {
@@ -262,7 +341,11 @@
     },
   
     getWhitelistedAddress : function () {
-      return utilities.deepGet( oThis.dataConfig , "origin_addresses.whitelisted") ;
+      var whitelistedAddress = utilities.deepGet( oThis.dataConfig , "origin_addresses.whitelisted") ;
+      whitelistedAddress = whitelistedAddress.map( function ( a ) {
+        return typeof a == "string" ? a.toLowerCase() : a ;
+      });
+      return whitelistedAddress ;
     },
     
     getDesiredAccount : function () {
@@ -276,6 +359,20 @@
   
     getMaxBTToMint : function ( ost ) {
       return PriceOracle.ostToBt(ost );  //Mocker will take care of precession
+    },
+    
+    getWorkFlowStatusApi : function ( id ) {
+      id = id || oThis.getWorkflowId();
+      return oThis.workFlowStatusApi + "/" + id ;
+    },
+
+    getGatewayComposerDetails  : function () {
+      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails" ) ;
+    },
+    
+    setDataInDataConfig : function ( key , data ) {
+      if( !key ) return ;
+      oThis.dataConfig[ key  ] = data ;
     },
   
     btToFiat : function (val) {
@@ -335,28 +432,106 @@
         }
       })
     },
-
-    //Start polling code
-
-    getOst: function () {
-      oThis.polling = new Polling({
-        pollingApi      : oThis.getOstEndPoint,
-        pollingInterval : 4000,
-        onPollSuccess   : oThis.onPollingSuccess.bind( oThis ),
-        onPollError     : oThis.onPollingError.bind( oThis )
-      });
-      oThis.polling.startPolling();
+  
+    onConfirmStakeMintSuccess : function ( res ) {
+        var data = res && res.data  ;
+        oThis.setDataInDataConfig( "gatewayComposerDetails" ,  data );
+        oThis.jStakeAndMintConfirmModal.modal('hide');
+        oThis.showSection( oThis.jTokenStakeAndMintSignSection ) ;
+        oThis.allowStakeAndMint();
     },
-
-    onPollingSuccess: function( res ){
-
+    
+    allowStakeAndMint: function () {
+      oThis.resetState();
+      //TODO metamask flow
+    },
+    
+    resetState : function () {
+      oThis.updateConfirmStakeAndMintIconState( $('.jMintMsgWrapper'),  '.pre-state-icon');
+      oThis.jSignClientErrorBtnWrap.hide();
+      oThis.jSignServerErrorBtnWrap.hide();
+    },
+    
+    onConfirmStakeAndMint: function () {
+      oThis.approve_transaction_hash = "" ;  //TODO
+      oThis.beforeUnload( true );
+      oThis.updateConfirmStakeAndMintIconState( oThis.jAllowStakeAndMintMsgWrapper,  '.processing-state-icon');
+      oThis.authoriseStakingProcess();
     },
   
-    onPollingError : function () {
+    beforeUnload : function( bindLoad ){
+      $(window).bind("beforeunload",function(event) {
+        if( bindLoad ){
+          return "There are unsaved changes made to this page." ;
+        }
+      });
+    },
     
+    onCancelStakeAndMint : function () {
+      oThis.updateConfirmStakeAndMintIconState( oThis.jAllowStakeAndMintMsgWrapper,  '.error-state-icon');
+      oThis.jSignClientErrorBtnWrap.show();
+    },
+  
+    updateConfirmStakeAndMintIconState: function (jWrapper ,  sSelector  ) {
+      if(!jWrapper) return ;
+      jWrapper = jWrapper ;
+      jWrapper.find('.state-icon').hide();
+      jWrapper.find( sSelector ).show();
+    },
+    
+    
+    authoriseStakingProcess: function () {
+      oThis.updateConfirmStakeAndMintIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.pre-state-icon');
+      oThis.jSignClientErrorBtnWrap.hide();
+      //TODO metamask flow
+    },
+    
+    onConfirmAuthorizeStakeAndMint: function () {
+      oThis.request_stake_transaction_hash = "" ;  //TODO
+      oThis.updateConfirmStakeAndMintIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.processing-state-icon');
+      oThis.confirmStakeAndMintIntend();
+    },
+  
+    onCancelAuthorizeStakeAndMint : function () {
+      oThis.updateConfirmStakeAndMintIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.error-state-icon');
+      oThis.jSignClientErrorBtnWrap.show();
+    },
+  
+    confirmStakeAndMintIntend : function () {
+      oThis.resetState();
+      oThis.stakeAndMintPolling = new Polling({
+        pollingApi      : oThis.mintApi ,
+        pollingInterval : 4000,
+        onPollSuccess   : oThis.confirmStakeAndMintIntendSuccess.bind( oThis ),
+        onPollError     : oThis.confirmStakeAndMintIntendError.bind( oThis )
+      });
+      oThis.stakeAndMintPolling.startPolling();
+    },
+  
+    confirmStakeAndMintIntendSuccess : function ( res ) {
+      oThis.stakeAndMintPolling.stopPolling() ; //Stop immediately
+      if( res && res.success ){
+        oThis.beforeUnload();
+        window.location = oThis.redirectRoute ;
+      }else {
+        oThis.confirmStakeAndMintIntendErrorStateUpdate( res );
+      }
+    },
+  
+    confirmStakeAndMintIntendError : function (jqXhr ,  error ) {
+      if( oThis.stakeAndMintPolling.isMaxRetries() ){
+        oThis.stakeAndMintPolling.stopPolling() ;
+        oThis.confirmStakeAndMintIntendErrorStateUpdate( error );
+      }
+    },
+  
+    confirmStakeAndMintIntendErrorStateUpdate : function ( res ) {
+      oThis.jSignServerErrorBtnWrap.show();
+      utilities.showGeneralError( oThis.jTokenStakeAndMintSignSection , res , oThis.stakeAndMintError );
     }
-
-    //END polling code
+    
+    
+    
   }
 
 })(window,jQuery);

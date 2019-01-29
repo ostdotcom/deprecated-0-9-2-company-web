@@ -1,10 +1,13 @@
 <%
   prefix = GlobalConstant::Environment.url_prefix;
   token_api = "/#{prefix}/api/token" ;
+  mint_api = "/#{prefix}/api/token/mint"
   sign_messages_api = "/#{prefix}/api/token/addresses/sign-messages";
   addresses_api = "/#{prefix}/api/token/addresses";
-  redirect_route = "/#{prefix}/token/mint" ;
+  redirect_route = "/#{prefix}/token/mint-progress" ;
+
   get_ost_api = "/#{prefix}/token/mint/grant";
+  workflow_status_api = "/#{prefix}/api/workflow";
   chain_id = GlobalConstant::Environment.chain_id
   data_config = {
       origin_addresses: @presenter_obj.origin_addresses.data,
@@ -15,11 +18,15 @@
       client_manager: @presenter_obj.client_manager.data,
       gas_price: @presenter_obj.gas_price.data,
       workflow: @presenter_obj.workflow.data,
-      min_ost_required: "0.000000000000000001" ##TODO backend required , Value required in WEI
+      min_ost_required: "1000000000000000000", ##TODO backend required , Value required in WEI
+      min_eth_required: "1000000000000000000"
   }
 
   is_buy_ost = false  #TODO backend required
   is_workflow = false  #TODO get it from @presenter_obj.workflow.data
+
+  current_step_failed_status = "failed" #TODO:From Presenter Object
+  initial_ost_funding = "100" #TODO:From Presenter Object
 
   bt_to_mint_name = "bt_to_mint"
   bt_to_mint_id = "bt_to_mint"
@@ -167,7 +174,8 @@
                         </switch>
                       </svg>
                     </div>
-                    <div style="overflow: auto" class="text-muted font-weight-light ml-2 align-self-center">Your selected address does not have OSTα. Will fund 10,000 OSTα in to your selected MetaMask wallet to get you started</div>
+                    <div style="overflow: auto" class="text-muted font-weight-light ml-2 align-self-center">
+                      Your selected account is not whitelisted with us. Please try changing the Metamask account.</div>
                   </div>
                 </div>
               </div>
@@ -201,21 +209,28 @@
               <div class="col-6 align-self-center d-flex text-left pl-0 jStatusWrapper">
                 <div class="status-message">
                   <div class="float-left align-self-center">
-                    <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
-                      <switch>
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fund-wallet"></use>
-                      </switch>
-                    </svg>
+                    <%if is_buy_ost %>
+                        <!--TODO error SVG-->
+                    <%else%>
+                      <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
+                        <switch>
+                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fund-wallet"></use>
+                        </switch>
+                      </svg>
+                    <%end%>
                   </div>
-                  <div style="overflow: auto" class="text-muted font-weight-light ml-2 align-self-center">Looks like the account selected in metamask does not have enough OST to Mint LGBT, You can select a different account or Buy More OST</div>
+                  <div style="overflow: auto" class="text-muted font-weight-light ml-2 align-self-center">
+                    Your selected address does not have OSTα. Will fund <%= initial_ost_funding%> OSTα in to your selected MetaMask wallet to get you started.
+                  </div>
                 </div>
               </div>
             </div>
             <%if is_buy_ost %>
-              <a href="javascript:void(0)" class="btn btn-primary d-inline-block">Buy Ost</a>
+              <a href="javascript:alert('Please provide links')" class="btn btn-primary d-inline-block buy-eth-btn" style="display: none;">Buy ETHER</a>
+              <a href="javascript:alert('Please provide links')" class="btn btn-primary d-inline-block buy-ost-btn" style="display: none;">Buy Ost</a>
             <%else%>
               <button id="get-ost-btn"  type="submit" data-submiting="Getting Ost ⍺.."
-                      class="btn btn-primary d-inline-block get-ost">Get Ost ⍺</button>
+                      class="btn btn-primary d-inline-block buy-eth-btn buy-ost-btn">Get Ost ⍺</button>
               <span class="jGetOstLoaderText ml-3 text-muted font-weight-light" style="display: none">
                 <img src="//dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader-1.gif" width="15" height="15" />
                 Please wait while we transfer OST⍺ to your address
@@ -229,6 +244,11 @@
     </form>
   </div>
 </div>
+
+<%= render :partial => "/web/economy/token/token_mint_signs",
+           :locals => {
+               :bt_to_mint_selector => "#"+bt_to_mint_id
+           }%>
 
 
 <% content_for :popups do %>
@@ -246,12 +266,15 @@
       ost.tokenMint.init({
         signMessagesEndPoint: "<%= sign_messages_api %>",
         addressesEndPoint: "<%= addresses_api%>",
+        mintApi : "<%= mint_api%>",
         chainId : "<%= chain_id %>",
         redirectRoute : "<%= redirect_route %>",
+        workFlowStatusApi: "<%= workflow_status_api %>",
         personalSignCancelErrorMessage  :  'Could not proceed as you denied message signature in MetaMask.',
         dataConfig: dataConfig,
         getOstEndPoint : "<%= get_ost_api %>",
-        btToMintId: "<%= bt_to_mint_id %>"
+        btToMintId: "<%= bt_to_mint_id %>",
+        currentStepFailedStatus : "<%= current_step_failed_status %>"
       });
     });
   </script>
