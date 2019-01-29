@@ -15,15 +15,16 @@
       client_manager: @presenter_obj.client_manager.data,
       gas_price: @presenter_obj.gas_price.data,
       workflow: @presenter_obj.workflow.data,
-      min_ost_required: "1000000000000000000", ##TODO backend required , Value required in WEI
-      min_eth_required: "1000000000000000000"  ##TODO backend required , Value required in WEI
+      min_ost_required: "1000000000000000000", ##TODO ANKIT backend required , Value required in WEI
+      min_eth_required: "1000000000000000000"  ##TODO ANKIT backend required , Value required in WEI
   }
 
-  is_buy_ost = false  #TODO backend required
-  is_workflow = false  #TODO get it from @presenter_obj.workflow.data
-  initial_ost_funding = "100" #TODO:From Presenter Object
-  bt_to_mint_min = 1 #TODO:From Presenter Object
+  is_buy_ost = false  #TODO ANKIT backend required
+  is_workflow = false  #TODO  ANKIT get it from @presenter_obj.workflow.data
+  initial_ost_funding = "100" #TODO ANKIT :From Presenter Object
+  bt_to_mint_min = 1 #TODO: ANKIT From Presenter Object
 
+  #FE specific
   bt_to_mint_name = "bt_to_mint"
   bt_to_mint_id = "bt_to_mint"
   bt_to_mint_step = 1
