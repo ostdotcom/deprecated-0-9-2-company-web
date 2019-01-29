@@ -12,7 +12,7 @@ class Web::UserSettingController < Web::BaseController
         CompanyApi::Response::Formatter::Manager,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).get_manager_details({})
+    ).get_team_details({})
 
     unless @response.success?
       return handle_temporary_redirects(@response)

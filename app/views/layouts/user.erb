@@ -65,10 +65,12 @@
 </head>
 
 <body contenteditable="false">
-
-<%= render :partial => "/shared/web/common/header_logged_out" %>
 <%= render :partial => "/shared/web/common/other-icons.svg" %>
-<main class="wrapper h-100">
+<%
+  custom_class = params[:action] == 'sign_up' ? '' : 'cloud-bg h-100'
+%>
+<main class="wrapper d-flex flex-column <%= custom_class %>">
+  <%= render :partial => "/shared/web/common/header_logged_out" %>
   <%= yield %>
 </main>
 

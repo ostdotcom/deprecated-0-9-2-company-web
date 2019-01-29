@@ -25,6 +25,9 @@ Rails.application.routes.draw do
 
   scope 'settings', controller: 'web/user_setting' do
     get '/team' => :team
+
+    ### TODO: Change action when implement.
+    get '/developer' => :team, as: 'developer'
   end
 
   scope "#{GlobalConstant::Environment.url_prefix}", controller: 'web/economy' do
