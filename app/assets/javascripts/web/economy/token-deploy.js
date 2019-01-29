@@ -12,6 +12,8 @@
     tokenDeployContainer : null,
     jResetDeployError: null ,
     sProgressBarEl :null,
+    jDeploySuccessState : null,
+    jTokenDeployInProgress : null,
     
 
     init : function (config) {
@@ -21,6 +23,9 @@
       oThis.tokenDeployContainer = $(".token-deploy-container");
       oThis.jResetDeployError =  $('.deploy-error-state');
       oThis.sProgressBarEl = ".token-deploy-content";
+      oThis.jDeploySuccessState = $('.deploy-success-state');
+      oThis.jTokenDeployInProgress = $('.token-deploy-in-progress');
+
       oThis.bindActions();
 
       if( !oThis.isPollFailed  ){
@@ -100,6 +105,9 @@
     shouldStopPolling : function( currentWorkflow ){
       if( currentWorkflow && currentWorkflow.percent_completion  >= 100){
         oThis.polling && oThis.polling.stopPolling();
+        oThis.jTokenDeployInProgress.hide();
+        oThis.jDeploySuccessState.show();
+
       }
     },
 

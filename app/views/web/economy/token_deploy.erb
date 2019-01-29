@@ -1,97 +1,154 @@
 <%
   prefix = GlobalConstant::Environment.url_prefix
+  is_mainnet = GlobalConstant::Base.main_sub_environment?
   workflow_id = @presenter_obj.workflow.id
   deployment_status_api = "/#{prefix}/api/workflow/#{workflow_id}"
   resetdeploy_api = "/#{prefix}/api/token/reset-deployment"
   redirect_url = "/#{prefix}/token/setup"
+  mint_token_url = "/#{prefix}/token/mint"
+  invite_team_url = "/settings/team"
   is_poll_failed = false
   if @presenter_obj.client_token.status == GlobalConstant::ClientToken.deployment_failed
           is_poll_failed = true
   end
 
-  current_step_failed_status = "failed" #TODO:From Presenter Object
+  current_step_failed_status = GlobalConstant::Workflow.failed
+  client_token_symbol = @presenter_obj.client_token.symbol
 %>
-<%if !is_poll_failed %>
+<%if !is_poll_failed%>
   <div class="token-deploy-container text-center">
-  <h3 class="mt-5"> Setting up your Token</h3>
-  <p class="font-weight-light my-5"> The <%= @presenter_obj.client_token.name%> token economy is being initialized. This process takes several minutes.</p>
-  <div class="token-deploy-content mx-auto">
-    <%= render :partial => "shared/web/common/progress_bar" %>
-    <h3 class="my-5">
-      In the mean time you can…
-    </h3>
-    <div class="my-3 content-wrapper p-2  row">
-      <div class="col-1 my-auto">
-        pic
 
-      </div>
-      <p class="col-7 text-left my-auto">
-        Request OST to get started.
-      </p>
-      <div class="col-4">
-        <button class="btn btn-secondary">
-          get ost
-        </button>
-
+      <div class="token-deploy-in-progress">
+        <h3 class="mt-5"> Setting up your Token</h3>
+        <p class="font-weight-light my-5"> The <%= @presenter_obj.client_token.name%> token economy is being initialized. This process takes several minutes.</p>
+        <div class="token-deploy-content  mx-auto">
+          <%= render :partial => "shared/web/common/progress_bar" %>
+        </div>
+        <h3 class="my-5">
+          In the mean time you can…
+        </h3>
       </div>
 
+    <div class="deploy-success-state token-deploy-content mx-auto text-center mt-5 " style="display: none;">
+      <h3 class="my-5"> Set Up Complete</h3>
+      <div class="shadow-box p-3 row">
+        <div class="col-1 my-auto" >
+            <svg class="success-icon align-middle" style="width: 34px; height: 34px">
+              <switch>
+                <use class="success-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#success-icon"></use>
+              </switch>
+            </svg>
 
-    </div>
-    <div class="my-3 content-wrapper p-2  row">
-      <div class="col-1 my-auto">
-        pic
+          </div>
 
-      </div>
-      <p class="col-7 text-left my-auto">
-        Invite your team members.
-      </p>
-      <div class="col-4">
-        <button class="btn btn-secondary">
-          invite team
-        </button>
-
-      </div>
-
-
-    </div>
-    <div class="my-3 content-wrapper p-2  row">
-      <div class="col-1 my-auto">
-        pic
+        <div class="col-7 text-left my-auto">
+          Set Up is Complete. Lets start by Minting <%=client_token_symbol %>
+        </div>
+        <div class="col-4 my-auto">
+          <a class="btn btn-primary d-inline" href="<%=mint_token_url %>">
+            Mint Tokens
+          </a>
+        </div>
 
       </div>
-      <p class="col-7 text-left my-auto">
-        Integrate OST APIs with your application.
-      </p>
-      <div class="col-4">
-        <button class="btn btn-secondary">
-          get api keys
-        </button>
-
-      </div>
-
-
-    </div>
-    <div class="my-3 content-wrapper p-2  row">
-      <div class="col-1 my-auto">
-        pic
-
-      </div>
-      <p class="col-7 text-left my-auto">
-        Check our guides and tutorials for a quick start.
-      </p>
-      <div class="col-4">
-        <button class="btn btn-secondary">
-          ost guides
-        </button>
-
-      </div>
+      <h3 class="my-5">
+        You can also...
+      </h3>
 
 
     </div>
 
 
+    <div class="optional-actions-content mx-auto token-deploy-content">
 
-  </div>
+      <% if is_mainnet%>
+        <div class="my-3 content-wrapper p-2  row">
+          <div class="col-1 my-auto">
+            <svg class="get-ost-icon align-middle" style="width: 34px; height: 34px">
+              <switch>
+                <use class="get-ost-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#get-ost-icon"></use>
+              </switch>
+            </svg>
+          </div>
+          <p class="col-7 text-left my-auto">
+            Request OST to get started.
+          </p>
+          <div class="col-4">
+            <a class="btn btn-secondary" target="_blank" href="https://openst.org/#token">
+              Buy ost
+            </a>
+          </div>
+        </div>
+      <% end %>
+      <div class="my-3 content-wrapper p-2  row">
+        <div class="col-1 my-auto">
+          <svg class="invite-team-icon align-middle" style="width: 34px; height: 34px">
+            <switch>
+              <use class="invite-team-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#invite-team-icon"></use>
+            </switch>
+          </svg>
+
+        </div>
+        <p class="col-7 text-left my-auto">
+          Invite your team members.
+        </p>
+        <div class="col-4">
+          <a class="btn btn-secondary" target="_blank" href="<%=invite_team_url %>">
+            invite team
+          </a>
+
+        </div>
+
+
+      </div>
+      <div class="my-3 content-wrapper p-2  row">
+        <div class="col-1 my-auto">
+          <svg class="get-api-keys-icon align-middle" style="width: 34px; height: 34px">
+            <switch>
+              <use class="get-api-keys-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#get-api-keys-icon"></use>
+            </switch>
+          </svg>
+
+        </div>
+        <p class="col-7 text-left my-auto">
+          Integrate OST APIs with your application.
+        </p>
+        <div class="col-4">
+          <button class="btn btn-secondary">
+            get api keys
+          </button>
+
+        </div>
+
+
+      </div>
+      <div class="my-3 content-wrapper p-2  row">
+        <div class="col-1 my-auto">
+          <svg class="ost-guides-icon align-middle" style="width: 34px; height: 34px">
+            <switch>
+              <use class="ost-guides-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ost-guides-icon"></use>
+            </switch>
+          </svg>
+
+        </div>
+        <p class="col-7 text-left my-auto">
+          Check our guides and tutorials for a quick start.
+        </p>
+        <div class="col-4">
+          <button class="btn btn-secondary">
+            ost guides
+          </button>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+
+
 
 </div>
 <%end%>

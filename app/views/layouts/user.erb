@@ -74,10 +74,9 @@
 
 <%= javascript_include_tag "web/common" %>
 <%= javascript_include_tag "#{specific_manifest_file_path}" if has_specific_js_manifest_file? %>
-<%= yield(:end_js) %>
 
-<script src="https://www.google.com/recaptcha/api.js">
-</script>
+<%= yield(:end_js) %>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 <script type="text/javascript">
   $(function () {
     $( window ).on('load', function () {
@@ -91,6 +90,7 @@
       }, 100);
     })
   });
+  window.redirectMap = <%= raw GlobalConstant::RedirectMap.get.to_json %>;
 </script>
 </body>
 </html>
