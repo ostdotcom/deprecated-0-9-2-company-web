@@ -2,25 +2,31 @@
   prefix = GlobalConstant::Environment.url_prefix;
   workflow_id = @presenter_obj.workflow.id
   minting_status_api = "/#{prefix}/api/workflow/#{workflow_id}"
-  current_step_failed_status = GlobalConstant::Workflow.failed
-  redirect_url = "/#{prefix}/token/mint"
+  bt_symbol = @presenter_obj.client_token.symbol;
+  stake_ost = 350 ; #TODO ANKIT
+  total_min_bt = 750,000 ; #TODO ANKIT
 %>
 
 <div class="container token-mint-progress-container">
-  <section id="minting-inprogress">
+
+  <section class="jSection" id="minting-inprogress">
     <div class="row">
       <div class="col-10 mx-auto text-center">
         <div class="row">
-          <h3 class="col-8 mx-auto mt-6">Minting LGBT Tokens</h3>
+          <h3 class="col-8 mx-auto mt-6">Minting <%= bt_symbol %>  Tokens</h3>
           <div class="col-10 mx-auto text-left rounded border-0">
-            <div class="text-muted font-weight-light mb-5 text-center">This process takes several minutes. You can continue to explore KIT, we will inform you once the tokens are minted.</div>
-            <div class="alert alert-secondary" role="alert">
-              <img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/pending-loader-1.svg" width="30" height="30">
-              <span class="ml-3 align-middle text-muted font-weight-light">Allow the contract Stake 350 OST to Mint 750,000 LGBT Tokens</span>
+            <div class="text-muted font-weight-light mb-5 text-center">
+              This process takes several minutes. You can continue to explore KIT, we will inform you once the tokens are minted.
             </div>
             <div class="alert alert-secondary" role="alert">
-              <img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/pending-loader-1.svg" width="30" height="30">
-              <span class="ml-3 align-middle text-muted font-weight-light">Autorize Contract to Start the Staking Process</span>
+              <span>Success SVG</span>
+              <span class="ml-3 align-middle text-muted font-weight-light">
+                Allow the contract Stake <%= stake_ost%> <%= ost_currency_symbol %> to Mint <%= total_min_bt%> <%= bt_symbol %> Tokens
+              </span>
+            </div>
+            <div class="alert alert-secondary" role="alert">
+              <span>Success SVG</span>
+              <span class="ml-3 align-middle text-muted font-weight-light">Authorize Contract to Start the Staking Process</span>
             </div>
             <div class="mt-5 pt-3" id="mint-progress">
               <%= render :partial => "shared/web/common/progress_bar" %>
@@ -30,7 +36,8 @@
       </div>
     </div>
   </section>
-  <section style="display:none;" id="minting-complete">
+
+  <section class="jSection" style="display:none;" id="minting-complete">
     <div class="row">
       <div class="col-10 mx-auto text-center">
         <div class="row">
@@ -38,31 +45,31 @@
           <div class="shadow-box col-8 mx-auto my-3">
             <div class="p-4 text-muted font-weight-light">
               <span>
-<!--                success svg to come here-->
+                Success SVG TODO
               </span>
-              You have succesfully minted 750,000 LGBT Tokens
+              You have successfully minted<span class="total-token-minted"><%= total_min_bt %></span><%= bt_symbol%> Tokens
             </div>
           </div>
           <div class="col-8 mt-3 mx-auto">
-            <button class="btn btn-secondary">DASHBOARD</button>
-            <button class="btn btn-primary ml-3">MINT MORE</button>
+            <a href="javascript.alert('TODO Update link')" class="btn btn-secondary">DASHBOARD</a>
+            <a href="javascript.alert('TODO Update link')" class="btn btn-primary ml-3">MINT MORE</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 </div>
-<div class="minting-error-state text-center mt-5" style="display: none">
+
+<div class="minting-error-state jSection text-center mt-5" style="display: none">
   <svg class="error-icon align-middle">
     <switch>
       <use class="error-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#error-icon"></use>
     </switch>
   </svg>
-  <h3 class="text-center mt-5 display-header">Looks like there was an issue in the minting process </h3>
+  <h3 class="text-center mt-5 display-header">Looks like there was an issue in the minting process</h3>
   <p class="font-weight-light  mb-5 text-muted">
-    Please try again to proceed.
+    Please connect with customer support with the 2 transaction hash.
   </p>
-  <a class="j-mint-progress-btn btn btn-primary" href="<%=redirect_url %>" data-submitting="retrying..." >retry</a>
   <div class="invalid-feedback general_error"></div>
 </div>
 
@@ -71,7 +78,7 @@
     $(function () {
       ost.tokenMintProgress.init({
         mintingStatusEndPoint:"<%=minting_status_api%>",
-        currentStepFailedStatus : "<%= current_step_failed_status %>"
+        workflowId : "<%= workflow_id%>"
       });
     });
   </script>

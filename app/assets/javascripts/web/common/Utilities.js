@@ -53,7 +53,7 @@
 
     btnSubmittingState : function ( jEl ) {
       var preText = jEl.text(),
-          submittingText = jEl.data('submitting')
+          submittingText = jEl.data('submiting')
       ;
       jEl.data("pre-text", preText );
       jEl.text( submittingText );
@@ -73,12 +73,12 @@
     showGeneralError : function ( jWrapper , res , msg ) {
       if(!jWrapper) return ;
       msg = oThis.getGeneralError( res ) || msg || oThis.generalErrorMsg ;
-      jWrapper.find('.general_error').text( msg ).addClass('.is-invalid');
+      jWrapper.find('.general_error').text( msg ).addClass('is-invalid');
     },
     
     clearErrors : function ( jWrapper ) {
       if(!jWrapper) return ;
-      jWrapper.find('.is-invalid').text( "" ).removeClass('.is-invalid');
+      jWrapper.find('.is-invalid').text( "" ).removeClass('is-invalid');
     }
   }
 

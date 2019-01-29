@@ -1,12 +1,21 @@
 ;
 (function (window , $) {
   
-  var ost = ns('ost');
+  var ost = ns('ost') ,
+      utilities =  ns("ost.utilities")
+  ;
   
   ost.Polling = function ( config ) {
      var oThis = this ;
      $.extend( oThis  ,  config );
     
+  };
+  
+  var PollingStatusMap = {
+    inProgress : "inProgress" ,
+    completed  : "completed",
+    failed: "failed" ,
+    completelyFailed : "completelyFailed"
   };
   
   ost.Polling.prototype =  {
@@ -112,8 +121,28 @@
         oThis.poll();
       }, oThis.pollingInterval );
     
-    }
+    },
     
+    //Helper Functions can be overwritten
+    isWorkFlowInProgress : function ( res ) {
+      var status = utilities.deepGet( res , 'data.workflow_current_step.status') ;
+      return status == PollingStatusMap[ 'inProgress' ] ;
+    },
+    
+    isWorkflowFailed: function ( res) {
+      var status = utilities.deepGet( res , 'data.workflow_current_step.status') ;
+      return status == PollingStatusMap[ 'failed' ] ;
+    },
+  
+    isWorkflowCompletedFailed: function ( res ) {
+      var status = utilities.deepGet( res , 'data.workflow_current_step.status') ;
+      return  status == PollingStatusMap[ 'completelyFailed' ];
+    },
+    
+    isWorkflowCompleted: function ( res ) {
+      var status = utilities.deepGet( res , 'data.workflow_current_step.status') ;
+      return status == PollingStatusMap[ 'completed' ] ;
+    }
   }
   
 })(window , jQuery );

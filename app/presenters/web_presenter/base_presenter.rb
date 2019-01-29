@@ -121,12 +121,24 @@ module WebPresenter
       curreny.to_s #TODO: Figure out a logic to handle this
     end
 
-    def is_planner_route?
-      ['planner' , 'token_deploy'].include?(action)
+    def is_token_setup_route?
+      ['token_setup' , 'token_deploy'].include?(action) && ['web/economy'].include?(controller)
+    end
+
+    def is_settings_route?
+      ['web/user_setting'].include?(controller)
     end
 
     def action
       @params[:action]
+    end
+
+    def controller
+      @params[:controller]
+    end
+
+    def controller_action
+      @params[:controller]+'/'+@params[:action]
     end
 
     def can_show_email_verify_notification?

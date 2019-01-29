@@ -7,14 +7,20 @@
   ;
 
   var oThis = ost.tokenMintProgress = {
+  
+    jMintPollingError     : $('.minting-error-state'),
+    jMintPollingSuccess   : $('#minting-complete'),
+    jSection              : $('.jSection'),
+  
+    sProgressBarEl        :  '#mint-progress',
 
-    genericErrorMessage             :  'Something went wrong!',
-    progressBar                     :  null,
-    polling                         :  null,
-    mintingStatusEndPoint           :  null,
-    sProgressBarEl                  :  '#mint-progress',
-    jMintPollingError               : $('.minting-error-state'),
-    jTokenMintProgressContainer     : $('.token-minting-progress-container'),
+    genericErrorMessage   :  'Something went wrong!',
+    progressBar           :  null,
+    polling               :  null,
+    
+    mintingStatusEndPoint :  null,
+    workflowId            :  null,
+    
 
     init : function ( config ) {
       $.extend( oThis , config );
@@ -26,6 +32,7 @@
     },
 
     getMintingStatus : function() {
+      if( !oThis.workflowId ) return ;
       oThis.polling = new Polling({
         pollingApi : oThis.mintingStatusEndPoint ,
         pollingInterval : 4000,
@@ -37,31 +44,35 @@
 
     onPollingSuccess : function( response ){
       if(response && response.success){
-        var currentWorkflow = utilities.deepGet( response , "data.workflow_current_step" );
-        if( currentWorkflow.status = oThis.currentStepFailedStatus){
-              oThis.onCurrentStepFailed();
+        oThis.progressBar.updateProgressBar( response );
+        if( oThis.polling.isWorkflowFailed( response ) || oThis.polling.isWorkflowCompletedFailed( response ) ){
+           oThis.onWorkflowFailed( response );
+        } else if( !oThis.polling.isWorkFlowInProgress( response )){
+          oThis.onWorkflowComplete( response );
         }
-        else{
-          oThis.shouldStopPolling( currentWorkflow );
-          oThis.progressBar.updateProgressBar( currentWorkflow );
-
-        }
+      }else {
+       oThis.onWorkflowFailed( response );
       }
     },
+    
     onPollingError : function (jqXHR , error ) {
       if(oThis.polling.isMaxRetries()){
-        oThis.currentStepFailed();
-      }
-      
-    },
-    shouldStopPolling( currentWorkflow ){
-      if(currentWorkflow && currentWorkflow.percent_completion >= 100){
-        oThis.polling && oThis.polling.stopPolling();
+        oThis.onWorkflowFailed( error );
       }
     },
-    onCurrentStepFailed : function () {
-      oThis.jTokenMintProgressContainer.hide();
-      oThis.jMintPollingError.show();
+  
+    onWorkflowComplete : function ( response ) {
+      oThis.showSection( oThis.jMintPollingSuccess );
+    },
+  
+    onWorkflowFailed : function ( response ) {
+      utilities.showGeneralError(  oThis.jMintPollingError , response );
+      oThis.showSection( oThis.jMintPollingError );
+    },
+    
+    showSection: function ( jSection ) {
+      oThis.jSection.hide();
+      jSection.show();
     }
   }
 

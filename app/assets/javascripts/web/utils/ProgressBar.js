@@ -1,6 +1,8 @@
 ;
 (function (window, $) {
-  var ost = ns('ost');
+  var ost = ns('ost') ,
+    utilities =  ns("ost.utilities")
+  ;
 
   ost.ProgressBar = function (config) {
     var oThis = this;
@@ -55,11 +57,11 @@
       });
     },
 
-    updateProgressBar: function (currentStatus) {
+    updateProgressBar: function (res) {
       var oThis = this,
-        percentCompletion = currentStatus && currentStatus.percent_completion || oThis.percentCompletion,
-        currentStep = currentStatus && currentStatus.display_text || oThis.currentStep;
-
+        percentCompletion = status = utilities.deepGet( res , 'data.workflow_current_step.percent_completion') || 1,
+        currentStep = utilities.deepGet( res , 'data.workflow_current_step.display_text') || ""
+      ;
       oThis.setProgressBarWidth(percentCompletion);
       oThis.displayCurrentStep(currentStep);
       oThis.setTooltipPosition(percentCompletion);

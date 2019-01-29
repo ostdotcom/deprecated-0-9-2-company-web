@@ -161,9 +161,8 @@
   </svg>
   <h3 class="text-center mt-5 display-header">Looks like there was an issue in the setup process </h3>
   <p class="font-weight-light  mb-5 text-muted">
-    Please try again to proceed.
+    Please try connecting to the support team to proceed.
   </p>
-  <button class="j-reset-deployment-btn btn btn-primary" data-submitting="Resetting..." >SET UP  YOUR TOKEN</button>
   <div class="invalid-feedback general_error"></div>
 </div>
 
@@ -175,8 +174,8 @@
         getDeployStatusEndPoint:"<%=deployment_status_api%>",
         resetdeployEndPoint : "<%=resetdeploy_api %>",
         redirectUrl : "<%=redirect_url %>" ,
-        isPollFailed : isPollFailed,
-        currentStepFailedStatus : "<%= current_step_failed_status %>"
+        currentStepFailedStatus : "<%= current_step_failed_status %>",
+        workflowID : "<%= workflow_id %>"
       });
     });
   </script>

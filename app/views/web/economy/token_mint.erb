@@ -2,7 +2,7 @@
   chain_id = GlobalConstant::Environment.chain_id
   prefix = GlobalConstant::Environment.url_prefix;
   mint_api = "/#{prefix}/api/token/mint"
-  get_ost_api = "/#{prefix}/token/mint/grant";
+  get_ost_api = "/#{prefix}/api/token/mint/grant";
   workflow_status_api = "/#{prefix}/api/workflow";
   redirect_route = "/#{prefix}/token/mint-progress" ;
 
@@ -19,12 +19,12 @@
       min_eth_required: @presenter_obj.min_eth_in_wei.data
   }
 
-  is_buy_ost = false  #TODO ANKIT backend required
+
+  is_buy_ost = GlobalConstant::Environment.is_main_production?  #TODO ANKIT backend required
   is_workflow = @presenter_obj.workflow.is_present?  #TODO ANKIT get it from @presenter_obj.workflow.data
   initial_ost_funding = GlobalConstant::StakeAndMint.initial_ost_funding #TODO ANKIT :From Presenter Object
   bt_to_mint_min = GlobalConstant::StakeAndMint.min_bt_to_mint #TODO: ANKIT From Presenter Object
   bt_to_mint_step = GlobalConstant::StakeAndMint.step_bt_to_mint #TODO: ANKIT From Presenter Object
-
 
   #FE specific
   bt_to_mint_name = "bt_to_mint"
@@ -182,7 +182,7 @@
 
 <div class="jMintSections" id="jInsufficientBalSection" style="display: <%= is_workflow ? "block" : "none" %>">
   <div class="container">
-    <form id="get-ost-form" action="<%= get_ost_api %>" method="POST">
+    <form id="get-ost-form" data-ost-formhelper action="<%= get_ost_api %>" method="GET">
       <div class="row">
       <div class="col-10 mx-auto">
         <div class="card card-planner my-5">
@@ -224,7 +224,7 @@
               <a href="javascript:alert('Please provide links')" class="btn btn-primary d-inline-block buy-eth-btn" style="display: none;">Buy ETHER</a>
               <a href="javascript:alert('Please provide links')" class="btn btn-primary d-inline-block buy-ost-btn" style="display: none;">Buy Ost</a>
             <%else%>
-              <button id="get-ost-btn"  type="submit" data-submiting="Getting Ost ⍺.."
+              <button id="get-ost-btn" type="submit" data-submiting="Getting Ost ⍺.."
                       class="btn btn-primary d-inline-block buy-eth-btn buy-ost-btn">Get Ost ⍺</button>
               <span class="jGetOstLoaderText ml-3 text-muted font-weight-light" style="display: none">
                 <img src="//dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader-1.gif" width="15" height="15" />

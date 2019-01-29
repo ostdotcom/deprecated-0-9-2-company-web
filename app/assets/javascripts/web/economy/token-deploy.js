@@ -3,7 +3,7 @@
 
   var ost  = ns("ost") ,
       Polling = ns("ost.Polling") ,
-    Progressbar = ns("ost.ProgressBar") ,
+      Progressbar = ns("ost.ProgressBar") ,
       utilities = ns("ost.utilities")
   ;
   var oThis = ost.tokenDeploy = {
@@ -14,6 +14,7 @@
     sProgressBarEl :null,
     jDeploySuccessState : null,
     jTokenDeployInProgress : null,
+    workflowID : null,
     
 
     init : function (config) {
@@ -28,7 +29,7 @@
 
       oThis.bindActions();
 
-      if( !oThis.isPollFailed  ){
+      if( !oThis.workflowID  ){
         oThis.progressBar = new Progressbar({
           sParentEl : oThis.sProgressBarEl
         });
@@ -84,15 +85,14 @@
 
     onPollingSuccess : function( response ){
       if(response && response.success){
-        var currentWorkflow = utilities.deepGet( response , "data.workflow_current_step" );
-        if( currentWorkflow.status == oThis.currentStepFailedStatus ){
-          oThis.onCurrentStepFailed( response )
+        oThis.progressBar.updateProgressBar( response );
+        if( oThis.polling.isWorkflowFailed( response ) ||  oThis.polling.isWorkflowCompletedFailed( response )){
+         oThis.onCurrentStepFailed( response );
+        } else if( !oThis.polling.isWorkFlowInProgress( response ) ){
+            oThis.pollingComplete();
         }
-        else{
-          oThis.shouldStopPolling( currentWorkflow );
-          oThis.progressBar.updateProgressBar( currentWorkflow );
-
-        }
+      }else {
+        oThis.onCurrentStepFailed( response );
       }
     },
 
@@ -101,17 +101,15 @@
         oThis.onCurrentStepFailed( error );
       }
     },
-
-    shouldStopPolling : function( currentWorkflow ){
-      if( currentWorkflow && currentWorkflow.percent_completion  >= 100){
-        oThis.polling && oThis.polling.stopPolling();
-        oThis.jTokenDeployInProgress.hide();
-        oThis.jDeploySuccessState.show();
-
-      }
+  
+    pollingComplete : function(  ){
+      oThis.polling && oThis.polling.stopPolling();
+      oThis.jTokenDeployInProgress.hide();
+      oThis.jDeploySuccessState.show();
     },
 
     onCurrentStepFailed : function( res ){
+      oThis.polling && oThis.polling.stopPolling();
       oThis.tokenDeployContainer.hide();
       utilities.showGeneralError(oThis.jResetDeployError , res );
     }

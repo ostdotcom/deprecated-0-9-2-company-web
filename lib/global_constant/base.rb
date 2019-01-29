@@ -9,6 +9,10 @@ module GlobalConstant
         @sub_environment ||= fetch_config.fetch('sub_env', '')
       end
 
+      def environment_name
+        Rails.env
+      end
+
       def main_sub_environment?
         sub_environment == GlobalConstant::Environment.main_sub_env_name
       end

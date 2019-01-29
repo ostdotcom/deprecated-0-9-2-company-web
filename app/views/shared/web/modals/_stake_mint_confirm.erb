@@ -10,7 +10,7 @@
         <span aria-hidden="true">&times;</span>
       </button>
       <div class="modal-body">
-        <form action="<%= gateway_composer_api %>" method="Post" id="stake-mint-confirm-form">
+        <form data-ost-formhelper action="<%= gateway_composer_api %>" method="Post" id="stake-mint-confirm-form">
           <div class="form-group">
             <input required type="hidden" name="<%=stake_address_name%>"/>
             <div class="invalid-feedback"> &nbsp; </div>

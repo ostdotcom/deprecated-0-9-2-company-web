@@ -66,7 +66,7 @@
     //General error msg start
     genericErrorMessage             :   'Something went wrong!',
     getOstError                     :   "Not able to grant OST right now, try again later.",
-    stakeAndMintError               :   "Sorry your transaction did not go through, Please connect with customer support with the 2 transaction hash.",
+    stakeAndMintError               :   "Looks like there was an issue in the minting process, Please connect with customer support with the 2 transaction hash.",
     //General error msg end
 
     init : function (config) {
@@ -77,13 +77,14 @@
       var workflowId = oThis.getWorkflowId() ,
           desiredAccounts = oThis.getWhitelistedAddress()
       ;
+  
+      oThis.setupMetamask( desiredAccounts );
       
       if( !workflowId  ){ //Dont do needless init's
        oThis.initFlow();
+      }else{
+        oThis.metamask.enable();
       }
-      
-      oThis.setupMetamask( desiredAccounts );
-      
     },
     
     initFlow : function () {
@@ -119,25 +120,37 @@
     initGetOstFormHelper: function () {
       oThis.getOstFormHelper = oThis.jGetOstForm.formHelper({
         beforeSend : function () {
-          $('.jStatusWrapper').hide();
-          $('.jGetOstLoaderText').show();
+         oThis.onGetOstPreState();
         },
         success: function ( res ) {
           if( res.success ){
             var workflowId = utilities.deepGet( res , "data.workflow.id") ;
-            utilities.btnSubmittingState( oThis.jGetOstBtn );
-            oThis.startGetOstPolling( workflowId );
+            oThis.onWorkFlow( workflowId );
           }
         },
         error: function ( jqXhr , error ) {
-          $('.jStatusWrapper').show();
-          $('.jGetOstLoaderText').hide();
+         oThis.onGetOstPostState();
         }
       });
+    },
+    
+    onGetOstPreState : function () {
+      $('.jStatusWrapper').hide();
+      $('.jGetOstLoaderText').show();
+      //This will be handled by FormHelper , but its a common function for long polling so dont delete
+      utilities.btnSubmittingState( oThis.jGetOstBtn );
+    } ,
+    
+    onGetOstPostState: function () {
+      $('.jStatusWrapper').show();
+      $('.jGetOstLoaderText').hide();
+      //This will be handled by FormHelper , but its a common function for long polling so dont delete
+      utilities.btnSubmitCompleteState( oThis.jGetOstBtn );
     },
   
   
     startGetOstPolling: function ( workflowId ) {
+      if( !workflowId ) return ;
       var workflowApi = oThis.getWorkFlowStatusApi( workflowId )
             ;
       oThis.getOstPolling = new Polling({
@@ -151,15 +164,15 @@
   
     getOstPollingSuccess : function( response ){
       if(response && response.success){
-        var currentWorkflow = utilities.deepGet( response , "data.workflow_current_step" );
-          if( oThis.shouldStopPolling( currentWorkflow ) ){
+          if( oThis.getOstPolling.isWorkflowFailed( response ) || oThis.getOstPolling.isWorkflowCompletedFailed( response ) ){
+            oThis.showGetOstPollingError( response );
+          }else if( !oThis.getOstPolling.isWorkFlowInProgress( response ) ){
             oThis.getOstPolling.stopPolling();
             window.location = "" //Self load
           }
       }else {
         oThis.showGetOstPollingError( response );
       }
-      
     },
   
     getOstPollingError : function( jqXhr , error  ){
@@ -170,12 +183,8 @@
   
     showGetOstPollingError : function ( res ) {
       oThis.getOstPolling.stopPolling();
-      utilities.btnSubmitCompleteState( oThis.jGetOstBtn );
       utilities.showGeneralError( oThis.jGetOstForm ,  res ,  oThis.getOstError  );
-    },
-    
-    shouldStopPolling : function( currentWorkflow ){
-      return currentWorkflow && currentWorkflow.percent_completion  >= 100 ;
+      oThis.onGetOstPostState();
     },
 
     bindActions : function () {
@@ -209,7 +218,7 @@
 
       oThis.metamask = new Metamask({
         desiredNetwork: oThis.chainId,
-        desiredAccount : desiredAccounts , //Handling of undefined is present in Metamask so not to worry.
+        desiredAccounts : desiredAccounts , //Handling of undefined is present in Metamask so not to worry.
 
         onNotDapp: function(){
           ost.coverElements.show("#installMetamaskCover");
@@ -253,11 +262,16 @@
 
     },
     
+    setStakerAddress : function (  ) {
+      var selectedAddress = oThis.getWalletAddress() ;
+      oThis.jSelectedAddress.setVal( selectedAddress );
+    },
+    
     onAccountValidation : function () {
       var whitelisted = oThis.getWhitelistedAddress(),
           selectedAddress = oThis.getWalletAddress() || ""
       ;
-      oThis.jSelectedAddress.setVal( selectedAddress );
+     oThis.setStakerAddress();
       if( !whitelisted || whitelisted.indexOf( selectedAddress.toLowerCase() ) < 0 ){
         oThis.showSection( oThis.jAddressNotWhitelistedSection ) ;
       }
@@ -330,6 +344,7 @@
     },
   
     onDesiredAccount : function () {
+      oThis.setStakerAddress();
       var workflowId = oThis.getWorkflowId() ;
       if( workflowId ){
         oThis.onWorkFlow( workflowId );
@@ -339,6 +354,7 @@
     },
   
     onWorkFlow : function ( workflowId ) {
+      oThis.onGetOstPreState();
       oThis.startGetOstPolling( workflowId )
     },
     
@@ -528,6 +544,7 @@
       oThis.jSignClientErrorBtnWrap.show();
     },
   
+    //This is not workflow dependent code, its just to make sure both transaction hash are send to backend
     confirmStakeAndMintIntend : function () {
       oThis.resetState();
       oThis.stakeAndMintPolling = new Polling({
