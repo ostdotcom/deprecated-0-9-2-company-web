@@ -20,7 +20,7 @@
   }
 
   is_buy_ost = false  #TODO ANKIT backend required
-  is_workflow = false  #TODO ANKIT get it from @presenter_obj.workflow.data
+  is_workflow = false  #TODO ANKIT
   initial_ost_funding = "100" #TODO ANKIT :From Presenter Object
   bt_to_mint_min = 0.00001 #TODO: ANKIT From Presenter Object
   bt_to_mint_step = 0.00001 #TODO: ANKIT From Presenter Object
@@ -30,6 +30,7 @@
   bt_to_mint_name = "bt_to_mint"
   bt_to_mint_id = "bt_to_mint"
   bt_to_mint_value = 1
+  bt_to_mint_max = 5000
   staker_address_name = "staker_address"
   staker_address_selector = "[name='#{staker_address_name}']"
 %>
@@ -54,7 +55,7 @@
     </div>
 
   <div id="stake-mint-process" class="jMintSections" style="display: none;">
-        <!--  <div class="planner-container text-center">-->
+    <form> <!--This is required by jQuerey validator so please dont remove-->
         <div class="container">
           <div class="row">
             <div class="col-10 mx-auto">
@@ -84,6 +85,7 @@
                                    name: bt_to_mint_name,
                                    type: 'number',
                                    min: bt_to_mint_min,
+                                   max: bt_to_mint_max,
                                    step: bt_to_mint_step,
                                    value: bt_to_mint_value,
                                    tooltip: 'hide',
@@ -138,8 +140,7 @@
             </div>
           </div>
         </div>
-        <!--  </div>-->
-
+     </form>
     </div>
 
   <div class="jMintSections" id="jAddressNotWhitelistedSection" style="display: none;">
