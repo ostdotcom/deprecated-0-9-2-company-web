@@ -1,14 +1,11 @@
 <%
+  chain_id = GlobalConstant::Environment.chain_id
   prefix = GlobalConstant::Environment.url_prefix;
-  token_api = "/#{prefix}/api/token" ;
   mint_api = "/#{prefix}/api/token/mint"
-  sign_messages_api = "/#{prefix}/api/token/addresses/sign-messages";
-  addresses_api = "/#{prefix}/api/token/addresses";
-  redirect_route = "/#{prefix}/token/mint-progress" ;
-
   get_ost_api = "/#{prefix}/token/mint/grant";
   workflow_status_api = "/#{prefix}/api/workflow";
-  chain_id = GlobalConstant::Environment.chain_id
+  redirect_route = "/#{prefix}/token/mint-progress" ;
+
   data_config = {
       origin_addresses: @presenter_obj.origin_addresses.data,
       auxiliary_addresses: @presenter_obj.auxiliary_addresses.data,
@@ -19,27 +16,23 @@
       gas_price: @presenter_obj.gas_price.data,
       workflow: @presenter_obj.workflow.data,
       min_ost_required: "1000000000000000000", ##TODO backend required , Value required in WEI
-      min_eth_required: "1000000000000000000"
+      min_eth_required: "1000000000000000000"  ##TODO backend required , Value required in WEI
   }
 
   is_buy_ost = false  #TODO backend required
   is_workflow = false  #TODO get it from @presenter_obj.workflow.data
-
-  current_step_failed_status = "failed" #TODO:From Presenter Object
   initial_ost_funding = "100" #TODO:From Presenter Object
+  bt_to_mint_min = 1 #TODO:From Presenter Object
 
   bt_to_mint_name = "bt_to_mint"
   bt_to_mint_id = "bt_to_mint"
-  bt_to_mint_min = 1
-  bt_to_mint_max = 5000
   bt_to_mint_step = 1
   bt_to_mint_value = 1
   staker_address_name = "staker_address"
   staker_address_selector = "[name='#{staker_address_name}']"
 %>
 
-<% if !is_workflow %>
-<div class="no-workflow-id-wrapper">
+<div class="no-workflow-id-wrapper" style="display: <%= is_workflow ? "none" : "block" %>">
 
   <div id="stake-mint-start" class="col-9 mx-auto mt-6 jMintSections">
       <div class="card text-center p-6">
@@ -59,7 +52,6 @@
     </div>
 
   <div id="stake-mint-process" class="jMintSections" style="display: none;">
-      <form data-ost-formhelper action="<%= token_api %>" method="POST" class="user-form">
         <!--  <div class="planner-container text-center">-->
         <div class="container">
           <div class="row">
@@ -90,7 +82,6 @@
                                    name: bt_to_mint_name,
                                    type: 'number',
                                    min: bt_to_mint_min,
-                                   max: bt_to_mint_max,
                                    step: bt_to_mint_step,
                                    value: bt_to_mint_value,
                                    tooltip: 'hide',
@@ -146,7 +137,6 @@
           </div>
         </div>
         <!--  </div>-->
-      </form>
 
     </div>
 
@@ -184,9 +174,7 @@
         </div>
       </div>
     </div>
-
 </div>
-<% end %>
 
 
 <div class="jMintSections" id="jInsufficientBalSection" style="display: <%= is_workflow ? "block" : "none" %>">
@@ -210,7 +198,11 @@
                 <div class="status-message">
                   <div class="float-left align-self-center">
                     <%if is_buy_ost %>
-                        <!--TODO error SVG-->
+                      <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
+                        <switch>
+                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use>
+                        </switch>
+                      </svg>
                     <%else%>
                       <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
                         <switch>

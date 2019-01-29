@@ -513,6 +513,7 @@
     
     onConfirmAuthorizeStakeAndMint: function () {
       oThis.request_stake_transaction_hash = "" ;  //TODO
+      oThis.stake_address = oThis.getWalletAddress();
       oThis.updateConfirmStakeAndMintIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.processing-state-icon');
       oThis.confirmStakeAndMintIntend();
     },
@@ -528,7 +529,8 @@
         pollingApi      : oThis.mintApi ,
         data            : {
           'approve_transaction_hash'        : oThis.approve_transaction_hash,
-          'request_stake_transaction_hash' : oThis.request_stake_transaction_hash
+          'request_stake_transaction_hash' : oThis.request_stake_transaction_hash,
+          'stake_address' : oThis.stake_address
         },
         pollingInterval : 4000,
         onPollSuccess   : oThis.confirmStakeAndMintIntendSuccess.bind( oThis ),
