@@ -6,48 +6,52 @@
   end
 %>
 
-<div class="mfa-wrapper h-100">
-  <div class="container">
-      <div class="text-center mt-5 ">
-        <h3>Secure your account</h3>
-        <div class="general_error invalid-feedback" data-forid="sign_up_form"></div>
-        <% if qr_url %>
+<div class="container-fluid pt-6 mfa-wrapper">
+  <div class="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <h3 class="text-center">Secure your account</h3>
           <div class="general_error invalid-feedback" data-forid="sign_up_form"></div>
-          <p class="desc">Set up your Multi-Factor Authentication</p>
-          <div class="qr-code-container row mx-auto ">
-            <div class="col-12 col-md-5 align-self-center text-center">
-              <div class="img-container">
-                <div class="qr-image my-3">
-                  <img src="<%= qr_url %>" alt="QR CODE">
+          <% if qr_url %>
+            <div class="general_error invalid-feedback" data-forid="sign_up_form"></div>
+            <p class="desc text-center">Set up your Multi-Factor Authentication</p>
+            <div class="qr-code-container row mx-auto ">
+              <div class="col-12 col-md-5 align-self-center text-center">
+                <div class="img-container">
+                  <div class="qr-image my-3">
+                    <img src="<%= qr_url %>" alt="QR CODE">
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-12 col-md-7 p-2 qr-code-desc">
-              <span class="qr-code-desc-header">Download Google Authenticator</span>
-              <span class="qr-code-desc-content">from the
+              <div class="col-12 col-md-7 align-self-center pl-0 qr-code-desc">
+                  <span class="qr-code-desc-header">Download Google Authenticator</span>
+                  <span class="qr-code-desc-content">from the
                     <a target="_blank" href='https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_IN'>Play Store</a>
                     or
                     <a target="_blank"  href='https://itunes.apple.com/in/app/google-authenticator/id388497605?mt=8'>App Store</a>.
                     Open the app on your phone
                     and scan the QR code. Enter the 6 digit code associated with OST KIT in the text box below.
                     This level of authentication ensures that your account remains secure at all times.
-            </span>
+                </span>
+              </div>
+
             </div>
+          <% else %>
+            <p class="text-center font-weight-light">Please open Google Authenticator and enter the
+              MFA code to complete sign-in.</p>
+          <% end %>
+          <form id="mfa-form" class="user-form text-center" action="/api/manager/mfa" method="POST" data-ost-formhelper>
+            <div class="form-group row mx-auto my-5">
+              <label class="form-label" >mfa code</label>
+              <input type="number" name="otp" min="0" max="999999" class="form-control" autocomplete="off" required>
+              <div class="invalid-feedback" data-forid="email">&nbps;</div>
+            </div>
+            <button type="submit" id="mfa-submit-btn"  class="ml-3 btn btn-primary" data-submiting="Submitting">submit</button>
+          </form>
 
-          </div>
-        <% else %>
-          <p class="desc">Please open Google Authenticator and enter the
-            MFA code to complete sign-in.</p>
-        <% end %>
-        <form id="mfa-form" class="user-form" action="/api/manager/mfa" method="POST" data-ost-formhelper>
-          <div class="form-group row mx-auto my-5">
-            <label class="form-label" >mfa code</label>
-            <input type="number" name="otp" min="0" max="999999" class="form-control" autocomplete="off" required>
-            <div class="invalid-feedback" data-forid="email">&nbps;</div>
-          </div>
-          <button type="submit" id="mfa-submit-btn"  class="ml-3 btn btn-primary" data-submiting="Submitting">submit</button>
-        </form>
-
+        </div>
       </div>
+    </div>
   </div>
 </div>

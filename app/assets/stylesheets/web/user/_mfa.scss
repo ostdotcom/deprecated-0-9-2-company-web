@@ -3,9 +3,9 @@
 @import "../Starboy/variables";
 
 .mfa-wrapper{
-  background: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/tech-bg.png') bottom;
-  background-repeat: no-repeat;
-  background-size: 100% auto;
+  //background: url('https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/tech-bg.png') bottom;
+  //background-repeat: no-repeat;
+  //background-size: 100% auto;
   h3{
     color:$blue-700;
   }
@@ -13,6 +13,7 @@
     border: 1px solid #d3e3e5;
     border-radius: 5px;
     width: 450px;
+    background-color: #f8fcfc;
     .img-container{
       .qr-image{
         img{
@@ -23,7 +24,6 @@
       }
     }
     .qr-code-desc{
-      background-color: #f8fcfc;
       color: $blue-700;
       font-size: 13px;
       text-align: left;
