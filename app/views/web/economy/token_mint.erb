@@ -264,17 +264,12 @@
     $(function () {
       var dataConfig = JSON.parse( '<%= raw data_config.to_json %>' ) ;
       ost.tokenMint.init({
-        signMessagesEndPoint: "<%= sign_messages_api %>",
-        addressesEndPoint: "<%= addresses_api%>",
+        workFlowStatusApi: "<%= workflow_status_api %>",
         mintApi : "<%= mint_api%>",
         chainId : "<%= chain_id %>",
         redirectRoute : "<%= redirect_route %>",
-        workFlowStatusApi: "<%= workflow_status_api %>",
-        personalSignCancelErrorMessage  :  'Could not proceed as you denied message signature in MetaMask.',
         dataConfig: dataConfig,
-        getOstEndPoint : "<%= get_ost_api %>",
-        btToMintId: "<%= bt_to_mint_id %>",
-        currentStepFailedStatus : "<%= current_step_failed_status %>"
+        btToMintId: "<%= bt_to_mint_id %>"
       });
     });
   </script>

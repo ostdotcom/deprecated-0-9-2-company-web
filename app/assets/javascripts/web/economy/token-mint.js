@@ -8,6 +8,7 @@
   
   var oThis = ost.tokenMint = {
 
+    //Static jQuery elements start
     jMintTokensBtn                  :   $("#mint-tokens"),
     jMintTokenContinueBtn           :   $("#token-mint-continue-btn"),
     jStakeMintStart                 :   $("#stake-mint-start"),
@@ -20,38 +21,58 @@
     jConfirmStakeMintForm           :   $('#stake-mint-confirm-form'),
     jGetOstForm                     :   $('#get-ost-form'),
     jGetOstBtn                      :   $('#get-ost-btn'),
-  
     jTokenStakeAndMintSignSection   :   $('#jTokenStakeAndMintSignSection'),
     jSignHeaders                    :   $('.jSignHeader'),
     jAllowStakeAndMintMsgWrapper    :   $('.jAllowStakeAndMintWrapper'),
     jAutorizeStakeAndMintMsgWrapper :   $('.jAutorizeStakeAndMintWrapper'),
     jSignClientErrorBtnWrap         :   $('.jSignClientErrorBtnWrap'),
     jSignServerErrorBtnWrap         :   $('.jSignServerErrorBtnWrap'),
-    
     jStakeAndMintConfirmModal       :   $("#stake-mint-confirm-modal"),
-  
     jGoBackBtn                      :   $('.jGoBackBtn'),
     jClientRetryBtn                 :   $('.jClientRetryBtn'),
     jServerRetryBtn                 :   $('.jServerRetryBtn'),
-    jBtToMint                       :   null,
+    //Static jQuery elements End
   
+    //Dynamic jQuery elements start
+    jBtToMint                       :   null,
+    //Dynamic jQuery elements start
+    
     metamask                        :   null,
   
+    //FormHelpers start
     confirmStakeMintFormHelper      :   null ,
     getOstFormHelper                :   null ,
-  
+    //FormHelpers end
+    
+    //Polling start
     getOstPolling                   :   null,
     stakeAndMintPolling             :   null,
+    //Polling end
+  
+    //Backend required data with key name start
+    approve_transaction_hash        :   null,
+    request_stake_transaction_hash  :   null,
+    //Backend required data with key name end
     
+    //Data from backend start
+    mintApi : null,
+    workFlowStatusApi: null,
+    chainId : null,
+    redirectRoute : null,
+    dataConfig: null,
+    btToMintId: null,
+    //Data from backend end
+  
+    //General error msg start
     genericErrorMessage             :   'Something went wrong!',
     getOstError                     :   "Not able to grant OST right now, try again later.",
     stakeAndMintError               :   "Sorry your transaction did not go through, Please connect with customer support with the 2 transaction hash.",
-  
-    approve_transaction_hash        :   null,
-    request_stake_transaction_hash  :   null,
-    
+    //General error msg end
 
     init : function (config) {
+      
+      console.log("===config====" , config );
+      
       $.extend(oThis,config);
       var workflowId = oThis.getWorkflowId() ,
           desiredAccounts = oThis.getWhitelistedAddress()
@@ -229,10 +250,10 @@
     
     onAccountValidation : function () {
       var whitelisted = oThis.getWhitelistedAddress(),
-          selectedAddress = oThis.getWalletAddress()
+          selectedAddress = oThis.getWalletAddress() || ""
       ;
       oThis.jSelectedAddress.setVal( selectedAddress );
-      if( !whitelisted || !whitelisted.indexOf( selectedAddress ) > -1 ){
+      if( !whitelisted || whitelisted.indexOf( selectedAddress.toLowerCase() ) < 0 ){
         oThis.showSection( oThis.jAddressNotWhitelistedSection ) ;
       }
       else{
@@ -342,9 +363,11 @@
   
     getWhitelistedAddress : function () {
       var whitelistedAddress = utilities.deepGet( oThis.dataConfig , "origin_addresses.whitelisted") ;
-      whitelistedAddress = whitelistedAddress.map( function ( a ) {
-        return typeof a == "string" ? a.toLowerCase() : a ;
-      });
+      if( whitelistedAddress && whitelistedAddress instanceof Array ){
+        whitelistedAddress = whitelistedAddress &&  whitelistedAddress.map( function ( a ) {
+          return typeof a == "string" ? a.toLowerCase() : a ;
+        });
+      }
       return whitelistedAddress ;
     },
     
@@ -454,17 +477,19 @@
     
     onConfirmStakeAndMint: function () {
       oThis.approve_transaction_hash = "" ;  //TODO
-      oThis.beforeUnload( true );
+      oThis.bindBeforeUnload(  );
       oThis.updateConfirmStakeAndMintIconState( oThis.jAllowStakeAndMintMsgWrapper,  '.processing-state-icon');
       oThis.authoriseStakingProcess();
     },
   
-    beforeUnload : function( bindLoad ){
-      $(window).bind("beforeunload",function(event) {
-        if( bindLoad ){
+    bindBeforeUnload : function( bindLoad ){
+      $(window).on("beforeunload",function(event) {
           return "There are unsaved changes made to this page." ;
-        }
       });
+    },
+    
+    unbindBeforeUnload : function () {
+      $(window).off("beforeunload");
     },
     
     onCancelStakeAndMint : function () {
@@ -501,6 +526,10 @@
       oThis.resetState();
       oThis.stakeAndMintPolling = new Polling({
         pollingApi      : oThis.mintApi ,
+        data            : {
+          'approve_transaction_hash'        : oThis.approve_transaction_hash,
+          'request_stake_transaction_hash' : oThis.request_stake_transaction_hash
+        },
         pollingInterval : 4000,
         onPollSuccess   : oThis.confirmStakeAndMintIntendSuccess.bind( oThis ),
         onPollError     : oThis.confirmStakeAndMintIntendError.bind( oThis )
@@ -511,7 +540,7 @@
     confirmStakeAndMintIntendSuccess : function ( res ) {
       oThis.stakeAndMintPolling.stopPolling() ; //Stop immediately
       if( res && res.success ){
-        oThis.beforeUnload();
+        oThis.unbindBeforeUnload();
         window.location = oThis.redirectRoute ;
       }else {
         oThis.confirmStakeAndMintIntendErrorStateUpdate( res );

@@ -12,6 +12,7 @@
   ost.Polling.prototype =  {
   
     pollingApi:null ,
+    pollingMethod : 'GET',
     pollXhr : null ,
     pollingInterval : 2000 ,
     data : null ,
@@ -54,6 +55,7 @@
       
       oThis.pollXhr = $.ajax({
         url       : oThis.pollingApi,
+        method    : oThis.pollingMethod,
         data      : data,
         success   : function () {
           oThis.onPollSuccess.apply(oThis, arguments);
