@@ -79,13 +79,17 @@
       ;
       
       if( !workflowId  ){ //Dont do needless init's
-        oThis.initPriceOracle();
-        oThis.initUIValues();
-        oThis.bindActions();
+       oThis.initFlow();
       }
       
       oThis.setupMetamask( desiredAccounts );
       
+    },
+    
+    initFlow : function () {
+      oThis.initPriceOracle();
+      oThis.initUIValues();
+      oThis.bindActions();
     },
     
     initPriceOracle : function ( ) {
@@ -94,7 +98,6 @@
         "ost_to_bt" : oThis.getOstToBTConversion()
       });
     },
-    
     
     initUIValues: function() {
       oThis.jBtToMint = $("#"+oThis.btToMintId) ;
@@ -122,11 +125,13 @@
         success: function ( res ) {
           if( res.success ){
             var workflowId = utilities.deepGet( res , "data.workflow.id") ;
+            utilities.btnSubmittingState( oThis.jGetOstBtn );
             oThis.startGetOstPolling( workflowId );
           }
         },
-        complete: function () {
-          utilities.btnSubmittingState( oThis.jGetOstBtn );
+        error: function ( jqXhr , error ) {
+          $('.jStatusWrapper').show();
+          $('.jGetOstLoaderText').hide();
         }
       });
     },
@@ -346,11 +351,11 @@
     },
   
     getMinETHRequired : function () {
-      return utilities.deepGet( oThis.dataConfig , "contract_details.min_eth_required" );
+      return utilities.deepGet( oThis.dataConfig , "min_eth_required" );
     },
     
     getMinOstRequired : function () {
-      return utilities.deepGet( oThis.dataConfig , "contract_details.min_ost_required" );
+      return utilities.deepGet( oThis.dataConfig , "min_ost_required" );
     },
     
     getPricePoint : function () {
