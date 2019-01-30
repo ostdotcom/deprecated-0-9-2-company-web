@@ -146,7 +146,11 @@
             };
 
             oThis.sendAsync(options, function(err, result){
-                result && result.result && callback(oThis.web3.fromWei(result.result, unit));
+              var val = result && result.result ;
+              if( val && val === '0x'){
+                result.result = '0x0';
+              }
+              val && callback && callback(oThis.web3.fromWei(result.result, unit));
             });
 
         },
@@ -163,14 +167,18 @@
                 params: [
                     {
                         to: contractAddress,
-                        data: oThis.getContractEncodedABI(contractAddress, 'balanceOf', [walletAddress]),
+                        data: oThis.getContractEncodedABI(contractAddress, 'balanceOf', [walletAddress])
                     },
                     "latest"
                 ]
             };
 
             oThis.sendAsync(options, function(err, result){
-                result && result.result && callback && callback(oThis.web3.fromWei(result.result, unit));
+                var val = result && result.result ;
+                if( val && val === '0x'){
+                  result.result = '0x0';
+                }
+                val && callback && callback(oThis.web3.fromWei(result.result, unit));
             });
 
         },

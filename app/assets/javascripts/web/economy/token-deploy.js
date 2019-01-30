@@ -7,8 +7,9 @@
       utilities = ns("ost.utilities")
   ;
   var oThis = ost.tokenDeploy = {
+    
     jResetDeployBtn : null,
-    polling : 0 ,
+    polling : null ,
     tokenDeployContainer : null,
     jResetDeployError: null ,
     sProgressBarEl :null,
@@ -31,7 +32,7 @@
 
       oThis.bindActions();
 
-      if( oThis.workflowId  ){
+      if( oThis.workflowId ){
         oThis.progressBar = new Progressbar({
           sParentEl : oThis.sProgressBarEl
         });

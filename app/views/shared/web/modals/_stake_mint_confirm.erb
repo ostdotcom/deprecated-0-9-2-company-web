@@ -1,6 +1,5 @@
 <%
   bt_symbol = @presenter_obj.client_token.symbol;
-  gateway_composer_api = "/api/contracts/gateway-composer" ;
 %>
 
 <div class="modal fade" id="stake-mint-confirm-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -10,7 +9,7 @@
         <span aria-hidden="true">&times;</span>
       </button>
       <div class="modal-body">
-        <form data-ost-formhelper action="<%= gateway_composer_api %>" method="Post" id="stake-mint-confirm-form">
+        <form action="<%= gateway_composer_api %>" method="GET" id="stake-mint-confirm-form">
           <div class="form-group">
             <input required type="hidden" name="<%=stake_address_name%>"/>
             <div class="invalid-feedback"> &nbsp; </div>
@@ -58,7 +57,7 @@
             Please review all the information carefully before confirming.
           </p>
 
-          <button type="button" id="confirm_mint_button" class="btn btn-gold font-weight-light"
+          <button type="submit" id="confirm_mint_button" class="btn btn-gold font-weight-light"
                   data-submiting="Submitting...." title="Confirm">confirm</button>
           <div class="invalid-feedback general_error">&nbsp;</div>
         </form>

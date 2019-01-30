@@ -19,13 +19,21 @@
               This process takes several minutes. You can continue to explore KIT, we will inform you once the tokens are minted.
             </div>
             <div class="alert alert-secondary" role="alert">
-              <span>Success SVG</span>
+              <svg style="width: 30px;height: 30px">
+                <switch>
+                  <use class="success-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#success-icon"></use>
+                </switch>
+              </svg>
               <span class="ml-3 align-middle text-muted font-weight-light">
                 Allow the contract Stake <%= stake_ost%> <%= ost_currency_symbol %> to Mint <%= total_min_bt%> <%= bt_symbol %> Tokens
               </span>
             </div>
             <div class="alert alert-secondary" role="alert">
-              <span>Success SVG</span>
+              <svg style="width: 30px;height: 30px">
+                <switch>
+                  <use class="success-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#success-icon"></use>
+                </switch>
+              </svg>
               <span class="ml-3 align-middle text-muted font-weight-light">Authorize Contract to Start the Staking Process</span>
             </div>
             <div class="mt-5 pt-3" id="mint-progress">
@@ -44,9 +52,11 @@
           <h3 class="col-8 mx-auto mt-6">Minting Complete</h3>
           <div class="shadow-box col-8 mx-auto my-3">
             <div class="p-4 text-muted font-weight-light">
-              <span>
-                Success SVG TODO
-              </span>
+              <svg style="width: 30px;height: 30px">
+                <switch>
+                  <use class="success-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#success-icon"></use>
+                </switch>
+              </svg>
               You have successfully minted<span class="total-token-minted"><%= total_min_bt %></span><%= bt_symbol%> Tokens
             </div>
           </div>

@@ -77,14 +77,14 @@
       var workflowId = oThis.getWorkflowId() ,
           desiredAccounts = oThis.getWhitelistedAddress()
       ;
-  
-      oThis.setupMetamask( desiredAccounts );
       
-      if( !workflowId  ){ //Dont do needless init's
-       oThis.initFlow();
-      }else{
+      oThis.setupMetamask( desiredAccounts );
+      oThis.initFlow();
+      
+      if( workflowId ) {
         oThis.metamask.enable();
       }
+      
     },
     
     initFlow : function () {
@@ -287,9 +287,10 @@
     checkEthBal : function () {
       var walletAddress = oThis.getWalletAddress() ;
       oThis.metamask.getBalance( walletAddress  , function ( eth ) {
-        var minOstRequire = oThis.getMinETHRequired();
-        eth = eth && BigNumber( eth ) ;
-        if( !eth ||  eth.isLessThan( minOstRequire ) ){
+        var minOstRequire = oThis.getMinETHRequired(),
+            ethBN = eth && BigNumber( eth )
+        ;
+        if( !ethBN ||  ethBN.isLessThan( minOstRequire ) ){
           oThis.showSection(  oThis.jInsufficientBalSection ) ;
           $('buy-eth-btn').show();
         }else {
@@ -303,9 +304,10 @@
           simpleTokenContractAddress  =   oThis.getSimpleTokenContractAddress()
       ;
       oThis.metamask.balanceOf( walletAddress , simpleTokenContractAddress , function ( ost ) {
-        var minOstRequire = oThis.getMinOstRequired();
-        ost = ost && BigNumber( ost );
-        if( !ost || ost.isLessThan( minOstRequire ) ){
+        var minOstRequire = oThis.getMinOstRequired() ,
+            ostBN =  ost && ost && BigNumber( ost )
+        ;
+        if( !ostBN || ostBN.isLessThan( minOstRequire ) ){
           oThis.showSection(  oThis.jInsufficientBalSection ) ;
           $('buy-ost-btn').show();
         }else {
@@ -361,7 +363,7 @@
     },
     
     getSimpleTokenContractAddress : function () {
-      return utilities.deepGet( oThis.dataConfig , "contract_details.address" );
+      return utilities.deepGet( oThis.dataConfig , "contract_details.simple_token.address" );
     },
     
     getWalletAddress : function () {
@@ -567,7 +569,7 @@
       var btToMint = oThis.getBTtoMint() ,
           ostToStake = PriceOracle.btToOstPrecession( btToMint ) //As it gose to backend and comes back as is.
       ;
-      //TODO take these keys from ERB
+      //TO DO take these keys from ERB
       return {
         'approve_transaction_hash'        : oThis.approve_transaction_hash,
         'request_stake_transaction_hash' : oThis.request_stake_transaction_hash,

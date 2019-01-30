@@ -77,7 +77,7 @@
   
       var result = ost.multipliedBy( OST_TO_BT  );
   
-      return oThis.toBt( result );
+      return oThis.toBT( result );
     },
   
     ostToBtPrecession : function ( ost  ) {
@@ -151,7 +151,7 @@
       if ( !ost ) {
         return "";
       }
-      
+      ost = BigNumber( ost );
       return ost.toFixed( P_OST , P_OST_ROUND_ROUNDING_MODE);
     },
     
