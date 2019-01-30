@@ -9,11 +9,18 @@
 
     var oThis = ost.tokenSetup = {
 
-        jTokenForm            :  $('#economy-planner'),
-        jConfirmAccountCover  :  $('#metamaskConfirmAccount'),
-        genericErrorMessage   :  'Something went wrong!',
-        metamask              :  null,
-        walletAssociation     :  null ,
+        jTokenForm                  :  $('#economy-planner'),
+        jConfirmAccountCover        :  $('#metamaskConfirmAccount'),
+        genericErrorMessage         :  'Something went wrong!',
+        metamask                    :  null,
+        walletAssociation           :  null ,
+
+        jDefaultStateWrapper         :  $('#default-state-wrapper'),
+        jGeneralErrorState           :  $('#general-error-state'),
+        jRejectedSignErrorState      :  $('#rejected-sign-error-state'),
+        jAssociateAddressErrorState  :  $('#associate-address-error-state'),
+        jConfirmAccountSection       :  $('.confirm-account-section'),
+        jDeploymentErrorState        :  $('#deployment-error-state'),
 
         init: function( config ){
             $.extend(oThis, config);
@@ -71,7 +78,7 @@
                 },
 
                 onUserRejectedProviderAccess: function(){
-                    ost.coverElements.show("#metamaskDisabledCover");
+                    ost.coverElements.show("#metamaskConnectRequestRejected");
                 },
 
                 onNotDesiredNetwork: function(){
@@ -111,8 +118,8 @@
         personalSign: function( message ){
             if(!message) return;
 
-            oThis.jConfirmAccountCover.find(".error-state-wrapper").hide();
-            oThis.jConfirmAccountCover.find('.default-state-wrapper').show();
+            oThis.jConfirmAccountSection.hide();
+            oThis.jDefaultStateWrapper.show();
 
             var from = oThis.metamask.ethereum.selectedAddress;
 
@@ -123,10 +130,10 @@
                     from: from
                 }, function(err, result){
                     if(err){
-                      return oThis.showError(err);
+                      return oThis.showConfirmError(oThis.jGeneralErrorState);
                     }
                     if(result && result.error){
-                      return oThis.showError( "Could not proceed as you denied message signature in MetaMask." );
+                      return oThis.showConfirmError(oThis.jRejectedSignErrorState);
                     } else {
                       oThis.associateAddress(result);
                     }
@@ -140,8 +147,8 @@
           $('.btn-confirm').text("confirming...").prop("disabled",true);
 
             if(!result) return;
-            oThis.jConfirmAccountCover.find(".error-state-wrapper").hide();
-            oThis.jConfirmAccountCover.find('.default-state-wrapper').show();
+            oThis.jConfirmAccountSection.hide();
+            oThis.jDefaultStateWrapper.show();
             var from = oThis.metamask.ethereum.selectedAddress;
 
             $.ajax({
@@ -159,15 +166,15 @@
                         var errorMsg ;
                       if(errorData.length > 0 ){
                           errorMsg =  errorData[0].msg ;
-                          oThis.showError( errorMsg );
+                          oThis.showConfirmError(oThis.jAssociateAddressErrorState);
                         } else {
                           errorMsg = utilities.deepGet( response ,  "err.display_text") ;
-                          oThis.showError( errorMsg );
+                          oThis.showConfirmError(oThis.jGeneralErrorState);
                         }
                     }
                 },
                 error: function (response) {
-                    oThis.showError( )
+                    oThis.showConfirmError(oThis.jGeneralErrorState);
                 }
             });
         },
@@ -191,30 +198,26 @@
 
                 var errorData = utilities.deepGet(response , "err.error_data");
                 if(errorData.length > 0){
-                  oThis.showError(errorData[0].msg);
+                  oThis.showConfirmError(oThis.jDeploymentErrorState)
                 }
                 else{
                   var errorMsg = utilities.deepGet(response, ".err.display_text") ;
-                  oThis.showError(errorMsg);
+                  oThis.showConfirmError(oThis.jGeneralErrorState);
                 }
 
               }
             },
             error: function (response) {
-              oThis.showError()
+              oThis.showConfirmError(oThis.jGeneralErrorState)
 
             }
           })
         },
 
-        showError: function(message){
-            if( !message ) {
-              message = oThis.genericErrorMessage;
-            }
-            oThis.jConfirmAccountCover.find(".btn-confirm").text("Confirm Address").prop('disabled', false);
-            oThis.jConfirmAccountCover.find('.default-state-wrapper').hide();
-            oThis.jConfirmAccountCover.find(".error-state-wrapper").show();
-            oThis.jConfirmAccountCover.find(".error-state-wrapper .display-header").text(message);
+
+        showConfirmError : function(errorContext){
+            oThis.jConfirmAccountSection.hide();
+            errorContext.show();
         },
 
         inputSpinner: function () {
