@@ -97,6 +97,12 @@ module WebPresenter
       end
     end
 
+    def worflow_payload
+      @t_workflow_pl ||= begin
+        formatter_obj.present? ? formatter_obj.workflow_payload : nil
+      end
+    end
+
     # minimum ost in presenter object
     #
     # * Author: Alpesh

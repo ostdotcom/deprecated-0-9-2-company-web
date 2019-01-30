@@ -6,7 +6,7 @@ module CompanyApi
 
       class Token < CompanyApi::Response::Formatter::Base
 
-        attr_reader :min_eth_in_wei, :min_ost_in_wei
+        attr_reader :min_eth_in_wei, :min_ost_in_wei, :workflow_payload
 
         # Initialize
         #
@@ -41,6 +41,7 @@ module CompanyApi
           set_sign_messages(@data['sign_messages'])
           set_min_eth_in_wei(@data['min_eth_in_wei'])
           set_min_ost_in_wei(@data['min_ost_in_wei'])
+          set_workflow_payload(@data['workflow_payload'])
         end
 
         private
@@ -51,6 +52,10 @@ module CompanyApi
 
         def set_min_ost_in_wei(min_ost_data)
           @min_ost_in_wei = CompanyApi::Response::Entity::MinOstInWei.new(min_ost_data)
+        end
+
+        def set_workflow_payload(data)
+          @workflow_payload = CompanyApi::Response::Entity::WorkflowPayload.new(data)
         end
 
       end
