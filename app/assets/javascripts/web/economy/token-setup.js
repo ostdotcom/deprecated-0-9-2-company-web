@@ -28,6 +28,7 @@
             oThis.jTokenForm.formHelper().success = oThis.tokenSuccess;
             PriceOracle.init({
               'ost_to_fiat' : config['ost_to_fiat'],
+              'ost_to_bt' : config['ost_to_bt'],
               'P_FIAT': 5
             });
             oThis.initDisplayFiatValue() ;
@@ -57,7 +58,7 @@
           ;
           jEL.data("ost-mock-element" , "#"+ oThis.ostToBtId );
           jEL.ostMocker();
-          jEL.text(  PriceOracle.btToFiat( val ) );
+          jEL.text(  PriceOracle.btToFiat( 1 ) );
         },
 
         setupMetamask: function(){
