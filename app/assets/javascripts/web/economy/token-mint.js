@@ -224,7 +224,7 @@
   
     validateAccount : function () {
       var whitelisted = oThis.getWhitelistedAddress(),
-          selectedAddress = oThis.getWalletAddress() || ""
+          selectedAddress = oThis.getWalletAddress()
       ;
      oThis.setStakerAddress();
       if( !whitelisted || whitelisted.indexOf( selectedAddress.toLowerCase() ) < 0 ){
@@ -248,10 +248,10 @@
     checkEthBal : function () {
       var walletAddress = oThis.getWalletAddress() ;
       oThis.metamask.getBalance( walletAddress  , function ( eth ) {
-        var minOstRequire = oThis.getMinETHRequired(),
+        var minETHRequire = oThis.getMinETHRequired(),
             ethBN = eth && BigNumber( eth )
         ;
-        if( !ethBN ||  ethBN.isLessThan( minOstRequire ) ){
+        if( !ethBN ||  ethBN.isLessThan( minETHRequire ) ){
           oThis.showSection(  oThis.jInsufficientBalSection ) ;
           $('buy-eth-btn').show();
         }else {
@@ -278,10 +278,10 @@
       } ) ;
     },
     
-    /********************************************************************************************************* /
-     *
-     * NOTE IMPORTANT : OST PASSED AFTER VALIDATION ON BALANCE IS NOT IN WEI , ITS ABSOLUTE VALUE
-     *
+    /*********************************************************************************************************-/
+     *                                                                                                       *
+     *       NOTE IMPORTANT : OST PASSED AFTER VALIDATION ON BALANCE IS NOT IN WEI , ITS ABSOLUTE VALUE      *
+     *                                                                                                       *
      *********************************************************************************************************/
   
     onValidationComplete : function ( ost ) {
@@ -430,7 +430,7 @@
     },
   
     getGatewayComposerContractGas : function () {
-      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.contract_details.gateway_composer.gas.approve" ) ;
+      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.contract_details.gateway_composer.gas.requestStake" ) ;
     },
   
     getGasPrice : function () {
@@ -591,7 +591,6 @@
           }
           err && console.error(err);
           result && console.log(result);
-          //... pass callback to other transaction
         });
       }
       
@@ -603,7 +602,7 @@
       oThis.bindBeforeUnload(  );
       oThis.updateIconState( oThis.jAllowStakeAndMintMsgWrapper,  '.processing-state-icon');
       
-      setTimeout( function () {
+      setTimeout( function () { //Delay so that confirm metamask pop-up is visible
         oThis.requestStake();
       } , 500 )
       
@@ -667,7 +666,7 @@
           }
           err && console.error(err);
           result && console.log(result);
-          //... pass callback to other transaction
+          
         });
       }
       
@@ -702,13 +701,12 @@
       var btToMint = oThis.getBTtoMint() ,
           ostToStake = PriceOracle.btToOstPrecession( btToMint ) //As it goes to backend and comes back as is.
       ;
-      //TODO take this KEYS from ERB - IMP
       return {
         'approve_transaction_hash'       : oThis.approve_transaction_hash,
         'request_stake_transaction_hash' : oThis.request_stake_transaction_hash,
         'staker_address' : oThis.stake_address,
-        'fe_bt_to_mint' : btToMint ,
-        'fe_ost_to_stake' : ostToStake
+        'fe_bt_to_mint' : btToMint ,      //JUST FOR FE
+        'fe_ost_to_stake' : ostToStake    //JUST FOR FE
       }
     },
   
