@@ -40,6 +40,8 @@ module CompanyApi
 
           set_client(@data['client']) if @data['client'].present?
 
+          set_client_manager(@data['client_manager']) if @data['client_manager'].present?
+
           set_setup_mfa(@data['setup_mfa']) if @data['setup_mfa'].present?
 
         end

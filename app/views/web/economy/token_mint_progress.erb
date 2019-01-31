@@ -1,0 +1,95 @@
+<%
+  prefix = GlobalConstant::Environment.url_prefix;
+  workflow_id = @presenter_obj.workflow.id
+  minting_status_api = "/#{prefix}/api/workflow/#{workflow_id}"
+  bt_symbol = @presenter_obj.client_token.symbol;
+  stake_ost = 350 ; #TODO ANKIT
+  total_min_bt = 750,000 ; #TODO ANKIT
+%>
+
+<div class="container token-mint-progress-container">
+
+  <section class="jSection" id="minting-inprogress">
+    <div class="row">
+      <div class="col-10 mx-auto text-center">
+        <div class="row">
+          <h3 class="col-8 mx-auto mt-6">Minting <%= bt_symbol %>  Tokens</h3>
+          <div class="col-10 mx-auto text-left rounded border-0">
+            <div class="text-muted font-weight-light mb-5 text-center">
+              This process takes several minutes. You can continue to explore KIT, we will inform you once the tokens are minted.
+            </div>
+            <div class="alert alert-secondary" role="alert">
+              <svg style="width: 30px;height: 30px">
+                <switch>
+                  <use class="success-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#success-icon"></use>
+                </switch>
+              </svg>
+              <span class="ml-3 align-middle text-muted font-weight-light">
+                Allow the contract Stake <%= stake_ost%> <%= ost_currency_symbol %> to Mint <%= total_min_bt%> <%= bt_symbol %> Tokens
+              </span>
+            </div>
+            <div class="alert alert-secondary" role="alert">
+              <svg style="width: 30px;height: 30px">
+                <switch>
+                  <use class="success-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#success-icon"></use>
+                </switch>
+              </svg>
+              <span class="ml-3 align-middle text-muted font-weight-light">Authorize Contract to Start the Staking Process</span>
+            </div>
+            <div class="mt-5 pt-3" id="mint-progress">
+              <%= render :partial => "shared/web/common/progress_bar" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="jSection" style="display:none;" id="minting-complete">
+    <div class="row">
+      <div class="col-10 mx-auto text-center">
+        <div class="row">
+          <h3 class="col-8 mx-auto mt-6">Minting Complete</h3>
+          <div class="shadow-box col-8 mx-auto my-3">
+            <div class="p-4 text-muted font-weight-light">
+              <svg style="width: 30px;height: 30px">
+                <switch>
+                  <use class="success-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#success-icon"></use>
+                </switch>
+              </svg>
+              You have successfully minted<span class="total-token-minted"><%= total_min_bt %></span><%= bt_symbol%> Tokens
+            </div>
+          </div>
+          <div class="col-8 mt-3 mx-auto">
+            <a href="javascript.alert('TODO Update link')" class="btn btn-secondary">DASHBOARD</a>
+            <a href="javascript.alert('TODO Update link')" class="btn btn-primary ml-3">MINT MORE</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="minting-error-state jSection text-center mt-5" style="display: none">
+  <svg class="error-icon align-middle">
+    <switch>
+      <use class="error-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#error-icon"></use>
+    </switch>
+  </svg>
+  <h3 class="text-center mt-5 display-header">Looks like there was an issue in the minting process</h3>
+  <p class="font-weight-light  mb-5 text-muted">
+    Please connect with customer support with the 2 transaction hash.
+  </p>
+  <div class="invalid-feedback general_error"></div>
+</div>
+
+<% content_for :end_js do%>
+  <script>
+    $(function () {
+      ost.tokenMintProgress.init({
+        mintingStatusEndPoint:"<%=minting_status_api%>",
+        workflowId : "<%= workflow_id%>"
+      });
+    });
+  </script>
+<% end %>

@@ -9,6 +9,10 @@ module GlobalConstant
         @sub_environment ||= fetch_config.fetch('sub_env', '')
       end
 
+      def environment_name
+        Rails.env
+      end
+
       def main_sub_environment?
         sub_environment == GlobalConstant::Environment.main_sub_env_name
       end
@@ -45,7 +49,11 @@ module GlobalConstant
       def company_other_product_urls
         @company_other_product_urls ||= fetch_config.fetch('company_other_product_urls', {}).with_indifferent_access
       end
-      
+
+      def chain_config
+        @chain_config ||= fetch_config.fetch('chain', {}).with_indifferent_access
+      end
+
       def pepo_campaign
         @stw_campaign_details ||= fetch_config.fetch('pepo_campaign', {}).with_indifferent_access
       end

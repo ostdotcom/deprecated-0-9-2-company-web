@@ -9,6 +9,17 @@ module GlobalConstant
         GlobalConstant::Base.main_sub_environment? ? 5 : 100
       end
 
+      def initial_ost_funding
+        '100'
+      end
+
+      def min_bt_to_mint
+        0.00001
+      end
+
+      def step_bt_to_mint
+        0.00001
+      end
     end
 
   end

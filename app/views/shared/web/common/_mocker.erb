@@ -11,7 +11,7 @@
   footer = footer.present? ? footer : "";
   value = value.present? ? value : "";
   card_classes = card_classes.present? ? card_classes : "";
-
+  mock_parser = mock_parser.present? ? mock_parser : "";
 %>
 
 <div class="card mocker-card <%= card_classes %> ">
@@ -19,7 +19,11 @@
     <div class="ost-mocker-header"><%= raw header %></div>
     <div class="ost-mocker-value-wrap">
       <div class="ost-mocker-value-pre"><%= raw value_prefix %></div>
-      <div class="ost-mocker-value" data-type="<%= raw mock_type %>" data-ost-mock-element="<%= raw mock_selector %>"><%= value %></div>
+      <div class="ost-mocker-value" data-type="<%= raw mock_type %>"
+           data-ost-mock-element="<%= raw mock_selector %>"
+           data-ost-mock-parser="<%= raw mock_parser%>" >
+        <%= value %>
+      </div>
       <div class="ost-mocker-value-post"><%= raw value_postfix %></div>
     </div>
     <div class="ost-mocker-footer"><%= raw footer %></div>

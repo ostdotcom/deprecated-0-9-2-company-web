@@ -25,6 +25,9 @@ Rails.application.routes.draw do
 
   scope 'settings', controller: 'web/user_setting' do
     get '/team' => :team
+
+    ### TODO: Change action when implement.
+    get '/developer' => :team, as: 'developer'
   end
 
   scope "#{GlobalConstant::Environment.url_prefix}", controller: 'web/economy' do
@@ -34,10 +37,10 @@ Rails.application.routes.draw do
     get '/token/mint-progress' => :token_mint_progress, as: 'token_mint_progress'
   end
 
-  # namespace 'devadmin' do
-  #   # ST Api sidekiq web interface endpoint
-  #   mount ApiSidekiqServer => '/api-sidekiq'
-  # end
+  namespace 'devadmin' do
+    # ST Api sidekiq web interface endpoint
+    mount ApiSidekiqServer => '/api-sidekiq'
+  end
 
   # Route not found handler. Should be the last entry here
   match '*permalink', to: 'application#not_found', via: :all

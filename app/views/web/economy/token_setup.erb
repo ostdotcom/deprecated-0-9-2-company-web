@@ -1,16 +1,27 @@
-<%  bt_symbol = @presenter_obj.client_token.symbol || 'Token'
-    prefix = GlobalConstant::Environment.sandbox_sub_url_prefix
-    token_api = "/#{prefix}/api/token"
-    sign_messages_api = "/#{prefix}/api/token/addresses/sign-messages"
+<%
+
+    prefix = GlobalConstant::Environment.url_prefix
+    wallet_association =  @presenter_obj.sign_messages.wallet_association
+    ost_to_fiat =  @presenter_obj.oracle_price_points.to_fiat_conversion_factor("USD")
+
+    bt_symbol = @presenter_obj.client_token.symbol || 'Token'
+    chain_id = GlobalConstant::Chain.origin_chain_id
+
     addresses_api = "/#{prefix}/api/token/addresses"
     deployment_api = "/#{prefix}/api/token/deploy"
     deploy_route = "/#{prefix}/token/deploy"
-    chain_id = GlobalConstant::Environment.chain_id
-    ost_to_fiat =  @presenter_obj.oracle_price_points.to_fiat_conversion_factor("USD")
-    bt_to_ost_id = "bt_to_ost"
+
+    #TODO Start : Alpesh check if the above stuff should come from presenter
+    conversion_factor = @presenter_obj.client_token.conversion_factor || 1
     bt_to_ost_input_name = "conversion_factor"
-    bt_to_ost_min = 0.00001
-    bt_to_ost_max = 500
+    bt_to_ost_min = GlobalConstant::ClientToken.bt_to_ost_min
+    bt_to_ost_step = GlobalConstant::ClientToken.bt_to_ost_step
+    bt_to_ost_max = GlobalConstant::ClientToken.bt_to_ost_max
+    #TODO END : Alpesh check if the above stuff should come from presenter
+
+    bt_to_ost_id = "bt_to_ost"
+    ost_to_bt_id = "ost_to_bt_id"
+
 %>
 <form data-ost-formhelper id="economy-planner" action="/<%=prefix%>/api/token" method="POST">
   <div class="planner-container  text-center">
@@ -81,66 +92,54 @@
               </div>
               <div id="collapsable-element" class="collapse"
                    aria-labelledby="advance-options-header" data-parent="#advance-options-accordion">
-                <div class="card-body ">
-                  <div class="row card-planner">
-                    <div class="user-form col-12">
-                      <%= render partial: 'shared/web/common/slider_right',
-                                 locals: {
-                                     label: 'How much do you want 1 '+ bt_symbol  +' to be worth?',
-                                     id: bt_to_ost_id,
-                                     name: bt_to_ost_input_name,
-                                     type: 'number',
-                                     min: "%0.5f" %bt_to_ost_min,
-                                     max: bt_to_ost_max,
-                                     step: bt_to_ost_min,
-                                     value:  @presenter_obj.client_token.conversion_factor,
-                                     postfix: "OST",
-                                     tooltip: 'show',
-                                     classes: 'slider-yellow'
-                                 }
-                      %>
-                    </div>
-
-                  </div>
-                  <div class="conversion-section row">
-                    <div class="col-4 right-border text-center p-4">
-                      <span class="text-different-color">1</span> Token
-                      <span class="equal-to-sign">=</span>
-                    </div>
-                    <div class="col-4 right-border text-center p-4">
-                      <span class="text-different-color">
-                        <span class="ost-mocker-value"
-                              data-type="fiat"
-                              data-ost-mock-element="#<%=bt_to_ost_id%>"> 1
+                <div class="card-body py-2">
+                  <div class="conversion-section user-form">
+                    <div class="card-group">
+                      <div class="row form-group">
+                        <div class="col-4 right-border m-0 card">
+                          <label class="form-label mb-2">SET CONVERSION RATE</label>
+                          <div class="d-flex align-items-center">
+                            <span class="text-different-color mr-2">1</span> OST
+                            <span class="equal-to-sign mx-3 font-weight-bold">=</span>
+                            <span class="quantity">
+                          <input type="number" min="<%=bt_to_ost_min%>" max="<%= bt_to_ost_max %>"
+                                 step="<%= bt_to_ost_step%>" id="<%= ost_to_bt_id %>"
+                                 name="conversion_factor" value="<%= conversion_factor %>" required>
                         </span>
-                      </span> OST
-                      <span class="equal-to-sign">=</span>
-                    </div>
-                    <div class="col-4 p-4 text-center">
-                      <span class="text-different-color">
-                        $<span class="ost-mocker-value j-ost-to-fiat-val"
-                               data-type="fiat"
-                               data-ost-mock-callback="ost.tokenSetup.ostToFiat">1
-                          </span>
-                      </span> USD
+                          </div>
+
+                        </div>
+                        <div class="col-4 right-border m-0 card">
+                          <label class="form-label mb-2">AT CURRENT CONVERSION RATE</label>
+                          <div class="d-flex align-items-center">
+                            <span class="text-different-color mr-2">1</span> BT
+                            <span class="equal-to-sign mx-3 font-weight-bold">=</span> $
+                            <span class="ost-mocker-value text-different-color j-bt-to-fiat-val"
+                                  data-type="fiat"  data-ost-mock-parser="ost.tokenSetup.btToFiat"> <%= ost_to_fiat %>
+                                              </span>
+                          </div>
+                        </div>
+                        <div class="col-4 instruction-text">
+                          Conversion rate establishes the fixed rate of exchange between your BT and OST. OST is Market linked so the inherent value of your token may fluctuate based on the value of OST
+                        </div>
+                        <div class="invalid-feedback ml-3" style="font-size: 12px" data-for="conversion_factor" ></div>
+                      </div>
                     </div>
                   </div>
-                  <p class="pt-2"> Conversion rate will be set in OST, above visualization shows the Value of you token against OST and USD. OST is Market linked so the inherent value of your token may fluctuate based on the value of OST </p>
-                  <div class="invalid-feedback" data-for="general_error">&nbps;</div>
                 </div>
-
                 </div>
+              <div class="invalid-feedback general_error mb-2" data-for="general_error"></div>
               </div>
             </div>
           </div>
         </div>
       </div>
-  </div>
 
     <footer>
       <div class="row sticky-footer">
         <div class="container">
-          <button  type="submit" class="btn btn-steps-nav bg-yellow pt-3 pb-3 float-right" data-submiting="Setting Up..." id="setup-token-btn">Set up your Token &gt;</button>
+          <button  type="submit" class="btn btn-steps-nav bg-yellow pt-3 pb-3 float-right"
+                   data-submiting="Setting Up..." id="setup-token-btn">Set up your Token &gt;</button>
         </div>
       </div>
       <div class="pseudo-footer"></div>
@@ -152,14 +151,16 @@
   <script type="text/javascript">
       $( function () {
           ost.tokenSetup.init({
-              signMessagesEndPoint: '<%= sign_messages_api %>',
+
+              walletAssociation : "<%= wallet_association%>",
+              chainId : '<%= chain_id %>',
+
               addressesEndPoint: '<%= addresses_api%>',
               deploymentEndpoint : '<%=deployment_api %>' ,
               deployRoute : '<%= deploy_route %>',
-              chainId : '<%= chain_id %>',
-              personalSignCancelErrorMessage : 'Could not proceed as you denied message signature in MetaMask.',
-              ost_to_fiat : '<%= ost_to_fiat %>' ,
-              btToOstId :  '<%=bt_to_ost_id%>'
+
+              ost_to_fiat : '<%= ost_to_fiat %>',
+              ostToBtId : "<%= ost_to_bt_id %>"
           });
       });
   </script>

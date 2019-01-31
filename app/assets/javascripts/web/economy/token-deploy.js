@@ -3,45 +3,59 @@
 
   var ost  = ns("ost") ,
       Polling = ns("ost.Polling") ,
+      Progressbar = ns("ost.ProgressBar") ,
       utilities = ns("ost.utilities")
   ;
   var oThis = ost.tokenDeploy = {
-    deploymentPercentTooltip : null,
-    deploymentPercentTooltipText : null,
-    deploymentPercentTooltipArrow : null,
-    progressBar : null,
-    progressStep : null,
-    redeploy : null,
-    polling : 0 ,
+    
+    jResetDeployBtn : null,
+    polling : null ,
     tokenDeployContainer : null,
+    jResetDeployError: null ,
+    sProgressBarEl :null,
+    jDeploySuccessState : null,
+    jTokenDeployInProgress : null,
+    workflowID : null,
     
 
     init : function (config) {
       $.extend(oThis, config);
-      oThis.deploymentPercentTooltip = $(".deploymentPercentTooltip");
-      oThis.deploymentPercentTooltipText = $(".deploymentPercentTooltip .tooltip-text");
-      oThis.deploymentPercentTooltipArrow = $(".arrow");
-      oThis.progressBar = $(".progress-bar-container .progress-bar");
-      oThis.progressBarFull = $(".progress-bar-container .progress");
-      oThis.progressStep = $("#progressStep");
-      oThis.resetDeploy = $(".reset-deployment");
+
+      console.log("======config======" , config);
+      
+      oThis.jResetDeployBtn = $(".j-reset-deployment-btn");
       oThis.tokenDeployContainer = $(".token-deploy-container");
+      oThis.jResetDeployError =  $('.deploy-error-state');
+      oThis.sProgressBarEl = ".token-deploy-progress-wrapper";
+      oThis.jDeploySuccessState = $('.deploy-success-state');
+      oThis.jTokenDeployInProgress = $('.token-deploy-in-progress');
 
       oThis.bindActions();
-      oThis.setTooltipPosition();
-      oThis.getDeployStatus();
+
+      if( oThis.workflowId ){
+        oThis.progressBar = new Progressbar({
+          sParentEl : oThis.sProgressBarEl
+        });
+        oThis.progressBar.setTooltipPosition(0);
+        oThis.getDeployStatus();
+      }
+
     },
 
     bindActions : function(){
-      oThis.resetDeploy.on("click",function () {
+      oThis.jResetDeployBtn.on("click",function () {
         oThis.onResetDeploy();
       });
     },
 
     onResetDeploy : function(){
+      utilities.clearErrors( oThis.jResetDeployError ) ;
       $.ajax({
         url: oThis.resetdeployEndPoint,
         method: "POST",
+        beforeSend: function(){
+          utilities.btnSubmittingState( oThis.jResetDeployBtn );
+        },
         success : function (response) {
           if( response.success ){
             window.location = oThis.redirectUrl;
@@ -51,64 +65,59 @@
         },
         error : function (response) {
           oThis.onResetFailure( response );
+        },
+        complete: function () {
+          utilities.btnSubmitCompleteState( oThis.jResetDeployBtn );
         }
       })
     },
 
     onResetFailure : function( res ){
-      //TODO show error whereever UX says
+      utilities.showGeneralError(oThis.jResetDeployError , res );
     } ,
 
     getDeployStatus : function() {
-
       oThis.polling = new Polling({
-        pollingApi : oThis.getDeployStatusEndPoint ,
-        onPollSuccess :  oThis.onPollingSuccess.bind( oThis )
+        pollingApi      : oThis.getDeployStatusEndPoint ,
+        pollingInterval : 4000,
+        onPollSuccess   : oThis.onPollingSuccess.bind( oThis ),
+        onPollError     : oThis.onPollingError.bind( oThis )
       });
       oThis.polling.startPolling();
-
     },
 
     onPollingSuccess : function( response ){
       if(response && response.success){
-        var currentWorkflow = utilities.deepGet( response , "data.workflow_current_step" );
-        if( currentWorkflow.status = "failed"){
-          oThis.tokenDeployContainer.hide();
-          oThis.resetDeploy.show();
+        oThis.progressBar.updateProgressBar( response );
+        if( oThis.polling.isWorkflowFailed( response ) ||  oThis.polling.isWorkflowCompletedFailed( response )){
+         oThis.onCurrentStepFailed( response );
+        } else if( !oThis.polling.isWorkFlowInProgress( response ) ){
+            oThis.pollingComplete();
         }
-        else{
-          oThis.updateProgressBar( currentWorkflow );
-          if( currentWorkflow && currentWorkflow.percent_completion  >= 100){
-            oThis.polling && oThis.polling.stopPolling();
-          }
-        }
+      }else {
+        oThis.onCurrentStepFailed( response );
       }
     },
 
-    updateProgressBar: function (currentWorkflow) {
-      var percentCompletion = currentWorkflow && currentWorkflow.percent_completion || 0 ;
-      oThis.progressBar.width(percentCompletion+'%');
-      oThis.progressStep.html(currentWorkflow.display_text);
-      oThis.setTooltipPosition( percentCompletion  );
+    onPollingError : function( jqXhr , error  ){
+      if( oThis.polling.isMaxRetries() ){
+        oThis.onCurrentStepFailed( error );
+      }
+    },
+  
+    pollingComplete : function(  ){
+      oThis.polling && oThis.polling.stopPolling();
+      oThis.jTokenDeployInProgress.hide();
+      oThis.jDeploySuccessState.show();
     },
 
-    setTooltipPosition: function(percent_completion) {
-        var tooltipOffsetLeft = 5;
-        var arrowHalfLength = 6;
-        var tooltipWidth = oThis.deploymentPercentTooltip.width();
-        var progressBarFullWidth = oThis.progressBarFull.width();
-
-        if(typeof percent_completion === 'undefined') percent_completion = 0;
-
-        oThis.deploymentPercentTooltipText.text(percent_completion +"%");
-
-        oThis.deploymentPercentTooltip.css({
-          left: (percent_completion/100)*progressBarFullWidth+'px'
-        });
-        oThis.deploymentPercentTooltipArrow.css({
-          left: tooltipWidth / 2 - arrowHalfLength
-        });
+    onCurrentStepFailed : function( res ){
+      oThis.polling && oThis.polling.stopPolling();
+      oThis.tokenDeployContainer.hide();
+      oThis.jResetDeployError.show();
+      utilities.showGeneralError(oThis.jResetDeployError , res );
     }
+
 
   };
 

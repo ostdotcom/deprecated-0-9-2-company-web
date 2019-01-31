@@ -32,6 +32,7 @@
 
       activeElements.each(function (i, el) {
         if ( jEl.is( el ) ) {
+          jEl.addClass('activating-cover');
           return;
         }
         var thisElZindex = Number( el.style.zIndex );
@@ -58,6 +59,7 @@
 
 
       var onAnimationComplete = function () {
+        jEl.removeClass('activating-cover');
         jEl.addClass("active-cover").css( finalCss );
         $('body').addClass('has-cover-element');
       };
@@ -96,7 +98,7 @@
 
       var onAnimationComplete = function () {
         jEl.removeClass("active-cover").css( finalCss );
-        var activeElements = oThis.jRoot.find(".active-cover")
+        var activeElements = oThis.jRoot.find(".active-cover");
         if ( !activeElements.length ) {
           console.log("onAnimationComplete :: activeElements", activeElements);
           //No Active Elements.
@@ -113,7 +115,7 @@
     },
     hideAll: function() {
       var oThis = this;
-      var activeCEs = $(".active-cover");
+      var activeCEs = $(".active-cover , .activating-cover");
 
       if(activeCEs.length < 1){
         return;

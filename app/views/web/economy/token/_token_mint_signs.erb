@@ -1,0 +1,115 @@
+<%
+  bt_symbol = @presenter_obj.client_token.symbol;
+%>
+
+<div class="container jMintSections" id="jTokenStakeAndMintSignSection" style="display: none">
+  <div class="row">
+    <div class="col-10 mx-auto text-center">
+
+      <div class="jMetamaskHeaderWrapper jSignHeader" >
+        <h3 class="col-8 mx-auto mt-6 metamask-confirmation-header">We would need your 2 Metamask confirmations to proceed.</h3>
+        <div class="text-muted font-weight-light  metamask-confirmation-desc mb-5">Please open the metamask and confirm.</div>
+      </div>
+
+      <div class="jMetamaskClientRejectErrorWrapper jSignHeader" style="display: none;">
+        <h3 class="col-8 mx-auto mt-6 metamask-confirmation-header">You have rejected the MetaMask request, please retry to continue.</h3>
+      </div>
+
+      <div class="jSignTransactionServerErrorWrapper jSignHeader" style="display: none;">
+        <h3 class="col-8 mx-auto mt-6 metamask-confirmation-header">There were some issues in the process please retry to continue.</h3>
+      </div>
+
+
+      <div class="row">
+        <div class="col-10 mx-auto text-left rounded border-0">
+          <div class="alert alert-secondary jAllowStakeAndMintWrapper jMintMsgWrapper" role="alert">
+
+            <span class="pre-state-icon state-icon">
+              <svg style="width: 30px;height: 30px">
+                <switch>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#processing-icon"></use>
+                </switch>
+              </svg>
+            </span>
+            <span class="processing-state-icon state-icon" style="display: none;">
+               <img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/pending-loader-1.svg" width="30" height="30">
+            </span>
+            <span class="success-state-icon state-icon" style="display: none;">
+              <svg style="width: 30px;height: 30px">
+                <switch>
+                  <use class="success-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#success-icon"></use>
+                </switch>
+              </svg>
+            </span>
+            <span class="error-state-icon state-icon" style="display: none;">
+               <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
+                 <switch>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use>
+                 </switch>
+               </svg>
+            </span>
+
+            <span class="ml-3 align-middle text-muted font-weight-light">
+              Allow the contract Stake
+              <span data-type="ost"  data-ost-mock-parser="ost.tokenMint.ostToStakeOnBtChange"
+                                            data-ost-mock-element="<%=bt_to_mint_selector%>"></span>
+              <%= ost_currency_symbol %> to Mint
+              <span data-type="bt" data-ost-mock-element="<%=bt_to_mint_selector%>"></span> <%= bt_symbol %> Tokens
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10 mx-auto text-left rounded border-0">
+          <div class="alert alert-secondary jMintMsgWrapper jAutorizeStakeAndMintWrapper" role="alert">
+            <span class="pre-state-icon state-icon" >
+              <svg style="width: 30px;height: 30px">
+                <switch>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#processing-icon"></use>
+                </switch>
+              </svg>
+            </span>
+            <span class="processing-state-icon state-icon" style="display: none;">
+               <img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/pending-loader-1.svg" width="30" height="30">
+            </span>
+            <span class="success-state-icon state-icon" style="display: none;">
+             <svg style="width: 30px;height: 30px">
+                <switch>
+                  <use class="success-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#success-icon"></use>
+                </switch>
+              </svg>
+            </span>
+            <span class="error-state-icon state-icon" style="display: none;">
+              <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
+                <switch>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use>
+                </switch>
+              </svg>
+            </span>
+            <span class="ml-3 align-middle text-muted font-weight-light">Autorize Contract to Start the Staking Process</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-5 jSignClientErrorBtnWrap" style="display: none">
+        <span class="mx-auto">
+          <button class="btn btn-secondary mr-3 jGoBackBtn"> Go back</button>
+          <button class="btn btn-primary jClientRetryBtn"> Retry</button>
+        </span>
+      </div>
+
+      <div class="row mt-5 jSignServerErrorBtnWrap" style="display: none">
+        <span class="mx-auto">
+          <button class="btn btn-secondary mr-3 jGoBackBtn"> Go back</button>
+          <button class="btn btn-primary jServerRetryBtn"> Retry</button>
+        </span>
+      </div>
+
+      <div class="row mt-4">
+        <div class="invalid-feedback general_error"></div>
+      </div>
+
+    </div>
+  </div>
+</div>

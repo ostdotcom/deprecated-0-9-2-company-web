@@ -17,7 +17,6 @@
 //= require plugins/helpers/rowContentSlider
 //= require web/common/SimpleTokenNamespace
 //= require web/common/Utilities
-//= require web/common/RedirectMap
 //= require plugins/helpers/eventNameSpacing
 //= require plugins/helpers/responsiveBreakPoint
 //= require web/common/contentBlurOnModalShow

@@ -9,19 +9,29 @@
 
     var oThis = ost.tokenSetup = {
 
-        jTokenForm:                       $('#economy-planner'),
-        jConfirmAccountCover:             $('#metamaskConfirmAccount'),
-        genericErrorMessage:              'Something went wrong!',
-        metamask:                         null,
+        jTokenForm                  :  $('#economy-planner'),
+        jConfirmAccountCover        :  $('#metamaskConfirmAccount'),
+        genericErrorMessage         :  'Something went wrong!',
+        metamask                    :  null,
+        walletAssociation           :  null ,
+
+        jDefaultStateWrapper         :  $('#default-state-wrapper'),
+        jGeneralErrorState           :  $('#general-error-state'),
+        jRejectedSignErrorState      :  $('#rejected-sign-error-state'),
+        jAssociateAddressErrorState  :  $('#associate-address-error-state'),
+        jConfirmAccountSection       :  $('.confirm-account-section'),
+        jDeploymentErrorState        :  $('#deployment-error-state'),
 
         init: function( config ){
             $.extend(oThis, config);
             oThis.bindActions();
             oThis.jTokenForm.formHelper().success = oThis.tokenSuccess;
             PriceOracle.init({
-              'ost_to_fiat' : config['ost_to_fiat']
+              'ost_to_fiat' : config['ost_to_fiat'],
+              'P_FIAT': 5
             });
             oThis.initDisplayFiatValue() ;
+            oThis.inputSpinner();
         },
 
         bindActions : function(){
@@ -31,15 +41,23 @@
           })
         },
   
-        ostToFiat  : function ( value ) {
-          return PriceOracle.ostToFiat( value );
+        btToFiat  : function ( conversionFactor ) {
+          if( !conversionFactor || !BigNumber) return conversionFactor;
+          conversionFactor = BigNumber( conversionFactor );
+          var fiatBN = BigNumber( oThis.ost_to_fiat ) ,
+            oneBTToFiat = fiatBN.dividedBy(  conversionFactor )
+          ;
+          return PriceOracle.toFiat( oneBTToFiat );
         },
   
         initDisplayFiatValue : function () {
-          var jEL = $('.j-ost-to-fiat-val') ;
-          jEL.data("ost-mock-element" , "#"+ oThis.btToOstId );
+          var jEL = $('.j-bt-to-fiat-val'),
+              jInputEl = $('#'+oThis.ostToBtId),
+              val = jInputEl.val()
+          ;
+          jEL.data("ost-mock-element" , "#"+ oThis.ostToBtId );
           jEL.ostMocker();
-          $('.j-fiat-value').text( "$" + PriceOracle.toPrecessionFiat( oThis['ost_to_fiat'] ) );
+          jEL.text(  PriceOracle.btToFiat( val ) );
         },
 
         setupMetamask: function(){
@@ -60,7 +78,7 @@
                 },
 
                 onUserRejectedProviderAccess: function(){
-                    ost.coverElements.show("#metamaskDisabledCover");
+                    ost.coverElements.show("#metamaskConnectRequestRejected");
                 },
 
                 onNotDesiredNetwork: function(){
@@ -76,6 +94,7 @@
                 },
 
                 onNewAccount: function(){
+                  
                     oThis.initConfirmFlow();
                     ost.coverElements.show("#metamaskConfirmAccount");
                 }
@@ -92,45 +111,30 @@
         },
 
         initConfirmFlow: function(){
-
-            oThis.jConfirmAccountCover.find(".confirm-address").text(oThis.metamask.ethereum.selectedAddress);
-
-            $.ajax({
-                url: oThis.signMessagesEndPoint,
-                success: function(response){
-                    if(response.success){
-                       var walletAssociation = utilities.deepGet( response , "data.wallet_association" );
-                       oThis.personalSign( walletAssociation );
-                    } else {
-                        oThis.showError();
-                    }
-                },
-                error: function(response){
-                  oThis.showError();
-                }
-
-            });
+            oThis.jConfirmAccountCover.find(".confirm-address").text(oThis.metamask.getWalletAddress());
+            oThis.personalSign( oThis.walletAssociation );
         },
 
-        personalSign: function(message){
+        personalSign: function( message ){
             if(!message) return;
 
-            oThis.jConfirmAccountCover.find(".error-state-wrapper").hide();
-            oThis.jConfirmAccountCover.find('.default-state-wrapper').show();
+            oThis.jConfirmAccountSection.hide();
+            oThis.jDefaultStateWrapper.show();
 
-            var from = oThis.metamask.ethereum.selectedAddress;
+            var from = oThis.metamask.getWalletAddress();
 
             oThis.jConfirmAccountCover.find(".btn-confirm").off('click').on('click', function(e){
+              $('.btn-confirm').text("confirming...").prop("disabled",true);
                 oThis.metamask.sendAsync({
                     method: 'personal_sign',
                     params: [message, from],
                     from: from
                 }, function(err, result){
                     if(err){
-                      return oThis.showError(err);
+                      return oThis.showConfirmError(oThis.jGeneralErrorState);
                     }
                     if(result && result.error){
-                      return oThis.showError(oThis.personalSignCancelErrorMessage);
+                      return oThis.showConfirmError(oThis.jRejectedSignErrorState);
                     } else {
                       oThis.associateAddress(result);
                     }
@@ -144,9 +148,9 @@
           $('.btn-confirm').text("confirming...").prop("disabled",true);
 
             if(!result) return;
-            oThis.jConfirmAccountCover.find(".error-state-wrapper").hide();
-            oThis.jConfirmAccountCover.find('.default-state-wrapper').show();
-            var from = oThis.metamask.ethereum.selectedAddress;
+            oThis.jConfirmAccountSection.hide();
+            oThis.jDefaultStateWrapper.show();
+            var from = oThis.metamask.getWalletAddress();
 
             $.ajax({
                 url: oThis.addressesEndPoint,
@@ -159,19 +163,19 @@
                     if(response.success){
                         oThis.startTokenDeployment();
                     } else {
-                        var errorData = utilities.deepGet( response ,  "err.error_data") || [];
+                      var errorData = utilities.deepGet( response ,  "err.error_data") || [];
                         var errorMsg ;
                       if(errorData.length > 0 ){
                           errorMsg =  errorData[0].msg ;
-                          oThis.showError( errorMsg );
+                          oThis.showConfirmError(oThis.jAssociateAddressErrorState);
                         } else {
                           errorMsg = utilities.deepGet( response ,  "err.display_text") ;
-                          oThis.showError( errorMsg );
+                          oThis.showConfirmError(oThis.jGeneralErrorState);
                         }
                     }
                 },
                 error: function (response) {
-                    oThis.showError( )
+                  oThis.showConfirmError(oThis.jGeneralErrorState);
                 }
             });
         },
@@ -195,31 +199,69 @@
 
                 var errorData = utilities.deepGet(response , "err.error_data");
                 if(errorData.length > 0){
-                  oThis.showError(errorData[0].msg);
+                  oThis.showConfirmError(oThis.jDeploymentErrorState)
                 }
                 else{
-                  errorMsg = utilities.deepGet(response, ".err.display_text")
-                  oThis.showError(errorMsg);
+                  var errorMsg = utilities.deepGet(response, ".err.display_text") ;
+                  oThis.showConfirmError(oThis.jGeneralErrorState);
                 }
 
               }
             },
             error: function (response) {
-              oThis.showError()
-
+              oThis.showConfirmError(oThis.jGeneralErrorState);
             }
           })
         },
 
-        showError: function(message){
-            if( !message ) {
-              message = oThis.genericErrorMessage;
-            }
-            oThis.jConfirmAccountCover.find(".btn-confirm").text("Confirm Address").prop('disabled', false);
-            oThis.jConfirmAccountCover.find('.default-state-wrapper').hide();
-            oThis.jConfirmAccountCover.find(".error-state-wrapper").show();
-            oThis.jConfirmAccountCover.find(".error-state-wrapper .display-header").text(message);
+
+        showConfirmError : function(errorContext){
+          oThis.jConfirmAccountCover.find(".btn-confirm").text("confirm Address").prop('disabled', false);
+          oThis.jConfirmAccountSection.hide();
+          errorContext.show();
+        },
+
+        inputSpinner: function () {
+          $('<div class="quantity-nav">' +
+            '<div class="conversion-currency">BT</div>' +
+            '<div class="quantity-button quantity-up">&#x25B2;</div>' +
+            '<div class="quantity-button quantity-down">&#x25BC;</div>' +
+            '</div>').insertAfter('.quantity input');
+          $('.quantity').each(function() {
+            var spinner = $(this),
+              input = spinner.find('input[type="number"]'),
+              btnUp = spinner.find('.quantity-up'),
+              btnDown = spinner.find('.quantity-down'),
+              min = input.attr('min'),
+              max = input.attr('max'),
+              step = 0.00001;
+
+            btnUp.click(function() {
+              var oldValue = parseFloat(input.val());
+              if (oldValue >= max) {
+                var newVal = oldValue;
+              } else {
+                var newVal = (oldValue + step).toFixed(5);
+              }
+              spinner.find("input").val(newVal);
+              spinner.find("input").trigger("change");
+            });
+
+            btnDown.click(function() {
+              var oldValue = parseFloat(input.val());
+              if (oldValue <= min) {
+                var newVal = oldValue;
+              } else {
+                var newVal = (oldValue - step).toFixed(5);
+              }
+              spinner.find("input").val(newVal);
+              spinner.find("input").trigger("change");
+            });
+
+          });
         }
+
     };
+    
 
 })(window, jQuery);

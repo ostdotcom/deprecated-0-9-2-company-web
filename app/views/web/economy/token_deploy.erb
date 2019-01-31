@@ -1,138 +1,182 @@
 <%
-  prefix = GlobalConstant::Environment.sandbox_sub_url_prefix
+  prefix = GlobalConstant::Environment.url_prefix
+  is_mainnet = GlobalConstant::Base.main_sub_environment?
   workflow_id = @presenter_obj.workflow.id
-  deployment_status_api = "/#{prefix}/api/workflow/#{workflow_id}" # workflow_is should come from presentor object
+  deployment_status_api = "/#{prefix}/api/workflow/#{workflow_id}"
   resetdeploy_api = "/#{prefix}/api/token/reset-deployment"
-  redirect_url = "/testnet/token/setup"
+  redirect_url = "/#{prefix}/token/setup"
+  mint_token_url = "/#{prefix}/token/mint"
+  invite_team_url = "/settings/team"
   is_poll_failed = false
-  if @presenter_obj.workflow_current_step.status == 'failed'
-    is_poll_failed = true
+  if @presenter_obj.client_token.status == GlobalConstant::ClientToken.deployment_failed
+          is_poll_failed = true
   end
+
+  current_step_failed_status = GlobalConstant::Workflow.failed
+  client_token_symbol = @presenter_obj.client_token.symbol
 %>
-<%if !is_poll_failed %>
+<%if !is_poll_failed%>
   <div class="token-deploy-container text-center">
-  <h3 class="mt-5"> Setting up your Token</h3>
-  <p class="font-weight-light my-5"> The <%= @presenter_obj.client_token.name%> token economy is being initialized. This process takes several minutes.</p>
-  <div class="token-deploy-content mx-auto">
-    <div class="shadow-box row ">
-      <div class="col-9 pt-5 mt-3 pb-3 progress-bar-container">
-        <div class="tooltip deploymentPercentTooltip">
-          <span class="tooltip-text p-1">0%</span>
-          <div class="arrow" style="left:27px;">
+
+
+      <div class="token-deploy-in-progress token-deploy-content mx-auto">
+        <h3 class="mt-5"> Setting up your Token</h3>
+        <p class="font-weight-light my-5"> The <%= @presenter_obj.client_token.name%> token economy is being initialized. This process takes several minutes.</p>
+        <div class="token-deploy-progress-wrapper  mx-auto">
+          <%= render :partial => "shared/web/common/progress_bar" %>
+        </div>
+        <h3 class="my-5">
+          In the mean time you can…
+        </h3>
+      </div>
+
+    <div class="deploy-success-state token-deploy-content mx-auto text-center mt-5 " style="display: none;">
+      <h3 class="my-5"> Set Up Complete</h3>
+      <div class="shadow-box p-3 row">
+        <div class="col-1 my-auto" >
+            <svg class="success-icon align-middle" style="width: 34px; height: 34px">
+              <switch>
+                <use class="success-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#success-icon"></use>
+              </switch>
+            </svg>
 
           </div>
+
+        <div class="col-7 text-left my-auto">
+          Set Up is Complete. Lets start by Minting <%=client_token_symbol %>
         </div>
-        <div class="progress " >
-          <div class="progress-bar"  role="progressbar" aria-valuenow="20" style="width: 0%" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="col-4 my-auto">
+          <a class="btn btn-primary d-inline" href="<%=mint_token_url %>">
+            Mint Tokens
+          </a>
         </div>
-      </div>
-      <div class="col-3 pt-2 pb-3 my-auto">
-        <p class="text-left font-weight-light font-size-p my-auto" id="progressStep">Deploying Budget holder contract</p>
 
       </div>
-
-    </div>
-
-    <h3 class="my-5">
-      In the mean time you can…
-    </h3>
-    <div class="my-3 content-wrapper p-2  row">
-      <div class="col-1 my-auto">
-        pic
-
-      </div>
-      <p class="col-7 text-left my-auto">
-        Request OST to get started.
-      </p>
-      <div class="col-4">
-        <button class="btn btn-secondary">
-          get ost
-        </button>
-
-      </div>
-
-
-    </div>
-    <div class="my-3 content-wrapper p-2  row">
-      <div class="col-1 my-auto">
-        pic
-
-      </div>
-      <p class="col-7 text-left my-auto">
-        Invite your team members.
-      </p>
-      <div class="col-4">
-        <button class="btn btn-secondary">
-          invite team
-        </button>
-
-      </div>
-
-
-    </div>
-    <div class="my-3 content-wrapper p-2  row">
-      <div class="col-1 my-auto">
-        pic
-
-      </div>
-      <p class="col-7 text-left my-auto">
-        Integrate OST APIs with your application.
-      </p>
-      <div class="col-4">
-        <button class="btn btn-secondary">
-          get api keys
-        </button>
-
-      </div>
-
-
-    </div>
-    <div class="my-3 content-wrapper p-2  row">
-      <div class="col-1 my-auto">
-        pic
-
-      </div>
-      <p class="col-7 text-left my-auto">
-        Check our guides and tutorials for a quick start.
-      </p>
-      <div class="col-4">
-        <button class="btn btn-secondary">
-          ost guides
-        </button>
-
-      </div>
+      <h3 class="my-5">
+        You can also...
+      </h3>
 
 
     </div>
 
 
+    <div class="optional-actions-content mx-auto token-deploy-content">
 
-  </div>
+      <% if is_mainnet%>
+        <div class="my-3 content-wrapper p-2  row">
+          <div class="col-1 my-auto">
+            <svg class="get-ost-icon align-middle" style="width: 34px; height: 34px">
+              <switch>
+                <use class="get-ost-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#get-ost-icon"></use>
+              </switch>
+            </svg>
+          </div>
+          <p class="col-7 text-left my-auto">
+            Request OST to get started.
+          </p>
+          <div class="col-4">
+            <a class="btn btn-secondary" target="_blank" href="https://openst.org/#token">
+              Buy ost
+            </a>
+          </div>
+        </div>
+      <% end %>
+      <div class="my-3 content-wrapper p-2  row">
+        <div class="col-1 my-auto">
+          <svg class="invite-team-icon align-middle" style="width: 34px; height: 34px">
+            <switch>
+              <use class="invite-team-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#invite-team-icon"></use>
+            </switch>
+          </svg>
+
+        </div>
+        <p class="col-7 text-left my-auto">
+          Invite your team members.
+        </p>
+        <div class="col-4">
+          <a class="btn btn-secondary" target="_blank" href="<%=invite_team_url %>">
+            invite team
+          </a>
+
+        </div>
+
+
+      </div>
+      <div class="my-3 content-wrapper p-2  row">
+        <div class="col-1 my-auto">
+          <svg class="get-api-keys-icon align-middle" style="width: 34px; height: 34px">
+            <switch>
+              <use class="get-api-keys-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#get-api-keys-icon"></use>
+            </switch>
+          </svg>
+
+        </div>
+        <p class="col-7 text-left my-auto">
+          Integrate OST APIs with your application.
+        </p>
+        <div class="col-4">
+          <button class="btn btn-secondary">
+            get api keys
+          </button>
+
+        </div>
+
+
+      </div>
+      <div class="my-3 content-wrapper p-2  row">
+        <div class="col-1 my-auto">
+          <svg class="ost-guides-icon align-middle" style="width: 34px; height: 34px">
+            <switch>
+              <use class="ost-guides-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ost-guides-icon"></use>
+            </switch>
+          </svg>
+
+        </div>
+        <p class="col-7 text-left my-auto">
+          Check our guides and tutorials for a quick start.
+        </p>
+        <div class="col-4">
+          <button class="btn btn-secondary">
+            ost guides
+          </button>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+
+
 
 </div>
 <%end%>
 
 <div class="deploy-error-state text-center mt-5" style="display: <%= is_poll_failed ? "block" : "none" %>">
-  <svg class="error-icon align-middle" style="width:63px; height:63px">
+  <svg class="error-icon align-middle">
     <switch>
       <use class="error-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#error-icon"></use>
     </switch>
   </svg>
   <h3 class="text-center mt-5 display-header">Looks like there was an issue in the setup process </h3>
   <p class="font-weight-light  mb-5 text-muted">
-    Please try again to proceed.
+    Please try connecting to the support team to proceed.
   </p>
-  <button class="reset-deployment btn btn-primary" >SET UP  YOUR TOKEN</button>
-
+  <div class="invalid-feedback general_error"></div>
 </div>
 
 <% content_for :end_js do %>
   <script type="text/javascript">
     $( function () {
+      var isPollFailed = <%= is_poll_failed %> ;
       ost.tokenDeploy.init({
         getDeployStatusEndPoint:"<%=deployment_status_api%>",
         resetdeployEndPoint : "<%=resetdeploy_api %>",
-        redirectUrl : "<%=redirect_url %>"
+        redirectUrl : "<%=redirect_url %>" ,
+        currentStepFailedStatus : "<%= current_step_failed_status %>",
+        workflowId : "<%= workflow_id %>"
       });
     });
   </script>

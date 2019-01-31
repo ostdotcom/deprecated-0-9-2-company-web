@@ -31,6 +31,12 @@ module WebPresenter
       end
     end
 
+    def client_manager
+      @client ||= begin
+        formatter_obj.present? ? formatter_obj.client_manager : nil
+      end
+    end
+
     def client_token
       @c_t ||= begin
         formatter_obj.present? ? formatter_obj.client_token : nil
@@ -77,6 +83,10 @@ module WebPresenter
       @t_sly_dtls ||= formatter_obj.present? ? formatter_obj.token_supply_details : nil
     end
 
+    def sign_messages
+      @t_s_sn_msg ||= formatter_obj.present? ? formatter_obj.sign_messages : nil
+    end
+
     def is_client_logged_in?
       client_token.present?
     end
@@ -111,12 +121,24 @@ module WebPresenter
       curreny.to_s #TODO: Figure out a logic to handle this
     end
 
-    def is_planner_route?
-      ['planner' , 'token_deploy'].include?(action)
+    def is_token_setup_route?
+      ['token_setup' , 'token_deploy'].include?(action) && ['web/economy'].include?(controller)
+    end
+
+    def is_settings_route?
+      ['web/user_setting'].include?(controller)
     end
 
     def action
       @params[:action]
+    end
+
+    def controller
+      @params[:controller]
+    end
+
+    def controller_action
+      @params[:controller]+'/'+@params[:action]
     end
 
     def can_show_email_verify_notification?

@@ -6,7 +6,7 @@
 
 .planner-container{
   .text-different-color{
-    color: #e4b030;
+    color: $yellow-300;
     font-weight: bold;
   }
   .header-recommendation{
@@ -18,11 +18,10 @@
 
   p{
     font-weight: $font-weight-light;
-    font-size: 0.875rem;
+    font-size: $display3-size;
   }
+
   .conversion-section{
-    border-bottom: 1px solid #dbf2f2;
-    border-top: 1px solid #dbf2f2;
     .col-4{
       font-size: 24px;
       font-weight: normal;
@@ -30,21 +29,109 @@
       .text-different-color{
         color: #e4b030;
       }
-      .equal-to-sign{
-        position: absolute;
-        right: -7px;
-        background-color: white;
-
+      &.instruction-text{
+        font-weight: $font-weight-light;
+        font-size: $display4-size;
+        color: $blue-700;
+        line-height: 1.8;
       }
     }
 
     .right-border{
       position: relative;
+      border: 0;
+      justify-content: center;
+      border-radius: 0;
       border-right: 1px solid #dbf2f2;
+    }
+
+    .quantity {
+      position: relative;
+      display: inline-block;
+      border-radius: 4px;
+      overflow: hidden;
+      font-size: 18px;
+    }
+
+    .conversion-currency{
+      position: absolute;
+      right: 0;
+      line-height: 42px;
+      font-size: 18px;
+      width: 46px;
+      color: #438bad;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button
+    {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type=number]
+    {
+      -moz-appearance: textfield;
+    }
+
+    .quantity input {
+      width: 125px;
+      height: 42px;
+      line-height: 1.65;
+      float: left;
+      display: block;
+      padding: 0;
+      margin: 0;
+      color: $yellow-300;
+      padding-left: 8px;
+      border-radius: 4px;
+      border: 1px solid #dbf2f2;
+    }
+
+    .quantity input:focus {
+      outline: 0;
+    }
+
+    .quantity-nav {
+      float: left;
+      position: relative;
+      height: 42px;
+    }
+
+    .quantity-button {
+      position: relative;
+      cursor: pointer;
+      width: 20px;
+      text-align: center;
+      color: $white;
+      font-size: 12px;
+      border: none;
+      background-color: #d2e3e5;
+      -webkit-transform: translateX(-100%);
+      transform: translateX(-100%);
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+    }
+
+    .quantity-button.quantity-up {
+      position: absolute;
+      height: 50%;
+      top: 0;
+    }
+
+    .quantity-button.quantity-down {
+      position: absolute;
+      bottom: 0;
+      height: 50%;
     }
 
   }
 }
-.error-state-wrapper{
-  display: none;
+
+.container-box{
+  background-color: $grey-bg;
+  border-radius: 7.5px;
 }

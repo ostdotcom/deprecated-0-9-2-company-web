@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
   def handle_whitelisted_api_cookies
     new_api_cookies = request.cookies[GlobalConstant::Cookie.new_api_cookie_key.to_sym]
     return if new_api_cookies.blank?
-    whitelisted_api_cookies = [GlobalConstant::Cookie.user_cookie_name]
+    whitelisted_api_cookies = [GlobalConstant::Cookie.user_cookie_name, GlobalConstant::Cookie.last_used_env_cookie_name]
     whitelisted_api_cookies.each do |key|
       whitelisted_cookie = new_api_cookies[key]
       if whitelisted_cookie.present? and whitelisted_cookie.is_a?(Hash)
@@ -135,6 +135,10 @@ class ApplicationController < ActionController::Base
         redirect_to :dashboard and return
       when 'token_setup'
         redirect_to :token_setup and return
+      when 'sandbox_token_setup'
+        redirect_to "/#{GlobalConstant::Environment.sandbox_sub_url_prefix}/token/setup" and return
+      when 'mainnet_token_setup'
+        redirect_to "/#{GlobalConstant::Environment.main_sub_env_url_prefix}/token/setup" and return
       when 'token_deploy'
         redirect_to :token_deploy and return
       when 'token_mint'

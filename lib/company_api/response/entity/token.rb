@@ -20,6 +20,10 @@ module CompanyApi
           @data = data
         end
 
+        def data
+          @data
+        end
+
         def name
           @data['name']
         end
@@ -34,6 +38,10 @@ module CompanyApi
 
         def is_ost_based_token?
           true
+        end
+
+        def status
+          @data['status']
         end
 
       end

@@ -97,6 +97,36 @@ module WebPresenter
       end
     end
 
+    def worflow_payload
+      @t_workflow_pl ||= begin
+        formatter_obj.present? ? formatter_obj.workflow_payload : nil
+      end
+    end
+
+    # minimum ost in presenter object
+    #
+    # * Author: Alpesh
+    # * Date: 18/01/2019
+    # * Reviewed By:
+    #
+    def min_ost_in_wei
+      @t_min_ost ||= begin
+        formatter_obj.present? ? formatter_obj.min_ost_in_wei : nil
+      end
+    end
+
+    # minimum eth in presenter object
+    #
+    # * Author: Alpesh
+    # * Date: 18/01/2019
+    # * Reviewed By:
+    #
+    def min_eth_in_wei
+      @t_min_eth ||= begin
+        formatter_obj.present? ? formatter_obj.min_eth_in_wei : nil
+      end
+    end
+
   end
 
 end

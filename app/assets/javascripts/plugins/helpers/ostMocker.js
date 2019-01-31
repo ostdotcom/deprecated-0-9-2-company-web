@@ -12,7 +12,7 @@
   var eventNameSpace      = "";
   var delegateAttr        = "data-ost-mock-delegate-element";
   var autoBinderAttr      = "data-ost-mock-element";
-  var mockCallback        = "ost-mock-callback" ;
+  var mockCallback        = "ost-mock-parser" ;
 
   var Mocker = function ( jElement, targetSelector, filter ) {
     var oThis = this;

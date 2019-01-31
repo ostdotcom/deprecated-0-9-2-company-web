@@ -1,11 +1,5 @@
 <%
-  bt_to_mint_input_id = 350 #actual value to be fetched and remove hardcoding
-  ost_to_transfer_id = 350 #actual value to be fetched and remove hardcoding
-  bt_to_ost_input_id = 1 #actual value to be fetched and remove hardcoding
-  ost_stake_for_bt_id = 350 #actual value to be fetched and remove hardcoding
-
   bt_symbol = @presenter_obj.client_token.symbol;
-
 %>
 
 <div class="modal fade" id="stake-mint-confirm-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -15,53 +9,58 @@
         <span aria-hidden="true">&times;</span>
       </button>
       <div class="modal-body">
-        <h1 class="heading font-weight-normal mb-4">Please Review and Confirm</h1>
-        <div class="user-form">
+        <form action="<%= gateway_composer_api %>" method="GET" id="stake-mint-confirm-form">
           <div class="form-group">
-            <div class="row ">
-              <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
-                <div class="card rounded font-weight-normal border-0">
-                  <div class="item-1 form-label m-0"><%= bt_symbol %> TO MINT</div>
-                  <div class="item-2" data-ost-mock-element="#<%= bt_to_mint_input_id %>"></div>
+            <input required type="hidden" name="<%=stake_address_name%>"/>
+            <div class="invalid-feedback"> &nbsp; </div>
+          </div>
+          <h1 class="heading font-weight-normal mb-4">Please Review and Confirm</h1>
+          <div class="user-form">
+            <div class="form-group">
+              <div class="row ">
+                <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
+                  <div class="card rounded font-weight-normal border-0">
+                    <div class="item-1 form-label m-0"><%= bt_symbol %> TO MINT</div>
+                    <div class="item-2" data-type="bt" data-ost-mock-element="<%=bt_to_mint_selector%>"></div>
+                  </div>
                 </div>
-              </div>
-              <div class="col-xs-12 col-md-6 col-lg-6 mr-auto text-left">
-                <div class="card rounded font-weight-normal border-0">
-                  <div class="item-1 form-label m-0">TOTAL <%= ost_currency_symbol %> TO TRANSFER</div>
-                  <div class="item-2" data-type="ost" data-ost-mock-element="#<%= ost_to_transfer_id %>"></div>
-                </div>
-              </div>
-            </div>
-            <div class="row ">
-              <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
-                <div class="card rounded font-weight-normal border-0">
-                  <div class="item-1 form-label m-0">CONVERSION RATE TO <%= ost_currency_symbol %></div>
-                  <div class="item-2">
-                    <span>1 <%= bt_symbol %> = </span>
-                    <span data-ost-mock-element="#<%= bt_to_ost_input_id %>"></span>
-                    <span>OST</span>
+                <div class="col-xs-12 col-md-6 col-lg-6 mr-auto text-left">
+                  <div class="card rounded font-weight-normal border-0">
+                    <div class="item-1 form-label m-0">TOTAL <%= ost_currency_symbol %> TO TRANSFER</div>
+                    <div class="item-2" data-type="ost" data-ost-mock-parser="ost.tokenMint.ostToStakeOnBtChange"
+                         data-ost-mock-element="<%=bt_to_mint_selector%>"></div>
                   </div>
                 </div>
               </div>
-              <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
-                <div class="card rounded font-weight-normal border-0">
-                  <div class="item-1 form-label m-0"><%= ost_currency_symbol %> Staked For Minting</div>
-                  <div class="item-2" data-type="ost" data-ost-mock-element="#<%= ost_stake_for_bt_id %>"></div>
+              <div class="row ">
+                <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
+                  <div class="card rounded font-weight-normal border-0">
+                    <div class="item-1 form-label m-0">CONVERSION RATE FOR <%= bt_symbol %> </div>
+                    <div class="item-2">
+                      <span>1 <%= ost_currency_symbol %>  =  </span>
+                      <span class="bt_to_ost_conversion"></span>
+                      <span><%= bt_symbol %></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-6 ml-auto text-left">
+                  <div class="card rounded font-weight-normal border-0">
+                    <div class="item-1 form-label m-0"><%= ost_currency_symbol %> Staked For Minting</div>
+                    <div class="item-2" data-type="ost"  data-ost-mock-parser="ost.tokenMint.ostToStakeOnBtChange"
+                         data-ost-mock-element="<%=bt_to_mint_selector%>"></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <p class="desc-2 font-weight-normal mt-5 mb-5 confirm-warning-msg">
-          Please review all the information carefully before confirming.
-        </p>
-<!--        THE CONFIRM BUTTON DISMISSES MODAL TEMPORARILY.-->
-        <button type="button" id="confirm_mint_button" data-dismiss="modal" class="btn btn-gold font-weight-light" title="Confirm">confirm</button>
+          <p class="desc-2 font-weight-normal mt-5 mb-5 confirm-warning-msg">
+            Please review all the information carefully before confirming.
+          </p>
 
-<!--       UNCOMMENT THIS CODE.
-    <button type="button" id="confirm_mint_button" class="btn btn-gold font-weight-light" title="Confirm">confirm</button>
-
-    -->
+          <button type="submit" id="confirm_mint_button" class="btn btn-gold font-weight-light"
+                  data-submiting="Submitting...." title="Confirm">confirm</button>
+          <div class="invalid-feedback general_error">&nbsp;</div>
+        </form>
       </div>
     </div>
   </div>

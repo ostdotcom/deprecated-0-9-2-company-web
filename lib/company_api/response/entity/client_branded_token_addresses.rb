@@ -20,6 +20,10 @@ module CompanyApi
           @data = data
         end
 
+        def data
+          @data
+        end
+
         def erc20_contract_address
           @data['erc20_contract_address']
         end

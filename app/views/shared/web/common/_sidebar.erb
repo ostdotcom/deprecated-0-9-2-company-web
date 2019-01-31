@@ -1,8 +1,10 @@
 <%
-  prefix = GlobalConstant::Environment.sandbox_sub_url_prefix ;
-  planner_url = "/"+prefix+ "/token/setup" ;
-  mint_token_url = "/"+prefix+ "/token/mint" ;
-  team_url = "/settings/team";
+  planner_url = GlobalConstant::RedirectMap.get()[:token_setup]
+  mint_token_url = GlobalConstant::RedirectMap.get()[:token_mint];
+  team_url = GlobalConstant::RedirectMap.get()[:team];
+  setup_not_complete_class = @presenter_obj.is_token_setup_route? ? 'disabled' : ''
+  settings_collapse_class = @presenter_obj.is_settings_route? ? '' : 'collapse'
+  controller_action = @presenter_obj.controller_action
 %>
 <%= render :partial => "/shared/web/common/sidebar-icons.svg" %>
 
@@ -13,18 +15,20 @@
   </div>
 
   <ul class="nav nav-pills flex-column py-6">
+    <% if @presenter_obj.client_token.blank? || (@presenter_obj.client_token.status != GlobalConstant::ClientToken.deployment_completed) %>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center active" href="<%= planner_url %>">
+      <a class="nav-link d-flex align-items-center <%= ['web/economy/token_setup', 'web/economy/token_deploy'].include?(controller_action) ? 'active': '' %>" href="<%= planner_url %>">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-planner"></use>
           </switch>
         </svg>
-        <span class="label">Economy Planner</span>
+        <span class="label">Token Setup </span>
       </a>
     </li>
+    <% end  %>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center" href="<%= mint_token_url %>">
+      <a class="nav-link d-flex align-items-center <%=setup_not_complete_class %> <%= ['web/economy/token_mint', 'web/economy/token_mint_progress'].include?(controller_action) ? 'active': '' %> "  href="<%= mint_token_url %>">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-token-supply"></use>
@@ -34,7 +38,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center" data-toggle="collapse" href="#settings">
+      <a class="nav-link d-flex align-items-center"  data-toggle="collapse" href="#settings">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-settings"></use>
@@ -42,10 +46,10 @@
         </svg>
         <span class="label">Settings</span>
       </a>
-      <div class="collapse ml-5 active" id="settings">
+      <div class="<%=settings_collapse_class %> settings-sub-menu  active" id="settings">
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="<%= team_url %>">Team</a>
+              <a class="nav-link  pl-6 <%= controller_action == 'web/user_setting/team' ? 'active' : '' %>" href="<%= team_url %>">Team</a>
             </li>
           </ul>
       </div>

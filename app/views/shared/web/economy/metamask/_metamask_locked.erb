@@ -1,5 +1,5 @@
 <%
-  bt_name   = @presenter_obj.client_token.name;
+  #bt_name   = @presenter_obj.client_token.name;
 %>
 
 <div class="row ost__planner">
@@ -13,7 +13,7 @@
       <p class="font-weight-light mb-5 text-muted">Simply open MetaMask and follow the instructions to unlock it and click the button below once you are done.</p>
       <!--<div class="ost__planner__circle rounded-circle font-weight-light mb-5"><%#= bt_name %></div>-->
       <div class="mb-5">
-        <button id="metamask_unlocked" type="button" class="btn btn-gold">i have unlocked metamask</button>
+        <button id="metamask_unlocked" type="button" class="btn btn-gold" onclick="window.location.reload()">i have unlocked metamask</button>
       </div>
       <div>
         <button type="button" class="font-weight-light btn ost-btn-secondary h-100 video-btn" title="Watch Help Video" data-toggle="modal" data-src="https://www.youtube.com/embed/6Gf_kRE4MJU" data-target="#helpVideoModal">

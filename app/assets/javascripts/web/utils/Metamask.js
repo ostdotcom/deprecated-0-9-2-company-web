@@ -15,7 +15,8 @@
         isDapp: false,
         isMetamask: false,
         desiredNetwork: '3',
-        desiredAccount: null,
+        desiredAccounts: null,
+        defaultUnit: 'wei',
 
         init: function() {
             var oThis = this;
@@ -77,12 +78,23 @@
                         oThis.onNotDesiredNetwork();
                     } else {
                         oThis.onDesiredNetwork();
-                        if(oThis.desiredAccount){
-                            if(accounts[0] !== oThis.desiredAccount){
-                                oThis.onNotDesiredAccount();
-                            } else {
-                                oThis.onDesiredAccount();
+                        var len = oThis.desiredAccounts && oThis.desiredAccounts.length ;
+                      if( len > 0 ){
+                          var metamaskAccount = accounts[0] && accounts[0].toLowerCase() ,
+                              cnt , currAccount , isDesiredAddress = false;
+                          ;
+                          for( cnt = 0 ;  cnt < len ; cnt ++ ){
+                            currAccount = oThis.desiredAccounts[ cnt ];
+                            if( metamaskAccount == currAccount ){
+                              isDesiredAddress = true ;
+                              break ;
                             }
+                          }
+                          if( isDesiredAddress ){
+                            oThis.onDesiredAccount();
+                          } else {
+                            oThis.onNotDesiredAccount();
+                          }
                         } else {
                             oThis.onNewAccount();
                         }
@@ -105,54 +117,88 @@
             if(!oThis.isMetamask) return oThis.onNotMetamask();
 
             oThis.ethereum && oThis.ethereum.sendAsync(options, function(err, result){
-                oThis.onSendAsync(err, result, callback);
+                oThis.onSendAsync(options, err, result);
+                callback && callback(err, result);
             })
         },
 
         /**
          * Higher order helper methods:
          *
-         * getBalance(walletAddress, callback)
-         * balanceOf(walletAddress, contractAddress, callback)
+         * getBalance(walletAddress, callback, unit)
+         * balanceOf(walletAddress, contractAddress, callback, unit)
+         * getContractEncodedABI(contractAddress, method, values, abi)
+         *
+         * For unit, refer: https://github.com/ethereum/wiki/wiki/JavaScript-API#web3fromwei
          *
          */
-        getBalance: function(walletAddress, callback) {
+
+        getBalance: function(walletAddress, callback, unit) {
 
             var oThis = this;
 
-            if(typeof walletAddress === 'undefined') return;
+            if(!walletAddress) return;
+            if(!unit) unit = oThis.defaultUnit;
 
             var options = {
                 method: 'eth_getBalance',
                 params: [walletAddress, "latest"]
             };
 
-            oThis.sendAsync(options, callback);
+            oThis.sendAsync(options, function(err, result){
+              var val = result && result.result ;
+              if( val && val === '0x'){
+                result.result = '0x0';
+              }
+              val && callback && callback(oThis.web3.fromWei(result.result, unit));
+            });
 
         },
 
-        balanceOf: function(walletAddress, contractAddress, callback) {
+        balanceOf: function(walletAddress, contractAddress, callback, unit) {
 
             var oThis = this;
 
-            if(typeof walletAddress === 'undefined' || typeof contractAddress === 'undefined') return;
-
-            if(walletAddress.substring(0,2) === '0x') {
-                walletAddress = walletAddress.substring(2);
-            }
+            if(!walletAddress || !contractAddress) return;
+            if(!unit) unit = oThis.defaultUnit;
 
             var options = {
                 method: 'eth_call',
                 params: [
                     {
                         to: contractAddress,
-                        data: web3.sha3('balanceOf(address)').slice(0,10) + "000000000000000000000000" + walletAddress,
+                        data: oThis.getContractEncodedABI(contractAddress, 'balanceOf', [walletAddress])
                     },
                     "latest"
                 ]
             };
 
-            oThis.sendAsync(options, callback);
+            oThis.sendAsync(options, function(err, result){
+                var val = result && result.result ;
+                if( val && val === '0x'){
+                  result.result = '0x0';
+                }
+                val && callback && callback(oThis.web3.fromWei(result.result, unit));
+            });
+
+        },
+
+        getContractEncodedABI: function(contractAddress, method, values, abi) {
+
+            var oThis = this;
+
+            if(!contractAddress || !method || !values) return;
+            if(values.constructor !== Array) return;
+            if(!abi) abi = oThis.humanStandardTokenAbi;
+
+            var contractMethod = oThis.web3.eth.contract(abi).at(contractAddress)[method];
+
+            if(typeof contractMethod !== "function") {
+                console.error(method+' not found in provided abi');
+                return;
+            }
+
+            return contractMethod.getData.apply(this, values);
 
         },
 
@@ -259,11 +305,11 @@
             callback && callback();
         },
 
-        onSendAsync: function(err, result, callback) {
-            if (err) console.error('onSendAsync err', err);
-            if (result && result.error) console.error('onSendAsync result.error', result.error);
-            if (result) console.log('onSendAsync result', result);
-            callback && callback(err, result);
+        onSendAsync: function(options, err, result) {
+            console.log('sendAsync options:', options);
+            if (err) console.error('sendAsync err:', err);
+            if (result && result.error) console.error('sendAsync result.error:', result.error);
+            if (result) console.log('sendAsync result:', result);
         },
 
         /**
@@ -281,6 +327,21 @@
         onNetworkChanged: function(network) {
             console.log('Network:', network);
         },
+  
+        //Helper function
+        getWalletAddress : function () {
+          var oThis = this;
+          return oThis.ethereum && oThis.ethereum.selectedAddress ;
+        },
+
+        /**
+         * ERC-20 generic ABI: https://github.com/danfinlay/human-standard-token-abi
+         *
+         * Used as a fallback if ABI is not provided or for standard ERC-20 methods
+         *
+         */
+
+        humanStandardTokenAbi: [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"},{"name":"_extraData","type":"bytes"}],"name":"approveAndCall","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[{"name":"_initialAmount","type":"uint256"},{"name":"_tokenName","type":"string"},{"name":"_decimalUnits","type":"uint8"},{"name":"_tokenSymbol","type":"string"}],"type":"constructor"},{"payable":false,"type":"fallback"},{"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event","anonymous":false},{"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event","anonymous":false}]
 
     };
 

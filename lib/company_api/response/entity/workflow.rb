@@ -20,6 +20,14 @@ module CompanyApi
           @data = data
         end
 
+        def data
+          @data
+        end
+
+        def is_present?
+          id.present?
+        end
+
         def id
           @data["id"]
         end

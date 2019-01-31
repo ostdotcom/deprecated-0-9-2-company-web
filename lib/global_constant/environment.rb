@@ -20,22 +20,6 @@ module GlobalConstant
         'testnet'
       end
 
-      def mainnet_chain_id
-        '1'
-      end
-
-      def ropsten_chain_id
-        '3'
-      end
-
-      def chain_id
-        if GlobalConstant::Base.main_sub_environment?
-          mainnet_chain_id
-        else
-          ropsten_chain_id
-        end
-      end
-
       def url_prefix
         if GlobalConstant::Base.main_sub_environment?
           main_sub_env_url_prefix
@@ -43,6 +27,16 @@ module GlobalConstant
           sandbox_sub_url_prefix
         end
       end
+
+      def production_environment
+        'production'
+      end
+
+      def is_main_production?
+        GlobalConstant::Base.main_sub_environment? && GlobalConstant::Base.environment_name == GlobalConstant::Environment.production_environment
+      end
+
+
 
     end
 

@@ -8,17 +8,17 @@ class Web::UserSettingController < Web::BaseController
   after_action :remove_browser_caching
 
   def team
-    @response = CompanyApi::Request::Token.new(
-        CompanyApi::Response::Formatter::Token,
+    @response = CompanyApi::Request::Manager.new(
+        CompanyApi::Response::Formatter::Manager,
         request.cookies,
         {"User-Agent" => http_user_agent}
-    ).fetch_token_details()
+    ).get_team_details({})
 
     unless @response.success?
       return handle_temporary_redirects(@response)
     end
 
-    @presenter_obj = ::WebPresenter::TokenPresenter.new(@response, params)
+    @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
   end
 
 

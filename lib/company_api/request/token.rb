@@ -35,6 +35,10 @@ module CompanyApi
         get('mint', {})
       end
 
+      def mint_progress
+        get('mint-progress', {})
+      end
+
       private
 
     end
