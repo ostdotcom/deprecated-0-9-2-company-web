@@ -33,3 +33,5 @@ export COMPANY_TOKEN_SALE_URL='http://sale.developmentsimpletoken.org:8080/'
 # OST.com (token sale account) Pepo Campaigns Account details
 export STW_CAMPAIGN_ENCRYPTED_CLIENT_ID='bfda650a78cf3e2d2b1476931cb3c1fb'
 export STW_CAMPAIGN_ENCRYPTED_LIST_ID='01bb39c3b883a6e5'
+
+export CW_CA_ORIGIN_CHAIN_ID=3

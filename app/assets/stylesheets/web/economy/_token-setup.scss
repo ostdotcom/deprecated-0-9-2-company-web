@@ -22,19 +22,12 @@
   }
 
   .conversion-section{
-    //border-bottom: 1px solid #dbf2f2;
-    //border-top: 1px solid #dbf2f2;
     .col-4{
       font-size: 24px;
       font-weight: normal;
       color: $cyan;
       .text-different-color{
         color: #e4b030;
-      }
-      .equal-to-sign{
-        //position: absolute;
-        //right: -7px;
-        //background-color: $white;
       }
       &.instruction-text{
         font-weight: $font-weight-light;
@@ -46,6 +39,9 @@
 
     .right-border{
       position: relative;
+      border: 0;
+      justify-content: center;
+      border-radius: 0;
       border-right: 1px solid #dbf2f2;
     }
 
@@ -55,15 +51,6 @@
       border-radius: 4px;
       overflow: hidden;
       font-size: 18px;
-      //&:after{
-      //  content: 'BT';
-      //  display: inline-block;
-      //  font-size: 18px;
-      //  color: #438bad;
-      //  position: absolute;
-      //  right: 8px;
-      //  line-height: 42px;
-      //}
     }
 
     .conversion-currency{
@@ -142,4 +129,9 @@
     }
 
   }
+}
+
+.container-box{
+  background-color: $grey-bg;
+  border-radius: 7.5px;
 }

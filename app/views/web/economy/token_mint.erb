@@ -1,5 +1,5 @@
 <%
-  chain_id = GlobalConstant::Environment.chain_id
+  chain_id = GlobalConstant::Chain.origin_chain_id
   prefix = GlobalConstant::Environment.url_prefix;
   mint_api = "/#{prefix}/api/token/mint"
   get_ost_api = "/#{prefix}/api/token/mint/grant";

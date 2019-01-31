@@ -124,6 +124,7 @@
             var from = oThis.metamask.getWalletAddress();
 
             oThis.jConfirmAccountCover.find(".btn-confirm").off('click').on('click', function(e){
+              $('.btn-confirm').text("confirming...").prop("disabled",true);
                 oThis.metamask.sendAsync({
                     method: 'personal_sign',
                     params: [message, from],
@@ -162,7 +163,7 @@
                     if(response.success){
                         oThis.startTokenDeployment();
                     } else {
-                        var errorData = utilities.deepGet( response ,  "err.error_data") || [];
+                      var errorData = utilities.deepGet( response ,  "err.error_data") || [];
                         var errorMsg ;
                       if(errorData.length > 0 ){
                           errorMsg =  errorData[0].msg ;
@@ -174,7 +175,7 @@
                     }
                 },
                 error: function (response) {
-                    oThis.showConfirmError(oThis.jGeneralErrorState);
+                  oThis.showConfirmError(oThis.jGeneralErrorState);
                 }
             });
         },
@@ -208,16 +209,16 @@
               }
             },
             error: function (response) {
-              oThis.showConfirmError(oThis.jGeneralErrorState)
-
+              oThis.showConfirmError(oThis.jGeneralErrorState);
             }
           })
         },
 
 
         showConfirmError : function(errorContext){
-            oThis.jConfirmAccountSection.hide();
-            errorContext.show();
+          oThis.jConfirmAccountCover.find(".btn-confirm").text("confirm Address").prop('disabled', false);
+          oThis.jConfirmAccountSection.hide();
+          errorContext.show();
         },
 
         inputSpinner: function () {

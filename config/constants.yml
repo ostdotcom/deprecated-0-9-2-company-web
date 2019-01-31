@@ -37,3 +37,6 @@ constants:
     encrypted_list_id: <%= ENV['STW_CAMPAIGN_ENCRYPTED_LIST_ID'] %>
 
   placeholder_image_src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAABGdBTUEAALGPC/xhBQAAABdJREFUCB1j/PTp038GJMCExAYzCQsAAPxAA91ZSr1IAAAAAElFTkSuQmCC"
+
+  chain:
+    origin_chain_id: <%= ENV['CW_CA_ORIGIN_CHAIN_ID'] %>

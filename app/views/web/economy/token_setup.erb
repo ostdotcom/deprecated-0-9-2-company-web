@@ -3,8 +3,9 @@
     prefix = GlobalConstant::Environment.url_prefix
     wallet_association =  @presenter_obj.sign_messages.wallet_association
     ost_to_fiat =  @presenter_obj.oracle_price_points.to_fiat_conversion_factor("USD")
+
     bt_symbol = @presenter_obj.client_token.symbol || 'Token'
-    chain_id = GlobalConstant::Environment.chain_id
+    chain_id = GlobalConstant::Chain.origin_chain_id
 
     addresses_api = "/#{prefix}/api/token/addresses"
     deployment_api = "/#{prefix}/api/token/deploy"
@@ -93,32 +94,36 @@
                    aria-labelledby="advance-options-header" data-parent="#advance-options-accordion">
                 <div class="card-body py-2">
                   <div class="conversion-section user-form">
-                    <div class="row align-items-center form-group my-0">
-                      <div class="col-4 right-border m-0">
-                        <label class="form-label d-block mb-2">SET CONVERSION RATE</label>
-                        <div class="d-flex align-items-center">
-                          <span class="text-different-color">1</span> OST
-                          <span class="equal-to-sign mx-3">=</span>
-                          <span class="quantity">
+                    <div class="card-group">
+                      <div class="row form-group">
+                        <div class="col-4 right-border m-0 card">
+                          <label class="form-label mb-2">SET CONVERSION RATE</label>
+                          <div class="d-flex align-items-center">
+                            <span class="text-different-color mr-2">1</span> OST
+                            <span class="equal-to-sign mx-3 font-weight-bold">=</span>
+                            <span class="quantity">
                           <input type="number" min="<%=bt_to_ost_min%>" max="<%= bt_to_ost_max %>"
                                  step="<%= bt_to_ost_step%>" id="<%= ost_to_bt_id %>"
-                                 name="conversion_factor" value="<%= conversion_factor %>" required>
+                                 name="conversion_factor" value="<%= @presenter_obj.client_token.conversion_factor %>" required>
                         </span>
-                        </div>
+                          </div>
 
+                        </div>
+                        <div class="col-4 right-border m-0 card">
+                          <label class="form-label mb-2">AT CURRENT CONVERSION RATE</label>
+                          <div class="d-flex align-items-center">
+                            <span class="text-different-color mr-2">1</span> BT
+                            <span class="equal-to-sign mx-3 font-weight-bold">=</span> $
+                            <span class="ost-mocker-value text-different-color j-bt-to-fiat-val"
+                                  data-type="fiat"  data-ost-mock-parser="ost.tokenSetup.btToFiat"> <%= ost_to_fiat %>
+                                              </span>
+                          </div>
+                        </div>
+                        <div class="col-4 instruction-text">
+                          Conversion rate establishes the fixed rate of exchange between your BT and OST. OST is Market linked so the inherent value of your token may fluctuate based on the value of OST
+                        </div>
+                        <div class="invalid-feedback ml-3" style="font-size: 12px" data-for="conversion_factor" ></div>
                       </div>
-                      <div class="col-4 right-border form-group m-0">
-                        <label class="form-label d-block mb-2">AT CURRENT CONVERSION RATE</label>
-                        <span class="text-different-color">1</span> BT
-                        <span class="equal-to-sign">=</span> $
-                        <span class="ost-mocker-value text-different-color j-bt-to-fiat-val"
-                                                      data-type="fiat"  data-ost-mock-parser="ost.tokenSetup.btToFiat"> <%= ost_to_fiat %>
-                                            </span>
-                      </div>
-                      <div class="col-4 instruction-text">
-                        Conversion rate establishes the fixed rate of exchange between your BT and OST. OST is Market linked so the inherent value of your token may fluctuate based on the value of OST
-                      </div>
-                      <div class="invalid-feedback ml-3" style="font-size: 12px" data-for="conversion_factor" ></div>
                     </div>
                   </div>
                 </div>
