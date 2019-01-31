@@ -4,7 +4,7 @@
   mint_api = "/#{prefix}/api/token/mint"
   get_ost_api = "/#{prefix}/api/token/mint/grant";
   workflow_status_api = "/#{prefix}/api/workflow";
-  gateway_composer_api = "/#{prefix}/api/contracts/gateway-composer/"
+  gateway_composer_api = "/#{prefix}/api/contracts/gateway-composer"
   redirect_route = "/#{prefix}/token/mint-progress" ;
 
 
@@ -117,7 +117,9 @@
                         <span class="ost-supply available"></span>
                         <p class="m-0 ml-2">
                           <small class="d-block" data-ost_available_key>OST Available</small>
-                          <small><span class="ost-mocker-value total-ost-available"></span></small>
+                          <small><span class="ost-mocker-value total-ost-available"
+                                       data-type="ost" data-ost-mock-element="#<%= bt_to_mint_id %>"
+                                       data-ost-mock-parser="ost.tokenMint.ostAvailableOnBtChange"></span></small>
                         </p>
                       </li>
                       <li class="d-flex align-items-center mb-3">

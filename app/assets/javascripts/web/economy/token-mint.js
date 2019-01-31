@@ -272,18 +272,28 @@
           oThis.showSection(  oThis.jInsufficientBalSection ) ;
           $('buy-ost-btn').show();
         }else {
+          ost = PriceOracle.fromWei( ost );
           oThis.onValidationComplete( ost );
         }
       } ) ;
     },
+    
+    /********************************************************************************************************* /
+     *
+     * NOTE IMPORTANT : OST PASSED AFTER VALIDATION ON BALANCE IS NOT IN WEI , ITS ABSOLUTE VALUE
+     *
+     *********************************************************************************************************/
   
     onValidationComplete : function ( ost ) {
       var btToMint = oThis.getBTtoMint() ,
           ostToStake = PriceOracle.btToOst( btToMint );
       ;
-      oThis.OstAvailable = PriceOracle.fromWei( ost );
+      if( !PriceOracle.isNaN( ost )){
+        oThis.totalOST = Number( ost );
+      }
       oThis.mintDonuteChart = new GoogleCharts();
-      oThis.initSupplyPieChart( ost , ostToStake );
+      oThis.initSupplyPieChart( ostToStake );
+      $('.total-ost-available').text( PriceOracle.toPrecessionOst( ost ) );  //No mocker so set via precession
       oThis.updateSlider( ost );
       oThis.showSection(  oThis.jStakeMintProcess ) ;
     },
@@ -346,20 +356,29 @@
       var maxBT = oThis.getMaxBTToMint( ost ),
           jSlider = oThis.jBtToMint.closest( '.form-group' ).find('#'+oThis.btToMintId+"_slider")
       ;
+      oThis.jBtToMint.attr("max" , maxBT );
       jSlider.slider({"max" : maxBT }) ;
-      $('.total-ost-available').text( PriceOracle.toPrecessionOst( ost ) );  //No mocker so set via precession
     },
     
     ostToStakeOnBtChange : function ( val ) {
-      if( PriceOracle.isNaN( oThis.OstAvailable )) {
+      if( PriceOracle.isNaN( oThis.totalOST )) {
         return val ;
       }
-      var ostToStake    = PriceOracle.btToOst( val ) ,
-          ostAvailable  = BigNumber( oThis.OstAvailable ) ,
-          result        = ostAvailable.minus(  ostToStake )
-      ;
-      oThis.updateSupplyPieChart( ostAvailable.toString() ,  ostToStake ) ;
-      return PriceOracle.toOst( result ) ; //Mocker will take care of precession
+      var ostToStake    = PriceOracle.btToOst( val ) ;
+      oThis.updateSupplyPieChart( ostToStake ) ;
+      return PriceOracle.toOst( ostToStake ) ; //Mocker will take care of precession
+    },
+  
+    ostAvailableOnBtChange : function ( val ) {
+      if( PriceOracle.isNaN( oThis.totalOST )) {
+        return val ;
+      }
+      var ostToStake = PriceOracle.btToOst( val ) ;
+      if( PriceOracle.isNaN( ostToStake )) {
+        return oThis.totalOST  ;
+      }
+      ostToStake = Number( ostToStake ) ;
+      return oThis.totalOST - ostToStake ;
     },
   
     getWalletAddress : function () {
@@ -379,7 +398,7 @@
     },
     
     getOstToBTConversion : function () {
-      return utilities.deepGet( oThis.dataConfig , "token.conversion_factor" ) ;
+      return  utilities.deepGet( oThis.dataConfig , "token.conversion_factor" ) ;
     },
   
     getSimpleTokenABI : function () {
@@ -464,10 +483,12 @@
       jSection.show();
     },
   
-    updateSupplyPieChart: function ( ostAvailable , ostToStake ) {
+    updateSupplyPieChart: function (  ostToStake ) {
       if( !oThis.mintDonuteChart ) return ;
-      ostAvailable  = ostAvailable && Number( ostAvailable ) ;
-      ostToStake    = ostToStake && Number(ostToStake) ;
+      
+      ostToStake    = ostToStake && Number(ostToStake) || 0;
+    
+      var ostAvailable  = oThis.totalOST -  ostToStake  ;
       var data = [
         ['Type', 'Tokens'],
         ['OSTAvailable', ostAvailable],
@@ -478,9 +499,11 @@
       });
     },
     
-    initSupplyPieChart: function( ostAvailable ,ostToStake  ){
-      ostAvailable  = ostAvailable && Number( ostAvailable ) || 100 ;
-      ostToStake    = ost && Number( ostToStake ) || 100 ;
+    initSupplyPieChart: function( ostToStake  ){
+      
+      ostToStake    = ost && Number( ostToStake ) || 0 ;
+      
+      var ostAvailable  = oThis.totalOST -  ostToStake  ;
       oThis.mintDonuteChart.draw({
         data: [
           ['Type', 'Tokens'],
@@ -673,7 +696,7 @@
   
     getConfirmStakeAndMintIntendData : function () {
       var btToMint = oThis.getBTtoMint() ,
-          ostToStake = PriceOracle.btToOstPrecession( btToMint ) //As it gose to backend and comes back as is.
+          ostToStake = PriceOracle.btToOstPrecession( btToMint ) //As it goes to backend and comes back as is.
       ;
       return {
         'approve_transaction_hash'        : oThis.approve_transaction_hash,
