@@ -21,6 +21,18 @@ module GlobalConstant
         'deploymentFailed'
       end
 
+      def bt_to_ost_min
+        0.00001
+      end
+
+      def bt_to_ost_step
+        0.00001
+      end
+
+      def bt_to_ost_max
+        500
+      end
+
     end
 
   end
