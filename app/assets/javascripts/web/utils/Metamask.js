@@ -330,6 +330,7 @@
   
         //Helper function
         getWalletAddress : function () {
+          var oThis = this;
           return oThis.ethereum && oThis.ethereum.selectedAddress ;
         },
 
