@@ -102,7 +102,7 @@
                           <span class="quantity">
                           <input type="number" min="<%=bt_to_ost_min%>" max="<%= bt_to_ost_max %>"
                                  step="<%= bt_to_ost_step%>" id="<%= ost_to_bt_id %>"
-                                 name="conversion_factor" value="<%= conversion_factor %>" required>
+                                 name="conversion_factor" value="<%= @presenter_obj.client_token.conversion_factor %>" required>
                         </span>
                         </div>
 
