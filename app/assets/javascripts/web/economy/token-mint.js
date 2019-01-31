@@ -426,21 +426,11 @@
     },
   
     getSimpleTokenContractGas : function () {
-      var gas = utilities.deepGet( oThis.dataConfig , "contract_details.simple_token.gas.approve" );
-      if( gas ){
-        return String( gas );
-      }else {
-        return "";
-      }
+      return utilities.deepGet( oThis.dataConfig , "contract_details.simple_token.gas.approve" );
     },
   
     getGatewayComposerContractGas : function () {
-      var gas = utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.contract_details.gateway_composer.gas.approve" ) ;
-      if( gas ){
-        return String( gas );
-      }else {
-        return "";
-      }
+      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.contract_details.gateway_composer.gas.approve" ) ;
     },
   
     getGasPrice : function () {
