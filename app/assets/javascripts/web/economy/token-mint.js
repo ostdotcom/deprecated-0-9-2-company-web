@@ -97,7 +97,7 @@
     initPriceOracle : function ( ) {
       PriceOracle.init({
         "ost_to_fiat" : oThis.getPricePoint() ,
-        "ost_to_bt" : oThis.getOstToBTConversion()
+        "ost_to_bt"   : oThis.getOstToBTConversion()
       });
     },
     
@@ -121,73 +121,20 @@
     initGetOstFormHelper: function () {
       oThis.getOstFormHelper = oThis.jGetOstForm.formHelper({
         beforeSend : function () {
-         oThis.onGetOstPreState();
+         oThis.requestingOstUIState();
         },
         success: function ( res ) {
           if( res.success ){
             var workflowId = utilities.deepGet( res , "data.workflow.id") ;
             oThis.onWorkFlow( workflowId );
           }else {
-            oThis.onGetOstResetState( res );
+            oThis.resetGetOstUIState( res );
           }
         },
         error: function ( jqXhr , error ) {
-         oThis.onGetOstResetState( error );
+         oThis.resetGetOstUIState( error );
         }
       });
-    },
-    
-    onGetOstPreState : function () {
-      $('.jStatusWrapper').hide();
-      $('.jGetOstLoaderText').show();
-      //This will be handled by FormHelper , but its a common function for long polling so dont delete
-      utilities.btnSubmittingState( oThis.jGetOstBtn );
-    } ,
-    
-    onGetOstResetState: function () {
-      $('.jStatusWrapper').show();
-      $('.jGetOstLoaderText').hide();
-      //This will be handled by FormHelper , but its a common function for long polling so dont delete
-      utilities.btnSubmitCompleteState( oThis.jGetOstBtn );
-    },
-  
-  
-    startGetOstPolling: function ( workflowId ) {
-      if( !workflowId ) return ;
-      var workflowApi = oThis.getWorkFlowStatusApi( workflowId )
-            ;
-      oThis.getOstPolling = new Polling({
-        pollingApi      : workflowApi ,
-        pollingInterval : 4000,
-        onPollSuccess   : oThis.getOstPollingSuccess.bind( oThis ),
-        onPollError     : oThis.getOstPollingError.bind( oThis )
-      });
-      oThis.getOstPolling.startPolling();
-    },
-  
-    getOstPollingSuccess : function( response ){
-      if(response && response.success){
-          if( oThis.getOstPolling.isWorkflowFailed( response ) || oThis.getOstPolling.isWorkflowCompletedFailed( response ) ){
-            oThis.showGetOstPollingError( response );
-          }else if( !oThis.getOstPolling.isWorkFlowInProgress( response ) ){
-            oThis.getOstPolling.stopPolling();
-            oThis.checkForBal();
-          }
-      }else {
-        oThis.showGetOstPollingError( response );
-      }
-    },
-  
-    getOstPollingError : function( jqXhr , error  ){
-      if( oThis.getOstPolling.isMaxRetries() ){
-        oThis.showGetOstPollingError( error );
-      }
-    },
-  
-    showGetOstPollingError : function ( res ) {
-      oThis.getOstPolling.stopPolling();
-      utilities.showGeneralError( oThis.jGetOstForm ,  res ,  oThis.getOstError  );
-      oThis.onGetOstResetState();
     },
 
     bindActions : function () {
@@ -208,7 +155,7 @@
       });
       
       oThis.jServerRetryBtn.off('click').on('click' , function () {
-        oThis.requestStake();
+        oThis.sendTransactionHashes();
       });
 
     },
@@ -254,17 +201,26 @@
 
         onNewAccount: function(){
           ost.coverElements.hideAll();
-          oThis.onAccountValidation();
+          oThis.validateAccount();
         }
       });
     },
   
-    setStakerAddress : function (  ) {
-      var selectedAddress = oThis.getWalletAddress() ;
-      oThis.jSelectedAddress.setVal( selectedAddress );
+    onDesiredAccount : function () {
+      oThis.setStakerAddress();
+      var workflowId = oThis.getWorkflowId() ;
+      if( workflowId ){
+        oThis.onWorkFlow( workflowId );
+      }else {
+        oThis.checkEthBal();
+      }
     },
-    
-    onAccountValidation : function () {
+  
+    onWorkFlow : function ( workflowId ) {
+      oThis.startGetOstPolling( workflowId )
+    },
+  
+    validateAccount : function () {
       var whitelisted = oThis.getWhitelistedAddress(),
           selectedAddress = oThis.getWalletAddress() || ""
       ;
@@ -276,9 +232,14 @@
         oThis.checkForBal();
       }
     },
+  
+    setStakerAddress : function (  ) {
+      var selectedAddress = oThis.getWalletAddress() ;
+      oThis.jSelectedAddress.setVal( selectedAddress );
+    },
 
     checkForBal: function () {
-      oThis.onGetOstResetState();
+      oThis.resetGetOstUIState();
       oThis.checkEthBal();
     },
   
@@ -324,6 +285,60 @@
       oThis.updateSlider( ost );
       oThis.showSection(  oThis.jStakeMintProcess ) ;
     },
+  
+    requestingOstUIState : function () {
+      $('.jStatusWrapper').hide();
+      $('.jGetOstLoaderText').show();
+      //This will be handled by FormHelper , but its a common function for long polling so dont delete
+      utilities.btnSubmittingState( oThis.jGetOstBtn );
+    } ,
+  
+    resetGetOstUIState: function () {
+      $('.jStatusWrapper').show();
+      $('.jGetOstLoaderText').hide();
+      //This will be handled by FormHelper , but its a common function for long polling so dont delete
+      utilities.btnSubmitCompleteState( oThis.jGetOstBtn );
+    },
+  
+  
+    startGetOstPolling: function ( workflowId ) {
+      if( !workflowId ) return ;
+      oThis.requestingOstUIState();
+      var workflowApi = oThis.getWorkFlowStatusApi( workflowId )
+      ;
+      oThis.getOstPolling = new Polling({
+        pollingApi      : workflowApi ,
+        pollingInterval : 4000,
+        onPollSuccess   : oThis.getOstPollingSuccess.bind( oThis ),
+        onPollError     : oThis.getOstPollingError.bind( oThis )
+      });
+      oThis.getOstPolling.startPolling();
+    },
+  
+    getOstPollingSuccess : function( response ){
+      if(response && response.success){
+        if( oThis.getOstPolling.isWorkflowFailed( response ) || oThis.getOstPolling.isWorkflowCompletedFailed( response ) ){
+          oThis.showGetOstPollingError( response );
+        }else if( !oThis.getOstPolling.isWorkFlowInProgress( response ) ){
+          oThis.getOstPolling.stopPolling();
+          oThis.checkForBal();
+        }
+      }else {
+        oThis.showGetOstPollingError( response );
+      }
+    },
+  
+    getOstPollingError : function( jqXhr , error  ){
+      if( oThis.getOstPolling.isMaxRetries() ){
+        oThis.showGetOstPollingError( error );
+      }
+    },
+  
+    showGetOstPollingError : function ( res ) {
+      oThis.getOstPolling.stopPolling();
+      utilities.showGeneralError( oThis.jGetOstForm ,  res ,  oThis.getOstError  );
+      oThis.resetGetOstUIState();
+    },
     
     updateSlider : function ( ost ) {
       var maxBT = oThis.getMaxBTToMint( ost ),
@@ -337,37 +352,14 @@
       if( PriceOracle.isNaN( oThis.OstAvailable )) {
         return val ;
       }
-      var btStake = PriceOracle.btToOst( val ) ,
-          ostAvailable = BigNumber( oThis.OstAvailable ) ,
-          result = ostAvailable.minus(  btStake )
+      var ostToStake    = PriceOracle.btToOst( val ) ,
+          ostAvailable  = BigNumber( oThis.OstAvailable ) ,
+          result        = ostAvailable.minus(  ostToStake )
       ;
-      oThis.updateSupplyPieChart( ostAvailable.toString() ,  btStake ) ;
+      oThis.updateSupplyPieChart( ostAvailable.toString() ,  ostToStake ) ;
       return PriceOracle.toOst( result ) ; //Mocker will take care of precession
     },
   
-    onDesiredAccount : function () {
-      oThis.setStakerAddress();
-      var workflowId = oThis.getWorkflowId() ;
-      if( workflowId ){
-        oThis.onWorkFlow( workflowId );
-      }else {
-        oThis.checkEthBal();
-      }
-    },
-  
-    onWorkFlow : function ( workflowId ) {
-      oThis.onGetOstPreState();
-      oThis.startGetOstPolling( workflowId )
-    },
-    
-    getSimpleTokenContractAddress : function () {
-      return utilities.deepGet( oThis.dataConfig , "contract_details.simple_token.address" );
-    },
-  
-    getSimpleTokenABI : function () {
-      return utilities.deepGet( oThis.dataConfig , "contract_details.simple_token.abi" );
-    },
-    
     getWalletAddress : function () {
       return oThis.walletAddress || oThis.metamask.getWalletAddress();
     },
@@ -386,6 +378,42 @@
     
     getOstToBTConversion : function () {
       return utilities.deepGet( oThis.dataConfig , "token.conversion_factor" ) ;
+    },
+  
+    getSimpleTokenABI : function () {
+      return utilities.deepGet( oThis.dataConfig , "contract_details.simple_token.abi" );
+    },
+  
+    getSimpleTokenContractAddress : function () {
+      return utilities.deepGet( oThis.dataConfig , "contract_details.simple_token.address" );
+    },
+  
+    getGatewayComposerDetails  : function () {
+      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails" ) ;
+    },
+  
+    getGatewayComposerTxParams: function(){
+      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.request_stake_tx_params" ) ;
+    },
+  
+    getGatewayComposerContractAddress  : function () {
+      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.contract_details.gateway_composer.address" ) ;
+    },
+  
+    getGatewayComposerABI  : function () {
+      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.contract_details.gateway_composer.abi" ) ;
+    },
+  
+    getSimpleTokenContractGas : function () {
+      return utilities.deepGet( oThis.dataConfig , "contract_details.simple_token.gas.approve" );
+    },
+  
+    getGatewayComposerContractGas : function () {
+      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.contract_details.gateway_composer.gas.approve" );
+    },
+  
+    getGasPrice : function () {
+      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.gas_price" );
     },
   
     getWhitelistedAddress : function () {
@@ -414,34 +442,6 @@
     getWorkFlowStatusApi : function ( id ) {
       id = id || oThis.getWorkflowId();
       return oThis.workFlowStatusApi + "/" + id ;
-    },
-  
-    getGatewayComposerDetails  : function () {
-      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails" ) ;
-    },
-  
-    getGatewayComposerTxParams: function(){
-      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.request_stake_tx_params" ) ;
-    },
-  
-    getGatewayComposerContractAddress  : function () {
-      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.contract_details.gateway_composer.address" ) ;
-    },
-  
-    getGatewayComposerABI  : function () {
-      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.contract_details.gateway_composer.abi" ) ;
-    },
-    
-    getSimpleTokenContractGas : function () {
-      return utilities.deepGet( oThis.dataConfig , "contract_details.simple_token.gas.approve" );
-    },
-  
-    getGatewayComposerContractGas : function () {
-      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.contract_details.gateway_composer.gas.approve" );
-    },
-  
-    getGasPrice : function () {
-      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.gas_price" );
     },
     
     getBTtoMint: function () {
@@ -648,7 +648,7 @@
       oThis.request_stake_transaction_hash = res['result'] ;
       oThis.stake_address = oThis.getWalletAddress();
       oThis.updateIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.processing-state-icon');
-      oThis.sendTransactionsHash();
+      oThis.sendTransactionHashes();
     },
   
     onRequestStateError : function ( error ) {
@@ -657,7 +657,7 @@
     },
   
     //This is not workflow dependent code, its just to make sure both transaction hash are send to backend
-    sendTransactionsHash : function () {
+    sendTransactionHashes : function () {
       oThis.resetState();
       oThis.stakeAndMintPolling = new Polling({
         pollingApi      : oThis.mintApi ,
