@@ -33,7 +33,7 @@ module CompanyApi
         end
 
         def conversion_factor
-          @data['conversion_factor'].present? ? @data['conversion_factor'].to_f : @data['conversion_factor']
+          @data['conversion_factor']
         end
 
         def is_ost_based_token?

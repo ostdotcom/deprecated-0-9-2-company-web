@@ -18,7 +18,7 @@ class Web::UserController < Web::BaseController
   def sign_up
 
     # If cookie is present, log out without bothering about the response.
-    if cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].present?
+    if @is_user_logged_in
 
       CompanyApi::Request::Manager.new(
         CompanyApi::Response::Formatter::Manager,
@@ -82,7 +82,7 @@ class Web::UserController < Web::BaseController
 
   def login
 
-    return if cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].blank?
+    return unless @is_user_logged_in
 
     # Call logout with bothering about response
     CompanyApi::Request::Manager.new(
@@ -96,7 +96,7 @@ class Web::UserController < Web::BaseController
   def logout
 
     # If user was already logged out, redirect to login
-    if cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].blank?
+    unless @is_user_logged_in
       redirect_to :login and return
     end
 

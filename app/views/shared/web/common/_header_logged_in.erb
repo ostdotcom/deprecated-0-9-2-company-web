@@ -1,7 +1,3 @@
-<%
-  client_token = @presenter_obj.client_token
-%>
-
 <nav class="navbar navbar-expand-md navbar-light ">
   <a href="/dashboard" class="navbar-brand font-weight-normal">
     <svg width="22px" height="22px">
@@ -10,7 +6,7 @@
       </switch>
     </svg>
     <span class="token-name">
-      <%= client_token.name %>
+      <%= @presenter_obj.client_token_name %>
     </span>
   </a>
   <div class="collapse navbar-collapse" id="navbarCollapse">

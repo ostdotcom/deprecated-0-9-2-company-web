@@ -44,7 +44,7 @@ module CompanyApi
 
           set_setup_mfa(@data['setup_mfa']) if @data['setup_mfa'].present?
 
-          set_token(@data['token'])
+          set_token(@data['token']) if @data['token'].present?
         end
 
         private

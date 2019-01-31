@@ -87,10 +87,6 @@ module WebPresenter
       @t_s_sn_msg ||= formatter_obj.present? ? formatter_obj.sign_messages : nil
     end
 
-    def is_client_logged_in?
-      client_token.present?
-    end
-
     def is_super_admin?
       @i_s_adm  ||= begin
         if formatter_obj.present? && formatter_obj.client_manager.present?
@@ -99,10 +95,36 @@ module WebPresenter
       end
     end
 
+    def client_token_name
+      @c_t_nam ||= begin
+        client_token.present? ? client_token.name : nil
+      end
+    end
+
     def client_token_symbol
       @c_t_sym ||= begin
         client_token.present? ? client_token.symbol : nil
       end
+    end
+
+    def client_token_conversion_factor
+      @c_t_cfac ||= begin
+        client_token.present? ? client_token.conversion_factor : nil
+      end
+    end
+
+    def client_token_status
+      @c_t_sts ||= begin
+        client_token.present? ? client_token.status : nil
+      end
+    end
+
+    def is_client_token_deployed?
+      client_token_status == GlobalConstant::ClientToken.deployment_completed
+    end
+
+    def is_client_token_deploying?
+      client_token_status == GlobalConstant::ClientToken.deployment_started
     end
 
     def client_fiat_curreny_symbol
@@ -121,13 +143,15 @@ module WebPresenter
       curreny.to_s #TODO: Figure out a logic to handle this
     end
 
-    def is_token_setup_route?
-      ['token_setup' , 'token_deploy'].include?(action) && ['web/economy'].include?(controller)
+    def can_show_email_verify_notification?
+      false
     end
 
-    def is_settings_route?
-      ['web/user_setting'].include?(controller)
+    def can_show_low_balance_notification?
+      true
     end
+
+    ##### Left side panel routes
 
     def action
       @params[:action]
@@ -137,16 +161,20 @@ module WebPresenter
       @params[:controller]
     end
 
-    def controller_action
-      @params[:controller]+'/'+@params[:action]
+    def is_token_setup_route?
+      ['token_setup' , 'token_deploy'].include?(action) && ['web/economy'].include?(controller)
     end
 
-    def can_show_email_verify_notification?
-      false
+    def is_token_mint_route?
+      ['token_mint' , 'token_mint_progress'].include?(action) && ['web/economy'].include?(controller)
     end
 
-    def can_show_low_balance_notification?
-      true
+    def is_settings_route?
+      ['web/user_setting'].include?(controller)
+    end
+
+    def is_team_route?
+      ['team'].include?(action) && is_settings_route?
     end
 
   end

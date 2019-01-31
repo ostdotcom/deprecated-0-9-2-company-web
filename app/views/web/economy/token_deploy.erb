@@ -2,18 +2,18 @@
   prefix = GlobalConstant::Environment.url_prefix
   is_mainnet = GlobalConstant::Base.main_sub_environment?
   workflow_id = @presenter_obj.workflow.id
-  deployment_status_api = "/#{prefix}/api/workflow/#{workflow_id}"
-  resetdeploy_api = "/#{prefix}/api/token/reset-deployment"
-  redirect_url = "/#{prefix}/token/setup"
-  mint_token_url = "/#{prefix}/token/mint"
-  invite_team_url = "/settings/team"
+  deployment_status_api = "/#{prefix}/api/workflow/#{workflow_id}" #TODO
+  resetdeploy_api = "/#{prefix}/api/token/reset-deployment" #TODO
+  redirect_url = GlobalConstant::RedirectMap.get()[:token_setup]
+  mint_token_url = GlobalConstant::RedirectMap.get()[:token_mint]
+  invite_team_url = GlobalConstant::RedirectMap.get()[:team]
   is_poll_failed = false
   if @presenter_obj.client_token.status == GlobalConstant::ClientToken.deployment_failed
           is_poll_failed = true
   end
 
   current_step_failed_status = GlobalConstant::Workflow.failed
-  client_token_symbol = @presenter_obj.client_token.symbol
+  client_token_symbol = @presenter_obj.client_token_symbol
 %>
 <%if !is_poll_failed%>
   <div class="token-deploy-container text-center">
@@ -21,7 +21,7 @@
 
       <div class="token-deploy-in-progress token-deploy-content mx-auto">
         <h3 class="mt-5"> Setting up your Token</h3>
-        <p class="font-weight-light my-5"> The <%= @presenter_obj.client_token.name%> token economy is being initialized. This process takes several minutes.</p>
+        <p class="font-weight-light my-5"> The <%= @presenter_obj.client_token_name %> token economy is being initialized. This process takes several minutes.</p>
         <div class="token-deploy-progress-wrapper  mx-auto">
           <%= render :partial => "shared/web/common/progress_bar" %>
         </div>
