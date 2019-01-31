@@ -126,7 +126,9 @@
         success: function ( res ) {
           if( res.success ){
             var workflowId = utilities.deepGet( res , "data.workflow.id") ;
-            oThis.onWorkFlow( workflowId );
+            setTimeout( function () {
+              oThis.onWorkFlow( workflowId );
+            }, 0 );
           }else {
             oThis.resetGetOstUIState( res );
           }
@@ -726,8 +728,6 @@
       oThis.jSignClientErrorBtnWrap.hide();
       oThis.jSignServerErrorBtnWrap.hide();
     }
-    
-    
     
   }
 

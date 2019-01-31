@@ -10,7 +10,7 @@ module GlobalConstant
       end
 
       def initial_ost_funding
-        '100'
+        '100'  #keep this in sync with SASS and KIT_API
       end
 
       def min_bt_to_mint
