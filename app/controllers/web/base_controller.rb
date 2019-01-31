@@ -1,10 +1,15 @@
 class Web::BaseController < ApplicationController
 
   before_action :basic_auth
+  before_action :is_user_logged_in
 
   include Util::ResultHelper
 
   private
+
+  def is_user_logged_in
+    @is_user_logged_in = cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].present?
+  end
 
   # Render error response pages
   #
@@ -75,7 +80,7 @@ class Web::BaseController < ApplicationController
   #
   def dont_render_if_logged_in
 
-    return if cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].blank?
+    return unless @is_user_logged_in
 
     @response = CompanyApi::Request::Manager.new(
         CompanyApi::Response::Formatter::Manager,
@@ -97,7 +102,7 @@ class Web::BaseController < ApplicationController
   #
   def dont_render_if_logged_out
 
-    return if cookies[GlobalConstant::Cookie.user_cookie_name.to_sym].present?
+    return if @is_user_logged_in
 
     redirect_to :login, status: GlobalConstant::ErrorCode.temporary_redirect and return
 

@@ -1,11 +1,11 @@
 <%
   chain_id = GlobalConstant::Chain.origin_chain_id
-  prefix = GlobalConstant::Environment.url_prefix;
+  prefix = GlobalConstant::Environment.url_prefix
   mint_api = "/#{prefix}/api/token/mint"
-  get_ost_api = "/#{prefix}/api/token/mint/grant";
-  workflow_status_api = "/#{prefix}/api/workflow";
+  get_ost_api = "/#{prefix}/api/token/mint/grant"
+  workflow_status_api = "/#{prefix}/api/workflow"
   gateway_composer_api = "/#{prefix}/api/contracts/gateway-composer/"
-  redirect_route = "/#{prefix}/token/mint-progress" ;
+  redirect_route = GlobalConstant::RedirectMap.get()[:token_progress]
 
 
   data_config = {

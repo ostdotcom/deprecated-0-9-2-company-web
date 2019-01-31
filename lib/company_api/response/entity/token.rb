@@ -17,7 +17,7 @@ module CompanyApi
         # @return [CompanyApi::Response::Entity::Token] returns an object of CompanyApi::Response::Entity::Token class
         #
         def initialize(data)
-          @data = data || {}
+          @data = data
         end
 
         def data

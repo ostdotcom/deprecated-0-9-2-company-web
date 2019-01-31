@@ -3,7 +3,7 @@
   <div class="header-wrapper fixed-top">
 
     <div class="header-height">
-      <% if @presenter_obj.is_client_logged_in? %>
+      <% if @is_user_logged_in %>
         <%= render :partial => "/shared/web/common/header_logged_in" %>
       <% else %>
         <%= render :partial => "/shared/web/common/header_logged_out" %>

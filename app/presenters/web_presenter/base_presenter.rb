@@ -87,15 +87,17 @@ module WebPresenter
       @t_s_sn_msg ||= formatter_obj.present? ? formatter_obj.sign_messages : nil
     end
 
-    def is_client_logged_in?
-      client_token.present?
-    end
-
     def is_super_admin?
       @i_s_adm  ||= begin
         if formatter_obj.present? && formatter_obj.client_manager.present?
           formatter_obj.client_manager.privileges.include?(GlobalConstant::ClientManager.is_super_admin_privilege)
         end
+      end
+    end
+
+    def client_token_name
+      @c_t_nam ||= begin
+        client_token.present? ? client_token.name : nil
       end
     end
 
@@ -105,8 +107,14 @@ module WebPresenter
       end
     end
 
+    def client_token_conversion_factor
+      @c_t_cfac ||= begin
+        client_token.present? ? client_token.conversion_factor : nil
+      end
+    end
+
     def client_token_status
-      @client_token_status ||= begin
+      @c_t_sts ||= begin
         client_token.present? ? client_token.status : nil
       end
     end
