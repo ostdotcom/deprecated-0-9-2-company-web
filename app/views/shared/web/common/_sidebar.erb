@@ -1,10 +1,7 @@
 <%
   planner_url = GlobalConstant::RedirectMap.get()[:token_setup]
-  mint_token_url = GlobalConstant::RedirectMap.get()[:token_mint];
-  team_url = GlobalConstant::RedirectMap.get()[:team];
-  setup_not_complete_class = @presenter_obj.is_token_setup_route? ? 'disabled' : ''
-  settings_collapse_class = @presenter_obj.is_settings_route? ? '' : 'collapse'
-  controller_action = @presenter_obj.controller_action
+  mint_token_url = GlobalConstant::RedirectMap.get()[:token_mint]
+  team_url = GlobalConstant::RedirectMap.get()[:team]
 %>
 <%= render :partial => "/shared/web/common/sidebar-icons.svg" %>
 
@@ -14,27 +11,67 @@
     <%= yield(:phantom_header_el) %>
   </div>
 
-  <ul class="nav nav-pills flex-column py-6">
-    <% if @presenter_obj.client_token.blank? || (@presenter_obj.client_token.status != GlobalConstant::ClientToken.deployment_completed) %>
+  <ul class="nav nav-pills flex-column">
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= ['web/economy/token_setup', 'web/economy/token_deploy'].include?(controller_action) ? 'active': '' %>" href="<%= planner_url %>">
+      <a class="nav-link d-flex align-items-center" href="">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-planner"></use>
           </switch>
         </svg>
-        <span class="label">Token Setup </span>
+        <span class="label">Sandbox Mode</span>
+      </a>
+    </li>
+    <% if !@presenter_obj.is_client_token_deployed? %>
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center <%= @presenter_obj.is_token_setup_route? ? 'active': '' %>" href="<%= planner_url %>">
+        <svg class="icon">
+          <switch>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-planner"></use>
+          </switch>
+        </svg>
+        <span class="label">Token Setup</span>
       </a>
     </li>
     <% end  %>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%=setup_not_complete_class %> <%= ['web/economy/token_mint', 'web/economy/token_mint_progress'].include?(controller_action) ? 'active': '' %> "  href="<%= mint_token_url %>">
+      <a class="nav-link d-flex align-items-center <%= @presenter_obj.is_client_token_deployed? ? '' : 'disabled' %>" href="">
+        <svg class="icon">
+          <switch>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-dashboard"></use>
+          </switch>
+        </svg>
+        <span class="label">Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center <%= @presenter_obj.is_client_token_deployed? ? '' : 'disabled' %> <%= @presenter_obj.is_token_mint_route? ? 'active': '' %> "  href="<%= mint_token_url %>">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-token-supply"></use>
           </switch>
         </svg>
         <span class="label">Mint Token</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center <%= (@presenter_obj.is_client_token_deployed? || @presenter_obj.is_client_token_deploying?) ? '' : 'disabled' %>"  href="">
+        <svg class="icon">
+          <switch>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-dev-api"></use>
+          </switch>
+        </svg>
+        <span class="label">Developers</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link d-flex align-items-center <%= @presenter_obj.is_client_token_deployed? ? '' : 'disabled' %>"  href="" target="_blank">
+        <svg class="icon">
+          <switch>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-bt-explorer"></use>
+          </switch>
+        </svg>
+        <span class="label">Block Explorer</span>
       </a>
     </li>
     <li class="nav-item">
@@ -46,10 +83,10 @@
         </svg>
         <span class="label">Settings</span>
       </a>
-      <div class="<%=settings_collapse_class %> settings-sub-menu  active" id="settings">
+      <div class="<%= @presenter_obj.is_settings_route? ? '' : 'collapse' %> settings-sub-menu  active" id="settings">
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link  pl-6 <%= controller_action == 'web/user_setting/team' ? 'active' : '' %>" href="<%= team_url %>">Team</a>
+              <a class="nav-link  pl-6 <%= @presenter_obj.is_team_route? ? 'active' : '' %>" href="<%= team_url %>?peup=<%= GlobalConstant::Environment.url_prefix %>">Team</a>
             </li>
           </ul>
       </div>

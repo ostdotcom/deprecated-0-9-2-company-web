@@ -3,7 +3,6 @@
   <div class="header-wrapper fixed-top">
 
     <div class="header-height">
-      <%# TODO: ONCE PRESENTER OBJ IS AVAILABLE REVERT COMMENTING %>
       <% if @presenter_obj.is_client_logged_in? %>
         <%= render :partial => "/shared/web/common/header_logged_in" %>
       <% else %>

@@ -16,7 +16,7 @@ module GlobalConstant
           team:                 "/settings/team",
           setup_mfa:            "/mfa",
           authenticate_mfa:     "/mfa",
-          service_unavailable:  "/service_unavailable",
+          service_unavailable:  "/service-unavailable",
           verify_email:         "/verify-email"
         }
       end
