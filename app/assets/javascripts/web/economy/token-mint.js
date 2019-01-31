@@ -602,7 +602,11 @@
       oThis.approve_transaction_hash = res['result'] ;
       oThis.bindBeforeUnload(  );
       oThis.updateIconState( oThis.jAllowStakeAndMintMsgWrapper,  '.processing-state-icon');
-      oThis.requestStake();
+      
+      setTimeout( function () {
+        oThis.requestStake();
+      } , 500 )
+      
     },
     
     
@@ -698,10 +702,11 @@
       var btToMint = oThis.getBTtoMint() ,
           ostToStake = PriceOracle.btToOstPrecession( btToMint ) //As it goes to backend and comes back as is.
       ;
+      //TODO take this KEYS from ERB - IMP
       return {
-        'approve_transaction_hash'        : oThis.approve_transaction_hash,
+        'approve_transaction_hash'       : oThis.approve_transaction_hash,
         'request_stake_transaction_hash' : oThis.request_stake_transaction_hash,
-        'stake_address' : oThis.stake_address,
+        'staker_address' : oThis.stake_address,
         'fe_bt_to_mint' : btToMint ,
         'fe_ost_to_stake' : ostToStake
       }
