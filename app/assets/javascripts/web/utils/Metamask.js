@@ -327,6 +327,11 @@
         onNetworkChanged: function(network) {
             console.log('Network:', network);
         },
+  
+        //Helper function
+        getWalletAddress : function () {
+          return oThis.ethereum && oThis.ethereum.selectedAddress ;
+        },
 
         /**
          * ERC-20 generic ABI: https://github.com/danfinlay/human-standard-token-abi

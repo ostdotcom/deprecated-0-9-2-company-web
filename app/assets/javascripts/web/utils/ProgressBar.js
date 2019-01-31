@@ -59,7 +59,8 @@
 
     updateProgressBar: function (res) {
       var oThis = this,
-        percentCompletion = status = utilities.deepGet( res , 'data.workflow_current_step.percent_completion') || 1,
+        status = utilities.deepGet( res , 'data.workflow_current_step.status'),
+        percentCompletion = status == "completed" ? 100 : utilities.deepGet( res , 'data.workflow_current_step.percent_completion') || 0,
         currentStep = utilities.deepGet( res , 'data.workflow_current_step.display_text') || ""
       ;
       oThis.setProgressBarWidth(percentCompletion);

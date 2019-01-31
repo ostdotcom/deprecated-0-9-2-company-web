@@ -111,7 +111,7 @@
         },
 
         initConfirmFlow: function(){
-            oThis.jConfirmAccountCover.find(".confirm-address").text(oThis.metamask.ethereum.selectedAddress);
+            oThis.jConfirmAccountCover.find(".confirm-address").text(oThis.metamask.getWalletAddress());
             oThis.personalSign( oThis.walletAssociation );
         },
 
@@ -121,7 +121,7 @@
             oThis.jConfirmAccountSection.hide();
             oThis.jDefaultStateWrapper.show();
 
-            var from = oThis.metamask.ethereum.selectedAddress;
+            var from = oThis.metamask.getWalletAddress();
 
             oThis.jConfirmAccountCover.find(".btn-confirm").off('click').on('click', function(e){
                 oThis.metamask.sendAsync({
@@ -149,7 +149,7 @@
             if(!result) return;
             oThis.jConfirmAccountSection.hide();
             oThis.jDefaultStateWrapper.show();
-            var from = oThis.metamask.ethereum.selectedAddress;
+            var from = oThis.metamask.getWalletAddress();
 
             $.ajax({
                 url: oThis.addressesEndPoint,

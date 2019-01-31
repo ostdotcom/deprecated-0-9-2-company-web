@@ -38,6 +38,7 @@
     //Dynamic jQuery elements start
     
     metamask                        :   null,
+    walletAddress                   :   null,  //Used only for caching once approve transaction is done.
   
     //FormHelpers start
     confirmStakeMintFormHelper      :   null ,
@@ -231,13 +232,7 @@
         onWaitingEnable: function(){
           ost.coverElements.show("#metamaskLockedCover");
         },
-
-        onEnabled: function(){
-          setTimeout(function(){
-            ost.coverElements.hideAll();
-          }, 500);
-        },
-
+        
         onUserRejectedProviderAccess: function(){
           ost.coverElements.show("#metamaskDisabledCover");
         },
@@ -251,17 +246,17 @@
         },
 
         onDesiredAccount: function(){
+          ost.coverElements.hideAll();
           oThis.onDesiredAccount();
         },
 
         onNewAccount: function(){
+          ost.coverElements.hideAll();
           oThis.onAccountValidation();
         }
-
       });
-
     },
-    
+  
     setStakerAddress : function (  ) {
       var selectedAddress = oThis.getWalletAddress() ;
       oThis.jSelectedAddress.setVal( selectedAddress );
@@ -365,9 +360,13 @@
     getSimpleTokenContractAddress : function () {
       return utilities.deepGet( oThis.dataConfig , "contract_details.simple_token.address" );
     },
+  
+    getSimpleTokenABI : function () {
+      return utilities.deepGet( oThis.dataConfig , "contract_details.simple_token.abi" );
+    },
     
     getWalletAddress : function () {
-      return utilities.deepGet( oThis.metamask , "ethereum.selectedAddress" );
+      return oThis.walletAddress || oThis.metamask.getWalletAddress();
     },
   
     getMinETHRequired : function () {
@@ -413,9 +412,33 @@
       id = id || oThis.getWorkflowId();
       return oThis.workFlowStatusApi + "/" + id ;
     },
-
+  
     getGatewayComposerDetails  : function () {
       return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails" ) ;
+    },
+  
+    getGatewayComposerTxParams: function(){
+      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.request_stake_tx_params" ) ;
+    },
+  
+    getGatewayComposerContractAddress  : function () {
+      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.contract_details.gateway_composer.address" ) ;
+    },
+  
+    getGatewayComposerABI  : function () {
+      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.contract_details.gateway_composer.abi" ) ;
+    },
+    
+    getSimpleTokenContractGas : function () {
+      return utilities.deepGet( oThis.dataConfig , "contract_details.simple_token.gas.approve" );
+    },
+  
+    getGatewayComposerContractGas : function () {
+      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.contract_details.gateway_composer.gas.approve" );
+    },
+  
+    getGasPrice : function () {
+      return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails.gas_price" );
     },
     
     getBTtoMint: function () {
@@ -484,92 +507,169 @@
         }
       })
     },
-  
+    
     onConfirmStakeMintSuccess : function ( res ) {
         var data = res && res.data  ;
         oThis.setDataInDataConfig( "gatewayComposerDetails" ,  data );
         oThis.jStakeAndMintConfirmModal.modal('hide');
         oThis.showSection( oThis.jTokenStakeAndMintSignSection ) ;
-        oThis.allowStakeAndMint();
+        oThis.approve();
     },
     
-    allowStakeAndMint: function () {
+    approve: function () {
       oThis.resetState();
-      //TODO metamask flow
-    },
-    
-    resetState : function () {
-      oThis.updateConfirmStakeAndMintIconState( $('.jMintMsgWrapper'),  '.pre-state-icon');
-      oThis.jSignClientErrorBtnWrap.hide();
-      oThis.jSignServerErrorBtnWrap.hide();
-    },
-    
-    onConfirmStakeAndMint: function () {
-      oThis.approve_transaction_hash = "" ;  //TODO
-      oThis.bindBeforeUnload(  );
-      oThis.updateConfirmStakeAndMintIconState( oThis.jAllowStakeAndMintMsgWrapper,  '.processing-state-icon');
-      oThis.authoriseStakingProcess();
+      
+      var btToMint = oThis.getBTtoMint() ,
+          btToMintWei = PriceOracle.toWei(  btToMint ) ,
+          ostToStakeWei = PriceOracle.btToOst( btToMintWei )
+      ;
+  
+      // Build params for approve
+      var params = [
+        oThis.getGatewayComposerContractAddress(),
+        ostToStakeWei
+      ];
+  
+      // Create Encoded ABI using params
+      var data = oThis.metamask.getContractEncodedABI(
+        oThis.getSimpleTokenContractAddress(),
+        'approve',  //ABI method name
+        params,
+        oThis.getSimpleTokenABI()
+      );
+  
+      // Create options ABI using data
+      var options = {
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            "from": oThis.getWalletAddress(),
+            "to": oThis.getSimpleTokenContractAddress(),
+            "data": data,
+            "gas": oThis.getSimpleTokenContractGas(),
+            "gasPrice": oThis.getGasPrice()
+          }
+        ]
+      };
+  
+      // If data then send transaction...
+      if(data){
+        oThis.metamask.sendAsync(options, function(err, result){
+          
+          if( result ){
+            oThis.onApprove( result );
+          }else if( err ){
+            oThis.onApproveError( err );
+          }
+          err && console.error(err);
+          result && console.log(result);
+          //... pass callback to other transaction
+        });
+      }
+      
     },
   
-    bindBeforeUnload : function( bindLoad ){
-      $(window).on("beforeunload",function(event) {
-          return "There are unsaved changes made to this page." ;
-      });
+    onApprove: function ( res ) {
+      oThis.walletAddress = oThis.getWalletAddress(); //Cache once approve transaction is confirmed from metamask.
+      oThis.approve_transaction_hash = res['result'] ;
+      oThis.bindBeforeUnload(  );
+      oThis.updateIconState( oThis.jAllowStakeAndMintMsgWrapper,  '.processing-state-icon');
+      oThis.requestStake();
     },
     
-    unbindBeforeUnload : function () {
-      $(window).off("beforeunload");
-    },
     
-    onCancelStakeAndMint : function () {
-      oThis.updateConfirmStakeAndMintIconState( oThis.jAllowStakeAndMintMsgWrapper,  '.error-state-icon');
+    onApproveError : function () {
+      oThis.updateIconState( oThis.jAllowStakeAndMintMsgWrapper,  '.error-state-icon');
       oThis.jSignClientErrorBtnWrap.show();
     },
-  
-    updateConfirmStakeAndMintIconState: function (jWrapper ,  sSelector  ) {
-      if(!jWrapper) return ;
-      jWrapper = jWrapper ;
-      jWrapper.find('.state-icon').hide();
-      jWrapper.find( sSelector ).show();
-    },
     
-    
-    authoriseStakingProcess: function () {
-      oThis.updateConfirmStakeAndMintIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.pre-state-icon');
+    requestStake: function () {
+      oThis.updateIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.pre-state-icon');
       oThis.jSignClientErrorBtnWrap.hide();
-      //TODO metamask flow
+  
+      var btToMint = oThis.getBTtoMint() ,
+          btToMintWei = PriceOracle.toWei(  btToMint ) ,
+          ostToStakeWei = PriceOracle.btToOst( btToMintWei )
+      ;
+  
+      // Build params for requestStake
+      var params = [
+        ostToStakeWei,// OST wei as string
+        btToMintWei,  // BT wei as string
+        oThis.getGatewayComposerTxParams()['gateway_contract'],
+        oThis.getGatewayComposerTxParams()['stake_and_mint_beneficiary'],
+        oThis.getGatewayComposerTxParams()['gas_price'],
+        oThis.getGatewayComposerTxParams()['gas_limit'],
+        oThis.getGatewayComposerTxParams()['staker_gateway_nonce']
+      ];
+  
+      // Create Encoded ABI using params
+      var data = oThis.metamask.getContractEncodedABI(
+        oThis.getGatewayComposerContractAddress(),
+        'requestStake',  //method name
+        params,
+        oThis.getGatewayComposerABI()
+      );
+  
+      // Create options ABI using data
+      var options = {
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            "from": oThis.getWalletAddress(),
+            "to": oThis.getGatewayComposerContractAddress(),
+            "data" : data,
+            "gas": oThis.getGatewayComposerContractGas(),
+            "gasPrice": oThis.getGasPrice()
+          }
+        ]
+      };
+  
+      // If data then send transaction...
+      if(data){
+        oThis.metamask.sendAsync(options, function(err, result){
+          if( result  ){
+            oThis.onRequestStateSuccess( result );
+          }else if( err ){
+            oThis.onRequestStateError( err );
+          }
+          err && console.error(err);
+          result && console.log(result);
+          //... pass callback to other transaction
+        });
+      }
+      
     },
     
-    onConfirmAuthorizeStakeAndMint: function () {
-      oThis.request_stake_transaction_hash = "" ;  //TODO
+    onRequestStateSuccess: function ( res ) {
+      oThis.request_stake_transaction_hash = res['result'] ;
       oThis.stake_address = oThis.getWalletAddress();
-      oThis.updateConfirmStakeAndMintIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.processing-state-icon');
-      oThis.confirmStakeAndMintIntend();
+      oThis.updateIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.processing-state-icon');
+      oThis.sendTransactionsHash();
     },
   
-    onCancelAuthorizeStakeAndMint : function () {
-      oThis.updateConfirmStakeAndMintIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.error-state-icon');
+    onRequestStateError : function ( error ) {
+      oThis.updateIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.error-state-icon');
       oThis.jSignClientErrorBtnWrap.show();
     },
   
     //This is not workflow dependent code, its just to make sure both transaction hash are send to backend
-    confirmStakeAndMintIntend : function () {
+    sendTransactionsHash : function () {
       oThis.resetState();
       oThis.stakeAndMintPolling = new Polling({
         pollingApi      : oThis.mintApi ,
-        data            : oThis.getConfirmStakeAndMintIntendDate(),
+        data            : oThis.getConfirmStakeAndMintIntendData(),
         pollingInterval : 4000,
         onPollSuccess   : oThis.confirmStakeAndMintIntendSuccess.bind( oThis ),
         onPollError     : oThis.confirmStakeAndMintIntendError.bind( oThis )
       });
       oThis.stakeAndMintPolling.startPolling();
     },
-    
-    getConfirmStakeAndMintIntendDate : function () {
+  
+    getConfirmStakeAndMintIntendData : function () {
       var btToMint = oThis.getBTtoMint() ,
           ostToStake = PriceOracle.btToOstPrecession( btToMint ) //As it gose to backend and comes back as is.
       ;
-      //TO DO take these keys from ERB
       return {
         'approve_transaction_hash'        : oThis.approve_transaction_hash,
         'request_stake_transaction_hash' : oThis.request_stake_transaction_hash,
@@ -599,6 +699,29 @@
     confirmStakeAndMintIntendErrorStateUpdate : function ( res ) {
       oThis.jSignServerErrorBtnWrap.show();
       utilities.showGeneralError( oThis.jTokenStakeAndMintSignSection , res , oThis.stakeAndMintError );
+    },
+  
+    updateIconState: function (jWrapper ,  sSelector  ) {
+      if(!jWrapper) return ;
+      jWrapper = jWrapper ;
+      jWrapper.find('.state-icon').hide();
+      jWrapper.find( sSelector ).show();
+    },
+  
+    bindBeforeUnload : function( bindLoad ){
+      $(window).on("beforeunload",function(event) {
+        return "There are unsaved changes made to this page." ;
+      });
+    },
+  
+    unbindBeforeUnload : function () {
+      $(window).off("beforeunload");
+    },
+  
+    resetState : function () {
+      oThis.updateIconState( $('.jMintMsgWrapper'),  '.pre-state-icon');
+      oThis.jSignClientErrorBtnWrap.hide();
+      oThis.jSignServerErrorBtnWrap.hide();
     }
     
     
