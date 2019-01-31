@@ -5,8 +5,8 @@ namespace :devops do
   # rake devops:upload_assets_to_s3 RAILS_ENV=development
   task :upload_assets_to_s3 => :environment do
 
-    environment = Rails.env
     asset_bucket = "wa.ost.com"
+
 
     content_types = {
       '.gz' => 'gzip',
@@ -29,7 +29,7 @@ namespace :devops do
               exit!
             end
           elsif upload_file_extension.include?("css")
-            puts "aws s3 cp #{Rails.root.to_s}/public#{Rails.application.config.assets.prefix}/#{file} s3://#{asset_bucket}#{Rails.application.config.assets.prefix}/#{environment}/#{upload_file_name} #{permission_options} --content-type 'text/css'"
+            puts "aws s3 cp #{Rails.root.to_s}/public#{Rails.application.config.assets.prefix}/#{file} s3://#{asset_bucket}#{Rails.application.config.assets.prefix}#{upload_file_name} #{permission_options} --content-type 'text/css'"
             resp = system("aws s3 cp #{Rails.root.to_s}/public#{Rails.application.config.assets.prefix}/#{file} s3://#{asset_bucket}#{Rails.application.config.assets.prefix}/#{upload_file_name} #{permission_options} --content-type 'text/css'")
             if !resp
               exit!
