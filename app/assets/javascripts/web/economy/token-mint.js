@@ -127,10 +127,12 @@
           if( res.success ){
             var workflowId = utilities.deepGet( res , "data.workflow.id") ;
             oThis.onWorkFlow( workflowId );
+          }else {
+            oThis.onGetOstResetState( res );
           }
         },
         error: function ( jqXhr , error ) {
-         oThis.onGetOstPostState();
+         oThis.onGetOstResetState( error );
         }
       });
     },
@@ -142,7 +144,7 @@
       utilities.btnSubmittingState( oThis.jGetOstBtn );
     } ,
     
-    onGetOstPostState: function () {
+    onGetOstResetState: function () {
       $('.jStatusWrapper').show();
       $('.jGetOstLoaderText').hide();
       //This will be handled by FormHelper , but its a common function for long polling so dont delete
@@ -169,7 +171,7 @@
             oThis.showGetOstPollingError( response );
           }else if( !oThis.getOstPolling.isWorkFlowInProgress( response ) ){
             oThis.getOstPolling.stopPolling();
-            window.location = "" //Self load
+            oThis.checkForBal();
           }
       }else {
         oThis.showGetOstPollingError( response );
@@ -185,7 +187,7 @@
     showGetOstPollingError : function ( res ) {
       oThis.getOstPolling.stopPolling();
       utilities.showGeneralError( oThis.jGetOstForm ,  res ,  oThis.getOstError  );
-      oThis.onGetOstPostState();
+      oThis.onGetOstResetState();
     },
 
     bindActions : function () {
@@ -202,11 +204,11 @@
       });
       
       oThis.jClientRetryBtn.off('click').on('click' , function () {
-        oThis.allowStakeAndMint();
+        oThis.approve();
       });
       
       oThis.jServerRetryBtn.off('click').on('click' , function () {
-        oThis.confirmStakeAndMintIntend();
+        oThis.requestStake();
       });
 
     },
@@ -276,6 +278,7 @@
     },
 
     checkForBal: function () {
+      oThis.onGetOstResetState();
       oThis.checkEthBal();
     },
   
