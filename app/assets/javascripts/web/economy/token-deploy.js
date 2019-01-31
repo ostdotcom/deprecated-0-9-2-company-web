@@ -114,6 +114,7 @@
     onCurrentStepFailed : function( res ){
       oThis.polling && oThis.polling.stopPolling();
       oThis.tokenDeployContainer.hide();
+      oThis.jResetDeployError.show();
       utilities.showGeneralError(oThis.jResetDeployError , res );
     }
 
