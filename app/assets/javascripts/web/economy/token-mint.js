@@ -141,6 +141,7 @@
 
     bindActions : function () {
       oThis.jMintTokensBtn.off('click').on("click",function () {
+        utilities.btnSubmittingState( $(this) );
         oThis.onMintToken();
       });
 
@@ -361,12 +362,20 @@
     },
     
     ostToStakeOnBtChange : function ( val ) {
+      
       if( PriceOracle.isNaN( oThis.totalOST )) {
         return val ;
       }
-      var ostToStake    = PriceOracle.btToOst( val ) ;
+      var ostToStake = PriceOracle.btToOst( val ) ,
+          ost        = PriceOracle.toOst( ostToStake )
+      ;
+      if(  PriceOracle.isNaN( ost)  ){
+        return val;
+      }
+      
       oThis.updateSupplyPieChart( ostToStake ) ;
-      return PriceOracle.toOst( ostToStake ) ; //Mocker will take care of precession
+      
+      return ost ; //Mocker will take care of precession
     },
   
     ostAvailableOnBtChange : function ( val ) {
@@ -378,7 +387,14 @@
         return oThis.totalOST  ;
       }
       ostToStake = Number( ostToStake ) ;
-      return oThis.totalOST - ostToStake ;
+      
+      var ostAvailable = oThis.totalOST - ostToStake;
+      
+      if( ostAvailable < 0 ){
+        return 0 ;
+      }
+      
+      return ostAvailable ; 
     },
   
     getWalletAddress : function () {
@@ -489,6 +505,11 @@
       ostToStake    = ostToStake && Number(ostToStake) || 0;
     
       var ostAvailable  = oThis.totalOST -  ostToStake  ;
+      
+      if( ostAvailable < 0){
+        ostAvailable = 0;
+      }
+      
       var data = [
         ['Type', 'Tokens'],
         ['OSTAvailable', ostAvailable],
@@ -547,9 +568,9 @@
     approve: function () {
       oThis.resetState();
       
-      var btToMint = oThis.getBTtoMint() ,
-          btToMintWei = PriceOracle.toWei(  btToMint ) ,
-          ostToStakeWei = PriceOracle.btToOst( btToMintWei )
+      var btToMint      = oThis.getBTtoMint() ,
+          ostToStake    = PriceOracle.btToOst( btToMint ) ,
+          ostToStakeWei = PriceOracle.toWei(  ostToStake )
       ;
   
       // Build params for approve
@@ -618,9 +639,10 @@
       oThis.updateIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.pre-state-icon');
       oThis.jSignClientErrorBtnWrap.hide();
   
-      var btToMint = oThis.getBTtoMint() ,
-          btToMintWei = PriceOracle.toWei(  btToMint ) ,
-          ostToStakeWei = PriceOracle.btToOst( btToMintWei )
+      var btToMint      = oThis.getBTtoMint() ,
+          ostToStake    =  PriceOracle.btToOst( btToMint ) ,
+          btToMintWei   = PriceOracle.toWei(  btToMint ) ,
+          ostToStakeWei = PriceOracle.toWei( btToMintWei )
       ;
   
       // Build params for requestStake

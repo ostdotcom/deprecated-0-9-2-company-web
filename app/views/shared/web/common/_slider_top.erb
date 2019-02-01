@@ -20,9 +20,9 @@
   <label class="form-label <%= label_classes %>" for="<%=id%>"><%= raw label%></label>
   <div class="input-group slider-with-input top <%= (defined? classes) ? classes : '' %>">
     <span class="slider-input-top">
-        <input type="<%=type%>" class="form-control mt-1 mb-2 <%= label_classes %>" id="<%=id%>" name="<%=name%>"
-          min="<%=min%>" max="<%=max%>" step="<%=step%>" value="<%=value%>"
-        />
+        <input type="<%=type%>" class="form-control mt-1 mb-2 <%= label_classes %> " id="<%=id%>" name="<%=name%>"
+          min="<%=min%>" max="<%=max%>" step="<%=step%>" value="<%=value%>"/>
+        <span id="<%=id%>-error" class="error" for="<%=id%>">&nbsp;</span>
     </span>
     <input
         type="text"
@@ -38,4 +38,5 @@
         <% if defined? ticks_labels %>data-slider-ticks-labels='<%=raw ticks_labels.to_s%>'<% end %>
     >
   </div>
+
 </div>

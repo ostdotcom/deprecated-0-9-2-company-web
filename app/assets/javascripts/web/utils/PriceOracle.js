@@ -168,22 +168,18 @@
     },
   
     fromWei : function( val ) {
-      var oThis =  this ,
-        web3 = web3
-      ;
-      if( web3 ){
-        return web3.fromWei( val ) ;
+      var oThis =  this ;
+      if( window.web3 ){
+        return window.web3.fromWei( val ) ;
       }else {
         return oThis.__fromWei__( val );
       }
     },
   
     toWei : function( val ) {
-      var oThis =  this ,
-        web3 = web3
-      ;
-      if( web3 ){
-        return web3.toWei( val ) ;
+      var oThis =  this ;
+      if( window.web3 ){
+        return window.web3.toWei( val ) ;
       }else {
         return oThis.__toWei__( val );
       }
