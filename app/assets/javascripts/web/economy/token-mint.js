@@ -158,6 +158,7 @@
       });
       
       oThis.jServerRetryBtn.off('click').on('click' , function () {
+        oThis.resetState();
         oThis.sendTransactionHashes();
       });
 
@@ -712,7 +713,6 @@
   
     //This is not workflow dependent code, its just to make sure both transaction hash are send to backend
     sendTransactionHashes : function () {
-      oThis.resetState();
       oThis.stakeAndMintPolling = new Polling({
         pollingApi      : oThis.mintApi ,
         pollingMethod   : "POST",
@@ -741,7 +741,9 @@
       oThis.stakeAndMintPolling.stopPolling() ; //Stop immediately
       if( res && res.success ){
         oThis.unbindBeforeUnload();
-        window.location = oThis.redirectRoute ;
+        setTimeout( function () { //Wait for atleast 0.5sec so that user can see the processing icon
+          window.location = oThis.redirectRoute ;
+        } , 500 );
       }else {
         oThis.confirmStakeAndMintIntendErrorStateUpdate( res );
       }
