@@ -584,10 +584,10 @@
       if(data){
         oThis.metamask.sendAsync(options, function(err, result){
           
-          if( result ){
-            oThis.onApprove( result );
-          }else if( err ){
+          if(  err || ( result && result.error ) ){
             oThis.onApproveError( err );
+          }else if( result ){
+            oThis.onApprove( result );
           }
           err && console.error(err);
           result && console.log(result);
@@ -659,11 +659,13 @@
       // If data then send transaction...
       if(data){
         oThis.metamask.sendAsync(options, function(err, result){
-          if( result  ){
-            oThis.onRequestStateSuccess( result );
-          }else if( err ){
+          
+          if(  err || (result && result.error ) ){
             oThis.onRequestStateError( err );
+          }else if(   result && result.result ){
+            oThis.onRequestStateSuccess( result );
           }
+          
           err && console.error(err);
           result && console.log(result);
           
