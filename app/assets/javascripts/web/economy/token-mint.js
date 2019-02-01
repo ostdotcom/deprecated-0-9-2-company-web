@@ -647,7 +647,7 @@
     sendRequestStakeRequest : function () {
       oThis.updateIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.pre-state-icon');
       oThis.jSignClientErrorBtnWrap.hide();
-      oThis.convertToBrandedTokens( oThis.requestStake, oThis.onRequestStateError );
+      oThis.convertToBrandedTokens( oThis.requestStake.bind( oThis ), oThis.onRequestStateError.bind( oThis ) );
     },
   
     convertToBrandedTokens: function ( sucCallback ,  errCallback ) {
@@ -662,7 +662,9 @@
         params: [
           {
             to: oThis.getBrandedTokenContractAddress(),
-            data: oThis.metamask.getContractEncodedABI(oThis.getBrandedTokenContractAddress(), 'convertToBrandedTokens', [ostToStakeWei])
+            data: oThis.metamask.getContractEncodedABI(oThis.getBrandedTokenContractAddress(),
+                                                        'convertToBrandedTokens', [ostToStakeWei] ,
+                                                        oThis.getBrandedTokenABI())
           }
         ]
       };
@@ -672,7 +674,9 @@
         if( err || ( result && result.error ) ){
           errCallback && errCallback( err );
         }else if( result && result.result ) {
-          var btToMintWei = result.result ;
+          var btToMintHex = result.result ,
+              btToMintWei = window.web3.fromWei( btToMintHex , 'wei')
+          ;
           sucCallback && sucCallback( ostToStakeWei, btToMintWei )
         }
   
