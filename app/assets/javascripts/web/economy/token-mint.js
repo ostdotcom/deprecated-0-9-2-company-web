@@ -570,7 +570,7 @@
       
       var btToMint      = oThis.getBTtoMint() ,
           ostToStake    = PriceOracle.btToOst( btToMint ) ,
-          ostToStakeWei = PriceOracle.toWei(  ostToStake )
+          ostToStakeWei = PriceOracle.toWei( ostToStake )
       ;
   
       // Build params for approve
@@ -640,9 +640,11 @@
       oThis.jSignClientErrorBtnWrap.hide();
   
       var btToMint      = oThis.getBTtoMint() ,
-          ostToStake    =  PriceOracle.btToOst( btToMint ) ,
+          ostToStake    = PriceOracle.btToOst( btToMint ) ,
+         
+         
           btToMintWei   = PriceOracle.toWei(  btToMint ) ,
-          ostToStakeWei = PriceOracle.toWei( btToMintWei )
+          ostToStakeWei = PriceOracle.toWei( ostToStake )
       ;
   
       // Build params for requestStake
