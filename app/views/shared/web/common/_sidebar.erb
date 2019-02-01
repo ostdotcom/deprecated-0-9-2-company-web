@@ -1,7 +1,7 @@
 <%
-  planner_url = GlobalConstant::RedirectMap.get()[:token_setup]
-  mint_token_url = GlobalConstant::RedirectMap.get()[:token_mint]
-  team_url = GlobalConstant::RedirectMap.get()[:team]
+  planner_url = GlobalConstant::RoutesMap.getRoutes()[:token_setup]
+  mint_token_url = GlobalConstant::RoutesMap.getRoutes()[:token_mint]
+  team_url = GlobalConstant::RoutesMap.getRoutes()[:team]
 %>
 <%= render :partial => "/shared/web/common/sidebar-icons.svg" %>
 

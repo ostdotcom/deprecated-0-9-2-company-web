@@ -1,11 +1,10 @@
 <%
   chain_id = GlobalConstant::Chain.origin_chain_id
-  prefix = GlobalConstant::Environment.url_prefix
-  mint_api = "/#{prefix}/api/token/mint" #TODO
-  get_ost_api = "/#{prefix}/api/token/mint/grant"  # TODO
-  workflow_status_api = "/#{prefix}/api/workflow"  # TODO
-  gateway_composer_api = "/#{prefix}/api/contracts/gateway-composer" # TODO
-  redirect_route = GlobalConstant::RedirectMap.get()[:token_progress]
+  mint_api =GlobalConstant::RoutesMap.getApis()[:api_mint]
+  get_ost_api =GlobalConstant::RoutesMap.getApis()[:api_grant]
+  workflow_status_api =GlobalConstant::RoutesMap.getApis()[:api_workflow]
+  gateway_composer_api =GlobalConstant::RoutesMap.getApis()[:api_gateway_composer]
+  redirect_route = GlobalConstant::RoutesMap.getRoutes()[:token_progress]
 
   data_config = {
       origin_addresses: @presenter_obj.origin_addresses.data,

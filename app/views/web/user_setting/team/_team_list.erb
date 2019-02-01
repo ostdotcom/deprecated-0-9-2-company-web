@@ -1,5 +1,5 @@
 <%
-  user_list_endpoint = "/api/manager/list-admins" ;
+  api_list_admins = GlobalConstant::RoutesMap.getApis()[:api_list_admins]
 %>
 
 <div class="container">
@@ -24,7 +24,7 @@
 
   <div class="row">
     <div class="col-12 slider-parent-container" data-slider-content-wrapper=".ost-table-row">
-      <div id="team_list" class="transactions" data-simple-table data-url="<%=user_list_endpoint %>" >
+      <div id="team_list" class="transactions" data-simple-table data-url="<%=api_list_admins %>" >
         <%= render :partial => "/web/user_setting/team/team_row" %>
       </div>
     </div>

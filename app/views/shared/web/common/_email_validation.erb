@@ -9,7 +9,7 @@
     </switch>
   </svg>
   <form id="send-verify-email-link" class="user-form"
-    action="/api/manager/send-verify-email-link" method="POST" data-ost-formhelper >
+    action="<%= GlobalConstant::RoutesMap.getApis()[:api_send_verify_email_link] %>" method="POST" data-ost-formhelper >
       <h3>Confirm your email address</h3>
       <p class="text-muted">We have sent an email to <%= email_address %>. Please check and confirm your email address to proceed.</p>
       <p class="small text-muted">Did not receive an email yet?</p>

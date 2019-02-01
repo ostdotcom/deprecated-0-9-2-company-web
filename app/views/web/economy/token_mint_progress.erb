@@ -1,7 +1,6 @@
 <%
-  prefix = GlobalConstant::Environment.url_prefix
   workflow_id = @presenter_obj.workflow.id
-  minting_status_api = "/#{prefix}/api/workflow/#{workflow_id}"
+  minting_status_api = GlobalConstant::RoutesMap.getApis()[:api_workflow]+"/#{workflow_id}"
   bt_symbol = @presenter_obj.client_token_symbol
   stake_ost = 350 #TODO ANKIT
   total_min_bt = 750,000 #TODO ANKIT

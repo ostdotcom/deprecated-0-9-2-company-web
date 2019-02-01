@@ -15,7 +15,7 @@
       <div id="ost__planner__address" class="ost__planner__address font-weight-light mt-3 mb-3 d-inline-block"></div>
       <div class="mb-5">
         <form id="get_initial_ost" class="form-container-sm st-form" 
-          action="/api/client/get-ost" method="POST"
+          action="<%= GlobalConstant::RoutesMap.getApis()[:api_get_ost] %>" method="POST"
           data-ost-formhelper>
           <div class="general_error invalid-feedback" data-forid="get_initial_ost">&nbsp;</div>
           <div id="emailFormGrp">

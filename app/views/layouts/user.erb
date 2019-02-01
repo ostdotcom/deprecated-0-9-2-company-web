@@ -92,7 +92,7 @@
       }, 100);
     })
   });
-  window.redirectMap = <%= raw GlobalConstant::RedirectMap.get.to_json %>;
+  window.redirectMap = <%= raw GlobalConstant::RoutesMap.getRoutes.to_json %>;
 </script>
 </body>
 </html>

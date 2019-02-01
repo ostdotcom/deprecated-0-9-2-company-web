@@ -36,10 +36,15 @@
         },
 
         bindActions : function(){
+
           $("#advance-options-accordion").on('show.bs.collapse',function () {
               $(".slider-recommendation").hide();
               $(".header-recommendation").show();
           })
+
+          $('#mm-reconnect').off('click').on('click', function(){
+              oThis.metamask.enable();
+          });
         },
   
         btToFiat  : function ( conversionFactor ) {

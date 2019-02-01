@@ -1,12 +1,11 @@
 <%
-  prefix = GlobalConstant::Environment.url_prefix
   is_mainnet = GlobalConstant::Base.main_sub_environment?
   workflow_id = @presenter_obj.workflow.id
-  deployment_status_api = "/#{prefix}/api/workflow/#{workflow_id}" #TODO
-  resetdeploy_api = "/#{prefix}/api/token/reset-deployment" #TODO
-  redirect_url = GlobalConstant::RedirectMap.get()[:token_setup]
-  mint_token_url = GlobalConstant::RedirectMap.get()[:token_mint]
-  invite_team_url = GlobalConstant::RedirectMap.get()[:team]
+  deployment_status_api = GlobalConstant::RoutesMap.getApis()[:api_workflow] +"/#{workflow_id}"
+  resetdeploy_api =GlobalConstant::RoutesMap.getApis()[:api_reset_deployment]
+  redirect_url = GlobalConstant::RoutesMap.getRoutes()[:token_setup]
+  mint_token_url = GlobalConstant::RoutesMap.getRoutes()[:token_mint]
+  invite_team_url = GlobalConstant::RoutesMap.getRoutes()[:team]
   is_poll_failed = false
   if @presenter_obj.client_token.status == GlobalConstant::ClientToken.deployment_failed
           is_poll_failed = true

@@ -1,14 +1,14 @@
 <%
 
-    prefix = GlobalConstant::Environment.url_prefix
+
     wallet_association =  @presenter_obj.sign_messages.wallet_association
     ost_to_fiat =  @presenter_obj.oracle_price_points.to_fiat_conversion_factor("USD")
 
     chain_id = GlobalConstant::Chain.origin_chain_id
 
-    addresses_api = "/#{prefix}/api/token/addresses" #TODO
-    deployment_api = "/#{prefix}/api/token/deploy" #TODO
-    deploy_route = "/#{prefix}/token/deploy" #TODO
+    addresses_api = GlobalConstant::RoutesMap.getApis()[:api_addresses]
+    deployment_api = GlobalConstant::RoutesMap.getApis()[:api_deploy]
+    deploy_route = GlobalConstant::RoutesMap.getRoutes()[:token_deploy]
 
     #TODO Start : Alpesh check if the above stuff should come from presenter
     conversion_factor = @presenter_obj.client_token_conversion_factor || 1
@@ -22,7 +22,7 @@
     ost_to_bt_id = "ost_to_bt_id"
 
 %>
-<form data-ost-formhelper id="economy-planner" action="/<%=prefix%>/api/token" method="POST"> <!-- #TODO URL -->
+<form data-ost-formhelper id="economy-planner" action="<%=GlobalConstant::RoutesMap.getApis()[:api_token]%>" method="POST"> <!-- #TODO URL -->
   <div class="planner-container  text-center">
     <h3 class="mt-5">
       Welcome to OST KIT, lets set up your token!
