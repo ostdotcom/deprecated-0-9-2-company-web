@@ -426,6 +426,14 @@
       return utilities.deepGet( oThis.dataConfig , "contract_details.simple_token.address" );
     },
   
+    getBrandedTokenABI : function () {
+      return utilities.deepGet( oThis.dataConfig , "contract_details.branded_token.abi" );
+    },
+  
+    getBrandedTokenContractAddress : function () {
+      return utilities.deepGet( oThis.dataConfig , "contract_details.branded_token.address" );
+    },
+  
     getGatewayComposerDetails  : function () {
       return utilities.deepGet( oThis.dataConfig , "gatewayComposerDetails" ) ;
     },
@@ -625,7 +633,7 @@
       oThis.updateIconState( oThis.jAllowStakeAndMintMsgWrapper,  '.processing-state-icon');
       
       setTimeout( function () { //Delay so that confirm metamask pop-up is visible
-        oThis.requestStake();
+        oThis.sendRequestStakeRequest();
       } , 500 )
       
     },
@@ -635,19 +643,48 @@
       oThis.updateIconState( oThis.jAllowStakeAndMintMsgWrapper,  '.error-state-icon');
       oThis.jSignClientErrorBtnWrap.show();
     },
-    
-    requestStake: function () {
+  
+    sendRequestStakeRequest : function () {
       oThis.updateIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.pre-state-icon');
       oThis.jSignClientErrorBtnWrap.hide();
+      oThis.convertToBrandedTokens( oThis.requestStake, oThis.onRequestStateError );
+    },
   
+    convertToBrandedTokens: function ( sucCallback ,  errCallback ) {
+      
       var btToMint      = oThis.getBTtoMint() ,
           ostToStake    = PriceOracle.btToOst( btToMint ) ,
-         
-         
-          btToMintWei   = PriceOracle.toWei(  btToMint ) ,
           ostToStakeWei = PriceOracle.toWei( ostToStake )
       ;
+      
+      var options = {
+        method: 'eth_call',
+        params: [
+          {
+            to: oThis.getBrandedTokenContractAddress(),
+            data: oThis.getContractEncodedABI(oThis.getBrandedTokenContractAddress(), 'convertToBrandedTokens', [ostToStakeWei])
+          }
+        ]
+      };
   
+      oThis.metamask.sendAsync(options, function(err, result){
+       
+        if( err || ( result && result.error ) ){
+          errCallback && errCallback( err );
+        }else if( result && result.result ) {
+          var btToMintWei = result.result ;
+          sucCallback && sucCallback( ostToStakeWei, btToMintWei )
+        }
+  
+        err && console.error(err);
+        result && console.log(result);
+        
+      });
+      
+    },
+    
+    requestStake: function ( ostToStakeWei , btToMintWei ) {
+      
       // Build params for requestStake
       var params = [
         ostToStakeWei,// OST wei as string
