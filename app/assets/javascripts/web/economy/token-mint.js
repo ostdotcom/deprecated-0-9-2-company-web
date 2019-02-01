@@ -363,7 +363,7 @@
     },
     
     ostToStakeOnBtChange : function ( val ) {
-      
+
       if( PriceOracle.isNaN( oThis.totalOST )) {
         return val ;
       }
@@ -373,9 +373,9 @@
       if(  PriceOracle.isNaN( ost)  ){
         return val;
       }
-      
+
       oThis.updateSupplyPieChart( ostToStake ) ;
-      
+
       return ost ; //Mocker will take care of precession
     },
   
@@ -388,14 +388,14 @@
         return oThis.totalOST  ;
       }
       ostToStake = Number( ostToStake ) ;
-      
+
       var ostAvailable = oThis.totalOST - ostToStake;
-      
+
       if( ostAvailable < 0 ){
         return 0 ;
       }
-      
-      return ostAvailable ; 
+
+      return ostAvailable ;
     },
   
     getWalletAddress : function () {
@@ -514,11 +514,11 @@
       ostToStake    = ostToStake && Number(ostToStake) || 0;
     
       var ostAvailable  = oThis.totalOST -  ostToStake  ;
-      
+
       if( ostAvailable < 0){
         ostAvailable = 0;
       }
-      
+
       var data = [
         ['Type', 'Tokens'],
         ['OSTAvailable', ostAvailable],
@@ -662,7 +662,7 @@
         params: [
           {
             to: oThis.getBrandedTokenContractAddress(),
-            data: oThis.getContractEncodedABI(oThis.getBrandedTokenContractAddress(), 'convertToBrandedTokens', [ostToStakeWei])
+            data: oThis.metamask.getContractEncodedABI(oThis.getBrandedTokenContractAddress(), 'convertToBrandedTokens', [ostToStakeWei])
           }
         ]
       };
