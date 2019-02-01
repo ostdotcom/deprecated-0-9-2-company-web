@@ -53,4 +53,11 @@
       font-weight: $font-weight-bold;
     }
   }
+
+  input[name=otp]::-webkit-inner-spin-button,
+  input[name=otp]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
 }
