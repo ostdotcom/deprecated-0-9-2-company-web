@@ -691,6 +691,7 @@
       oThis.resetState();
       oThis.stakeAndMintPolling = new Polling({
         pollingApi      : oThis.mintApi ,
+        pollingMethod   : "POST",
         data            : oThis.getConfirmStakeAndMintIntendData(),
         pollingInterval : 4000,
         onPollSuccess   : oThis.confirmStakeAndMintIntendSuccess.bind( oThis ),
