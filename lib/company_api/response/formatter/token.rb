@@ -60,7 +60,7 @@ module CompanyApi
         end
 
         def set_sub_env_payload(data)
-          @sub_env_payloads = CompanyApi::Response::Entity::WorkflowPayload.new(data)
+          @sub_env_payloads = CompanyApi::Response::Entity::SubEnvPayloads.new(data)
         end
 
       end
