@@ -28,8 +28,16 @@ module CompanyApi
           @stc ||= @data["simple_token"]
         end
 
+        def branded_token
+          @stc ||= @data["branded_token"]
+        end
+
         def simple_token_address
           simple_token["address"]
+        end
+
+        def branded_token_address
+          branded_token["address"]
         end
 
         def simple_token_abi
