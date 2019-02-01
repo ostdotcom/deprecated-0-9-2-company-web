@@ -1,8 +1,8 @@
 <%
-  delete_admin_endpoint = "/api/manager/super_admin/delete-admin"
-  update_role_endpoint = "/api/manager/super_admin/update-super-admin-role"
-  reset_mfa_endpoint = "/api/manager/super_admin/reset-mfa"
-  resend_admin_invite = "/api/manager/super_admin/resend-admin-invite"
+  delete_admin_endpoint = GlobalConstant::RoutesMap.getApis()[:delete_admin_endpoint]
+  update_role_endpoint = GlobalConstant::RoutesMap.getApis()[:update_role_endpoint]
+  reset_mfa_endpoint = GlobalConstant::RoutesMap.getApis()[:reset_mfa_endpoint]
+  resend_admin_invite =GlobalConstant::RoutesMap.getApis()[:resend_admin_invite]
 
   user_id_name = "to_update_client_manager_id";
   is_super_admin_name = "is_super_admin";

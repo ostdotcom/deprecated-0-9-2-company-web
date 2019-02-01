@@ -41,7 +41,7 @@
             <p class="text-center font-weight-light">Please open Google Authenticator and enter the
               MFA code to complete sign-in.</p>
           <% end %>
-          <form id="mfa-form" class="user-form text-center" action="/api/manager/mfa" method="POST" data-ost-formhelper>
+          <form id="mfa-form" class="user-form text-center" action="<%= GlobalConstant::RoutesMap.getApis()[:api_mfa] %>" method="POST" data-ost-formhelper>
             <div class="form-group row mx-auto my-5">
               <label class="form-label" >mfa code</label>
               <input type="number" name="otp" min="0" max="999999" class="form-control" autocomplete="off" required>
