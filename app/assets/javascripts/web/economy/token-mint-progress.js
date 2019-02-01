@@ -66,6 +66,7 @@
     },
   
     onWorkflowFailed : function ( response ) {
+      oThis.polling.stopPolling() ;
       utilities.showGeneralError(  oThis.jMintPollingError , response );
       oThis.showSection( oThis.jMintPollingError );
     },

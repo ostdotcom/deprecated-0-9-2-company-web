@@ -2,8 +2,8 @@
   workflow_id = @presenter_obj.workflow.id
   minting_status_api = GlobalConstant::RoutesMap.getApis()[:api_workflow]+"/#{workflow_id}"
   bt_symbol = @presenter_obj.client_token_symbol
-  stake_ost = 350 #TODO ANKIT
-  total_min_bt = 750,000 #TODO ANKIT
+  stake_ost = "350" #TODO ANKIT
+  total_min_bt = "750,000" #TODO ANKIT
 %>
 
 <div class="container token-mint-progress-container">
@@ -70,12 +70,12 @@
 </div>
 
 <div class="minting-error-state jSection text-center mt-5" style="display: none">
-  <svg class="error-icon align-middle">
+  <svg class="error-icon align-middle" style="width: 40px;  height: 40px;">
     <switch>
       <use class="error-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#error-icon"></use>
     </switch>
   </svg>
-  <h3 class="text-center mt-5 display-header">Looks like there was an issue in the minting process</h3>
+  <h3 class="text-center mt-3 display-header">Looks like there was an issue in the minting process</h3>
   <p class="font-weight-light  mb-5 text-muted">
     Please connect with customer support with the 2 transaction hash.
   </p>
