@@ -15,10 +15,6 @@
         <h3 class="col-8 mx-auto mt-6 metamask-confirmation-header">You have rejected the MetaMask request, please retry to continue.</h3>
       </div>
 
-      <div class="jSignTransactionServerErrorWrapper jSignHeader" style="display: none;">
-        <h3 class="col-8 mx-auto mt-6 metamask-confirmation-header">There were some issues in the process please retry to continue.</h3>
-      </div>
-
 
       <div class="row">
         <div class="col-10 mx-auto text-left rounded border-0">
@@ -99,17 +95,71 @@
         </span>
       </div>
 
-      <div class="row mt-5 jSignServerErrorBtnWrap" style="display: none">
-        <span class="mx-auto">
-          <button class="btn btn-secondary mr-3 jGoBackBtn"> Go back</button>
-          <button class="btn btn-primary jServerRetryBtn"> Retry</button>
-        </span>
-      </div>
-
       <div class="row mt-4">
         <div class="invalid-feedback general_error"></div>
       </div>
 
     </div>
   </div>
+</div>
+
+
+
+<div class="container jMintSections" id="jStakeAndMintSignServerError" style="display: none">
+
+  <div class="row">
+    <div class="col-10 mx-auto text-center">
+
+      <span class="row">
+          <svg class="svg icon-checkmark" style="width: 40px;height: 40px">
+            <switch>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use>
+            </switch>
+          </svg>
+       </span>
+
+      <div class="row mt-3" >
+        <h3 class="col-8 mx-auto mt-6 metamask-confirmation-header">
+          There was a issue while updating your transactions details.
+        </h3>
+        <div class="text-muted font-weight-light metamask-confirmation-desc mb-5">
+          Your transactions are processed via metamask, but somehow havn’t reached OSTKIT.
+          You can retry or contact <b>support@ost.com</b> with the transaction hashes displayed below.
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10 mx-auto text-left rounded border-0">
+          <div class="alert alert-secondary align-items-center d-flex" role="alert">
+
+            <span class="ml-3 align-middle text-muted font-weight-light jApproveTransactionHash">
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10 mx-auto text-left rounded border-0">
+          <div class="alert alert-secondary align-items-center d-flex" role="alert">
+
+            <span class="ml-3 align-middle text-muted font-weight-light jRequestStakeTransactionHash">
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="mt-5">
+        <span class="mx-auto">
+          <a href="mailto:support@ost.com?Subject=Urgent%20|%20Support%20needed%20for%20transaction%20error." target="_top" class="btn btn-primary">
+            Contact customer support
+          </a>
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+
+
 </div>

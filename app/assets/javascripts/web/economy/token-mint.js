@@ -26,11 +26,10 @@
     jAllowStakeAndMintMsgWrapper    :   $('.jAllowStakeAndMintWrapper'),
     jAutorizeStakeAndMintMsgWrapper :   $('.jAutorizeStakeAndMintWrapper'),
     jSignClientErrorBtnWrap         :   $('.jSignClientErrorBtnWrap'),
-    jSignServerErrorBtnWrap         :   $('.jSignServerErrorBtnWrap'),
+    jStakeAndMintSignServerError    :   $('.jStakeAndMintSignServerError'),
     jStakeAndMintConfirmModal       :   $("#stake-mint-confirm-modal"),
     jGoBackBtn                      :   $('.jGoBackBtn'),
     jClientRetryBtn                 :   $('.jClientRetryBtn'),
-    jServerRetryBtn                 :   $('.jServerRetryBtn'),
     //Static jQuery elements End
   
     //Dynamic jQuery elements start
@@ -155,11 +154,6 @@
       
       oThis.jClientRetryBtn.off('click').on('click' , function () {
         oThis.approve();
-      });
-      
-      oThis.jServerRetryBtn.off('click').on('click' , function () {
-        oThis.resetState();
-        oThis.sendTransactionHashes();
       });
 
     },
@@ -779,14 +773,14 @@
     },
   
     confirmStakeAndMintIntendSuccess : function ( res ) {
-      oThis.stakeAndMintPolling.stopPolling() ; //Stop immediately
       if( res && res.success ){
         oThis.unbindBeforeUnload();
         setTimeout( function () { //Wait for atleast 0.5sec so that user can see the processing icon
           window.location = oThis.redirectRoute ;
         } , 500 );
       }else {
-        oThis.confirmStakeAndMintIntendErrorStateUpdate( res );
+        oThis.stakeAndMintPolling.currentRetry++ ;
+        oThis.confirmStakeAndMintIntendError(null,  res );
       }
     },
   
@@ -798,8 +792,9 @@
     },
   
     confirmStakeAndMintIntendErrorStateUpdate : function ( res ) {
-      oThis.jSignServerErrorBtnWrap.show();
-      utilities.showGeneralError( oThis.jTokenStakeAndMintSignSection , res , oThis.stakeAndMintError );
+      $('.jApproveTransactionHash').text( oThis.approve_transaction_hash );
+      $('.jRequestStakeTransactionHash').text( oThis.request_stake_transaction_hash );
+      oThis.showSection( oThis.jStakeAndMintSignServerError );
     },
   
     updateIconState: function (jWrapper ,  sSelector  ) {

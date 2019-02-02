@@ -62,6 +62,10 @@
     },
   
     onWorkflowComplete : function ( response ) {
+      var amountMinted = utilities.deepGet( response , "data.workflow_payload.amountMinted" );
+      if( amountMinted ){
+        $('.total-token-minted').text( amountMinted );
+      }
       oThis.showSection( oThis.jMintPollingSuccess );
     },
   
