@@ -62,9 +62,12 @@
     },
   
     onWorkflowComplete : function ( response ) {
-      var amountMinted = utilities.deepGet( response , "data.workflow_payload.amountMinted" );
-      if( amountMinted ){
-        $('.total-token-minted').text( amountMinted );
+      var amountMinted = utilities.deepGet( response , "data.workflow_payload.amountMinted" ) ,
+          toEthBT      = window.web3.fromWei( amountMinted , "ether")
+      ;
+      
+      if( toEthBT ){
+        $('.total-token-minted').text( toEthBT );
       }
       oThis.showSection( oThis.jMintPollingSuccess );
     },
