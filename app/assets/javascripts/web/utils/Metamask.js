@@ -321,11 +321,13 @@
          */
 
         onAccountsChanged: function(accounts) {
-            console.log('Accounts:', accounts);
+            var oThis = this;
+            console.log('accountsChanged:', accounts);
+            !accounts[0] && oThis.onWaitingEnable()
         },
 
         onNetworkChanged: function(network) {
-            console.log('Network:', network);
+            console.log('networkChanged:', network);
         },
   
         //Helper function
