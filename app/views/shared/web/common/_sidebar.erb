@@ -19,7 +19,7 @@
 
   <div class="d-flex align-items-center switch-mode ml-3 py-3 <%= is_mainnet_whitelisting_requested && !is_whitelisted_user ? 'disabled' : '' %>">
     <div class="d-flex align-items-center switch-mode-tooltip pr-2" data-toggle="tooltip" data-placement="right" data-boundary="window" data-title="The request has been sent.Please wait for the OST Support team to get in touch.">
-      <label class="switch">
+      <label class="switch <%= is_mainnet_whitelisting_requested && !is_whitelisted_user ? 'disabled' : '' %>">
         <input id="switch_mode_checkbox" type="checkbox" <%= (current_env == sandbox_sub_url_prefix) ?'checked' : ''%> >
         <span class="slider round"></span>
       </label>

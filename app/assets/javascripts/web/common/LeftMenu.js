@@ -83,6 +83,7 @@
 
     onRequestWhitelistUserSuccess: function(){
       $('.switch-mode').addClass('disabled');
+      oThis.isMainnetWhitelistingRequested = true;
       oThis.jWhitelistUserModalDefaultState.hide();
       oThis.jWhitelistUserModalSuccessState.show();
     }
