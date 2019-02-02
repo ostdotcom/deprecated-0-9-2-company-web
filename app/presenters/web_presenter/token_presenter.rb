@@ -91,15 +91,21 @@ module WebPresenter
     # * Date: 18/01/2019
     # * Reviewed By:
     #
-    def workflow_current_step
-      @t_workflow_csp ||= begin
-        formatter_obj.present? ? formatter_obj.workflow_current_step : nil
+    def workflow_payload
+      @t_workflow_p ||= begin
+        formatter_obj.present? ? formatter_obj.workflow_payload : nil
       end
     end
 
-    def worflow_payload
-      @t_workflow_pl ||= begin
-        formatter_obj.present? ? formatter_obj.workflow_payload : nil
+    # origin_addresses details in presenter object
+    #
+    # * Author: Alpesh
+    # * Date: 18/01/2019
+    # * Reviewed By:
+    #
+    def workflow_current_step
+      @t_workflow_csp ||= begin
+        formatter_obj.present? ? formatter_obj.workflow_current_step : nil
       end
     end
 
