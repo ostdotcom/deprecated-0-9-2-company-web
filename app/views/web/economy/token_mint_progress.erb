@@ -2,8 +2,8 @@
   workflow_id = @presenter_obj.workflow.id
   minting_status_api = GlobalConstant::RoutesMap.getApis()[:api_workflow]+"/#{workflow_id}"
   bt_symbol = @presenter_obj.client_token_symbol
-  stake_ost = "350" #TODO ANKIT
-  total_min_bt = "750,000" #TODO ANKIT
+  stake_ost = @presenter_obj.workflow_payload.fe_ost_to_stake
+  total_mint_bt = @presenter_obj.workflow_payload.fe_bt_to_mint
 %>
 
 <div class="container token-mint-progress-container">
@@ -24,7 +24,7 @@
                 </switch>
               </svg>
               <span class="ml-3 align-middle text-muted font-weight-light">
-                Allow the contract Stake <%= stake_ost%> <%= ost_currency_symbol %> to Mint <%= total_min_bt%> <%= bt_symbol %> Tokens
+                Allow the contract Stake <%= stake_ost%> <%= ost_currency_symbol %> to Mint <%= total_mint_bt%> <%= bt_symbol %> Tokens
               </span>
             </div>
             <div class="alert alert-secondary" role="alert">
@@ -56,7 +56,7 @@
                   <use class="success-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#success-icon"></use>
                 </switch>
               </svg>
-              You have successfully minted <span class="total-token-minted"><%= total_min_bt %></span> <%= bt_symbol%> Tokens
+              You have successfully minted <span class="total-token-minted"><%= total_mint_bt %></span> <%= bt_symbol%> Tokens
             </div>
           </div>
           <div class="col-8 mt-3 mx-auto">
