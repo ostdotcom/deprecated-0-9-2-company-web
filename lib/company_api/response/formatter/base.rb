@@ -9,7 +9,7 @@ module CompanyApi
         attr_reader :manager, :client, :client_token, :oracle_price_points, :chain_interaction_params,
                     :client_token_planner, :client_balances, :token_supply_details, :pending_critical_interactions,
                     :client_manager, :contract_details, :gas_price, :auxiliary_addresses, :origin_addresses,
-                    :workflow, :workflow_current_step, :sign_messages
+                    :workflow, :workflow_current_step, :sign_messages, :sub_env_payloads
 
         # Initialize
         #
@@ -256,6 +256,10 @@ module CompanyApi
         #
         def set_pending_critical_interactions(pending_critical_interactions_data)
           @pending_critical_interactions = CompanyApi::Response::Entity::PendingCriticalInteractions.new(pending_critical_interactions_data)
+        end
+
+        def set_sub_env_payload(data)
+          @sub_env_payloads = CompanyApi::Response::Entity::SubEnvPayloads.new(data)
         end
 
       end

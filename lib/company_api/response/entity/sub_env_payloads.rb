@@ -33,11 +33,12 @@ module CompanyApi
         end
 
         def is_mainnet_whitelisted?
-          !!data["mainnet"]["whitelisted"] #to convert the given value to boolean
+          !(data["mainnet"]["whitelisted"].to_i).zero? #to convert the given value to boolean
+
         end
 
         def is_mainnet_whitelisting_requested?
-          !!data["mainnet"]["whitelisting_requested"]
+          !(data["mainnet"]["whitelisting_requested"].to_i).zero?
         end
 
       end

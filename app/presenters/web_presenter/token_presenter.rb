@@ -127,11 +127,6 @@ module WebPresenter
       end
     end
 
-    def sub_env_payloads
-      @s_env_pl ||= begin
-        formatter_obj.present? ? formatter_obj.sub_env_payloads : nil
-      end
-    end
 
   end
 

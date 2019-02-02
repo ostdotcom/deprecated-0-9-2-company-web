@@ -8,7 +8,7 @@ module GlobalConstant
       def getRoutes
         {
           token_setup:          "/#{GlobalConstant::Environment.url_prefix}/token/setup",
-          mainent_token_setup:  "/#{GlobalConstant::Environment.main_sub_env_url_prefix}/token/setup",
+          mainnet_token_setup:  "/#{GlobalConstant::Environment.main_sub_env_url_prefix}/token/setup",
           sandbox_token_setup:  "/#{GlobalConstant::Environment.sandbox_sub_url_prefix}/token/setup",
           token_deploy:         "/#{GlobalConstant::Environment.url_prefix}/token/deploy",
           token_mint:           "/#{GlobalConstant::Environment.url_prefix}/token/mint",
@@ -31,6 +31,7 @@ module GlobalConstant
             api_grant:            "/#{GlobalConstant::Environment.url_prefix}/api/token/mint/grant",
             api_gateway_composer: "/#{GlobalConstant::Environment.url_prefix}/api/contracts/gateway-composer",
             api_reset_deployment: "/#{GlobalConstant::Environment.url_prefix}/api/token/reset-deployment",
+            api_request_whitelist:"/#{GlobalConstant::Environment.main_sub_env_url_prefix}/api/token/request-whitelist",
             api_list_admins:      "/api/manager/list-admins",
             delete_admin_endpoint:"/api/manager/super_admin/delete-admin",
             update_role_endpoint: "/api/manager/super_admin/update-super-admin-role",

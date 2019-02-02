@@ -1,0 +1,44 @@
+<div class="modal fade" id="confirm_mode_change_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg h-100 mx-auto my-0" role="document">
+    <div class="modal-content text-center">
+      <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="modal-body py-4 px-6 mx-6">
+        <div class="default-state">
+          <h4 class="font-weight-bold">You’re choosing to leave the Sandbox Environment
+            and move into the Production Environment.</h4>
+          <h6 class="sub-header mt-3">Are you sure you want to continue?</h6>
+          <div class="col-12 mx-auto mt-5">
+            <button type="button" class="btn btn-primary confirm-mode-change-btn">CONFIRM</button>
+            <button type="button" data-dismiss="modal" class="btn btn-secondary ml-3">Cancel</button>
+          </div>
+        </div>
+        <div class="success-state" style="display: none;" >
+          <h4 class="font-weight-bold">You’re now in Production Environment.
+            Changes you make here will reflect may effect your real users.</h4>
+            <div class="row">
+              <div class="col-12 mt-3">
+                <label for="confirm_mode_change_checkbox" class="label-cbx mb-0">
+                  <input id="confirm_mode_change_checkbox" type="checkbox" name="confirm-mode-change-checkbox" value="1">
+                  <div class="checkbox">
+                    <svg width="18px" height="18px" viewBox="0 0 20 20">
+                      <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
+                      <polyline points="4 11 8 15 16 6"></polyline>
+                    </svg>
+                  </div>
+                  <span class="terms-chk font-weight-normal ml-2 display-3">
+                  Don’t show this again.
+                </span>
+                </label>
+              </div>
+              <div class="col-12 mx-auto mt-5">
+                <button type="button" data-dismiss="modal" class="btn btn-primary">DONE</button>
+              </div>
+            </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
