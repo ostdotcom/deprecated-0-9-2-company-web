@@ -228,10 +228,12 @@
         },
 
         inputSpinner: function () {
-          $('<div class="quantity-nav">' +
+          $('<div class="quantity">' +
             '<div class="conversion-currency">BT</div>' +
-            '<div class="quantity-button quantity-up">&#x25B2;</div>' +
-            '<div class="quantity-button quantity-down">&#x25BC;</div>' +
+            '</div>').insertAfter('.quantity');
+          $('<div class="quantity-nav">' +
+            '<span class="quantity-button quantity-up">&#x25B2;</span>' +
+            '<span class="quantity-button quantity-down">&#x25BC;</span>' +
             '</div>').insertAfter('.quantity input');
           $('.quantity').each(function() {
             var spinner = $(this),
