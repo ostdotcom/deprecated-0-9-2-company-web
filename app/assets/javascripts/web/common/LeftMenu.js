@@ -4,6 +4,7 @@
   var oThis = ost.leftMenu = {
 
     isUserWhitelisted : false,
+    isMainnetWhitelistingRequested : false,
     currentEnv : null,
     redirectMainnet : window.location.href,
     redirectSandbox : window.location.href,
@@ -43,7 +44,7 @@
     },
 
     initTooltip: function() {
-      if(!oThis.isUserWhitelisted)
+      if(!oThis.isUserWhitelisted && oThis.isMainnetWhitelistingRequested)
       {
         $('[data-toggle="tooltip"]').tooltip();
       }

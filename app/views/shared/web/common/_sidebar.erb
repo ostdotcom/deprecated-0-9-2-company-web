@@ -115,6 +115,7 @@
     $( function () {
         ost.leftMenu.init({
           isUserWhitelisted: <%= is_whitelisted_user %>,
+          isMainnetWhitelistingRequested: <%=is_mainnet_whitelisting_requested %>,
           currentEnv: "<%= current_env %>",
           redirectMainnet: "<%= GlobalConstant::RoutesMap.getRoutes()[:mainnet_token_setup] %>",
           redirectSandbox: "<%= GlobalConstant::RoutesMap.getRoutes()[:sandbox_token_setup] %>",
