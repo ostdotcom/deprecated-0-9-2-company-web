@@ -226,7 +226,8 @@ module CompanyApi
         #
         # @param [Hash] workflow_data (mandatory) - workflow data hash
         #
-        # Sets @origin_addresses
+        # Sets @workflow
+        #
         def set_workflow(workflow_data)
           @workflow = CompanyApi::Response::Entity::Workflow.new(workflow_data)
         end
