@@ -12,5 +12,5 @@
  *= require web/home/LaunchBt
  *= require web/home/SidebySide
  *= require web/home/Text
- *= require web/home/svgcheckbox
+ *= require web/common/_svgcheckbox
  */

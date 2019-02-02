@@ -2,6 +2,12 @@
   planner_url = GlobalConstant::RoutesMap.getRoutes()[:token_setup]
   mint_token_url = GlobalConstant::RoutesMap.getRoutes()[:token_mint]
   team_url = GlobalConstant::RoutesMap.getRoutes()[:team]
+  api_request_whitelist = GlobalConstant::RoutesMap.getApis()[:api_request_whitelist]
+  is_whitelisted_user = @presenter_obj.sub_env_payloads.is_mainnet_whitelisted?
+  is_mainnet_whitelisting_requested = @presenter_obj.sub_env_payloads.is_mainnet_whitelisting_requested?
+  sandbox_sub_url_prefix = GlobalConstant::Environment.sandbox_sub_url_prefix
+  main_sub_env_url_prefix = GlobalConstant::Environment.main_sub_env_url_prefix
+  current_env  = GlobalConstant::Environment.url_prefix
 %>
 <%= render :partial => "/shared/web/common/sidebar-icons.svg" %>
 
@@ -11,17 +17,17 @@
     <%= yield(:phantom_header_el) %>
   </div>
 
+  <div class="d-flex align-items-center switch-mode ml-3 py-3 <%= is_mainnet_whitelisting_requested && !is_whitelisted_user ? 'disabled' : '' %>">
+    <div class="d-flex align-items-center switch-mode-tooltip pr-2" data-toggle="tooltip" data-placement="right" data-boundary="window" data-title="The request has been sent.Please wait for the OST Support team to get in touch.">
+      <label class="switch">
+        <input id="switch_mode_checkbox" type="checkbox" <%= (current_env == sandbox_sub_url_prefix) ?'checked' : ''%> >
+        <span class="slider round"></span>
+      </label>
+      <span class="ml-2">Sandbox Mode</span>
+    </div>
+  </div>
+
   <ul class="nav nav-pills flex-column">
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center" href="">
-        <svg class="icon">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-planner"></use>
-          </switch>
-        </svg>
-        <span class="label">Sandbox Mode</span>
-      </a>
-    </li>
     <% if !@presenter_obj.is_client_token_deployed? %>
     <li class="nav-item">
       <a class="nav-link d-flex align-items-center <%= @presenter_obj.is_token_setup_route? ? 'active': '' %>" href="<%= planner_url %>">
@@ -94,4 +100,29 @@
   </ul>
 
 </aside>
+
+<% content_for :popups do %>
+  <%= render partial: 'shared/web/modals/confirm_mode_change'%>
+  <%= render :partial=> 'shared/web/modals/whitelist_user',
+      locals: {
+      :request_whitelist_api => api_request_whitelist
+      }
+  %>
+<%end%>
+
+<% content_for :end_js do %>
+  <script type="text/javascript">
+    $( function () {
+        ost.leftMenu.init({
+          isUserWhitelisted: <%= is_whitelisted_user %>,
+          currentEnv: "<%= current_env %>",
+          redirectMainnet: "<%= GlobalConstant::RoutesMap.getRoutes()[:mainnet_token_setup] %>",
+          redirectSandbox: "<%= GlobalConstant::RoutesMap.getRoutes()[:sandbox_token_setup] %>",
+          sandboxSubUrlPrefix: "<%= sandbox_sub_url_prefix %>",
+          mainSubEnvUrlPrefix: "<%= main_sub_env_url_prefix %>"
+        });
+    })
+  </script>
+<% end %>
+
 
