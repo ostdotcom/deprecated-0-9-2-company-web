@@ -45,6 +45,8 @@ module CompanyApi
           set_setup_mfa(@data['setup_mfa']) if @data['setup_mfa'].present?
 
           set_token(@data['token']) if @data['token'].present?
+
+          set_sub_env_payload(@data['sub_env_payloads']) if @data['sub_env_payloads'].present?
         end
 
         private

@@ -6,7 +6,7 @@ module CompanyApi
 
       class Token < CompanyApi::Response::Formatter::Base
 
-        attr_reader :min_eth_in_wei, :min_ost_in_wei, :workflow_payload, :sub_env_payloads
+        attr_reader :min_eth_in_wei, :min_ost_in_wei, :workflow_payload
 
         # Initialize
         #
@@ -42,7 +42,7 @@ module CompanyApi
           set_min_eth_in_wei(@data['min_eth_in_wei'])
           set_min_ost_in_wei(@data['min_ost_in_wei'])
           set_workflow_payload(@data['workflow_payload'])
-          set_sub_env_payload(@data['sub_env_payloads'])
+          set_sub_env_payload(@data['sub_env_payloads']) if @data['sub_env_payloads'].present?
         end
 
         private
@@ -57,10 +57,6 @@ module CompanyApi
 
         def set_workflow_payload(data)
           @workflow_payload = CompanyApi::Response::Entity::WorkflowPayload.new(data)
-        end
-
-        def set_sub_env_payload(data)
-          @sub_env_payloads = CompanyApi::Response::Entity::SubEnvPayloads.new(data)
         end
 
       end
