@@ -212,29 +212,35 @@
                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use>
                           </switch>
                         </svg>
+                        <div style="overflow: auto; display: none;" class="text-muted font-weight-light ml-2 align-self-center">
+                          Your selected address does not have sufficient ETHER or <%= ost_currency_symbol %>.
+                        </div>
                       <% else %>
                         <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
                           <switch>
                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fund-wallet"></use>
                           </switch>
                         </svg>
+                        <div style="overflow: auto; display: none;" class="text-muted font-weight-light ml-2 align-self-center">
+                          Your selected address does not have sufficient ETHER or <%= ost_currency_symbol %>.
+                          Will fund <%= initial_ost_funding %> <%= ost_currency_symbol %> in to your
+                          selected MetaMask wallet to get you started.
+                        </div>
                       <% end %>
-                    </div>
-                    <div style="overflow: auto" class="text-muted font-weight-light ml-2 align-self-center">
-                      Your selected address does not have OSTα. Will fund <%= initial_ost_funding %> OSTα in to your
-                      selected MetaMask wallet to get you started.
                     </div>
                   </div>
                 </div>
               </div>
               <% if is_buy_ost %>
-                <a href="javascript:alert('Please provide links')" class="btn btn-primary d-inline-block buy-eth-btn" style="display: none;">Buy
+                <a href="javascript:alert('Please provide links')"
+                   class="btn btn-primary d-inline-block buy-eth-btn" style="display: none;">Buy
                   ETHER</a>
-                <a href="javascript:alert('Please provide links')" class="btn btn-primary d-inline-block buy-ost-btn" style="display: none;">Buy
+                <a href="javascript:alert('Please provide links')"
+                   class="btn btn-primary d-inline-block buy-ost-btn" style="display: none;">Buy
                   Ost</a>
               <% else %>
                 <button id="get-ost-btn" type="submit" data-submiting="Getting Ost ⍺.."
-                        class="btn btn-primary d-inline-block buy-eth-btn buy-ost-btn">Get Ost ⍺
+                        class="btn btn-primary d-inline-block buy-eth-btn buy-ost-btn">Get <%= ost_currency_symbol %>
                 </button>
                 <span class="jGetOstLoaderText ml-3 text-muted font-weight-light" style="display: none">
                 <img src="//dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader-1.gif" width="15" height="15"/>
