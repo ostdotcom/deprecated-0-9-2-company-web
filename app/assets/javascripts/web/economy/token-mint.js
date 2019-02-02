@@ -721,9 +721,9 @@
         oThis.metamask.sendAsync(options, function(err, result){
           
           if(  err || (result && result.error ) ){
-            oThis.onRequestStateError( err );
+            oThis.onRequestStakeError( err );
           }else if(   result && result.result ){
-            oThis.onRequestStateSuccess( result );
+            oThis.onRequestStakeSuccess( result );
           }
           
           err && console.error(err);
@@ -734,14 +734,15 @@
       
     },
     
-    onRequestStateSuccess: function ( res ) {
+    onRequestStakeSuccess: function ( res ) {
       oThis.request_stake_transaction_hash = res['result'] ;
       oThis.stake_address = oThis.getWalletAddress();
       oThis.updateIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.processing-state-icon');
       oThis.sendTransactionHashes();
     },
   
-    onRequestStateError : function ( error ) {
+    onRequestStakeError : function ( error ) {
+      oThis.updateIconState( oThis.jAllowStakeAndMintMsgWrapper,  '.error-state-icon');
       oThis.updateIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.error-state-icon');
       oThis.jSignClientErrorBtnWrap.show();
     },
