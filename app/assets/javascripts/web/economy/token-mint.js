@@ -641,7 +641,7 @@
     sendRequestStakeRequest : function () {
       oThis.updateIconState( oThis.jAutorizeStakeAndMintMsgWrapper,  '.pre-state-icon');
       oThis.jSignClientErrorBtnWrap.hide();
-      oThis.convertToBrandedTokens( oThis.requestStake.bind( oThis ), oThis.onRequestStateError.bind( oThis ) );
+      oThis.convertToBrandedTokens( oThis.requestStake.bind( oThis ), oThis.onRequestStakeError.bind( oThis ) );
     },
   
     convertToBrandedTokens: function ( sucCallback ,  errCallback ) {
@@ -818,7 +818,6 @@
     resetState : function () {
       oThis.updateIconState( $('.jMintMsgWrapper'),  '.pre-state-icon');
       oThis.jSignClientErrorBtnWrap.hide();
-      oThis.jSignServerErrorBtnWrap.hide();
     }
     
   }
