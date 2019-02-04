@@ -14,11 +14,11 @@ module GlobalConstant
       end
 
       def min_bt_to_mint
-        "0.00001"
+        '1'
       end
 
       def step_bt_to_mint
-        "0.00001"
+        '0.00001'
       end
     end
 
