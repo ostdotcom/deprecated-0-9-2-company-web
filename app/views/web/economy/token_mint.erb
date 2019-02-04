@@ -205,7 +205,7 @@
                 %>
                 <div class="col-6 align-self-top d-flex text-left pl-0 jStatusWrapper">
                   <div class="status-message">
-                    <div class="float-left align-self-center">
+                    <div class="float-left align-self-center d-flex">
                       <% if is_buy_ost %>
                         <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
                           <switch>
@@ -221,7 +221,7 @@
                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fund-wallet"></use>
                           </switch>
                         </svg>
-                        <div style="overflow: auto; display: none;" class="text-muted font-weight-light ml-2 align-self-center">
+                        <div style="overflow: auto;" class="text-muted font-weight-light ml-2 align-self-center">
                           Your selected address does not have sufficient ETHER or <%= ost_currency_symbol %>.
                           Will fund <%= initial_ost_funding %> <%= ost_currency_symbol %> in to your
                           selected MetaMask wallet to get you started.
