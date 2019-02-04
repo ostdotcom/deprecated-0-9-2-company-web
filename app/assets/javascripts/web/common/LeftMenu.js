@@ -79,6 +79,14 @@
         $('.error').text('');
       });
 
+      //bind click of your team settings option, it will replace the page content with settings page
+      $('.team-settings').on('click', function(){
+       $('#main-content').hide();
+       $('#team-settings').show();
+       $('.nav-item .nav-link').removeClass('active');
+       $('.nav-item .nav-link.team-settings').addClass('active');
+      });
+
     },
 
     onRequestWhitelistUserSuccess: function(){

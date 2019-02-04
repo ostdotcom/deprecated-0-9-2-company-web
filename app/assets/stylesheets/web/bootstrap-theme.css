@@ -8,4 +8,6 @@
  *= require ../plugins/bootstrap-slider/bootstrap-slider.css
  * Component bootstrap-slider-text-input
  *= require ../plugins/bootstrap-slider-text-input/bootstrap-slider-text-input
+ *= require ../plugins/bootstrap_select/bootstrap-select.scss
+ *= require web/common/_selectpicker.scss
  */

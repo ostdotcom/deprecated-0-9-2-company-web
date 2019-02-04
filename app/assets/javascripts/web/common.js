@@ -21,3 +21,7 @@
 //= require plugins/helpers/responsiveBreakPoint
 //= require web/common/contentBlurOnModalShow
 //= require web/common/LeftMenu
+//= require web/user_setting/team
+//= require plugins/bootstrap_select/bootstrap-select
+//= require web/utils/CoverElements
+//= require web/utils-simple-data-table
