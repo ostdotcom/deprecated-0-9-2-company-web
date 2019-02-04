@@ -2,6 +2,7 @@
   planner_url = GlobalConstant::RoutesMap.getRoutes()[:token_setup]
   mint_token_url = GlobalConstant::RoutesMap.getRoutes()[:token_mint]
   team_url = GlobalConstant::RoutesMap.getRoutes()[:team]
+  developer_url = GlobalConstant::RoutesMap.getRoutes()[:developer]
   api_request_whitelist = GlobalConstant::RoutesMap.getApis()[:api_request_whitelist]
   is_whitelisted_user = @presenter_obj.sub_env_payloads.is_mainnet_whitelisted?
   is_mainnet_whitelisting_requested = @presenter_obj.sub_env_payloads.is_mainnet_whitelisting_requested?
@@ -61,7 +62,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= (@presenter_obj.is_client_token_deployed? || @presenter_obj.is_client_token_deploying?) ? '' : 'disabled' %>"  href="">
+      <a class="nav-link d-flex align-items-center <%= (@presenter_obj.is_client_token_deployed? || @presenter_obj.is_client_token_deploying?) ? '' : 'disabled' %> <%= @presenter_obj.is_developer_route? ? 'active': '' %>"  href="<%= developer_url %>">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-dev-api"></use>

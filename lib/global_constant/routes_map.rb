@@ -13,6 +13,7 @@ module GlobalConstant
           token_deploy:         "/#{GlobalConstant::Environment.url_prefix}/token/deploy",
           token_mint:           "/#{GlobalConstant::Environment.url_prefix}/token/mint",
           token_progress:       "/#{GlobalConstant::Environment.url_prefix}/token/mint-progress",
+          developer:           "/#{GlobalConstant::Environment.url_prefix}/developer",
           team:                 "/settings/team",
           setup_mfa:            "/mfa",
           authenticate_mfa:     "/mfa",

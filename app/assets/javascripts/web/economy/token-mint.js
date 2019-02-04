@@ -101,7 +101,8 @@
     },
     
     initUIValues: function() {
-      oThis.jBtToMint = $("#"+oThis.btToMintId) ;
+      oThis.jBtToMint = $("#"+oThis.btToMintId);
+      oThis.jBtToMint.trigger('change');
       oThis.jBtToOstConversion.text(  oThis.getOstToBTConversion() );
       oThis.initConfirmStakeMintFormHelper();
       oThis.initGetOstFormHelper();
@@ -682,16 +683,18 @@
     },
     
     requestStake: function ( ostToStakeWei , btToMintWei ) {
+
+      var gatewayComposerTxParams = oThis.getGatewayComposerTxParams();
       
       // Build params for requestStake
       var params = [
         ostToStakeWei,// OST wei as string
         btToMintWei,  // BT wei as string
-        oThis.getGatewayComposerTxParams()['gateway_contract'],
-        oThis.getGatewayComposerTxParams()['stake_and_mint_beneficiary'],
-        oThis.getGatewayComposerTxParams()['gas_price'],
-        oThis.getGatewayComposerTxParams()['gas_limit'],
-        oThis.getGatewayComposerTxParams()['staker_gateway_nonce']
+        gatewayComposerTxParams['gateway_contract'],
+        gatewayComposerTxParams['stake_and_mint_beneficiary'],
+        gatewayComposerTxParams['gas_price'],
+        gatewayComposerTxParams['gas_limit'],
+        gatewayComposerTxParams['staker_gateway_nonce']
       ];
   
       // Create Encoded ABI using params

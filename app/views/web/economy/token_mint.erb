@@ -19,7 +19,7 @@
       min_eth_required: @presenter_obj.min_eth_in_wei.data
   }
 
-  is_buy_ost = GlobalConstant::Environment.is_main_production?
+  is_buy_ost = GlobalConstant::Base.main_sub_environment?
   is_workflow = @presenter_obj.workflow.is_present?
   initial_ost_funding = GlobalConstant::StakeAndMint.initial_ost_funding
   bt_to_mint_min = GlobalConstant::StakeAndMint.min_bt_to_mint
@@ -232,10 +232,8 @@
                 </div>
               </div>
               <% if is_buy_ost %>
-                <a href="javascript:alert('Please provide links')"
-                   class="btn btn-primary d-inline-block buy-eth-btn" style="display: none;">Buy
-                  ETHER</a>
-                <a href="javascript:alert('Please provide links')"
+                <a href="https://openst.org/#token"
+                   target="_blank"
                    class="btn btn-primary d-inline-block buy-ost-btn" style="display: none;">Buy
                   Ost</a>
               <% else %>

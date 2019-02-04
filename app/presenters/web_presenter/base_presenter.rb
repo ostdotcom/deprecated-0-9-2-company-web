@@ -169,6 +169,10 @@ module WebPresenter
       ['token_mint' , 'token_mint_progress'].include?(action) && ['web/economy'].include?(controller)
     end
 
+    def is_developer_route?
+      ['developer'].include?(action) && ['web/developer'].include?(controller)
+    end
+
     def is_settings_route?
       ['web/user_setting'].include?(controller)
     end
