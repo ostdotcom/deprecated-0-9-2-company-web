@@ -1,0 +1,26 @@
+// Import functions as variables depend on functions
+@import "../../plugins/bootstrap/scss/functions";
+
+// Import theme variables
+@import "../Starboy/variables";
+
+
+.developers-container{
+  .container-fluid{
+    .dev-container-box{
+      background-color:rgba(155, 175, 181, 0.1);
+    }
+
+    p{
+      font-size: $font-size-sm;
+
+    }
+    ul{
+      li{
+        font-size: $font-size-sm;
+        color: $blue-700;
+      }
+    }
+  }
+
+}

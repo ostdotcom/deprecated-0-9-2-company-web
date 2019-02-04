@@ -25,9 +25,6 @@ Rails.application.routes.draw do
 
   scope 'settings', controller: 'web/user_setting' do
     get '/team' => :team
-
-    ### TODO: Change action when implement.
-    get '/developer' => :team, as: 'developer'
   end
 
   scope "#{GlobalConstant::Environment.url_prefix}", controller: 'web/economy' do
@@ -35,6 +32,10 @@ Rails.application.routes.draw do
     get '/token/deploy' => :token_deploy, as: 'token_deploy'
     get '/token/mint' => :token_mint, as: 'token_mint'
     get '/token/mint-progress' => :token_mint_progress, as: 'token_mint_progress'
+  end
+
+  scope "#{GlobalConstant::Environment.url_prefix}/developer", controller: 'web/developer' do
+    get '/' => :developer, as: 'developer'
   end
 
   namespace 'devadmin' do
