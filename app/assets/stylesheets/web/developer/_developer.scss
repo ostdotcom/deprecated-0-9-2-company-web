@@ -9,6 +9,9 @@
   .container{
     .dev-container-box{
       background-color:rgba(155, 175, 181, 0.1);
+      .api-delete-btn{
+        cursor: pointer;
+      }
     }
 
     p{

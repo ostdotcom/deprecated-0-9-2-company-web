@@ -1,6 +1,7 @@
 <%
   api_get_key = GlobalConstant::RoutesMap.getApis()[:get_api_keys]
   api_delete_key = GlobalConstant::RoutesMap.getApis()[:delete_api_key]
+  is_super_admin = @presenter_obj.is_super_admin?
 %>
 
 <div class="developers-container">
@@ -15,12 +16,12 @@
 
         Please be sure your API Secret Key is always kept secure and never shared. Be careful when adding it to your codebase. Do not share your secret API keys in publicly accessible areas such as GitHub, Google docs etc.
       </p>
-      <% if @presenter_obj.is_super_admin? %>
+      <% if is_super_admin %>
         <button type="button" class="btn btn-primary mt-3 show-keys-btn">Show Key(s)</button>
         <button type="button" class="btn btn-primary mt-3 generate-key-btn">Generate Key</button>
         <div class="error mt-2"></div>
+        <div class="keys-wrapper mt-5"></div>
       <% end %>
-      <div class="keys-wrapper mt-5"></div>
     </div>
     <div class=" mt-5">
       <h4 class="mb-3">Client Side SDKs</h4>
@@ -166,7 +167,7 @@
          <div class="col-4">
             <div class="float-right d-inline d-flex align-items-center delete-key">
               <span class="mr-2 expiry">Expires on {{prettifyDate expiry_timestamp}}</span>
-              <span>
+              <span class="api-delete-btn">
                 <svg class="align-middle" style="height: 35px;width: 35px;">
                   <switch>
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#api-delete-icon"></use>

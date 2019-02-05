@@ -15,7 +15,6 @@
 
 
     init: function( config ){
-      var oThis = this;
       config = config || {};
 
       $.extend( oThis, config );
@@ -23,7 +22,6 @@
     },
 
     bindEvents: function() {
-      var oThis = this;
 
       oThis.jShowKeyBtn.on('click',function( e ){
         e.stopPropagation();
@@ -43,7 +41,6 @@
     },
 
     showKeys: function(){
-      var oThis = this;
       $.ajax({
         url       : oThis.api_get_key,
         method    : 'GET',
@@ -63,7 +60,6 @@
     },
 
     generateKeys: function(){
-      var oThis = this;
 
       oThis.jGenerateKeyBtn.text("Generating new key...");
       oThis.jGenerateKeyBtn.attr('disabled',true);
@@ -87,7 +83,6 @@
     },
 
     deleteAPIKey: function(){
-      var oThis = this;
       $.ajax({
         url       : oThis.api_delete_key,
         method    : 'POST',
@@ -107,7 +102,6 @@
     },
 
     onSuccess: function() {
-      var oThis = this;
       if( ! oThis.keys) return;
 
       var length = oThis.keys.length;
@@ -116,9 +110,11 @@
       if(length == 2){
         oThis.jShowKeyBtn.hide();
         oThis.jGenerateKeyBtn.hide();
+        oThis.jErrorEl.hide();
       } else if(length == 1){
         oThis.jShowKeyBtn.hide();
         oThis.jGenerateKeyBtn.show();
+        oThis.jErrorEl.show();
       }
     },
 
@@ -126,12 +122,12 @@
       if( !err ) return;
       var errorJson = err['responseJSON'],
           error     = errorJson.err;
+      oThis.jErrorEl.show();
       oThis.jErrorEl.text( error.display_text );
     },
 
     appendKeysInfoToDOM: function(){
-      var oThis = this,
-          source   = document.getElementById("api-info").innerHTML,
+      var source   = document.getElementById("api-info").innerHTML,
           template = Handlebars.compile(source),
           context = {'keys': oThis.keys},
           html    = template(context);
