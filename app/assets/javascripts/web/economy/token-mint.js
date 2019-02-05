@@ -30,6 +30,8 @@
     jStakeAndMintConfirmModal       :   $("#stake-mint-confirm-modal"),
     jGoBackBtn                      :   $('.jGoBackBtn'),
     jClientRetryBtn                 :   $('.jClientRetryBtn'),
+    jEtherText                      :   $('.ether-text'),
+    jOstText                        :   $('.ost-text'),
     //Static jQuery elements End
   
     //Dynamic jQuery elements start
@@ -250,7 +252,7 @@
         ;
         if( !ethBN ||  ethBN.isLessThan( minETHRequire ) ){
           oThis.showSection(  oThis.jInsufficientBalSection ) ;
-          $('buy-eth-btn').show();
+          oThis.jEtherText.show();
         }else {
           oThis.checkForOstBal();
         }
@@ -267,7 +269,8 @@
         ;
         if( !ostBN || ostBN.isLessThan( minOstRequire ) ){
           oThis.showSection(  oThis.jInsufficientBalSection ) ;
-          $('buy-ost-btn').show();
+          $('.buy-ost-btn').show();
+          oThis.jOstText.show();
         }else {
           ost = PriceOracle.fromWei( ost );
           oThis.onValidationComplete( ost );
@@ -368,11 +371,12 @@
         return val;
       }
   
+      //THIS code should have been independent.
       if( !PriceOracle.isNaN( oThis.totalOST ) ) {
         oThis.updateSupplyPieChart( ostToStake ) ;
       }
 
-      return ost ; //Mocker will take care of precession
+      return PriceOracle.toPrecessionOst( ost ) ;
     },
   
     ostAvailableOnBtChange : function ( val ) {
@@ -391,7 +395,7 @@
         return 0 ;
       }
 
-      return ostAvailable ;
+      return PriceOracle.toPrecessionOst( ostAvailable );
     },
   
     getWalletAddress : function () {

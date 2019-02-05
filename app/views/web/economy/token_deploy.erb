@@ -14,8 +14,8 @@
   current_step_failed_status = GlobalConstant::Workflow.failed
   client_token_symbol = @presenter_obj.client_token_symbol
 %>
-<%if !is_poll_failed%>
-  <div class="token-deploy-container text-center">
+
+  <div class="token-deploy-container text-center" style="display: <%= !is_poll_failed ? "block" : "none" %>">
 
 
       <div class="token-deploy-in-progress token-deploy-content mx-auto">
@@ -42,7 +42,7 @@
           </div>
 
         <div class="col-7 text-left my-auto">
-          Set Up is Complete. Lets start by Minting <%=client_token_symbol %>
+          Set Up is Complete. Lets start by Minting&nbsp;<%=client_token_symbol %>
         </div>
         <div class="col-4 my-auto">
           <a class="btn btn-primary d-inline" href="<%=mint_token_url %>">
@@ -146,12 +146,8 @@
 
     </div>
 
-
-
-
-
 </div>
-<%end%>
+
 
 <div class="deploy-error-state text-center mt-5" style="display: <%= is_poll_failed ? "block" : "none" %>">
   <svg class="error-icon align-middle">

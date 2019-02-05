@@ -32,6 +32,7 @@
   bt_to_mint_max = 5000
   staker_address_name = "staker_address"
   staker_address_selector = "[name='#{staker_address_name}']"
+  ether_text = "ETHER"
 %>
 
 
@@ -213,7 +214,9 @@
                           </switch>
                         </svg>
                         <div style="overflow: auto;" class="text-muted font-weight-light ml-2 align-self-center">
-                          Your selected address does not have sufficient ETHER or <%= ost_currency_symbol %>.
+                          Your selected address does not have sufficient&nbsp;
+                          <span class="ether-text" style="display: none;"><%= ether_text %></span>
+                          <span class="ost-text" style="display: none;"><%= ost_currency_symbol %></span>.
                         </div>
                       <% else %>
                         <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
@@ -222,9 +225,13 @@
                           </switch>
                         </svg>
                         <div style="overflow: auto;" class="text-muted font-weight-light ml-2 align-self-center">
-                          Your selected address does not have sufficient ETHER or <%= ost_currency_symbol %>.
-                          Will fund <%= initial_ost_funding %> <%= ost_currency_symbol %> in to your
-                          selected MetaMask wallet to get you started.
+                          Your selected address does not have sufficient&nbsp;
+                          <span class="ether-text" style="display: none;"><%= ether_text %>.</span>
+                          <span class="ost-text"   style="display: none;"><%= ost_currency_symbol %>.&nbsp;
+                            Will fund <%= initial_ost_funding %> <%= ost_currency_symbol %> in to your
+                            selected MetaMask wallet to get you started.
+                          </span>
+
                         </div>
                       <% end %>
                     </div>
@@ -234,16 +241,17 @@
               <% if is_buy_ost %>
                 <a href="https://openst.org/#token"
                    target="_blank"
-                   class="btn btn-primary d-inline-block buy-ost-btn" style="display: none;">Buy
-                  Ost</a>
+                   class="btn btn-primary d-inline-block buy-ost-btn" style="display: none;">Buy Ost</a>
               <% else %>
-                <button id="get-ost-btn" type="submit" data-submiting="Getting Ost ⍺.."
-                        class="btn btn-primary d-inline-block buy-eth-btn buy-ost-btn">Get <%= ost_currency_symbol %>
+                <button id="get-ost-btn" type="submit" data-submiting="Getting..."
+                        class="btn btn-primary d-inline-block">Get&nbsp;
+                  <span class="ether-text" style="display: none;"><%= ether_text %></span>
+                  <span class="ost-text"   style="display: none;"><%= ost_currency_symbol %></span>
                 </button>
                 <span class="jGetOstLoaderText ml-3 text-muted font-weight-light" style="display: none">
-                <img src="//dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader-1.gif" width="15" height="15"/>
-                Please wait while we transfer OST⍺ to your address
-              </span>
+                  <img src="//dxwfxs8b4lg24.cloudfront.net/ost-kit/images/processed-loader-1.gif" width="15" height="15"/>
+                  Please wait while we transfer OST⍺ to your address
+                </span>
               <% end %>
             </div>
             <div class="invalid-feedback general_error mb-2">&nbsp;</div>
