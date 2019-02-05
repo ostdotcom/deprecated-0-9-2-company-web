@@ -80,18 +80,19 @@
       oThis.polling = new Polling({
         pollingApi      : oThis.getDeployStatusEndPoint ,
         pollingInterval : 4000,
-        onPollSuccess   : oThis.onPollingSuccess.bind( oThis ),
-        onPollError     : oThis.onPollingError.bind( oThis )
+        onPollSuccess   : oThis.onPollingSuccess,
+        onPollError     : oThis.onPollingError
       });
       oThis.polling.startPolling();
     },
 
     onPollingSuccess : function( response ){
+      var pollingThis = this ;
       if(response && response.success){
         oThis.progressBar.updateProgressBar( response );
-        if( oThis.polling.isWorkflowFailed( response ) ||  oThis.polling.isWorkflowCompletedFailed( response )){
+        if( pollingThis.isWorkflowFailed( response ) ||  pollingThis.isWorkflowCompletedFailed( response )){
          oThis.onCurrentStepFailed( response );
-        } else if( !oThis.polling.isWorkFlowInProgress( response ) ){
+        } else if( !pollingThis.isWorkFlowInProgress( response ) ){
             oThis.pollingComplete();
         }
       }else {
@@ -100,7 +101,8 @@
     },
 
     onPollingError : function( jqXhr , error  ){
-      if( oThis.polling.isMaxRetries() ){
+      var pollingThis = this ;
+      if(pollingThis.isMaxRetries() ){
         oThis.onCurrentStepFailed( error );
       }
     },

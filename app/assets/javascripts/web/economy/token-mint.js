@@ -318,18 +318,19 @@
       oThis.getOstPolling = new Polling({
         pollingApi      : workflowApi ,
         pollingInterval : 4000,
-        onPollSuccess   : oThis.getOstPollingSuccess.bind( oThis ),
-        onPollError     : oThis.getOstPollingError.bind( oThis )
+        onPollSuccess   : oThis.getOstPollingSuccess,
+        onPollError     : oThis.getOstPollingError
       });
       oThis.getOstPolling.startPolling();
     },
   
     getOstPollingSuccess : function( response ){
+      var pollingThis = this ;
       if(response && response.success){
-        if( oThis.getOstPolling.isWorkflowFailed( response ) || oThis.getOstPolling.isWorkflowCompletedFailed( response ) ){
+        if( pollingThis.isWorkflowFailed( response ) || pollingThis.isWorkflowCompletedFailed( response ) ){
           oThis.showGetOstPollingError( response );
-        }else if( !oThis.getOstPolling.isWorkFlowInProgress( response ) ){
-          oThis.getOstPolling.stopPolling();
+        }else if( !pollingThis.isWorkFlowInProgress( response ) ){
+          pollingThis.stopPolling();
           oThis.checkForBal();
         }
       }else {
@@ -338,7 +339,8 @@
     },
   
     getOstPollingError : function( jqXhr , error  ){
-      if( oThis.getOstPolling.isMaxRetries() ){
+      var pollingThis = this ;
+      if( pollingThis.isMaxRetries() ){
         oThis.showGetOstPollingError( error );
       }
     },
@@ -757,8 +759,8 @@
         pollingMethod   : "POST",
         data            : oThis.getConfirmStakeAndMintIntendData(),
         pollingInterval : 4000,
-        onPollSuccess   : oThis.confirmStakeAndMintIntendSuccess.bind( oThis ),
-        onPollError     : oThis.confirmStakeAndMintIntendError.bind( oThis )
+        onPollSuccess   : oThis.confirmStakeAndMintIntendSuccess,
+        onPollError     : oThis.confirmStakeAndMintIntendError
       });
       oThis.stakeAndMintPolling.startPolling();
     },
@@ -777,20 +779,22 @@
     },
   
     confirmStakeAndMintIntendSuccess : function ( res ) {
+      var pollingThis = this ;
       if( res && res.success ){
         oThis.unbindBeforeUnload();
         setTimeout( function () { //Wait for atleast 0.5sec so that user can see the processing icon
           window.location = oThis.redirectRoute ;
         } , 500 );
       }else {
-        oThis.stakeAndMintPolling.currentRetry++ ;
+        pollingThis.currentRetry++ ;
         oThis.confirmStakeAndMintIntendError(null,  res );
       }
     },
   
     confirmStakeAndMintIntendError : function (jqXhr ,  error ) {
-      if( oThis.stakeAndMintPolling.isMaxRetries() ){
-        oThis.stakeAndMintPolling.stopPolling() ;
+      var pollingThis = this ;
+      if( pollingThis.isMaxRetries() ){
+        pollingThis.stopPolling() ;
         oThis.confirmStakeAndMintIntendErrorStateUpdate( error );
       }
     },
