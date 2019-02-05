@@ -35,7 +35,8 @@
         oThis.generateKeys();
       });
 
-      oThis.jKeysWrapper.on('click',oThis.jDeleteKey,function(){
+      oThis.jKeysWrapper.on('click',oThis.jDeleteKey,function( e ){
+        e.stopPropagation();
         oThis.deleteAPIKey();
       });
 
@@ -59,12 +60,6 @@
 
         }
       });
-      oThis.keys = [{
-        'key': 'gfhjwgfhjwgfjwh',
-        'secret': 'vhgyuwgfhgjfhjfhj',
-        'expiration_timestamp': '1549355309'
-      }];
-      oThis.onSuccess();
     },
 
     generateKeys: function(){
@@ -120,6 +115,7 @@
       oThis.appendKeysInfoToDOM();
       if(length == 2){
         oThis.jShowKeyBtn.hide();
+        oThis.jGenerateKeyBtn.hide();
       } else if(length == 1){
         oThis.jShowKeyBtn.hide();
         oThis.jGenerateKeyBtn.show();

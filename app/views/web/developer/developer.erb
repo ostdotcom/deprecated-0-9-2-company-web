@@ -162,10 +162,10 @@
           <h4>API Key</h4>
           <p>{{key}}</p>
         </div>
-        {{#if expiry}}
+        {{#if expiry_timestamp}}
          <div class="col-4">
             <div class="float-right d-inline d-flex align-items-center delete-key">
-              <span class="mr-2 expiry">Expires on {{prettifyDate expiration_timestamp}}</span>
+              <span class="mr-2 expiry">Expires on {{prettifyDate expiry_timestamp}}</span>
               <span>
                 <svg class="align-middle" style="height: 35px;width: 35px;">
                   <switch>
