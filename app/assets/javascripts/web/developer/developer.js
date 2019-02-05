@@ -24,10 +24,14 @@
 
     bindEvents: function() {
       var oThis = this;
-      oThis.jShowKeyBtn.on('click',function(){
+
+      oThis.jShowKeyBtn.on('click',function( e ){
+        e.stopPropagation();
         oThis.showKeys();
       });
-      oThis.jMainContainer.on('click',oThis.jGenerateKeyBtn,function(){
+
+      oThis.jMainContainer.on('click',oThis.jGenerateKeyBtn,function( e ){
+        e.stopPropagation();
         oThis.generateKeys();
       });
 
@@ -44,7 +48,7 @@
         method    : 'GET',
         success   : function ( response ) {
           if( response.data ){
-            oThis.keys = response.data.keys;
+            oThis.keys = response.data['api_keys'];
             oThis.onSuccess();
           }
         },
@@ -55,6 +59,12 @@
 
         }
       });
+      oThis.keys = [{
+        'key': 'gfhjwgfhjwgfjwh',
+        'secret': 'vhgyuwgfhgjfhjfhj',
+        'expiration_timestamp': '1549355309'
+      }];
+      oThis.onSuccess();
     },
 
     generateKeys: function(){
@@ -67,7 +77,7 @@
         method    : 'POST',
         success   : function ( response ) {
           if( response.data ){
-            oThis.keys = response.data.keys;
+            oThis.keys = response.data['api_keys'];
             oThis.onSuccess();
           }
         },
@@ -88,7 +98,7 @@
         method    : 'POST',
         success   : function ( response ) {
           if( response.data ){
-            oThis.keys = response.data.keys;
+            oThis.keys = response.data['api_keys'];
             oThis.onSuccess();
           }
         },

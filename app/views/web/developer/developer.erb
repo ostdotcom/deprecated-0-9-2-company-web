@@ -147,6 +147,11 @@
       'api_get_key' : "<%= api_get_key %>",
       'api_delete_key' : "<%= api_delete_key %>"
     });
+
+    Handlebars.registerHelper('prettifyDate',function( timestamp ){
+      return moment(timestamp*1000).format('Do MMM YYYY');
+    });
+
   </script>
 
   <script type="text/x-handlebars-template" id="api-info">
@@ -155,12 +160,12 @@
       <div class="row">
         <div class="col-8">
           <h4>API Key</h4>
-          <p>{{api_key}}</p>
+          <p>{{key}}</p>
         </div>
         {{#if expiry}}
          <div class="col-4">
             <div class="float-right d-inline d-flex align-items-center delete-key">
-              <span class="mr-2 expiry">{{expiry}}</span>
+              <span class="mr-2 expiry">Expires on {{prettifyDate expiration_timestamp}}</span>
               <span>
                 <svg class="align-middle" style="height: 35px;width: 35px;">
                   <switch>
@@ -174,7 +179,7 @@
       </div>
       <div>
         <h4>API Secret</h4>
-        <p>{{api_secret}}</p>
+        <p>{{secret}}</p>
       </div>
     </div>
     {{/each}}
