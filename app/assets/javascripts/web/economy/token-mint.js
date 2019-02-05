@@ -375,8 +375,8 @@
       if( !PriceOracle.isNaN( oThis.totalOST ) ) {
         oThis.updateSupplyPieChart( ostToStake ) ;
       }
-
-      return PriceOracle.toPrecessionOst( ost ) ;
+      
+      return ost ;
     },
   
     ostAvailableOnBtChange : function ( val ) {
@@ -394,8 +394,8 @@
       if( ostAvailable < 0 ){
         return 0 ;
       }
-
-      return PriceOracle.toPrecessionOst( ostAvailable );
+      
+      return ostAvailable  ;
     },
   
     getWalletAddress : function () {
@@ -511,8 +511,12 @@
     updateSupplyPieChart: function (  ostToStake ) {
       if( !oThis.mintDonuteChart ) return ;
       
-      ostToStake    = ostToStake && Number(ostToStake) || 0;
+      ostToStake = ostToStake && Number(ostToStake) || 0;
     
+      if( ostToStake < 0 ) {
+        ostToStake = 0 ;
+      }
+      
       var ostAvailable  = oThis.totalOST -  ostToStake  ;
 
       if( ostAvailable < 0){

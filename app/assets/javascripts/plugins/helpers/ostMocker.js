@@ -68,10 +68,7 @@
         valType = valType.toLowerCase();
         if ( numPrecisionMapping[ valType ] ) {
           mockPrecession = numPrecisionMapping[ valType ];
-          var precessionVal = $.number( targertVal, mockPrecession );
-          if( !isNaN( precessionVal ) ){
-            targertVal = precessionVal;
-          }
+          targertVal = $.number( targertVal, mockPrecession );
         } else {
           console.log("Unknown type '", valType, "'. Kindly Check.");
         }

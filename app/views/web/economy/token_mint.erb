@@ -32,7 +32,7 @@
   bt_to_mint_max = 5000
   staker_address_name = "staker_address"
   staker_address_selector = "[name='#{staker_address_name}']"
-  ether_text = "ETHER"
+  ether_text = "ETH"
 %>
 
 
@@ -214,9 +214,14 @@
                           </switch>
                         </svg>
                         <div style="overflow: auto;" class="text-muted font-weight-light ml-2 align-self-center">
-                          Your selected address does not have sufficient&nbsp;
-                          <span class="ether-text" style="display: none;"><%= ether_text %></span>
-                          <span class="ost-text" style="display: none;"><%= ost_currency_symbol %></span>.
+                          <span class="ether-text" style="display: none;">
+                            Looks like the account selected in metamask does not have enough <%= ether_text %> to pay gas for Minting Tokens,
+                            You can select a different account or Buy some <%= ether_text %>.
+                          </span>
+                          <span class="ost-text" style="display: none;">
+                            Looks like the account selected in metamask does not have enough <%= ost_currency_symbol %> to Mint Tokens,
+                            You can select a different account or Buy More <%= ost_currency_symbol %>.
+                          </span>
                         </div>
                       <% else %>
                         <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
@@ -225,11 +230,13 @@
                           </switch>
                         </svg>
                         <div style="overflow: auto;" class="text-muted font-weight-light ml-2 align-self-center">
-                          Your selected address does not have sufficient&nbsp;
-                          <span class="ether-text" style="display: none;"><%= ether_text %>.</span>
-                          <span class="ost-text"   style="display: none;"><%= ost_currency_symbol %>.&nbsp;
-                            Will fund <%= initial_ost_funding %> <%= ost_currency_symbol %> in to your
-                            selected MetaMask wallet to get you started.
+                          <span class="ether-text" style="display: none;">
+                           Your selected address does not have sufficient <%= ether_text %>.
+                            Will fund with minimum <%= ether_text %> required in to your selected MetaMask wallet to get you started.
+                          </span>
+                          <span class="ost-text"   style="display: none;">
+                            Your selected address does not have sufficient <%= ost_currency_symbol %>.
+                            Will fund <%=initial_ost_funding%> <%= ost_currency_symbol %> in to your selected MetaMask wallet to get you started.
                           </span>
 
                         </div>
