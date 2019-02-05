@@ -84,7 +84,7 @@
 
 
   <section id="content" class="container-fluid" <%= content_style %>>
-    <div class="container-fluid">
+<!--    <div class="container-fluid">-->
       <%= yield %>
       <div class="row">
           <% # meta-mask-workflow Needs to be the first element %>
@@ -92,7 +92,7 @@
             <%= yield(:cover_elements) %>
           </div>
       </div>
-    </div>
+<!--    </div>-->
   </section>
 
   <% content_for :popups do %>

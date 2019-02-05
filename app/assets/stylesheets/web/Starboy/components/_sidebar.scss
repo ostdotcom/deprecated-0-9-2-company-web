@@ -1,5 +1,5 @@
 .sidebar-nav{
-
+  border-right: 1px solid #9fc0cf;
   background: color("teal-bg");
   width: $side-bar-nav-width;
   position: fixed;
@@ -95,4 +95,21 @@
 
   }
 
+}
+
+.env-indicator-tag{
+  background-color: #9fc0cf;
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  color:white;
+  left: 250px;
+  font-size:$font-size-xs ;
+  top: 50%;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius:3px;
+  transform: translateY(-50%);
+  text-transform: uppercase;
+  letter-spacing: -2.1px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
