@@ -110,6 +110,6 @@
   transform: translateY(-50%);
   text-transform: uppercase;
   letter-spacing: -2.1px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px 0;
+  z-index: 1000; // Keep this more than cover elements.
 }
