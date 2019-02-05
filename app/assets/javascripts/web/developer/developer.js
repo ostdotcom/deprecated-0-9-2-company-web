@@ -59,6 +59,9 @@
 
     generateKeys: function(){
       var oThis = this;
+
+      oThis.jGenerateKeyBtn.text("Generating new key...");
+      oThis.jGenerateKeyBtn.attr('disabled',true);
       $.ajax({
         url       : oThis.api_get_key,
         method    : 'POST',
@@ -72,7 +75,8 @@
           oThis.onError( err );
         },
         complete  : function () {
-
+          oThis.jGenerateKeyBtn.text("Generate new key");
+          oThis.jGenerateKeyBtn.attr('disabled',false);
         }
       });
     },
