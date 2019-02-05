@@ -360,18 +360,17 @@
     },
     
     ostToStakeOnBtChange : function ( val ) {
-
-      if( PriceOracle.isNaN( oThis.totalOST )) {
-        return val ;
-      }
+      
       var ostToStake = PriceOracle.btToOst( val ) ,
           ost        = PriceOracle.toOst( ostToStake )
       ;
       if(  PriceOracle.isNaN( ost)  ){
         return val;
       }
-
-      oThis.updateSupplyPieChart( ostToStake ) ;
+  
+      if( !PriceOracle.isNaN( oThis.totalOST ) ) {
+        oThis.updateSupplyPieChart( ostToStake ) ;
+      }
 
       return ost ; //Mocker will take care of precession
     },
