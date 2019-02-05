@@ -5,87 +5,129 @@
 
   var oThis = ost.developer = {
 
-    jShowKeyBtn : $('.show-keys-btn'),
-    jKeysWrapper: $('.keys-wrapper'),
-    keys: null,
+    jShowKeyBtn     : $('.show-keys-btn'),
+    jGenerateKeyBtn : $('.generate-key-btn'),
+    jDeleteKey      : $('.delete-key'),
+    jKeysWrapper    : $('.keys-wrapper'),
+    jMainContainer  : $('.developers-container'),
+    jErrorEl        : $('.error'),
+    keys            : null,
 
 
-    init: function(){
+    init: function( config ){
       var oThis = this;
+      config = config || {};
+
+      $.extend( oThis, config );
       oThis.bindEvents();
     },
 
     bindEvents: function() {
       var oThis = this;
       oThis.jShowKeyBtn.on('click',function(){
-        oThis.fetchKeys();
+        oThis.showKeys();
       });
+      oThis.jMainContainer.on('click',oThis.jGenerateKeyBtn,function(){
+        oThis.generateKeys();
+      });
+
+      oThis.jKeysWrapper.on('click',oThis.jDeleteKey,function(){
+        oThis.deleteAPIKey();
+      });
+
     },
 
-    fetchKeys: function(){
-      var oThis = this,
-          data = {};
+    showKeys: function(){
+      var oThis = this;
       $.ajax({
-        url       : '/',
+        url       : oThis.api_get_key,
         method    : 'GET',
-        data      : data,
         success   : function ( response ) {
           if( response.data ){
             oThis.keys = response.data.keys;
-            oThis.appendToDOM( oThis.jKeysWrapper, oThis.keys );
-            oThis.jKeysWrapper.show();
+            oThis.onSuccess();
           }
-
         },
-        error     : function () {
-
+        error     : function ( err ) {
+          oThis.onError( err );
         },
         complete  : function () {
 
         }
       });
-
-      //TODO: temp for testing
-      oThis.keys = [
-        {
-          'api_key' : 'guywguywgdgwui',
-          'api_secret': 'hbhehgfgegfhj'
-        },
-        {
-          'api_key' : 'guywguywgdgwui',
-          'api_secret': 'hbhehgfgegfhj',
-          'expiry': 'gwfy7678236782cvh'
-        }
-      ];
-      oThis.appendToDOM( oThis.jKeysWrapper, oThis.keys );
-      oThis.jKeysWrapper.show();
     },
 
-    appendToDOM: function( jWrapper, keys ){
-      var c = document.createDocumentFragment();
+    generateKeys: function(){
+      var oThis = this;
+      $.ajax({
+        url       : oThis.api_get_key,
+        method    : 'POST',
+        success   : function ( response ) {
+          if( response.data ){
+            oThis.keys = response.data.keys;
+            oThis.onSuccess();
+          }
+        },
+        error     : function ( err ) {
+          oThis.onError( err );
+        },
+        complete  : function () {
 
-      if(!keys || !jWrapper) return;
-
-      keys.forEach(function( item, index) {
-        var divEl = document.createElement("div"),
-            keyPEl  = document.createElement("p"),
-            keyHEl  = document.createElement("h4"),
-            secretPEl  = document.createElement("p"),
-            secretHEl  = document.createElement("h4");
-        keyHEl.innerText = 'API key';
-        secretHEl.innerText = 'Secret';
-        keyPEl.innerText = item.api_key;
-        secretPEl.innerText =  item.api_secret;
-        divEl.appendChild(keyHEl);
-        divEl.appendChild(keyPEl);
-        divEl.appendChild(secretHEl);
-        divEl.appendChild(secretPEl);
-        divEl.className = 'dev-container-box';
-        c.appendChild(divEl);
+        }
       });
-      jWrapper[0].append(c);
-    }
+    },
 
+    deleteAPIKey: function(){
+      var oThis = this;
+      $.ajax({
+        url       : oThis.api_delete_key,
+        method    : 'POST',
+        success   : function ( response ) {
+          if( response.data ){
+            oThis.keys = response.data.keys;
+            oThis.onSuccess();
+          }
+        },
+        error     : function ( err ) {
+          oThis.onError( err );
+        },
+        complete  : function () {
+
+        }
+      });
+    },
+
+    onSuccess: function() {
+      var oThis = this;
+      if( ! oThis.keys) return;
+
+      var length = oThis.keys.length;
+
+      oThis.appendKeysInfoToDOM();
+      if(length == 2){
+        oThis.jShowKeyBtn.hide();
+      } else if(length == 1){
+        oThis.jShowKeyBtn.hide();
+        oThis.jGenerateKeyBtn.show();
+      }
+    },
+
+    onError( err ) {
+      if( !err ) return;
+      var errorJson = err['responseJSON'],
+          error     = errorJson.err;
+      oThis.jErrorEl.text( error.display_text );
+    },
+
+    appendKeysInfoToDOM: function(){
+      var oThis = this,
+          source   = document.getElementById("api-info").innerHTML,
+          template = Handlebars.compile(source),
+          context = {'keys': oThis.keys},
+          html    = template(context);
+      $('.keys-wrapper').empty();
+      $('.keys-wrapper').append(html);
+    }
   }
 
 })(window, jQuery);

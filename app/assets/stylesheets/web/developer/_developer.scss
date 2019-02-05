@@ -9,8 +9,6 @@
   .container{
     .dev-container-box{
       background-color:rgba(155, 175, 181, 0.1);
-      padding: $list-group-item-padding-x;
-      margin-top: 1rem;
     }
 
     p{
@@ -25,7 +23,19 @@
     }
 
     .keys-wrapper{
-      display:none;
+      .expiry{
+        color: $blue-700;
+        font-size: $font-size-sm;
+      }
+    }
+    .generate-key-btn{
+      display: none;
+    }
+    .error{
+      min-height: 25px;
+      font-weight: $font-weight-normal;
+      font-size: $font-size-sm;
+      color: $red;
     }
   }
 
