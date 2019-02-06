@@ -17,8 +17,8 @@
         Please be sure your API Secret Key is always kept secure and never shared. Be careful when adding it to your codebase. Do not share your secret API keys in publicly accessible areas such as GitHub, Google docs etc.
       </p>
       <% if is_super_admin %>
-        <button type="button" class="btn btn-primary mt-3 show-keys-btn">Show Key(s)</button>
-        <button type="button" class="btn btn-primary mt-3 generate-key-btn">Generate Key</button>
+        <button type="button" class="btn btn-primary mt-3 show-keys-btn" data-submiting="Fetching..." >Show Key(s)</button>
+        <button type="button" class="btn btn-primary mt-3 generate-key-btn" data-submiting="Generating...">Generate Key</button>
         <div class="error mt-2"></div>
         <div class="keys-wrapper mt-5"></div>
       <% end %>

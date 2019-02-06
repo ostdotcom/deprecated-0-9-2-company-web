@@ -1,13 +1,15 @@
 ;
 (function (window, $) {
-  var ost = ns("ost")
+  var ost = ns("ost") ,
+    utilities = ns('ost.utilities')
   ;
 
   var oThis = ost.developer = {
 
+    sGenerateKeyBtn : '.generate-key-btn',
+    sDeleteKey      : '.api-delete-btn',
+    jGenerateKeyBtn : $( '.generate-key-btn' ) ,
     jShowKeyBtn     : $('.show-keys-btn'),
-    jGenerateKeyBtn : $('.generate-key-btn'),
-    jDeleteKey      : $('.api-delete-btn'),
     jKeysWrapper    : $('.keys-wrapper'),
     jMainContainer  : $('.developers-container'),
     jErrorEl        : $('.error'),
@@ -25,15 +27,16 @@
 
       oThis.jShowKeyBtn.on('click',function( e ){
         e.stopPropagation();
+        utilities.btnSubmittingState( $(this) );
         oThis.showKeys();
       });
 
-      oThis.jMainContainer.on('click',oThis.jGenerateKeyBtn,function( e ){
+      oThis.jMainContainer.on('click', oThis.sGenerateKeyBtn ,function( e ){
         e.stopPropagation();
         oThis.generateKeys();
       });
 
-      oThis.jKeysWrapper.on('click',oThis.jDeleteKey,function( e ){
+      oThis.jKeysWrapper.on('click',oThis.sDeleteKey,function( e ){
         e.stopPropagation();
         oThis.deleteAPIKey();
       });
@@ -54,15 +57,15 @@
           oThis.onError( err );
         },
         complete  : function () {
-
+          utilities.btnSubmitCompleteState( oThis.jShowKeyBtn );
         }
       });
     },
 
     generateKeys: function(){
 
-      oThis.jGenerateKeyBtn.text("Generating new key...");
-      oThis.jGenerateKeyBtn.attr('disabled',true);
+      utilities.btnSubmittingState( oThis.jGenerateKeyBtn );
+
       $.ajax({
         url       : oThis.api_get_key,
         method    : 'POST',
@@ -76,8 +79,7 @@
           oThis.onError( err );
         },
         complete  : function () {
-          oThis.jGenerateKeyBtn.text("Generate new key");
-          oThis.jGenerateKeyBtn.attr('disabled',false);
+         utilities.btnSubmitCompleteState( oThis.jGenerateKeyBtn );
         }
       });
     },
