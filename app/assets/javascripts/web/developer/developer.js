@@ -110,11 +110,9 @@
       if(length == 2){
         oThis.jShowKeyBtn.hide();
         oThis.jGenerateKeyBtn.hide();
-        oThis.jErrorEl.hide();
       } else if(length == 1){
         oThis.jShowKeyBtn.hide();
         oThis.jGenerateKeyBtn.show();
-        oThis.jErrorEl.show();
       }
     },
 
@@ -122,7 +120,6 @@
       if( !err ) return;
       var errorJson = err['responseJSON'],
           error     = errorJson.err;
-      oThis.jErrorEl.show();
       oThis.jErrorEl.text( error.display_text );
     },
 
