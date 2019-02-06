@@ -7,7 +7,7 @@
 
     jShowKeyBtn     : $('.show-keys-btn'),
     jGenerateKeyBtn : $('.generate-key-btn'),
-    jDeleteKey      : $('.delete-key'),
+    jDeleteKey      : $('.api-delete-btn'),
     jKeysWrapper    : $('.keys-wrapper'),
     jMainContainer  : $('.developers-container'),
     jErrorEl        : $('.error'),
