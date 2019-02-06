@@ -118,11 +118,16 @@
       }
     },
 
-    onError( err ) {
-      if( !err ) return;
-      var errorJson = err['responseJSON'],
-          error     = errorJson.err;
-      oThis.jErrorEl.text( error.display_text );
+    onError( error ) {
+      if( !error ) return;
+      var serverErrors = error.err.error_data || {};
+      if(serverErrors && serverErrors.msg) {
+        oThis.jErrorEl.text( serverErrors.msg );
+      }
+      else {
+        utilities.showGeneralError( oThis.jErrorEl, error );
+      }
+
     },
 
     appendKeysInfoToDOM: function(){
