@@ -83,7 +83,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center"  data-toggle="collapse" href="#settings">
+      <a class="nav-link d-flex align-items-center"  data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-settings"></use>
@@ -91,7 +91,7 @@
         </svg>
         <span class="label">Settings</span>
       </a>
-      <div class="<%= @presenter_obj.is_settings_route? ? '' : 'collapse' %> settings-sub-menu  active" id="settings">
+      <div class="<%= @presenter_obj.is_settings_route? ? 'show' : '' %> collapse  settings-sub-menu  active" id="settings">
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
               <a class="nav-link  pl-6 <%= @presenter_obj.is_team_route? ? 'active' : '' %>" href="<%= team_url %>?peup=<%= GlobalConstant::Environment.url_prefix %>">Team</a>
