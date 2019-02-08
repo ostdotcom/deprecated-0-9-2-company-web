@@ -1,44 +1,35 @@
-<nav class="navbar navbar-expand-md navbar-light ">
-  <a href="/dashboard" class="navbar-brand font-weight-normal">
-    <svg width="22px" height="22px">
+<%
+  if @presenter_obj.client_token_symbol
+    dropdown_text = @presenter_obj.client_token_symbol
+  else
+    if @presenter_obj.manager
+      dropdown_text = @presenter_obj.manager.email.split('@')[0]
+    else
+      dropdown_text = 'Settings'
+    end
+  end
+%>
+
+<nav class="navbar navbar-expand-md navbar-light h-100">
+  <a href="<%=GlobalConstant::RoutesMap.getRoutes()[:token_setup] %>" class="navbar-brand font-weight-normal">
+    <svg class="icon">
       <switch>
-        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ost-icon"></use>
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ost-header-logo"></use>
       </switch>
     </svg>
-    <span class="token-name">
-      <%= @presenter_obj.client_token_name %>
-    </span>
   </a>
-  <div class="collapse navbar-collapse" id="navbarCollapse">
+  <div class="collapse navbar-collapse h-100" id="navbarCollapse">
 
-    <ul class="navbar-nav navbar-right ml-md-auto d-md-flex text-uppercase font-weight-normal">
-      <%# if controller_name != 'user_setting' %>
-<!--          <li class="nav-item">-->
-<!--            <span class="nav-link" href="#">-->
-<!--              <span class="d-block">Total Supply</span>-->
-<!--              <span class="d-block gold text-sm-left text-md-center">APP 45,000 ($200)</span>-->
-<!--            </span>-->
-<!--          </li>-->
-      <%#end%>
-      <%# if controller_name != 'user_setting' %>
-<!--          <li class="nav-item">-->
-<!--                <span class="nav-link" href="#">-->
-<!--                  <span class="d-block">Available</span>-->
-<!--                  <span class="d-block gold text-sm-left text-md-center">OST⍺ 100,000 ($200)</span>-->
-<!--                </span>-->
-<!--          </li>-->
-      <%#end%>
-      <li class="nav-item">
-        <a class="nav-link d-flex" href="https://help.ost.com/support/home" target="_blank">
-          <svg class="get-help-icon">
-            <switch>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-users-help"></use>
-            </switch>
-          </svg>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link d-flex" href="/logout">Logout</a>
+    <ul class="navbar-nav navbar-right ml-md-auto text-uppercase h-100">
+      <li class="nav-item dropdown show">
+        <a class="nav-item nav-link dropdown-toggle d-flex align-items-center" href="#" id="user-settings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=dropdown_text %></a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-user mr-md-2 mt-md-2" aria-labelledby="user-settings">
+          <div class="dropdown-arrow"></div>
+          <a class="dropdown-item py-2" href="<%=GlobalConstant::RoutesMap.getRoutes()[:team] %>">Team Dashboard</a>
+          <a class="dropdown-item py-2" href="https://help.ost.com/support/home" target="_blank">Help</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item py-2" href="/logout">Logout</a>
+        </div>
       </li>
     </ul>
   </div>

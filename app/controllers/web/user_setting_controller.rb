@@ -19,6 +19,7 @@ class Web::UserSettingController < Web::BaseController
     end
 
     @presenter_obj = ::WebPresenter::ManagerPresenter.new(@response, params)
+    @fe_no_nav = true
   end
 
 

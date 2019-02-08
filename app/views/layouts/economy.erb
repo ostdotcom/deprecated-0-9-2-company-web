@@ -72,9 +72,11 @@
 
   <%
     content_style = ""
-     if @fe_no_nav.present? && @fe_no_nav
-  content_style = "style=width:100%;"
-     else
+    cover_elem_style = ""
+    if @fe_no_nav.present? && @fe_no_nav
+      content_style = "width:100%;margin-left:0"
+      cover_elem_style = "width:100%"
+    else
   %>
     <%= render :partial => "/shared/web/common/sidebar" %>
   <% end %>
@@ -82,8 +84,8 @@
 
   <%= render :partial => "/shared/web/economy/metamask/metamask" %>
 
-
-  <section id="content" class="container-fluid" <%= content_style %>>
+  <section id="content" class="container-fluid" style="<%= content_style %>">
+      <style>#content #cover-container .cover-element{<%= cover_elem_style %>}</style>
       <%= yield %>
       <div class="row">
           <% # meta-mask-workflow Needs to be the first element %>

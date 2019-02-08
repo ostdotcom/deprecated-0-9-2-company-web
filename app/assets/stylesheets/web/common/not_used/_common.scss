@@ -1,10 +1,10 @@
 // Import body level CSS
 @import "token_icons";
 // Import functions as variables depend on functions
-@import "../../plugins/bootstrap/scss/functions";
+@import "plugins/bootstrap/scss/functions";
 
 // Import theme variables
-@import "../Starboy/variables";
+@import "web/Starboy/variables";
 
 .code-session {
   display: none;

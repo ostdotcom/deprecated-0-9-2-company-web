@@ -1,8 +1,7 @@
 /*
  * Bootstrap theme Starboy
  *= require web/Starboy/Starboy.scss
- * Common CSS 
- *= require web/common/_common.scss
+ * Common CSS
  *= require web/common/_svgcheckbox.scss
  * Component bootstrap-slider
  *= require ../plugins/bootstrap-slider/bootstrap-slider.css

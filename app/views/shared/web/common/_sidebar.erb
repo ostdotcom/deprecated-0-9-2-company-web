@@ -82,28 +82,28 @@
         <span class="label">Block Explorer</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link d-flex align-items-center"  data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
-        <svg class="icon">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-settings"></use>
-          </switch>
-        </svg>
-        <span class="label">Settings</span>
-      </a>
-      <div class="<%= @presenter_obj.is_settings_route? ? 'show' : '' %> collapse  settings-sub-menu  active" id="settings">
-          <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a class="nav-link  pl-6 <%= @presenter_obj.is_team_route? ? 'active' : '' %>" href="<%= team_url %>?peup=<%= GlobalConstant::Environment.url_prefix %>">Team</a>
-            </li>
-          </ul>
-      </div>
-    </li>
+<!--    <li class="nav-item">-->
+<!--      <a class="nav-link d-flex align-items-center"  data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">-->
+<!--        <svg class="icon">-->
+<!--          <switch>-->
+<!--            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-settings"></use>-->
+<!--          </switch>-->
+<!--        </svg>-->
+<!--        <span class="label">Settings</span>-->
+<!--      </a>-->
+<!--      <div class="<%#= @presenter_obj.is_settings_route? ? 'show' : '' %> collapse  settings-sub-menu  active" id="settings">-->
+<!--          <ul class="nav nav-pills flex-column">-->
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link  pl-6 <%#= @presenter_obj.is_team_route? ? 'active' : '' %>" href="<%#= team_url %>?peup=<%#= GlobalConstant::Environment.url_prefix %>">Team</a>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--      </div>-->
+<!--    </li>-->
   </ul>
 
 </aside>
 
-<% if (true == true) %>
+<% if GlobalConstant::Base.sandbox_sub_environment? %>
 <div class="position-fixed env-indicator-tag d-inline align-middle ">
   Test Data
 </div>

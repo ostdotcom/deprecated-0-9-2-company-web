@@ -1,3 +1,8 @@
+// Import functions as variables depend on functions
+@import "plugins/bootstrap/scss/functions";
+
+// Import theme variables
+@import "web/Starboy/variables";
   .token_icon_1 {
     background-color: #92e1d1;
   }
@@ -71,5 +76,37 @@
         right: -3px;
         top: 5px;
       }
+    }
+  }
+
+  .user-dropdown-menu{
+    box-shadow: 0 2.5px 5.5px 0.5px rgba(50, 50, 50, 0.09);
+    border: 0;
+    .dropdown-arrow{
+      position: relative;
+      left: calc(100% - 1.5rem);
+      top: -0.575rem;
+      &:after, &:before{
+        position: absolute;
+        display: block;
+        content: "";
+        border-color: transparent;
+        border-style: solid;
+        border-width: 0 .5rem .5rem .5rem;
+      }
+      &:before{
+        border-bottom-color: rgba(50, 50, 50, 0.09);
+        top: -0.5rem;
+      }
+      &:after{
+        top: -0.45rem;
+        border-bottom-color: #fff;
+      }
+    }
+    .dropdown-item{
+      color: $blue-700;
+      text-transform: uppercase;
+      font-size: $font-size-xs;
+      letter-spacing: 1px;
     }
   }
