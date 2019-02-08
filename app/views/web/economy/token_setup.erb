@@ -43,17 +43,20 @@
                   <label class="form-label" for="token_name">Token Name</label>
                   <input type="text" class="form-control" id="name"
                          value ="<%= @presenter_obj.client_token_name%>"
-                         placeholder="Token Name" name="name" minlength="4"
-                         maxlength="20" pattern="^[a-zA-Z][a-zA-Z0-9\s]+[a-zA-Z0-9\s]+[a-zA-Z0-9]"
-                         required tabindex="1" />
+                         placeholder="Token Name" name="name"
+                         minlength="4" maxlength="20" pattern="^[a-zA-Z][a-zA-Z0-9\s]+[a-zA-Z0-9\s]+[a-zA-Z0-9]" required
+                         autocomplete="off"
+                         tabindex="1" />
                   <div class="invalid-feedback" data-forid="name">&nbps;</div>
                 </div>
                 <div class="form-group mb-2 d-inline-block col-3">
                   <label class="form-label" for="token_symbol">Token Symbol</label>
                   <input type="text" class="form-control" id="symbol"
                          value ="<%= @presenter_obj.client_token_symbol%>"
-                         placeholder="Token Symbol" name="symbol" minlength="3" maxlength="4"
-                         pattern="^[a-zA-Z][a-zA-Z0-9]+" required tabindex="1" />
+                         placeholder="Token Symbol" name="symbol"
+                         minlength="3" maxlength="4" pattern="^[a-zA-Z][a-zA-Z0-9]+" required
+                         autocomplete="off"
+                         tabindex="1" />
                   <div class="invalid-feedback" data-forid="symbol">&nbps;</div>
                 </div>
               </div>
