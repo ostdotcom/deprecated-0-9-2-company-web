@@ -53,7 +53,25 @@ $token-symbol-height:45px;
       }
     }
   }
+  .dropdown-toggle{
+    &:after{
 
+
+      //margin-left: 0.255em;
+      //vertical-align: 0.255em;
+      //content: "";
+      border-color: #438BAD;
+      border-style: solid;
+      border-width: 1.2px;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg);
+      height: 10px;
+      width: 10px;
+      margin-left: 10px;
+      margin-top: -3px;
+    }
+  }
   .dropdown-menu-user{
     box-shadow: 0 2.5px 5.5px 0.5px rgba(50, 50, 50, 0.09);
     border: 0;
