@@ -55,11 +55,6 @@ $token-symbol-height:45px;
   }
   .dropdown-toggle{
     &:after{
-
-
-      //margin-left: 0.255em;
-      //vertical-align: 0.255em;
-      //content: "";
       border-color: #438BAD;
       border-style: solid;
       border-width: 1.2px;
@@ -107,6 +102,7 @@ $token-symbol-height:45px;
   .navbar-brand{
     svg.icon{
       width: 60px;
+      height: 40px;
     }
   }
 }
@@ -115,7 +111,6 @@ $token-symbol-height:45px;
   background-color: color('orange');
   color: color('white');
   height: 60px;
-//  padding: 13px 0;
 
   &__planner{
     background-color: #f9f8e6;
