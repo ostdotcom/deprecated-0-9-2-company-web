@@ -25,12 +25,10 @@ html, body{
 .container {
   margin: 0 auto;
   max-width: 960px;
-  //background: #ffffff;
 }
 #content {
   width: calc(100% - #{$side-bar-nav-width});
   margin-left: $side-bar-nav-width;
- // min-height: calc(100vh - #{$ost-header-height});
   min-width: $content-min-width;
   
   transition: all 0.3s;
@@ -44,7 +42,6 @@ html, body{
       display: none;
       height: calc(100vh - #{$cover-element-height-factor});
       padding-bottom: 10px;
-      //max-width: calc(960px - #{$grid-gutter-width});
       width: calc(100% - #{$side-bar-nav-width});
       margin-left: -15px;
       overflow-y: auto;

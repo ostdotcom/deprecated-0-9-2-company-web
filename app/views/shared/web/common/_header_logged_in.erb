@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light h-100">
   <a href="<%=GlobalConstant::RoutesMap.getRoutes()[:token_setup] %>" class="navbar-brand font-weight-normal">
-    <svg width="60px" height="30px">
+    <svg class="icon">
       <switch>
         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ost-header-logo"></use>
       </switch>
@@ -14,10 +14,11 @@
     <ul class="navbar-nav navbar-right ml-md-auto text-uppercase h-100">
       <li class="nav-item dropdown show">
         <a class="nav-item nav-link dropdown-toggle d-flex align-items-center" href="#" id="user-settings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">OST Token</a>
-        <div class="dropdown-menu dropdown-menu-right user-dropdown-menu mr-md-2 mt-md-2" aria-labelledby="user-settings">
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-user mr-md-2 mt-md-2" aria-labelledby="user-settings">
           <div class="dropdown-arrow"></div>
           <a class="dropdown-item py-2" href="<%=GlobalConstant::RoutesMap.getRoutes()[:team] %>">Team Dashboard</a>
           <a class="dropdown-item py-2" href="https://help.ost.com/support/home" target="_blank">Help</a>
+          <div class="dropdown-divider"></div>
           <a class="dropdown-item py-2" href="/logout">Logout</a>
         </div>
       </li>
