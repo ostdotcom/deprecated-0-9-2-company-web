@@ -21,8 +21,9 @@
                   Yes, I want to be contacted by the OST Support team.
                 </span>
                 </label>
-                <div class="error invalid-feedback" data-for="whitelist_user_checkbox">
-              </div>
+                <div class="error invalid-feedback" data-for="whitelist_user_checkbox"></div>
+                <input type="hidden" name="sandbox_token_name" value="<%= sandbox_token_name %>"/>
+                <input type="hidden" name="sandbox_token_symbol" value="<%= sandbox_token_symbol %>"/>
               <div class="col-12 mx-auto mt-5">
                 <button type="submit" data-submiting="Confirming..." class="btn btn-primary whitelist-user-btn">CONFIRM</button>
                 <button type="button" data-dismiss="modal" class="btn btn-secondary ml-3">CANCEL</button>
