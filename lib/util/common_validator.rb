@@ -64,7 +64,7 @@ module Util
     # @return [Boolean] returns a boolean
     #
     def self.is_valid_token?(token)
-      token =~  /^([a-z0-9=\-]*)$/i
+      token =~  /\A([a-z0-9=\-]*)\z/i
     end
 
   end
