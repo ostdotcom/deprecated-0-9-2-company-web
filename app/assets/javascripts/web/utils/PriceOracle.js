@@ -161,6 +161,19 @@
       if ( oThis.isNaN( fiat ) ) {
         return NaN;
       }
+  
+      fiat = BigNumber( fiat );
+      return  fiat.toString( );
+    },
+    
+    toPrecessionFiat : function ( fiat ) {
+      var oThis = this;
+  
+      fiat = oThis.toFiat( fiat );
+      
+      if ( !fiat ) {
+        return "";
+      }
       
       fiat = BigNumber( fiat );
       var precession = oThis.getFiatPrecession();
