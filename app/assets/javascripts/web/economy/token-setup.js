@@ -59,11 +59,13 @@
         initDisplayFiatValue : function () {
           var jEL = $('.j-bt-to-fiat-val'),
               jInputEl = $('#'+oThis.ostToBtId),
-              val = jInputEl.val()
+              val = jInputEl.val() ,
+              fiatVal = PriceOracle.btToFiatPrecession( 1 )
           ;
           jEL.data("ost-mock-element" , "#"+ oThis.ostToBtId );
           jEL.ostMocker();
-          jEL.text(  PriceOracle.btToFiat( 1 ) );
+          jEL.text( fiatVal );
+          $('.j-fiat-value').text( fiatVal );
         },
 
         setupMetamask: function(){

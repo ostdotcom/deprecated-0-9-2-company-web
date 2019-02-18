@@ -68,6 +68,16 @@
       return oThis.toFiat( result );
     },
     
+    btToFiatPrecession : function ( bt) {
+      if( !bt ) return "";
+  
+      var oThis = this ;
+  
+      var fiat = oThis.btToFiat( bt );
+  
+      return oThis.toPrecessionFiat( fiat );
+    },
+    
     ostToBt : function ( ost  ) {
       if( !ost ) return "";
   
