@@ -64,6 +64,8 @@
     },
   
     onWorkflowComplete : function ( response ) {
+      oThis.polling.stopPolling();
+      
       var amountMinted = utilities.deepGet( response , "data.workflow_payload.amountMinted" ) ,
           toEthBT      = window.web3.fromWei( amountMinted , "ether")
       ;
