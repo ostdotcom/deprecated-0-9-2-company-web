@@ -6,6 +6,7 @@
   redirect_url = GlobalConstant::RoutesMap.getRoutes()[:token_setup]
   mint_token_url = GlobalConstant::RoutesMap.getRoutes()[:token_mint]
   invite_team_url = GlobalConstant::RoutesMap.getRoutes()[:team]
+  developer_url = GlobalConstant::RoutesMap.getRoutes()[:developer]
   is_poll_failed = false
   if @presenter_obj.client_token.status == GlobalConstant::ClientToken.deployment_failed
           is_poll_failed = true
@@ -114,9 +115,9 @@
           Integrate OST APIs with your application.
         </p>
         <div class="col-4">
-          <button class="btn btn-secondary">
+          <a class="btn btn-secondary"  href="<%=developer_url %>">
             get api keys
-          </button>
+          </a>
 
         </div>
 

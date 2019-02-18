@@ -794,7 +794,7 @@
         } , 500 );
       }else {
         pollingThis.currentRetry++ ;
-        oThis.confirmStakeAndMintIntendError(null,  res );
+        oThis.confirmStakeAndMintIntendError.call(pollingThis,  null, res );
       }
     },
   

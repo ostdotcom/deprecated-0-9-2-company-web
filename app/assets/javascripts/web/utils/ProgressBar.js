@@ -39,7 +39,7 @@
     progressStep            : null,
 
     tooltipOffsetLeft       : 5,
-    arrowHalfLength         : 6,
+    arrowHalfLength         : 8,
     percentCompletion       : 0,
     currentStep: "",
 

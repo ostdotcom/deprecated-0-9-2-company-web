@@ -1,7 +1,6 @@
 <%
   planner_url = GlobalConstant::RoutesMap.getRoutes()[:token_setup]
   mint_token_url = GlobalConstant::RoutesMap.getRoutes()[:token_mint]
-  team_url = GlobalConstant::RoutesMap.getRoutes()[:team]
   developer_url = GlobalConstant::RoutesMap.getRoutes()[:developer]
   api_request_whitelist = GlobalConstant::RoutesMap.getApis()[:api_request_whitelist]
   is_whitelisted_user = @presenter_obj.sub_env_payloads.is_mainnet_whitelisted?
@@ -84,23 +83,6 @@
         <span class="label">Block Explorer</span>
       </a>
     </li>
-<!--    <li class="nav-item">-->
-<!--      <a class="nav-link d-flex align-items-center"  data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">-->
-<!--        <svg class="icon">-->
-<!--          <switch>-->
-<!--            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-settings"></use>-->
-<!--          </switch>-->
-<!--        </svg>-->
-<!--        <span class="label">Settings</span>-->
-<!--      </a>-->
-<!--      <div class="<%#= @presenter_obj.is_settings_route? ? 'show' : '' %> collapse  settings-sub-menu  active" id="settings">-->
-<!--          <ul class="nav nav-pills flex-column">-->
-<!--            <li class="nav-item">-->
-<!--              <a class="nav-link  pl-6 <%#= @presenter_obj.is_team_route? ? 'active' : '' %>" href="<%#= team_url %>?peup=<%#= GlobalConstant::Environment.url_prefix %>">Team</a>-->
-<!--            </li>-->
-<!--          </ul>-->
-<!--      </div>-->
-<!--    </li>-->
   </ul>
 
 </aside>
