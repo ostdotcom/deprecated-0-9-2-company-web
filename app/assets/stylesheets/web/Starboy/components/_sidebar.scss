@@ -102,8 +102,8 @@
   writing-mode: vertical-lr;
   text-orientation: upright;
   color:white;
-  left: 250px;
-  font-size:$font-size-xs ;
+  left: $side-bar-nav-width;
+  font-size: $font-size-xs ;
   top: 50%;
   border-top-right-radius: 3px;
   border-bottom-right-radius:3px;
@@ -112,4 +112,7 @@
   letter-spacing: -2.1px;
   padding: 10px 0;
   z-index: 1000; // Keep this more than cover elements.
+  @media (max-width: 768px) {
+    left: 0;
+  }
 }
