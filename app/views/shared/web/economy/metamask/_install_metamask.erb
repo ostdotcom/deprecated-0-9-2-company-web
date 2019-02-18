@@ -10,7 +10,7 @@
       <div class="ost__planner__circle rounded-circle font-weight-light mb-5 <%= token_icon %>"><%= token_symbol %></div>
       <div class="mb-5">
         <a id="install_metamask" 
-          href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" 
+          href="<%= render :partial => "shared/web/economy/metamask/download_metamask_url" %>"
           target="_blank" class="btn btn-gold">Install Metamask</a>
         <button id="metamask_installed" type="button" class="btn btn-secondary" onclick="window.location.reload()">i have installed metamask</button>
       </div>
