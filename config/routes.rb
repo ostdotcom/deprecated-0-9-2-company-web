@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     end
   end
 
+  scope '', controller: 'application' do
+    get '/health-checker' => :health_checker
+  end
+
   scope '', controller: 'web/home' do
     get '/' => :index
     get '/unsupported-client' => :unsupported_client
