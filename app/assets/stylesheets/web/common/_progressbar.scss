@@ -22,7 +22,10 @@
     border-radius: 3px;
     transition: left 0.6s ease;
     .arrow{
-      left:27px;
+      //left:27px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
     }
     .arrow::before {
       top: 0;
