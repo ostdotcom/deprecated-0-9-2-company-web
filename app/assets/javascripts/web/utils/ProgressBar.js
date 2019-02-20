@@ -52,9 +52,9 @@
       oThis.progressBarTooltip.css({
         left: (percent_completion/100)*progressBarFullWidth+'px'
       });
-      oThis.progressBarTooltipArrow.css({
-        left: tooltipWidth / 2 - oThis.arrowHalfLength
-      });
+      // oThis.progressBarTooltipArrow.css({
+      //   left: tooltipWidth / 2 - oThis.arrowHalfLength
+      // });
     },
 
     updateProgressBar: function (res) {
