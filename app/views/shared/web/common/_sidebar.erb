@@ -8,9 +8,9 @@
   sandbox_sub_url_prefix = GlobalConstant::Environment.sandbox_sub_url_prefix
   main_sub_env_url_prefix = GlobalConstant::Environment.main_sub_env_url_prefix
   current_env  = GlobalConstant::Environment.url_prefix
-  main_sub_environment = GlobalConstant::Base.main_sub_environment?
   sandbox_token_name = @presenter_obj.client_token_name
   sandbox_token_symbol = @presenter_obj.client_token_symbol
+  is_super_admin = @presenter_obj.is_super_admin?
 %>
 <%= render :partial => "/shared/web/common/sidebar-icons.svg" %>
 
@@ -44,7 +44,7 @@
     </li>
     <% end  %>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= @presenter_obj.is_client_token_deployed? ? '' : 'disabled' %>" href="">
+      <a class="nav-link d-flex align-items-center <%= @presenter_obj.is_client_token_deployed? ? '' : 'disabled to-enable-on-setup' %>" href="">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-dashboard"></use>
@@ -53,8 +53,9 @@
         <span class="label">Dashboard</span>
       </a>
     </li>
+    <% if is_super_admin %>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= @presenter_obj.is_client_token_deployed? ? '' : 'disabled' %> <%= @presenter_obj.is_token_mint_route? ? 'active': '' %> "  href="<%= mint_token_url %>">
+      <a class="nav-link d-flex align-items-center <%= @presenter_obj.is_client_token_deployed? ? '' : 'disabled to-enable-on-setup' %> <%= @presenter_obj.is_token_mint_route? ? 'active': '' %> "  href="<%= mint_token_url %>">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-token-supply"></use>
@@ -63,8 +64,9 @@
         <span class="label">Mint Token</span>
       </a>
     </li>
+    <% end  %>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= (@presenter_obj.is_client_token_deployed? || @presenter_obj.is_client_token_deploying?) ? '' : 'disabled' %> <%= @presenter_obj.is_developer_route? ? 'active': '' %>"  href="<%= developer_url %>">
+      <a class="nav-link d-flex align-items-center <%= (@presenter_obj.is_client_token_deployed? || @presenter_obj.is_client_token_deploying?) ? '' : 'disabled to-enable-on-setup' %> <%= @presenter_obj.is_developer_route? ? 'active': '' %>"  href="<%= developer_url %>">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-dev-api"></use>
@@ -74,7 +76,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link d-flex align-items-center <%= @presenter_obj.is_client_token_deployed? ? '' : 'disabled' %>"  href="<%= GlobalConstant::CompanyOtherProductUrls.view_root_url %>" target="_blank">
+      <a class="nav-link d-flex align-items-center <%= @presenter_obj.is_client_token_deployed? ? '' : 'disabled to-enable-on-setup' %>"  href="<%= GlobalConstant::CompanyOtherProductUrls.view_root_url %>" target="_blank">
         <svg class="icon">
           <switch>
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-bt-explorer"></use>

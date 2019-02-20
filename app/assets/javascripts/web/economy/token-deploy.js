@@ -111,6 +111,7 @@
       oThis.polling && oThis.polling.stopPolling();
       oThis.jTokenDeployInProgress.hide();
       oThis.jDeploySuccessState.show();
+      $('#sidebar .to-enable-on-setup').removeClass('disabled');
     },
 
     onCurrentStepFailed : function( res ){
