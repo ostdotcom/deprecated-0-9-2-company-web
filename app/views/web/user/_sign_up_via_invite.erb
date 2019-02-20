@@ -2,7 +2,7 @@
   invited_receiver  = @presenter_obj.invitee_manager.email
   invite_sender = @presenter_obj.inviter_manager.email
 %>
-
+<% content_for :user_layout_custom_class do %>h-100<% end %>
 <div class="container-fluid py-6 cloud-bg h-100">
   <div class="row">
     <div class="container">
