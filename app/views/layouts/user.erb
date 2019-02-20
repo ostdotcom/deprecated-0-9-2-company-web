@@ -69,7 +69,7 @@
 <% content_for :user_layout_custom_class do %>
   <%=params[:action] == 'sign_up' ? '' : 'cloud-bg h-100'%>
 <% end %>
-<main class="wrapper d-flex flex-column <%= custom_class %><%= yield(:user_layout_custom_class) %>">
+<main class="wrapper d-flex flex-column <%= yield(:user_layout_custom_class) %>">
   <%= render :partial => "/shared/web/common/header_logged_out" %>
   <%= yield %>
 </main>
