@@ -1,47 +1,51 @@
-<div class="container-fluid" style="min-height: 100vh">
-  <div class="row" style="min-height: 100vh">
-    <% if GlobalConstant::Base.main_sub_environment? %>
-      <%= render :partial => "/web/user/sign_up_left_mainnet"%>
-    <% else %>
-      <%= render :partial => "/web/user/sign_up_left_testnet" %>
-    <% end %>
 
-    <div class="col-sm-12 col-md-4 mx-auto py-6">
-      <form id="sign_up_form" class="user-form"
-            action="<%=GlobalConstant::RoutesMap.getApis()[:api_sign_up] %>" method="POST"
-      >
+<%# if GlobalConstant::Base.main_sub_environment? %>
+  <%#= render :partial => "/web/user/sign_up_left_mainnet"%>
+<%# else %>
+  <%#= render :partial => "/web/user/sign_up_left_testnet" %>
+<%# end %>
 
-        <h3 class="text-center">Register for <svg class="signup-ost-kit-logo">
-          <switch>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ost-kit-logo"></use>
-          </switch>
-        </svg>
 
-          <% if GlobalConstant::Base.main_sub_environment? %>
-            Mainnet Alpha 1
-          <% else %>
-            alpha
-          <% end %>
-        </h3>
+<div class="container-fluid m-auto">
+  <div class="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <form id="sign_up_form" class="user-form"
+                action="<%=GlobalConstant::RoutesMap.getApis()[:api_sign_up] %>" method="POST"
+          >
 
-        <div class="general_error invalid-feedback" data-forid="sign_up_form">&nbsp;</div>
+            <h3 class="text-center">Register for <svg class="signup-ost-kit-logo">
+              <switch>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ost-kit-logo"></use>
+              </switch>
+            </svg>
 
-        <div class="form-group mb-2" id="emailFormGrp">
-          <label class="form-label" data-forid="email">Email address</label>
+              <% if GlobalConstant::Base.main_sub_environment? %>
+                Mainnet Alpha 1
+              <% else %>
+                alpha
+              <% end %>
+            </h3>
 
-          <input id="user-email" type="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" required/>
-          <div class="invalid-feedback" data-forid="email">&nbps;</div>
-        </div>
+            <div class="general_error invalid-feedback" data-forid="sign_up_form">&nbsp;</div>
 
-        <div class="form-group mb-0">
-          <div class="clearfix">
-            <label class="form-label float-left" for="password">Password</label>
-            <span class="form-label float-right text-capitalize font-weight-light" style="color: #6c9ba9">Min 8 characters</span>
-          </div>
-          <div class="input-group mb-2">
-            <input type="password" class="form-control form-control-input-group" placeholder="Password"
-                   id="password" name="password" required minlength="8" />
-            <div class="input-group-append">
+            <div class="form-group mb-2" id="emailFormGrp">
+              <label class="form-label" data-forid="email">Email address</label>
+
+              <input id="user-email" type="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" required autofocus/>
+              <div class="invalid-feedback" data-forid="email">&nbps;</div>
+            </div>
+
+            <div class="form-group mb-0">
+              <div class="clearfix">
+                <label class="form-label float-left" for="password">Password</label>
+                <span class="form-label float-right text-capitalize font-weight-light" style="color: #6c9ba9">Min 8 characters</span>
+              </div>
+              <div class="input-group mb-2">
+                <input type="password" class="form-control form-control-input-group" placeholder="Password"
+                       id="password" name="password" required minlength="8" />
+                <div class="input-group-append">
         <span class="input-group-text input-group-inline input-group-eye">
           <svg class="icon">
             <switch>
@@ -49,42 +53,44 @@
             </switch>
           </svg>
         </span>
+                </div>
+                <div class="invalid-feedback" data-forid="password">&nbps;</div>
+              </div>
+              <!-- ZXCVBN Wrap -->
+              <div class="zxcvbn-group mb-3"></div>
             </div>
-            <div class="invalid-feedback" data-forid="password">&nbps;</div>
-          </div>
-          <!-- ZXCVBN Wrap -->
-          <div class="zxcvbn-group mb-3"></div>
-        </div>
 
-        <div class="form-group has-error mb-2" id="tosFormGrp">
-          <div class="form-check p-0">
-            <input id="tos" class="checkbox-custom form-check-input" name="agreed_terms_of_service"
-                   type="checkbox" required
-                   data-msg-required="You must agree to the OST KIT⍺ Terms of Service & Privacy Policy to register."
-              />
-            <label for="tos" class="checkbox-custom-label form-check-label">
+            <div class="form-group has-error mb-2" id="tosFormGrp">
+              <div class="form-check p-0">
+                <input id="tos" class="checkbox-custom form-check-input" name="agreed_terms_of_service"
+                       type="checkbox" required
+                       data-msg-required="You must agree to the OST KIT⍺ Terms of Service & Privacy Policy to register."
+                  />
+                <label for="tos" class="checkbox-custom-label form-check-label">
             <span class="tos-text">By checking this box, you agree to our
               <a href="//drive.google.com/file/d/1rNemmuIq7ZamlwS962uqenNsljhEXKU_/view" target="_blank"
                  class="font-weight-normal">Terms of Service</a>&nbsp;&amp; acknowledge and consent to our
               <a href="//ost.com/privacy" target="_blank"
                  class="font-weight-normal">Privacy Policy</a>.
             </span>
-            </label>
-            <div class="invalid-feedback" data-forid="agreed_terms_of_service">&nbps;</div>
-          </div>
+                </label>
+                <div class="invalid-feedback" data-forid="agreed_terms_of_service">&nbps;</div>
+              </div>
 
-        </div>
-        <div class="form-group text-center">
-          <div class="g-recaptcha mx-auto  form-recapcha-wrap d-inline-block" id="myid" data-sitekey="<%= GlobalConstant::Base.recaptcha['site_key'] %>"></div>
-          <div class="recaptcha-submit-error invalid-feedback">&nbps;</div>
-        </div>
+            </div>
+            <div class="form-group text-center">
+              <div class="g-recaptcha mx-auto  form-recapcha-wrap d-inline-block" id="myid" data-sitekey="<%= GlobalConstant::Base.recaptcha['site_key'] %>"></div>
+              <div class="recaptcha-submit-error invalid-feedback">&nbps;</div>
+            </div>
 
-        <div class="form-group text-center" >
-          <button type="submit" id="register-btn"  class="btn btn-gold" data-submiting="Registering">Register</button>
-          <small class="form-text text-muted" style="line-height: 40px">Have an account already?</small>
-          <a href="/login" class="btn ost-btn-secondary" title="Login">Login</a>
+            <div class="form-group text-center" >
+              <button type="submit" id="register-btn"  class="btn btn-gold" data-submiting="Registering">Register</button>
+              <small class="form-text text-muted" style="line-height: 40px">Have an account already?</small>
+              <a href="/login" class="btn ost-btn-secondary" title="Login">Login</a>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>

@@ -40,11 +40,7 @@
   <div class="card text-center p-6">
     <h3 class="mb-0">Start Minting</h3>
     <div class="simulator-image-wrapper my-4">
-      <svg style="width: 150px">
-        <switch>
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-mint-tokens"></use>
-        </switch>
-      </svg>
+      <img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-start-minting@3x.png" width="150" class="img-fluid"/>
     </div>
     <div class="token-supply-infotext mb-4 col-5 mx-auto">Mint more tokens and power your economy as you need.</div>
     <div class="run-transaction-btn-wrapper">
@@ -166,15 +162,15 @@
                              :selector => staker_address_selector
                          }
               %>
-              <div class="col-6 align-self-center d-flex text-left pl-0">
-                <div class="float-left align-self-center">
-                  <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
+              <div class="col-6 pl-0">
+                <div class="float-left">
+                  <svg class="svg mr-2" style="width: 25px;height: 25px">
                     <switch>
                       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use>
                     </switch>
                   </svg>
                 </div>
-                <div style="overflow: auto" class="text-muted font-weight-light ml-2 align-self-center">
+                <div style="overflow: auto" class="text-muted font-weight-light">
                   Your selected account is not whitelisted with us. Please try changing the Metamask account.
                 </div>
               </div>
@@ -197,7 +193,7 @@
             <div class="card-header text-left">
               <h4 class="mb-0">Mint Tokens</h4>
             </div>
-            <div class="card-body">
+            <div class="card-body pb-1">
               <div class="row mb-4">
                 <%= render :partial => "/web/economy/token/stake_address",
                            :locals => {
@@ -207,14 +203,14 @@
                 %>
                 <div class="col-6 align-self-top d-flex text-left pl-0 jStatusWrapper">
                   <div class="status-message">
-                    <div class="float-left align-self-center d-flex">
+<!--                    <div class="align-self-center d-flex">-->
                       <% if is_buy_ost %>
-                        <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
+                        <svg class="svg float-left mr-2" style="width: 25px;height: 25px">
                           <switch>
                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-error"></use>
                           </switch>
                         </svg>
-                        <div style="overflow: auto;" class="text-muted font-weight-light ml-2 align-self-center">
+                        <div style="overflow: auto;" class="text-muted font-weight-light">
                           <span class="ether-text" style="display: none;">
                             Looks like the account selected in metamask does not have enough <%= ether_text %> to pay gas for Minting Tokens,
                             You can select a different account or Buy some <%= ether_text %>.
@@ -225,19 +221,19 @@
                           </span>
                         </div>
                       <% else %>
-                        <svg class="svg icon-checkmark" style="width: 30px;height: 30px">
+                        <svg class="svg float-left mr-2" style="width: 25px;height: 30px">
                           <switch>
                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fund-wallet"></use>
                           </switch>
                         </svg>
-                        <div style="overflow: auto;" class="text-muted font-weight-light ml-2 align-self-center">
+                        <div style="overflow: auto;" class="text-muted font-weight-light">
                           <span>
                             Your selected address does not have sufficient <%= ether_text %> or <%= ost_currency_symbol %>.
                             Will fund <%=initial_ost_funding%> <%= ost_currency_symbol %> and minimum required <%= ether_text %> in to your selected MetaMask wallet to get you started.
                           </span>
                         </div>
                       <% end %>
-                    </div>
+<!--                    </div>-->
                   </div>
                 </div>
               </div>
@@ -254,8 +250,8 @@
                   Please wait while we transfer <%= ost_currency_symbol %> and minimum required <%= ether_text %> to your selected address.
                 </span>
               <% end %>
+              <div class="invalid-feedback general_error mt-2 text-left" style="font-size: 12px">&nbsp;</div>
             </div>
-            <div class="invalid-feedback general_error mb-2">&nbsp;</div>
           </div>
         </div>
       </div>
