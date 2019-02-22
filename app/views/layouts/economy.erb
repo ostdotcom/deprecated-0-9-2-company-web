@@ -86,6 +86,7 @@
 
   <section id="content" class="container-fluid" style="<%= content_style %>">
       <style>#content #cover-container .cover-element{<%= cover_elem_style %>}</style>
+      <%= render :partial => "/shared/web/common/test_data_banner" %>
       <%= yield %>
       <div class="row">
           <% # meta-mask-workflow Needs to be the first element %>
