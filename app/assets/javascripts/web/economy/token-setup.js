@@ -230,7 +230,6 @@
         },
 
         inputSpinner: function () {
-          // $('<div class="quantity"> <div class="conversion-currency">BT</div> </div>').insertAfter('.quantity');
           $('<div class="quantity-nav">' +
             '<span class="quantity-button quantity-up"><img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/spinner-up-arrow.svg" width="12" height="10" /></span>' +
             '<span class="quantity-button quantity-down"><img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/spinner-down-arrow.svg" width="12" height="10" /></span>' +

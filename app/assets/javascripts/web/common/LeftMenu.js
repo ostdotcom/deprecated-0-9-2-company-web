@@ -79,12 +79,6 @@
         $('.error').text('');
       });
 
-      // if(oThis.jChangeModeToggle.prop('checked')){
-      //   $('.switch-mode').removeClass('unchecked').addClass('checked');
-      // }else{
-      //   $('.switch-mode').removeClass('checked').addClass('unchecked');
-      // }
-
     },
 
     onRequestWhitelistUserSuccess: function(){
