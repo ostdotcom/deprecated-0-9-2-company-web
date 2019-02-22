@@ -14,6 +14,9 @@
   }
   .edit-collapse{
     cursor: pointer;
+    border-bottom: 2px solid $blue-500;
+    font-weight: $font-weight-bold;
+    color: $blue-500;
   }
 
   p{
@@ -121,12 +124,14 @@
       position: absolute;
       height: 50%;
       top: 0;
+      border-top-right-radius: 4px;
     }
 
     .quantity-button.quantity-down {
       position: absolute;
       bottom: 0;
       height: 50%;
+      border-bottom-right-radius: 4px;
     }
 
   }
