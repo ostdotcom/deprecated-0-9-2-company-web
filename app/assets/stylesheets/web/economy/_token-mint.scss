@@ -1,3 +1,26 @@
+// Import functions as variables depend on functions
+@import "../../plugins/bootstrap/scss/functions";
+
+// Import theme variables
+@import "../Starboy/variables";
+
+.test-net-banner{
+  background-color: $china-ivory;
+  position: absolute;
+  top: 7px;
+  width: calc(100% - 250px);
+  transition: opacity ease-in-out 250ms;
+  .test-data{
+    background-color: $yellow-300;
+    color: $white;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 1px 5px;
+    display: inline-block;
+    letter-spacing: 1px;
+  }
+}
+
 .token-supply-infotext{
 
   font-size: 0.9rem;

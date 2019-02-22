@@ -79,6 +79,14 @@
         $('.error').text('');
       });
 
+      if(oThis.jChangeModeToggle.prop('checked')){
+        $('.switch-mode').css({'background-color': '#f9f1cc', 'transition' : 'background-color 250ms ease-in-out', 'color': '#e4b030', 'font-weight': '500'});
+        $('#test-net-banner').css({opacity: 1});
+      }else{
+        $('.switch-mode').css({'background-color': 'transparent', 'color': '#9ec2d3'})
+        $('#test-net-banner').css({opacity: 0});
+      }
+
     },
 
     onRequestWhitelistUserSuccess: function(){
