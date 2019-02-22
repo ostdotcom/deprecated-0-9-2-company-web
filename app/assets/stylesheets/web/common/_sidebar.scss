@@ -1,5 +1,10 @@
 .switch-mode {
   color: #438BAD;
+  .sandbox-title{
+    letter-spacing: 1px;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
   /* The switch - the box around the slider */
   .switch {
     position: relative;
@@ -45,7 +50,7 @@
   }
 
   input:checked + .slider {
-    background-color: $cyan;
+    background-color: $yellow-300;
   }
 
   input:checked + .slider:before {
@@ -70,10 +75,39 @@
       background-color: $mystic;
     }
   }
-  & .switch.disabled{
+  &.switch.disabled{
     pointer-events: none;
   }
+
+  &.checked{
+    background-color: $china-ivory;
+    color: $yellow-300;
+    font-weight: 500;
+  }
+
+  &.unchecked{
+    background-color: transparent;
+    color: #9ec2d3;
+  }
 }
+
+/* Sandbox Test Data Banner starts */
+.test-net-banner{
+  background-color: $china-ivory;
+  position: absolute;
+  top: 7px;
+  width: calc(100% - 250px);
+  .test-data{
+    background-color: $yellow-300;
+    color: $white;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 1px 5px;
+    display: inline-block;
+    letter-spacing: 1px;
+  }
+}
+/* Sandbox Test Data Banner ends */
 
 .tooltip{
   & .tooltip-inner{
@@ -109,4 +143,9 @@
       display: block;
     }
   }
+}
+
+.sidebar-nav{
+  border: none;
+  box-shadow: 1.5px 0 4.5px 0 rgba(0, 0, 0, 0.1)
 }

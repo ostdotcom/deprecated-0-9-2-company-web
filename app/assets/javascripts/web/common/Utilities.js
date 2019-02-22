@@ -79,6 +79,10 @@
     clearErrors : function ( jWrapper ) {
       if(!jWrapper) return ;
       jWrapper.find('.is-invalid').text( "" ).removeClass('is-invalid');
+    },
+
+    mockerTokenName: function ( val ) {
+      return val.toUpperCase() || 'BT';
     }
   }
 

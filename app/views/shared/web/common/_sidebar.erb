@@ -20,13 +20,13 @@
     <%= yield(:phantom_header_el) %>
   </div>
 
-  <div class="d-flex align-items-center switch-mode ml-3 py-3 <%= is_mainnet_whitelisting_requested && !is_whitelisted_user ? 'disabled' : '' %>">
-    <div class="d-flex align-items-center switch-mode-tooltip pr-2" data-toggle="tooltip" data-placement="right" data-boundary="window" data-title="The request has been sent.Please wait for the OST Support team to get in touch.">
-      <label class="switch <%= is_mainnet_whitelisting_requested && !is_whitelisted_user ? 'disabled' : '' %>">
+  <div class="switch-mode p-3 <%= (current_env == sandbox_sub_url_prefix) ? 'checked' : 'unchecked' %> <%= is_mainnet_whitelisting_requested && !is_whitelisted_user ? 'disabled' : '' %>">
+    <div class="d-flex align-items-center switch-mode-tooltip" data-toggle="tooltip" data-placement="right" data-boundary="window" data-title="The request has been sent.Please wait for the OST Support team to get in touch.">
+      <span class="sandbox-title">Sandbox Mode</span>
+      <label class="switch ml-auto <%= is_mainnet_whitelisting_requested && !is_whitelisted_user ? 'disabled' : '' %>">
         <input id="switch_mode_checkbox" type="checkbox" <%= (current_env == sandbox_sub_url_prefix) ?'checked' : ''%> >
         <span class="slider round"></span>
       </label>
-      <span class="ml-2">Sandbox Mode</span>
     </div>
   </div>
 
@@ -89,11 +89,6 @@
 
 </aside>
 
-<% if GlobalConstant::Base.sandbox_sub_environment? %>
-<div class="position-fixed env-indicator-tag d-inline align-middle ">
-  Test Data
-</div>
-<% end %>
 
 <% content_for :popups do %>
   <%= render partial: 'shared/web/modals/confirm_mode_change'%>

@@ -70,7 +70,9 @@
             <p class="font-weight-light mb-0 mt-2">
               You would be setting Conversion Rate for your token here, simple way to set the conversion rate is by deciding how much you want 1 Token to initially be worth.
               <span class="header-recommendation font-weight-bold">
-                Our Recommendation is to set 1 TOKEN = 1 OST = $<span class="j-fiat-value"><%= ost_to_fiat %>&nbsp;</span>USD</span>
+                Our Recommendation is to set 1
+                <span class="ost-mocker-value" data-ost-mock-element="#symbol" data-ost-mock-parser="ost.utilities.mockerTokenName">BT</span>
+                = 1 OST = $<span class="j-fiat-value"><%= ost_to_fiat %>&nbsp;</span>USD</span>
             </p>
           </div>
         </div>
@@ -80,42 +82,42 @@
                 <p class="text-left slider-recommendation m-3 ">
                   Our Recommended conversion rate is set to
                     <span class="text-different-color">1</span>
-                       <b> TOKEN  =</b>
+                       <b> <span class="ost-mocker-value" data-ost-mock-element="#symbol" data-ost-mock-parser="ost.utilities.mockerTokenName">BT</span>  =</b>
                     <span class="text-different-color">1</span>
                        <b> OST =</b>
                     <span class="text-different-color j-fiat-value">$<%= ost_to_fiat %></span>
                        <b>USD</b>
-                    <span class="edit-collapse" data-toggle="collapse"
+                    <span class="edit-collapse ml-1" data-toggle="collapse"
                           data-target="#collapsable-element"
-                          aria-expanded="true" aria-controls="collapsable-element">
-                     <u><b>EDIT</b></u>
+                          aria-expanded="true" aria-controls="collapsable-element">EDIT
                     </span>
                 </p>
               </div>
               <div id="collapsable-element" class="collapse"
                    aria-labelledby="advance-options-header" data-parent="#advance-options-accordion">
-                <div class="card-body py-2">
+                <div class="card-body pt-4 pb-0">
                   <div class="conversion-section user-form">
                     <div class="card-group">
                       <div class="row form-group">
                         <div class="col-4 right-border m-0 card">
                           <label class="form-label mb-2">SET CONVERSION RATE</label>
                           <div class="d-flex align-items-center">
-                            <span class="text-different-color mr-2">1</span> OST
-                            <span class="equal-to-sign mx-3 font-weight-bold">=</span>
+                            <span class="text-different-color mr-1">1</span> OST
+                            <span class="equal-to-sign mx-2 font-weight-bold">=</span>
                             <span class="quantity">
-                          <input type="number" min="<%=bt_to_ost_min%>" max="<%= bt_to_ost_max %>"
-                                 step="<%= bt_to_ost_step%>" id="<%= ost_to_bt_id %>"
-                                 name="conversion_factor" value="<%= conversion_factor %>" required>
-                        </span>
+                              <input type="number" min="<%=bt_to_ost_min%>" max="<%= bt_to_ost_max %>"
+                                     step="<%= bt_to_ost_step%>" id="<%= ost_to_bt_id %>"
+                                     name="conversion_factor" value="<%= conversion_factor %>" required>
+                               <span class="ost-mocker-value ml-1" style="font-size: 14px" data-ost-mock-element="#symbol" data-ost-mock-parser="ost.utilities.mockerTokenName">BT</span>
+                            </span>
                           </div>
 
                         </div>
                         <div class="col-4 right-border m-0 card">
                           <label class="form-label mb-2">AT CURRENT CONVERSION RATE</label>
                           <div class="d-flex align-items-center">
-                            <span class="text-different-color mr-2">1</span> BT
-                            <span class="equal-to-sign mx-3 font-weight-bold">=</span> $
+                            <span class="text-different-color mr-1">1</span> <span class="ost-mocker-value" data-ost-mock-element="#symbol" data-ost-mock-parser="ost.utilities.mockerTokenName">BT</span>
+                            <span class="equal-to-sign mx-2 font-weight-bold">=</span> $
                             <span class="ost-mocker-value text-different-color j-bt-to-fiat-val text-truncate"
                                   data-type="fiat"  data-ost-mock-parser="ost.tokenSetup.btToFiat"> <%= ost_to_fiat %>
                                               </span>
@@ -157,6 +159,7 @@
 
 <% content_for :end_js do %>
   <script type="text/javascript">
+    function awse(val){return val}
       $( function () {
           ost.tokenSetup.init({
 
