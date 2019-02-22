@@ -75,8 +75,19 @@
       background-color: $mystic;
     }
   }
-  & .switch.disabled{
+  &.switch.disabled{
     pointer-events: none;
+  }
+
+  &.checked{
+    background-color: $china-ivory;
+    color: $yellow-300;
+    font-weight: 500;
+  }
+
+  &.unchecked{
+    background-color: transparent;
+    color: #9ec2d3;
   }
 }
 

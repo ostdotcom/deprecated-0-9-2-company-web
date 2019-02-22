@@ -24,6 +24,8 @@
   initial_ost_funding = GlobalConstant::StakeAndMint.initial_ost_funding
   bt_to_mint_min = GlobalConstant::StakeAndMint.min_bt_to_mint
   bt_to_mint_step = GlobalConstant::StakeAndMint.step_bt_to_mint
+  sandbox_sub_url_prefix = GlobalConstant::Environment.sandbox_sub_url_prefix
+  current_env  = GlobalConstant::Environment.url_prefix
 
   #FE specific
   bt_to_mint_name = "bt_to_mint"
@@ -35,11 +37,13 @@
   ether_text = "ETH"
 %>
 
+<% if current_env == sandbox_sub_url_prefix %>
 <div id="test-net-banner" class="row test-net-banner">
   <div class="col-12 text-center" style="font-size: 0">
     <span class="test-data">Test Data</span>
   </div>
 </div>
+<% end %>
 
 <div id="stake-mint-start" class="col-9 mx-auto mt-6 jMintSections" style="display: <%= is_workflow ? "none" : "block" %>">
   <div class="card text-center p-6">
