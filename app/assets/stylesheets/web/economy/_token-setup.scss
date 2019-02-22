@@ -51,6 +51,8 @@
       border-radius: 4px;
       overflow: hidden;
       font-size: 1.125rem;
+      display: flex;
+      align-items: center;
     }
 
     .conversion-currency{
@@ -70,8 +72,8 @@
     }
 
     .quantity input {
-      width: 135px;
-      height: 42px;
+      min-width: 135px;
+      height: 36px;
       line-height: 1.65;
       float: left;
       display: block;
@@ -89,7 +91,9 @@
     .quantity-nav {
       float: left;
       position: relative;
-      height: 42px;
+      height: 34px;
+      //margin-top: 1px;
+      margin-left: -1px;
     }
 
     .quantity-button {
@@ -100,6 +104,9 @@
       color: $white;
       font-size: 12px;
       border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background-color: #d2e3e5;
       -webkit-transform: translateX(-100%);
       transform: translateX(-100%);
