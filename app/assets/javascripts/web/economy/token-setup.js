@@ -21,6 +21,7 @@
         jAssociateAddressErrorState  :  $('#associate-address-error-state'),
         jConfirmAccountSection       :  $('.confirm-account-section'),
         jDeploymentErrorState        :  $('#deployment-error-state'),
+        jTokenSetupAdminErrorModal  :  $('#token_setup_admin_error'),
 
         init: function( config ){
             $.extend(oThis, config);
@@ -115,6 +116,11 @@
            if( res.success ){
              oThis.setupMetamask();
              oThis.metamask.enable();
+           } else {
+             var errorMsg = utilities.deepGet(res, "err.display_text") ;
+             if(errorMsg === ''){
+               oThis.jTokenSetupAdminErrorModal.modal('show');
+             }
            }
         },
 
@@ -210,8 +216,12 @@
                   oThis.showConfirmError(oThis.jDeploymentErrorState)
                 }
                 else{
-                  var errorMsg = utilities.deepGet(response, ".err.display_text") ;
-                  oThis.showConfirmError(oThis.jGeneralErrorState);
+                  var errorMsg = utilities.deepGet(response, "err.display_text") ;
+                  if(errorMsg === ''){
+                    oThis.jTokenSetupAdminErrorModal.modal('show');
+                  } else {
+                    oThis.showConfirmError(oThis.jGeneralErrorState);
+                  }
                 }
 
               }

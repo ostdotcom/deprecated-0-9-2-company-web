@@ -16,12 +16,10 @@
 
         Please be sure your API Secret Key is always kept secure and never shared. Be careful when adding it to your codebase. Do not share your secret API keys in publicly accessible areas such as GitHub, Google docs etc.
       </p>
-      <% if is_super_admin %>
-        <button type="button" class="btn btn-primary mt-3 show-keys-btn" data-submiting="Fetching..." >Show Key(s)</button>
-        <button type="button" class="btn btn-primary mt-3 generate-key-btn" data-submiting="Generating...">Generate Key</button>
-        <div class="error mt-2"></div>
-        <div class="keys-wrapper mt-5"></div>
-      <% end %>
+      <button type="button" class="btn btn-primary mt-3 show-keys-btn" data-submiting="Fetching..." >Show Key(s)</button>
+      <button type="button" class="btn btn-primary mt-3 generate-key-btn" data-submiting="Generating...">Generate Key</button>
+      <div class="error mt-2"></div>
+      <div class="keys-wrapper mt-5"></div>
     </div>
     <div class=" mt-5">
       <h4 class="mb-3">Client Side SDKs</h4>
@@ -185,4 +183,8 @@
     </div>
     {{/each}}
   </script>
+<% end %>
+
+<% content_for :popups do %>
+  <%= render partial: 'shared/web/modals/token_setup_admin_error'%>
 <% end %>

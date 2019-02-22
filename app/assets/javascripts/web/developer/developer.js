@@ -15,6 +15,8 @@
     jErrorEl        : $('.error'),
     keys            : null,
 
+    jTokenSetupAdminErrorModal  :  $('#token_setup_admin_error'),
+
 
     init: function( config ){
       config = config || {};
@@ -70,9 +72,14 @@
         url       : oThis.api_get_key,
         method    : 'POST',
         success   : function ( response ) {
-          if( response.data ){
-            oThis.keys = response.data['api_keys'];
+          if( response.success ) {
+            oThis.keys = utilities.deepGet(response, "data.api_keys") ;
             oThis.onSuccess();
+          } else {
+            var errorMsg = utilities.deepGet(response, "err.display_text") ;
+            if(errorMsg === ''){
+              oThis.jTokenSetupAdminErrorModal.modal('show');
+            }
           }
         },
         error     : function ( err ) {
@@ -89,9 +96,14 @@
         url       : oThis.api_delete_key,
         method    : 'POST',
         success   : function ( response ) {
-          if( response.data ){
-            oThis.keys = response.data['api_keys'];
+          if( response.success ) {
+            oThis.keys = utilities.deepGet(response, "data.api_keys") ;
             oThis.onSuccess();
+          } else {
+            var errorMsg = utilities.deepGet(response, "err.display_text") ;
+            if(errorMsg === ''){
+              oThis.jTokenSetupAdminErrorModal.modal('show');
+            }
           }
         },
         error     : function ( err ) {

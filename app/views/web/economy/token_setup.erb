@@ -151,6 +151,10 @@
   </div>
 </form>
 
+<% content_for :popups do %>
+  <%= render partial: 'shared/web/modals/token_setup_admin_error'%>
+<% end %>
+
 <% content_for :end_js do %>
   <script type="text/javascript">
       $( function () {

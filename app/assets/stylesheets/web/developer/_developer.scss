@@ -43,3 +43,14 @@
   }
 
 }
+
+.modal{
+  & .modal-content{
+    & .modal-body{
+      .sub-header{
+        color: $blue-700;
+        font-weight: $font-weight-light;
+      }
+    }
+  }
+}
