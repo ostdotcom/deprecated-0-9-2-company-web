@@ -66,10 +66,7 @@
 
 <body contenteditable="false">
 <%= render :partial => "/shared/web/common/other-icons.svg" %>
-<% content_for :user_layout_custom_class do %>
-  <%=params[:action] == 'sign_up logout' ? '' : 'cloud-bg h-100'%>
-<% end %>
-<main class="wrapper d-flex flex-column <%= yield(:user_layout_custom_class) %>">
+<main class="wrapper d-flex flex-column cloud-bg h-100">
   <%= render :partial => "/shared/web/common/header_logged_out" %>
   <%= yield %>
 </main>
