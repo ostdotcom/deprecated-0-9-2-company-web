@@ -94,9 +94,10 @@
 /* Sandbox Test Data Banner starts */
 .test-net-banner{
   background-color: $china-ivory;
-  position: absolute;
-  top: 7px;
-  width: calc(100% - 250px);
+  position: fixed;
+  top: 60px;
+  width: inherit;
+  z-index: 1;
   .test-data{
     background-color: $yellow-300;
     color: $white;

@@ -4,6 +4,10 @@
 // Import theme variables
 @import "../Starboy/variables";
 
+.header-wrapper{
+  z-index: 1071;
+}
+
 .token-deploy-container{
 .token-deploy-content{
   width: 700px;
