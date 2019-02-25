@@ -1,5 +1,5 @@
 .switch-mode {
-  color: #438BAD;
+  color: $cyan;
   .sandbox-title{
     letter-spacing: 1px;
     font-size: 14px;
@@ -70,7 +70,7 @@
 
   &.disabled{
     cursor: default;
-    color: #DADFDC;
+    color: $mystic;
     input:checked + .slider{
       background-color: $mystic;
     }
@@ -114,7 +114,7 @@
   & .tooltip-inner{
     box-shadow: 0 1px 6px 4px rgba(50, 50, 50, 0.09);
     background-color: $white;
-    color: #597a84;
+    color: $blue-700;
   }
   & .arrow::before{
     border-right-color: $white;
