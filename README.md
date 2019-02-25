@@ -99,7 +99,7 @@
 * Start nginx
 
 ```bash
-> sudo nginx -s reload
+> sudo brew services restart nginx
 ```
 
 * Start Rails
