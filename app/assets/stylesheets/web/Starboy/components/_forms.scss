@@ -38,7 +38,9 @@
   }
 
   .input-group-inline{
-    background: none;
+    background: $white;
+    border-top-right-radius: 0.25rem !important;
+    border-bottom-right-radius: 0.25rem !important;
     svg.icon{
       height: 22px;
       width: 22px;
@@ -227,7 +229,12 @@
       font-size: 15px;
       &:focus{
         box-shadow: none;
+        border: 1px solid #597A84;
       }
+    }
+
+    .form-control:focus + .input-group-append > .input-group-inline {
+      border: 1px solid #597A84;
     }
 
     .form-text{

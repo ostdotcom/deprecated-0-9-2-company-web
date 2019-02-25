@@ -96,6 +96,9 @@ $token-symbol-height:45px;
       text-transform: uppercase;
       font-size: $font-size-xs;
       letter-spacing: 1px;
+      &:active{
+        background-color: #f8f9fa;
+      }
     }
   }
 
