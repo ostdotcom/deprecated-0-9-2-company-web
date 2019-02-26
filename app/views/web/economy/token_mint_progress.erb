@@ -17,6 +17,9 @@
             <div class="text-muted font-weight-light mb-5 text-center">
               This process takes several minutes. You can continue to explore KIT, we will inform you once the tokens are minted.
             </div>
+            <div class="my-5" id="mint-progress">
+              <%= render :partial => "shared/web/common/progress_bar" %>
+            </div>
             <div class="alert alert-secondary align-items-center d-flex" role="alert">
               <svg style="width: 30px;height: 30px">
                 <switch>
@@ -34,9 +37,6 @@
                 </switch>
               </svg>
               <span class="ml-3 align-middle text-muted font-weight-light">Authorize Contract to Start the Staking Process</span>
-            </div>
-            <div class="mt-5 pt-3" id="mint-progress">
-              <%= render :partial => "shared/web/common/progress_bar" %>
             </div>
           </div>
         </div>
