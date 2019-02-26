@@ -68,6 +68,11 @@
 
 <%= render :partial => "/shared/web/common/header" %>
 <%= render :partial => "/shared/web/common/other-icons.svg" %>
+
+<% content_for :app_content_classes do %>
+  <%=params[:action] == 'team' ? 'cloud-bg team-page-height' : ''%>
+<% end %>
+
 <main id="app-content" class="wrapper <%= yield (:app_content_classes) %>">
 
   <%

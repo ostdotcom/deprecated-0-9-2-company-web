@@ -1,0 +1,8 @@
+.team-page-height{
+  height: calc(100% - 60px);
+  overflow-y: scroll;
+  .cloud-bg{
+    position: absolute;
+    bottom: 0;
+  }
+}
