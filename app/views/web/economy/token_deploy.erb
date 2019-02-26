@@ -30,22 +30,20 @@
         </h3>
       </div>
 
-    <div class="deploy-success-state token-deploy-content mx-auto text-center mt-5 " style="display: none;">
-      <h3 class="my-5"> Set Up Complete</h3>
+    <div class="deploy-success-state token-deploy-content mx-auto text-center mt-5" style="display: none;">
+      <h3 class="my-5">Set Up Complete</h3>
       <div class="shadow-box p-3 row">
-        <div class="col-1 my-auto" >
-            <svg class="success-icon align-middle" style="width: 34px; height: 34px">
-              <switch>
-                <use class="success-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#success-icon"></use>
-              </switch>
-            </svg>
 
-          </div>
+        <div class="col-8 d-flex align-items-center">
+          <svg class="success-icon align-middle" style="width: 34px; height: 34px">
+            <switch>
+              <use class="success-icon" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#success-icon"></use>
+            </switch>
+          </svg>
 
-        <div class="col-7 text-left my-auto">
-          Set Up is Complete. Lets start by Minting&nbsp;<%=client_token_symbol %>
+          <p class="mb-0 ml-2">Set Up is Complete. Lets start by Minting&nbsp;<%=client_token_symbol %></p>
         </div>
-        <div class="col-4 my-auto">
+        <div class="col-4 my-auto text-right">
           <a class="btn btn-primary d-inline" href="<%=mint_token_url %>">
             Mint Tokens
           </a>
