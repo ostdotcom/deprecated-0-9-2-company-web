@@ -6,13 +6,14 @@
 <div class="row ost__planner">
   <div class="col-12 col-md-8 ml-auto mr-auto">
     <div class="text-center">
-      <p class="font-weight-light mb-5 text-muted">Follow the instruction to set up your MetaMask Wallet and click the button below once you have installed it.</p>
+      <img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/install-metaMask-image@3x.png" height="100" width="100" class="img-fluid"/>
+      <p class="font-weight-light mt-4 mb-5 text-muted">Follow the instruction to set up your MetaMask Wallet and click the button below once you have installed it.</p>
       <div class="ost__planner__circle rounded-circle font-weight-light mb-5 <%= token_icon %>"><%= token_symbol %></div>
       <div class="mb-5">
         <a id="install_metamask" 
           href="<%= render :partial => "shared/web/economy/metamask/download_metamask_url" %>"
           target="_blank" class="btn btn-gold">Install Metamask</a>
-        <button id="metamask_installed" type="button" class="btn btn-secondary" onclick="window.location.reload()">i have installed metamask</button>
+<!--        <button id="metamask_installed" type="button" class="btn btn-secondary" onclick="window.location.reload()">i have installed metamask</button>-->
       </div>
       <div>
         <button type="button" class="font-weight-light btn ost-btn-secondary h-100 video-btn" title="Watch Help Video" data-toggle="modal" data-src="https://www.youtube.com/embed/6Gf_kRE4MJU" data-target="#helpVideoModal">
