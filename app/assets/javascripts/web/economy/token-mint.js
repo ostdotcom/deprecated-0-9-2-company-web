@@ -808,7 +808,12 @@
       var pollingThis = this ;
       if( pollingThis.isMaxRetries() ){
         pollingThis.stopPolling() ;
-        oThis.confirmStakeAndMintIntendErrorStateUpdate( error );
+        var errorMsg = utilities.deepGet(error, "err.display_text") ;
+        if(errorMsg === ''){
+          oThis.jTokenSetupAdminErrorModal.modal('show');
+        } else {
+          oThis.confirmStakeAndMintIntendErrorStateUpdate( error );
+        }
       }
     },
   
