@@ -73,11 +73,11 @@
         window.location = oThis.redirectMainnet;
       });
 
-      oThis.jWhitelistUserModal.on("show.bs.modal", function () {
-        //reset the checkbox and clear errors
-        oThis.jWhitelistUserCheckbox.prop('checked', false);
-        $('.error').text('');
-      });
+      // oThis.jWhitelistUserModal.on("show.bs.modal", function () {
+      //   //reset the checkbox and clear errors
+      //   oThis.jWhitelistUserCheckbox.prop('checked', false);
+      //   $('.error').text('');
+      // });
 
     },
 
