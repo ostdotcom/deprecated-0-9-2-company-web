@@ -24,6 +24,7 @@
   initial_ost_funding = GlobalConstant::StakeAndMint.initial_ost_funding
   bt_to_mint_min = GlobalConstant::StakeAndMint.min_bt_to_mint
   bt_to_mint_step = GlobalConstant::StakeAndMint.step_bt_to_mint
+  is_super_admin = @presenter_obj.is_super_admin?
 
   #FE specific
   bt_to_mint_name = "bt_to_mint"
@@ -271,6 +272,7 @@
                  :stake_address_name => staker_address_name,
                  :gateway_composer_api => gateway_composer_api
              } %>
+  <%= render partial: 'shared/web/modals/token_setup_admin_error' %>
 <% end %>
 
 <% content_for :end_js do %>
@@ -283,7 +285,8 @@
         chainId: "<%= chain_id %>",
         redirectRoute: "<%= redirect_route %>",
         dataConfig: dataConfig,
-        btToMintId: "<%= bt_to_mint_id %>"
+        btToMintId: "<%= bt_to_mint_id %>",
+        isSuperAdmin: <%= is_super_admin %>
       });
     });
   </script>

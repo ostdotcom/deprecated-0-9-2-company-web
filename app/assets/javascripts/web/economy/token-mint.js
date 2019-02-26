@@ -32,6 +32,7 @@
     jClientRetryBtn                 :   $('.jClientRetryBtn'),
     jEtherText                      :   $('.ether-text'),
     jOstText                        :   $('.ost-text'),
+    jTokenSetupAdminErrorModal      :   $('#token_setup_admin_error'),
     //Static jQuery elements End
   
     //Dynamic jQuery elements start
@@ -63,6 +64,7 @@
     redirectRoute : null,
     dataConfig: null,
     btToMintId: null,
+    isSuperAdmin: false,
     //Data from backend end
   
     //General error msg start
@@ -143,8 +145,12 @@
 
     bindActions : function () {
       oThis.jMintTokensBtn.off('click').on("click",function () {
-        utilities.btnSubmittingState( $(this) );
-        oThis.onMintToken();
+        if(oThis.isSuperAdmin) {
+            utilities.btnSubmittingState($(this));
+            oThis.onMintToken();
+        } else {
+            oThis.jTokenSetupAdminErrorModal.modal('show');
+        }
       });
 
       oThis.jMintTokenContinueBtn.off('click').on("click",function () {

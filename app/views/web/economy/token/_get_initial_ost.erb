@@ -37,11 +37,3 @@
 <% content_for :popups do %>
   <%= render :partial => "/shared/web/modals/sending_ost_grant_modal" %>
 <%end%>
-
-<% content_for :end_js do %>
-<script type="text/javascript">
-  $(function () {
-    console.log('call ost.metamask.getOstHelper.init');
-  });
-</script>
-<% end %>
