@@ -46,7 +46,17 @@
     top: 10px;
     z-index: 1;
     right: 10px;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
     position: absolute;
+    &:focus{
+      outline: none;
+    }
+  }
+  .close-icon{
+    height: 15px;
+    width: 15px;
   }
   .link{
     color: color('cyan');
