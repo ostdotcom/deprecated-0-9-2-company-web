@@ -2,16 +2,16 @@
   email_address = @presenter_obj.manager.email
 %>
 
-<div class="email-validation text-center mt-3">
-  <svg style="width: 100px">
+<div class="email-validation text-center mt-6">
+  <svg style="width: 100px;height: 100px">
     <switch>
       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#email-icon"></use>
     </switch>
   </svg>
   <form id="send-verify-email-link" class="user-form"
     action="<%= GlobalConstant::RoutesMap.getApis()[:api_send_verify_email_link] %>" method="POST" data-ost-formhelper >
-      <h3>Confirm your email address</h3>
-      <p class="text-muted">We have sent an email to <%= email_address %>. Please check and confirm your email address to proceed.</p>
+      <h3 class="mt-2">Confirm Your Email Address</h3>
+      <p class="text-muted">An email was sent to <%= email_address %>. <br/>Please check your inbox and click on the confirmation link to proceed.</p>
       <p class="small text-muted">Did not receive an email yet?</p>
       <button type="submit" class="btn btn-secondary" id="re-send-email"  data-submiting="Re-Sending">re-send email</button>
       <div class="success" id="successMessage"></div>

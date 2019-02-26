@@ -15,17 +15,17 @@
                 action="<%=GlobalConstant::RoutesMap.getApis()[:api_sign_up] %>" method="POST"
           >
 
-            <h3 class="text-center">Register for <svg class="signup-ost-kit-logo">
+            <h3 class="text-center">Welcome, Register to access <svg style="width: 50px;height: 30px;vertical-align: bottom">
               <switch>
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ost-kit-logo"></use>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ost-header-logo"></use>
               </switch>
             </svg>
 
-              <% if GlobalConstant::Base.main_sub_environment? %>
-                Mainnet Alpha 1
-              <% else %>
-                alpha
-              <% end %>
+              <%# if GlobalConstant::Base.main_sub_environment? %>
+<!--                Mainnet Alpha 1-->
+              <%# else %>
+<!--                alpha-->
+              <%# end %>
             </h3>
 
             <div class="general_error invalid-feedback" data-forid="sign_up_form">&nbsp;</div>
