@@ -25,7 +25,7 @@
 <form data-ost-formhelper id="economy-planner" action="<%=GlobalConstant::RoutesMap.getApis()[:api_token]%>" method="POST"> <!-- #TODO URL -->
   <div class="planner-container  text-center">
     <h3 class="mt-5">
-      Welcome to OST KIT, lets set up your token!
+      First, Let's Design The Token To Launch Your Economy
     </h3>
 
   <div class="container">
@@ -34,7 +34,7 @@
           <div class="card-header text-left">
             <h4 class="mb-2 ">Token Details</h4>
             <p class="font-weight-light mb-0">
-              Here you will set a unique identity for your token. People will relate your brand to your token name and the Token Symbol your act like an identifier
+              Set the unique identity for your token. Choose a Token Name that will help people relating with your brand. The Token Symbol acts like an identifier similar to USD, EUR, and GBP.
             </p>
           </div>
           <div class="card-body ">
@@ -66,11 +66,11 @@
       <div class="row card card-planner mb-5">
         <div class="text-left">
           <div class="card-header">
-            <h4 class="mb-0 ">Advance Options</h4>
+            <h4 class="mb-0 ">Advanced Options</h4>
             <p class="font-weight-light mb-0 mt-2">
-              You would be setting Conversion Rate for your token here, simple way to set the conversion rate is by deciding how much you want 1 Token to initially be worth.
+              Set the Conversion Rate for your token is by deciding how much you want 1 Token to be initially worthed in terms of $USD.
               <span class="header-recommendation font-weight-bold">
-                Our Recommendation is to set 1
+                OST recommendation is to set the conversion rate to 1
                 <span class="ost-mocker-value" data-ost-mock-element="#symbol" data-ost-mock-parser="ost.utilities.mockerTokenName">BT</span>
                 = 1 OST = $<span class="j-fiat-value"><%= ost_to_fiat %>&nbsp;</span>USD</span>
             </p>
@@ -80,7 +80,7 @@
             <div class="text-left">
               <div class="" id="advance-options-header">
                 <p class="text-left slider-recommendation m-3 ">
-                  Our Recommended conversion rate is set to
+                  OST recommendation is to set the conversion rate to
                     <span class="text-different-color">1</span>
                        <b> <span class="ost-mocker-value" data-ost-mock-element="#symbol" data-ost-mock-parser="ost.utilities.mockerTokenName">BT</span>  =</b>
                     <span class="text-different-color">1</span>
@@ -124,7 +124,7 @@
                           </div>
                         </div>
                         <div class="col-4 instruction-text">
-                          Conversion rate establishes the fixed rate of exchange between your BT and OST. OST is Market linked so the inherent value of your token may fluctuate based on the value of OST
+                          Conversion rate establishes the fixed rate of exchange between your BT and OST. OST is Market linked so the inherent value of your token may fluctuate based on the value of OST.
                         </div>
                         <div class="invalid-feedback ml-3" style="font-size: 12px" data-for="conversion_factor" ></div>
                       </div>
@@ -144,7 +144,7 @@
         <div class="container">
           <div class="row">
             <button type="submit" class="btn btn-steps-nav bg-yellow pt-3 pb-3 ml-auto"
-                     data-submiting="Setting Up..." id="setup-token-btn" title="SET UP YOUR TOKEN">Set up your Token &gt;</button>
+                     data-submiting="Proceeding..." id="setup-token-btn" title="Proceed">Proceed &gt;</button>
           </div>
         </div>
       </div>

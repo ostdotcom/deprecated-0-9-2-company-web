@@ -198,7 +198,7 @@
         },
 
         onNotDesiredAccount: function(){
-          ost.coverElements.show("#metamaskWrongAccountCover");
+          ost.coverElements.show("#metamaskWrongPrimaryAddressCover");
         },
 
         onDesiredAccount: function(){

@@ -38,13 +38,13 @@
 
 <div id="stake-mint-start" class="col-9 mx-auto mt-6 jMintSections" style="display: <%= is_workflow ? "none" : "block" %>">
   <div class="card text-center p-6">
-    <h3 class="mb-0">Start Minting</h3>
+    <h3 class="mb-0">Power Your Economy</h3>
     <div class="simulator-image-wrapper my-4">
       <img src="https://dxwfxs8b4lg24.cloudfront.net/ost-kit/images/ost-kit-start-minting@3x.png" width="150" class="img-fluid"/>
     </div>
-    <div class="token-supply-infotext mb-4 col-5 mx-auto">Mint more tokens and power your economy as you need.</div>
+    <div class="token-supply-infotext mb-4 col-5 mx-auto">Mint <%=@presenter_obj.client_token_symbol %> tokens to increase your token supply and power your economy.</div>
     <div class="run-transaction-btn-wrapper">
-      <button id="mint-tokens" class="btn btn-gold" data-submiting="Loading...">MINT TOKENS</button>
+      <button id="mint-tokens" class="btn btn-gold" data-submiting="Loading...">Mint Tokens</button>
     </div>
   </div>
 </div>
