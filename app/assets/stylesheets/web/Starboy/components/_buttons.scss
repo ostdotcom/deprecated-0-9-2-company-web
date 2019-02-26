@@ -41,6 +41,9 @@
     background-color: $yellow-400;
     border-color: $yellow-400;
   }
+  &:disabled{
+    color: $white;
+  }
 }
 
 .btn-steps-nav{
