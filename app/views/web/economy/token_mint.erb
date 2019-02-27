@@ -196,7 +196,7 @@
               <h4 class="mb-0">Mint Tokens</h4>
             </div>
             <div class="card-body pb-1">
-              <div class="row mb-4">
+              <div class="row">
                 <%= render :partial => "/web/economy/token/stake_address",
                            :locals => {
                                :name => staker_address_name,
@@ -222,13 +222,17 @@
                         </span>
                       </div>
                     <% else %>
-                      <svg class="svg float-left mr-2" style="width: 25px;height: 30px">
-                        <switch>
-                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fund-wallet"></use>
-                        </switch>
-                      </svg>
-                      <div style="overflow: auto;" class="text-muted font-weight-light">
-                        <span>Your selected address does not have sufficient <%= ether_text %> or <%= ost_currency_symbol %>.</span>
+                      <div class="d-flex align-items-center">
+                        <div class="mr-2 align-self-start">
+                          <svg style="width: 25px;height: 30px">
+                            <switch>
+                              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fund-wallet"></use>
+                            </switch>
+                          </svg>
+                        </div>
+                        <div style="overflow: auto;" class="text-muted font-weight-light">
+                          <span>Your selected address does not have sufficient <%= ether_text %> or <%= ost_currency_symbol %>.</span>
+                        </div>
                       </div>
                     <% end %>
                   </div>
@@ -239,7 +243,8 @@
                    target="_blank"
                    class="btn btn-primary buy-ost-btn" style="display: none;">Buy Ost</a>
               <% else %>
-                <div class="text-muted font-weight-light mb-3">Will fund <%=initial_ost_funding%> <%= ost_currency_symbol %> and minimum required <%= ether_text %> in to your selected MetaMask wallet to get you started.</div>
+                <div class="card-header p-0"></div>
+                <div class="text-muted font-weight-light mt-2 mb-3">Will fund <%=initial_ost_funding%> <%= ost_currency_symbol %> and minimum required <%= ether_text %> in to your selected MetaMask wallet to get you started.</div>
                 <button id="get-ost-btn" type="submit" data-submiting="Getting <%= ost_currency_symbol %>..."
                         class="btn btn-primary d-inline-block">Get&nbsp;<%= ost_currency_symbol %>
                 </button>
