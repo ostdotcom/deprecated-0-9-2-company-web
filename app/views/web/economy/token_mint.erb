@@ -25,6 +25,7 @@
   bt_to_mint_min = GlobalConstant::StakeAndMint.min_bt_to_mint
   bt_to_mint_step = GlobalConstant::StakeAndMint.step_bt_to_mint
   is_super_admin = @presenter_obj.is_super_admin?
+  bt_symbol = @presenter_obj.client_token_symbol;
 
   #FE specific
   bt_to_mint_name = "bt_to_mint"
@@ -53,7 +54,7 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-10 mx-auto">
+        <div class="col-10 mx-auto user-form">
           <div class="card card-planner my-6">
             <div class="card-header text-left">
               <h4 class="mb-0">Mint Tokens</h4>
@@ -67,7 +68,7 @@
                            }
                 %>
                 <div class="col-6 text-left pl-0">
-                  <span class="text-muted font-weight-light">To select another address please open the metamask plugin and select your prefered address</span>
+                  <span class="text-muted font-weight-light">Please make sure the primary address associated with your account is selected in your metamask plugin.</span>
                 </div>
               </div>
               <div class="row">
@@ -76,7 +77,7 @@
                     <%=
                       render partial: 'shared/web/common/slider_top',
                              locals: {
-                                 label: "TOKENS TO MINT",
+                                 label: "#{bt_symbol} Tokens to mint",
                                  id: bt_to_mint_id,
                                  name: bt_to_mint_name,
                                  type: 'number',
@@ -93,17 +94,18 @@
                     <%=
                       render partial: 'shared/web/common/mocker',
                              locals: {
-                                 :header => "CURRENT TOKEN VALUE IN USD",
+                                 :header => "TOKENS VALUE IN USD",
                                  :mock_selector => "#" + bt_to_mint_id,
                                  :mock_parser => "ost.tokenMint.btToFiat",
-                                 :mock_type => "ost"
+                                 :mock_type => "ost",
+                                 :value_prefix => "$"
                              }
                     %>
                   </div>
 
                 </div>
-                <div class="col-8 user-form form-group m-0">
-                  <label class="form-label">OST SUPPLY IN ACCOUNT</label>
+                <div class="col-8  form-group m-0">
+<!--                  <label class="form-label">OST SUPPLY IN ACCOUNT</label>-->
                   <div class="d-flex align-items-center">
                     <div class="p-0 form-group m-0 position-relative">
                       <div id="ostSupplyInAccountPie" class="pie-chat" style="width:200px; height: 200px"></div>
@@ -116,7 +118,7 @@
                       <li class="d-flex align-items-center mb-3">
                         <span class="ost-supply available"></span>
                         <p class="m-0 ml-2">
-                          <small class="d-block" data-ost_available_key>OST Available</small>
+                          <small class="d-block" data-ost_available_key>OST available after minting</small>
                           <small><span class="ost-mocker-value total-ost-available"
                                        data-type="ost" data-ost-mock-element="#<%= bt_to_mint_id %>"
                                        data-ost-mock-parser="ost.tokenMint.ostAvailableOnBtChange"></span></small>
@@ -125,7 +127,7 @@
                       <li class="d-flex align-items-center mb-3">
                         <span class="ost-supply staked-minting"></span>
                         <p class="m-0 ml-2">
-                          <small class="d-block" data-ost_staked_key>OST to be staked for minting tokens</small>
+                          <small class="d-block" data-ost_staked_key>OST utilized for minting</small>
                           <small class="d-block" data-ost_staked_val>
                                 <span class="ost-mocker-value" data-type="ost" data-ost-mock-element="#<%= bt_to_mint_id %>"
                                       data-ost-mock-parser="ost.tokenMint.ostToStakeOnBtChange">

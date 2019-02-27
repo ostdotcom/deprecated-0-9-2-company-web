@@ -12,17 +12,41 @@
     <div class=" mt-5">
       <h4 class="mb-3">Get API Keys</h4>
       <p>
-        To be able to use the OST KIT alpha API you will have to authenticate your account by including an API signature with each API request. Signatures validate the authenticity of the person who interacts with OST KIT alpha and ensures that the message sent has not been tampered with. Signature is a hash that needs the API Key and API Secret Key as two of the various parameters. You can find the API KEY and API SECRET KEY for your account below.
-
-        Please be sure your API Secret Key is always kept secure and never shared. Be careful when adding it to your codebase. Do not share your secret API keys in publicly accessible areas such as GitHub, Google docs etc.
+        In order to utilize OST KIT APIs you will have to authenticate your account by including an API signature every request.
+        Signatures validate the authenticity of the person who interacts with OST KIT and ensures that the message sent has not
+        been tampered. Signature is a hash that requires the API Key and API Secret Key as two of the parameters.
+        You can the API KEY and API SECRET KEY for your account below. You will be able to generate new sets of API Keys,
+        with the previous one expiring in 24 hours. Please be sure your API Secret Key is always kept secure and never shared.
+        Be careful when adding it to your codebase. Do not share your secret API keys in publicly accessible areas such as GitHub,
+        Google docs etc.
       </p>
-      <button type="button" class="btn btn-primary mt-3 show-keys-btn" data-submiting="Fetching..." >Show Key(s)</button>
-      <button type="button" class="btn btn-primary mt-3 generate-key-btn" data-submiting="Generating...">Generate Key</button>
+      <button type="button" class="btn btn-primary mt-3 show-keys-btn" data-submiting="Fetching..." >Show Keys</button>
+      <button type="button" class="btn btn-primary mt-3 generate-key-btn" data-submiting="Generating...">Generate New Keys</button>
       <div class="error mt-2"></div>
       <div class="keys-wrapper mt-5"></div>
     </div>
+
     <div class=" mt-5">
-      <h4 class="mb-3">Client Side SDKs</h4>
+      <h4 class="mb-3">KIT docs</h4>
+      <p>
+        OST KIT gives you all the tools you need to run your blockchain-powered economy. KIT docs will explain you about the concepts that will help you setup and manage your economy.
+      </p>
+      <div class="text-left">
+        <!--        TODO: Add links to icons-->
+        <a class="d-inline" href="https://dev.stagingost.com/kit/docs/getting_started/introduction/" target="_blank">
+          <svg class="icon ios-icon" style="height: 60px;width: 150px;">
+            <switch>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#developer-docs-icon"></use>
+            </switch>
+          </svg>
+        </a>
+
+      </div>
+
+    </div>
+
+    <div class=" mt-5">
+      <h4 class="mb-3">Wallet SDKs</h4>
       <p>
         The OST SDK makes it easy to build an excellent tokenization experience in your application. It provides powerful services to use out-of-the-box to create and run your token economy.
       </p>
@@ -48,6 +72,7 @@
       </div>
 
     </div>
+
     <div class=" mt-5">
       <h4 class="mb-3">
         Server Side SDKs
@@ -105,13 +130,6 @@
           <svg class="icon references-icon" style="height: 60px;width: 165px;">
             <switch>
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#references-icon"></use>
-            </switch>
-          </svg>
-        </a>
-        <a class="d-inline" href="#">
-          <svg class="icon guides-icon" style="height: 60px;width: 150px;">
-            <switch>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#guides-icon"></use>
             </switch>
           </svg>
         </a>

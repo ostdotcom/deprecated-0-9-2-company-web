@@ -27,3 +27,10 @@
   position: absolute;
   transform: translate(-50%, -50%);
 }
+
+#stake-mint-process{
+  .ost-mocker-value-pre,
+  .ost-mocker-value{
+    display: inline-block;
+  }
+}
