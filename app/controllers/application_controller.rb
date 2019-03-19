@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :set_request_from_bot_flag
+  after_action :set_response_headers
 
   # Sanitize params
   include Sanitizer
@@ -29,6 +30,12 @@ class ApplicationController < ActionController::Base
   #
   def http_user_agent
     request.env['HTTP_USER_AGENT'].to_s
+  end
+
+  # Set response headers
+  #
+  def set_response_headers
+    response.headers["Content-Type"] = 'text/html; charset=utf-8'
   end
 
   # set bot request flag in params

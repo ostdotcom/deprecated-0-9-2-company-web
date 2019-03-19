@@ -1,18 +1,18 @@
 Rails.application.routes.draw do
 
   constraints(InitOst) do
-    scope '', controller: 'web/ost' do
+    scope '', controller: 'web/ost', :format => false do
       get '/' => :index
     end
   end
 
-  scope '', controller: 'web/home' do
+  scope '', controller: 'web/home', :format => false do
     get '/' => :index
     get '/unsupported-client' => :unsupported_client
     get '/service-unavailable' => :service_unavailable
   end
 
-  scope '', controller: 'web/user' do
+  scope '', controller: 'web/user', :format => false do
     get '/login' => :login, as: 'login'
     get '/logout' => :logout
     get '/sign-up' => :sign_up
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     get '/verify-email' => :verify_email
   end
 
-  scope '', controller: 'web/economy' do
+  scope '', controller: 'web/economy', :format => false do
     get '/dashboard' => :dashboard, as: 'dashboard'
     get '/planner' => :planner
     get '/planner/step-1' => :planner, as: 'planner_step_one'
